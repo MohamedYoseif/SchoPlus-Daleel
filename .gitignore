@@ -14,3 +14,12 @@ uploads/gallery/*
 !uploads/gallery/.gitkeep
 uploads/activities/*
 !uploads/activities/.gitkeep
+
+# Android build and cache
+.gradle/
+android/.gradle/
+android/app/build/
+android/build/
+android/.idea/
+android/*.iml
+android/local.properties

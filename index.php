@@ -459,6 +459,15 @@ if ($isSearching) {
                 خدمة رقمية مفتوحة تجمع بيانات المدارس السودانية، مراحلها التعليمية، مرافقها، وفروعها في مكان واحد؛ لتسهيل وصول أولياء الأمور والطلاب للمعلومات، وإتاحة الفرصة لأصحاب المدارس للتعريف بمدارسهم وخدماتهم التعليمية.
             </p>
 
+            <!-- Android App Quick Announcement Banner -->
+            <div class="mb-3 d-inline-flex align-items-center gap-2 px-3 py-1 bg-white border rounded-pill shadow-sm" style="border-color: #E2E8F0 !important;">
+                <span class="badge bg-success text-white rounded-pill px-2 py-1" style="font-size: 0.65rem;"><i class="fab fa-android me-1"></i> جديد</span>
+                <span class="text-dark fw-bold" style="font-size: 0.73rem;">تطبيق دليل المدارس متاح الآن للأندرويد (APK فائق السرعة)</span>
+                <a href="/app.php" class="btn btn-sm btn-outline-success rounded-pill px-2 py-0 fw-bold" style="font-size: 0.68rem; line-height: 1.6;">
+                    تحميل التطبيق <i class="fas fa-arrow-left ms-1"></i>
+                </a>
+            </div>
+
             <!-- SMART UNIFIED FILTER BAR (Preserved & Integrated inside Hero) -->
             <form action="/" method="GET" class="filter-bar-card" id="smartFilterForm">
                 <div class="row g-2 align-items-center">

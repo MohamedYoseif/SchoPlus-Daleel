@@ -37,6 +37,15 @@ $currSchool = currentSchool();
     <!-- Bootstrap 5 RTL -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css">
 
+    <!-- PWA & Mobile Web App Meta -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0B2A52">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="دليل المدارس">
+    <link rel="apple-touch-icon" href="/assets/images/logo.png">
+
     <!-- Quill Rich Text Editor (Word-like WYSIWYG) -->
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
@@ -612,6 +621,9 @@ $currSchool = currentSchool();
                 <a href="/#search-section" class="offcanvas-nav-link">
                     <i class="fas fa-search text-muted" style="width:18px"></i> استكشف المدارس
                 </a>
+                <a href="/app.php" class="offcanvas-nav-link">
+                    <i class="fab fa-android text-success" style="width:18px"></i> تطبيق أندرويد (APK)
+                </a>
                 <a href="https://schoplus.sd" target="_blank" class="offcanvas-nav-link">
                     <i class="fas fa-info-circle text-muted" style="width:18px"></i> عن النظام
                 </a>
@@ -647,6 +659,10 @@ $currSchool = currentSchool();
                 <span><i class="fas fa-book-reader text-warning me-1"></i> دليل المدارس السودانية — خدمة رقمية من منظومة ايسكو بلص (SchoPlus)</span>
                 <span>•</span>
                 <span class="text-success"><i class="fas fa-check-circle me-1"></i> تصفح المدارس وتواصل مع إداراتها مباشرة</span>
+                <span>•</span>
+                <a href="/app.php" class="text-white text-decoration-none fw-bold" style="background: rgba(255,255,255,0.18); padding: 2px 10px; border-radius: 999px; font-size: 0.72rem;">
+                    <i class="fab fa-android text-warning me-1"></i> تحميل تطبيق أندرويد
+                </a>
             </div>
         </div>
     </div>
@@ -665,6 +681,7 @@ $currSchool = currentSchool();
                     <a href="/#schoplus-schools" class="nav-link-custom"><i class="fas fa-bolt text-warning"></i> المدارس الذكية</a>
                     <a href="/#top-rated" class="nav-link-custom"><i class="fas fa-award text-primary"></i> الأعلى تقييماً</a>
                     <a href="/#search-section" class="nav-link-custom"><i class="fas fa-search text-muted"></i> استكشف المدارس</a>
+                    <a href="/app.php" class="nav-link-custom"><i class="fab fa-android text-success"></i> التطبيق</a>
                     <a href="https://schoplus.sd" target="_blank" class="nav-link-custom"><i class="fas fa-globe text-info"></i> عن المنظومة</a>
                 </div>
             </nav>
