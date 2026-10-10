@@ -82,6 +82,7 @@ function formatSchool(array $s, PDO $pdo): array {
         'approx_fees'         => (string)($s['approx_fees'] ?? ''),
         'fees_type'           => (string)($s['fees_type'] ?? 'average'),
         'stage_fees'          => !empty($s['stage_fees']) ? (json_decode($s['stage_fees'], true) ?: []) : [],
+        'fee_discounts'       => !empty($s['fee_discounts']) ? (json_decode($s['fee_discounts'], true) ?: []) : [],
         'is_schoplus_client'  => (bool)$s['is_schoplus_client'],
         'is_verified'         => (bool)$s['is_verified'],
         'is_featured'         => (bool)$s['is_featured'],

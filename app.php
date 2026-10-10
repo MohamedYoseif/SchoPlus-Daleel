@@ -10,7 +10,7 @@ $pageTitle = 'تحميل تطبيق دليل المدارس السودانية �
 require_once __DIR__ . '/header.php';
 
 $apkDownloadUrl = '/downloads/daleel-schoplus.apk';
-$apkSize = '3.2 MB';
+$apkSize = '5.1 MB';
 $apkVersion = '1.0.0';
 ?>
 
@@ -140,7 +140,7 @@ $apkVersion = '1.0.0';
                         <div class="d-inline-flex align-items-center justify-content-center rounded-3 mb-3 text-primary" style="width: 48px; height: 48px; background: #EFF6FF; font-size: 1.3rem;">
                             <i class="fas fa-feather-alt text-primary"></i>
                         </div>
-                        <h5 class="fw-bold text-dark fs-6 mb-2">خفيف وسريع للغاية (3MB فقط)</h5>
+                        <h5 class="fw-bold text-dark fs-6 mb-2">خفيف وسريع للغاية (5MB فقط)</h5>
                         <p class="text-secondary small mb-0 lh-base">
                             حجم التطبيق صغير جداً، لا يستهلك ذاكرة الهاتف أو باقة الإنترنت، ويفتح في جزء من الثانية دون أي تأخير.
                         </p>
@@ -221,7 +221,7 @@ $apkVersion = '1.0.0';
                                 1
                             </div>
                             <h6 class="fw-bold text-dark mb-2">تنزيل ملف التطبيق</h6>
-                            <p class="text-muted small mb-0">اضغط على زر "تحميل ملف APK" وسيبدأ تحميل الملف الصغير (3MB) على هاتفك فوراً.</p>
+                            <p class="text-muted small mb-0">اضغط على زر "تحميل ملف APK" وسيبدأ تحميل الملف الصغير (5MB) على هاتفك فوراً.</p>
                         </div>
                     </div>
 

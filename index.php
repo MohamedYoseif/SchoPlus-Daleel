@@ -720,6 +720,9 @@ if ($isSearching) {
                                             <span class="badge-stage-pill"><?= e($schoolStages[$st] ?? $st) ?></span>
                                         <?php endforeach; ?>
                                         <span class="badge bg-light text-dark border"><?= e($schoolTypes[$s['school_type']] ?? $s['school_type']) ?></span>
+                                        <?php if (!empty($s['fee_discounts']) && $s['fee_discounts'] !== '[]'): ?>
+                                            <span class="badge" style="background: #FAF5FF; color: #7E22CE; border: 1px solid #E9D5FF; font-size: 0.68rem; font-weight: 700;"><i class="fas fa-tags me-1"></i> عروض وخصومات</span>
+                                        <?php endif; ?>
                                     </div>
 
                                     <div style="padding-top: 14px; border-top: 1px solid #F1EAE0; display: flex; align-items: center; justify-content: space-between; margin-top: auto;">
@@ -843,6 +846,9 @@ if ($isSearching) {
                                         <span class="badge-stage-pill"><?= e($schoolStages[$st] ?? $st) ?></span>
                                     <?php endforeach; ?>
                                     <span class="badge bg-light text-dark border"><?= e($schoolTypes[$s['school_type']] ?? $s['school_type']) ?></span>
+                                    <?php if (!empty($s['fee_discounts']) && $s['fee_discounts'] !== '[]'): ?>
+                                        <span class="badge" style="background: #FAF5FF; color: #7E22CE; border: 1px solid #E9D5FF; font-size: 0.68rem; font-weight: 700;"><i class="fas fa-tags me-1"></i> عروض وخصومات</span>
+                                    <?php endif; ?>
                                 </div>
 
                                 <div style="padding-top: 14px; border-top: 1px solid #F1EAE0; display: flex; align-items: center; justify-content: space-between;">

@@ -253,6 +253,7 @@ $facilities = json_decode($school['facilities'] ?? '[]', true) ?: [];
 $stages = json_decode($school['stages'] ?? '[]', true) ?: [];
 $stageFeesList = json_decode($school['stage_fees'] ?? '[]', true) ?: [];
 $feesType = $school['fees_type'] ?? 'average';
+$feeDiscountsList = json_decode($school['fee_discounts'] ?? '[]', true) ?: [];
 $galleryList = json_decode($school['gallery'] ?? '[]', true) ?: [];
 $branchesList = json_decode($school['branches_data'] ?? '[]', true) ?: [];
 $activitiesList = json_decode($school['activities_data'] ?? '[]', true) ?: [];
@@ -1059,6 +1060,12 @@ $totalRev = max(1, count($reviewsList));
                     <span>الرسوم: <strong><?= e($school['approx_fees']) ?></strong></span>
                 </div>
                 <?php endif; ?>
+                <?php if (!empty($feeDiscountsList)): ?>
+                <div class="sp-stat-item">
+                    <i class="fas fa-tags" style="color: #9333EA;"></i>
+                    <span><a href="#school-fees-section" class="fw-bold text-decoration-none" style="color: #7E22CE;">عروض وخصومات (<?= count($feeDiscountsList) ?>) <i class="fas fa-arrow-down small"></i></a></span>
+                </div>
+                <?php endif; ?>
                 <?php if (!empty($stages)): ?>
                 <div class="sp-stat-item d-none d-md-flex">
                     <i class="fas fa-layer-group" style="color: var(--brand-navy);"></i>
@@ -1218,19 +1225,29 @@ $totalRev = max(1, count($reviewsList));
                         </div>
                     </div>
 
-                    <!-- Detailed Stage Fees Section -->
-                    <?php if ($feesType === 'detailed' && !empty($stageFeesList)): ?>
+                    <!-- Detailed Stage Fees & Discounts Section -->
+                    <?php if (($feesType === 'detailed' && !empty($stageFeesList)) || !empty($feeDiscountsList) || !empty($school['approx_fees'])): ?>
                     <div class="sp-section" id="school-fees-section">
                         <div class="sp-section-head">
                             <div class="sp-section-title">
                                 <div class="title-icon" style="background: #ECFDF5; color: #059669;"><i class="fas fa-coins"></i></div>
-                                الرسوم الدراسية المعتمدة
+                                الرسوم الدراسية والتسهيلات المالية
                             </div>
-                            <span class="badge" style="background: #ECFDF5; color: #047857; border: 1px solid #A7F3D0; border-radius: 20px; padding: 5px 14px; font-size: 0.76rem; font-weight: 800;">
-                                <?= count($stageFeesList) ?> بنود دراسية
-                            </span>
+                            <div class="d-flex align-items-center gap-2 flex-wrap">
+                                <?php if (!empty($feeDiscountsList)): ?>
+                                    <span class="badge" style="background: #FAF5FF; color: #7E22CE; border: 1px solid #E9D5FF; border-radius: 20px; padding: 5px 12px; font-size: 0.74rem; font-weight: 800;">
+                                        <i class="fas fa-tags me-1"></i> <?= count($feeDiscountsList) ?> عروض وخصومات
+                                    </span>
+                                <?php endif; ?>
+                                <?php if ($feesType === 'detailed' && !empty($stageFeesList)): ?>
+                                    <span class="badge" style="background: #ECFDF5; color: #047857; border: 1px solid #A7F3D0; border-radius: 20px; padding: 5px 12px; font-size: 0.74rem; font-weight: 800;">
+                                        <?= count($stageFeesList) ?> بنود دراسية
+                                    </span>
+                                <?php endif; ?>
+                            </div>
                         </div>
                         <div class="sp-section-body">
+                            <?php if ($feesType === 'detailed' && !empty($stageFeesList)): ?>
                             <div class="table-responsive">
                                 <table class="table table-hover align-middle mb-0" style="border: 1px solid #E2E8F0; border-radius: 12px; overflow: hidden;">
                                     <thead style="background: #F8FAFC;">
@@ -1261,10 +1278,56 @@ $totalRev = max(1, count($reviewsList));
                                     </tbody>
                                 </table>
                             </div>
+                            <?php endif; ?>
+
                             <?php if (!empty($school['approx_fees'])): ?>
-                            <div class="mt-3 p-2 px-3 rounded-3 bg-light border text-muted small d-flex align-items-center gap-2" style="font-size: 0.74rem;">
-                                <i class="fas fa-info-circle text-primary"></i>
-                                <span>متوسط الرسوم السنوية الإجمالي: <strong class="text-dark"><?= e($school['approx_fees']) ?></strong></span>
+                            <div class="<?= ($feesType === 'detailed' && !empty($stageFeesList)) ? 'mt-3' : 'mb-3' ?> p-3 rounded-3 bg-light border text-muted small d-flex align-items-center justify-content-between flex-wrap gap-2" style="font-size: 0.76rem;">
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="fas fa-info-circle text-primary"></i>
+                                    <span>متوسط الرسوم السنوية: <strong class="text-dark"><?= e($school['approx_fees']) ?></strong></span>
+                                </div>
+                                <span class="badge bg-white text-secondary border">ملخص تقديري</span>
+                            </div>
+                            <?php endif; ?>
+
+                            <?php if (!empty($feeDiscountsList)): ?>
+                            <!-- Special Offers & Discounts Block -->
+                            <div class="mt-4 pt-3 border-top">
+                                <h6 class="fw-bold mb-3 d-flex align-items-center gap-2 text-dark" style="font-size: 0.9rem;">
+                                    <span class="d-inline-flex align-items-center justify-content-center rounded-circle" style="width: 28px; height: 28px; background: #FAF5FF; color: #9333EA; font-size: 0.8rem;">
+                                        <i class="fas fa-gift"></i>
+                                    </span>
+                                    <span>العروض والخصومات والمنح المتاحة</span>
+                                </h6>
+                                <div class="row g-3">
+                                    <?php foreach ($feeDiscountsList as $disc): ?>
+                                    <div class="col-md-6">
+                                        <div class="card h-100 border rounded-3 p-3 position-relative overflow-hidden" style="background: linear-gradient(135deg, #FAF5FF 0%, #FFFFFF 100%); border-color: #E9D5FF !important;">
+                                            <div class="d-flex align-items-start justify-content-between gap-2 mb-2">
+                                                <h6 class="fw-bold text-dark mb-0" style="font-size: 0.88rem;">
+                                                    <i class="fas fa-tag text-purple me-1" style="color: #9333EA;"></i>
+                                                    <?= e($disc['title'] ?? '') ?>
+                                                </h6>
+                                                <span class="badge px-3 py-1 rounded-pill fw-bold shadow-sm" style="background: linear-gradient(135deg, #9333EA 0%, #7E22CE 100%); color: #FFFFFF; font-size: 0.8rem;">
+                                                    <?= e($disc['value'] ?? '') ?>
+                                                </span>
+                                            </div>
+                                            <?php if (!empty($disc['applies_to'])): ?>
+                                            <div class="mb-2" style="font-size: 0.74rem; color: #6B21A8; font-weight: 600;">
+                                                <i class="fas fa-user-check me-1"></i>
+                                                الفئة المستفيدة: <span class="text-dark fw-normal"><?= e($disc['applies_to']) ?></span>
+                                            </div>
+                                            <?php endif; ?>
+                                            <?php if (!empty($disc['notes'])): ?>
+                                            <div class="text-muted" style="font-size: 0.72rem; line-height: 1.6;">
+                                                <i class="fas fa-info-circle me-1 text-secondary"></i>
+                                                <?= e($disc['notes']) ?>
+                                            </div>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
+                                    <?php endforeach; ?>
+                                </div>
                             </div>
                             <?php endif; ?>
                         </div>
@@ -1938,6 +2001,11 @@ $totalRev = max(1, count($reviewsList));
                                     <?php endif; ?>
                                 <?php else: ?>
                                     <span class="sp-fact-value" style="color: #16a34a;"><?= e($school['approx_fees'] ?: 'تحدد مع الإدارة') ?></span>
+                                <?php endif; ?>
+                                <?php if (!empty($feeDiscountsList)): ?>
+                                    <a href="#school-fees-section" class="badge text-decoration-none mt-1 d-inline-block" style="background: #FAF5FF; color: #7E22CE; border: 1px solid #E9D5FF; font-size: 0.68rem; font-weight: 700;">
+                                        <i class="fas fa-tags me-1"></i> تتوفر عروض وخصومات (<?= count($feeDiscountsList) ?>)
+                                    </a>
                                 <?php endif; ?>
                             </div>
                         </div>

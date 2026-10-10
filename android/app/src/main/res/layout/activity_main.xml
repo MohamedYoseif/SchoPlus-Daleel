@@ -1,316 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/colorBg">
+    android:background="#0B2A52">
 
-    <!-- Top App Bar (Navy Brand Gradient + Gold Accent Line) -->
-    <LinearLayout
+    <!-- Top Loading Progress Bar -->
+    <ProgressBar
+        android:id="@+id/topProgressBar"
+        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="3dp"
+        android:layout_alignParentTop="true"
+        android:indeterminate="false"
+        android:max="100"
+        android:progress="0"
+        android:progressTint="#F5A020"
+        android:visibility="gone"
+        android:elevation="10dp" />
+
+    <!-- Swipe Refresh Layout + Modern Web View -->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/topProgressBar">
+
+        <WebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#F8FAFC"
+            android:scrollbars="none"
+            android:overScrollMode="never" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <!-- Offline State Layout -->
+    <LinearLayout
+        android:id="@+id/layoutOffline"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#0B2A52"
+        android:gravity="center"
         android:orientation="vertical"
-        android:background="@drawable/bg_header_gradient"
-        android:elevation="4dp">
+        android:padding="32dp"
+        android:visibility="gone">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp">
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_logo"
+            android:contentDescription="@string/app_name" />
 
-            <ImageView
-                android:layout_width="38dp"
-                android:layout_height="38dp"
-                android:src="@drawable/ic_logo"
-                android:contentDescription="شعار الدليل" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/offline_title"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:fontFamily="@font/cairo"
+            android:textStyle="bold" />
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="12dp"
-                android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@string/offline_desc"
+            android:textColor="#93C5FD"
+            android:textSize="13sp"
+            android:fontFamily="@font/cairo" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="دليل المدارس السودانية"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/cairo"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-2dp"
-                    android:text="المنصة الوطنية الموحدة — مدعوم بمنظومة SchoPlus"
-                    android:textColor="#CBD5E1"
-                    android:textSize="10.5sp"
-                    android:fontFamily="@font/cairo" />
-
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/btnRefreshTop"
-                android:layout_width="38dp"
-                android:layout_height="38dp"
-                android:padding="9dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@android:drawable/ic_menu_rotate"
-                app:tint="@color/colorGold"
-                android:contentDescription="تحديث" />
-
-        </LinearLayout>
-
-        <!-- SchoPlus Brand 2px Accent Line -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2.5dp"
-            android:background="@color/colorGold" />
+        <Button
+            android:id="@+id/btnRetry"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/btn_retry_bg"
+            android:paddingStart="28dp"
+            android:paddingEnd="28dp"
+            android:text="@string/retry"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:fontFamily="@font/cairo"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
-    <!-- Main Content Swappable Container -->
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <!-- 1. Native Home / Schools List View -->
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipeRefreshLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.core.widget.NestedScrollView
-                android:id="@+id/nestedScrollView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="true">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingBottom="24dp">
-
-                    <!-- Search Input Bar with Cairo Font & Professional Border -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="14dp"
-                        android:layout_marginEnd="14dp"
-                        android:layout_marginTop="14dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/bg_search_input"
-                        android:gravity="center_vertical"
-                        android:paddingStart="14dp"
-                        android:paddingEnd="14dp"
-                        android:paddingTop="3dp"
-                        android:paddingBottom="3dp"
-                        android:elevation="1dp">
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/ic_nav_search"
-                            app:tint="@color/colorTextMuted"
-                            android:contentDescription="بحث" />
-
-                        <EditText
-                            android:id="@+id/etSearchSchool"
-                            android:layout_width="0dp"
-                            android:layout_height="44dp"
-                            android:layout_weight="1"
-                            android:layout_marginStart="10dp"
-                            android:background="@null"
-                            android:hint="ابحث باسم المدرسة، الولاية، أو الحي..."
-                            android:textColor="@color/colorTextHeading"
-                            android:textColorHint="@color/colorTextMuted"
-                            android:textSize="13sp"
-                            android:fontFamily="@font/cairo"
-                            android:imeOptions="actionSearch"
-                            android:inputType="text" />
-
-                        <ImageView
-                            android:id="@+id/btnClearSearch"
-                            android:layout_width="22dp"
-                            android:layout_height="22dp"
-                            android:src="@android:drawable/ic_menu_close_clear_cancel"
-                            app:tint="@color/colorTextMuted"
-                            android:visibility="gone"
-                            android:contentDescription="مسح" />
-
-                    </LinearLayout>
-
-                    <!-- States Horizontal Carousel -->
-                    <LinearLayout
-                        android:id="@+id/sectionStates"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_marginTop="4dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical"
-                            android:layout_marginStart="14dp"
-                            android:layout_marginEnd="14dp"
-                            android:layout_marginBottom="8dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="تصفح المدارس حسب الولايات"
-                                android:textColor="@color/colorTextHeading"
-                                android:textSize="13.5sp"
-                                android:fontFamily="@font/cairo"
-                                android:textStyle="bold" />
-
-                            <View
-                                android:layout_width="0dp"
-                                android:layout_height="1dp"
-                                android:layout_weight="1" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="18 ولاية"
-                                android:textColor="@color/colorTextMuted"
-                                android:textSize="11.5sp"
-                                android:fontFamily="@font/cairo" />
-
-                        </LinearLayout>
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rvStates"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:paddingStart="8dp"
-                            android:paddingEnd="8dp"
-                            android:clipToPadding="false" />
-
-                    </LinearLayout>
-
-                    <!-- Section Title & Counter -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginStart="14dp"
-                        android:layout_marginEnd="14dp"
-                        android:layout_marginTop="18dp"
-                        android:layout_marginBottom="8dp">
-
-                        <TextView
-                            android:id="@+id/tvSchoolsSectionTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="المدارس المعتمدة في الدليل"
-                            android:textColor="@color/colorTextHeading"
-                            android:textSize="14sp"
-                            android:fontFamily="@font/cairo"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="1dp"
-                            android:layout_weight="1" />
-
-                        <TextView
-                            android:id="@+id/tvSchoolsCount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:textColor="@color/colorTextMuted"
-                            android:textSize="12sp"
-                            android:fontFamily="@font/cairo" />
-
-                    </LinearLayout>
-
-                    <!-- Main Schools RecyclerView -->
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvSchools"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:nestedScrollingEnabled="false" />
-
-                    <!-- Loading Indicator -->
-                    <ProgressBar
-                        android:id="@+id/pbLoading"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="28dp"
-                        android:indeterminateTint="@color/colorGold"
-                        android:visibility="gone" />
-
-                    <TextView
-                        android:id="@+id/tvEmptyState"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="36dp"
-                        android:gravity="center"
-                        android:text="لا توجد مدارس مطابقة للبحث"
-                        android:textColor="@color/colorTextMuted"
-                        android:textSize="14sp"
-                        android:fontFamily="@font/cairo"
-                        android:visibility="gone" />
-
-                </LinearLayout>
-
-            </androidx.core.widget.NestedScrollView>
-
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-        <!-- 2. News Feed Layout (Visible on News Tab) -->
-        <LinearLayout
-            android:id="@+id/layoutNewsFeed"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="14dp"
-                android:layout_marginTop="14dp"
-                android:layout_marginBottom="8dp"
-                android:text="أحدث أخبار وفعاليات المدارس"
-                android:textColor="@color/colorTextHeading"
-                android:textSize="15sp"
-                android:fontFamily="@font/cairo"
-                android:textStyle="bold" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvNews"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </LinearLayout>
-
-    </FrameLayout>
-
-    <!-- Bottom Navigation Bar (Material BottomNav with Cairo Font) -->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
-        app:elevation="12dp"
-        app:menu="@menu/bottom_nav_menu"
-        app:itemIconTint="@color/colorPrimary"
-        app:itemTextColor="@color/colorPrimary"
-        app:labelVisibilityMode="labeled" />
-
-</LinearLayout>
+</RelativeLayout>

@@ -1,51 +1,59 @@
 package sd.schoplus.daleel;
 
+import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkCapabilities;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.MenuItem;
+import android.os.Handler;
+import android.os.Looper;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
+import android.webkit.ValueCallback;
+import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.splashscreen.SplashScreen;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import org.json.JSONObject;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String APP_URL = "https://daleel.schoplus.sd/mobile/";
+
+    private WebView webView;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private RecyclerView rvSchools, rvStates, rvNews;
-    private SchoolsAdapter schoolsAdapter;
-    private StatesAdapter statesAdapter;
-    private NewsAdapter newsAdapter;
+    private ProgressBar topProgressBar;
+    private View layoutOffline;
+    private Button btnRetry;
 
-    private final List<School> schoolList = new ArrayList<>();
-    private final List<StateItem> stateList = new ArrayList<>();
-    private final List<NewsItem> newsList = new ArrayList<>();
+    private View splashOverlay;
+    private Handler splashHandler;
+    private Runnable dismissRunnable;
+    private boolean isSplashDismissed = false;
 
-    private EditText etSearch;
-    private ImageView btnClearSearch, btnRefreshTop;
-    private ProgressBar pbLoading;
-    private TextView tvEmptyState, tvSchoolsCount, tvSchoolsSectionTitle;
-    private LinearLayout sectionStates, layoutNewsFeed;
-    private BottomNavigationView bottomNav;
+    private long lastBackPressedTime = 0;
+    private Toast backToast;
 
-    private String currentStateFilter = "";
-    private boolean isSchoplusFilter = false;
-    private long backPressedTime = 0;
+    private ValueCallback<Uri[]> fileUploadCallback;
+    private ActivityResultLauncher<Intent> fileChooserLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,298 +62,386 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initViews();
-        setupAdapters();
-        setupListeners();
+        setupFileChooser();
+        setupWebView();
+        setupBackNavigation();
 
-        loadHomeData();
+        showAnimatedSplashScreen();
+
+        if (isNetworkAvailable()) {
+            webView.loadUrl(APP_URL);
+        } else {
+            showOfflineState(true);
+        }
     }
 
     private void initViews() {
+        webView = findViewById(R.id.webView);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
-        swipeRefreshLayout.setColorSchemeColors(getColor(R.color.colorGold), getColor(R.color.colorBlue));
+        topProgressBar = findViewById(R.id.topProgressBar);
+        layoutOffline = findViewById(R.id.layoutOffline);
+        btnRetry = findViewById(R.id.btnRetry);
 
-        rvSchools = findViewById(R.id.rvSchools);
-        rvStates = findViewById(R.id.rvStates);
-        rvNews = findViewById(R.id.rvNews);
-
-        etSearch = findViewById(R.id.etSearchSchool);
-        btnClearSearch = findViewById(R.id.btnClearSearch);
-        btnRefreshTop = findViewById(R.id.btnRefreshTop);
-        pbLoading = findViewById(R.id.pbLoading);
-        tvEmptyState = findViewById(R.id.tvEmptyState);
-        tvSchoolsCount = findViewById(R.id.tvSchoolsCount);
-        tvSchoolsSectionTitle = findViewById(R.id.tvSchoolsSectionTitle);
-
-        sectionStates = findViewById(R.id.sectionStates);
-        layoutNewsFeed = findViewById(R.id.layoutNewsFeed);
-        bottomNav = findViewById(R.id.bottomNavigationView);
-    }
-
-    private void setupAdapters() {
-        // Schools Vertical List
-        schoolsAdapter = new SchoolsAdapter(this, schoolList, school -> {
-            Intent intent = new Intent(MainActivity.this, SchoolDetailActivity.class);
-            intent.putExtra("school", school);
-            startActivity(intent);
-        });
-        rvSchools.setLayoutManager(new LinearLayoutManager(this));
-        rvSchools.setAdapter(schoolsAdapter);
-
-        // States Horizontal List
-        statesAdapter = new StatesAdapter(this, stateList, stateItem -> {
-            currentStateFilter = stateItem.name;
-            etSearch.setText("");
-            performSearch();
-        });
-        rvStates.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        rvStates.setAdapter(statesAdapter);
-
-        // News List
-        newsAdapter = new NewsAdapter(this, newsList, news -> {
-            if (news.schoolId > 0) {
-                School dummy = new School();
-                dummy.id = news.schoolId;
-                dummy.name = news.schoolName;
-                dummy.shareUrl = "https://daleel.schoplus.sd/school.php?id=" + news.schoolId;
-                Intent intent = new Intent(MainActivity.this, SchoolDetailActivity.class);
-                intent.putExtra("school", dummy);
-                startActivity(intent);
-            }
-        });
-        rvNews.setLayoutManager(new LinearLayoutManager(this));
-        rvNews.setAdapter(newsAdapter);
-    }
-
-    private void setupListeners() {
+        swipeRefreshLayout.setColorSchemeColors(0xFFF5A020, 0xFF0B2A52, 0xFF1E5FA8);
         swipeRefreshLayout.setOnRefreshListener(() -> {
-            if (layoutNewsFeed.getVisibility() == View.VISIBLE) {
-                loadNewsData();
-            } else if (!currentStateFilter.isEmpty() || etSearch.getText().length() > 0 || isSchoplusFilter) {
-                performSearch();
+            if (isNetworkAvailable()) {
+                showOfflineState(false);
+                webView.reload();
             } else {
-                loadHomeData();
-            }
-        });
-
-        btnRefreshTop.setOnClickListener(v -> {
-            currentStateFilter = "";
-            isSchoplusFilter = false;
-            etSearch.setText("");
-            loadHomeData();
-        });
-
-        btnClearSearch.setOnClickListener(v -> {
-            etSearch.setText("");
-            currentStateFilter = "";
-            isSchoplusFilter = false;
-            loadHomeData();
-        });
-
-        etSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                btnClearSearch.setVisibility(s.length() > 0 ? View.VISIBLE : View.GONE);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.length() >= 2) {
-                    performSearch();
-                } else if (s.length() == 0) {
-                    loadHomeData();
-                }
-            }
-        });
-
-        bottomNav.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int itemId = item.getItemId();
-                if (itemId == R.id.nav_home) {
-                    showHomeView();
-                    currentStateFilter = "";
-                    isSchoplusFilter = false;
-                    etSearch.setText("");
-                    loadHomeData();
-                    return true;
-                } else if (itemId == R.id.nav_search) {
-                    showHomeView();
-                    etSearch.requestFocus();
-                    return true;
-                } else if (itemId == R.id.nav_news) {
-                    showNewsView();
-                    loadNewsData();
-                    return true;
-                } else if (itemId == R.id.nav_schoplus) {
-                    showHomeView();
-                    isSchoplusFilter = true;
-                    currentStateFilter = "";
-                    performSearch();
-                    return true;
-                }
-                return false;
-            }
-        });
-    }
-
-    private void showHomeView() {
-        layoutNewsFeed.setVisibility(View.GONE);
-        findViewById(R.id.nestedScrollView).setVisibility(View.VISIBLE);
-    }
-
-    private void showNewsView() {
-        findViewById(R.id.nestedScrollView).setVisibility(View.GONE);
-        layoutNewsFeed.setVisibility(View.VISIBLE);
-    }
-
-    private void loadHomeData() {
-        pbLoading.setVisibility(View.VISIBLE);
-        sectionStates.setVisibility(View.VISIBLE);
-        tvSchoolsSectionTitle.setText("🏫 المدارس المعتمدة في الدليل");
-
-        ApiClient.get("?action=home", new ApiClient.ApiCallback() {
-            @Override
-            public void onSuccess(String response) {
-                pbLoading.setVisibility(View.GONE);
                 swipeRefreshLayout.setRefreshing(false);
+                showOfflineState(true);
+            }
+        });
 
-                try {
-                    JSONObject json = new JSONObject(response);
-                    if (json.optBoolean("success")) {
-                        JSONObject data = json.optJSONObject("data");
-                        if (data != null) {
-                            // States
-                            stateList.clear();
-                            stateList.addAll(StateItem.fromJsonArray(data.optJSONArray("states")));
-                            statesAdapter.notifyDataSetChanged();
+        btnRetry.setOnClickListener(v -> {
+            if (isNetworkAvailable()) {
+                showOfflineState(false);
+                webView.loadUrl(APP_URL);
+            } else {
+                Toast.makeText(this, R.string.offline_title, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
-                            // Schools (Combined Latest + Top Rated)
-                            schoolList.clear();
-                            schoolList.addAll(School.fromJsonArray(data.optJSONArray("schoplus_schools")));
-                            schoolList.addAll(School.fromJsonArray(data.optJSONArray("top_rated_schools")));
-                            schoolsAdapter.notifyDataSetChanged();
-
-                            tvSchoolsCount.setText(schoolList.size() + " مدارس");
-                            tvEmptyState.setVisibility(schoolList.isEmpty() ? View.VISIBLE : View.GONE);
+    private void setupFileChooser() {
+        fileChooserLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (fileUploadCallback == null) return;
+                    Uri[] results = null;
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                        if (result.getData().getClipData() != null) {
+                            int count = result.getData().getClipData().getItemCount();
+                            results = new Uri[count];
+                            for (int i = 0; i < count; i++) {
+                                results[i] = result.getData().getClipData().getItemAt(i).getUri();
+                            }
+                        } else if (result.getData().getData() != null) {
+                            results = new Uri[]{result.getData().getData()};
                         }
                     }
-                } catch (Exception e) {
-                    // Fail silently or log
+                    fileUploadCallback.onReceiveValue(results);
+                    fileUploadCallback = null;
                 }
-            }
-
-            @Override
-            public void onError(Exception e) {
-                pbLoading.setVisibility(View.GONE);
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
+        );
     }
 
-    private void performSearch() {
-        pbLoading.setVisibility(View.VISIBLE);
-        String query = etSearch.getText().toString().trim();
+    private void setupWebView() {
+        WebSettings settings = webView.getSettings();
+        settings.setJavaScriptEnabled(true);
+        settings.setDomStorageEnabled(true);
+        settings.setDatabaseEnabled(true);
+        settings.setAllowFileAccess(true);
+        settings.setAllowContentAccess(true);
+        settings.setUseWideViewPort(true);
+        settings.setLoadWithOverviewMode(true);
+        settings.setSupportZoom(false);
+        settings.setBuiltInZoomControls(false);
+        settings.setDisplayZoomControls(false);
+        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
 
-        StringBuilder params = new StringBuilder("?action=schools&limit=30");
-        try {
-            if (!query.isEmpty()) {
-                params.append("&q=").append(URLEncoder.encode(query, "UTF-8"));
-            }
-            if (!currentStateFilter.isEmpty()) {
-                params.append("&state=").append(URLEncoder.encode(currentStateFilter, "UTF-8"));
-            }
-            if (isSchoplusFilter) {
-                params.append("&schoplus_only=1");
-            }
-        } catch (Exception ignored) {}
-
-        if (!currentStateFilter.isEmpty()) {
-            tvSchoolsSectionTitle.setText("📍 مدارس ولاية " + currentStateFilter);
-        } else if (isSchoplusFilter) {
-            tvSchoolsSectionTitle.setText("⚡ مدارس SchoPlus الذكية");
-        } else if (!query.isEmpty()) {
-            tvSchoolsSectionTitle.setText("🔍 نتائج البحث عن: " + query);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            settings.setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
         }
 
-        ApiClient.get(params.toString(), new ApiClient.ApiCallback() {
+        String defaultUa = settings.getUserAgentString();
+        settings.setUserAgentString(defaultUa + " SchoPlusApp/3.5 SchoPlusDaleelMobile/1.0");
+
+        webView.setWebChromeClient(new WebChromeClient() {
             @Override
-            public void onSuccess(String response) {
-                pbLoading.setVisibility(View.GONE);
-                swipeRefreshLayout.setRefreshing(false);
-
-                try {
-                    JSONObject json = new JSONObject(response);
-                    if (json.optBoolean("success")) {
-                        JSONObject data = json.optJSONObject("data");
-                        if (data != null) {
-                            schoolList.clear();
-                            schoolList.addAll(School.fromJsonArray(data.optJSONArray("schools")));
-                            schoolsAdapter.notifyDataSetChanged();
-
-                            tvSchoolsCount.setText(schoolList.size() + " مدارس");
-                            tvEmptyState.setVisibility(schoolList.isEmpty() ? View.VISIBLE : View.GONE);
-                        }
+            public void onProgressChanged(WebView view, int newProgress) {
+                if (topProgressBar != null) {
+                    if (newProgress < 100) {
+                        topProgressBar.setVisibility(View.VISIBLE);
+                        topProgressBar.setProgress(newProgress);
+                    } else {
+                        topProgressBar.setVisibility(View.GONE);
+                        swipeRefreshLayout.setRefreshing(false);
+                        dismissAnimatedSplashScreen();
                     }
-                } catch (Exception ignored) {
                 }
             }
 
             @Override
-            public void onError(Exception e) {
-                pbLoading.setVisibility(View.GONE);
+            public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams) {
+                if (fileUploadCallback != null) {
+                    fileUploadCallback.onReceiveValue(null);
+                }
+                fileUploadCallback = filePathCallback;
+
+                Intent intent = fileChooserParams.createIntent();
+                try {
+                    fileChooserLauncher.launch(intent);
+                } catch (ActivityNotFoundException e) {
+                    fileUploadCallback = null;
+                    Toast.makeText(MainActivity.this, "لا يمكن فتح مدير الملفات", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+                return true;
+            }
+        });
+
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                return handleUrl(request.getUrl().toString());
+            }
+
+            @SuppressWarnings("deprecation")
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                return handleUrl(url);
+            }
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                if (topProgressBar != null) {
+                    topProgressBar.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
                 swipeRefreshLayout.setRefreshing(false);
+                if (topProgressBar != null) {
+                    topProgressBar.setVisibility(View.GONE);
+                }
+                dismissAnimatedSplashScreen();
+            }
+
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                super.onReceivedError(view, request, error);
+                if (request.isForMainFrame()) {
+                    showOfflineState(true);
+                }
+            }
+
+            @SuppressWarnings("deprecation")
+            @Override
+            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                super.onReceivedError(view, errorCode, description, failingUrl);
+                showOfflineState(true);
             }
         });
     }
 
-    private void loadNewsData() {
-        pbLoading.setVisibility(View.VISIBLE);
-        ApiClient.get("?action=news&limit=20", new ApiClient.ApiCallback() {
-            @Override
-            public void onSuccess(String response) {
-                pbLoading.setVisibility(View.GONE);
-                swipeRefreshLayout.setRefreshing(false);
+    private boolean handleUrl(String url) {
+        if (url == null) return false;
 
-                try {
-                    JSONObject json = new JSONObject(response);
-                    if (json.optBoolean("success")) {
-                        JSONObject data = json.optJSONObject("data");
-                        if (data != null) {
-                            newsList.clear();
-                            newsList.addAll(NewsItem.fromJsonArray(data.optJSONArray("news")));
-                            newsAdapter.notifyDataSetChanged();
-                        }
-                    }
-                } catch (Exception ignored) {}
+        // WhatsApp Direct Link
+        if (url.startsWith("whatsapp:") || url.contains("api.whatsapp.com") || url.contains("wa.me")) {
+            try {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(intent);
+                return true;
+            } catch (Exception e) {
+                // If whatsapp app is not installed, continue in web
+                return false;
             }
+        }
 
+        // Phone call
+        if (url.startsWith("tel:")) {
+            try {
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse(url));
+                startActivity(intent);
+                return true;
+            } catch (Exception e) {
+                return true;
+            }
+        }
+
+        // Email
+        if (url.startsWith("mailto:")) {
+            try {
+                Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse(url));
+                startActivity(intent);
+                return true;
+            } catch (Exception e) {
+                return true;
+            }
+        }
+
+        // Maps
+        if (url.startsWith("geo:") || url.contains("maps.google.com") || url.contains("goo.gl/maps")) {
+            try {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(intent);
+                return true;
+            } catch (Exception e) {
+                return false;
+            }
+        }
+
+        // Open External Sites outside daleel.schoplus.sd in browser
+        if (!url.contains("schoplus.sd")) {
+            try {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(intent);
+                return true;
+            } catch (Exception e) {
+                return false;
+            }
+        }
+
+        return false;
+    }
+
+    private void setupBackNavigation() {
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
-            public void onError(Exception e) {
-                pbLoading.setVisibility(View.GONE);
-                swipeRefreshLayout.setRefreshing(false);
+            public void handleOnBackPressed() {
+                if (layoutOffline.getVisibility() == View.VISIBLE) {
+                    finish();
+                    return;
+                }
+
+                if (webView.canGoBack()) {
+                    webView.goBack();
+                } else {
+                    if (System.currentTimeMillis() - lastBackPressedTime < 2000) {
+                        if (backToast != null) {
+                            backToast.cancel();
+                        }
+                        finish();
+                    } else {
+                        lastBackPressedTime = System.currentTimeMillis();
+                        backToast = Toast.makeText(getApplicationContext(), R.string.press_again_to_exit, Toast.LENGTH_SHORT);
+                        backToast.show();
+                    }
+                }
             }
         });
+    }
+
+    private void showAnimatedSplashScreen() {
+        LayoutInflater inflater = LayoutInflater.from(this);
+        splashOverlay = inflater.inflate(R.layout.splash_screen_overlay, null);
+        addContentView(splashOverlay, new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+        ));
+
+        final View logo = splashOverlay.findViewById(R.id.splash_logo);
+        final View progress = splashOverlay.findViewById(R.id.splash_progress);
+        final View tagline = splashOverlay.findViewById(R.id.splash_tagline);
+        final View subtag = splashOverlay.findViewById(R.id.splash_subtag);
+
+        if (logo != null) {
+            logo.setAlpha(0f);
+            logo.setScaleX(0.88f);
+            logo.setScaleY(0.88f);
+            logo.setTranslationY(40f);
+
+            if (progress != null) progress.setAlpha(0f);
+            if (tagline != null) tagline.setAlpha(0f);
+            if (subtag != null) subtag.setAlpha(0f);
+
+            // Cinematic Decelerate Entry (550ms)
+            logo.animate()
+                    .alpha(1f)
+                    .scaleX(1f)
+                    .scaleY(1f)
+                    .translationY(0f)
+                    .setDuration(550)
+                    .setInterpolator(new DecelerateInterpolator(1.8f))
+                    .withEndAction(() -> {
+                        if (progress != null) {
+                            progress.animate().alpha(1f).setDuration(300).start();
+                        }
+                        if (tagline != null) {
+                            tagline.animate().alpha(1f).setDuration(400).start();
+                        }
+                        if (subtag != null) {
+                            subtag.animate().alpha(1f).setDuration(450).start();
+                        }
+                    })
+                    .start();
+        }
+
+        // Automatic dismiss fallback after 2.5s if network is slow
+        splashHandler = new Handler(Looper.getMainLooper());
+        dismissRunnable = this::dismissAnimatedSplashScreen;
+        splashHandler.postDelayed(dismissRunnable, 2500);
+    }
+
+    private void dismissAnimatedSplashScreen() {
+        if (isSplashDismissed || splashOverlay == null || splashOverlay.getParent() == null) {
+            return;
+        }
+        isSplashDismissed = true;
+
+        if (splashHandler != null && dismissRunnable != null) {
+            splashHandler.removeCallbacks(dismissRunnable);
+        }
+
+        final View logo = splashOverlay.findViewById(R.id.splash_logo);
+        final View progress = splashOverlay.findViewById(R.id.splash_progress);
+        final View tagline = splashOverlay.findViewById(R.id.splash_tagline);
+        final View subtag = splashOverlay.findViewById(R.id.splash_subtag);
+
+        if (logo != null) {
+            logo.animate()
+                    .scaleX(1.08f)
+                    .scaleY(1.08f)
+                    .alpha(0f)
+                    .setDuration(300)
+                    .setInterpolator(new AccelerateInterpolator())
+                    .start();
+        }
+        if (progress != null) progress.animate().alpha(0f).setDuration(200).start();
+        if (tagline != null) tagline.animate().alpha(0f).setDuration(200).start();
+        if (subtag != null) subtag.animate().alpha(0f).setDuration(200).start();
+
+        splashOverlay.animate()
+                .alpha(0f)
+                .setDuration(350)
+                .withEndAction(() -> {
+                    if (splashOverlay != null && splashOverlay.getParent() != null) {
+                        ((ViewGroup) splashOverlay.getParent()).removeView(splashOverlay);
+                    }
+                })
+                .start();
+    }
+
+    private void showOfflineState(boolean isOffline) {
+        if (layoutOffline != null) {
+            layoutOffline.setVisibility(isOffline ? View.VISIBLE : View.GONE);
+        }
+        if (swipeRefreshLayout != null) {
+            swipeRefreshLayout.setVisibility(isOffline ? View.GONE : View.VISIBLE);
+        }
+        dismissAnimatedSplashScreen();
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (cm == null) return false;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            android.net.Network network = cm.getActiveNetwork();
+            if (network == null) return false;
+            NetworkCapabilities capabilities = cm.getNetworkCapabilities(network);
+            return capabilities != null && (
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
+            );
+        } else {
+            android.net.NetworkInfo info = cm.getActiveNetworkInfo();
+            return info != null && info.isConnected();
+        }
     }
 
     @Override
-    public void onBackPressed() {
-        if (layoutNewsFeed.getVisibility() == View.VISIBLE || isSchoplusFilter || !currentStateFilter.isEmpty() || etSearch.getText().length() > 0) {
-            showHomeView();
-            currentStateFilter = "";
-            isSchoplusFilter = false;
-            etSearch.setText("");
-            loadHomeData();
-            return;
+    protected void onDestroy() {
+        if (webView != null) {
+            webView.destroy();
         }
-
-        if (backPressedTime + 2000 > System.currentTimeMillis()) {
-            super.onBackPressed();
-        } else {
-            Toast.makeText(this, "اضغط مرة أخرى للخروج من التطبيق", Toast.LENGTH_SHORT).show();
-            backPressedTime = System.currentTimeMillis();
-        }
+        super.onDestroy();
     }
 }

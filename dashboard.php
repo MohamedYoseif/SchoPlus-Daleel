@@ -154,6 +154,31 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
                 $stageFeesJson = !empty($stageFees) ? json_encode($stageFees, JSON_UNESCAPED_UNICODE) : null;
             }
 
+            // Parse discounts & offers if submitted
+            $feeDiscountsJson = $school['fee_discounts'] ?? null;
+            if (isset($_POST['discount_title']) && is_array($_POST['discount_title'])) {
+                $discounts = [];
+                $discTitles = $_POST['discount_title'] ?? [];
+                $discValues = $_POST['discount_value'] ?? [];
+                $discAppliesTo = $_POST['discount_applies_to'] ?? [];
+                $discNotes = $_POST['discount_notes'] ?? [];
+                foreach ($discTitles as $i => $dTitle) {
+                    $dTitleVal = trim($dTitle ?? '');
+                    $dValVal = trim($discValues[$i] ?? '');
+                    $dAppliesVal = trim($discAppliesTo[$i] ?? '');
+                    $dNotesVal = trim($discNotes[$i] ?? '');
+                    if ($dTitleVal !== '' || $dValVal !== '') {
+                        $discounts[] = [
+                            'title'      => $dTitleVal,
+                            'value'      => $dValVal,
+                            'applies_to' => $dAppliesVal,
+                            'notes'      => $dNotesVal,
+                        ];
+                    }
+                }
+                $feeDiscountsJson = !empty($discounts) ? json_encode($discounts, JSON_UNESCAPED_UNICODE) : null;
+            }
+
             // Validate & sanitize custom slug
             $newSlug = $school['slug'];
             if ($rawSlug !== '' && $rawSlug !== $school['slug']) {
@@ -204,7 +229,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
                     email = :email, website = :website, facebook = :facebook,
                     twitter = :twitter, youtube = :youtube, telegram = :telegram, instagram = :instagram, tiktok = :tiktok,
                     school_type = :school_type, gender_type = :gender_type, curriculum = :curriculum, established_year = :established_year,
-                    approx_fees = :approx_fees, fees_type = :fees_type, stage_fees = :stage_fees,
+                    approx_fees = :approx_fees, fees_type = :fees_type, stage_fees = :stage_fees, fee_discounts = :fee_discounts,
                     working_hours = :working_hours, description = :description, vision = :vision, mission = :mission,
                     stages = :stages, facilities = :facilities, logo_path = :logo_path, cover_path = :cover_path,
                     updated_at = NOW()
@@ -236,6 +261,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
                     ':approx_fees' => $approx_fees ?: null,
                     ':fees_type' => $fees_type,
                     ':stage_fees' => $stageFeesJson,
+                    ':fee_discounts' => $feeDiscountsJson,
                     ':working_hours' => $working_hours ?: null,
                     ':description' => $description ?: null,
                     ':vision' => $vision ?: null,
@@ -418,6 +444,31 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
             }
             $stageFeesJson = !empty($stageFees) ? json_encode($stageFees, JSON_UNESCAPED_UNICODE) : null;
 
+            // Parse discounts & offers
+            $discounts = [];
+            $discTitles = $_POST['discount_title'] ?? [];
+            $discValues = $_POST['discount_value'] ?? [];
+            $discAppliesTo = $_POST['discount_applies_to'] ?? [];
+            $discNotes = $_POST['discount_notes'] ?? [];
+
+            if (is_array($discTitles)) {
+                foreach ($discTitles as $i => $dTitle) {
+                    $dTitleVal = trim($dTitle ?? '');
+                    $dValVal = trim($discValues[$i] ?? '');
+                    $dAppliesVal = trim($discAppliesTo[$i] ?? '');
+                    $dNotesVal = trim($discNotes[$i] ?? '');
+                    if ($dTitleVal !== '' || $dValVal !== '') {
+                        $discounts[] = [
+                            'title'      => $dTitleVal,
+                            'value'      => $dValVal,
+                            'applies_to' => $dAppliesVal,
+                            'notes'      => $dNotesVal,
+                        ];
+                    }
+                }
+            }
+            $feeDiscountsJson = !empty($discounts) ? json_encode($discounts, JSON_UNESCAPED_UNICODE) : null;
+
             if (!$phone) {
                 $errorMsg = 'يرجى إدخال هاتف المدرسة للتواصل.';
             } else {
@@ -426,6 +477,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
                         phone = :phone, whatsapp = :whatsapp, email = :email,
                         working_hours = :working_hours, fees_type = :fees_type,
                         approx_fees = :approx_fees, stage_fees = :stage_fees,
+                        fee_discounts = :fee_discounts,
                         updated_at = NOW()
                         WHERE id = :id");
                     $upStmt->execute([
@@ -436,9 +488,10 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
                         ':fees_type' => $fees_type,
                         ':approx_fees' => $approx_fees ?: null,
                         ':stage_fees' => $stageFeesJson,
+                        ':fee_discounts' => $feeDiscountsJson,
                         ':id' => $schoolId,
                     ]);
-                    $successMsg = 'تم حفظ بيانات الرسوم الدراسية وقنوات التواصل بنجاح!';
+                    $successMsg = 'تم حفظ بيانات الرسوم الدراسية والعروض وقنوات التواصل بنجاح!';
                     $stmt->execute([$schoolId]);
                     $school = $stmt->fetch();
                 } catch (Exception $e) {
@@ -938,6 +991,7 @@ $currentStages = json_decode($school['stages'] ?? '[]', true) ?: [];
 $currentFacilities = json_decode($school['facilities'] ?? '[]', true) ?: [];
 $currentFeesType = $school['fees_type'] ?? 'average';
 $currentStageFees = json_decode($school['stage_fees'] ?? '[]', true) ?: [];
+$currentFeeDiscounts = json_decode($school['fee_discounts'] ?? '[]', true) ?: [];
 $statesWithCities = SudanGeography::statesWithCities();
 
 // Calculate completion score
@@ -955,7 +1009,7 @@ $completionFields = [
 $score = 0;
 foreach ($completionFields as $field => $points) {
     if ($field === 'approx_fees') {
-        if (!empty($school['approx_fees']) || !empty($currentStageFees)) {
+        if (!empty($school['approx_fees']) || !empty($currentStageFees) || !empty($currentFeeDiscounts)) {
             $score += $points;
         }
     } elseif (!empty($school[$field]) && $school[$field] !== '[]') {
@@ -1475,7 +1529,7 @@ require_once __DIR__ . '/header.php';
                                     <i class="fas fa-cubes text-success"></i> 3. المراحل والمرافق
                                 </button>
                                 <button type="button" class="dash-subnav-btn <?= $activeSubTab === 'fees_contact' ? 'active' : '' ?>" data-bs-toggle="tab" data-bs-target="#subtab-fees_contact" role="tab" aria-controls="subtab-fees_contact" aria-selected="<?= $activeSubTab === 'fees_contact' ? 'true' : 'false' ?>">
-                                    <i class="fas fa-coins text-warning"></i> 4. الرسوم والتواصل
+                                    <i class="fas fa-coins text-warning"></i> 4. الرسوم والعروض والتواصل
                                 </button>
                                 <button type="button" class="dash-subnav-btn <?= $activeSubTab === 'about' ? 'active' : '' ?>" data-bs-toggle="tab" data-bs-target="#subtab-about" role="tab" aria-controls="subtab-about" aria-selected="<?= $activeSubTab === 'about' ? 'true' : 'false' ?>">
                                     <i class="fas fa-align-right text-info"></i> 5. النبذة والرؤية
@@ -1757,11 +1811,11 @@ require_once __DIR__ . '/header.php';
                                                 <i class="fas fa-coins"></i>
                                             </div>
                                             <div>
-                                                <h5 class="dash-sec-title">4. الرسوم الدراسية المعتمدة وبيانات التواصل</h5>
-                                                <p class="dash-sec-desc">حدد نظام عرض الرسوم (متوسط عام أو تفصيل لكل مرحلة)، وقنوات الاتصال وساعات العمل.</p>
+                                                <h5 class="dash-sec-title">4. الرسوم الدراسية والعروض والخصومات وبيانات التواصل</h5>
+                                                <p class="dash-sec-desc">حدد نظام عرض الرسوم (متوسط عام أو تفصيل لكل مرحلة)، وأضف العروض والخصومات المتاحة، وقنوات الاتصال وساعات العمل.</p>
                                             </div>
                                         </div>
-                                        <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle px-3 py-1 rounded-pill small fw-bold">الرسوم والتواصل</span>
+                                        <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle px-3 py-1 rounded-pill small fw-bold">الرسوم والعروض والتواصل</span>
                                     </div>
 
                                     <!-- 1. Fees Customization Block -->
@@ -1872,8 +1926,93 @@ require_once __DIR__ . '/header.php';
                                         </div>
                                     </div>
 
-                                    <!-- 2. Contacts and Working Hours -->
-                                    <h6 class="fw-bold text-dark mt-4 mb-3"><i class="fas fa-headset text-primary me-1"></i> قنوات الاتصال والدوام المدرسي</h6>
+                                    <!-- 2. Discounts & Special Offers Builder Block -->
+                                    <div class="p-3 mb-4 rounded-4" style="background: #FAF5FF; border: 1px solid #E9D5FF;">
+                                        <div class="d-flex align-items-center justify-content-between mb-2 flex-wrap gap-2">
+                                            <div>
+                                                <label class="form-label fw-bold text-dark mb-0 d-flex align-items-center gap-2">
+                                                    <span class="d-inline-flex align-items-center justify-content-center rounded-circle" style="width: 28px; height: 28px; background: #9333EA; color: #fff; font-size: 0.8rem;">
+                                                        <i class="fas fa-tags"></i>
+                                                    </span>
+                                                    <span>العروض والخصومات والتسهيلات المالية (اختياري):</span>
+                                                </label>
+                                                <small class="text-muted d-block mt-1" style="font-size: 0.73rem;">
+                                                    أضف الخصومات والمنح التي تقدمها مدرستك لجذب أولياء الأمور (مثل: خصم الإخوة، السداد المبكر، حفظة القرآن، أو إعفاء رسوم التسجيل).
+                                                </small>
+                                            </div>
+                                            <button type="button" class="btn btn-sm btn-outline-purple fw-bold px-3 rounded-pill" style="color: #7E22CE; border-color: #C084FC;" onclick="addDiscountRow()">
+                                                <i class="fas fa-plus me-1"></i> إضافة عرض / خصم جديد
+                                            </button>
+                                        </div>
+
+                                        <!-- Quick Preset Buttons -->
+                                        <div class="mb-3 p-2 rounded-3 bg-white border d-flex flex-wrap gap-2 align-items-center">
+                                            <span class="text-muted fw-bold d-flex align-items-center gap-1" style="font-size: 0.72rem;">
+                                                <i class="fas fa-magic text-warning"></i> نماذج سريعة جاهزة:
+                                            </span>
+                                            <button type="button" class="btn btn-sm btn-light border rounded-pill py-1 px-2 text-dark" style="font-size: 0.72rem;" onclick="addQuickDiscount('خصم الإخوة والأشقاء', '15%', 'الأخ الثاني فما فوق', 'يطبق على الرسوم الدراسية السنوية')">
+                                                <i class="fas fa-users text-primary me-1"></i> خصم الإخوة (15%)
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-light border rounded-pill py-1 px-2 text-dark" style="font-size: 0.72rem;" onclick="addQuickDiscount('خصم السداد المبكر (كاش)', '10%', 'جميع المراحل', 'عند سداد كامل الرسوم دفعة واحدة قبل بدء العام')">
+                                                <i class="fas fa-bolt text-warning me-1"></i> سداد مبكر كاش (10%)
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-light border rounded-pill py-1 px-2 text-dark" style="font-size: 0.72rem;" onclick="addQuickDiscount('منحة التفوق وحفظ القرآن', '25% - 50%', 'الطلاب المتفوقين', 'بناءً على النتيجة والشهادة المعتمدة')">
+                                                <i class="fas fa-award text-success me-1"></i> منحة التفوق والقرآن
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-light border rounded-pill py-1 px-2 text-dark" style="font-size: 0.72rem;" onclick="addQuickDiscount('خصم أبناء الكوادر التعليمية', '20%', 'أبناء المعلمين والعاملين', 'تسهيلات مخصصة لأبناء الكادر التعليمي')">
+                                                <i class="fas fa-chalkboard-teacher text-info me-1"></i> أبناء المعلمين (20%)
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-light border rounded-pill py-1 px-2 text-dark" style="font-size: 0.72rem;" onclick="addQuickDiscount('عرض التسجيل المبكر', 'إعفاء رسوم التسجيل', 'الطلاب الجدد', 'يسري للطلبات المسجلة قبل بداية الشهر')">
+                                                <i class="fas fa-gift text-danger me-1"></i> إعفاء رسوم التسجيل
+                                            </button>
+                                        </div>
+
+                                        <!-- Discounts Table -->
+                                        <div class="table-responsive bg-white rounded-3 border">
+                                            <table class="table table-sm table-hover align-middle mb-0" id="discountsTable">
+                                                <thead class="table-light">
+                                                    <tr style="font-size: 0.73rem;">
+                                                        <th style="min-width: 170px; padding: 10px;">عنوان العرض / الخصم <span class="text-danger">*</span></th>
+                                                        <th style="min-width: 130px; padding: 10px;">قيمة الخصم (نسبة أو مبلغ) <span class="text-danger">*</span></th>
+                                                        <th style="min-width: 150px; padding: 10px;">الفئة المستفيدة / ينطبق على</th>
+                                                        <th style="min-width: 180px; padding: 10px;">الشروط والملاحظات</th>
+                                                        <th style="width: 45px; text-align: center; padding: 10px;">حذف</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="discountsTbody">
+                                                    <?php if (!empty($currentFeeDiscounts)): ?>
+                                                        <?php foreach ($currentFeeDiscounts as $disc): ?>
+                                                        <tr class="discount-row-item">
+                                                            <td style="min-width: 170px; padding: 8px 10px;">
+                                                                <input type="text" name="discount_title[]" value="<?= e($disc['title'] ?? '') ?>" required class="form-control form-control-sm fw-bold text-dark" placeholder="مثال: خصم الإخوة والأشقاء">
+                                                            </td>
+                                                            <td style="min-width: 130px; padding: 8px 10px;">
+                                                                <input type="text" name="discount_value[]" value="<?= e($disc['value'] ?? '') ?>" required class="form-control form-control-sm fw-bold" style="color: #7E22CE;" placeholder="مثال: 15% أو 50,000 ج.س">
+                                                            </td>
+                                                            <td style="min-width: 150px; padding: 8px 10px;">
+                                                                <input type="text" name="discount_applies_to[]" value="<?= e($disc['applies_to'] ?? '') ?>" class="form-control form-control-sm" placeholder="مثال: الأخ الثاني فما فوق">
+                                                            </td>
+                                                            <td style="min-width: 180px; padding: 8px 10px;">
+                                                                <input type="text" name="discount_notes[]" value="<?= e($disc['notes'] ?? '') ?>" class="form-control form-control-sm" placeholder="مثال: يطبق عند سداد القسط كاملاً">
+                                                            </td>
+                                                            <td style="width: 45px; text-align: center; padding: 8px 10px;">
+                                                                <button type="button" class="btn btn-sm btn-outline-danger p-1 px-2 rounded-2" onclick="this.closest('tr').remove()" title="حذف العرض">
+                                                                    <i class="fas fa-trash-alt"></i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                        <?php endforeach; ?>
+                                                    <?php endif; ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <small class="text-muted d-block mt-2" style="font-size: 0.72rem;">
+                                            <i class="fas fa-info-circle text-primary me-1"></i> تظهر هذه العروض بشكل بارز ومميز في صفحة المدرسة بالدليل لتشجيع أولياء الأمور على التقديم.
+                                        </small>
+                                    </div>
+
+                                    <!-- 3. Contacts and Working Hours -->
+                                    <h6 class="fw-bold text-dark mt-4 mb-3"><i class="fas fa-headset text-primary me-1"></i> 3. قنوات الاتصال والدوام المدرسي</h6>
                                     <div class="row g-3">
                                         <div class="col-md-4">
                                             <label class="form-label">هاتف المدرسة للتواصل <span class="text-danger">*</span></label>
@@ -1899,11 +2038,11 @@ require_once __DIR__ . '/header.php';
 
                                 <div class="dash-card-section bg-light border p-3 rounded-4 d-flex align-items-center justify-content-between flex-wrap gap-2">
                                     <div>
-                                        <h6 class="fw-bold text-dark mb-0"><i class="fas fa-check-circle text-success me-1"></i> حفظ الرسوم الدراسية وقنوات التواصل</h6>
-                                        <small class="text-muted">يتم تطبيق تحديثات الرسوم وأرقام الاتصال والدوام مباشرة على الدليل</small>
+                                        <h6 class="fw-bold text-dark mb-0"><i class="fas fa-check-circle text-success me-1"></i> حفظ الرسوم الدراسية والعروض وقنوات التواصل</h6>
+                                        <small class="text-muted">يتم تطبيق تحديثات الرسوم والعروض وأرقام الاتصال مباشرة على الدليل</small>
                                     </div>
                                     <button type="submit" class="btn-luxury-primary px-4 py-2">
-                                        <i class="fas fa-save me-1"></i> حفظ الرسوم والتواصل
+                                        <i class="fas fa-save me-1"></i> حفظ الرسوم والعروض والتواصل
                                     </button>
                                 </div>
                             </form>
@@ -3267,6 +3406,37 @@ function addStageFeeRow(stage = 'المرحلة الابتدائية', title = '
         </td>
     `;
     tbody.appendChild(tr);
+}
+
+function addDiscountRow(title = '', value = '', appliesTo = '', notes = '') {
+    const tbody = document.getElementById('discountsTbody');
+    if (!tbody) return;
+    const tr = document.createElement('tr');
+    tr.className = 'discount-row-item';
+    tr.innerHTML = `
+        <td style="min-width: 170px; padding: 8px 10px;">
+            <input type="text" name="discount_title[]" value="${escapeHtml(title)}" required class="form-control form-control-sm fw-bold text-dark" placeholder="مثال: خصم الإخوة والأشقاء">
+        </td>
+        <td style="min-width: 130px; padding: 8px 10px;">
+            <input type="text" name="discount_value[]" value="${escapeHtml(value)}" required class="form-control form-control-sm fw-bold" style="color: #7E22CE;" placeholder="مثال: 15% أو 50,000 ج.س">
+        </td>
+        <td style="min-width: 150px; padding: 8px 10px;">
+            <input type="text" name="discount_applies_to[]" value="${escapeHtml(appliesTo)}" class="form-control form-control-sm" placeholder="مثال: الأخ الثاني فما فوق">
+        </td>
+        <td style="min-width: 180px; padding: 8px 10px;">
+            <input type="text" name="discount_notes[]" value="${escapeHtml(notes)}" class="form-control form-control-sm" placeholder="مثال: يطبق عند سداد القسط كاملاً">
+        </td>
+        <td style="width: 45px; text-align: center; padding: 8px 10px;">
+            <button type="button" class="btn btn-sm btn-outline-danger p-1 px-2 rounded-2" onclick="this.closest('tr').remove()" title="حذف العرض">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+        </td>
+    `;
+    tbody.appendChild(tr);
+}
+
+function addQuickDiscount(title, value, appliesTo, notes) {
+    addDiscountRow(title, value, appliesTo, notes);
 }
 
 function escapeHtml(text) {
