@@ -1,0 +1,35 @@
+R_DEF: Internal format may change without notice
+local
+color colorAccent
+color colorBg
+color colorBlue
+color colorGold
+color colorNavy
+color colorPrimary
+color colorPrimaryDark
+color colorTextDark
+color colorTextMuted
+color colorWhite
+drawable btn_retry_bg
+drawable ic_daleel_logo
+drawable ic_launcher
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+drawable ic_offline
+id btnRetry
+id offlineLayout
+id progressBar
+id swipeRefreshLayout
+id webView
+layout activity_main
+string app_full_name
+string app_name
+string loading
+string offline_desc
+string offline_title
+string press_again_to_exit
+string retry
+style Theme.DaleelSchoPlus
+style Theme.DaleelSchoPlus.Splash
+xml file_paths
+xml network_security_config

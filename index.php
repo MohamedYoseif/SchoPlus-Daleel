@@ -690,9 +690,16 @@ if ($isSearching) {
                                         <span class="badge-rank-tag" title="الترتيب في الدليل">#<?= $sRank ?></span>
                                     </div>
 
-                                    <div style="color: #64748B; font-size: 0.72rem; margin-bottom: 6px;">
-                                        <i class="fas fa-map-marker-alt text-muted me-1"></i>
-                                        ولاية <?= e($s['state']) ?> — <?= e($s['city']) ?> <?= !empty($s['district']) ? '(' . e($s['district']) . ')' : '' ?>
+                                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-1 mb-2" style="font-size: 0.72rem; color: #64748B;">
+                                        <div>
+                                            <i class="fas fa-map-marker-alt text-muted me-1"></i>
+                                            ولاية <?= e($s['state']) ?> — <?= e($s['city']) ?> <?= !empty($s['district']) ? '(' . e($s['district']) . ')' : '' ?>
+                                        </div>
+                                        <?php if (!empty($s['established_year'])): ?>
+                                            <span class="badge-established" title="سنة التأسيس">
+                                                <i class="fas fa-landmark text-warning"></i> تأسست: <?= e($s['established_year']) ?>
+                                            </span>
+                                        <?php endif; ?>
                                     </div>
 
                                     <p class="school-card-desc" style="font-size: 0.74rem; color: #4B5563; margin-bottom: 10px;">
@@ -806,9 +813,16 @@ if ($isSearching) {
                                     <span class="badge-rank-tag" title="الترتيب في الدليل">#<?= $sRank ?></span>
                                 </div>
 
-                                <div style="color: #64748B; font-size: 0.72rem; margin-bottom: 6px;">
-                                    <i class="fas fa-map-marker-alt text-danger me-1"></i>
-                                    <?= e($s['state']) ?> — <?= e($s['city']) ?> <?= !empty($s['district']) ? '(' . e($s['district']) . ')' : '' ?>
+                                <div class="d-flex justify-content-between align-items-center flex-wrap gap-1 mb-2" style="font-size: 0.72rem; color: #64748B;">
+                                    <div>
+                                        <i class="fas fa-map-marker-alt text-danger me-1"></i>
+                                        <?= e($s['state']) ?> — <?= e($s['city']) ?> <?= !empty($s['district']) ? '(' . e($s['district']) . ')' : '' ?>
+                                    </div>
+                                    <?php if (!empty($s['established_year'])): ?>
+                                        <span class="badge-established" title="سنة التأسيس">
+                                            <i class="fas fa-landmark text-warning"></i> تأسست: <?= e($s['established_year']) ?>
+                                        </span>
+                                    <?php endif; ?>
                                 </div>
 
                                 <p class="school-card-desc" style="font-size: 0.74rem; color: #4B5563; margin-bottom: 10px;">
@@ -893,8 +907,15 @@ if ($isSearching) {
                                         </a>
                                         <span class="badge-rank-tag" title="الترتيب في الدليل">#<?= $sRank ?></span>
                                     </div>
-                                    <div class="text-muted" style="font-size: 0.7rem;">
-                                        <i class="fas fa-map-marker-alt text-muted me-1"></i> <?= e($s['state']) ?> — <?= e($s['city']) ?>
+                                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-1 text-muted" style="font-size: 0.7rem;">
+                                        <div>
+                                            <i class="fas fa-map-marker-alt text-muted me-1"></i> <?= e($s['state']) ?> — <?= e($s['city']) ?>
+                                        </div>
+                                        <?php if (!empty($s['established_year'])): ?>
+                                            <span class="badge-established" style="font-size: 0.64rem; padding: 1px 6px;" title="سنة التأسيس">
+                                                <i class="fas fa-landmark text-warning"></i> تأسست: <?= e($s['established_year']) ?>
+                                            </span>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </div>
@@ -965,8 +986,15 @@ if ($isSearching) {
                                         </a>
                                         <span class="badge-rank-tag" title="الترتيب في الدليل">#<?= $sRank ?></span>
                                     </div>
-                                    <div class="text-muted" style="font-size: 0.7rem;">
-                                        <i class="fas fa-map-marker-alt text-muted me-1"></i> ولاية <?= e($s['state']) ?> — <?= e($s['city']) ?>
+                                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-1 text-muted" style="font-size: 0.7rem;">
+                                        <div>
+                                            <i class="fas fa-map-marker-alt text-muted me-1"></i> ولاية <?= e($s['state']) ?> — <?= e($s['city']) ?>
+                                        </div>
+                                        <?php if (!empty($s['established_year'])): ?>
+                                            <span class="badge-established" style="font-size: 0.64rem; padding: 1px 6px;" title="سنة التأسيس">
+                                                <i class="fas fa-landmark text-warning"></i> تأسست: <?= e($s['established_year']) ?>
+                                            </span>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </div>

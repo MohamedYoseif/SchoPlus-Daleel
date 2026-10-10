@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "sd.schoplus.daleel.app-mergeReleaseResources-31:/values-v29/values-v29.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\MohamedYoseif\\.gradle\\caches\\8.11.1\\transforms\\89ec32f5d168c805f3e31f00a95d6831\\transformed\\core-splashscreen-1.0.1\\res\\values-v29\\values-v29.xml",
+                    "from": {
+                        "startLines": "2,7",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,374",
+                        "endLines": "6,8",
+                        "endColumns": "12,12",
+                        "endOffsets": "369,464"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -280,6 +280,20 @@ $currSchool = currentSchool();
             color: #6B7280;
         }
 
+        .badge-established {
+            background: #FEF3C7;
+            color: #92400E;
+            border: 1px solid #FDE68A;
+            font-size: 0.68rem;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+
         /* Buttons & CTAs */
         .btn-luxury-primary {
             background: linear-gradient(135deg, #1E5FA8 0%, #16467D 100%);

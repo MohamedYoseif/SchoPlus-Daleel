@@ -1,0 +1,30 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="160dp"
+    android:height="160dp"
+    android:viewportWidth="160"
+    android:viewportHeight="160">
+    <!-- Circle Glow Background -->
+    <path
+        android:fillColor="#163870"
+        android:pathData="M80,80m-70,0a70,70 0,1 1,140 0a70,70 0,1 1,-140 0" />
+    <path
+        android:strokeColor="#F5A020"
+        android:strokeWidth="3.5"
+        android:pathData="M80,80m-68,0a68,68 0,1 1,136 0a68,68 0,1 1,-136 0" />
+    <!-- School/Graduation Roof -->
+    <path
+        android:fillColor="#F5A020"
+        android:pathData="M80,36L34,60L80,84L126,60Z" />
+    <!-- Pillars and Base -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M48,74h12v40h-12z M74,74h12v40h-12z M100,74h12v40h-12z" />
+    <!-- Base Foundation -->
+    <path
+        android:fillColor="#F5A020"
+        android:pathData="M38,114h84v8h-84z" />
+    <!-- Star Emblem -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M80,92l3.5,7.1l7.8,1.1l-5.6,5.5l1.3,7.8l-7,-3.7l-7,3.7l1.3,-7.8l-5.6,-5.5l7.8,-1.1Z" />
+</vector>

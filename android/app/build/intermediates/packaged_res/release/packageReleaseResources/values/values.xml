@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorAccent">#F5A020</color>
+    <color name="colorBg">#F8FAFC</color>
+    <color name="colorBlue">#1E5FA8</color>
+    <color name="colorGold">#F5A020</color>
+    <color name="colorNavy">#0B2A52</color>
+    <color name="colorPrimary">#0B2A52</color>
+    <color name="colorPrimaryDark">#071C38</color>
+    <color name="colorTextDark">#0D1B2E</color>
+    <color name="colorTextMuted">#64748B</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <string name="app_full_name">دليل المدارس السودانية</string>
+    <string name="app_name">دليل المدارس</string>
+    <string name="loading">جارٍ تحميل دليل المدارس...</string>
+    <string name="offline_desc">يرجى التأكد من تشغيل الواي فاي أو بيانات الهاتف والمحاولة مرة أخرى.</string>
+    <string name="offline_title">لا يوجد اتصال بالإنترنت</string>
+    <string name="press_again_to_exit">اضغط مرة أخرى للخروج من التطبيق</string>
+    <string name="retry">إعادة المحاولة</string>
+    <style name="Theme.DaleelSchoPlus" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+    <style name="Theme.DaleelSchoPlus.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/colorPrimary</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_daleel_logo</item>
+        <item name="postSplashScreenTheme">@style/Theme.DaleelSchoPlus</item>
+    </style>
+</resources>
