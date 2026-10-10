@@ -667,10 +667,6 @@ $isDaleelMobile = (
                 <span><i class="fas fa-book-reader text-warning me-1"></i> دليل المدارس السودانية — خدمة رقمية من منظومة ايسكو بلص (SchoPlus)</span>
                 <span>•</span>
                 <span class="text-success"><i class="fas fa-check-circle me-1"></i> تصفح المدارس وتواصل مع إداراتها مباشرة</span>
-                <span>•</span>
-                <a href="/app.php" class="text-white text-decoration-none fw-bold" style="background: rgba(255,255,255,0.18); padding: 2px 10px; border-radius: 999px; font-size: 0.72rem;">
-                    <i class="fab fa-android text-warning me-1"></i> تحميل تطبيق أندرويد
-                </a>
             </div>
         </div>
     </div>
@@ -689,7 +685,6 @@ $isDaleelMobile = (
                     <a href="/#schoplus-schools" class="nav-link-custom"><i class="fas fa-bolt text-warning"></i> المدارس الذكية</a>
                     <a href="/#top-rated" class="nav-link-custom"><i class="fas fa-award text-primary"></i> الأعلى تقييماً</a>
                     <a href="/#search-section" class="nav-link-custom"><i class="fas fa-search text-muted"></i> استكشف المدارس</a>
-                    <a href="/app.php" class="nav-link-custom"><i class="fab fa-android text-success"></i> التطبيق</a>
                     <a href="https://schoplus.sd" target="_blank" class="nav-link-custom"><i class="fas fa-globe text-info"></i> عن المنظومة</a>
                 </div>
             </nav>
