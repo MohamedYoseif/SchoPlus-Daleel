@@ -587,14 +587,14 @@ $currSchool = currentSchool();
     <div class="daleel-topbar d-none d-md-block">
         <div class="container d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center gap-3">
-                <span><i class="fas fa-certificate text-warning me-1"></i> دليل المدارس الرسمي في السودان بدعم من منظومة SchoPlus</span>
+                <span><i class="fas fa-book-reader text-warning me-1"></i> دليل المدارس السودانية — خدمة رقمية مجانية من منظومة ايسكو بلص (SchoPlus)</span>
                 <span>•</span>
-                <span class="text-success"><i class="fas fa-check-circle me-1"></i> خدمة مجانية للبحث ومقارنة المدارس</span>
+                <span class="text-success"><i class="fas fa-check-circle me-1"></i> إضافة وتصفح بيانات المدارس مجاناً دون أي رسوم</span>
             </div>
             <div class="d-flex align-items-center gap-3">
-                <a href="https://schoplus.sd" target="_blank" class="text-decoration-none text-muted"><i class="fas fa-globe me-1"></i> موقع SchoPlus الرسمي</a>
+                <a href="https://schoplus.sd" target="_blank" class="text-decoration-none text-muted"><i class="fas fa-globe me-1"></i> موقع SchoPlus</a>
                 <span>•</span>
-                <a href="https://wa.me/249912345678" target="_blank" class="text-decoration-none text-muted"><i class="fab fa-whatsapp me-1 text-success"></i> دعم الدليل</a>
+                <a href="https://wa.me/249912345678" target="_blank" class="text-decoration-none text-muted"><i class="fab fa-whatsapp me-1 text-success"></i> تواصل معنا</a>
             </div>
         </div>
     </div>

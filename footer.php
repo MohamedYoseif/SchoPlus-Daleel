@@ -5,18 +5,14 @@
         <div class="container">
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6">
-                    <div class="mb-3">
+                    <div class="mb-3 text-center">
                         <a href="/" class="d-inline-block text-decoration-none">
-                            <img src="/assets/images/logo.png" alt="دليل المدارس السودانية" style="height: 48px; width: auto; object-fit: contain;">
+                            <img src="/assets/images/logo.png" alt="دليل المدارس السودانية" style="height: 52px; width: auto; object-fit: contain;">
                         </a>
                     </div>
-                    <p class="text-muted leading-relaxed" style="font-size: 0.72rem; line-height: 1.6;">
-                        المنصة الوطنية المفتوحة الأولى لربط أولياء الأمور والطلاب بأفضل المدارس في السودان، مع إبراز المؤسسات التعليمية الرائدة التي تعتمد حلول التحول الرقمي وإدارة المدارس السحابية عبر SchoPlus.
+                    <p class="text-muted leading-relaxed text-center mb-0" style="font-size: 0.73rem; line-height: 1.75;">
+                        خدمة رقمية مجانية مقدمة من منظومة <strong>ايسكو بلص (SchoPlus)</strong>، تهدف إلى مساعدة أولياء الأمور والطلاب في البحث والتعرف على المدارس في مختلف ولايات السودان، وإتاحة مساحة مفتوحة ومجانية لأصحاب المدارس للتعريف بمدارسهم وخدماتهم التعليمية.
                     </p>
-                    <div class="d-flex gap-2 mt-3">
-                        <span class="badge-schoplus-smart"><i class="fas fa-shield-alt"></i> معتمد وموثق</span>
-                        <span class="badge-verified"><i class="fas fa-leaf"></i> بيئة كريمية مريحة</span>
-                    </div>
                 </div>
 
                 <div class="col-lg-2 col-md-6 col-6">
@@ -46,15 +42,21 @@
                 </div>
             </div>
 
+            <!-- سياسة الاستخدام وإخلاء المسؤولية -->
+            <div class="mt-4 p-3 rounded-4" style="background: rgba(255, 255, 255, 0.65); border: 1px solid #E2D7C8;">
+                <div class="d-flex align-items-start gap-2">
+                    <i class="fas fa-info-circle text-warning mt-1" style="font-size: 0.85rem; flex-shrink: 0;"></i>
+                    <div style="font-size: 0.71rem; color: #4B5563; line-height: 1.7;">
+                        <strong class="text-dark">سياسة الاستخدام وإخلاء المسؤولية:</strong>
+                        هذا الدليل هو خدمة رقمية مجانية مقدمة من منظومة <strong>ايسكو بلص (SchoPlus)</strong> ولا يُعد دليلاً رسمياً معتمداً من وزارة التربية والتعليم أو أي جهة حكومية. كافة البيانات والمعلومات والرسوم المنشورة تتم إضافتها وإدارتها مباشرة من قِبل أصحاب وإدارات المدارس على مسؤوليتهم، ولا تتلقى منظومة ايسكو بلص أي مقابل مادي نظير نشر أو إدراج المدارس في الدليل.
+                    </div>
+                </div>
+            </div>
+
             <hr class="my-4" style="border-color: #E2D7C8;">
 
-            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2 text-muted" style="font-size: 0.7rem;">
-                <div>
-                    جميع الحقوق محفوظة © <?= date('Y') ?> — دليل المدارس السودانية | إحدى مبادرات <strong>SchoPlus Cloud Ecosystem</strong>.
-                </div>
-                <div>
-                    عقدة سحابية مستقلة (Node 6) • النسخة 3.5.51
-                </div>
+            <div class="text-center text-muted" style="font-size: 0.72rem;">
+                جميع الحقوق محفوظة © <?= date('Y') ?> — دليل المدارس السودانية | إحدى مبادرات <strong>SchoPlus</strong> .
             </div>
         </div>
     </footer>

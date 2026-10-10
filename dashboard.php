@@ -710,7 +710,7 @@ require_once __DIR__ . '/header.php';
 
                     <div class="col-md-4 text-md-start">
                         <div class="p-3 bg-white rounded-4 shadow-sm border border-warning-subtle text-center">
-                            <small class="text-muted d-block mb-2">لتسريع عملية الاعتماد والتفعيل الفوري:</small>
+                            <small class="text-muted d-block mb-2">لتسريع تفعيل ظهور الصفحة في الدليل:</small>
                             <a href="https://wa.me/249912345678?text=<?= urlencode('مرحباً فريق SchoPlus، قمت بتسجيل مدرستي (' . $school['name'] . ') وأرجو تفعيلها في دليل المدارس.') ?>" target="_blank" class="btn btn-success fw-bold w-100 py-2 rounded-3 shadow-sm d-flex align-items-center justify-content-center gap-2">
                                 <i class="fab fa-whatsapp fs-5"></i>
                                 <span>تواصل عبر واتساب للتأكيد</span>
@@ -755,11 +755,11 @@ require_once __DIR__ . '/header.php';
                 <div class="row align-items-center g-3">
                     <div class="col-md-8">
                         <span class="badge bg-warning text-dark px-3 py-1 rounded-pill fw-bold mb-2 small">
-                            <i class="fas fa-rocket me-1"></i> ترقية مجانية لشريك SchoPlus الذكي
+                            <i class="fas fa-rocket me-1"></i> ترقية لشريك SchoPlus الذكي
                         </span>
                         <h5 class="fw-bold text-white mb-2">اجعل مدرستك رائدة رقمياً مع نظام SchoPlus السحابي</h5>
                         <p class="small text-light opacity-85 mb-0">
-                            احصل على شارة "مدرسة ذكية معتمدة" في الدليل، وامتلك تطبيقات موبايل مخصصة للمدير، المعلمين، وأولياء الأمور لإدارة الحضور والنتائج والرسوم المالية بسهولة فائقة.
+                            احصل على شارة "مدرسة ذكية بنظام SchoPlus" في الدليل، وامتلك تطبيقات موبايل مخصصة للمدير، المعلمين، وأولياء الأمور لإدارة الحضور والنتائج والرسوم المالية بسهولة فائقة.
                         </p>
                     </div>
                     <div class="col-md-4 text-md-start">

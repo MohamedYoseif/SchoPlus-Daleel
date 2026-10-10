@@ -929,7 +929,7 @@ $totalRev = max(1, count($reviewsList));
                         <span class="badge-schoplus"><i class="fas fa-bolt"></i> <span class="d-none d-sm-inline">مدرسة</span> SchoPlus الذكية</span>
                     <?php endif; ?>
                     <?php if ($school['is_verified']): ?>
-                        <span class="badge-verified"><i class="fas fa-check-circle"></i> معتمدة</span>
+                        <span class="badge-verified"><i class="fas fa-school"></i> مسجلة بالدليل</span>
                     <?php endif; ?>
                 </div>
 
@@ -1032,7 +1032,7 @@ $totalRev = max(1, count($reviewsList));
                     <i class="fas fa-bolt text-warning"></i>
                 </div>
                 <div>
-                    <div class="fw-bold" style="font-size: 0.96rem;">مدرسة ذكية معتمدة — تعمل بنظام SchoPlus السحابي</div>
+                    <div class="fw-bold" style="font-size: 0.96rem;">مدرسة ذكية — تعمل بنظام ايسكو بلص (SchoPlus) السحابي</div>
                     <div style="font-size: 0.78rem; opacity: 0.85; margin-top: 2px;">بوابة أولياء الأمور · متابعة الدرجات والغياب فورياً · إشعارات واتساب لحظية</div>
                 </div>
             </div>
@@ -1563,7 +1563,7 @@ $totalRev = max(1, count($reviewsList));
                         <div class="sp-section-head">
                             <div class="sp-section-title">
                                 <div class="title-icon" style="background: #EFF6FF; color: var(--brand-blue);"><i class="fas fa-code-branch"></i></div>
-                                فروع المدرسة المعتمدة
+                                فروع المدرسة
                             </div>
                             <span class="badge" style="background: #EFF6FF; color: var(--brand-blue); border: 1px solid #BFDBFE; border-radius: 20px; padding: 5px 14px; font-size: 0.74rem; font-weight: 700;"><?= count($branchesList) ?> فروع</span>
                         </div>
@@ -1847,6 +1847,12 @@ $totalRev = max(1, count($reviewsList));
                     </div>
                 </div>
                 <?php endif; ?>
+
+                <!-- Data Disclaimer Note -->
+                <div class="p-3 rounded-4 mb-3" style="background: #FAF8F5; border: 1px solid var(--border-subtle); font-size: 0.7rem; color: var(--text-muted); line-height: 1.7;">
+                    <i class="fas fa-info-circle text-warning me-1"></i>
+                    <strong class="text-dark">تنويه:</strong> البيانات والمعلومات المنشورة في هذه الصفحة تمت إضافتها مباشرة بواسطة إدارة المدرسة وعلى مسؤوليتها. دليل المدارس هو خدمة رقمية مجانية من منظومة <strong>ايسكو بلص (SchoPlus)</strong> دون أي مقابل مادي، وليس دليلاً رسمياً حكومياً.
+                </div>
 
                 <!-- SchoPlus Upgrade CTA (for non-clients) -->
                 <?php if (!$school['is_schoplus_client']): ?>

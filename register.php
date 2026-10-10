@@ -221,7 +221,7 @@ $statesWithCities = SudanGeography::statesWithCities();
 
                     <div class="row g-3">
                         <div class="col-md-7">
-                            <label class="form-label small fw-bold text-secondary">اسم المدرسة الرسمي باللغة العربية <span class="text-danger">*</span></label>
+                            <label class="form-label small fw-bold text-secondary">اسم المدرسة باللغة العربية <span class="text-danger">*</span></label>
                             <input type="text" name="name" required class="form-control" value="<?= e($formData['name'] ?? '') ?>" placeholder="مثال: مدارس المنار النموذجية الخاصة">
                         </div>
 
@@ -360,12 +360,12 @@ $statesWithCities = SudanGeography::statesWithCities();
                     </div>
                 </div>
 
-                <!-- Info Box -->
+                <!-- Info & Usage Policy Box -->
                 <div class="p-3 rounded-4 bg-light border border-light-subtle mb-4">
                     <div class="d-flex align-items-start gap-2">
                         <i class="fas fa-info-circle text-primary mt-1"></i>
                         <small class="text-secondary lh-base">
-                            بمجرد الضغط على زر التسجيل، سيتم إنشاء حسابكم مباشرة والانتقال للوحة التحكم. ستكون حالة مدرستكم <strong>"بانتظار التأكيد"</strong> بينما يقوم فريقنا بمراجعتها والتأكد من صحة البيانات، وخلال هذا الوقت يمكنك رفع شعار المدرسة، صور المرافق، وتحديد الرسوم والأخبار.
+                            <strong>سياسة الاستخدام والتسجيل:</strong> هذا الدليل هو خدمة رقمية مجانية مقدمة من منظومة <strong>ايسكو بلص (SchoPlus)</strong> دون أي مقابل مادي، وليس دليلاً رسمياً تابعاً لوزارة التربية والتعليم. جميع البيانات والصور والرسوم المنشورة تتم إضافتها وإدارتها من قِبل إدارة المدرسة وعلى مسؤوليتها. بمجرد التسجيل يمكنك الدخول مباشرة للوحة التحكم وإكمال ملف مدرستك.
                         </small>
                     </div>
                 </div>

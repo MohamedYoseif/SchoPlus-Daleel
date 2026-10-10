@@ -278,7 +278,7 @@ if ($isSearching) {
         
         <div style="display: inline-flex; align-items: center; gap: 7px; background: #FFFFFF; border: 1px solid #E2D7C7; padding: 5px 14px; border-radius: 24px; font-size: 0.76rem; font-weight: 700; color: var(--brand-gold); box-shadow: 0 2px 8px rgba(0,0,0,0.03); margin-bottom: 16px;">
             <i class="fas fa-sparkles text-warning"></i>
-            <span>المنصة الأولى المعتمدة لدليل المدارس في السودان</span>
+            <span>خدمة رقمية مجانية من منظومة ايسكو بلص (SchoPlus)</span>
         </div>
 
         <h1 style="font-weight: 800; font-size: clamp(1.15rem, 2.5vw, 1.55rem); color: var(--brand-navy); line-height: 1.35; margin-bottom: 12px; letter-spacing: -0.3px;">
@@ -287,7 +287,7 @@ if ($isSearching) {
         </h1>
 
         <p style="font-size: 0.76rem; color: #4A5568; line-height: 1.6; max-width: 580px; margin: 0 auto 20px;">
-            الدليل التفاعلي الأكبر لاستكشاف ومقارنة المدارس بالولاية والمدينة والمراحل الدراسية، مع إبراز المدارس الذكية المعتمدة وتجارب أولياء الأمور الحقيقية.
+            منصة رقمية مفتوحة ومجانية تتيح لأولياء الأمور والطلاب البحث عن المدارس في مختلف ولايات ومدن السودان، والاطلاع على البيانات التي يضيفها أصحاب المدارس وتجارب أولياء الأمور.
         </p>
 
         <!-- Hero Stats Counter -->
@@ -307,7 +307,7 @@ if ($isSearching) {
                 </div>
                 <div class="col-lg-3 col-6">
                     <div data-countup="<?= $statReviews ?>" data-suffix="+" style="font-size: 1.25rem; font-weight: 700; color: var(--brand-emerald);"><?= number_format($statReviews) ?>+</div>
-                    <div style="font-size: 0.67rem; color: #6B7280; font-weight: 600;">تقييم موثق من أولياء الأمور</div>
+                    <div style="font-size: 0.67rem; color: #6B7280; font-weight: 600;">تقييم ومشاركة من أولياء الأمور</div>
                 </div>
             </div>
         </div>
@@ -488,7 +488,7 @@ if ($isSearching) {
                                         <?php if ($s['is_schoplus_client']): ?>
                                             <span class="badge-schoplus-smart"><i class="fas fa-bolt"></i> SchoPlus الذكي</span>
                                         <?php endif; ?>
-                                        <span class="badge-verified"><i class="fas fa-check-circle"></i> موثقة</span>
+                                        <span class="badge-verified"><i class="fas fa-school"></i> مسجلة بالدليل</span>
                                     </div>
 
                                     <div style="width: 68px; height: 68px; border-radius: 16px; background: #fff; padding: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.12); position: absolute; bottom: -24px; right: 20px; z-index: 2;">
@@ -591,7 +591,7 @@ if ($isSearching) {
                         <div class="luxury-card clickable-school-card" style="border: 1.5px solid #FCD34D; background: linear-gradient(135deg, #FFFDF9 0%, #FEF9EC 100%);" onclick="window.location.href='<?= $schoolUrl ?>'">
                             
                             <div style="position: absolute; top: 0; right: 25px; background: linear-gradient(135deg, #1E5FA8 0%, #0B2A52 100%); color: #fff; font-size: 0.7rem; font-weight: 700; padding: 3px 10px; border-radius: 0 0 8px 8px; z-index: 3;">
-                                <i class="fas fa-bolt text-warning me-1"></i> مدرسة ذكية معتمدة
+                                <i class="fas fa-bolt text-warning me-1"></i> تستخدم نظام SchoPlus
                             </div>
 
                             <div style="height: 140px; background-size: cover; background-position: center; position: relative; <?= $cover ? "background-image: url('{$cover}');" : '' ?>" class="<?= !$cover ? 'cover-placeholder' : '' ?>">
@@ -738,7 +738,7 @@ if ($isSearching) {
                     </span>
                     <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--brand-navy); margin: 0;">أحدث المدارس المضافة</h2>
                     <p style="color: #6B7280; font-size: 0.74rem; margin-top: 4px;">
-                        مدارس ومجمعات تعليمية انضمت مؤخراً إلى الدليل الوطني لتسهيل التواصل والتعريف ببرامجها.
+                        مدارس ومجمعات تعليمية أضافت بياناتها مؤخراً في الدليل لتسهيل التواصل والتعريف ببرامجها.
                     </p>
                 </div>
                 <div class="mt-3 mt-md-0">
@@ -808,7 +808,7 @@ if ($isSearching) {
                 </div>
                 <h2 class="fw-bold mb-2" style="font-size: 1.35rem; color: #FFFFFF;">هل تدير مدرسة أو مجمعاً تعليمياً؟</h2>
                 <p class="mb-4" style="max-width: 650px; font-size: 0.76rem; color: rgba(255, 255, 255, 0.9); line-height: 1.65;">
-                    انضم إلى مئات المدارس في الدليل الأكبر في السودان. احصل على بروفايل إلكتروني موثق، انشر أخبار مدرستك، واستقبل طلبات التسجيل واستفسارات أولياء الأمور بسهولة تامة.
+                    خدمة مجانية بالكامل من منظومة ايسكو بلص (SchoPlus) دون أي رسوم أو مقابل مادي. أضف بيانات مدرستك بنفسك، أنشئ صفحة تعريفية متكاملة، انشر أخبار ومناشط مدرستك، واستقبل استفسارات أولياء الأمور مباشرة.
                 </p>
                 <div class="d-flex flex-wrap gap-2">
                     <a href="/register.php" class="btn-luxury-gold px-3 py-2" style="font-size: 0.78rem;">
