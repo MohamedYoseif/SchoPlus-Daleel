@@ -399,6 +399,10 @@ function ensureTablesExist(PDO $pdo): void {
             'fees_type'       => "ALTER TABLE daleel_schools ADD COLUMN fees_type VARCHAR(50) NOT NULL DEFAULT 'average' AFTER approx_fees",
             'stage_fees'      => "ALTER TABLE daleel_schools ADD COLUMN stage_fees LONGTEXT NULL AFTER fees_type",
             'fee_discounts'   => "ALTER TABLE daleel_schools ADD COLUMN fee_discounts LONGTEXT NULL AFTER stage_fees",
+            'admission_status'       => "ALTER TABLE daleel_schools ADD COLUMN admission_status VARCHAR(50) NOT NULL DEFAULT 'open' AFTER fee_discounts",
+            'admission_requirements' => "ALTER TABLE daleel_schools ADD COLUMN admission_requirements LONGTEXT NULL AFTER admission_status",
+            'admission_steps'        => "ALTER TABLE daleel_schools ADD COLUMN admission_steps LONGTEXT NULL AFTER admission_requirements",
+            'admission_notes'        => "ALTER TABLE daleel_schools ADD COLUMN admission_notes TEXT NULL AFTER admission_steps",
         ];
         foreach ($alterStatements as $colName => $sql) {
             if (!isset($existingCols[$colName])) {

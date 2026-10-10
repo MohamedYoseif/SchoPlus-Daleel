@@ -2,6 +2,28 @@ plugins {
     id 'com.android.application'
 }
 
+import groovy.json.JsonSlurper
+
+def getAppVersionInfo() {
+    def versionFile = file('../../version.json')
+    if (!versionFile.exists()) {
+        versionFile = file('../../../version.json')
+    }
+    if (versionFile.exists()) {
+        def parsed = new JsonSlurper().parseText(versionFile.text)
+        def vName = parsed.version ?: "3.5.76"
+        def parts = vName.tokenize('.')
+        def major = parts.size() > 0 ? parts[0].toInteger() : 3
+        def minor = parts.size() > 1 ? parts[1].toInteger() : 5
+        def patch = parts.size() > 2 ? parts[2].toInteger() : 76
+        def vCode = (major * 10000) + (minor * 1000) + patch
+        return [versionName: vName, versionCode: vCode]
+    }
+    return [versionName: "3.5.76", versionCode: 35076]
+}
+
+def appVersionInfo = getAppVersionInfo()
+
 android {
     namespace 'sd.schoplus.daleel'
     compileSdk 35
@@ -10,8 +32,8 @@ android {
         applicationId "sd.schoplus.daleel"
         minSdk 24
         targetSdk 35
-        versionCode 1
-        versionName "1.0.0"
+        versionCode appVersionInfo.versionCode
+        versionName appVersionInfo.versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
