@@ -67,13 +67,25 @@ $currSchool = currentSchool();
             --radius-sm: 8px;
         }
 
+        html {
+            font-size: 14px !important;
+            -webkit-text-size-adjust: 100%;
+        }
+
         body {
-            font-family: 'Cairo', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Cairo', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background-color: var(--bg-body);
             color: var(--text-body);
-            line-height: 1.65;
+            font-size: 0.86rem;
+            line-height: 1.6;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            color: var(--brand-navy);
+            letter-spacing: -0.2px;
         }
 
         .ambient-cream-glow {
@@ -115,39 +127,39 @@ $currSchool = currentSchool();
         }
 
         .daleel-logo-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
             background: linear-gradient(135deg, var(--brand-navy) 0%, var(--brand-blue) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             color: #FFFFFF;
-            font-size: 1.25rem;
-            box-shadow: 0 4px 14px rgba(30, 95, 168, 0.25);
+            font-size: 1.1rem;
+            box-shadow: 0 3px 10px rgba(30, 95, 168, 0.22);
         }
 
         .daleel-brand-title {
-            font-weight: 800;
-            font-size: 1.18rem;
+            font-weight: 700;
+            font-size: 1.02rem;
             color: var(--brand-navy);
             line-height: 1.15;
             margin: 0;
         }
 
         .daleel-brand-tag {
-            font-size: 0.72rem;
+            font-size: 0.65rem;
             color: var(--brand-gold);
             font-weight: 700;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.4px;
         }
 
         .nav-link-custom {
             color: var(--text-body);
             font-weight: 600;
-            font-size: 0.92rem;
-            padding: 8px 14px;
-            border-radius: 10px;
+            font-size: 0.84rem;
+            padding: 6px 12px;
+            border-radius: 8px;
             text-decoration: none;
             transition: all 0.2s ease;
         }
@@ -162,21 +174,21 @@ $currSchool = currentSchool();
             background: linear-gradient(135deg, #1E5FA8 0%, #16467D 100%);
             color: #FFFFFF !important;
             font-weight: 700;
-            font-size: 0.92rem;
-            padding: 9px 20px;
-            border-radius: 12px;
+            font-size: 0.84rem;
+            padding: 7px 16px;
+            border-radius: 10px;
             border: none;
-            box-shadow: 0 4px 14px rgba(30, 95, 168, 0.22);
+            box-shadow: 0 3px 10px rgba(30, 95, 168, 0.2);
             transition: all 0.25s ease;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 7px;
             text-decoration: none;
         }
 
         .btn-luxury-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(30, 95, 168, 0.32);
+            box-shadow: 0 6px 16px rgba(30, 95, 168, 0.28);
             background: linear-gradient(135deg, #16467D 0%, #0F325C 100%);
         }
 
@@ -184,15 +196,15 @@ $currSchool = currentSchool();
             background: #FFFFFF;
             color: var(--brand-navy) !important;
             font-weight: 700;
-            font-size: 0.92rem;
-            padding: 8px 18px;
-            border-radius: 12px;
+            font-size: 0.84rem;
+            padding: 6px 14px;
+            border-radius: 10px;
             border: 1.5px solid var(--border-subtle);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
             transition: all 0.2s ease;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 7px;
             text-decoration: none;
         }
 
@@ -207,15 +219,16 @@ $currSchool = currentSchool();
             background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
             color: #FFFFFF !important;
             font-weight: 700;
-            padding: 9px 20px;
-            border-radius: 12px;
+            font-size: 0.84rem;
+            padding: 7px 16px;
+            border-radius: 10px;
             border: none;
-            box-shadow: 0 4px 14px rgba(217, 119, 6, 0.25);
+            box-shadow: 0 3px 10px rgba(217, 119, 6, 0.22);
             transition: all 0.25s ease;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 7px;
         }
 
         .btn-luxury-gold:hover {
@@ -301,9 +314,12 @@ $currSchool = currentSchool();
             gap: 5px;
         }
 
-        /* Fix 2: Hero title — responsive font size */
+        /* Fix 2: Hero title — compact and crisp */
         .daleel-hero h1 {
-            font-size: clamp(1.7rem, 5vw, 2.75rem) !important;
+            font-size: clamp(1.15rem, 2.5vw, 1.55rem) !important;
+            font-weight: 800 !important;
+            line-height: 1.35 !important;
+            letter-spacing: -0.3px !important;
         }
 
         /* Fix 3: School card description — clean 2-line clamp */

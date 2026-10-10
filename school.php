@@ -342,18 +342,18 @@ require_once __DIR__ . '/header.php';
 }
 
 .sp-school-title {
-    font-size: clamp(1.2rem, 3.5vw, 1.85rem);
+    font-size: clamp(1.05rem, 2.2vw, 1.45rem);
     color: var(--brand-navy);
     line-height: 1.25;
-    font-weight: 800;
+    font-weight: 700;
 }
 .sp-school-subtitle {
-    font-size: 0.86rem;
+    font-size: 0.8rem;
     color: var(--text-muted);
     font-weight: 600;
 }
 .sp-school-loc {
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     color: var(--text-muted);
     display: flex; align-items: center; gap: 6px;
 }
@@ -361,41 +361,41 @@ require_once __DIR__ . '/header.php';
 .sp-action-btns-wrap {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 7px;
 }
 .sp-action-btns-wrap .sp-btn-action {
-    padding: 9px 14px;
-    font-size: 0.86rem;
+    padding: 7px 12px;
+    font-size: 0.82rem;
 }
 
 .sp-quick-stats {
-    display: flex; align-items: center; gap: 20px;
+    display: flex; align-items: center; gap: 18px;
     flex-wrap: wrap;
-    padding: 14px 0 0;
+    padding: 10px 0 0;
     border-top: 1px solid var(--border-subtle);
-    margin-top: 18px;
+    margin-top: 14px;
 }
 .sp-stat-item {
-    display: flex; align-items: center; gap: 7px;
-    font-size: 0.84rem; color: var(--text-muted); font-weight: 600;
+    display: flex; align-items: center; gap: 6px;
+    font-size: 0.78rem; color: var(--text-muted); font-weight: 600;
 }
-.sp-stat-item strong { color: var(--text-main); font-weight: 800; }
+.sp-stat-item strong { color: var(--text-main); font-weight: 700; }
 
 .sp-tabs-nav {
     background: #FFFFFF;
     border: 1px solid var(--border-subtle);
-    border-radius: 16px;
-    padding: 6px;
-    box-shadow: 0 2px 14px rgba(11,42,82,0.04);
-    display: flex; gap: 6px;
-    position: sticky; top: 78px; z-index: 40;
+    border-radius: 14px;
+    padding: 4px;
+    box-shadow: 0 2px 12px rgba(11,42,82,0.03);
+    display: flex; gap: 5px;
+    position: sticky; top: 70px; z-index: 40;
 }
 .sp-tab-btn {
     flex: 1;
     background: none; border: none;
-    padding: 10px 10px;
-    border-radius: 12px;
-    font-weight: 700; font-size: 0.86rem;
+    padding: 8px 8px;
+    border-radius: 10px;
+    font-weight: 600; font-size: 0.82rem;
     color: var(--text-muted);
     cursor: pointer;
     transition: all 0.22s ease;
@@ -406,15 +406,15 @@ require_once __DIR__ . '/header.php';
 .sp-tab-btn.active {
     background: var(--brand-navy);
     color: #FFFFFF;
-    box-shadow: 0 4px 14px rgba(11,42,82,0.22);
+    box-shadow: 0 3px 10px rgba(11,42,82,0.18);
 }
 .sp-tab-btn .tab-count {
     background: rgba(255,255,255,0.25);
     color: inherit;
     border-radius: 20px;
-    padding: 2px 8px;
-    font-size: 0.72rem;
-    font-weight: 800;
+    padding: 2px 7px;
+    font-size: 0.68rem;
+    font-weight: 700;
 }
 .sp-tab-btn:not(.active) .tab-count {
     background: var(--bg-surface-soft);
@@ -424,28 +424,28 @@ require_once __DIR__ . '/header.php';
 .sp-section {
     background: #FFFFFF;
     border: 1px solid var(--border-subtle);
-    border-radius: 20px;
-    box-shadow: 0 3px 18px rgba(11,42,82,0.035);
+    border-radius: 16px;
+    box-shadow: 0 2px 14px rgba(11,42,82,0.03);
     overflow: hidden;
-    margin-bottom: 22px;
+    margin-bottom: 18px;
 }
 .sp-section-head {
-    padding: 20px 24px 16px;
+    padding: 14px 18px 12px;
     border-bottom: 1px solid var(--border-subtle);
-    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
     flex-wrap: wrap;
 }
 .sp-section-title {
-    display: flex; align-items: center; gap: 10px;
-    font-size: 1.05rem; font-weight: 800; color: var(--brand-navy);
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.95rem; font-weight: 700; color: var(--brand-navy);
 }
 .sp-section-title .title-icon {
-    width: 36px; height: 36px;
-    border-radius: 11px;
+    width: 32px; height: 32px;
+    border-radius: 9px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 0.95rem; flex-shrink: 0;
+    font-size: 0.88rem; flex-shrink: 0;
 }
-.sp-section-body { padding: 24px; }
+.sp-section-body { padding: 18px; }
 
 .vm-block {
     border-radius: 16px;
@@ -766,8 +766,9 @@ require_once __DIR__ . '/header.php';
         border-radius: 14px !important;
     }
     .sp-school-title {
-        font-size: 1.28rem !important;
+        font-size: 1.12rem !important;
         line-height: 1.3 !important;
+        font-weight: 700 !important;
     }
     .sp-school-subtitle {
         font-size: 0.8rem !important;
@@ -1312,7 +1313,7 @@ $totalRev = max(1, count($reviewsList));
                         <div class="sp-section-body">
                             <div class="row align-items-center g-4">
                                 <div class="col-md-3 text-center sp-reviews-stat-col border-start">
-                                    <div style="font-size: 3.5rem; font-weight: 900; color: var(--brand-navy); line-height: 1;"><?= number_format($school['rating_avg'], 1) ?></div>
+                                    <div style="font-size: 2.1rem; font-weight: 800; color: var(--brand-navy); line-height: 1;"><?= number_format($school['rating_avg'], 1) ?></div>
                                     <div class="sp-stars my-2">
                                         <?php for ($i = 1; $i <= 5; $i++): ?>
                                             <i class="fas fa-star <?= $i <= round($school['rating_avg']) ? 'text-warning' : 'text-muted opacity-25' ?>"></i>
