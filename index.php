@@ -880,15 +880,19 @@ if ($isSearching) {
                     <?php
                         $logo = e(defaultSchoolLogo($s['logo_path'] ?? null));
                         $schoolUrl = '/school/' . urlencode($s['slug']);
+                        $sRank = getSchoolDirectoryRank($pdo, (int)$s['id'], !empty($s['directory_rank']) ? (int)$s['directory_rank'] : null);
                     ?>
                     <div class="col-lg-4 col-md-6">
                         <div class="luxury-card p-3 h-100 d-flex flex-column clickable-school-card" onclick="window.location.href='<?= $schoolUrl ?>'">
                             <div class="d-flex align-items-center gap-3 mb-3">
                                 <img src="<?= $logo ?>" alt="" style="width: 50px; height: 50px; border-radius: 12px; object-fit: cover;">
-                                <div>
-                                    <a href="<?= $schoolUrl ?>" class="fw-bold text-dark text-decoration-none d-block text-truncate" style="max-width: 220px; font-size: 0.84rem;" onclick="event.stopPropagation();">
-                                        <?= e($s['name']) ?>
-                                    </a>
+                                <div class="flex-grow-1 min-w-0">
+                                    <div class="d-flex justify-content-between align-items-center gap-1 mb-1">
+                                        <a href="<?= $schoolUrl ?>" class="fw-bold text-dark text-decoration-none d-block text-truncate" style="max-width: 175px; font-size: 0.84rem;" onclick="event.stopPropagation();">
+                                            <?= e($s['name']) ?>
+                                        </a>
+                                        <span class="badge-rank-tag" title="الترتيب في الدليل">#<?= $sRank ?></span>
+                                    </div>
                                     <div class="text-muted" style="font-size: 0.7rem;">
                                         <i class="fas fa-map-marker-alt text-muted me-1"></i> <?= e($s['state']) ?> — <?= e($s['city']) ?>
                                     </div>
@@ -948,15 +952,19 @@ if ($isSearching) {
                     <?php
                         $logo = e(defaultSchoolLogo($s['logo_path'] ?? null));
                         $schoolUrl = '/school/' . urlencode($s['slug']);
+                        $sRank = getSchoolDirectoryRank($pdo, (int)$s['id'], !empty($s['directory_rank']) ? (int)$s['directory_rank'] : null);
                     ?>
                     <div class="col-lg-4 col-md-6">
                         <div class="luxury-card p-3 h-100 d-flex flex-column clickable-school-card" onclick="window.location.href='<?= $schoolUrl ?>'">
                             <div class="d-flex align-items-center gap-3 mb-3">
                                 <img src="<?= $logo ?>" alt="" style="width: 50px; height: 50px; border-radius: 12px; object-fit: cover;">
-                                <div>
-                                    <a href="<?= $schoolUrl ?>" class="fw-bold text-dark text-decoration-none d-block text-truncate" style="max-width: 220px; font-size: 0.84rem;" onclick="event.stopPropagation();">
-                                        <?= e($s['name']) ?>
-                                    </a>
+                                <div class="flex-grow-1 min-w-0">
+                                    <div class="d-flex justify-content-between align-items-center gap-1 mb-1">
+                                        <a href="<?= $schoolUrl ?>" class="fw-bold text-dark text-decoration-none d-block text-truncate" style="max-width: 175px; font-size: 0.84rem;" onclick="event.stopPropagation();">
+                                            <?= e($s['name']) ?>
+                                        </a>
+                                        <span class="badge-rank-tag" title="الترتيب في الدليل">#<?= $sRank ?></span>
+                                    </div>
                                     <div class="text-muted" style="font-size: 0.7rem;">
                                         <i class="fas fa-map-marker-alt text-muted me-1"></i> ولاية <?= e($s['state']) ?> — <?= e($s['city']) ?>
                                     </div>
