@@ -279,7 +279,7 @@ $showTeachersTab = (isset($optionalTabsCfg['teachers']) ? (bool)$optionalTabsCfg
 // Admission Configuration (حالة وبنود وإجراءات القبول والتسجيل)
 $admStatus = $school['admission_status'] ?? 'open';
 $admStatusLabels = [
-    'open'    => ['label' => 'متاح', 'badge' => 'باب القبول والتسجيل مفتوح', 'color' => '#10B981', 'icon' => 'fa-check-circle'],
+    'open'    => ['label' => 'متاح', 'badge' => 'باب القبول والتسجيل مفتوح', 'color' => '#1E5FA8', 'icon' => 'fa-check-circle'],
     'limited' => ['label' => 'مقاعد محدودة', 'badge' => 'مقاعد محدودة متبقية', 'color' => '#F59E0B', 'icon' => 'fa-exclamation-circle'],
     'early'   => ['label' => 'تسجيل مبكر', 'badge' => 'فتح باب التسجيل المبكر', 'color' => '#0284C7', 'icon' => 'fa-clock'],
     'closed'  => ['label' => 'مغلق', 'badge' => 'القبول والتسجيل مغلق مؤقتاً', 'color' => '#6B7280', 'icon' => 'fa-lock']
@@ -1279,50 +1279,6 @@ $totalRev = max(1, count($reviewsList));
                         </div>
                     </div>
 
-                    <!-- Quick Fees Teaser Card inside Overview -->
-                    <?php if (($feesType === 'detailed' && !empty($stageFeesList)) || !empty($feeDiscountsList) || !empty($school['approx_fees'])): ?>
-                    <div class="sp-section">
-                        <div class="sp-section-head">
-                            <div class="sp-section-title">
-                                <div class="title-icon" style="background: #F0F4F8; color: #1E5FA8;"><i class="fas fa-coins text-warning"></i></div>
-                                الرسوم الدراسية والتسهيلات المالية
-                            </div>
-                            <button type="button" class="btn btn-sm btn-light border rounded-pill px-3 py-1 fw-bold" style="font-size: 0.74rem; color: #1E5FA8;" onclick="switchTab(document.querySelector('[data-target=\'tab-fees\']'), 'tab-fees')">
-                                <span>عرض جدول الرسوم والخصومات</span> <i class="fas fa-arrow-left ms-1"></i>
-                            </button>
-                        </div>
-                        <div class="sp-section-body">
-                            <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 p-3 rounded-3" style="background: #F0F4F8; border: 1px solid #DDE4ED;">
-                                <div class="d-flex align-items-center gap-3">
-                                    <div style="width: 44px; height: 44px; border-radius: 12px; background: #0B2A52; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;">
-                                        <i class="fas fa-receipt text-warning"></i>
-                                    </div>
-                                    <div>
-                                        <div class="fw-bold text-dark" style="font-size: 0.92rem;">
-                                            <?php if ($feesType === 'detailed' && !empty($stageFeesList)): ?>
-                                                جدول الرسوم مفصل لـ <?= count($stageFeesList) ?> مراحل دراسية معتمدة
-                                            <?php elseif (!empty($school['approx_fees'])): ?>
-                                                متوسط الرسوم السنوية: <?= e($school['approx_fees']) ?>
-                                            <?php else: ?>
-                                                تفاصيل الرسوم الدراسية متاحة
-                                            <?php endif; ?>
-                                        </div>
-                                        <div class="text-secondary small mt-1" style="font-size: 0.74rem;">
-                                            <?php if (!empty($feeDiscountsList)): ?>
-                                                <span class="badge text-white px-2 py-0 me-1" style="background: #9333EA; font-size: 0.7rem;"><i class="fas fa-tags me-1"></i> <?= count($feeDiscountsList) ?> عروض وخصومات</span>
-                                            <?php endif; ?>
-                                            يمكنكم الاطلاع على جدول الرسوم الكامل لكل مرحلة دراسية، شروط السداد، والتخفيضات في تبويب الرسوم المخصص.
-                                        </div>
-                                    </div>
-                                </div>
-                                <button type="button" class="btn btn-sm btn-success fw-bold px-3 py-2 rounded-3 shadow-sm d-inline-flex align-items-center gap-1" style="font-size: 0.8rem; background: #059669; border-color: #059669;" onclick="switchTab(document.querySelector('[data-target=\'tab-fees\']'), 'tab-fees')">
-                                    <i class="fas fa-coins me-1"></i> فتح تبويب الرسوم الدراسية
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <?php endif; ?>
-
                     <!-- Uploaded Campus Photos Preview in Main Overview (Appears automatically when photos exist) -->
                     <?php if (!empty($galleryList)): ?>
                     <div class="sp-section">
@@ -1411,76 +1367,21 @@ $totalRev = max(1, count($reviewsList));
                                 </div>
                             <?php endif; ?>
                         </div>
-                    </div>
-
-                    <!-- Quick Admission Banner inside Overview -->
-                    <div class="mt-4 p-3 rounded-4 border d-flex align-items-center justify-content-between flex-wrap gap-3" style="background: #F0F4F8; border-color: #1E5FA8 !important;">
-                        <div class="d-flex align-items-center gap-3">
-                            <div style="width: 46px; height: 46px; border-radius: 14px; background: #F5A020; display: flex; align-items: center; justify-content: center; color: #FFFFFF; font-size: 1.2rem; flex-shrink: 0;">
-                                <i class="fas fa-user-graduate"></i>
-                            </div>
-                            <div>
-                                <h6 class="fw-bold mb-1" style="color: var(--brand-navy); font-size: 0.95rem;">التقديم والقبول الإلكتروني متاح الآن</h6>
-                                <p class="mb-0 text-muted" style="font-size: 0.74rem;">يمكنكم الاطلاع على شروط ومستندات القبول وتقديم طلب تسجيل إلكتروني رسمي للعام الدراسي.</p>
-                            </div>
-                        </div>
-                        <button type="button" class="btn-luxury-gold px-3 py-2 fw-bold" onclick="switchTab(document.querySelector('[data-target=\'tab-admission\']'), 'tab-admission')">
-                            <i class="fas fa-file-signature me-1"></i> فتح بوابة القبول والتسجيل
-                        </button>
-                    </div>
-
                 </div>
 
                 <!-- TAB: FEES (بوابة الرسوم الدراسية والتسهيلات المالية) -->
                 <div id="tab-fees" class="sp-tab-pane" style="display: none;">
                     
-                    <!-- 1. Fees Hero Banner -->
-                    <div class="sp-section mb-4" style="background: #0B2A52; color: #ffffff; border-radius: 18px; padding: 26px; border: 1px solid #1E5FA8;">
-                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
-                            <div>
-                                <div class="d-flex align-items-center gap-2 mb-2 flex-wrap">
-                                    <span class="badge" style="background: rgba(255,255,255,0.18); color: #ffffff; font-size: 0.75rem; font-weight: 700; padding: 5px 12px; border-radius: 20px;">
-                                        <i class="fas fa-coins me-1 text-warning"></i> الرسوم المعتمدة
-                                    </span>
-                                    <span class="badge" style="background: #F5A020; color: #ffffff; font-size: 0.75rem; padding: 5px 12px; border-radius: 20px;">
-                                        <i class="fas fa-calendar-alt me-1"></i> العام الدراسي الجديد
-                                    </span>
-                                    <?php if (!empty($feeDiscountsList)): ?>
-                                    <span class="badge" style="background: rgba(255,255,255,0.15); color: #F5A020; font-size: 0.75rem; font-weight: 700; padding: 5px 12px; border-radius: 20px;">
-                                        <i class="fas fa-tags me-1"></i> <?= count($feeDiscountsList) ?> عروض وخصومات متاحة
-                                    </span>
-                                    <?php endif; ?>
-                                </div>
-                                <h4 class="fw-bold mb-1" style="font-size: 1.25rem;">الرسوم الدراسية والتسهيلات المالية</h4>
-                                <p class="mb-0 text-light opacity-75" style="font-size: 0.76rem; max-width: 580px; line-height: 1.6;">
-                                    تفاصيل الرسوم لكافة المراحل الدراسية، بنود وخيارات السداد، والمنح والعروض التشجيعية المتاحة في <?= e($school['name']) ?> لتيسير تعليم أبنائكم.
-                                </p>
-                            </div>
-                            <div class="d-flex flex-column gap-2 text-md-end">
-                                <button type="button" class="btn btn-sm btn-luxury-gold px-3 py-2 fw-bold d-inline-flex align-items-center justify-content-center gap-2 shadow-sm" onclick="switchTab(document.querySelector('[data-target=\'tab-admission\']'), 'tab-admission')">
-                                    <i class="fas fa-file-signature"></i>
-                                    <span>الانتقال لبوابة القبول</span>
-                                </button>
-                                <?php if (!empty($school['whatsapp'])): ?>
-                                <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $school['whatsapp']) ?>?text=<?= urlencode('مرحباً بكم، أود الاستفسار عن تفاصيل الرسوم الدراسية وخيارات السداد في ' . $school['name']) ?>" target="_blank" class="btn btn-sm btn-outline-light px-3 py-2 rounded-3 d-inline-flex align-items-center justify-content-center gap-2">
-                                    <i class="fab fa-whatsapp"></i>
-                                    <span>استفسار مالي عبر واتساب</span>
-                                </a>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 2. Detailed Fees Table or Overview -->
+                    <!-- Detailed Fees Table or Overview -->
                     <?php if (($feesType === 'detailed' && !empty($stageFeesList)) || !empty($school['approx_fees'])): ?>
                     <div class="sp-section" id="school-fees-section">
                         <div class="sp-section-head">
                             <div class="sp-section-title">
-                                <div class="title-icon" style="background: #ECFDF5; color: #059669;"><i class="fas fa-receipt"></i></div>
+                                <div class="title-icon" style="background: #F0F4F8; color: #1E5FA8;"><i class="fas fa-receipt text-warning"></i></div>
                                 جدول الرسوم حسب المرحلة والصف الدراسي
                             </div>
                             <?php if ($feesType === 'detailed' && !empty($stageFeesList)): ?>
-                                <span class="badge" style="background: #ECFDF5; color: #047857; border: 1px solid #A7F3D0; border-radius: 20px; padding: 5px 12px; font-size: 0.74rem; font-weight: 800;">
+                                <span class="badge" style="background: #F0F4F8; color: #1E5FA8; border: 1px solid #DDE4ED; border-radius: 20px; padding: 5px 12px; font-size: 0.74rem; font-weight: 800;">
                                     <?= count($stageFeesList) ?> مراحل معتمدة
                                 </span>
                             <?php endif; ?>
@@ -1506,7 +1407,7 @@ $totalRev = max(1, count($reviewsList));
                                             <td style="font-size: 0.78rem; color: #334155; padding: 12px 14px;">
                                                 <?= e($item['title'] ?? '') ?>
                                             </td>
-                                            <td style="font-size: 0.85rem; font-weight: 800; color: #059669; padding: 12px 14px;">
+                                            <td style="font-size: 0.85rem; font-weight: 800; color: #0B2A52; padding: 12px 14px;">
                                                 <?= e($item['amount'] ?? '') ?>
                                             </td>
                                             <td style="font-size: 0.74rem; color: #64748B; padding: 12px 14px;">
@@ -1533,7 +1434,7 @@ $totalRev = max(1, count($reviewsList));
                     <?php else: ?>
                     <div class="sp-section" id="school-fees-section">
                         <div class="sp-section-body text-center p-5">
-                            <div style="width: 60px; height: 60px; border-radius: 50%; background: #ECFDF5; color: #059669; font-size: 1.5rem; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 12px;">
+                            <div style="width: 60px; height: 60px; border-radius: 50%; background: #F0F4F8; color: #1E5FA8; font-size: 1.5rem; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 12px;">
                                 <i class="fas fa-coins"></i>
                             </div>
                             <h6 class="fw-bold text-dark mb-1">الرسوم الدراسية تحدد مع إدارة المدرسة</h6>
@@ -1563,10 +1464,10 @@ $totalRev = max(1, count($reviewsList));
                     <div class="sp-section mt-4">
                         <div class="sp-section-head">
                             <div class="sp-section-title">
-                                <div class="title-icon" style="background: #FAF5FF; color: #9333EA;"><i class="fas fa-gift"></i></div>
+                                <div class="title-icon" style="background: #F0F4F8; color: #1E5FA8;"><i class="fas fa-gift text-warning"></i></div>
                                 العروض والخصومات والمنح الدراسية
                             </div>
-                            <span class="badge" style="background: #FAF5FF; color: #7E22CE; border: 1px solid #E9D5FF; border-radius: 20px; padding: 5px 12px; font-size: 0.74rem; font-weight: 800;">
+                            <span class="badge" style="background: #F0F4F8; color: #1E5FA8; border: 1px solid #DDE4ED; border-radius: 20px; padding: 5px 12px; font-size: 0.74rem; font-weight: 800;">
                                 <?= count($feeDiscountsList) ?> عروض نشطة
                             </span>
                         </div>
@@ -1604,58 +1505,21 @@ $totalRev = max(1, count($reviewsList));
                     </div>
                     <?php endif; ?>
 
-                    <!-- 4. Next Step: Call To Action to Admission Tab -->
-                    <div class="mt-4 p-4 rounded-4 border d-flex align-items-center justify-content-between flex-wrap gap-3" style="background: #F0F4F8; border-color: #1E5FA8 !important;">
-                        <div class="d-flex align-items-center gap-3">
-                            <div style="width: 48px; height: 48px; border-radius: 14px; background: #0B2A52; display: flex; align-items: center; justify-content: center; color: #FFFFFF; font-size: 1.3rem; flex-shrink: 0;">
-                                <i class="fas fa-user-graduate"></i>
-                            </div>
-                            <div>
-                                <h6 class="fw-bold mb-1" style="color: #0B2A52; font-size: 0.95rem;">هل أنت جاهز لتسجيل ابنك في المدرسة؟</h6>
-                                <p class="mb-0 text-muted" style="font-size: 0.76rem;">انتقل إلى بوابة القبول والتسجيل للاطلاع على الشروط والمستندات المطلوبة وتقديم طلب القبول الإلكتروني مباشرة.</p>
-                            </div>
-                        </div>
-                        <button type="button" class="btn-luxury-primary px-3 py-2 fw-bold" style="background: #F5A020; color: #FFFFFF; border: none;" onclick="switchTab(document.querySelector('[data-target=\'tab-admission\']'), 'tab-admission')">
-                            <i class="fas fa-file-signature me-1"></i> التقديم في القبول والتسجيل
-                        </button>
-                    </div>
-
+                    
                 </div>
 
                 <!-- TAB: ADMISSION (بوابة القبول والتسجيل المنفصلة) -->
                 <div id="tab-admission" class="sp-tab-pane" style="display: none;">
                     
-                    <!-- 1. Admission Hero / Status Banner -->
-                    <div class="sp-section mb-4" style="background: #0B2A52; color: #ffffff; border-radius: 18px; padding: 26px; border: 1px solid #1E5FA8;">
-                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
-                            <div>
-                                <div class="d-flex align-items-center gap-2 mb-2">
-                                    <span class="badge" style="background: <?= $currAdmCfg['color'] ?>; color: #ffffff; font-size: 0.75rem; font-weight: 700; padding: 5px 12px; border-radius: 20px;">
-                                        <i class="fas <?= $currAdmCfg['icon'] ?> me-1"></i> <?= $currAdmCfg['badge'] ?>
-                                    </span>
-                                    <span class="badge" style="background: rgba(255,255,255,0.15); color: #FCD34D; font-size: 0.75rem; padding: 5px 12px; border-radius: 20px;">
-                                        <i class="fas fa-calendar-alt me-1"></i> العام الدراسي الجديد
-                                    </span>
-                                </div>
-                                <h4 class="fw-bold mb-1" style="font-size: 1.25rem;">بوابة القبول والتسجيل الإلكتروني</h4>
-                                <p class="mb-0 text-light opacity-75" style="font-size: 0.76rem; max-width: 580px; line-height: 1.6;">
-                                    مرحباً بكم في قسم القبول والتسجيل بـ <?= e($school['name']) ?>. يسعدنا استقبال طلباتكم وانضمام أبنائكم إلى مسيرتنا التعليمية. يمكنك تقديم طلب التسجيل الإلكتروني ومتابعة الإجراءات بكل يسر وسهولة.
-                                </p>
-                            </div>
-                            <div class="d-flex flex-column gap-2 text-md-end">
-                                <?php if (!empty($school['whatsapp'])): ?>
-                                <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $school['whatsapp']) ?>?text=<?= urlencode('مرحباً بكم، أود الاستفسار عن متطلبات القبول والتسجيل في ' . $school['name']) ?>" target="_blank" class="btn btn-sm btn-success fw-bold px-3 py-2 rounded-3 d-inline-flex align-items-center justify-content-center gap-2 shadow-sm">
-                                    <i class="fab fa-whatsapp fs-6"></i>
-                                    <span>واتساب مكتب القبول</span>
-                                </a>
-                                <?php endif; ?>
-                                <?php if (!empty($school['phone'])): ?>
-                                <a href="tel:<?= e($school['phone']) ?>" class="btn btn-sm btn-outline-light px-3 py-2 rounded-3 d-inline-flex align-items-center justify-content-center gap-2">
-                                    <i class="fas fa-phone-alt"></i>
-                                    <span>اتصال: <?= e($school['phone']) ?></span>
-                                </a>
-                                <?php endif; ?>
-                            </div>
+                    <!-- Admission Status Info Bar -->
+                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-4 pb-2 border-bottom">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="badge" style="background: <?= $currAdmCfg['color'] ?>; color: #ffffff; font-size: 0.74rem; font-weight: 700; padding: 5px 12px; border-radius: 20px;">
+                                <i class="fas <?= $currAdmCfg['icon'] ?> me-1"></i> <?= $currAdmCfg['badge'] ?>
+                            </span>
+                            <span class="badge" style="background: #F0F4F8; color: #1E5FA8; font-size: 0.74rem; padding: 5px 12px; border-radius: 20px; border: 1px solid #DDE4ED;">
+                                <i class="fas fa-calendar-alt me-1"></i> العام الدراسي <?= e($school['academic_year'] ?? '') ?>
+                            </span>
                         </div>
                     </div>
 
@@ -1681,7 +1545,7 @@ $totalRev = max(1, count($reviewsList));
                                 </div>
                                 <ul class="list-unstyled mb-0 pe-2" style="font-size: 0.74rem; color: #475569; line-height: 1.8;">
                                     <?php foreach ($admReqs as $rItem): ?>
-                                    <li><i class="fas fa-check text-success me-1"></i> <?= e($rItem) ?></li>
+                                    <li><i class="fas fa-check me-1" style="color: #1E5FA8;"></i> <?= e($rItem) ?></li>
                                     <?php endforeach; ?>
                                 </ul>
                             </div>
@@ -1690,7 +1554,7 @@ $totalRev = max(1, count($reviewsList));
                         <div class="col-md-6">
                             <div class="card h-100 border rounded-4 p-3 shadow-sm bg-white">
                                 <div class="d-flex align-items-center gap-2 mb-2">
-                                    <div style="width: 34px; height: 34px; border-radius: 10px; background: #ECFDF5; color: #059669; display: flex; align-items: center; justify-content: center;">
+                                    <div style="width: 34px; height: 34px; border-radius: 10px; background: #F0F4F8; color: #1E5FA8; display: flex; align-items: center; justify-content: center;">
                                         <i class="fas fa-clipboard-check"></i>
                                     </div>
                                     <h6 class="fw-bold mb-0 text-dark" style="font-size: 0.88rem;">خطوات ومراحل القبول</h6>
@@ -1698,7 +1562,7 @@ $totalRev = max(1, count($reviewsList));
                                 <div class="d-flex flex-column gap-2" style="font-size: 0.73rem; color: #475569;">
                                     <?php foreach ($admSteps as $sIdx => $sItem): ?>
                                     <div class="d-flex align-items-start gap-2">
-                                        <span class="badge bg-primary-subtle text-primary rounded-circle" style="width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.68rem; flex-shrink: 0;"><?= $sIdx + 1 ?></span>
+                                        <span class="badge rounded-circle" style="width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.68rem; flex-shrink: 0; background: #0B2A52; color: #ffffff;"><?= $sIdx + 1 ?></span>
                                         <span><?= e($sItem) ?></span>
                                     </div>
                                     <?php endforeach; ?>
@@ -2344,10 +2208,10 @@ $totalRev = max(1, count($reviewsList));
                         <?php endif; ?>
                         <?php if (!empty($school['created_at'])): ?>
                         <div class="sp-fact-row">
-                            <div class="sp-fact-icon" style="background: #ECFDF5; color: #059669;"><i class="far fa-calendar-check"></i></div>
+                            <div class="sp-fact-icon" style="background: #F0F4F8; color: #1E5FA8;"><i class="far fa-calendar-check"></i></div>
                             <div>
                                 <span class="sp-fact-label">تاريخ الانضمام للدليل</span>
-                                <span class="sp-fact-value" style="color: #059669; font-weight: 700;"><?= arabicDate($school['created_at']) ?></span>
+                                <span class="sp-fact-value fw-bold" style="color: var(--brand-navy);"><?= arabicDate($school['created_at']) ?></span>
                             </div>
                         </div>
                         <?php endif; ?>
@@ -2359,14 +2223,14 @@ $totalRev = max(1, count($reviewsList));
                             </div>
                         </div>
                         <div class="sp-fact-row">
-                            <div class="sp-fact-icon" style="background: #FDF4FF; color: #9333ea;"><i class="fas fa-user-friends"></i></div>
+                            <div class="sp-fact-icon" style="background: #F0F4F8; color: #1E5FA8;"><i class="fas fa-user-friends"></i></div>
                             <div>
                                 <span class="sp-fact-label">نوع الطلاب</span>
                                 <span class="sp-fact-value"><?= SudanGeography::genderTypeLabel($school['gender_type']) ?></span>
                             </div>
                         </div>
                         <div class="sp-fact-row">
-                            <div class="sp-fact-icon" style="background: #F0FDF4; color: #16a34a;"><i class="fas fa-graduation-cap"></i></div>
+                            <div class="sp-fact-icon" style="background: #F0F4F8; color: #1E5FA8;"><i class="fas fa-graduation-cap"></i></div>
                             <div>
                                 <span class="sp-fact-label">المنهج الدراسي</span>
                                 <span class="sp-fact-value"><?= SudanGeography::curriculumLabel($school['curriculum']) ?></span>

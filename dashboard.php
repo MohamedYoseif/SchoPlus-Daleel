@@ -1884,7 +1884,7 @@ require_once __DIR__ . '/header.php';
                                 <div class="dash-card-section">
                                     <div class="dash-sec-header">
                                         <div class="dash-sec-title-wrap">
-                                            <div class="dash-sec-icon" style="background: #F0FDF4; color: #16A34A;">
+                                            <div class="dash-sec-icon" style="background: #F0F4F8; color: #1E5FA8;">
                                                 <i class="fas fa-cubes"></i>
                                             </div>
                                             <div>
@@ -1964,23 +1964,7 @@ require_once __DIR__ . '/header.php';
                                         <span class="badge bg-info-subtle text-info border border-info-subtle px-3 py-1 rounded-pill small fw-bold">الاتصال والدوام</span>
                                     </div>
 
-                                    <!-- Notice Box: Fees Moved to Independent Tab -->
-                                    <div class="p-3 mb-4 rounded-4 d-flex align-items-center justify-content-between flex-wrap gap-3" style="background: #F0F4F8; border: 1.5px solid #1E5FA8;">
-                                        <div class="d-flex align-items-center gap-3">
-                                            <div style="width: 42px; height: 42px; border-radius: 12px; background: #0B2A52; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; flex-shrink: 0;">
-                                                <i class="fas fa-coins text-warning"></i>
-                                            </div>
-                                            <div>
-                                                <div class="fw-bold text-dark" style="font-size: 0.92rem;">الرسوم الدراسية والعروض والخصومات أصبحت في تبويب مستقل!</div>
-                                                <small class="text-secondary d-block" style="font-size: 0.74rem;">
-                                                    لإدارة وتخصيص جدول الرسوم للمراحل التعليمية والعروض الترويجية بشكل منفصل ومريح، تم تخصيص تبويب كامل في القائمة الرئيسية.
-                                                </small>
-                                            </div>
-                                        </div>
-                                        <button type="button" class="btn btn-sm fw-bold px-3 py-2 rounded-3 text-white shadow-sm d-inline-flex align-items-center gap-1" style="background: #F5A020; border: none;" onclick="document.getElementById('dash-fees-tab').click()">
-                                            <i class="fas fa-coins me-1"></i> فتح تبويب الرسوم والعروض
-                                        </button>
-                                    </div>
+                                    
 
                                     <!-- Contacts and Working Hours Fields -->
                                     <div class="row g-3">
@@ -2220,25 +2204,22 @@ require_once __DIR__ . '/header.php';
                         <input type="hidden" name="action" value="update_school_fees">
                         <input type="hidden" name="tab" value="fees">
 
-                        <!-- 1. Fees Header Banner -->
-                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-4 p-4 rounded-4" style="background: #0B2A52; color: #ffffff;">
+                        <!-- Header & Quick Preview Action -->
+                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4 pb-3 border-bottom">
                             <div>
-                                <div class="d-flex align-items-center gap-2 mb-2 flex-wrap">
-                                    <span class="badge bg-white px-3 py-1 rounded-pill fw-bold small" style="color: #0B2A52;">
-                                        <i class="fas fa-coins me-1 text-warning"></i> إدارة الرسوم والخصومات
-                                    </span>
-                                    <span class="badge px-3 py-1 rounded-pill fw-bold small text-white" style="background: #F5A020;">
-                                        <i class="fas fa-star me-1"></i> تظهر في صفحة المدرسة بالدليل
-                                    </span>
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="rounded-3 p-2 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: #EFF6FF; color: var(--brand-blue);">
+                                        <i class="fas fa-coins fs-5"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="fw-bold text-dark mb-0">الرسوم الدراسية والتسهيلات المالية</h5>
+                                        <span class="text-muted small">إدارة وتحديد جداول الرسوم للمراحل التعليمية والعروض الترويجية والمنح</span>
+                                    </div>
                                 </div>
-                                <h5 class="fw-bold mb-1">الرسوم الدراسية والتسهيلات والعروض والخصومات</h5>
-                                <p class="small text-light opacity-90 mb-0">
-                                    حدد نظام عرض الرسوم (متوسط عام سريع أو جدول مفصل حسب المراحل)، وأضف المنح والعروض التشجيعية المتاحة لجذب أولياء الأمور.
-                                </p>
                             </div>
-                            <div class="text-md-end">
-                                <a href="/school/<?= urlencode($school['slug']) ?>#tab-fees" target="_blank" class="btn btn-sm btn-light fw-bold rounded-pill px-3 py-2 shadow-sm" style="color: #0B2A52;">
-                                    <i class="fas fa-external-link-alt me-1 text-primary"></i> معاينة تبويب الرسوم بالبروفايل
+                            <div class="d-flex align-items-center gap-2">
+                                <a href="/school/<?= urlencode($school['slug']) ?>#tab-fees" target="_blank" class="btn-luxury-outline btn-sm px-3 py-1">
+                                    <i class="fas fa-external-link-alt me-1"></i> صفحة الرسوم العامة
                                 </a>
                             </div>
                         </div>
@@ -2247,7 +2228,7 @@ require_once __DIR__ . '/header.php';
                         <div class="dash-card-section">
                             <div class="dash-sec-header">
                                 <div class="dash-sec-title-wrap">
-                                    <div class="dash-sec-icon" style="background: #ECFDF5; color: #059669;">
+                                    <div class="dash-sec-icon" style="background: #F0F4F8; color: #1E5FA8;">
                                         <i class="fas fa-sliders-h"></i>
                                     </div>
                                     <div>
@@ -2255,7 +2236,7 @@ require_once __DIR__ . '/header.php';
                                         <p class="dash-sec-desc">اختر ما إذا كنت ترغب في عرض رقم متوسط سريع، أو جدول تفصيلي كامل لكل مرحلة وصف دراسي.</p>
                                     </div>
                                 </div>
-                                <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-1 rounded-pill small fw-bold">نظام الرسوم</span>
+                                <span class="badge bg-light text-dark border px-3 py-1 rounded-pill small fw-bold">نظام الرسوم</span>
                             </div>
 
                             <div class="row g-3 mb-4">
@@ -2302,7 +2283,7 @@ require_once __DIR__ . '/header.php';
                         <div class="dash-card-section" id="feesDetailedBox" style="<?= $currentFeesType === 'detailed' ? '' : 'display: none;' ?>">
                             <div class="dash-sec-header">
                                 <div class="dash-sec-title-wrap">
-                                    <div class="dash-sec-icon" style="background: #F0FDF4; color: #16A34A;">
+                                    <div class="dash-sec-icon" style="background: #F0F4F8; color: #1E5FA8;">
                                         <i class="fas fa-table-list"></i>
                                     </div>
                                     <div>
@@ -2310,7 +2291,7 @@ require_once __DIR__ . '/header.php';
                                         <p class="dash-sec-desc">أضف بنود الرسوم لكل مرحلة تعليمية أو صف دراسي، مع تحديد المبلغ وطريقة السداد والأقساط.</p>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-sm btn-success fw-bold px-3 rounded-pill" onclick="addStageFeeRow()">
+                                <button type="button" class="btn btn-sm btn-primary fw-bold px-3 rounded-pill" style="background: #1E5FA8; border-color: #1E5FA8;" onclick="addStageFeeRow()">
                                     <i class="fas fa-plus me-1"></i> إضافة بند دراسي جديد
                                 </button>
                             </div>
@@ -3407,7 +3388,7 @@ require_once __DIR__ . '/header.php';
                             <div class="dash-card-section mb-4">
                                 <div class="dash-sec-header">
                                     <div class="dash-sec-title-wrap">
-                                        <div class="dash-sec-icon" style="background: #ECFDF5; color: #059669;">
+                                        <div class="dash-sec-icon" style="background: #F0F4F8; color: #1E5FA8;">
                                             <i class="fas fa-toggle-on"></i>
                                         </div>
                                         <div>
