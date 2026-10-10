@@ -1,6 +1,14 @@
     </main>
 
     <!-- Footer -->
+    <?php
+    $isDaleelMobile = (
+        (!empty($_SERVER['HTTP_USER_AGENT']) && str_contains($_SERVER['HTTP_USER_AGENT'], 'SchoPlusDaleelMobile')) ||
+        (!empty($_COOKIE['is_daleel_app']) && $_COOKIE['is_daleel_app'] === '1') ||
+        (isset($_GET['app']) && $_GET['app'] === 'daleel')
+    );
+    if (!$isDaleelMobile):
+    ?>
     <footer class="daleel-footer" style="background-color: #F5ECE0; border-top: 1px solid #E6DCCD; padding: 60px 0 30px; margin-top: 70px; color: #4B5563;">
         <div class="container">
             <div class="row g-4">
@@ -67,6 +75,7 @@
             </div>
         </div>
     </footer>
+    <?php endif; ?>
 
     <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.webkit.CookieManager;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
@@ -199,6 +200,11 @@ public class MainActivity extends AppCompatActivity {
                 if (topProgressBar != null) {
                     topProgressBar.setVisibility(View.VISIBLE);
                 }
+                try {
+                    CookieManager cookieManager = CookieManager.getInstance();
+                    cookieManager.setAcceptCookie(true);
+                    cookieManager.setCookie("https://daleel.schoplus.sd", "is_daleel_app=1; path=/");
+                } catch (Exception ignored) {}
             }
 
             @Override
@@ -209,6 +215,19 @@ public class MainActivity extends AppCompatActivity {
                     topProgressBar.setVisibility(View.GONE);
                 }
                 dismissAnimatedSplashScreen();
+
+                // Pure Mobile App Shell Isolation: Guarantee removal of web topbars and footers
+                String hideScript = "javascript:(function() {" +
+                        "  var style = document.getElementById('daleel-app-isolation-style');" +
+                        "  if (!style) {" +
+                        "    style = document.createElement('style');" +
+                        "    style.id = 'daleel-app-isolation-style';" +
+                        "    style.innerHTML = 'header.daleel-navbar, .daleel-topbar, .daleel-topbar-mobile, .daleel-footer, footer, #daleel-footer { display: none !important; visibility: hidden !important; height: 0 !important; margin: 0 !important; padding: 0 !important; }';" +
+                        "    document.head.appendChild(style);" +
+                        "  }" +
+                        "  document.body.classList.add('is-daleel-app');" +
+                        "})();";
+                view.evaluateJavascript(hideScript, null);
             }
 
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -285,6 +304,27 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             } catch (Exception e) {
                 return false;
+            }
+        }
+
+        // Keep inside Mobile App Shell: Map Web School Links to Mobile School View
+        if (url.contains("daleel.schoplus.sd")) {
+            Uri parsedUri = Uri.parse(url);
+            String path = parsedUri.getPath();
+
+            // Redirect web school profile to native mobile view
+            if (path != null && (path.equals("/school.php") || path.startsWith("/school/"))) {
+                String schoolId = parsedUri.getQueryParameter("id");
+                if (schoolId != null && !schoolId.isEmpty()) {
+                    webView.loadUrl("https://daleel.schoplus.sd/mobile/?school_id=" + schoolId);
+                    return true;
+                }
+            } else if (path != null && (path.equals("/") || path.equals("/index.php"))) {
+                // If user clicks home link inside web page, route to native mobile home
+                if (!url.contains("/mobile/")) {
+                    webView.loadUrl("https://daleel.schoplus.sd/mobile/");
+                    return true;
+                }
             }
         }
 

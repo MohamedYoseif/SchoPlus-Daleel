@@ -1253,13 +1253,6 @@ $allNews = $newsStmt->fetchAll();
                 </div>
             <?php endif; ?>
 
-            <!-- Web Profile Full Link -->
-            <div class="text-center my-3">
-                <a href="/school.php?id=<?= (int)$s['id'] ?>" target="_blank" class="btn btn-sm btn-light border rounded-pill px-4 py-2 fw-bold text-secondary" style="font-size:0.75rem;">
-                    <i class="fas fa-external-link-alt me-1"></i> فتح الملف الكامل في المتصفح
-                </a>
-            </div>
-
         </div>
 
     <?php elseif ($tab === 'news'): ?>

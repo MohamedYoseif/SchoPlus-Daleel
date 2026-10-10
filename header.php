@@ -2,6 +2,12 @@
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/SudanGeography.php';
 $currSchool = currentSchool();
+
+$isDaleelMobile = (
+    (!empty($_SERVER['HTTP_USER_AGENT']) && str_contains($_SERVER['HTTP_USER_AGENT'], 'SchoPlusDaleelMobile')) ||
+    (!empty($_COOKIE['is_daleel_app']) && $_COOKIE['is_daleel_app'] === '1') ||
+    (isset($_GET['app']) && $_GET['app'] === 'daleel')
+);
 ?>
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
@@ -153,6 +159,19 @@ $currSchool = currentSchool();
             .ambient-cream-glow {
                 display: none !important;
             }
+        }
+
+        /* Pure Mobile App Shell Isolation: Hide Web Nav and Footers */
+        body.is-daleel-app .daleel-topbar,
+        body.is-daleel-app .daleel-topbar-mobile,
+        body.is-daleel-app .daleel-navbar,
+        body.is-daleel-app .daleel-footer,
+        body.is-daleel-app footer {
+            display: none !important;
+            visibility: hidden !important;
+            height: 0 !important;
+            padding: 0 !important;
+            margin: 0 !important;
         }
 
         /* Top Bar & Navbar */
@@ -589,7 +608,8 @@ $currSchool = currentSchool();
     </style>
 
 </head>
-<body>
+<body class="<?= $isDaleelMobile ? 'is-daleel-app' : '' ?>">
+    <?php if (!$isDaleelMobile): ?>
     <!-- Mobile Topbar (visible only on small screens) -->
     <div class="daleel-topbar-mobile">
         <span class="text-muted"><i class="fas fa-book-reader text-warning me-1"></i> خدمة رقمية من منظومة ايسكو بلص</span>
@@ -715,6 +735,7 @@ $currSchool = currentSchool();
 
         </div>
     </header>
+    <?php endif; ?>
 
     <main>
         <?php if (!empty($_SESSION['flash_msg'])): ?>
