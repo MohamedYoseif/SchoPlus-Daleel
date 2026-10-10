@@ -387,6 +387,60 @@ require_once __DIR__ . '/header.php';
     white-space: nowrap;
 }
 
+/* Cover Identity Bar (Logo + School Name inside Cover) */
+.sp-cover-identity-bar {
+    position: absolute;
+    bottom: 20px;
+    right: 28px;
+    left: 28px;
+    z-index: 3;
+}
+.sp-cover-logo-box {
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+    background: #FFFFFF;
+    padding: 6px;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.3);
+    border: 3.5px solid rgba(255,255,255,0.95);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.sp-cover-logo-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 14px;
+}
+.sp-cover-title-box {
+    color: #FFFFFF;
+}
+.sp-cover-school-name {
+    font-size: clamp(1.25rem, 2.4vw, 1.7rem);
+    color: #FFFFFF;
+    line-height: 1.25;
+    font-weight: 800;
+    margin: 0;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.45);
+}
+.sp-cover-school-en {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.88);
+    font-weight: 600;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.35);
+}
+.sp-cover-school-meta {
+    font-size: 0.76rem;
+    color: rgba(255,255,255,0.92);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.35);
+}
+
 .sp-profile-card {
     background: #FFFFFF;
     border-radius: 0 0 24px 24px;
@@ -851,7 +905,29 @@ require_once __DIR__ . '/header.php';
         font-size: 0.7rem !important;
         padding: 4px 8px !important;
     }
-        .sp-profile-card {
+            .sp-cover-identity-bar {
+        bottom: 12px !important;
+        right: 14px !important;
+        left: 14px !important;
+    }
+    .sp-cover-logo-box {
+        width: 76px !important;
+        height: 76px !important;
+        border-radius: 16px !important;
+        padding: 4px !important;
+        border-width: 2.5px !important;
+    }
+    .sp-cover-school-name {
+        font-size: 1.15rem !important;
+        line-height: 1.3 !important;
+    }
+    .sp-cover-school-en {
+        font-size: 0.72rem !important;
+    }
+    .sp-cover-school-meta {
+        font-size: 0.7rem !important;
+    }
+.sp-profile-card {
         padding: 0 16px 20px !important;
         border-radius: 0 0 18px 18px !important;
     }
