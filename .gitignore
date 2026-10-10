@@ -1,0 +1,12 @@
+# Git Ignore for daleel.schoplus.sd
+.DS_Store
+Thumbs.db
+*.log
+
+# Keep upload directories but ignore uploaded images
+uploads/logos/*
+!uploads/logos/.gitkeep
+uploads/covers/*
+!uploads/covers/.gitkeep
+uploads/news/*
+!uploads/news/.gitkeep

@@ -1,0 +1,15 @@
+# SchoPlus Schools Directory (.htaccess)
+Options -Indexes +FollowSymLinks
+RewriteEngine On
+
+# Allow direct access to real files and directories
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# School Profile Pretty URL: /school/{slug} -> school.php?slug={slug}
+RewriteRule ^school/([a-zA-Z0-9\-_%]+)/?$ school.php?slug=$1 [L,QSA]
+
+# Optional clean URLs for pages
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^([a-zA-Z0-9\-_]+)/?$ $1.php [L,QSA]
