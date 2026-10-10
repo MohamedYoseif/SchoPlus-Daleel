@@ -7,6 +7,8 @@
         <item name="android:statusBarColor">@color/colorPrimary</item>
         <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
         <item name="android:windowLightStatusBar">false</item>
+        <item name="fontFamily">@font/cairo</item>
+        <item name="android:fontFamily">@font/cairo</item>
     </style>
 
     <style name="Theme.DaleelSchoPlus.Splash" parent="Theme.SplashScreen">

@@ -41,7 +41,13 @@ function formatSchool(array $s, PDO $pdo): array {
     $galleryUrls = [];
     if (is_array($gallery)) {
         foreach ($gallery as $img) {
-            $galleryUrls[] = $baseUrl . '/' . ltrim($img, '/');
+            if (is_string($img) && trim($img) !== '') {
+                $galleryUrls[] = $baseUrl . '/' . ltrim(trim($img), '/');
+            } elseif (is_array($img) && !empty($img['path']) && is_string($img['path'])) {
+                $galleryUrls[] = $baseUrl . '/' . ltrim(trim($img['path']), '/');
+            } elseif (is_array($img) && !empty($img['url']) && is_string($img['url'])) {
+                $galleryUrls[] = $baseUrl . '/' . ltrim(trim($img['url']), '/');
+            }
         }
     }
 
@@ -74,6 +80,8 @@ function formatSchool(array $s, PDO $pdo): array {
         'vision'              => (string)($s['vision'] ?? ''),
         'mission'             => (string)($s['mission'] ?? ''),
         'approx_fees'         => (string)($s['approx_fees'] ?? ''),
+        'fees_type'           => (string)($s['fees_type'] ?? 'average'),
+        'stage_fees'          => !empty($s['stage_fees']) ? (json_decode($s['stage_fees'], true) ?: []) : [],
         'is_schoplus_client'  => (bool)$s['is_schoplus_client'],
         'is_verified'         => (bool)$s['is_verified'],
         'is_featured'         => (bool)$s['is_featured'],

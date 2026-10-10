@@ -45,10 +45,17 @@ public class ApiClient {
                 }
                 reader.close();
 
-                final String result = sb.toString();
+                String result = sb.toString().trim();
+                // If response accidentally has HTML warning prefix, extract the JSON portion
+                int jsonStart = result.indexOf("{");
+                if (jsonStart > 0) {
+                    result = result.substring(jsonStart);
+                }
+
+                final String finalResult = result;
                 mainHandler.post(() -> {
                     if (callback != null) {
-                        callback.onSuccess(result);
+                        callback.onSuccess(finalResult);
                     }
                 });
 

@@ -233,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 } catch (Exception e) {
-                    Toast.makeText(MainActivity.this, "تعذر قراءة البيانات: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    // Fail silently or log
                 }
             }
 
@@ -241,7 +241,6 @@ public class MainActivity extends AppCompatActivity {
             public void onError(Exception e) {
                 pbLoading.setVisibility(View.GONE);
                 swipeRefreshLayout.setRefreshing(false);
-                Toast.makeText(MainActivity.this, "فشل الاتصال بالخادم. تأكد من اتصال الإنترنت.", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -290,8 +289,7 @@ public class MainActivity extends AppCompatActivity {
                             tvEmptyState.setVisibility(schoolList.isEmpty() ? View.VISIBLE : View.GONE);
                         }
                     }
-                } catch (Exception e) {
-                    Toast.makeText(MainActivity.this, "خطأ: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                } catch (Exception ignored) {
                 }
             }
 

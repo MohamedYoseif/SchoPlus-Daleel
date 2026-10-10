@@ -288,6 +288,8 @@ function ensureTablesExist(PDO $pdo): void {
         vision TEXT NULL,
         mission TEXT NULL,
         approx_fees VARCHAR(100) NULL,
+        fees_type VARCHAR(50) NOT NULL DEFAULT 'average',
+        stage_fees LONGTEXT NULL,
         working_hours VARCHAR(100) NULL,
         facilities TEXT NULL,
         branches_data LONGTEXT NULL,
@@ -386,6 +388,8 @@ function ensureTablesExist(PDO $pdo): void {
             'optional_tabs'   => "ALTER TABLE daleel_schools ADD COLUMN optional_tabs TEXT NULL AFTER teachers_data",
             'directory_rank'  => "ALTER TABLE daleel_schools ADD COLUMN directory_rank INT UNSIGNED NULL DEFAULT NULL AFTER is_featured",
             'established_year'=> "ALTER TABLE daleel_schools ADD COLUMN established_year VARCHAR(50) NULL AFTER curriculum",
+            'fees_type'       => "ALTER TABLE daleel_schools ADD COLUMN fees_type VARCHAR(50) NOT NULL DEFAULT 'average' AFTER approx_fees",
+            'stage_fees'      => "ALTER TABLE daleel_schools ADD COLUMN stage_fees LONGTEXT NULL AFTER fees_type",
         ];
         foreach ($alterStatements as $colName => $sql) {
             if (!isset($existingCols[$colName])) {

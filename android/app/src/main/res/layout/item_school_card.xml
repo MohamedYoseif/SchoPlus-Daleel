@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="12dp"
-    android:layout_marginEnd="12dp"
-    android:layout_marginTop="6dp"
-    android:layout_marginBottom="6dp"
+    android:layout_marginStart="14dp"
+    android:layout_marginEnd="14dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="7dp"
     app:cardCornerRadius="14dp"
     app:cardElevation="2dp"
-    app:cardBackgroundColor="@color/colorWhite">
+    app:cardBackgroundColor="@color/colorCardBg">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,11 +23,11 @@
             android:orientation="horizontal"
             android:gravity="center_vertical">
 
-            <!-- Logo / Icon -->
+            <!-- Logo Frame -->
             <ImageView
                 android:id="@+id/imgSchoolLogo"
-                android:layout_width="52dp"
-                android:layout_height="52dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_marginEnd="12dp"
                 android:background="@drawable/bg_pill_chip"
                 android:padding="6dp"
@@ -51,8 +51,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="مدارس النخبة النموذجية"
-                        android:textColor="@color/colorTextDark"
-                        android:textSize="15sp"
+                        android:textColor="@color/colorTextHeading"
+                        android:textSize="14.5sp"
+                        android:fontFamily="@font/cairo"
                         android:textStyle="bold" />
 
                     <TextView
@@ -61,36 +62,47 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="6dp"
                         android:background="@drawable/bg_badge_gold"
-                        android:paddingStart="6dp"
-                        android:paddingEnd="6dp"
-                        android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
+                        android:paddingStart="7dp"
+                        android:paddingEnd="7dp"
+                        android:paddingTop="1.5dp"
+                        android:paddingBottom="1.5dp"
                         android:text="⚡ SchoPlus"
                         android:textColor="#B45309"
-                        android:textSize="10sp"
+                        android:textSize="10.5sp"
+                        android:fontFamily="@font/cairo"
                         android:textStyle="bold"
                         android:visibility="gone" />
 
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tvLocation"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:text="الخرطوم — بحري"
-                    android:textColor="@color/colorTextMuted"
-                    android:textSize="12sp" />
+                    android:layout_marginTop="1dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
 
-                <TextView
-                    android:id="@+id/tvEstablished"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:text="تأسست: 2012"
-                    android:textColor="#059669"
-                    android:textSize="11sp"
-                    android:visibility="gone" />
+                    <TextView
+                        android:id="@+id/tvLocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="الخرطوم — بحري"
+                        android:textColor="@color/colorTextBody"
+                        android:textSize="11.5sp"
+                        android:fontFamily="@font/cairo" />
+
+                    <TextView
+                        android:id="@+id/tvEstablished"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="• تأسست: 2012"
+                        android:textColor="@color/colorGreen"
+                        android:textSize="11.5sp"
+                        android:fontFamily="@font/cairo"
+                        android:visibility="gone" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -104,12 +116,12 @@
                 android:background="@drawable/bg_pill_chip"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp">
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp">
 
                 <ImageView
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
                     android:src="@drawable/ic_nav_star"
                     app:tint="@color/colorGold"
                     android:contentDescription="تقييم" />
@@ -120,8 +132,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:text="4.9"
-                    android:textColor="@color/colorTextDark"
+                    android:textColor="@color/colorTextHeading"
                     android:textSize="12sp"
+                    android:fontFamily="@font/cairo"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -137,15 +150,22 @@
             android:maxLines="2"
             android:ellipsize="end"
             android:text="مؤسسة تعليمية نموذجية تقدم تعليماً متطوراً وشاملاً..."
-            android:textColor="@color/colorTextMuted"
+            android:textColor="@color/colorTextBody"
             android:textSize="12sp"
+            android:fontFamily="@font/cairo"
             android:lineSpacingExtra="2dp" />
 
-        <!-- Bottom Action Bar -->
+        <!-- Bottom Action Bar (Divider & Actions) -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/colorBorder" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:orientation="horizontal"
             android:gravity="center_vertical">
 
@@ -154,13 +174,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_pill_chip"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                android:paddingTop="3dp"
-                android:paddingBottom="3dp"
+                android:paddingStart="9dp"
+                android:paddingEnd="9dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
                 android:text="مدرسة خاصة"
                 android:textColor="@color/colorBlue"
-                android:textSize="11sp"
+                android:textSize="11.5sp"
+                android:fontFamily="@font/cairo"
                 android:textStyle="bold" />
 
             <View
@@ -168,28 +189,64 @@
                 android:layout_height="1dp"
                 android:layout_weight="1" />
 
-            <!-- WhatsApp Button -->
-            <ImageView
+            <!-- WhatsApp Action Button -->
+            <LinearLayout
                 android:id="@+id/btnSchoolWhatsapp"
-                android:layout_width="32dp"
+                android:layout_width="wrap_content"
                 android:layout_height="32dp"
                 android:layout_marginEnd="6dp"
                 android:background="@drawable/bg_pill_chip"
-                android:padding="6dp"
-                android:src="@android:drawable/ic_dialog_email"
-                app:tint="#25D366"
-                android:contentDescription="واتساب" />
+                android:gravity="center_vertical"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp">
 
-            <!-- Call Button -->
-            <ImageView
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@android:drawable/ic_dialog_email"
+                    app:tint="#25D366"
+                    android:contentDescription="واتساب" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="واتساب"
+                    android:textColor="#16A34A"
+                    android:textSize="11sp"
+                    android:fontFamily="@font/cairo"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <!-- Call Action Button -->
+            <LinearLayout
                 android:id="@+id/btnSchoolCall"
-                android:layout_width="32dp"
+                android:layout_width="wrap_content"
                 android:layout_height="32dp"
                 android:background="@drawable/bg_pill_chip"
-                android:padding="6dp"
-                android:src="@android:drawable/ic_menu_call"
-                app:tint="@color/colorBlue"
-                android:contentDescription="اتصال" />
+                android:gravity="center_vertical"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@android:drawable/ic_menu_call"
+                    app:tint="@color/colorBlue"
+                    android:contentDescription="اتصال" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="اتصال"
+                    android:textColor="@color/colorBlue"
+                    android:textSize="11sp"
+                    android:fontFamily="@font/cairo"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
 
         </LinearLayout>
 

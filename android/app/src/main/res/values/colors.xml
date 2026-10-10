@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- SchoPlus Ocean Brand System Palette -->
     <color name="colorPrimary">#0B2A52</color>
-    <color name="colorPrimaryDark">#071C38</color>
+    <color name="colorPrimaryDark">#061830</color>
     <color name="colorAccent">#F5A020</color>
     <color name="colorGold">#F5A020</color>
+    <color name="colorGoldDark">#D97706</color>
     <color name="colorNavy">#0B2A52</color>
+    <color name="colorNavyLight">#163870</color>
     <color name="colorBlue">#1E5FA8</color>
-    <color name="colorBg">#F8FAFC</color>
+    <color name="colorBlueLight">#EFF6FF</color>
+    <color name="colorBg">#F0F4F8</color>
+    <color name="colorCardBg">#FFFFFF</color>
     <color name="colorWhite">#FFFFFF</color>
-    <color name="colorTextDark">#0D1B2E</color>
-    <color name="colorTextMuted">#64748B</color>
+    <color name="colorBorder">#DDE4ED</color>
+    <color name="colorTextHeading">#0D1B2E</color>
+    <color name="colorTextBody">#3D5068</color>
+    <color name="colorTextMuted">#7A93AD</color>
+    <color name="colorGreen">#059669</color>
+    <color name="colorGreenLight">#ECFDF5</color>
+    <color name="colorGoldLight">#FFFBEB</color>
 </resources>

@@ -1,7 +1,7 @@
 {
-    "version": "3.5.68",
+    "version": "3.5.69",
     "release_date": "2026-10-10",
     "version_type": "enterprise",
     "min_php_version": "8.2",
-    "release_notes": "daleel.schoplus.sd — بناء تطبيق أندرويد أصيل بالكامل (100% Native Android App) باسم «دليل المدارس السودانية»: واجهات أصلية Material Design مع RecyclerView للمدارس، شريط أفقي للولايات، تبويب الأخبار، شريط سفلي BottomNavigationView، وأيقونة اللوغو الرسمية"
+    "release_notes": "daleel.schoplus.sd — ترقية وتجميل تصميم تطبيق الأندرويد الأصيل بالكامل: دمج خط Cairo العربي الأصيل في كافة الشاشات والقوائم والبطاقات، تطبيق لوحة ألوان SchoPlus Ocean، حل مشكلة JSON parse error وتأمين استخراج روابط المعرض في الـ API"
 }

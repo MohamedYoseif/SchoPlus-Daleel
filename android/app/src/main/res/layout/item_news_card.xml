@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="12dp"
-    android:layout_marginEnd="12dp"
-    android:layout_marginTop="6dp"
-    android:layout_marginBottom="6dp"
+    android:layout_marginStart="14dp"
+    android:layout_marginEnd="14dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="7dp"
     app:cardCornerRadius="14dp"
     app:cardElevation="2dp"
-    app:cardBackgroundColor="@color/colorWhite">
+    app:cardBackgroundColor="@color/colorCardBg">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,8 +25,8 @@
 
             <ImageView
                 android:id="@+id/imgNewsSchoolLogo"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/bg_pill_chip"
                 android:padding="4dp"
@@ -44,18 +44,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="مدارس ايسكو النموذجية"
-                    android:textColor="@color/colorTextDark"
+                    android:textColor="@color/colorTextHeading"
                     android:textSize="13sp"
+                    android:fontFamily="@font/cairo"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvNewsDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
                     android:text="منذ يومين"
                     android:textColor="@color/colorTextMuted"
-                    android:textSize="11sp" />
+                    android:textSize="11sp"
+                    android:fontFamily="@font/cairo" />
 
             </LinearLayout>
 
@@ -65,11 +66,12 @@
                 android:background="@drawable/bg_badge_gold"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
-                android:paddingTop="3dp"
-                android:paddingBottom="3dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
                 android:text="📢 إعلان"
                 android:textColor="#B45309"
-                android:textSize="10sp"
+                android:textSize="10.5sp"
+                android:fontFamily="@font/cairo"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -80,8 +82,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="فتح باب التسجيل المبكر للعام الدراسي الجديد مع خصم خاص"
-            android:textColor="@color/colorTextDark"
-            android:textSize="15sp"
+            android:textColor="@color/colorTextHeading"
+            android:textSize="14.5sp"
+            android:fontFamily="@font/cairo"
             android:textStyle="bold"
             android:lineSpacingExtra="3dp" />
 
@@ -89,10 +92,11 @@
             android:id="@+id/tvNewsSnippet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="5dp"
             android:text="تعلن إدارة المدرسة عن فتح باب القبول والتسجيل لكافة المراحل مع توفير تطبيق متابعة ذكي..."
-            android:textColor="@color/colorTextMuted"
+            android:textColor="@color/colorTextBody"
             android:textSize="12sp"
+            android:fontFamily="@font/cairo"
             android:maxLines="3"
             android:ellipsize="end"
             android:lineSpacingExtra="2dp" />
