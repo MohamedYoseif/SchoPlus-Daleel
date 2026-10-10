@@ -276,6 +276,37 @@ $showBranchesTab = (isset($optionalTabsCfg['branches']) ? (bool)$optionalTabsCfg
 $showActivitiesTab = (isset($optionalTabsCfg['activities']) ? (bool)$optionalTabsCfg['activities'] : true) && !empty($activitiesList);
 $showTeachersTab = (isset($optionalTabsCfg['teachers']) ? (bool)$optionalTabsCfg['teachers'] : true) && !empty($teachersList);
 
+// Admission Configuration (حالة وبنود وإجراءات القبول والتسجيل)
+$admStatus = $school['admission_status'] ?? 'open';
+$admStatusLabels = [
+    'open'    => ['label' => 'متاح', 'badge' => 'باب القبول والتسجيل مفتوح', 'color' => '#10B981', 'icon' => 'fa-check-circle'],
+    'limited' => ['label' => 'مقاعد محدودة', 'badge' => 'مقاعد محدودة متبقية', 'color' => '#F59E0B', 'icon' => 'fa-exclamation-circle'],
+    'early'   => ['label' => 'تسجيل مبكر', 'badge' => 'فتح باب التسجيل المبكر', 'color' => '#0284C7', 'icon' => 'fa-clock'],
+    'closed'  => ['label' => 'مغلق', 'badge' => 'القبول والتسجيل مغلق مؤقتاً', 'color' => '#6B7280', 'icon' => 'fa-lock']
+];
+$currAdmCfg = $admStatusLabels[$admStatus] ?? $admStatusLabels['open'];
+
+$admReqs = json_decode($school['admission_requirements'] ?? '[]', true);
+if (!is_array($admReqs) || empty($admReqs)) {
+    $admReqs = [
+        'أصل وصورة شهادة الميلاد أو الرقم الوطني للطالب.',
+        'شهادة النقل أو آخر تقرير أكاديمي معتمد (للصفوف المنقولة).',
+        'عدد 4 صور فوتوغرافية حديثة بحجم جواز السفر.',
+        'كرت التطعيم والشهادة الصحية (لمرحلة رياض الأطفال).'
+    ];
+}
+
+$admSteps = json_decode($school['admission_steps'] ?? '[]', true);
+if (!is_array($admSteps) || empty($admSteps)) {
+    $admSteps = [
+        'تقديم طلب القبول الإلكتروني بالاستمارة أدناه.',
+        'تواصل فريق القبول وتحديد موعد المقابلة واختبار المستوى.',
+        'إكمال تسليم المستندات واعتماد التسجيل وسداد الرسوم.',
+        'استلام الزي المدرسي والجدول وتوزيع الفصول.'
+    ];
+}
+$admNotes = trim($school['admission_notes'] ?? '');
+
 // Non-empty social links only
 $socialLinks = [];
 if (!empty(trim($school['website'] ?? ''))) {
@@ -1123,7 +1154,7 @@ $totalRev = max(1, count($reviewsList));
                     <button class="sp-tab-btn" data-target="tab-admission" id="tabBtnAdmission" onclick="switchTab(this, 'tab-admission')">
                         <i class="fas fa-user-graduate"></i>
                         <span>القبول والتسجيل</span>
-                        <span class="tab-count" style="background: #10B981; color: #fff;">متاح</span>
+                        <span class="tab-count" style="background: <?= $currAdmCfg['color'] ?>; color: #fff;"><?= $currAdmCfg['label'] ?></span>
                     </button>
                     <?php if ($showBranchesTab): ?>
                     <button class="sp-tab-btn" data-target="tab-branches" onclick="switchTab(this, 'tab-branches')">
@@ -1466,8 +1497,8 @@ $totalRev = max(1, count($reviewsList));
                         <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
                             <div>
                                 <div class="d-flex align-items-center gap-2 mb-2">
-                                    <span class="badge" style="background: #10B981; color: #ffffff; font-size: 0.75rem; font-weight: 700; padding: 5px 12px; border-radius: 20px;">
-                                        <i class="fas fa-check-circle me-1"></i> باب القبول والتسجيل مفتوح
+                                    <span class="badge" style="background: <?= $currAdmCfg['color'] ?>; color: #ffffff; font-size: 0.75rem; font-weight: 700; padding: 5px 12px; border-radius: 20px;">
+                                        <i class="fas <?= $currAdmCfg['icon'] ?> me-1"></i> <?= $currAdmCfg['badge'] ?>
                                     </span>
                                     <span class="badge" style="background: rgba(255,255,255,0.15); color: #FCD34D; font-size: 0.75rem; padding: 5px 12px; border-radius: 20px;">
                                         <i class="fas fa-calendar-alt me-1"></i> العام الدراسي الجديد
@@ -1495,6 +1526,16 @@ $totalRev = max(1, count($reviewsList));
                         </div>
                     </div>
 
+                    <?php if ($admStatus === 'closed'): ?>
+                        <div class="alert alert-warning border-0 rounded-4 p-3 mb-4 d-flex align-items-center gap-3">
+                            <i class="fas fa-lock text-warning fs-3"></i>
+                            <div>
+                                <div class="fw-bold text-dark">باب التسجيل مغلق مؤقتاً للعام الحالي</div>
+                                <div class="small text-secondary">يمكنكم ترك استفساركم أو بياناتكم أدناه ليتواصل معكم قسم القبول والتسجيل فور توفر مقاعد شاغرة أو فتح باب التسجيل مجدداً.</div>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
                     <!-- 2. Admission Guidelines & Requirements (Cards Grid) -->
                     <div class="row g-3 mb-4">
                         <div class="col-md-6">
@@ -1506,10 +1547,9 @@ $totalRev = max(1, count($reviewsList));
                                     <h6 class="fw-bold mb-0 text-dark" style="font-size: 0.88rem;">المستندات المطلوبة للتسجيل</h6>
                                 </div>
                                 <ul class="list-unstyled mb-0 pe-2" style="font-size: 0.74rem; color: #475569; line-height: 1.8;">
-                                    <li><i class="fas fa-check text-success me-1"></i> أصل وصورة شهادة الميلاد أو الرقم الوطني للطالب.</li>
-                                    <li><i class="fas fa-check text-success me-1"></i> شهادة النقل أو آخر تقرير أكاديمي معتمد (للصفوف المنقولة).</li>
-                                    <li><i class="fas fa-check text-success me-1"></i> عدد 4 صور فوتوغرافية حديثة بحجم جواز السفر.</li>
-                                    <li><i class="fas fa-check text-success me-1"></i> كرت التطعيم والشهادة الصحية (لمرحلة رياض الأطفال).</li>
+                                    <?php foreach ($admReqs as $rItem): ?>
+                                    <li><i class="fas fa-check text-success me-1"></i> <?= e($rItem) ?></li>
+                                    <?php endforeach; ?>
                                 </ul>
                             </div>
                         </div>
@@ -1523,26 +1563,30 @@ $totalRev = max(1, count($reviewsList));
                                     <h6 class="fw-bold mb-0 text-dark" style="font-size: 0.88rem;">خطوات ومراحل القبول</h6>
                                 </div>
                                 <div class="d-flex flex-column gap-2" style="font-size: 0.73rem; color: #475569;">
+                                    <?php foreach ($admSteps as $sIdx => $sItem): ?>
                                     <div class="d-flex align-items-start gap-2">
-                                        <span class="badge bg-primary-subtle text-primary rounded-circle" style="width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.68rem;">1</span>
-                                        <span>تقديم طلب القبول الإلكتروني بالاستمارة أدناه.</span>
+                                        <span class="badge bg-primary-subtle text-primary rounded-circle" style="width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.68rem; flex-shrink: 0;"><?= $sIdx + 1 ?></span>
+                                        <span><?= e($sItem) ?></span>
                                     </div>
-                                    <div class="d-flex align-items-start gap-2">
-                                        <span class="badge bg-primary-subtle text-primary rounded-circle" style="width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.68rem;">2</span>
-                                        <span>تواصل فريق القبول وتحديد موعد المقابلة واختبار المستوى.</span>
-                                    </div>
-                                    <div class="d-flex align-items-start gap-2">
-                                        <span class="badge bg-primary-subtle text-primary rounded-circle" style="width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.68rem;">3</span>
-                                        <span>إكمال تسليم المستندات واعتماد التسجيل وسداد الرسوم.</span>
-                                    </div>
-                                    <div class="d-flex align-items-start gap-2">
-                                        <span class="badge bg-primary-subtle text-primary rounded-circle" style="width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.68rem;">4</span>
-                                        <span>استلام الزي المدرسي والجدول وتوزيع الفصول.</span>
-                                    </div>
+                                    <?php endforeach; ?>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <?php if (!empty($admNotes)): ?>
+                        <div class="card border rounded-4 p-3 shadow-sm bg-white mb-4" style="border-right: 4px solid var(--brand-gold) !important;">
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <div style="width: 32px; height: 32px; border-radius: 10px; background: #FFFBEB; color: var(--brand-gold); display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-info-circle"></i>
+                                </div>
+                                <h6 class="fw-bold mb-0 text-dark" style="font-size: 0.88rem;">تعليمات وشروط القبول الإضافية</h6>
+                            </div>
+                            <div class="small text-secondary pe-2 lh-base" style="white-space: pre-line;">
+                                <?= e($admNotes) ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
 
                     <!-- 3. Online Admission Form Card -->
                     <div class="sp-inquiry-card" id="inquiry-form-section">

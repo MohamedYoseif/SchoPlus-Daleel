@@ -992,6 +992,63 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
                 $successMsg = 'تم حذف طلب القبول بنجاح.';
             }
         }
+
+        // 15. UPDATE ADMISSION SETTINGS (إعدادات وشروط القبول والتسجيل)
+        elseif ($action === 'update_admission_settings') {
+            $activeDashTab = 'inquiries';
+            $admissionStatus = trim($_POST['admission_status'] ?? 'open');
+            if (!in_array($admissionStatus, ['open', 'limited', 'early', 'closed'], true)) {
+                $admissionStatus = 'open';
+            }
+            $admissionNotes = trim($_POST['admission_notes'] ?? '');
+
+            // Parse requirements (array of strings)
+            $reqsArr = $_POST['admission_requirements'] ?? [];
+            $cleanReqs = [];
+            if (is_array($reqsArr)) {
+                foreach ($reqsArr as $req) {
+                    $rVal = trim($req ?? '');
+                    if ($rVal !== '') {
+                        $cleanReqs[] = $rVal;
+                    }
+                }
+            }
+            $reqsJson = !empty($cleanReqs) ? json_encode($cleanReqs, JSON_UNESCAPED_UNICODE) : null;
+
+            // Parse steps (array of strings)
+            $stepsArr = $_POST['admission_steps'] ?? [];
+            $cleanSteps = [];
+            if (is_array($stepsArr)) {
+                foreach ($stepsArr as $step) {
+                    $sVal = trim($step ?? '');
+                    if ($sVal !== '') {
+                        $cleanSteps[] = $sVal;
+                    }
+                }
+            }
+            $stepsJson = !empty($cleanSteps) ? json_encode($cleanSteps, JSON_UNESCAPED_UNICODE) : null;
+
+            try {
+                $pdo->prepare("UPDATE daleel_schools SET 
+                    admission_status = :status,
+                    admission_requirements = :reqs,
+                    admission_steps = :steps,
+                    admission_notes = :notes,
+                    updated_at = NOW()
+                    WHERE id = :id")->execute([
+                        ':status' => $admissionStatus,
+                        ':reqs' => $reqsJson,
+                        ':steps' => $stepsJson,
+                        ':notes' => $admissionNotes ?: null,
+                        ':id' => $schoolId,
+                    ]);
+                $successMsg = 'تم حفظ وتحديث إعدادات وشروط القبول والتسجيل بنجاح!';
+                $stmt->execute([$schoolId]);
+                $school = $stmt->fetch();
+            } catch (Exception $e) {
+                $errorMsg = 'حدث خطأ أثناء حفظ إعدادات القبول: ' . $e->getMessage();
+            }
+        }
     }
 }
 
@@ -1023,6 +1080,28 @@ $currentFacilities = json_decode($school['facilities'] ?? '[]', true) ?: [];
 $currentFeesType = $school['fees_type'] ?? 'average';
 $currentStageFees = json_decode($school['stage_fees'] ?? '[]', true) ?: [];
 $currentFeeDiscounts = json_decode($school['fee_discounts'] ?? '[]', true) ?: [];
+
+$currentAdmissionStatus = $school['admission_status'] ?? 'open';
+$currentAdmissionReqs = json_decode($school['admission_requirements'] ?? '[]', true);
+if (!is_array($currentAdmissionReqs) || empty($currentAdmissionReqs)) {
+    $currentAdmissionReqs = [
+        'أصل وصورة شهادة الميلاد أو الرقم الوطني للطالب.',
+        'شهادة النقل أو آخر تقرير أكاديمي معتمد (للصفوف المنقولة).',
+        'عدد 4 صور فوتوغرافية حديثة بحجم جواز السفر.',
+        'كرت التطعيم والشهادة الصحية (لمرحلة رياض الأطفال).'
+    ];
+}
+$currentAdmissionSteps = json_decode($school['admission_steps'] ?? '[]', true);
+if (!is_array($currentAdmissionSteps) || empty($currentAdmissionSteps)) {
+    $currentAdmissionSteps = [
+        'تقديم طلب القبول الإلكتروني بالاستمارة أدناه.',
+        'تواصل فريق القبول وتحديد موعد المقابلة واختبار المستوى.',
+        'إكمال تسليم المستندات واعتماد التسجيل وسداد الرسوم.',
+        'استلام الزي المدرسي والجدول وتوزيع الفصول.'
+    ];
+}
+$currentAdmissionNotes = $school['admission_notes'] ?? '';
+
 $statesWithCities = SudanGeography::statesWithCities();
 
 // Calculate completion score
@@ -2964,8 +3043,20 @@ require_once __DIR__ . '/header.php';
                         </div>
                     </div>
 
-                    <!-- Metrics Cards -->
-                    <div class="row g-3 mb-4">
+                    <!-- Sub-View Switcher: Inquiries List vs Admission Settings -->
+                    <div class="d-flex align-items-center gap-2 mb-4 p-1 rounded-3 bg-light border d-inline-flex">
+                        <button type="button" class="btn btn-sm fw-bold rounded-2 px-3 inq-view-toggle btn-white shadow-sm active" id="btnViewInquiriesList" onclick="switchInquiryView('list')">
+                            <i class="fas fa-inbox me-1"></i> طلبات القبول المستلمة (<?= $inqTotal ?>)
+                        </button>
+                        <button type="button" class="btn btn-sm fw-bold rounded-2 px-3 text-muted inq-view-toggle" id="btnViewInquiriesSettings" onclick="switchInquiryView('settings')">
+                            <i class="fas fa-sliders-h me-1 text-warning"></i> إعدادات وشروط القبول والمستندات
+                        </button>
+                    </div>
+
+                    <!-- VIEW 1: INQUIRIES LIST & METRICS -->
+                    <div id="inquiryViewList">
+                        <!-- Metrics Cards -->
+                        <div class="row g-3 mb-4">
                         <div class="col-6 col-md-3">
                             <div class="card border-0 rounded-4 p-3 bg-white shadow-sm h-100" style="border-right: 4px solid var(--brand-navy) !important;">
                                 <div class="d-flex align-items-center justify-content-between mb-1">
@@ -3193,6 +3284,120 @@ require_once __DIR__ . '/header.php';
                             </table>
                         </div>
                     <?php endif; ?>
+                    </div> <!-- /#inquiryViewList -->
+
+                    <!-- VIEW 2: ADMISSION SETTINGS & REQUIREMENTS FORM -->
+                    <div id="inquiryViewSettings" style="display: none;">
+                        <form method="POST" action="dashboard.php" id="formAdmissionSettings">
+                            <?= csrf_field() ?>
+                            <input type="hidden" name="action" value="update_admission_settings">
+
+                            <!-- 1. Admission Status & General Notes -->
+                            <div class="dash-card-section mb-4">
+                                <div class="dash-sec-header">
+                                    <div class="dash-sec-title-wrap">
+                                        <div class="dash-sec-icon" style="background: #ECFDF5; color: #059669;">
+                                            <i class="fas fa-toggle-on"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="dash-sec-title">حالة بوابة القبول والتسجيل</h6>
+                                            <p class="dash-sec-desc">حدد ما إذا كان باب التسجيل مفتوحاً حالياً أو مغلقاً، أو إذا كانت هناك مقاعد محدودة متبقية</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label small fw-bold">حالة التسجيل للعام الدراسي:</label>
+                                        <select name="admission_status" class="form-select fw-bold" id="admStatusSelect">
+                                            <option value="open" <?= $currentAdmissionStatus === 'open' ? 'selected' : '' ?>>🟢 مفتوح ومتاح للجميع (الوضع الافتراضي)</option>
+                                            <option value="limited" <?= $currentAdmissionStatus === 'limited' ? 'selected' : '' ?>>🟡 مقاعد محدودة متبقية (تنبيه أولياء الأمور)</option>
+                                            <option value="early" <?= $currentAdmissionStatus === 'early' ? 'selected' : '' ?>>🔵 فتح باب التسجيل المبكر</option>
+                                            <option value="closed" <?= $currentAdmissionStatus === 'closed' ? 'selected' : '' ?>>🔴 التسجيل مغلق مؤقتاً للعام الحالي</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label small fw-bold">ملاحظات وشروط سن القبول أو معايير خاصة:</label>
+                                        <textarea name="admission_notes" rows="2" class="form-control" placeholder="مثال: يشترط بلوغ سن 6 سنوات بحلول 1 سبتمبر للصف الأول الابتدائي، أو شروط الزي والسداد..."><?= e($currentAdmissionNotes) ?></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 2. Admission Requirements (Dynamic Repeater) -->
+                            <div class="dash-card-section mb-4">
+                                <div class="dash-sec-header justify-content-between flex-wrap gap-2">
+                                    <div class="dash-sec-title-wrap">
+                                        <div class="dash-sec-icon" style="background: #EFF6FF; color: var(--brand-blue);">
+                                            <i class="fas fa-file-invoice"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="dash-sec-title">المستندات والأوراق المطلوبة للتسجيل</h6>
+                                            <p class="dash-sec-desc">المستندات التي يجب على ولي الأمر إحضارها لمكتب القبول (شهادة ميلاد، تقارير، صور شخصية...)</p>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="restoreDefaultRequirements()">
+                                        <i class="fas fa-undo me-1"></i> استعادة القالب الافتراضي
+                                    </button>
+                                </div>
+
+                                <div id="admissionReqsContainer" class="d-flex flex-column gap-2 mb-3">
+                                    <?php foreach ($currentAdmissionReqs as $rIdx => $reqText): ?>
+                                        <div class="input-group input-group-sm admission-req-row">
+                                            <span class="input-group-text bg-light text-muted"><i class="fas fa-check text-success"></i></span>
+                                            <input type="text" name="admission_requirements[]" class="form-control" value="<?= e($reqText) ?>" placeholder="أدخل المستند المطلوب...">
+                                            <button type="button" class="btn btn-outline-danger" onclick="removeAdmissionRow(this)">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+
+                                <button type="button" class="btn btn-sm btn-outline-primary fw-bold" onclick="addAdmissionReqRow()">
+                                    <i class="fas fa-plus me-1"></i> إضافة مستند مطلوب
+                                </button>
+                            </div>
+
+                            <!-- 3. Admission Steps (Dynamic Repeater) -->
+                            <div class="dash-card-section mb-4">
+                                <div class="dash-sec-header justify-content-between flex-wrap gap-2">
+                                    <div class="dash-sec-title-wrap">
+                                        <div class="dash-sec-icon" style="background: #FFFBEB; color: #D97706;">
+                                            <i class="fas fa-clipboard-list"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="dash-sec-title">خطوات ومراحل إجراءات القبول</h6>
+                                            <p class="dash-sec-desc">المسار الذي يمر به الطالب من تقديم الطلب حتى الجلوس في الفصل الدراسي</p>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="restoreDefaultSteps()">
+                                        <i class="fas fa-undo me-1"></i> استعادة الخطوات الافتراضية
+                                    </button>
+                                </div>
+
+                                <div id="admissionStepsContainer" class="d-flex flex-column gap-2 mb-3">
+                                    <?php foreach ($currentAdmissionSteps as $sIdx => $stepText): ?>
+                                        <div class="input-group input-group-sm admission-step-row">
+                                            <span class="input-group-text bg-light fw-bold text-primary step-num-badge"><?= $sIdx + 1 ?></span>
+                                            <input type="text" name="admission_steps[]" class="form-control" value="<?= e($stepText) ?>" placeholder="اكتب مرحلة أو خطوة القبول...">
+                                            <button type="button" class="btn btn-outline-danger" onclick="removeAdmissionRow(this, true)">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+
+                                <button type="button" class="btn btn-sm btn-outline-warning text-dark fw-bold" onclick="addAdmissionStepRow()">
+                                    <i class="fas fa-plus me-1"></i> إضافة خطوة جديدة
+                                </button>
+                            </div>
+
+                            <!-- Submit Save Button -->
+                            <div class="d-flex justify-content-end mb-2">
+                                <button type="submit" class="btn-luxury-primary px-4 py-2">
+                                    <i class="fas fa-check-circle me-1"></i> حفظ إعدادات وشروط القبول
+                                </button>
+                            </div>
+                        </form>
+                    </div> <!-- /#inquiryViewSettings -->
                 </div>
 
             </div>
@@ -3553,6 +3758,96 @@ function viewInquiryDetails(inq) {
     document.getElementById('inquiryDetailsModalActions').innerHTML = actionsHtml;
 
     new bootstrap.Modal(document.getElementById('inquiryDetailsModal')).show();
+}
+
+// Switch between Inquiries List and Admission Settings Form
+function switchInquiryView(mode) {
+    const listBtn = document.getElementById('btnViewInquiriesList');
+    const setBtn = document.getElementById('btnViewInquiriesSettings');
+    const listView = document.getElementById('inquiryViewList');
+    const setView = document.getElementById('inquiryViewSettings');
+
+    if (mode === 'settings') {
+        if (listBtn) { listBtn.classList.remove('active', 'btn-white', 'shadow-sm'); listBtn.classList.add('text-muted'); }
+        if (setBtn) { setBtn.classList.add('active', 'btn-white', 'shadow-sm'); setBtn.classList.remove('text-muted'); }
+        if (listView) listView.style.display = 'none';
+        if (setView) setView.style.display = 'block';
+    } else {
+        if (setBtn) { setBtn.classList.remove('active', 'btn-white', 'shadow-sm'); setBtn.classList.add('text-muted'); }
+        if (listBtn) { listBtn.classList.add('active', 'btn-white', 'shadow-sm'); listBtn.classList.remove('text-muted'); }
+        if (setView) setView.style.display = 'none';
+        if (listView) listView.style.display = 'block';
+    }
+}
+
+function addAdmissionReqRow(text = '') {
+    const container = document.getElementById('admissionReqsContainer');
+    const div = document.createElement('div');
+    div.className = 'input-group input-group-sm admission-req-row';
+    div.innerHTML = `
+        <span class="input-group-text bg-light text-muted"><i class="fas fa-check text-success"></i></span>
+        <input type="text" name="admission_requirements[]" class="form-control" value="${text}" placeholder="أدخل المستند المطلوب...">
+        <button type="button" class="btn btn-outline-danger" onclick="removeAdmissionRow(this)">
+            <i class="fas fa-times"></i>
+        </button>
+    `;
+    container.appendChild(div);
+}
+
+function addAdmissionStepRow(text = '') {
+    const container = document.getElementById('admissionStepsContainer');
+    const div = document.createElement('div');
+    div.className = 'input-group input-group-sm admission-step-row';
+    div.innerHTML = `
+        <span class="input-group-text bg-light fw-bold text-primary step-num-badge">1</span>
+        <input type="text" name="admission_steps[]" class="form-control" value="${text}" placeholder="اكتب مرحلة أو خطوة القبول...">
+        <button type="button" class="btn btn-outline-danger" onclick="removeAdmissionRow(this, true)">
+            <i class="fas fa-times"></i>
+        </button>
+    `;
+    container.appendChild(div);
+    reindexAdmissionSteps();
+}
+
+function removeAdmissionRow(btn, isStep = false) {
+    const row = btn.closest('.admission-req-row') || btn.closest('.admission-step-row');
+    if (row) {
+        row.remove();
+        if (isStep) reindexAdmissionSteps();
+    }
+}
+
+function reindexAdmissionSteps() {
+    const badges = document.querySelectorAll('#admissionStepsContainer .step-num-badge');
+    badges.forEach((b, idx) => {
+        b.textContent = (idx + 1);
+    });
+}
+
+function restoreDefaultRequirements() {
+    if (!confirm('هل تريد استعادة قائمة المستندات الافتراضية النموذجية؟')) return;
+    const defaults = [
+        'أصل وصورة شهادة الميلاد أو الرقم الوطني للطالب.',
+        'شهادة النقل أو آخر تقرير أكاديمي معتمد (للصفوف المنقولة).',
+        'عدد 4 صور فوتوغرافية حديثة بحجم جواز السفر.',
+        'كرت التطعيم والشهادة الصحية (لمرحلة رياض الأطفال).'
+    ];
+    const container = document.getElementById('admissionReqsContainer');
+    container.innerHTML = '';
+    defaults.forEach(item => addAdmissionReqRow(item));
+}
+
+function restoreDefaultSteps() {
+    if (!confirm('هل تريد استعادة خطوات ومراحل القبول النموذجية الافتراضية؟')) return;
+    const defaults = [
+        'تقديم طلب القبول الإلكتروني بالاستمارة أدناه.',
+        'تواصل فريق القبول وتحديد موعد المقابلة واختبار المستوى.',
+        'إكمال تسليم المستندات واعتماد التسجيل وسداد الرسوم.',
+        'استلام الزي المدرسي والجدول وتوزيع الفصول.'
+    ];
+    const container = document.getElementById('admissionStepsContainer');
+    container.innerHTML = '';
+    defaults.forEach(item => addAdmissionStepRow(item));
 }
 
 function openShareModal() {
