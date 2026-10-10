@@ -7,9 +7,24 @@ RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
-# School Profile Pretty URL: /school/{slug} -> school.php?slug={slug}
-RewriteRule ^school/([a-zA-Z0-9\-_%]+)/?$ school.php?slug=$1 [L,QSA]
+# 1. Ultra-Short Profile Link by numeric ID: /s/12 -> school.php?id=12
+RewriteRule ^s/([0-9]+)/?$ school.php?id=$1 [L,QSA]
 
-# Optional clean URLs for pages
+# 2. Short Profile Link by slug: /s/{slug} -> school.php?slug=$1
+RewriteRule ^s/([^/]+)/?$ school.php?slug=$1 [L,QSA]
+
+# 3. Vanity Handle URL: /@{slug} -> school.php?slug=$1
+RewriteRule ^@([^/]+)/?$ school.php?slug=$1 [L,QSA]
+
+# 4. Standard Clean SEO URL: /school/{slug} -> school.php?slug=$1
+RewriteRule ^school/([^/]+)/?$ school.php?slug=$1 [L,QSA]
+
+# 5. Clean URLs for existing .php files (e.g. /login -> login.php, /dashboard -> dashboard.php)
 RewriteCond %{REQUEST_FILENAME}.php -f
 RewriteRule ^([a-zA-Z0-9\-_]+)/?$ $1.php [L,QSA]
+
+# 6. Direct root vanity slug (if not matching any file, folder, or PHP page)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/$1.php !-f
+RewriteRule ^([^/]+)/?$ school.php?slug=$1 [L,QSA]

@@ -17,6 +17,21 @@ $pdo = db();
 $errors = [];
 $formData = [];
 
+// Support GET prefill from SchoPlus AI Assistant or direct links
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    if (!empty($_GET['name']))        $formData['name'] = trim((string)$_GET['name']);
+    if (!empty($_GET['name_en']))     $formData['name_en'] = trim((string)$_GET['name_en']);
+    if (!empty($_GET['state']))       $formData['state'] = trim((string)$_GET['state']);
+    if (!empty($_GET['city']))        $formData['city'] = trim((string)$_GET['city']);
+    if (!empty($_GET['district']))    $formData['district'] = trim((string)$_GET['district']);
+    if (!empty($_GET['phone']))       $formData['phone'] = trim((string)$_GET['phone']);
+    if (!empty($_GET['whatsapp']))    $formData['whatsapp'] = trim((string)$_GET['whatsapp']);
+    if (!empty($_GET['owner_name']))  $formData['owner_name'] = trim((string)$_GET['owner_name']);
+    if (!empty($_GET['owner_phone'])) $formData['owner_phone'] = trim((string)$_GET['owner_phone']);
+    if (!empty($_GET['owner_email'])) $formData['owner_email'] = trim((string)$_GET['owner_email']);
+    if (!empty($_GET['owner_title'])) $formData['owner_title'] = trim((string)$_GET['owner_title']);
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!csrf_verify()) {
         $errors[] = 'انتهت صلاحية الجلسة، يرجى إعادة إرسال النموذج.';

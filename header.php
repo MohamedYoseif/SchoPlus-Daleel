@@ -10,6 +10,20 @@ $currSchool = currentSchool();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= isset($pageTitle) ? e($pageTitle) . ' | دليل المدارس الذكي — SchoPlus' : 'دليل المدارس الذكي — دليلك الشامل لاختيار أفضل المدارس في السودان' ?></title>
     
+    <!-- Open Graph / WhatsApp / Facebook Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="<?= isset($ogTitle) ? e($ogTitle) : (isset($pageTitle) ? e($pageTitle) . ' | دليل المدارس الذكي' : 'دليل المدارس الذكي — SchoPlus') ?>">
+    <meta property="og:description" content="<?= isset($ogDesc) ? e($ogDesc) : 'دليلك الشامل لاختيار أفضل المدارس في السودان — تصفح الرسوم والمرافق وتواصل مباشرة.' ?>">
+    <meta property="og:image" content="<?= isset($ogImage) ? e($ogImage) : 'https://daleel.schoplus.sd/logo.png' ?>">
+    <meta property="og:url" content="<?= isset($ogUrl) ? e($ogUrl) : 'https://daleel.schoplus.sd' ?>">
+    <meta property="og:site_name" content="دليل المدارس الذكي — SchoPlus">
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<?= isset($ogTitle) ? e($ogTitle) : (isset($pageTitle) ? e($pageTitle) : 'دليل المدارس الذكي — SchoPlus') ?>">
+    <meta name="twitter:description" content="<?= isset($ogDesc) ? e($ogDesc) : 'دليلك الشامل لاختيار أفضل المدارس في السودان' ?>">
+    <meta name="twitter:image" content="<?= isset($ogImage) ? e($ogImage) : 'https://daleel.schoplus.sd/logo.png' ?>">
+
     <!-- Cairo Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
