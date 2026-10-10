@@ -102,23 +102,143 @@ if ($isSearching) {
 ?>
 
 <style>
-/* Smart Interactive Filter Bar */
+/* ===== REDESIGNED MAIN HERO & INTEGRATED FILTER BAR ===== */
+.daleel-hero-v2 {
+    position: relative;
+    background: linear-gradient(165deg, #FFFDF9 0%, #F7EFE4 52%, #EFE4D4 100%);
+    padding: 36px 0 32px;
+    border-bottom: 1px solid #E5D9C8;
+    overflow: hidden;
+}
+.daleel-hero-v2::before {
+    content: '';
+    position: absolute;
+    top: -120px;
+    right: -120px;
+    width: 380px;
+    height: 380px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(30, 95, 168, 0.07) 0%, rgba(30, 95, 168, 0) 70%);
+    pointer-events: none;
+}
+.daleel-hero-v2::after {
+    content: '';
+    position: absolute;
+    bottom: -140px;
+    left: -100px;
+    width: 360px;
+    height: 360px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(217, 119, 6, 0.09) 0%, rgba(217, 119, 6, 0) 70%);
+    pointer-events: none;
+}
+.hero-v2-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 920px;
+    margin: 0 auto;
+}
+.hero-v2-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid #E2D5C3;
+    padding: 5px 14px;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--brand-navy);
+    box-shadow: 0 2px 10px rgba(11, 42, 82, 0.04);
+    margin-bottom: 14px;
+}
+.hero-v2-badge-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #F59E0B;
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+}
+.hero-v2-title {
+    font-weight: 800;
+    font-size: clamp(1.22rem, 2.8vw, 1.72rem);
+    color: var(--brand-navy);
+    line-height: 1.38;
+    margin-bottom: 10px;
+    letter-spacing: -0.3px;
+}
+.hero-v2-title-sub {
+    display: block;
+    font-size: clamp(0.95rem, 2vw, 1.22rem);
+    color: var(--brand-blue);
+    font-weight: 700;
+    margin-top: 4px;
+}
+.hero-v2-desc {
+    font-size: 0.76rem;
+    color: #4B5563;
+    line-height: 1.75;
+    max-width: 670px;
+    margin: 0 auto 22px;
+}
+
+/* Smart Interactive Filter Bar inside Hero */
 .filter-bar-card {
     background: #FFFFFF;
-    border: 1px solid #DFD5C7;
-    border-radius: 18px;
-    padding: 14px 18px;
-    box-shadow: 0 10px 30px -6px rgba(45, 35, 20, 0.08);
+    border: 1.5px solid #E2D7C7;
+    border-radius: 20px;
+    padding: 16px 18px;
+    box-shadow: 0 14px 36px -8px rgba(11, 42, 82, 0.1), 0 4px 12px -2px rgba(45, 35, 20, 0.05);
     position: relative;
     z-index: 20;
-    margin-top: -30px;
+    text-align: right;
+}
+.filter-bar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-bottom: 10px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #F1EAE0;
+}
+.filter-bar-title {
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: var(--brand-navy);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.filter-quick-links {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+.filter-quick-pill {
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 999px;
+    text-decoration: none;
+    background: #FAF6F0;
+    color: var(--text-body);
+    border: 1px solid #E6DCCD;
+    transition: all 0.2s ease;
+}
+.filter-quick-pill:hover {
+    background: var(--brand-navy);
+    color: #FFFFFF;
+    border-color: var(--brand-navy);
 }
 .filter-input-wrap {
     position: relative;
     display: flex;
     align-items: center;
-    background: #F8F9FA;
-    border: 1px solid #E2E8F0;
+    background: #F8FAFC;
+    border: 1px solid #DCE4EE;
     border-radius: 12px;
     padding: 2px 10px;
     transition: all 0.2s ease;
@@ -132,17 +252,17 @@ if ($isSearching) {
     border: none;
     outline: none;
     background: transparent;
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     font-weight: 600;
     color: var(--text-main);
     width: 100%;
     padding: 8px 6px;
 }
 .filter-select-wrap select {
-    background-color: #F8F9FA;
-    border: 1px solid #E2E8F0;
+    background-color: #F8FAFC;
+    border: 1px solid #DCE4EE;
     border-radius: 12px;
-    font-size: 0.76rem;
+    font-size: 0.75rem;
     font-weight: 600;
     color: var(--text-main);
     padding: 9px 12px;
@@ -152,6 +272,59 @@ if ($isSearching) {
     border-color: var(--brand-blue);
     background-color: #FFFFFF;
     box-shadow: 0 0 0 3px rgba(30, 95, 168, 0.12);
+}
+
+/* Hero Highlights Strip below Filter Card */
+.hero-highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 16px;
+}
+.hero-highlight-card {
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(6px);
+    border: 1px solid #E5D9C8;
+    border-radius: 14px;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-align: right;
+}
+.hero-highlight-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.88rem;
+    flex-shrink: 0;
+}
+.hero-highlight-val {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--brand-navy);
+    line-height: 1.2;
+}
+.hero-highlight-lbl {
+    font-size: 0.65rem;
+    color: #64748B;
+    font-weight: 600;
+}
+@media (max-width: 767px) {
+    .daleel-hero-v2 {
+        padding: 22px 0 20px;
+    }
+    .hero-highlights-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+    .filter-bar-card {
+        padding: 12px;
+        border-radius: 16px;
+    }
 }
 
 /* States Carousel / Slider (3 cards on mobile) */
@@ -272,112 +445,140 @@ if ($isSearching) {
 }
 </style>
 
-<!-- HERO SECTION -->
-<section class="daleel-hero" style="background: linear-gradient(135deg, #FDFBF7 0%, #F5ECE0 100%); padding: 65px 0 50px; position: relative; overflow: hidden; border-bottom: 1px solid #EAE2D5;">
-    <div class="container text-center">
-        
-        <div style="display: inline-flex; align-items: center; gap: 7px; background: #FFFFFF; border: 1px solid #E2D7C7; padding: 5px 14px; border-radius: 24px; font-size: 0.76rem; font-weight: 700; color: var(--brand-gold); box-shadow: 0 2px 8px rgba(0,0,0,0.03); margin-bottom: 16px;">
-            <i class="fas fa-sparkles text-warning"></i>
-            <span>خدمة رقمية مجانية من منظومة ايسكو بلص (SchoPlus)</span>
-        </div>
-
-        <h1 style="font-weight: 800; font-size: clamp(1.15rem, 2.5vw, 1.55rem); color: var(--brand-navy); line-height: 1.35; margin-bottom: 12px; letter-spacing: -0.3px;">
-            اكتشف المدرسة الأنسب لمستقبل أبنائك<br>
-            <span style="color: var(--brand-blue);">بكل ثقة وشفافية وسهولة</span>
-        </h1>
-
-        <p style="font-size: 0.76rem; color: #4A5568; line-height: 1.6; max-width: 580px; margin: 0 auto 20px;">
-            منصة رقمية مفتوحة ومجانية تتيح لأولياء الأمور والطلاب البحث عن المدارس في مختلف ولايات ومدن السودان، والاطلاع على البيانات التي يضيفها أصحاب المدارس وتجارب أولياء الأمور.
-        </p>
-
-        <!-- Hero Stats Counter -->
-        <div style="max-width: 750px; margin: 0 auto; padding-top: 18px; border-top: 1px dashed #DFCFC0;">
-            <div class="row justify-content-center g-3 text-center">
-                <div class="col-lg-3 col-6">
-                    <div data-countup="<?= $statTotal ?>" data-suffix="+" style="font-size: 1.25rem; font-weight: 700; color: var(--brand-navy);"><?= number_format($statTotal) ?>+</div>
-                    <div style="font-size: 0.67rem; color: #6B7280; font-weight: 600;">مدرسة مسجلة بالدليل</div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <div data-countup="<?= $statSchoplus ?>" style="font-size: 1.25rem; font-weight: 700; color: var(--brand-blue);"><?= number_format($statSchoplus) ?></div>
-                    <div style="font-size: 0.67rem; color: #6B7280; font-weight: 600;">مدرسة ذكية بنظام SchoPlus</div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <div data-countup="<?= $statStates ?>" style="font-size: 1.25rem; font-weight: 700; color: var(--brand-gold);"><?= $statStates ?></div>
-                    <div style="font-size: 0.67rem; color: #6B7280; font-weight: 600;">ولاية مغطاة بالكامل</div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <div data-countup="<?= $statReviews ?>" data-suffix="+" style="font-size: 1.25rem; font-weight: 700; color: var(--brand-emerald);"><?= number_format($statReviews) ?>+</div>
-                    <div style="font-size: 0.67rem; color: #6B7280; font-weight: 600;">تقييم ومشاركة من أولياء الأمور</div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</section>
-
-<!-- SMART UNIFIED FILTER BAR (Placed directly below Hero) -->
-<section style="position: relative; z-index: 30; margin-bottom: 25px;">
+<!-- REDESIGNED HERO SECTION WITH INTEGRATED FILTERS -->
+<section class="daleel-hero-v2 mb-4" id="search-section">
     <div class="container">
-        <form action="/" method="GET" class="filter-bar-card" id="smartFilterForm">
-            <div class="row g-2 align-items-center">
-                
-                <!-- 1. State Filter (الولاية) -->
-                <div class="col-lg-3 col-md-6 filter-select-wrap">
-                    <select name="state" class="form-select" id="filterStateSelect">
-                        <option value="">جميع الولايات (الكل)</option>
-                        <?php foreach($statesWithCities as $stName => $cities): ?>
-                            <option value="<?= e($stName) ?>" <?= $state === $stName ? 'selected' : '' ?>>ولاية <?= e($stName) ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
+        <div class="hero-v2-inner text-center">
 
-                <!-- 2. City Filter (المدينة) -->
-                <div class="col-lg-3 col-md-6 filter-select-wrap">
-                    <select name="city" class="form-select" id="filterCitySelect">
-                        <option value="">جميع المدن / المحليات</option>
-                        <?php if ($state && isset($statesWithCities[$state])): ?>
-                            <?php foreach($statesWithCities[$state] as $c): ?>
-                                <option value="<?= e($c) ?>" <?= $city === $c ? 'selected' : '' ?>><?= e($c) ?></option>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    </select>
-                </div>
+            <div class="hero-v2-badge">
+                <span class="hero-v2-badge-dot"></span>
+                <span>مبادرة رقمية مجانية من منظومة ايسكو بلص (SchoPlus)</span>
+            </div>
 
-                <!-- 3. Stage Filter (المراحل) -->
-                <div class="col-lg-2 col-md-6 filter-select-wrap">
-                    <select name="stage" class="form-select" id="filterStageSelect">
-                        <option value="">جميع المراحل الدراسية</option>
-                        <?php foreach($schoolStages as $sKey => $sLbl): ?>
-                            <option value="<?= e($sKey) ?>" <?= $stage === $sKey ? 'selected' : '' ?>><?= e($sLbl) ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
+            <h1 class="hero-v2-title">
+                دليلك الرقمي للتعرف على المدارس في السودان
+                <span class="hero-v2-title-sub">ابحث بالولاية والمدينة والمرحلة الدراسية وتواصل مع إدارات المدارس مباشرة</span>
+            </h1>
 
-                <!-- 4. School Name / Keyword Input (كتابة الاسم) -->
-                <div class="col-lg-3 col-md-6">
-                    <div class="filter-input-wrap">
-                        <i class="fas fa-search text-muted me-1"></i>
-                        <input type="text" name="q" value="<?= e($q) ?>" placeholder="ابحث باسم المدرسة، الحي..." autocomplete="off">
-                        <?php if ($q !== ''): ?>
-                            <a href="/" class="text-muted small text-decoration-none px-1" title="مسح"><i class="fas fa-times-circle"></i></a>
-                        <?php endif; ?>
+            <p class="hero-v2-desc">
+                خدمة رقمية مفتوحة ومجانية تجمع بيانات المدارس السودانية، مراحلها التعليمية، مرافقها، وفروعها في مكان واحد؛ لتسهيل وصول أولياء الأمور والطلاب للمعلومات، وإتاحة الفرصة لأصحاب المدارس للتعريف بمدارسهم دون أي مقابل مادي.
+            </p>
+
+            <!-- SMART UNIFIED FILTER BAR (Preserved & Integrated inside Hero) -->
+            <form action="/" method="GET" class="filter-bar-card" id="smartFilterForm">
+                <div class="filter-bar-header">
+                    <div class="filter-bar-title">
+                        <i class="fas fa-sliders-h text-warning"></i>
+                        <span>البحث السريع والفلترة الذكية</span>
+                    </div>
+                    <div class="filter-quick-links">
+                        <a href="/?view=all" class="filter-quick-pill"><i class="fas fa-school text-primary me-1"></i> كل المدارس</a>
+                        <a href="/?view=schoplus" class="filter-quick-pill"><i class="fas fa-bolt text-warning me-1"></i> مدارس SchoPlus</a>
+                        <a href="/register.php" class="filter-quick-pill" style="color: var(--brand-gold); border-color: #FCD34D; background: #FFFBEB;"><i class="fas fa-plus-circle me-1"></i> أضف مدرستك مجاناً</a>
                     </div>
                 </div>
 
-                <!-- Action Buttons -->
-                <div class="col-lg-1 col-md-12 d-flex gap-1">
-                    <button type="submit" class="btn-luxury-primary w-100 justify-content-center py-2" title="بحث فوري">
-                        <i class="fas fa-search"></i>
-                    </button>
-                    <?php if ($isSearching): ?>
-                        <a href="/" class="btn btn-light border py-2 px-2 rounded-3 text-secondary" title="إلغاء البحث والعودة للرئيسية">
-                            <i class="fas fa-undo"></i>
-                        </a>
-                    <?php endif; ?>
-                </div>
+                <div class="row g-2 align-items-center">
+                    
+                    <!-- 1. State Filter (الولاية) -->
+                    <div class="col-lg-3 col-md-6 filter-select-wrap">
+                        <select name="state" class="form-select" id="filterStateSelect">
+                            <option value="">جميع الولايات (الكل)</option>
+                            <?php foreach($statesWithCities as $stName => $cities): ?>
+                                <option value="<?= e($stName) ?>" <?= $state === $stName ? 'selected' : '' ?>>ولاية <?= e($stName) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
 
+                    <!-- 2. City Filter (المدينة) -->
+                    <div class="col-lg-3 col-md-6 filter-select-wrap">
+                        <select name="city" class="form-select" id="filterCitySelect">
+                            <option value="">جميع المدن / المحليات</option>
+                            <?php if ($state && isset($statesWithCities[$state])): ?>
+                                <?php foreach($statesWithCities[$state] as $c): ?>
+                                    <option value="<?= e($c) ?>" <?= $city === $c ? 'selected' : '' ?>><?= e($c) ?></option>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </select>
+                    </div>
+
+                    <!-- 3. Stage Filter (المراحل) -->
+                    <div class="col-lg-2 col-md-6 filter-select-wrap">
+                        <select name="stage" class="form-select" id="filterStageSelect">
+                            <option value="">جميع المراحل الدراسية</option>
+                            <?php foreach($schoolStages as $sKey => $sLbl): ?>
+                                <option value="<?= e($sKey) ?>" <?= $stage === $sKey ? 'selected' : '' ?>><?= e($sLbl) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
+                    <!-- 4. School Name / Keyword Input (كتابة الاسم) -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="filter-input-wrap">
+                            <i class="fas fa-search text-muted me-1"></i>
+                            <input type="text" name="q" value="<?= e($q) ?>" placeholder="ابحث باسم المدرسة، الحي..." autocomplete="off">
+                            <?php if ($q !== ''): ?>
+                                <a href="/" class="text-muted small text-decoration-none px-1" title="مسح"><i class="fas fa-times-circle"></i></a>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="col-lg-1 col-md-12 d-flex gap-1">
+                        <button type="submit" class="btn-luxury-primary w-100 justify-content-center py-2" title="بحث فوري">
+                            <i class="fas fa-search"></i>
+                        </button>
+                        <?php if ($isSearching): ?>
+                            <a href="/" class="btn btn-light border py-2 px-2 rounded-3 text-secondary" title="إلغاء البحث والعودة للرئيسية">
+                                <i class="fas fa-undo"></i>
+                            </a>
+                        <?php endif; ?>
+                    </div>
+
+                </div>
+            </form>
+
+            <!-- Hero Quick Highlights Strip -->
+            <div class="hero-highlights-grid">
+                <div class="hero-highlight-card">
+                    <div class="hero-highlight-icon" style="background: #EFF6FF; color: var(--brand-blue);">
+                        <i class="fas fa-school"></i>
+                    </div>
+                    <div>
+                        <div class="hero-highlight-val" data-countup="<?= $statTotal ?>" data-suffix="+"><?= number_format($statTotal) ?>+</div>
+                        <div class="hero-highlight-lbl">مدرسة مسجلة بالدليل</div>
+                    </div>
+                </div>
+                <div class="hero-highlight-card">
+                    <div class="hero-highlight-icon" style="background: #FFFBEB; color: #D97706;">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <div>
+                        <div class="hero-highlight-val" data-countup="<?= $statStates ?>"><?= $statStates ?></div>
+                        <div class="hero-highlight-lbl">ولاية سودانية متاحة</div>
+                    </div>
+                </div>
+                <div class="hero-highlight-card">
+                    <div class="hero-highlight-icon" style="background: #F0FDF4; color: #059669;">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div>
+                        <div class="hero-highlight-val" data-countup="<?= $statSchoplus ?>"><?= number_format($statSchoplus) ?></div>
+                        <div class="hero-highlight-lbl">مدرسة بنظام SchoPlus</div>
+                    </div>
+                </div>
+                <div class="hero-highlight-card">
+                    <div class="hero-highlight-icon" style="background: #F8FAFC; color: var(--brand-navy);">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <div>
+                        <div class="hero-highlight-val" style="font-size: 0.82rem;">مجاني 100%</div>
+                        <div class="hero-highlight-lbl">للأهالي وأصحاب المدارس</div>
+                    </div>
+                </div>
             </div>
-        </form>
+
+        </div>
     </div>
 </section>
 

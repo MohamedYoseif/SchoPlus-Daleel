@@ -1645,42 +1645,19 @@ require_once __DIR__ . '/header.php';
 
                 <!-- TAB 2: NEWS & ANNOUNCEMENTS -->
                 <div class="tab-pane fade <?= $activeDashTab === 'news' ? 'show active' : '' ?>" id="dash-news" role="tabpanel">
-                    <!-- Add News Form with Word-like Rich Editor (Quill) -->
-                    <div class="p-4 rounded-4 bg-light border mb-4 shadow-sm">
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <h6 class="fw-bold text-dark mb-0"><i class="fas fa-plus-circle text-primary me-2"></i> نشر خبر أو إعلان جديد</h6>
-                            <span class="badge bg-white text-secondary border px-3 py-2 rounded-pill small"><i class="fas fa-pen-fancy text-warning me-1"></i> محرر متقدم لتنسيق النصوص والصور</span>
+                    
+                    <!-- Header with Add News Trigger Button -->
+                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-4 p-3 bg-light rounded-4 border">
+                        <div>
+                            <h6 class="fw-bold text-dark mb-1"><i class="fas fa-bullhorn text-primary me-2"></i> الأخبار والإعلانات المدرسية</h6>
+                            <small class="text-muted">انشر مواعيد التسجيل، الفعاليات، تكريم الأوائل، والأنشطة بتنسيق Word متقدم لإبقاء أولياء الأمور على اطلاع دائم.</small>
                         </div>
-
-                        <form method="POST" action="dashboard.php" enctype="multipart/form-data" id="addNewsForm" onsubmit="syncQuillToAddNews()">
-                            <?= csrf_field() ?>
-                            <input type="hidden" name="action" value="add_news">
-                            <input type="hidden" name="content" id="addNewsContentInput">
-                            
-                            <div class="row g-3">
-                                <div class="col-md-8">
-                                    <label class="form-label small fw-bold text-secondary">عنوان الخبر / الإعلان</label>
-                                    <input type="text" name="title" required class="form-control" placeholder="مثال: بدء التسجيل للعام الدراسي الجديد أو تكريم الطلاب المتفوقين">
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label small fw-bold text-secondary">صورة بارزة للخبر (اختياري)</label>
-                                    <input type="file" name="news_image" accept="image/*" class="form-control">
-                                </div>
-                                <div class="col-12">
-                                    <label class="form-label small fw-bold text-secondary">نص الخبر والتفاصيل (محرر Word متقدم للتنسيق)</label>
-                                    <!-- Quill Word-like Editor Container -->
-                                    <div id="addNewsQuillEditor" style="min-height: 180px; background: #FFFFFF; border-radius: 0 0 10px 10px; font-size: 0.95rem; line-height: 1.8;"></div>
-                                </div>
-                                <div class="col-12 text-end pt-2">
-                                    <button type="submit" class="btn-luxury-primary px-4 py-2">
-                                        <i class="fas fa-paper-plane me-1"></i> نشر الخبر الآن
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+                        <button type="button" class="btn-luxury-primary px-3 py-2 fw-bold" onclick="openAddNewsModal()">
+                            <i class="fas fa-plus-circle me-1"></i> إضافة خبر أو إعلان جديد
+                        </button>
                     </div>
 
-                    <!-- News List -->
+                    <!-- News List Header -->
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <h6 class="fw-bold text-dark mb-0">الأخبار والإعلانات المنشورة (<?= count($newsList) ?>)</h6>
                         <span class="text-muted small">يمكنك تعديل أي خبر، تغيير عنوانه أو صوره وتنسيقه في أي وقت</span>

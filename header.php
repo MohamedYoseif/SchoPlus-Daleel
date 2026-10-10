@@ -524,15 +524,9 @@ $currSchool = currentSchool();
 <body>
     <!-- Mobile Topbar (visible only on small screens) -->
     <div class="daleel-topbar-mobile">
-        <a href="https://wa.me/249912345678" target="_blank" class="text-decoration-none text-muted d-flex align-items-center gap-1">
-            <i class="fab fa-whatsapp text-success"></i> واتساب الدعم
-        </a>
+        <span class="text-muted"><i class="fas fa-book-reader text-warning me-1"></i> خدمة رقمية مجانية من منظومة ايسكو بلص</span>
         <span>•</span>
-        <a href="https://schoplus.sd" target="_blank" class="text-decoration-none text-muted d-flex align-items-center gap-1">
-            <i class="fas fa-globe"></i> SchoPlus.sd
-        </a>
-        <span>•</span>
-        <a href="register.php" class="text-decoration-none fw-bold d-flex align-items-center gap-1" style="color: var(--brand-gold);">
+        <a href="/register.php" class="text-decoration-none fw-bold d-flex align-items-center gap-1" style="color: var(--brand-gold);">
             <i class="fas fa-plus-circle"></i> سجّل مدرستك
         </a>
     </div>
@@ -589,16 +583,11 @@ $currSchool = currentSchool();
 
     <!-- Top Announcement Bar -->
     <div class="daleel-topbar d-none d-md-block">
-        <div class="container d-flex justify-content-between align-items-center">
+        <div class="container d-flex justify-content-center align-items-center">
             <div class="d-flex align-items-center gap-3">
                 <span><i class="fas fa-book-reader text-warning me-1"></i> دليل المدارس السودانية — خدمة رقمية مجانية من منظومة ايسكو بلص (SchoPlus)</span>
                 <span>•</span>
                 <span class="text-success"><i class="fas fa-check-circle me-1"></i> إضافة وتصفح بيانات المدارس مجاناً دون أي رسوم</span>
-            </div>
-            <div class="d-flex align-items-center gap-3">
-                <a href="https://schoplus.sd" target="_blank" class="text-decoration-none text-muted"><i class="fas fa-globe me-1"></i> موقع SchoPlus</a>
-                <span>•</span>
-                <a href="https://wa.me/249912345678" target="_blank" class="text-decoration-none text-muted"><i class="fab fa-whatsapp me-1 text-success"></i> تواصل معنا</a>
             </div>
         </div>
     </div>

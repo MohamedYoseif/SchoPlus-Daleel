@@ -32,12 +32,18 @@
                 </div>
 
                 <div class="col-lg-3 col-md-6">
-                    <h5 class="fw-bold text-dark mb-3" style="font-size: 0.88rem;">تواصل ومساعدة</h5>
-                    <p class="text-muted mb-2" style="font-size: 0.72rem;"><i class="fas fa-map-marker-alt text-warning me-2"></i> الخرطوم / بورتسودان، جمهورية السودان</p>
-                    <p class="text-muted mb-2" style="font-size: 0.72rem;"><i class="fab fa-whatsapp text-success me-2"></i> واتساب الدليل المباشر: +249 91 234 5678</p>
-                    <p class="text-muted mb-3" style="font-size: 0.72rem;"><i class="fas fa-envelope text-primary me-2"></i> support@schoplus.sd</p>
+                    <h5 class="fw-bold text-dark mb-3" style="font-size: 0.88rem;">منظومة ايسكو بلص</h5>
+                    <a href="https://schoplus.sd" target="_blank" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">
+                        <i class="fas fa-globe text-primary me-1"></i> الموقع الإلكتروني لـ ايسكو بلص
+                    </a>
+                    <a href="/login.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">
+                        <i class="fas fa-sign-in-alt text-secondary me-1"></i> تسجيل دخول المدرسة
+                    </a>
+                    <a href="/register.php" class="d-block text-secondary text-decoration-none mb-3" style="font-size: 0.74rem;">
+                        <i class="fas fa-plus-circle text-warning me-1"></i> تسجيل مدرسة جديدة
+                    </a>
                     <a href="/register.php" class="btn-luxury-gold btn-sm w-100 justify-content-center" style="font-size: 0.78rem;">
-                        <i class="fas fa-plus-circle"></i> سجّل مدرستك اليوم مجاناً
+                        <i class="fas fa-school"></i> سجّل مدرستك مجاناً
                     </a>
                 </div>
             </div>
