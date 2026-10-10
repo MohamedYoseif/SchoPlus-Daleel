@@ -46,6 +46,12 @@ $isDaleelMobile = (
     <meta name="twitter:description" content="<?= isset($ogDesc) ? e($ogDesc) : 'دليلك الشامل لاختيار أفضل المدارس في السودان' ?>">
     <meta name="twitter:image" content="<?= isset($ogImage) ? e($ogImage) : 'https://daleel.schoplus.sd/logo.png' ?>">
 
+    <!-- Geo Local SEO Targeting (Sudan) -->
+    <meta name="geo.region" content="SD">
+    <meta name="geo.placename" content="Khartoum">
+    <meta name="geo.position" content="15.5007;32.5599">
+    <meta name="ICBM" content="15.5007, 32.5599">
+
     <!-- Schema.org Structured Data (JSON-LD) for Rich Google Snippets -->
     <?php
     $schemaTargetSchool = $school ?? ($currSchool ?? null);
