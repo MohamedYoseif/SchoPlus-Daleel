@@ -26,6 +26,37 @@ $isDaleelMobile = (
       gtag('js', new Date());
 
       gtag('config', 'G-JX5XJEGH5H');
+
+      // Auto-track key conversion events in directory
+      document.addEventListener('click', function(e) {
+        var target = e.target.closest('a, button');
+        if (!target) return;
+
+        var href = target.getAttribute('href') || '';
+
+        // 1. WhatsApp to Schools / Directory
+        if (href.indexOf('wa.me') !== -1 || href.indexOf('whatsapp.com') !== -1) {
+          gtag('event', 'contact', {
+            'method': 'WhatsApp',
+            'event_category': 'School Inquiry'
+          });
+        }
+
+        // 2. Direct Phone Calls to Schools
+        if (href.indexOf('tel:') !== -1) {
+          gtag('event', 'contact', {
+            'method': 'Phone Call',
+            'event_category': 'School Inquiry'
+          });
+        }
+
+        // 3. New School Registration Click
+        if (href.indexOf('register') !== -1) {
+          gtag('event', 'sign_up_start', {
+            'event_category': 'School Onboarding'
+          });
+        }
+      }, true);
     </script>
 
     <link rel="icon" type="image/png" href="/assets/images/favicon.png">

@@ -1,7 +1,7 @@
 {
-    "version": "3.5.98",
+    "version": "3.6.0",
     "release_date": "2026-10-10",
     "version_type": "enterprise",
     "min_php_version": "8.2",
-    "release_notes": "دليل المدارس (daleel.schoplus.sd) — تفعيل ممتلك Google Analytics المستقل (Sudanese Schools) بمعرف القياس المخصص G-JX5XJEGH5H"
+    "release_notes": "دليل المدارس (daleel.schoplus.sd) — تفعيل تتبع التحويلات المخصصة (اتصالات المدارس، نقرات الواتساب، وبدء تسجيل المدارس) v3.6.0"
 }
