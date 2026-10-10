@@ -153,23 +153,24 @@ $genderTypes = SudanGeography::genderTypes();
         <div style="margin-top: 45px; padding-top: 30px; border-top: 1px dashed #DFCFC0;">
             <div class="row justify-content-center g-4 text-center">
                 <div class="col-lg-3 col-6">
-                    <div style="font-size: 1.75rem; font-weight: 800; color: var(--brand-navy);"><?= number_format($statTotal) ?>+</div>
+                    <div data-countup="<?= $statTotal ?>" data-suffix="+" style="font-size: 1.75rem; font-weight: 800; color: var(--brand-navy);"><?= number_format($statTotal) ?>+</div>
                     <div style="font-size: 0.82rem; color: #6B7280; font-weight: 600;">مدرسة مسجلة بالدليل</div>
                 </div>
                 <div class="col-lg-3 col-6">
-                    <div style="font-size: 1.75rem; font-weight: 800; color: var(--brand-blue);"><?= number_format($statSchoplus) ?></div>
+                    <div data-countup="<?= $statSchoplus ?>" style="font-size: 1.75rem; font-weight: 800; color: var(--brand-blue);"><?= number_format($statSchoplus) ?></div>
                     <div style="font-size: 0.82rem; color: #6B7280; font-weight: 600;">مدرسة ذكية بنظام SchoPlus</div>
                 </div>
                 <div class="col-lg-3 col-6">
-                    <div style="font-size: 1.75rem; font-weight: 800; color: var(--brand-gold);"><?= $statStates ?></div>
+                    <div data-countup="<?= $statStates ?>" style="font-size: 1.75rem; font-weight: 800; color: var(--brand-gold);"><?= $statStates ?></div>
                     <div style="font-size: 0.82rem; color: #6B7280; font-weight: 600;">ولاية مغطاة بالكامل</div>
                 </div>
                 <div class="col-lg-3 col-6">
-                    <div style="font-size: 1.75rem; font-weight: 800; color: var(--brand-emerald);"><?= number_format($statReviews) ?>+</div>
+                    <div data-countup="<?= $statReviews ?>" data-suffix="+" style="font-size: 1.75rem; font-weight: 800; color: var(--brand-emerald);"><?= number_format($statReviews) ?>+</div>
                     <div style="font-size: 0.82rem; color: #6B7280; font-weight: 600;">تقييم موثق من أولياء الأمور</div>
                 </div>
             </div>
         </div>
+
 
     </div>
 </section>
@@ -211,15 +212,16 @@ $genderTypes = SudanGeography::genderTypes();
                             <i class="fas fa-bolt text-warning me-1"></i> مدرسة ذكية معتمدة
                         </div>
 
-                        <div style="height: 140px; background-size: cover; background-position: center; position: relative; background-color: #F3EFE9; <?= $cover ? "background-image: url('{$cover}');" : '' ?>">
-                            <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.55) 100%);"></div>
+                        <div style="height: 140px; background-size: cover; background-position: center; position: relative; <?= $cover ? "background-image: url('{$cover}');" : '' ?>" class="<?= !$cover ? 'cover-placeholder' : '' ?>">
+                            <div style="position: absolute; inset: 0; background: <?= $cover ? 'linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.52) 100%)' : 'linear-gradient(180deg, rgba(11,42,82,0.0) 0%, rgba(11,42,82,0.35) 100%)' ?>;"></div>
+                            <?php if (!$cover): ?><div class="cover-placeholder-icon"><i class="fas fa-school"></i></div><?php endif; ?>
                             
                             <div style="position: absolute; top: 12px; left: 12px; z-index: 2;">
                                 <span class="badge-schoplus-smart"><i class="fas fa-microchip"></i> SchoPlus</span>
                             </div>
 
                             <div style="width: 68px; height: 68px; border-radius: 16px; background: #fff; padding: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.12); position: absolute; bottom: -24px; right: 20px; z-index: 2;">
-                                <img src="<?= $logo ?>" alt="" style="width: 100%; height: 100%; border-radius: 12px; object-fit: cover;">
+                                <img src="<?= $logo ?>" alt="" loading="lazy" style="width: 100%; height: 100%; border-radius: 12px; object-fit: cover;">
                             </div>
                         </div>
 
@@ -233,9 +235,10 @@ $genderTypes = SudanGeography::genderTypes();
                                 <?= e($s['state']) ?> — <?= e($s['city']) ?> <?= !empty($s['district']) ? '(' . e($s['district']) . ')' : '' ?>
                             </div>
 
-                            <p style="font-size: 0.85rem; color: #4B5563; line-height: 1.55; height: 40px; overflow: hidden; margin-bottom: 12px;">
+                            <p class="school-card-desc" style="font-size: 0.85rem; color: #4B5563; margin-bottom: 12px;">
                                 <?= e($s['description'] ?: 'مؤسسة تعليمية رائدة تقدم تعليماً حديثاً وبيئة محفزة للطلاب.') ?>
                             </p>
+
 
                             <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 14px;">
                                 <?php foreach($stagesArr as $st): ?>
@@ -464,8 +467,9 @@ $genderTypes = SudanGeography::genderTypes();
                     <div class="col-lg-4 col-md-6">
                         <div class="luxury-card h-100 d-flex flex-column">
                             
-                            <div style="height: 140px; background-size: cover; background-position: center; position: relative; background-color: #F3EFE9; <?= $cover ? "background-image: url('{$cover}');" : '' ?>">
-                                <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.55) 100%);"></div>
+                            <div style="height: 140px; background-size: cover; background-position: center; position: relative; <?= $cover ? "background-image: url('{$cover}');" : '' ?>" class="<?= !$cover ? 'cover-placeholder' : '' ?>">
+                                <div style="position: absolute; inset: 0; background: <?= $cover ? 'linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.52) 100%)' : 'linear-gradient(180deg, rgba(11,42,82,0.0) 0%, rgba(11,42,82,0.35) 100%)' ?>;"></div>
+                                <?php if (!$cover): ?><div class="cover-placeholder-icon"><i class="fas fa-school"></i></div><?php endif; ?>
 
                                 <div style="position: absolute; top: 12px; left: 12px; z-index: 2; display: flex; flex-direction: column; gap: 5px; align-items: flex-end;">
                                     <?php if ($s['is_schoplus_client']): ?>
@@ -475,7 +479,7 @@ $genderTypes = SudanGeography::genderTypes();
                                 </div>
 
                                 <div style="width: 68px; height: 68px; border-radius: 16px; background: #fff; padding: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.12); position: absolute; bottom: -24px; right: 20px; z-index: 2;">
-                                    <img src="<?= $logo ?>" alt="" style="width: 100%; height: 100%; border-radius: 12px; object-fit: cover;">
+                                    <img src="<?= $logo ?>" alt="" loading="lazy" style="width: 100%; height: 100%; border-radius: 12px; object-fit: cover;">
                                 </div>
                             </div>
 
@@ -489,9 +493,10 @@ $genderTypes = SudanGeography::genderTypes();
                                     ولاية <?= e($s['state']) ?> — <?= e($s['city']) ?> <?= !empty($s['district']) ? '(' . e($s['district']) . ')' : '' ?>
                                 </div>
 
-                                <p style="font-size: 0.85rem; color: #4B5563; line-height: 1.55; height: 40px; overflow: hidden; margin-bottom: 14px;">
+                                <p class="school-card-desc" style="font-size: 0.85rem; color: #4B5563; margin-bottom: 14px;">
                                     <?= e($s['description'] ?: 'مؤسسة تعليمية وتربوية تقدم برامج أكاديمية متميزة وبيئة متطورة للطلاب.') ?>
                                 </p>
+
 
                                 <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 16px;">
                                     <?php foreach($stagesArr as $st): ?>

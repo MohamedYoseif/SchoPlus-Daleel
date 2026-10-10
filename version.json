@@ -1,7 +1,5 @@
 {
-    "release_notes": "إضافة تبويب الهوية البصرية ومعرض صور مرافق المدرسة (حتى 8 صور) مع أدوات رفع وحذف الشعار والغلاف وعارض Lightbox تفاعلي بدقة عالية.",
-    "min_php_version": "8.2",
-    "version": "3.5.35",
+    "version": "3.5.39",
     "release_date": "2026-10-10",
-    "version_type": "enterprise"
+    "release_notes": "تحسينات تصميمية شاملة: favicon، قائمة جوال، إصلاح أيقونات، badge-schoplus، responsive hero، card line-clamp، cover placeholder، scroll-reveal، countup"
 }

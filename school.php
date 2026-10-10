@@ -220,7 +220,7 @@ require_once __DIR__ . '/header.php';
                 <div class="d-flex flex-column flex-md-row align-items-md-end justify-content-between gap-3" style="margin-top: -65px;">
                     <!-- Logo + Title -->
                     <div class="d-flex align-items-end gap-3 flex-wrap">
-                        <div class="bg-white p-2 rounded-4 shadow-md border" style="width: 120px; height: 120px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; z-index: 2;">
+                        <div class="bg-white p-2 rounded-4 shadow border" style="width: 120px; height: 120px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; z-index: 2;">
                             <?php if (!empty($school['logo_path'])): ?>
                                 <img src="<?= e($school['logo_path']) ?>" alt="<?= e($school['name']) ?>" style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 12px;">
                             <?php else: ?>
@@ -235,7 +235,7 @@ require_once __DIR__ . '/header.php';
                                 <h2 class="fw-bold mb-0 text-dark" style="font-size: 1.6rem;"><?= e($school['name']) ?></h2>
                                 <?php if ($school['is_schoplus_client']): ?>
                                     <span class="badge-schoplus shadow-sm" style="font-size: 0.78rem;">
-                                        <i class="fas fa-shield-check"></i> شريك SchoPlus الذكي
+                                        <i class="fas fa-shield-alt"></i> شريك SchoPlus الذكي
                                     </span>
                                 <?php endif; ?>
                                 <?php if ($school['is_verified']): ?>
@@ -258,32 +258,33 @@ require_once __DIR__ . '/header.php';
                         </div>
                     </div>
 
-                    <!-- Action Buttons -->
+                    <!-- Action Buttons — unified luxury system -->
                     <div class="d-flex align-items-center gap-2 flex-wrap mb-2">
                         <?php if (!empty($school['whatsapp'])): ?>
-                            <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $school['whatsapp']) ?>?text=<?= urlencode('مرحباً بكم، رأيت مدرستكم على دليل المدارس الذكي SchoPlus وأود الاستفسار عن التسجيل.') ?>" target="_blank" class="btn btn-success fw-bold px-3 py-2 rounded-3 shadow-sm d-flex align-items-center gap-2" style="font-size: 0.9rem;">
-                                <i class="fab fa-whatsapp fs-5"></i>
+                            <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $school['whatsapp']) ?>?text=<?= urlencode('مرحباً بكم، رأيت مدرستكم على دليل المدارس الذكي SchoPlus وأود الاستفسار عن التسجيل.') ?>" target="_blank" class="btn-luxury-primary px-3 py-2" style="background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); box-shadow: 0 4px 14px rgba(22,163,74,0.22);">
+                                <i class="fab fa-whatsapp"></i>
                                 <span>واتساب المدرسة</span>
                             </a>
                         <?php endif; ?>
 
                         <?php if (!empty($school['phone'])): ?>
-                            <a href="tel:<?= e($school['phone']) ?>" class="btn btn-outline-primary fw-bold px-3 py-2 rounded-3 d-flex align-items-center gap-2" style="font-size: 0.9rem;">
+                            <a href="tel:<?= e($school['phone']) ?>" class="btn-luxury-outline px-3 py-2">
                                 <i class="fas fa-phone-alt"></i>
                                 <span>اتصال: <?= e($school['phone']) ?></span>
                             </a>
                         <?php endif; ?>
 
-                        <a href="#inquiry-form-section" class="btn-luxury-gold px-3 py-2 rounded-3 fw-bold d-flex align-items-center gap-2" style="font-size: 0.9rem;">
+                        <a href="#inquiry-form-section" class="btn-luxury-gold px-3 py-2">
                             <i class="fas fa-envelope-open-text"></i>
                             <span>طلب قبول / استفسار</span>
                         </a>
 
-                        <button type="button" class="btn btn-outline-dark fw-bold px-3 py-2 rounded-3 d-flex align-items-center gap-2 shadow-sm" style="font-size: 0.9rem; background:#fff" onclick="openShareModal()">
-                            <i class="fas fa-share-nodes text-primary"></i>
-                            <span>مشاركة الرابط والباركود</span>
+                        <button type="button" class="btn-luxury-outline px-3 py-2" onclick="openShareModal()">
+                            <i class="fas fa-share-alt text-primary"></i>
+                            <span>مشاركة الرابط</span>
                         </button>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -295,7 +296,7 @@ require_once __DIR__ . '/header.php';
                     <div class="col-md-8">
                         <div class="d-flex align-items-center gap-2 mb-2">
                             <span class="badge bg-warning text-dark px-3 py-1 rounded-pill fw-bold" style="font-size: 0.78rem;">
-                                <i class="fas fa-sparkles me-1"></i> مدرسة ذكية معتمدة تقنياً
+                                <i class="fas fa-bolt me-1"></i> مدرسة ذكية معتمدة تقنياً
                             </span>
                         </div>
                         <h5 class="fw-bold mb-2 text-white">هذه المدرسة تعمل بنظام SchoPlus السحابي لإدارة التعليم الذكي</h5>
@@ -478,9 +479,9 @@ require_once __DIR__ . '/header.php';
                                 <div class="row g-3">
                                     <?php foreach ($galleryList as $idx => $photo): ?>
                                         <div class="col-sm-6 col-md-4">
-                                            <div class="card border rounded-3 overflow-hidden shadow-sm h-100 position-relative group-hover" style="cursor: pointer;" onclick="openLightbox('<?= e($photo['path']) ?>', '<?= e(addslashes($photo['caption'] ?: $school['name'])) ?>')">
+                                            <div class="gallery-thumb card border rounded-3 overflow-hidden shadow-sm h-100 position-relative" style="cursor: pointer;" onclick="openLightbox('<?= e($photo['path']) ?>', '<?= e(addslashes($photo['caption'] ?: $school['name'])) ?>')">
                                                 <div style="height: 190px; overflow: hidden; background: #f8fafc;">
-                                                    <img src="<?= e($photo['path']) ?>" alt="<?= e($photo['caption'] ?: $school['name']) ?>" class="w-100 h-100" style="object-fit: cover; transition: transform 0.3s ease;">
+                                                    <img src="<?= e($photo['path']) ?>" alt="<?= e($photo['caption'] ?: $school['name']) ?>" loading="lazy" class="w-100 h-100" style="object-fit: cover; transition: transform 0.3s ease;">
                                                 </div>
                                                 <?php if (!empty($photo['caption'])): ?>
                                                     <div class="p-2 bg-white border-top text-center">

@@ -8,6 +8,7 @@ $currSchool = currentSchool();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230B2A52'/%3E%3Cpath d='M16 6 L26 11 L26 17 C26 22 21 26 16 28 C11 26 6 22 6 17 L6 11 Z' fill='%23F5A020' opacity='0.9'/%3E%3Cpath d='M12 16 L15 19 L20 13' stroke='white' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
     <title><?= isset($pageTitle) ? e($pageTitle) . ' | دليل المدارس الذكي — SchoPlus' : 'دليل المدارس الذكي — دليلك الشامل لاختيار أفضل المدارس في السودان' ?></title>
     
     <!-- Open Graph / WhatsApp / Facebook Meta Tags -->
@@ -283,12 +284,227 @@ $currSchool = currentSchool();
             align-items: center;
             gap: 2px;
         }
+
+        /* ======= DESIGN FIXES & IMPROVEMENTS v3.5.36 ======= */
+
+        /* Fix 1: badge-schoplus was undefined — now defined */
+        .badge-schoplus {
+            background: linear-gradient(135deg, #1E5FA8 0%, #0B2A52 100%);
+            color: #FCD34D;
+            border: 1px solid #2563EB;
+            padding: 4px 11px;
+            border-radius: 20px;
+            font-size: 0.74rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Fix 2: Hero title — responsive font size */
+        .daleel-hero h1 {
+            font-size: clamp(1.7rem, 5vw, 2.75rem) !important;
+        }
+
+        /* Fix 3: School card description — clean 2-line clamp */
+        .school-card-desc {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            min-height: 2.6em;
+            line-height: 1.55;
+        }
+
+        /* Fix 4: Cover placeholder for schools without cover photo */
+        .cover-placeholder {
+            background: linear-gradient(135deg, #0B2A52 0%, #1E5FA8 60%, #D97706 120%) !important;
+        }
+        .cover-placeholder-icon {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: rgba(255,255,255,0.12);
+            pointer-events: none;
+        }
+
+        /* Fix 5: Gallery image hover zoom */
+        .gallery-thumb img {
+            transition: transform 0.35s ease;
+        }
+        .gallery-thumb:hover img {
+            transform: scale(1.06);
+        }
+
+        /* Fix 6: Skeleton loading shimmer */
+        @keyframes shimmer {
+            0% { background-position: -800px 0; }
+            100% { background-position: 800px 0; }
+        }
+        .skeleton {
+            background: linear-gradient(90deg, #f0ece8 25%, #e8e2dc 50%, #f0ece8 75%);
+            background-size: 800px 100%;
+            animation: shimmer 1.4s infinite linear;
+            border-radius: 8px;
+        }
+
+        /* Fix 7: Nav pills — brand-consistent active state */
+        .nav-pills .nav-link.active {
+            background-color: var(--brand-navy) !important;
+            color: #ffffff !important;
+        }
+        .nav-pills .nav-link {
+            color: var(--text-body);
+            font-weight: 700;
+            font-size: 0.88rem;
+            transition: all 0.2s ease;
+        }
+        .nav-pills .nav-link:not(.active):hover {
+            background-color: var(--bg-surface-soft);
+            color: var(--brand-navy);
+        }
+
+        /* Fix 8: Fade-up scroll reveal */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(22px);
+            transition: opacity 0.55s ease, transform 0.55s ease;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Fix 9: Mobile hamburger button */
+        .mobile-nav-toggle {
+            display: none;
+            background: #ffffff;
+            border: 1.5px solid var(--border-subtle);
+            border-radius: 10px;
+            padding: 7px 13px;
+            color: var(--text-main);
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.82rem;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+        .mobile-nav-toggle:hover {
+            border-color: var(--brand-blue);
+            color: var(--brand-blue);
+        }
+        @media (max-width: 991px) {
+            .mobile-nav-toggle { display: flex; }
+        }
+
+        /* Fix 10: Mobile topbar (shown only on small screens) */
+        .daleel-topbar-mobile {
+            display: none;
+            background-color: #F4ECE1;
+            font-size: 0.78rem;
+            color: #6B7280;
+            border-bottom: 1px solid #EBE3D7;
+            padding: 6px 16px;
+            gap: 14px;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 767px) {
+            .daleel-topbar-mobile { display: flex !important; }
+            .daleel-topbar { display: none !important; }
+        }
+
+        /* Fix 11: Offcanvas nav link style */
+        .offcanvas-nav-link {
+            color: var(--text-body);
+            font-weight: 600;
+            font-size: 0.93rem;
+            padding: 10px 14px;
+            border-radius: 10px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s ease;
+        }
+        .offcanvas-nav-link:hover {
+            background-color: var(--bg-surface-soft);
+            color: var(--brand-blue);
+        }
     </style>
+
 </head>
-<body>
+    <!-- Mobile Topbar (visible only on small screens) -->
+    <div class="daleel-topbar-mobile">
+        <a href="https://wa.me/249912345678" target="_blank" class="text-decoration-none text-muted d-flex align-items-center gap-1">
+            <i class="fab fa-whatsapp text-success"></i> واتساب الدعم
+        </a>
+        <span>•</span>
+        <a href="https://schoplus.sd" target="_blank" class="text-decoration-none text-muted d-flex align-items-center gap-1">
+            <i class="fas fa-globe"></i> SchoPlus.sd
+        </a>
+        <span>•</span>
+        <a href="register.php" class="text-decoration-none fw-bold d-flex align-items-center gap-1" style="color: var(--brand-gold);">
+            <i class="fas fa-plus-circle"></i> سجّل مدرستك
+        </a>
+    </div>
+
+    <!-- Mobile Offcanvas Navigation -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileNavOffcanvas" aria-labelledby="mobileNavLabel">
+        <div class="offcanvas-header border-bottom" style="background: var(--bg-surface-tint);">
+            <div class="d-flex align-items-center gap-2">
+                <div class="daleel-logo-icon" style="width: 36px; height: 36px; font-size: 1rem;">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h5 class="offcanvas-title daleel-brand-title mb-0 fs-6" id="mobileNavLabel">دليل المدارس الذكي</h5>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body p-3">
+            <nav class="d-flex flex-column gap-1 mb-4">
+                <a href="index.php" class="offcanvas-nav-link">
+                    <i class="fas fa-home text-muted" style="width:18px"></i> الرئيسية
+                </a>
+                <a href="index.php#schoplus-schools" class="offcanvas-nav-link">
+                    <i class="fas fa-star text-warning" style="width:18px"></i> المدارس الذكية
+                </a>
+                <a href="index.php#top-rated" class="offcanvas-nav-link">
+                    <i class="fas fa-award text-primary" style="width:18px"></i> الأعلى تقييماً
+                </a>
+                <a href="index.php#search-section" class="offcanvas-nav-link">
+                    <i class="fas fa-search text-muted" style="width:18px"></i> استكشف المدارس
+                </a>
+                <a href="https://schoplus.sd" target="_blank" class="offcanvas-nav-link">
+                    <i class="fas fa-info-circle text-muted" style="width:18px"></i> عن النظام
+                </a>
+            </nav>
+            <div class="border-top pt-3 d-flex flex-column gap-2">
+                <?php if ($currSchool): ?>
+                    <a href="dashboard.php" class="btn-luxury-primary justify-content-center">
+                        <i class="fas fa-columns"></i> لوحة إدارة المدرسة
+                    </a>
+                    <a href="logout.php" class="btn btn-sm btn-light border text-danger rounded-3 py-2">
+                        <i class="fas fa-sign-out-alt me-1"></i> تسجيل الخروج
+                    </a>
+                <?php else: ?>
+                    <a href="login.php" class="btn-luxury-outline justify-content-center">
+                        <i class="fas fa-user-tie text-secondary"></i> دخول أصحاب المدارس
+                    </a>
+                    <a href="register.php" class="btn-luxury-primary justify-content-center mt-1">
+                        <i class="fas fa-plus-circle"></i> سجّل مدرستك مجاناً
+                    </a>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
 
     <div class="ambient-cream-glow" style="top: -200px; right: -200px;"></div>
     <div class="ambient-cream-glow" style="top: 800px; left: -250px;"></div>
+
 
     <!-- Top Announcement Bar -->
     <div class="daleel-topbar d-none d-md-block">
@@ -316,7 +532,7 @@ $currSchool = currentSchool();
                 </div>
                 <div>
                     <h1 class="daleel-brand-title">دليل المدارس</h1>
-                    <span class="daleel-brand-tag"><i class="fas fa-sparkles me-1"></i>SCHOPLUS DIRECTORY</span>
+                    <span class="daleel-brand-tag"><i class="fas fa-bolt me-1"></i>SCHOPLUS DIRECTORY</span>
                 </div>
             </a>
 
@@ -329,25 +545,32 @@ $currSchool = currentSchool();
             </nav>
 
             <div class="d-flex align-items-center gap-2">
+                <!-- Hamburger (mobile only) -->
+                <button class="mobile-nav-toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileNavOffcanvas" aria-controls="mobileNavOffcanvas">
+                    <i class="fas fa-bars"></i>
+                    <span>القائمة</span>
+                </button>
+                <!-- Desktop CTA buttons -->
                 <?php if ($currSchool): ?>
-                    <a href="dashboard.php" class="btn-luxury-outline">
+                    <a href="dashboard.php" class="btn-luxury-outline d-none d-lg-inline-flex">
                         <i class="fas fa-columns text-primary"></i>
                         <span>لوحة إدارة المدرسة</span>
                     </a>
-                    <a href="logout.php" class="btn btn-sm btn-light border text-danger" title="تسجيل الخروج">
+                    <a href="logout.php" class="btn btn-sm btn-light border text-danger d-none d-lg-inline-flex" title="تسجيل الخروج">
                         <i class="fas fa-sign-out-alt"></i>
                     </a>
                 <?php else: ?>
-                    <a href="login.php" class="btn-luxury-outline">
+                    <a href="login.php" class="btn-luxury-outline d-none d-lg-inline-flex">
                         <i class="fas fa-user-tie text-secondary"></i>
                         <span>دخول أصحاب المدارس</span>
                     </a>
-                    <a href="register.php" class="btn-luxury-primary">
+                    <a href="register.php" class="btn-luxury-primary d-none d-lg-inline-flex">
                         <i class="fas fa-plus-circle"></i>
                         <span>سجّل مدرستك مجاناً</span>
                     </a>
                 <?php endif; ?>
             </div>
+
 
         </div>
     </header>

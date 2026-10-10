@@ -54,7 +54,7 @@
                     جميع الحقوق محفوظة © <?= date('Y') ?> — دليل المدارس الذكي | إحدى مبادرات <strong>SchoPlus Cloud Ecosystem</strong>.
                 </div>
                 <div>
-                    عقدة سحابية مستقلة (Node 6) • النسخة 3.5.30
+                    عقدة سحابية مستقلة (Node 6) • النسخة 3.5.36
                 </div>
             </div>
         </div>
@@ -63,5 +63,54 @@
     <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <?php if (isset($extraScripts)) echo $extraScripts; ?>
+
+    <!-- Scroll Reveal + CountUp Animations -->
+    <script>
+    (function(){
+        // Fade-up scroll reveal
+        var els = document.querySelectorAll('.fade-up');
+        if (els.length && 'IntersectionObserver' in window) {
+            var obs = new IntersectionObserver(function(entries) {
+                entries.forEach(function(e) {
+                    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+                });
+            }, { threshold: 0.1 });
+            els.forEach(function(el) { obs.observe(el); });
+        } else {
+            els.forEach(function(el) { el.classList.add('visible'); });
+        }
+
+        // CountUp animation for hero stats
+        function countUp(el, target, duration) {
+            var start = 0;
+            var step = target / (duration / 16);
+            var suffix = el.dataset.suffix || '';
+            var timer = setInterval(function() {
+                start += step;
+                if (start >= target) {
+                    el.textContent = target.toLocaleString() + suffix;
+                    clearInterval(timer);
+                    return;
+                }
+                el.textContent = Math.floor(start).toLocaleString() + suffix;
+            }, 16);
+        }
+
+        var stats = document.querySelectorAll('[data-countup]');
+        if (stats.length && 'IntersectionObserver' in window) {
+            var obs2 = new IntersectionObserver(function(entries) {
+                entries.forEach(function(e) {
+                    if (e.isIntersecting) {
+                        var target = parseInt(e.target.dataset.countup);
+                        var suffix = e.target.dataset.suffix || '';
+                        countUp(e.target, target, 1200);
+                        obs2.unobserve(e.target);
+                    }
+                });
+            }, { threshold: 0.3 });
+            stats.forEach(function(el) { obs2.observe(el); });
+        }
+    })();
+    </script>
 </body>
 </html>
