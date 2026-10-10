@@ -1,7 +1,7 @@
 {
-    "release_notes": "daleel.schoplus.sd — حذف شريط العنوان والروابط السريعة من أعلى الفلتر الرئيسي",
+    "release_notes": "daleel.schoplus.sd — حذف الشارة العلوية من الهيرو الرئيسي",
     "min_php_version": "8.2",
-    "version": "3.5.54",
+    "version": "3.5.55",
     "release_date": "2026-10-10",
     "version_type": "enterprise"
 }

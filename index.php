@@ -450,11 +450,6 @@ if ($isSearching) {
     <div class="container">
         <div class="hero-v2-inner text-center">
 
-            <div class="hero-v2-badge">
-                <span class="hero-v2-badge-dot"></span>
-                <span>مبادرة رقمية مجانية من منظومة ايسكو بلص (SchoPlus)</span>
-            </div>
-
             <h1 class="hero-v2-title">
                 دليلك الرقمي للتعرف على المدارس في السودان
                 <span class="hero-v2-title-sub">ابحث بالولاية والمدينة والمرحلة الدراسية وتواصل مع إدارات المدارس مباشرة</span>
