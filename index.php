@@ -224,7 +224,7 @@ $genderTypes = SudanGeography::genderTypes();
                         </div>
 
                         <div style="padding: 34px 20px 20px; display: flex; flex-direction: column;">
-                            <a href="school.php?slug=<?= e($s['slug']) ?>" style="font-weight: 800; font-size: 1.15rem; color: var(--brand-navy); margin-bottom: 6px; text-decoration: none;">
+                            <a href="school/<?= urlencode($s['slug']) ?>" style="font-weight: 800; font-size: 1.15rem; color: var(--brand-navy); margin-bottom: 6px; text-decoration: none;">
                                 <?= e($s['name']) ?>
                             </a>
 
@@ -257,7 +257,7 @@ $genderTypes = SudanGeography::genderTypes();
                                             <i class="fab fa-whatsapp"></i>
                                         </a>
                                     <?php endif; ?>
-                                    <a href="school.php?slug=<?= e($s['slug']) ?>" class="btn-luxury-primary btn-sm py-1 px-3">
+                                    <a href="school/<?= urlencode($s['slug']) ?>" class="btn-luxury-primary btn-sm py-1 px-3">
                                         <span>البروفايل</span>
                                         <i class="fas fa-chevron-left small"></i>
                                     </a>
@@ -299,7 +299,7 @@ $genderTypes = SudanGeography::genderTypes();
                         <div class="d-flex align-items-center gap-3 mb-3">
                             <img src="<?= $logo ?>" alt="" style="width: 50px; height: 50px; border-radius: 12px; object-fit: cover;">
                             <div>
-                                <a href="school.php?slug=<?= e($s['slug']) ?>" class="fw-bold text-dark text-decoration-none d-block text-truncate" style="max-width: 170px;">
+                                <a href="school/<?= urlencode($s['slug']) ?>" class="fw-bold text-dark text-decoration-none d-block text-truncate" style="max-width: 170px;">
                                     <?= e($s['name']) ?>
                                 </a>
                                 <div class="small text-muted"><?= e($s['city']) ?></div>
@@ -315,7 +315,7 @@ $genderTypes = SudanGeography::genderTypes();
                             </div>
                         </div>
 
-                        <a href="school.php?slug=<?= e($s['slug']) ?>" class="btn-luxury-outline btn-sm w-100 justify-content-center">
+                        <a href="school/<?= urlencode($s['slug']) ?>" class="btn-luxury-outline btn-sm w-100 justify-content-center">
                             عرض التفاصيل
                         </a>
                     </div>
@@ -480,7 +480,7 @@ $genderTypes = SudanGeography::genderTypes();
                             </div>
 
                             <div style="padding: 34px 20px 20px; display: flex; flex-direction: column; flex-grow: 1;">
-                                <a href="school.php?slug=<?= e($s['slug']) ?>" style="font-weight: 800; font-size: 1.15rem; color: var(--brand-navy); margin-bottom: 6px; text-decoration: none;">
+                                <a href="school/<?= urlencode($s['slug']) ?>" style="font-weight: 800; font-size: 1.15rem; color: var(--brand-navy); margin-bottom: 6px; text-decoration: none;">
                                     <?= e($s['name']) ?>
                                 </a>
 
@@ -513,7 +513,7 @@ $genderTypes = SudanGeography::genderTypes();
                                                 <i class="fab fa-whatsapp"></i>
                                             </a>
                                         <?php endif; ?>
-                                        <a href="school.php?slug=<?= e($s['slug']) ?>" class="btn-luxury-outline btn-sm py-1 px-3">
+                                        <a href="school/<?= urlencode($s['slug']) ?>" class="btn-luxury-outline btn-sm py-1 px-3">
                                             عرض البروفايل
                                         </a>
                                     </div>

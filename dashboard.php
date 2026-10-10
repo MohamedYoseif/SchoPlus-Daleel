@@ -279,11 +279,15 @@ require_once __DIR__ . '/header.php';
                     </div>
                 </div>
 
-                <div class="d-flex align-items-center gap-2">
-                    <a href="school.php?slug=<?= urlencode($school['slug']) ?>" target="_blank" class="btn-luxury-outline">
+                <div class="d-flex align-items-center gap-2 flex-wrap">
+                    <a href="school/<?= urlencode($school['slug']) ?>" target="_blank" class="btn-luxury-outline">
                         <i class="fas fa-external-link-alt text-primary"></i>
                         <span>معاينة صفحة المدرسة</span>
                     </a>
+                    <button type="button" class="btn-luxury-primary" onclick="openShareModal()">
+                        <i class="fas fa-share-nodes"></i>
+                        <span>مشاركة الرابط والباركود</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -863,6 +867,87 @@ require_once __DIR__ . '/header.php';
     if (stateSelect.value) {
         populateCities(stateSelect.value);
     }
+</script>
+
+<!-- SHARE & QR CODE MODAL FOR OWNER -->
+<div class="modal fade" id="shareSchoolModal" tabindex="-1" aria-labelledby="shareSchoolModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0 shadow-lg">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bold text-dark" id="shareSchoolModalLabel">
+                    <i class="fas fa-share-nodes text-primary me-2"></i> مشاركة صفحة مدرستكم
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4 text-center">
+                <!-- QR Code Box -->
+                <div class="p-3 bg-light rounded-4 d-inline-block mb-3 border">
+                    <img id="schoolQrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=<?= urlencode('https://daleel.schoplus.sd/s/' . $school['slug']) ?>" alt="QR Code" class="img-fluid rounded-3" style="width: 150px; height: 150px;">
+                    <div class="small text-muted mt-2 fw-medium">امسح الباركود لفتح صفحة المدرسة فوراً</div>
+                </div>
+
+                <!-- Short URL Input & Copy -->
+                <div class="mb-3 text-start">
+                    <label class="form-label small fw-bold text-muted">الرابط المختصر الأنيق لمدرستكم:</label>
+                    <div class="input-group">
+                        <input type="text" id="shortUrlInput" class="form-control font-monospace text-start" style="direction:ltr" value="https://daleel.schoplus.sd/s/<?= e($school['slug']) ?>" readonly>
+                        <button class="btn btn-primary fw-bold px-3" type="button" onclick="copyShortUrl()">
+                            <i class="fas fa-copy me-1"></i> <span id="copyBtnText">نسخ</span>
+                        </button>
+                    </div>
+                    <small class="text-muted d-block mt-1">يمكنك أيضاً مشاركة الرابط المباشر: <code>https://daleel.schoplus.sd/school/<?= e($school['slug']) ?></code></small>
+                </div>
+
+                <!-- Direct Social Sharing Buttons -->
+                <div class="d-flex align-items-center justify-content-center gap-2 flex-wrap mt-3">
+                    <!-- WhatsApp -->
+                    <a href="https://api.whatsapp.com/send?text=<?= urlencode("زوروا صفحة " . $school['name'] . " على دليل المدارس الذكي SchoPlus:\nhttps://daleel.schoplus.sd/s/" . $school['slug']) ?>" target="_blank" class="btn btn-success btn-sm rounded-pill px-3 py-2 fw-bold d-flex align-items-center gap-2">
+                        <i class="fab fa-whatsapp fs-5"></i> واتساب
+                    </a>
+                    
+                    <!-- Telegram -->
+                    <a href="https://t.me/share/url?url=<?= urlencode('https://daleel.schoplus.sd/s/' . $school['slug']) ?>&text=<?= urlencode($school['name'] . ' — دليل المدارس الذكي') ?>" target="_blank" class="btn btn-info text-white btn-sm rounded-pill px-3 py-2 fw-bold d-flex align-items-center gap-2">
+                        <i class="fab fa-telegram fs-5"></i> تيليجرام
+                    </a>
+
+                    <!-- Facebook -->
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=<?= urlencode('https://daleel.schoplus.sd/s/' . $school['slug']) ?>" target="_blank" class="btn btn-outline-primary btn-sm rounded-pill px-3 py-2 fw-bold d-flex align-items-center gap-2">
+                        <i class="fab fa-facebook fs-5"></i> فيسبوك
+                    </a>
+
+                    <!-- Twitter / X -->
+                    <a href="https://twitter.com/intent/tweet?url=<?= urlencode('https://daleel.schoplus.sd/s/' . $school['slug']) ?>&text=<?= urlencode('صفحة ' . $school['name'] . ' على دليل المدارس') ?>" target="_blank" class="btn btn-outline-dark btn-sm rounded-pill px-3 py-2 fw-bold d-flex align-items-center gap-2">
+                        <i class="fab fa-x-twitter fs-5"></i> تويتر (X)
+                    </a>
+                </div>
+
+                <!-- Download QR link -->
+                <div class="mt-3">
+                    <a href="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=<?= urlencode('https://daleel.schoplus.sd/s/' . $school['slug']) ?>" download="QR-<?= e($school['slug']) ?>.png" target="_blank" class="btn btn-sm btn-link text-muted text-decoration-none">
+                        <i class="fas fa-download me-1"></i> تحميل الباركود بدقة عالية لطباعته في المدرسة أو الإعلانات
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function openShareModal() {
+    const modal = new bootstrap.Modal(document.getElementById('shareSchoolModal'));
+    modal.show();
+}
+
+function copyShortUrl() {
+    const input = document.getElementById('shortUrlInput');
+    input.select();
+    input.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(input.value).then(() => {
+        const btnText = document.getElementById('copyBtnText');
+        btnText.innerText = 'تم النسخ!';
+        setTimeout(() => { btnText.innerText = 'نسخ'; }, 2500);
+    });
+}
 </script>
 
 <?php

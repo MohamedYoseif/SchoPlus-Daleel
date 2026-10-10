@@ -166,6 +166,10 @@ $facilities = json_decode($school['facilities'] ?? '[]', true) ?: [];
 $stages = json_decode($school['stages'] ?? '[]', true) ?: [];
 
 $pageTitle = $school['name'];
+$ogTitle = $school['name'] . ' | دليل المدارس الذكي';
+$ogDesc = mb_substr(strip_tags($school['about'] ?: ($school['name'] . ' — ' . $school['state'] . '، ' . $school['city'] . '. تصفح الرسوم، المرافق، وتواصل مباشرة.')), 0, 160);
+$ogImage = !empty($school['logo_path']) ? (str_starts_with($school['logo_path'], 'http') ? $school['logo_path'] : 'https://daleel.schoplus.sd/' . ltrim($school['logo_path'], '/')) : (!empty($school['cover_path']) ? (str_starts_with($school['cover_path'], 'http') ? $school['cover_path'] : 'https://daleel.schoplus.sd/' . ltrim($school['cover_path'], '/')) : 'https://daleel.schoplus.sd/logo.png');
+$ogUrl = 'https://daleel.schoplus.sd/school/' . urlencode($school['slug']);
 require_once __DIR__ . '/header.php';
 ?>
 
@@ -273,6 +277,11 @@ require_once __DIR__ . '/header.php';
                             <i class="fas fa-envelope-open-text"></i>
                             <span>طلب قبول / استفسار</span>
                         </a>
+
+                        <button type="button" class="btn btn-outline-dark fw-bold px-3 py-2 rounded-3 d-flex align-items-center gap-2 shadow-sm" style="font-size: 0.9rem; background:#fff" onclick="openShareModal()">
+                            <i class="fas fa-share-nodes text-primary"></i>
+                            <span>مشاركة الرابط والباركود</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -729,6 +738,86 @@ require_once __DIR__ . '/header.php';
 
     </div>
 </div>
+
+<!-- SHARE & QR CODE MODAL -->
+<div class="modal fade" id="shareSchoolModal" tabindex="-1" aria-labelledby="shareSchoolModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0 shadow-lg">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bold text-dark" id="shareSchoolModalLabel">
+                    <i class="fas fa-share-nodes text-primary me-2"></i> مشاركة صفحة المدرسة
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4 text-center">
+                <!-- QR Code Box -->
+                <div class="p-3 bg-light rounded-4 d-inline-block mb-3 border">
+                    <img id="schoolQrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=<?= urlencode('https://daleel.schoplus.sd/s/' . $school['slug']) ?>" alt="QR Code" class="img-fluid rounded-3" style="width: 150px; height: 150px;">
+                    <div class="small text-muted mt-2 fw-medium">امسح الباركود للوصول المباشر</div>
+                </div>
+
+                <!-- Short URL Input & Copy -->
+                <div class="mb-3 text-start">
+                    <label class="form-label small fw-bold text-muted">الرابط المختصر الأنيق (جاهز للمشاركة):</label>
+                    <div class="input-group">
+                        <input type="text" id="shortUrlInput" class="form-control font-monospace text-start" style="direction:ltr" value="https://daleel.schoplus.sd/s/<?= e($school['slug']) ?>" readonly>
+                        <button class="btn btn-primary fw-bold px-3" type="button" onclick="copyShortUrl()">
+                            <i class="fas fa-copy me-1"></i> <span id="copyBtnText">نسخ</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Direct Social Sharing Buttons -->
+                <div class="d-flex align-items-center justify-content-center gap-2 flex-wrap mt-3">
+                    <!-- WhatsApp -->
+                    <a href="https://api.whatsapp.com/send?text=<?= urlencode("تعرف على " . $school['name'] . " عبر دليل المدارس الذكي SchoPlus:\nhttps://daleel.schoplus.sd/s/" . $school['slug']) ?>" target="_blank" class="btn btn-success btn-sm rounded-pill px-3 py-2 fw-bold d-flex align-items-center gap-2">
+                        <i class="fab fa-whatsapp fs-5"></i> واتساب
+                    </a>
+                    
+                    <!-- Telegram -->
+                    <a href="https://t.me/share/url?url=<?= urlencode('https://daleel.schoplus.sd/s/' . $school['slug']) ?>&text=<?= urlencode($school['name'] . ' — دليل المدارس الذكي') ?>" target="_blank" class="btn btn-info text-white btn-sm rounded-pill px-3 py-2 fw-bold d-flex align-items-center gap-2">
+                        <i class="fab fa-telegram fs-5"></i> تيليجرام
+                    </a>
+
+                    <!-- Facebook -->
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=<?= urlencode('https://daleel.schoplus.sd/s/' . $school['slug']) ?>" target="_blank" class="btn btn-outline-primary btn-sm rounded-pill px-3 py-2 fw-bold d-flex align-items-center gap-2">
+                        <i class="fab fa-facebook fs-5"></i> فيسبوك
+                    </a>
+
+                    <!-- Twitter / X -->
+                    <a href="https://twitter.com/intent/tweet?url=<?= urlencode('https://daleel.schoplus.sd/s/' . $school['slug']) ?>&text=<?= urlencode($school['name'] . ' على دليل المدارس') ?>" target="_blank" class="btn btn-outline-dark btn-sm rounded-pill px-3 py-2 fw-bold d-flex align-items-center gap-2">
+                        <i class="fab fa-x-twitter fs-5"></i> تويتر (X)
+                    </a>
+                </div>
+
+                <!-- Download QR link -->
+                <div class="mt-3">
+                    <a href="https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=<?= urlencode('https://daleel.schoplus.sd/s/' . $school['slug']) ?>" download="QR-<?= e($school['slug']) ?>.png" target="_blank" class="btn btn-sm btn-link text-muted text-decoration-none">
+                        <i class="fas fa-download me-1"></i> تحميل الباركود بدقة عالية للطباعة
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function openShareModal() {
+    const modal = new bootstrap.Modal(document.getElementById('shareSchoolModal'));
+    modal.show();
+}
+
+function copyShortUrl() {
+    const input = document.getElementById('shortUrlInput');
+    input.select();
+    input.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(input.value).then(() => {
+        const btnText = document.getElementById('copyBtnText');
+        btnText.innerText = 'تم النسخ!';
+        setTimeout(() => { btnText.innerText = 'نسخ'; }, 2500);
+    });
+}
+</script>
 
 <?php
 require_once __DIR__ . '/footer.php';
