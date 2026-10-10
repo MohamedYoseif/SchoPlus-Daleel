@@ -1445,6 +1445,7 @@ $totalRev = max(1, count($reviewsList));
                                 </div>
                             <?php endif; ?>
                         </div>
+                    </div>
                 </div>
 
                 <!-- TAB: FEES (بوابة الرسوم الدراسية والتسهيلات المالية) -->
