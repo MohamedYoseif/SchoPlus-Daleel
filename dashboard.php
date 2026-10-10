@@ -639,14 +639,17 @@ require_once __DIR__ . '/header.php';
                     </div>
                     <div>
                         <div class="d-flex align-items-center gap-2 flex-wrap">
-                            <h4 class="fw-bold mb-0 text-dark"><?= e($school['name']) ?></h4>
+                            <?php $dashRank = getSchoolDirectoryRank($pdo, (int)$school['id'], !empty($school['directory_rank']) ? (int)$school['directory_rank'] : null); ?>
                             <?php if ($school['status'] === 'approved'): ?>
                                 <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3 py-1 fw-bold small">
                                     <i class="fas fa-check-circle me-1"></i> معتمدة ونشطة بالدليل
                                 </span>
+                                <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-3 py-1 fw-bold small">
+                                    <i class="fas fa-award me-1"></i> الترتيب في الدليل: #<?= $dashRank ?>
+                                </span>
                             <?php elseif ($school['status'] === 'pending'): ?>
                                 <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle rounded-pill px-3 py-1 fw-bold small">
-                                    <i class="fas fa-hourglass-half me-1"></i> بانتظار التأكيد والاعتماد
+                                    <i class="fas fa-hourglass-half me-1"></i> بانتظار التأكيد والاعتماد (الترتيب المتوقع: #<?= $dashRank ?>)
                                 </span>
                             <?php elseif ($school['status'] === 'suspended'): ?>
                                 <span class="badge bg-danger text-white rounded-pill px-3 py-1 fw-bold small">

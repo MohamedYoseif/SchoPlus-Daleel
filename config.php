@@ -107,25 +107,32 @@ if (!function_exists('getSchoolDirectoryRank')) {
         if ($customRank !== null && $customRank > 0) {
             return $customRank;
         }
+
         static $cachedRanks = null;
         if ($cachedRanks === null) {
             try {
-                $stmt = $pdo->query("SELECT id, directory_rank FROM daleel_schools WHERE status != 'rejected' ORDER BY id ASC");
+                // الترتيب حصراً للمدارس المعتمدة فقط (status = 'approved') وفق أسبقية الاعتماد
+                $stmt = $pdo->query("SELECT id, directory_rank FROM daleel_schools WHERE status = 'approved' ORDER BY id ASC");
                 $cachedRanks = [];
                 $seq = 1;
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                    $cRank = !empty($row['directory_rank']) ? (int)$row['directory_rank'] : null;
-                    $cachedRanks[(int)$row['id']] = ($cRank !== null && $cRank > 0) ? $cRank : $seq;
+                    $savedRank = !empty($row['directory_rank']) ? (int)$row['directory_rank'] : null;
+                    $rankToUse = ($savedRank !== null && $savedRank > 0) ? $savedRank : $seq;
+                    $cachedRanks[(int)$row['id']] = $rankToUse;
                     $seq++;
                 }
             } catch (Throwable $e) {
                 $cachedRanks = [];
             }
         }
+
         if (isset($cachedRanks[$schoolId])) {
             return $cachedRanks[$schoolId];
         }
-        return max(1, $schoolId);
+
+        // إذا كانت المدرسة قيد المراجعة أو جديدة، ترتيبها المتوقع عند الاعتماد هو (حصر المدارس المعتمدة + 1)
+        $approvedCount = is_array($cachedRanks) ? count($cachedRanks) : 0;
+        return max(1, $approvedCount + 1);
     }
 }
 
@@ -379,6 +386,18 @@ function ensureTablesExist(PDO $pdo): void {
         if (!isset($newsCols['branch_name'])) {
             $pdo->exec("ALTER TABLE daleel_school_news ADD COLUMN branch_name VARCHAR(150) NULL AFTER title");
         }
+        // Auto-assign permanent sequential directory_rank for approved schools without rank (حصر المدارس المعتمدة + 1)
+        try {
+            $unrankedApproved = $pdo->query("SELECT id FROM daleel_schools WHERE status = 'approved' AND (directory_rank IS NULL OR directory_rank = 0) ORDER BY id ASC")->fetchAll(PDO::FETCH_COLUMN);
+            if (!empty($unrankedApproved)) {
+                $maxRank = (int) $pdo->query("SELECT MAX(directory_rank) FROM daleel_schools WHERE status = 'approved'")->fetchColumn();
+                $updRankStmt = $pdo->prepare("UPDATE daleel_schools SET directory_rank = ? WHERE id = ?");
+                foreach ($unrankedApproved as $unId) {
+                    $maxRank++;
+                    $updRankStmt->execute([$maxRank, (int)$unId]);
+                }
+            }
+        } catch (Throwable $e) {}
     } catch (Exception $e) {}
 
     // Clean up any accidental rogue schools created from system filenames or reserved slugs
