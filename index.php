@@ -4,85 +4,22 @@ require_once __DIR__ . '/header.php';
 
 $pdo = db();
 
-// Filters Input
+// Filter Inputs (The 3 dropdowns + Name/keyword)
 $q = trim($_GET['q'] ?? '');
 $state = trim($_GET['state'] ?? '');
 $city = trim($_GET['city'] ?? '');
-$schoolType = trim($_GET['school_type'] ?? '');
 $stage = trim($_GET['stage'] ?? '');
-$genderType = trim($_GET['gender_type'] ?? '');
-$curriculum = trim($_GET['curriculum'] ?? '');
 $schoplusOnly = !empty($_GET['schoplus_only']);
 $sort = trim($_GET['sort'] ?? 'featured');
+$view = trim($_GET['view'] ?? ''); // 'all', 'schoplus', 'top_rated', 'latest', or ''
 
-// Base query for approved schools
-$where = ["status = 'approved'"];
-$params = [];
+// Determine if user is performing a search or requesting a full standalone view
+$isSearching = ($q !== '' || $state !== '' || $city !== '' || $stage !== '' || $schoplusOnly || in_array($view, ['all', 'schoplus', 'top_rated', 'latest']));
 
-if ($q !== '') {
-    $where[] = "(name LIKE ? OR name_en LIKE ? OR district LIKE ? OR address LIKE ? OR description LIKE ?)";
-    $term = "%{$q}%";
-    $params[] = $term; $params[] = $term; $params[] = $term; $params[] = $term; $params[] = $term;
-}
-
-if ($state !== '') {
-    $where[] = "state = ?";
-    $params[] = $state;
-}
-
-if ($city !== '') {
-    $where[] = "city = ?";
-    $params[] = $city;
-}
-
-if ($schoolType !== '') {
-    $where[] = "school_type = ?";
-    $params[] = $schoolType;
-}
-
-if ($genderType !== '') {
-    $where[] = "gender_type = ?";
-    $params[] = $genderType;
-}
-
-if ($curriculum !== '') {
-    $where[] = "curriculum = ?";
-    $params[] = $curriculum;
-}
-
-if ($stage !== '') {
-    $where[] = "stages LIKE ?";
-    $params[] = "%\"{$stage}\"%";
-}
-
-if ($schoplusOnly) {
-    $where[] = "is_schoplus_client = 1";
-}
-
-$whereClause = implode(' AND ', $where);
-
-// Order by
-$orderBy = "is_featured DESC, is_schoplus_client DESC, rating_avg DESC";
-if ($sort === 'rating') $orderBy = "rating_avg DESC, reviews_count DESC";
-if ($sort === 'reviews') $orderBy = "reviews_count DESC";
-if ($sort === 'views') $orderBy = "views_count DESC";
-if ($sort === 'latest') $orderBy = "created_at DESC";
-
-// Count total
-$countStmt = $pdo->prepare("SELECT COUNT(*) FROM daleel_schools WHERE {$whereClause}");
-$countStmt->execute($params);
-$totalSchools = (int) $countStmt->fetchColumn();
-
-// Fetch schools
-$stmt = $pdo->prepare("SELECT * FROM daleel_schools WHERE {$whereClause} ORDER BY {$orderBy} LIMIT 30");
-$stmt->execute($params);
-$schools = $stmt->fetchAll();
-
-// Top Rated Showcase
-$topRated = $pdo->query("SELECT * FROM daleel_schools WHERE status = 'approved' ORDER BY rating_avg DESC, reviews_count DESC LIMIT 4")->fetchAll();
-
-// SchoPlus Smart Schools Showcase
-$schoplusSchools = $pdo->query("SELECT * FROM daleel_schools WHERE status = 'approved' AND is_schoplus_client = 1 ORDER BY is_featured DESC, rating_avg DESC LIMIT 6")->fetchAll();
+// Geography & standard mappings
+$statesWithCities = SudanGeography::statesWithCities();
+$schoolStages = SudanGeography::schoolStages();
+$schoolTypes = SudanGeography::schoolTypes();
 
 // Statistics
 $statTotal = (int) $pdo->query("SELECT COUNT(*) FROM daleel_schools WHERE status = 'approved'")->fetchColumn();
@@ -90,15 +27,253 @@ $statSchoplus = (int) $pdo->query("SELECT COUNT(*) FROM daleel_schools WHERE sta
 $statStates = (int) $pdo->query("SELECT COUNT(DISTINCT state) FROM daleel_schools WHERE status = 'approved'")->fetchColumn() ?: count(SudanGeography::states());
 $statReviews = (int) $pdo->query("SELECT COUNT(*) FROM daleel_school_reviews WHERE is_approved = 1")->fetchColumn();
 
-$statesWithCities = SudanGeography::statesWithCities();
-$schoolTypes = SudanGeography::schoolTypes();
-$schoolStages = SudanGeography::schoolStages();
-$curriculums = SudanGeography::curriculums();
-$genderTypes = SudanGeography::genderTypes();
+// State school counters for the state cards
+$stateCounts = $pdo->query("SELECT state, COUNT(*) as cnt FROM daleel_schools WHERE status = 'approved' GROUP BY state")->fetchAll(PDO::FETCH_KEY_PAIR) ?: [];
+
+// Distinct states list
+$allStatesList = SudanGeography::states();
+
+if ($isSearching) {
+    // Build query for search results
+    $where = ["status = 'approved'"];
+    $params = [];
+
+    if ($q !== '') {
+        $where[] = "(name LIKE ? OR name_en LIKE ? OR district LIKE ? OR address LIKE ? OR description LIKE ?)";
+        $term = "%{$q}%";
+        $params[] = $term; $params[] = $term; $params[] = $term; $params[] = $term; $params[] = $term;
+    }
+
+    if ($state !== '') {
+        $where[] = "state = ?";
+        $params[] = $state;
+    }
+
+    if ($city !== '') {
+        $where[] = "city = ?";
+        $params[] = $city;
+    }
+
+    if ($stage !== '') {
+        $where[] = "stages LIKE ?";
+        $params[] = "%\"{$stage}\"%";
+    }
+
+    if ($schoplusOnly || $view === 'schoplus') {
+        $where[] = "is_schoplus_client = 1";
+    }
+
+    $whereClause = implode(' AND ', $where);
+
+    // Order by logic
+    $orderBy = "is_featured DESC, is_schoplus_client DESC, rating_avg DESC";
+    if ($sort === 'rating' || $view === 'top_rated') $orderBy = "rating_avg DESC, reviews_count DESC";
+    if ($sort === 'reviews') $orderBy = "reviews_count DESC";
+    if ($sort === 'views') $orderBy = "views_count DESC";
+    if ($sort === 'latest' || $view === 'latest') $orderBy = "created_at DESC";
+
+    // Count matching
+    $countStmt = $pdo->prepare("SELECT COUNT(*) FROM daleel_schools WHERE {$whereClause}");
+    $countStmt->execute($params);
+    $totalMatching = (int) $countStmt->fetchColumn();
+
+    // Fetch schools
+    $searchStmt = $pdo->prepare("SELECT * FROM daleel_schools WHERE {$whereClause} ORDER BY {$orderBy}");
+    $searchStmt->execute($params);
+    $searchResults = $searchStmt->fetchAll();
+} else {
+    // Default home view: 3 sections with up to 5 schools each
+    // 1. SchoPlus Smart Schools: max 5, random on each load
+    $schoplusSchools = $pdo->query("SELECT * FROM daleel_schools WHERE status = 'approved' AND is_schoplus_client = 1 ORDER BY RAND() LIMIT 5")->fetchAll();
+    $totalSchoplusCount = (int) $pdo->query("SELECT COUNT(*) FROM daleel_schools WHERE status = 'approved' AND is_schoplus_client = 1")->fetchColumn();
+
+    // 2. Top-Rated Schools: max 5, random on each load
+    $topRatedSchools = $pdo->query("SELECT * FROM daleel_schools WHERE status = 'approved' AND rating_avg >= 4.0 ORDER BY RAND() LIMIT 5")->fetchAll();
+    if (empty($topRatedSchools)) {
+        // Fallback if no school has >= 4.0 yet
+        $topRatedSchools = $pdo->query("SELECT * FROM daleel_schools WHERE status = 'approved' ORDER BY RAND() LIMIT 5")->fetchAll();
+    }
+    $totalTopRatedCount = (int) $pdo->query("SELECT COUNT(*) FROM daleel_schools WHERE status = 'approved' AND rating_avg >= 4.0")->fetchColumn();
+
+    // 3. Recently Added Schools: max 5, newest first
+    $latestSchools = $pdo->query("SELECT * FROM daleel_schools WHERE status = 'approved' ORDER BY created_at DESC LIMIT 5")->fetchAll();
+    $totalSchoolsCount = (int) $pdo->query("SELECT COUNT(*) FROM daleel_schools WHERE status = 'approved'")->fetchColumn();
+}
 ?>
 
+<style>
+/* Smart Interactive Filter Bar */
+.filter-bar-card {
+    background: #FFFFFF;
+    border: 1px solid #DFD5C7;
+    border-radius: 18px;
+    padding: 14px 18px;
+    box-shadow: 0 10px 30px -6px rgba(45, 35, 20, 0.08);
+    position: relative;
+    z-index: 20;
+    margin-top: -30px;
+}
+.filter-input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #F8F9FA;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 2px 10px;
+    transition: all 0.2s ease;
+}
+.filter-input-wrap:focus-within {
+    border-color: var(--brand-blue);
+    background: #FFFFFF;
+    box-shadow: 0 0 0 3px rgba(30, 95, 168, 0.12);
+}
+.filter-input-wrap input {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-main);
+    width: 100%;
+    padding: 8px 6px;
+}
+.filter-select-wrap select {
+    background-color: #F8F9FA;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--text-main);
+    padding: 9px 12px;
+    transition: all 0.2s ease;
+}
+.filter-select-wrap select:focus {
+    border-color: var(--brand-blue);
+    background-color: #FFFFFF;
+    box-shadow: 0 0 0 3px rgba(30, 95, 168, 0.12);
+}
+
+/* States Carousel / Slider (3 cards on mobile) */
+.states-slider-container {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 10px 4px 16px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: #D4AF37 #F5ECE0;
+}
+.states-slider-container::-webkit-scrollbar {
+    height: 6px;
+}
+.states-slider-container::-webkit-scrollbar-thumb {
+    background: #D4AF37;
+    border-radius: 4px;
+}
+.states-slider-container::-webkit-scrollbar-track {
+    background: #F5ECE0;
+    border-radius: 4px;
+}
+.state-slide-card {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    width: 135px;
+    background: #FFFFFF;
+    border: 1px solid #E6DCCD;
+    border-radius: 14px;
+    padding: 12px 10px;
+    text-align: center;
+    text-decoration: none;
+    color: var(--text-main);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.03);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.state-slide-card:hover, .state-slide-card.active {
+    border-color: var(--brand-gold);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(217, 119, 6, 0.12);
+    background: linear-gradient(180deg, #FFFFFF 0%, #FFFDF9 100%);
+}
+.state-slide-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: #F5EFE6;
+    color: var(--brand-navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+    transition: all 0.2s ease;
+}
+.state-slide-card:hover .state-slide-icon, .state-slide-card.active .state-slide-icon {
+    background: linear-gradient(135deg, var(--brand-navy) 0%, var(--brand-blue) 100%);
+    color: #FFFFFF;
+}
+.state-slide-title {
+    font-size: 0.74rem;
+    font-weight: 700;
+    margin-bottom: 2px;
+    color: var(--brand-navy);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+.state-slide-count {
+    font-size: 0.65rem;
+    color: #718096;
+    font-weight: 600;
+}
+
+/* Mobile Screen Layout: Exactly 3 State Cards Visible At Once */
+@media (max-width: 576px) {
+    .states-slider-container {
+        gap: 8px;
+        padding: 6px 2px 12px;
+    }
+    .state-slide-card {
+        /* Screen width minus container padding and 2 gaps divided by 3 cards */
+        width: calc((100% - 16px) / 3) !important;
+        min-width: calc((100% - 16px) / 3) !important;
+        padding: 8px 4px;
+        border-radius: 11px;
+    }
+    .state-slide-icon {
+        width: 30px;
+        height: 30px;
+        font-size: 0.8rem;
+        margin-bottom: 4px;
+    }
+    .state-slide-title {
+        font-size: 0.68rem;
+    }
+    .state-slide-count {
+        font-size: 0.58rem;
+    }
+}
+
+/* Clickable Luxury Card Styles */
+.clickable-school-card {
+    cursor: pointer;
+    transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.clickable-school-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px -4px rgba(45, 35, 20, 0.12), 0 4px 10px -2px rgba(45, 35, 20, 0.05);
+}
+</style>
+
 <!-- HERO SECTION -->
-<section class="daleel-hero" style="background: linear-gradient(135deg, #FDFBF7 0%, #F5ECE0 100%); padding: 70px 0 60px; position: relative; overflow: hidden; border-bottom: 1px solid #EAE2D5;">
+<section class="daleel-hero" style="background: linear-gradient(135deg, #FDFBF7 0%, #F5ECE0 100%); padding: 65px 0 50px; position: relative; overflow: hidden; border-bottom: 1px solid #EAE2D5;">
     <div class="container text-center">
         
         <div style="display: inline-flex; align-items: center; gap: 7px; background: #FFFFFF; border: 1px solid #E2D7C7; padding: 5px 14px; border-radius: 24px; font-size: 0.76rem; font-weight: 700; color: var(--brand-gold); box-shadow: 0 2px 8px rgba(0,0,0,0.03); margin-bottom: 16px;">
@@ -111,46 +286,12 @@ $genderTypes = SudanGeography::genderTypes();
             <span style="color: var(--brand-blue);">بكل ثقة وشفافية وسهولة</span>
         </h1>
 
-        <p style="font-size: 0.76rem; color: #4A5568; line-height: 1.6; max-width: 580px; margin: 0 auto 24px;">
-            الدليل التفاعلي الأكبر لاستكشاف ومقارنة المدارس بالولاية والمدينة والحي، مع إبراز المدارس الذكية المعتمدة وتجارب وتقييمات أولياء الأمور الحقيقية.
+        <p style="font-size: 0.76rem; color: #4A5568; line-height: 1.6; max-width: 580px; margin: 0 auto 20px;">
+            الدليل التفاعلي الأكبر لاستكشاف ومقارنة المدارس بالولاية والمدينة والمراحل الدراسية، مع إبراز المدارس الذكية المعتمدة وتجارب أولياء الأمور الحقيقية.
         </p>
 
-        <!-- Fast Search Box inside Hero -->
-        <form action="/" method="GET" style="background: #FFFFFF; border: 1px solid #E2D8C9; border-radius: 16px; padding: 8px; box-shadow: 0 8px 24px -5px rgba(50, 40, 20, 0.06); max-width: 780px; margin: 0 auto;">
-            <div class="row g-2 align-items-center">
-                <div class="col-lg-5 col-md-4">
-                    <div class="d-flex align-items-center px-2">
-                        <i class="fas fa-search text-muted me-2"></i>
-                        <input type="text" name="q" value="<?= e($q) ?>" style="border: none; outline: none; padding: 7px 10px; font-size: 0.78rem; width: 100%; color: var(--text-main); font-weight: 600;" placeholder="ابحث باسم المدرسة، الحي، أو المنطقة...">
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4">
-                    <select name="state" class="form-select border-0 bg-light" style="font-size: 0.76rem; padding: 6px 10px;" onchange="this.form.submit()">
-                        <option value="">كل الولايات السودانية</option>
-                        <?php foreach($statesWithCities as $stName => $cities): ?>
-                            <option value="<?= e($stName) ?>" <?= $state === $stName ? 'selected' : '' ?>>ولاية <?= e($stName) ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="col-lg-2 col-md-4">
-                    <select name="stage" class="form-select border-0 bg-light" style="font-size: 0.76rem; padding: 6px 10px;" onchange="this.form.submit()">
-                        <option value="">جميع المراحل</option>
-                        <?php foreach($schoolStages as $key => $lbl): ?>
-                            <option value="<?= e($key) ?>" <?= $stage === $key ? 'selected' : '' ?>><?= e($lbl) ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="col-lg-2 col-md-12">
-                    <button type="submit" class="btn-luxury-primary w-100 justify-content-center py-2" style="font-size: 0.78rem;">
-                        <i class="fas fa-search"></i>
-                        <span>بحث سريع</span>
-                    </button>
-                </div>
-            </div>
-        </form>
-
         <!-- Hero Stats Counter -->
-        <div style="margin-top: 35px; padding-top: 22px; border-top: 1px dashed #DFCFC0;">
+        <div style="max-width: 750px; margin: 0 auto; padding-top: 18px; border-top: 1px dashed #DFCFC0;">
             <div class="row justify-content-center g-3 text-center">
                 <div class="col-lg-3 col-6">
                     <div data-countup="<?= $statTotal ?>" data-suffix="+" style="font-size: 1.25rem; font-weight: 700; color: var(--brand-navy);"><?= number_format($statTotal) ?>+</div>
@@ -171,202 +312,29 @@ $genderTypes = SudanGeography::genderTypes();
             </div>
         </div>
 
-
     </div>
 </section>
 
-<!-- SECTION 1: SCHOPLUS SMART SCHOOLS -->
-<?php if (!empty($schoplusSchools)): ?>
-<section id="schoplus-schools" class="py-5" style="background-color: #F8F3EA;">
+<!-- SMART UNIFIED FILTER BAR (Placed directly below Hero) -->
+<section style="position: relative; z-index: 30; margin-bottom: 25px;">
     <div class="container">
-        
-        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
-            <div>
-                <span style="color: var(--brand-gold); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase;">
-                    <i class="fas fa-award"></i> التميز والرقمنة
-                </span>
-                <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--brand-navy); margin: 0;">مدارس ذكية تعمل بنظام SchoPlus</h2>
-                <p style="color: #6B7280; font-size: 0.74rem; margin-top: 4px;">
-                    مدارس رائدة تتيح متابعة إلكترونية فورية لدرجات وحضور ابنك، إشعارات واتساب لحظية، وبوابة مخصصة لأولياء الأمور.
-                </p>
-            </div>
-            <div class="mt-3 mt-md-0">
-                <a href="/?schoplus_only=1#search-section" class="btn-luxury-outline btn-sm">
-                    <span>عرض كافة مدارس SchoPlus</span>
-                    <i class="fas fa-arrow-left"></i>
-                </a>
-            </div>
-        </div>
-
-        <div class="row g-4">
-            <?php foreach($schoplusSchools as $s): ?>
-                <?php
-                    $logo = !empty($s['logo_path']) ? e($s['logo_path']) : "https://ui-avatars.com/api/?name=" . urlencode(mb_substr($s['name'], 0, 1, 'UTF-8')) . "&background=1E5FA8&color=ffffff&size=160&bold=true";
-                    $cover = !empty($s['cover_path']) ? e($s['cover_path']) : '';
-                    $stagesArr = json_decode($s['stages'] ?? '[]', true) ?: [];
-                ?>
-                <div class="col-lg-4 col-md-6">
-                    <div class="luxury-card" style="border: 1.5px solid #FCD34D; background: linear-gradient(135deg, #FFFDF9 0%, #FEF9EC 100%);">
-                        
-                        <div style="position: absolute; top: 0; right: 25px; background: linear-gradient(135deg, #1E5FA8 0%, #0B2A52 100%); color: #fff; font-size: 0.7rem; font-weight: 700; padding: 3px 10px; border-radius: 0 0 8px 8px; z-index: 3;">
-                            <i class="fas fa-bolt text-warning me-1"></i> مدرسة ذكية معتمدة
-                        </div>
-
-                        <div style="height: 140px; background-size: cover; background-position: center; position: relative; <?= $cover ? "background-image: url('{$cover}');" : '' ?>" class="<?= !$cover ? 'cover-placeholder' : '' ?>">
-                            <div style="position: absolute; inset: 0; background: <?= $cover ? 'linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.52) 100%)' : 'linear-gradient(180deg, rgba(11,42,82,0.0) 0%, rgba(11,42,82,0.35) 100%)' ?>;"></div>
-                            <?php if (!$cover): ?><div class="cover-placeholder-icon"><i class="fas fa-school"></i></div><?php endif; ?>
-                            
-                            <div style="position: absolute; top: 12px; left: 12px; z-index: 2;">
-                                <span class="badge-schoplus-smart"><i class="fas fa-microchip"></i> SchoPlus</span>
-                            </div>
-
-                            <div style="width: 68px; height: 68px; border-radius: 16px; background: #fff; padding: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.12); position: absolute; bottom: -24px; right: 20px; z-index: 2;">
-                                <img src="<?= $logo ?>" alt="" loading="lazy" style="width: 100%; height: 100%; border-radius: 12px; object-fit: cover;">
-                            </div>
-                        </div>
-
-                        <div style="padding: 32px 18px 18px; display: flex; flex-direction: column;">
-                            <a href="/school/<?= urlencode($s['slug']) ?>" style="font-weight: 700; font-size: 0.88rem; color: var(--brand-navy); margin-bottom: 4px; text-decoration: none;">
-                                <?= e($s['name']) ?>
-                            </a>
-
-                            <div style="color: #64748B; font-size: 0.72rem; margin-bottom: 6px;">
-                                <i class="fas fa-map-marker-alt text-danger me-1"></i>
-                                <?= e($s['state']) ?> — <?= e($s['city']) ?> <?= !empty($s['district']) ? '(' . e($s['district']) . ')' : '' ?>
-                            </div>
-
-                            <p class="school-card-desc" style="font-size: 0.74rem; color: #4B5563; margin-bottom: 10px;">
-                                <?= e($s['description'] ?: 'مؤسسة تعليمية رائدة تقدم تعليماً حديثاً وبيئة محفزة للطلاب.') ?>
-                            </p>
-
-
-                            <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 14px;">
-                                <?php foreach($stagesArr as $st): ?>
-                                    <span class="badge-stage-pill"><?= e($schoolStages[$st] ?? $st) ?></span>
-                                <?php endforeach; ?>
-                                <span class="badge bg-light text-dark border"><?= e($schoolTypes[$s['school_type']] ?? $s['school_type']) ?></span>
-                            </div>
-
-                            <div style="padding-top: 14px; border-top: 1px solid #F1EAE0; display: flex; align-items: center; justify-content: space-between;">
-                                <div class="star-rating">
-                                    <i class="fas fa-star text-warning"></i>
-                                    <span class="fw-bold text-dark"><?= number_format($s['rating_avg'], 1) ?></span>
-                                    <span class="text-muted small">(<?= $s['reviews_count'] ?>)</span>
-                                </div>
-
-                                <div class="d-flex align-items-center gap-1">
-                                    <?php if (!empty($s['whatsapp'])): ?>
-                                        <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $s['whatsapp']) ?>" target="_blank" class="btn btn-sm btn-outline-success rounded-circle" style="width: 32px; height: 32px; padding: 0; display: inline-flex; align-items: center; justify-content: center;" title="واتساب">
-                                            <i class="fab fa-whatsapp"></i>
-                                        </a>
-                                    <?php endif; ?>
-                                    <a href="/school/<?= urlencode($s['slug']) ?>" class="btn-luxury-primary btn-sm py-1 px-3">
-                                        <span>البروفايل</span>
-                                        <i class="fas fa-chevron-left small"></i>
-                                    </a>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
-
-    </div>
-</section>
-<?php endif; ?>
-
-<!-- SECTION 2: TOP RATED SCHOOLS -->
-<?php if (!empty($topRated)): ?>
-<section id="top-rated" class="py-5">
-    <div class="container">
-        
-        <div class="text-center mb-4">
-            <span style="color: var(--brand-gold); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase;">
-                <i class="fas fa-star"></i> ثقة أولياء الأمور
-            </span>
-            <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--brand-navy); margin: 0;">المدارس الأعلى تقييماً</h2>
-            <p style="color: #6B7280; font-size: 0.74rem; margin-top: 4px;">
-                مدارس حازت على أعلى التقييمات ورضا أولياء الأمور والطلاب لجودة التعليم والرعاية التربوية.
-            </p>
-        </div>
-
-        <div class="row g-4">
-            <?php foreach($topRated as $s): ?>
-                <?php
-                    $logo = !empty($s['logo_path']) ? e($s['logo_path']) : "https://ui-avatars.com/api/?name=" . urlencode(mb_substr($s['name'], 0, 1, 'UTF-8')) . "&background=1E5FA8&color=ffffff&size=160&bold=true";
-                ?>
-                <div class="col-lg-3 col-md-6">
-                    <div class="luxury-card p-3">
-                        <div class="d-flex align-items-center gap-3 mb-3">
-                            <img src="<?= $logo ?>" alt="" style="width: 50px; height: 50px; border-radius: 12px; object-fit: cover;">
-                            <div>
-                                <a href="/school/<?= urlencode($s['slug']) ?>" class="fw-bold text-dark text-decoration-none d-block text-truncate" style="max-width: 170px; font-size: 0.84rem;">
-                                    <?= e($s['name']) ?>
-                                </a>
-                                <div class="text-muted" style="font-size: 0.7rem;"><?= e($s['city']) ?></div>
-                            </div>
-                        </div>
-
-                        <div class="d-flex justify-content-between align-items-center small mb-3">
-                            <span class="badge bg-light text-secondary border"><?= e($schoolTypes[$s['school_type']] ?? $s['school_type']) ?></span>
-                            <div class="star-rating">
-                                <i class="fas fa-star text-warning"></i>
-                                <span class="fw-bold"><?= number_format($s['rating_avg'], 1) ?></span>
-                                <span class="text-muted">(<?= $s['reviews_count'] ?>)</span>
-                            </div>
-                        </div>
-
-                        <a href="/school/<?= urlencode($s['slug']) ?>" class="btn-luxury-outline btn-sm w-100 justify-content-center">
-                            عرض التفاصيل
-                        </a>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
-
-    </div>
-</section>
-<?php endif; ?>
-
-<!-- SECTION 3: ADVANCED FILTERS & ALL SCHOOLS DIRECTORY -->
-<section id="search-section" class="py-5" style="background-color: var(--bg-surface-tint); border-top: 1px solid #EAE2D5;">
-    <div class="container">
-        
-        <div class="mb-4">
-            <span style="color: var(--brand-gold); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase;">
-                <i class="fas fa-sliders-h"></i> التصفية الذكية
-            </span>
-            <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--brand-navy); margin: 0;">استكشف جميع المدارس</h2>
-            <p style="color: #6B7280; font-size: 0.74rem; margin-top: 4px;">
-                استخدم الفلاتر الجغرافية الدقيقة لاختيار المدرسة الملائمة حسب مدينتك، نوع التعليم، والمراحل الدراسية.
-            </p>
-        </div>
-
-        <!-- FILTER FORM -->
-        <form action="/#search-section" method="GET" class="luxury-card p-4 mb-4">
-            <div class="row g-3">
+        <form action="/" method="GET" class="filter-bar-card" id="smartFilterForm">
+            <div class="row g-2 align-items-center">
                 
-                <div class="col-lg-4 col-md-6">
-                    <label class="form-label small fw-bold text-dark">اسم المدرسة أو الحي</label>
-                    <input type="text" name="q" value="<?= e($q) ?>" class="form-control" placeholder="ابحث بالاسم، الحي...">
-                </div>
-
-                <div class="col-lg-2 col-md-6">
-                    <label class="form-label small fw-bold text-dark">الولاية</label>
+                <!-- 1. State Filter (الولاية) -->
+                <div class="col-lg-3 col-md-6 filter-select-wrap">
                     <select name="state" class="form-select" id="filterStateSelect">
-                        <option value="">جميع الولايات</option>
+                        <option value="">جميع الولايات (الكل)</option>
                         <?php foreach($statesWithCities as $stName => $cities): ?>
                             <option value="<?= e($stName) ?>" <?= $state === $stName ? 'selected' : '' ?>>ولاية <?= e($stName) ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
 
-                <div class="col-lg-2 col-md-6">
-                    <label class="form-label small fw-bold text-dark">المدينة / المحلية</label>
+                <!-- 2. City Filter (المدينة) -->
+                <div class="col-lg-3 col-md-6 filter-select-wrap">
                     <select name="city" class="form-select" id="filterCitySelect">
-                        <option value="">جميع المدن</option>
+                        <option value="">جميع المدن / المحليات</option>
                         <?php if ($state && isset($statesWithCities[$state])): ?>
                             <?php foreach($statesWithCities[$state] as $c): ?>
                                 <option value="<?= e($c) ?>" <?= $city === $c ? 'selected' : '' ?>><?= e($c) ?></option>
@@ -375,107 +343,262 @@ $genderTypes = SudanGeography::genderTypes();
                     </select>
                 </div>
 
-                <div class="col-lg-2 col-md-6">
-                    <label class="form-label small fw-bold text-dark">نوع المدرسة</label>
-                    <select name="school_type" class="form-select">
-                        <option value="">كافة الأنواع</option>
-                        <?php foreach($schoolTypes as $tKey => $tLbl): ?>
-                            <option value="<?= e($tKey) ?>" <?= $schoolType === $tKey ? 'selected' : '' ?>><?= e($tLbl) ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-
-                <div class="col-lg-2 col-md-6">
-                    <label class="form-label small fw-bold text-dark">المرحلة الدراسية</label>
-                    <select name="stage" class="form-select">
-                        <option value="">كافة المراحل</option>
+                <!-- 3. Stage Filter (المراحل) -->
+                <div class="col-lg-2 col-md-6 filter-select-wrap">
+                    <select name="stage" class="form-select" id="filterStageSelect">
+                        <option value="">جميع المراحل الدراسية</option>
                         <?php foreach($schoolStages as $sKey => $sLbl): ?>
                             <option value="<?= e($sKey) ?>" <?= $stage === $sKey ? 'selected' : '' ?>><?= e($sLbl) ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
 
+                <!-- 4. School Name / Keyword Input (كتابة الاسم) -->
                 <div class="col-lg-3 col-md-6">
-                    <label class="form-label small fw-bold text-dark">جنس الطلاب</label>
-                    <select name="gender_type" class="form-select">
-                        <option value="">الكل (بنين / بنات / مختلط)</option>
-                        <?php foreach($genderTypes as $gKey => $gLbl): ?>
-                            <option value="<?= e($gKey) ?>" <?= $genderType === $gKey ? 'selected' : '' ?>><?= e($gLbl) ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-
-                <div class="col-lg-3 col-md-6">
-                    <label class="form-label small fw-bold text-dark">المنهج المتبع</label>
-                    <select name="curriculum" class="form-select">
-                        <option value="">كافة المناهج</option>
-                        <?php foreach($curriculums as $cKey => $cLbl): ?>
-                            <option value="<?= e($cKey) ?>" <?= $curriculum === $cKey ? 'selected' : '' ?>><?= e($cLbl) ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-
-                <div class="col-lg-3 col-md-6">
-                    <label class="form-label small fw-bold text-dark">ترتيب النتائج</label>
-                    <select name="sort" class="form-select">
-                        <option value="featured" <?= $sort === 'featured' ? 'selected' : '' ?>>المميزة ومدارس SchoPlus أولاً</option>
-                        <option value="rating" <?= $sort === 'rating' ? 'selected' : '' ?>>الأعلى تقييماً</option>
-                        <option value="reviews" <?= $sort === 'reviews' ? 'selected' : '' ?>>الأكثر مراجعات</option>
-                        <option value="views" <?= $sort === 'views' ? 'selected' : '' ?>>الأكثر مشاهدة</option>
-                        <option value="latest" <?= $sort === 'latest' ? 'selected' : '' ?>>أحدث المدارس</option>
-                    </select>
-                </div>
-
-                <div class="col-lg-3 col-md-6 d-flex align-items-center">
-                    <div class="form-check mt-3">
-                        <input class="form-check-input" type="checkbox" name="schoplus_only" value="1" id="schoplusOnlyCheck" <?= $schoplusOnly ? 'checked' : '' ?>>
-                        <label class="form-check-label fw-bold text-dark small" for="schoplusOnlyCheck">
-                            <i class="fas fa-bolt text-warning me-1"></i> مدارس SchoPlus الذكية فقط
-                        </label>
+                    <div class="filter-input-wrap">
+                        <i class="fas fa-search text-muted me-1"></i>
+                        <input type="text" name="q" value="<?= e($q) ?>" placeholder="ابحث باسم المدرسة، الحي..." autocomplete="off">
+                        <?php if ($q !== ''): ?>
+                            <a href="/" class="text-muted small text-decoration-none px-1" title="مسح"><i class="fas fa-times-circle"></i></a>
+                        <?php endif; ?>
                     </div>
                 </div>
 
-                <div class="col-12 d-flex justify-content-between align-items-center pt-3 border-top">
-                    <span class="small text-muted">تم العثور على <strong><?= $totalSchools ?></strong> مدرسة مطابقة</span>
-                    <div class="d-flex gap-2">
-                        <a href="/#search-section" class="btn btn-sm btn-light border text-muted">إعادة ضبط</a>
-                        <button type="submit" class="btn-luxury-primary btn-sm"><i class="fas fa-filter me-1"></i> تطبيق الفلاتر</button>
-                    </div>
+                <!-- Action Buttons -->
+                <div class="col-lg-1 col-md-12 d-flex gap-1">
+                    <button type="submit" class="btn-luxury-primary w-100 justify-content-center py-2" title="بحث فوري">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <?php if ($isSearching): ?>
+                        <a href="/" class="btn btn-light border py-2 px-2 rounded-3 text-secondary" title="إلغاء البحث والعودة للرئيسية">
+                            <i class="fas fa-undo"></i>
+                        </a>
+                    <?php endif; ?>
                 </div>
 
             </div>
         </form>
+    </div>
+</section>
 
-        <!-- SCHOOLS GRID -->
-        <div class="row g-4">
-            <?php if (empty($schools)): ?>
-                <div class="col-12 py-5 text-center">
-                    <div class="p-5 bg-white rounded-4 border text-center shadow-sm max-w-md mx-auto">
-                        <i class="fas fa-school fa-3x text-muted mb-3 opacity-50"></i>
-                        <h4 class="fw-bold text-dark">لا توجد مدارس مطابقة للبحث حالياً</h4>
-                        <p class="text-muted small">جرب تغيير شروط الفلترة أو اختيار ولاية ومدينة أخرى.</p>
-                        <a href="/#search-section" class="btn-luxury-outline btn-sm mt-2">إعادة ضبط الفلاتر</a>
-                    </div>
+<?php if ($isSearching): ?>
+    <!-- ==========================================
+         CASE A: SEARCH / DEDICATED VIEW ACTIVE
+         Results appear immediately below the filter
+         ========================================== -->
+    <section class="py-4" id="search-results-section">
+        <div class="container">
+            
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 pb-2 border-bottom">
+                <div>
+                    <span style="color: var(--brand-gold); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase;">
+                        <i class="fas fa-poll"></i> نتائج البحث والاستكشاف
+                    </span>
+                    <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--brand-navy); margin: 0;">
+                        <?php if ($view === 'schoplus' || $schoplusOnly): ?>
+                            جميع المدارس الذكية المعتمدة بنظام SchoPlus
+                        <?php elseif ($view === 'top_rated' || $sort === 'rating'): ?>
+                            جميع المدارس الأعلى تقييماً في السودان
+                        <?php elseif ($view === 'latest' || $sort === 'latest'): ?>
+                            أحدث المدارس المنضمة إلى الدليل
+                        <?php elseif ($state !== '' || $city !== '' || $stage !== '' || $q !== ''): ?>
+                            نتائج البحث المخصص
+                        <?php else: ?>
+                            جميع مدارس دليل السودان
+                        <?php endif; ?>
+                    </h2>
+                    <p style="color: #6B7280; font-size: 0.74rem; margin-top: 4px;">
+                        تم العثور على <strong><?= number_format($totalMatching) ?></strong> مدرسة مطابقة لمعايير البحث المحددة.
+                    </p>
                 </div>
-            <?php else: ?>
-                <?php foreach($schools as $s): ?>
+
+                <div class="mt-3 mt-md-0 d-flex gap-2 align-items-center">
+                    <a href="/" class="btn-luxury-outline btn-sm">
+                        <i class="fas fa-arrow-right"></i>
+                        <span>العودة للرئيسية</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Schools Grid for Search Results -->
+            <div class="row g-4">
+                <?php if (empty($searchResults)): ?>
+                    <div class="col-12 py-5 text-center">
+                        <div class="p-5 bg-white rounded-4 border text-center shadow-sm max-w-md mx-auto" style="max-width: 480px; margin: 0 auto;">
+                            <i class="fas fa-school fa-3x text-muted mb-3 opacity-50"></i>
+                            <h4 class="fw-bold text-dark" style="font-size: 1.05rem;">لا توجد مدارس مطابقة للبحث حالياً</h4>
+                            <p class="text-muted small" style="font-size: 0.74rem;">جرب تغيير شروط الفلترة أو مسح اسم المدرسة لاكتشاف خيارات أوسع.</p>
+                            <a href="/" class="btn-luxury-primary btn-sm mt-2">
+                                <i class="fas fa-undo me-1"></i> إعادة ضبط وعرض كل المدارس
+                            </a>
+                        </div>
+                    </div>
+                <?php else: ?>
+                    <?php foreach($searchResults as $s): ?>
+                        <?php
+                            $logo = !empty($s['logo_path']) ? e($s['logo_path']) : "https://ui-avatars.com/api/?name=" . urlencode(mb_substr($s['name'], 0, 1, 'UTF-8')) . "&background=1E5FA8&color=ffffff&size=160&bold=true";
+                            $cover = !empty($s['cover_path']) ? e($s['cover_path']) : '';
+                            $stagesArr = json_decode($s['stages'] ?? '[]', true) ?: [];
+                            $schoolUrl = '/school/' . urlencode($s['slug']);
+                        ?>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="luxury-card h-100 d-flex flex-column clickable-school-card" onclick="window.location.href='<?= $schoolUrl ?>'">
+                                
+                                <div style="height: 140px; background-size: cover; background-position: center; position: relative; <?= $cover ? "background-image: url('{$cover}');" : '' ?>" class="<?= !$cover ? 'cover-placeholder' : '' ?>">
+                                    <div style="position: absolute; inset: 0; background: <?= $cover ? 'linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.52) 100%)' : 'linear-gradient(180deg, rgba(11,42,82,0.0) 0%, rgba(11,42,82,0.35) 100%)' ?>;"></div>
+                                    <?php if (!$cover): ?><div class="cover-placeholder-icon"><i class="fas fa-school"></i></div><?php endif; ?>
+
+                                    <div style="position: absolute; top: 12px; left: 12px; z-index: 2; display: flex; flex-direction: column; gap: 5px; align-items: flex-end;">
+                                        <?php if ($s['is_schoplus_client']): ?>
+                                            <span class="badge-schoplus-smart"><i class="fas fa-bolt"></i> SchoPlus الذكي</span>
+                                        <?php endif; ?>
+                                        <span class="badge-verified"><i class="fas fa-check-circle"></i> موثقة</span>
+                                    </div>
+
+                                    <div style="width: 68px; height: 68px; border-radius: 16px; background: #fff; padding: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.12); position: absolute; bottom: -24px; right: 20px; z-index: 2;">
+                                        <img src="<?= $logo ?>" alt="" loading="lazy" style="width: 100%; height: 100%; border-radius: 12px; object-fit: cover;">
+                                    </div>
+                                </div>
+
+                                <div style="padding: 32px 18px 18px; display: flex; flex-direction: column; flex-grow: 1;">
+                                    <a href="<?= $schoolUrl ?>" style="font-weight: 700; font-size: 0.88rem; color: var(--brand-navy); margin-bottom: 4px; text-decoration: none;" onclick="event.stopPropagation();">
+                                        <?= e($s['name']) ?>
+                                    </a>
+
+                                    <div style="color: #64748B; font-size: 0.72rem; margin-bottom: 6px;">
+                                        <i class="fas fa-map-marker-alt text-muted me-1"></i>
+                                        ولاية <?= e($s['state']) ?> — <?= e($s['city']) ?> <?= !empty($s['district']) ? '(' . e($s['district']) . ')' : '' ?>
+                                    </div>
+
+                                    <p class="school-card-desc" style="font-size: 0.74rem; color: #4B5563; margin-bottom: 10px;">
+                                        <?= e($s['description'] ?: 'مؤسسة تعليمية وتربوية تقدم برامج أكاديمية متميزة وبيئة متطورة للطلاب.') ?>
+                                    </p>
+
+                                    <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 16px;">
+                                        <?php foreach($stagesArr as $st): ?>
+                                            <span class="badge-stage-pill"><?= e($schoolStages[$st] ?? $st) ?></span>
+                                        <?php endforeach; ?>
+                                        <span class="badge bg-light text-dark border"><?= e($schoolTypes[$s['school_type']] ?? $s['school_type']) ?></span>
+                                    </div>
+
+                                    <div style="padding-top: 14px; border-top: 1px solid #F1EAE0; display: flex; align-items: center; justify-content: space-between; margin-top: auto;">
+                                        <div class="star-rating">
+                                            <i class="fas fa-star text-warning"></i>
+                                            <span class="fw-bold text-dark"><?= number_format($s['rating_avg'], 1) ?></span>
+                                            <span class="text-muted small">(<?= $s['reviews_count'] ?>)</span>
+                                        </div>
+
+                                        <div class="d-flex align-items-center gap-2">
+                                            <?php if (!empty($s['whatsapp'])): ?>
+                                                <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $s['whatsapp']) ?>" target="_blank" class="btn btn-sm btn-outline-success rounded-circle" style="width: 32px; height: 32px; padding: 0; display: inline-flex; align-items: center; justify-content: center;" title="واتساب" onclick="event.stopPropagation();">
+                                                    <i class="fab fa-whatsapp"></i>
+                                                </a>
+                                            <?php endif; ?>
+                                            <a href="<?= $schoolUrl ?>" class="btn-luxury-outline btn-sm py-1 px-3" onclick="event.stopPropagation();">
+                                                عرض البروفايل
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
+
+        </div>
+    </section>
+
+<?php else: ?>
+    <!-- ==========================================
+         CASE B: DEFAULT HOME VIEW (NOT SEARCHING)
+         1. States Carousel (3 cards on mobile)
+         2. SchoPlus Smart Schools (max 5 random)
+         3. Top-Rated Schools (max 5 random)
+         4. Recently Added Schools (max 5 latest)
+         ========================================== -->
+
+    <!-- SECTION 1: STATES SLIDER (CAROUSEL) -->
+    <section class="mb-4">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <div>
+                    <span style="color: var(--brand-gold); font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">
+                        <i class="fas fa-map-marked-alt"></i> التوزيع الجغرافي
+                    </span>
+                    <h3 style="font-size: 1rem; font-weight: 700; color: var(--brand-navy); margin: 0;">تصفح المدارس حسب الولايات</h3>
+                </div>
+                <div class="d-none d-md-block text-muted small" style="font-size: 0.7rem;">
+                    اسحب لتصفح كافة ولايات السودان الـ 18 <i class="fas fa-arrows-left-right text-warning ms-1"></i>
+                </div>
+            </div>
+
+            <!-- States Slider: Exactly 3 cards visible simultaneously on mobile -->
+            <div class="states-slider-container">
+                <?php foreach($allStatesList as $stName): ?>
+                    <?php 
+                        $countInState = $stateCounts[$stName] ?? 0;
+                        $stateUrl = '/?state=' . urlencode($stName);
+                    ?>
+                    <a href="<?= $stateUrl ?>" class="state-slide-card" title="مدارس ولاية <?= e($stName) ?>">
+                        <div class="state-slide-icon">
+                            <i class="fas fa-landmark"></i>
+                        </div>
+                        <div class="state-slide-title"><?= e($stName) ?></div>
+                        <div class="state-slide-count"><?= $countInState ?> <?= $countInState == 1 ? 'مدرسة' : ($countInState > 2 && $countInState < 11 ? 'مدارس' : 'مدرسة') ?></div>
+                    </a>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: SCHOPLUS SMART SCHOOLS (MAX 5 RANDOM) -->
+    <?php if (!empty($schoplusSchools)): ?>
+    <section id="schoplus-schools" class="py-4" style="background-color: #F8F3EA; border-top: 1px solid #EAE2D5; border-bottom: 1px solid #EAE2D5;">
+        <div class="container">
+            
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
+                <div>
+                    <span style="color: var(--brand-gold); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase;">
+                        <i class="fas fa-award"></i> التميز والرقمنة
+                    </span>
+                    <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--brand-navy); margin: 0;">مدارس ذكية تعمل بنظام SchoPlus</h2>
+                    <p style="color: #6B7280; font-size: 0.74rem; margin-top: 4px;">
+                        مدارس رائدة تتيح متابعة إلكترونية فورية لدرجات وحضور ابنك، إشعارات واتساب لحظية، وبوابة مخصصة لأولياء الأمور.
+                    </p>
+                </div>
+                <?php if ($totalSchoplusCount > 5): ?>
+                    <div class="mt-3 mt-md-0">
+                        <a href="/?view=schoplus" class="btn-luxury-outline btn-sm">
+                            <span>عرض جميع المدارس</span>
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
+                    </div>
+                <?php endif; ?>
+            </div>
+
+            <div class="row g-4">
+                <?php foreach($schoplusSchools as $s): ?>
                     <?php
                         $logo = !empty($s['logo_path']) ? e($s['logo_path']) : "https://ui-avatars.com/api/?name=" . urlencode(mb_substr($s['name'], 0, 1, 'UTF-8')) . "&background=1E5FA8&color=ffffff&size=160&bold=true";
                         $cover = !empty($s['cover_path']) ? e($s['cover_path']) : '';
                         $stagesArr = json_decode($s['stages'] ?? '[]', true) ?: [];
+                        $schoolUrl = '/school/' . urlencode($s['slug']);
                     ?>
                     <div class="col-lg-4 col-md-6">
-                        <div class="luxury-card h-100 d-flex flex-column">
+                        <div class="luxury-card clickable-school-card" style="border: 1.5px solid #FCD34D; background: linear-gradient(135deg, #FFFDF9 0%, #FEF9EC 100%);" onclick="window.location.href='<?= $schoolUrl ?>'">
                             
+                            <div style="position: absolute; top: 0; right: 25px; background: linear-gradient(135deg, #1E5FA8 0%, #0B2A52 100%); color: #fff; font-size: 0.7rem; font-weight: 700; padding: 3px 10px; border-radius: 0 0 8px 8px; z-index: 3;">
+                                <i class="fas fa-bolt text-warning me-1"></i> مدرسة ذكية معتمدة
+                            </div>
+
                             <div style="height: 140px; background-size: cover; background-position: center; position: relative; <?= $cover ? "background-image: url('{$cover}');" : '' ?>" class="<?= !$cover ? 'cover-placeholder' : '' ?>">
                                 <div style="position: absolute; inset: 0; background: <?= $cover ? 'linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.52) 100%)' : 'linear-gradient(180deg, rgba(11,42,82,0.0) 0%, rgba(11,42,82,0.35) 100%)' ?>;"></div>
                                 <?php if (!$cover): ?><div class="cover-placeholder-icon"><i class="fas fa-school"></i></div><?php endif; ?>
-
-                                <div style="position: absolute; top: 12px; left: 12px; z-index: 2; display: flex; flex-direction: column; gap: 5px; align-items: flex-end;">
-                                    <?php if ($s['is_schoplus_client']): ?>
-                                        <span class="badge-schoplus-smart"><i class="fas fa-bolt"></i> SchoPlus الذكي</span>
-                                    <?php endif; ?>
-                                    <span class="badge-verified"><i class="fas fa-check-circle"></i> موثقة</span>
+                                
+                                <div style="position: absolute; top: 12px; left: 12px; z-index: 2;">
+                                    <span class="badge-schoplus-smart"><i class="fas fa-microchip"></i> SchoPlus</span>
                                 </div>
 
                                 <div style="width: 68px; height: 68px; border-radius: 16px; background: #fff; padding: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.12); position: absolute; bottom: -24px; right: 20px; z-index: 2;">
@@ -483,43 +606,43 @@ $genderTypes = SudanGeography::genderTypes();
                                 </div>
                             </div>
 
-                            <div style="padding: 32px 18px 18px; display: flex; flex-direction: column; flex-grow: 1;">
-                                <a href="/school/<?= urlencode($s['slug']) ?>" style="font-weight: 700; font-size: 0.88rem; color: var(--brand-navy); margin-bottom: 4px; text-decoration: none;">
+                            <div style="padding: 32px 18px 18px; display: flex; flex-direction: column;">
+                                <a href="<?= $schoolUrl ?>" style="font-weight: 700; font-size: 0.88rem; color: var(--brand-navy); margin-bottom: 4px; text-decoration: none;" onclick="event.stopPropagation();">
                                     <?= e($s['name']) ?>
                                 </a>
 
                                 <div style="color: #64748B; font-size: 0.72rem; margin-bottom: 6px;">
-                                    <i class="fas fa-map-marker-alt text-muted me-1"></i>
-                                    ولاية <?= e($s['state']) ?> — <?= e($s['city']) ?> <?= !empty($s['district']) ? '(' . e($s['district']) . ')' : '' ?>
+                                    <i class="fas fa-map-marker-alt text-danger me-1"></i>
+                                    <?= e($s['state']) ?> — <?= e($s['city']) ?> <?= !empty($s['district']) ? '(' . e($s['district']) . ')' : '' ?>
                                 </div>
 
                                 <p class="school-card-desc" style="font-size: 0.74rem; color: #4B5563; margin-bottom: 10px;">
-                                    <?= e($s['description'] ?: 'مؤسسة تعليمية وتربوية تقدم برامج أكاديمية متميزة وبيئة متطورة للطلاب.') ?>
+                                    <?= e($s['description'] ?: 'مؤسسة تعليمية رائدة تقدم تعليماً حديثاً وبيئة محفزة للطلاب.') ?>
                                 </p>
 
-
-                                <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 16px;">
+                                <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 14px;">
                                     <?php foreach($stagesArr as $st): ?>
                                         <span class="badge-stage-pill"><?= e($schoolStages[$st] ?? $st) ?></span>
                                     <?php endforeach; ?>
                                     <span class="badge bg-light text-dark border"><?= e($schoolTypes[$s['school_type']] ?? $s['school_type']) ?></span>
                                 </div>
 
-                                <div style="padding-top: 14px; border-top: 1px solid #F1EAE0; display: flex; align-items: center; justify-content: space-between; margin-top: auto;">
+                                <div style="padding-top: 14px; border-top: 1px solid #F1EAE0; display: flex; align-items: center; justify-content: space-between;">
                                     <div class="star-rating">
                                         <i class="fas fa-star text-warning"></i>
                                         <span class="fw-bold text-dark"><?= number_format($s['rating_avg'], 1) ?></span>
                                         <span class="text-muted small">(<?= $s['reviews_count'] ?>)</span>
                                     </div>
 
-                                    <div class="d-flex align-items-center gap-2">
+                                    <div class="d-flex align-items-center gap-1">
                                         <?php if (!empty($s['whatsapp'])): ?>
-                                            <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $s['whatsapp']) ?>" target="_blank" class="btn btn-sm btn-outline-success rounded-circle" style="width: 32px; height: 32px; padding: 0; display: inline-flex; align-items: center; justify-content: center;" title="واتساب">
+                                            <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $s['whatsapp']) ?>" target="_blank" class="btn btn-sm btn-outline-success rounded-circle" style="width: 32px; height: 32px; padding: 0; display: inline-flex; align-items: center; justify-content: center;" title="واتساب" onclick="event.stopPropagation();">
                                                 <i class="fab fa-whatsapp"></i>
                                             </a>
                                         <?php endif; ?>
-                                        <a href="/school/<?= urlencode($s['slug']) ?>" class="btn-luxury-outline btn-sm py-1 px-3">
-                                            عرض البروفايل
+                                        <a href="<?= $schoolUrl ?>" class="btn-luxury-primary btn-sm py-1 px-3" onclick="event.stopPropagation();">
+                                            <span>البروفايل</span>
+                                            <i class="fas fa-chevron-left small"></i>
                                         </a>
                                     </div>
                                 </div>
@@ -528,22 +651,162 @@ $genderTypes = SudanGeography::genderTypes();
                         </div>
                     </div>
                 <?php endforeach; ?>
-            <?php endif; ?>
+            </div>
+
         </div>
+    </section>
+    <?php endif; ?>
 
-    </div>
-</section>
+    <!-- SECTION 3: TOP RATED SCHOOLS (MAX 5 RANDOM) -->
+    <?php if (!empty($topRatedSchools)): ?>
+    <section id="top-rated" class="py-5">
+        <div class="container">
+            
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
+                <div>
+                    <span style="color: var(--brand-gold); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase;">
+                        <i class="fas fa-star"></i> ثقة أولياء الأمور
+                    </span>
+                    <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--brand-navy); margin: 0;">المدارس الأعلى تقييماً</h2>
+                    <p style="color: #6B7280; font-size: 0.74rem; margin-top: 4px;">
+                        مدارس حازت على أعلى التقييمات ورضا أولياء الأمور والطلاب لجودة التعليم والرعاية التربوية.
+                    </p>
+                </div>
+                <div class="mt-3 mt-md-0">
+                    <a href="/?view=top_rated" class="btn-luxury-outline btn-sm">
+                        <span>عرض الكل</span>
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                </div>
+            </div>
 
-<!-- SECTION 4: SCHOOL OWNERS CTA -->
+            <div class="row g-4">
+                <?php foreach($topRatedSchools as $s): ?>
+                    <?php
+                        $logo = !empty($s['logo_path']) ? e($s['logo_path']) : "https://ui-avatars.com/api/?name=" . urlencode(mb_substr($s['name'], 0, 1, 'UTF-8')) . "&background=1E5FA8&color=ffffff&size=160&bold=true";
+                        $schoolUrl = '/school/' . urlencode($s['slug']);
+                    ?>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="luxury-card p-3 h-100 d-flex flex-column clickable-school-card" onclick="window.location.href='<?= $schoolUrl ?>'">
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <img src="<?= $logo ?>" alt="" style="width: 50px; height: 50px; border-radius: 12px; object-fit: cover;">
+                                <div>
+                                    <a href="<?= $schoolUrl ?>" class="fw-bold text-dark text-decoration-none d-block text-truncate" style="max-width: 220px; font-size: 0.84rem;" onclick="event.stopPropagation();">
+                                        <?= e($s['name']) ?>
+                                    </a>
+                                    <div class="text-muted" style="font-size: 0.7rem;">
+                                        <i class="fas fa-map-marker-alt text-muted me-1"></i> <?= e($s['state']) ?> — <?= e($s['city']) ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p class="school-card-desc mb-2" style="font-size: 0.72rem; color: #64748B;">
+                                <?= e($s['description'] ?: 'مؤسسة تعليمية رائدة متميزة بالرعاية والتحصيل العلمي.') ?>
+                            </p>
+
+                            <div class="d-flex justify-content-between align-items-center small mb-3 mt-auto pt-2 border-top">
+                                <span class="badge bg-light text-secondary border"><?= e($schoolTypes[$s['school_type']] ?? $s['school_type']) ?></span>
+                                <div class="star-rating">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <span class="fw-bold"><?= number_format($s['rating_avg'], 1) ?></span>
+                                    <span class="text-muted">(<?= $s['reviews_count'] ?>)</span>
+                                </div>
+                            </div>
+
+                            <a href="<?= $schoolUrl ?>" class="btn-luxury-outline btn-sm w-100 justify-content-center" onclick="event.stopPropagation();">
+                                عرض التفاصيل
+                            </a>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+
+        </div>
+    </section>
+    <?php endif; ?>
+
+    <!-- SECTION 4: RECENTLY ADDED SCHOOLS (MAX 5 LATEST) -->
+    <?php if (!empty($latestSchools)): ?>
+    <section id="latest-schools" class="py-5" style="background-color: #FAF8F5; border-top: 1px solid #EAE2D5;">
+        <div class="container">
+            
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
+                <div>
+                    <span style="color: var(--brand-gold); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase;">
+                        <i class="fas fa-sparkles"></i> انضمت حديثاً
+                    </span>
+                    <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--brand-navy); margin: 0;">أحدث المدارس المضافة</h2>
+                    <p style="color: #6B7280; font-size: 0.74rem; margin-top: 4px;">
+                        مدارس ومجمعات تعليمية انضمت مؤخراً إلى الدليل الوطني لتسهيل التواصل والتعريف ببرامجها.
+                    </p>
+                </div>
+                <div class="mt-3 mt-md-0">
+                    <a href="/?view=all" class="btn-luxury-outline btn-sm">
+                        <span>عرض الكل</span>
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <?php foreach($latestSchools as $s): ?>
+                    <?php
+                        $logo = !empty($s['logo_path']) ? e($s['logo_path']) : "https://ui-avatars.com/api/?name=" . urlencode(mb_substr($s['name'], 0, 1, 'UTF-8')) . "&background=1E5FA8&color=ffffff&size=160&bold=true";
+                        $schoolUrl = '/school/' . urlencode($s['slug']);
+                    ?>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="luxury-card p-3 h-100 d-flex flex-column clickable-school-card" onclick="window.location.href='<?= $schoolUrl ?>'">
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <img src="<?= $logo ?>" alt="" style="width: 50px; height: 50px; border-radius: 12px; object-fit: cover;">
+                                <div>
+                                    <a href="<?= $schoolUrl ?>" class="fw-bold text-dark text-decoration-none d-block text-truncate" style="max-width: 220px; font-size: 0.84rem;" onclick="event.stopPropagation();">
+                                        <?= e($s['name']) ?>
+                                    </a>
+                                    <div class="text-muted" style="font-size: 0.7rem;">
+                                        <i class="fas fa-map-marker-alt text-muted me-1"></i> ولاية <?= e($s['state']) ?> — <?= e($s['city']) ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p class="school-card-desc mb-2" style="font-size: 0.72rem; color: #64748B;">
+                                <?= e($s['description'] ?: 'مؤسسة تعليمية حديثة تقدم بيئة تربوية ملهمة للطلاب.') ?>
+                            </p>
+
+                            <div class="d-flex justify-content-between align-items-center small mb-3 mt-auto pt-2 border-top">
+                                <span class="badge bg-light text-secondary border"><?= e($schoolTypes[$s['school_type']] ?? $s['school_type']) ?></span>
+                                <div class="star-rating">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <span class="fw-bold"><?= number_format($s['rating_avg'], 1) ?></span>
+                                    <span class="text-muted">(<?= $s['reviews_count'] ?>)</span>
+                                </div>
+                            </div>
+
+                            <a href="<?= $schoolUrl ?>" class="btn-luxury-outline btn-sm w-100 justify-content-center" onclick="event.stopPropagation();">
+                                عرض التفاصيل
+                            </a>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+
+        </div>
+    </section>
+    <?php endif; ?>
+
+<?php endif; ?>
+
+<!-- SECTION 5: SCHOOL OWNERS CTA (Refined white text for free registration card) -->
 <section class="py-5" style="background: linear-gradient(135deg, #0B2A52 0%, #16467D 100%); color: #FFFFFF;">
     <div class="container">
         <div class="row align-items-center g-4">
             <div class="col-lg-8">
-                <span class="badge bg-warning text-dark fw-bold px-3 py-1 rounded-pill mb-3" style="font-size: 0.72rem;">
-                    <i class="fas fa-gift me-1"></i> تسجيل مجاني بالكامل
-                </span>
-                <h2 class="fw-bold mb-2" style="font-size: 1.35rem;">هل تدير مدرسة أو مجمعاً تعليمياً؟</h2>
-                <p class="mb-4" style="max-width: 650px; font-size: 0.76rem; opacity: 0.9; line-height: 1.65;">
+                <!-- Free Registration Badge: Pure white text with elegant golden accent -->
+                <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(245, 158, 11, 0.22); border: 1px solid rgba(252, 211, 77, 0.45); color: #FFFFFF; font-weight: 700; font-size: 0.74rem; padding: 5px 14px; border-radius: 20px; margin-bottom: 14px;">
+                    <i class="fas fa-gift text-warning"></i>
+                    <span style="color: #FFFFFF !important;">تسجيل مجاني بالكامل</span>
+                </div>
+                <h2 class="fw-bold mb-2" style="font-size: 1.35rem; color: #FFFFFF;">هل تدير مدرسة أو مجمعاً تعليمياً؟</h2>
+                <p class="mb-4" style="max-width: 650px; font-size: 0.76rem; color: rgba(255, 255, 255, 0.9); line-height: 1.65;">
                     انضم إلى مئات المدارس في الدليل الأكبر في السودان. احصل على بروفايل إلكتروني موثق، انشر أخبار مدرستك، واستقبل طلبات التسجيل واستفسارات أولياء الأمور بسهولة تامة.
                 </p>
                 <div class="d-flex flex-wrap gap-2">
@@ -560,8 +823,8 @@ $genderTypes = SudanGeography::genderTypes();
             <div class="col-lg-4 text-center d-none d-lg-block">
                 <div class="p-4 rounded-4" style="background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.15);">
                     <i class="fas fa-certificate fa-4x text-warning mb-3"></i>
-                    <h5 class="fw-bold" style="font-size: 0.95rem;">ارتقِ بمدرستك مع SchoPlus</h5>
-                    <p class="small opacity-80 mb-3" style="font-size: 0.72rem !important; line-height: 1.6;">حوّل مدرستك إلى مدرسة ذكية مع أنظمة الحسابات، شؤون الطلاب، الجداول الآلية، وبوابة أولياء الأمور عبر الواتساب.</p>
+                    <h5 class="fw-bold text-white" style="font-size: 0.95rem;">ارتقِ بمدرستك مع SchoPlus</h5>
+                    <p class="small mb-3" style="font-size: 0.72rem !important; line-height: 1.6; color: rgba(255,255,255,0.85);">حوّل مدرستك إلى مدرسة ذكية مع أنظمة الحسابات، شؤون الطلاب، الجداول الآلية، وبوابة أولياء الأمور عبر الواتساب.</p>
                     <a href="https://schoplus.sd" target="_blank" class="btn btn-sm btn-light text-primary fw-bold w-100" style="font-size: 0.78rem;">
                         تعرف على نظام SchoPlus
                     </a>
@@ -582,7 +845,7 @@ $extraScripts = <<<JS
     if (stateSelect && citySelect) {
         stateSelect.addEventListener('change', function() {
             const st = this.value;
-            citySelect.innerHTML = '<option value="">جميع المدن</option>';
+            citySelect.innerHTML = '<option value="">جميع المدن / المحليات</option>';
             if (st && statesMap[st]) {
                 statesMap[st].forEach(city => {
                     const opt = document.createElement('option');
@@ -596,4 +859,3 @@ $extraScripts = <<<JS
 </script>
 JS;
 require_once __DIR__ . '/footer.php';
-
