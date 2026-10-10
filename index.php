@@ -660,6 +660,7 @@ if ($isSearching) {
                             $cover = !empty($s['cover_path']) ? e(assetUrl($s['cover_path'])) : '';
                             $stagesArr = json_decode($s['stages'] ?? '[]', true) ?: [];
                             $schoolUrl = '/school/' . urlencode($s['slug']);
+                            $sRank = getSchoolDirectoryRank($pdo, (int)$s['id'], !empty($s['directory_rank']) ? (int)$s['directory_rank'] : null);
                         ?>
                         <div class="col-lg-4 col-md-6">
                             <div class="luxury-card h-100 d-flex flex-column clickable-school-card" onclick="window.location.href='<?= $schoolUrl ?>'">
@@ -669,6 +670,7 @@ if ($isSearching) {
                                     <?php if (!$cover): ?><div class="cover-placeholder-icon"><i class="fas fa-school"></i></div><?php endif; ?>
 
                                     <div style="position: absolute; top: 12px; left: 12px; z-index: 2; display: flex; flex-direction: column; gap: 5px; align-items: flex-end;">
+                                        <span class="badge-directory-rank"><i class="fas fa-award text-warning"></i> الترتيب #<?= $sRank ?></span>
                                         <?php if ($s['is_schoplus_client']): ?>
                                             <span class="badge-schoplus-smart"><i class="fas fa-bolt"></i> SchoPlus الذكي</span>
                                         <?php endif; ?>
@@ -681,9 +683,12 @@ if ($isSearching) {
                                 </div>
 
                                 <div style="padding: 32px 18px 18px; display: flex; flex-direction: column; flex-grow: 1;">
-                                    <a href="<?= $schoolUrl ?>" style="font-weight: 700; font-size: 0.88rem; color: var(--brand-navy); margin-bottom: 4px; text-decoration: none;" onclick="event.stopPropagation();">
-                                        <?= e($s['name']) ?>
-                                    </a>
+                                    <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
+                                        <a href="<?= $schoolUrl ?>" style="font-weight: 700; font-size: 0.88rem; color: var(--brand-navy); text-decoration: none;" onclick="event.stopPropagation();">
+                                            <?= e($s['name']) ?>
+                                        </a>
+                                        <span class="badge-rank-tag" title="الترتيب في الدليل">#<?= $sRank ?></span>
+                                    </div>
 
                                     <div style="color: #64748B; font-size: 0.72rem; margin-bottom: 6px;">
                                         <i class="fas fa-map-marker-alt text-muted me-1"></i>
@@ -770,6 +775,7 @@ if ($isSearching) {
                         $cover = !empty($s['cover_path']) ? e(assetUrl($s['cover_path'])) : '';
                         $stagesArr = json_decode($s['stages'] ?? '[]', true) ?: [];
                         $schoolUrl = '/school/' . urlencode($s['slug']);
+                        $sRank = getSchoolDirectoryRank($pdo, (int)$s['id'], !empty($s['directory_rank']) ? (int)$s['directory_rank'] : null);
                     ?>
                     <div class="col-lg-4 col-md-6">
                         <div class="luxury-card clickable-school-card" style="border: 1.5px solid #FCD34D; background: linear-gradient(135deg, #FFFDF9 0%, #FEF9EC 100%);" onclick="window.location.href='<?= $schoolUrl ?>'">
@@ -782,7 +788,8 @@ if ($isSearching) {
                                 <div style="position: absolute; inset: 0; background: <?= $cover ? 'linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.52) 100%)' : 'linear-gradient(180deg, rgba(11,42,82,0.0) 0%, rgba(11,42,82,0.35) 100%)' ?>;"></div>
                                 <?php if (!$cover): ?><div class="cover-placeholder-icon"><i class="fas fa-school"></i></div><?php endif; ?>
                                 
-                                <div style="position: absolute; top: 12px; left: 12px; z-index: 2;">
+                                <div style="position: absolute; top: 12px; left: 12px; z-index: 2; display: flex; flex-direction: column; gap: 5px; align-items: flex-end;">
+                                    <span class="badge-directory-rank"><i class="fas fa-award text-warning"></i> الترتيب #<?= $sRank ?></span>
                                     <span class="badge-schoplus-smart"><i class="fas fa-microchip"></i> SchoPlus</span>
                                 </div>
 
@@ -792,9 +799,12 @@ if ($isSearching) {
                             </div>
 
                             <div style="padding: 32px 18px 18px; display: flex; flex-direction: column;">
-                                <a href="<?= $schoolUrl ?>" style="font-weight: 700; font-size: 0.88rem; color: var(--brand-navy); margin-bottom: 4px; text-decoration: none;" onclick="event.stopPropagation();">
-                                    <?= e($s['name']) ?>
-                                </a>
+                                <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
+                                    <a href="<?= $schoolUrl ?>" style="font-weight: 700; font-size: 0.88rem; color: var(--brand-navy); text-decoration: none;" onclick="event.stopPropagation();">
+                                        <?= e($s['name']) ?>
+                                    </a>
+                                    <span class="badge-rank-tag" title="الترتيب في الدليل">#<?= $sRank ?></span>
+                                </div>
 
                                 <div style="color: #64748B; font-size: 0.72rem; margin-bottom: 6px;">
                                     <i class="fas fa-map-marker-alt text-danger me-1"></i>

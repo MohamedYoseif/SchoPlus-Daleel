@@ -39,12 +39,42 @@ if (!function_exists('defaultSchoolLogo')) {
 }
 
 if (!function_exists('defaultNewsImage')) {
-    function defaultNewsImage(?string $path): string {
+    function defaultNewsImage(?string $path, string $title = '', string $schoolName = '', string $branchName = ''): string {
         $path = trim((string)($path ?? ''));
         if ($path !== '') {
             return assetUrl($path);
         }
-        return '/assets/images/default-news.svg';
+
+        // Generate dynamic branded SVG data URI with Title, School Name, and Branch
+        $cleanTitle = htmlspecialchars(mb_substr($title ?: 'خبر أو إعلان', 0, 75), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+        $cleanSchool = htmlspecialchars(mb_substr($schoolName ?: 'مؤسسة تعليمية', 0, 60), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+        $cleanBranch = $branchName ? ' — ' . htmlspecialchars(mb_substr($branchName, 0, 40), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') : '';
+
+        $svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 340" width="100%" height="100%">'
+            . '<defs>'
+            . '<linearGradient id="nBg" x1="0%" y1="0%" x2="100%" y2="100%">'
+            . '<stop offset="0%" stop-color="#0B2A52"/>'
+            . '<stop offset="50%" stop-color="#163870"/>'
+            . '<stop offset="100%" stop-color="#1E5FA8"/>'
+            . '</linearGradient>'
+            . '<linearGradient id="goldAcc" x1="0%" y1="0%" x2="100%" y2="0%">'
+            . '<stop offset="0%" stop-color="#F59E0B"/>'
+            . '<stop offset="100%" stop-color="#D97706"/>'
+            . '</linearGradient>'
+            . '</defs>'
+            . '<rect width="600" height="340" rx="16" fill="url(#nBg)"/>'
+            . '<circle cx="530" cy="50" r="140" fill="rgba(255,255,255,0.03)"/>'
+            . '<circle cx="70" cy="280" r="120" fill="rgba(255,255,255,0.02)"/>'
+            . '<rect x="25" y="25" width="550" height="290" rx="12" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>'
+            . '<rect x="420" y="38" width="135" height="30" rx="15" fill="rgba(255,255,255,0.12)"/>'
+            . '<text x="487" y="58" fill="#FBBF24" font-family="Cairo, Segoe UI, Tahoma, sans-serif" font-size="13" font-weight="700" text-anchor="middle">إعلان مدرسي</text>'
+            . '<text x="545" y="145" fill="#FFFFFF" font-family="Cairo, Segoe UI, Tahoma, sans-serif" font-size="22" font-weight="800" text-anchor="end" direction="rtl">' . $cleanTitle . '</text>'
+            . '<line x1="160" y1="185" x2="545" y2="185" stroke="url(#goldAcc)" stroke-width="3" stroke-linecap="round"/>'
+            . '<text x="545" y="235" fill="#E2E8F0" font-family="Cairo, Segoe UI, Tahoma, sans-serif" font-size="17" font-weight="700" text-anchor="end" direction="rtl">' . $cleanSchool . $cleanBranch . '</text>'
+            . '<rect x="0" y="332" width="600" height="8" fill="url(#goldAcc)"/>'
+            . '</svg>';
+
+        return 'data:image/svg+xml;utf8,' . rawurlencode($svg);
     }
 }
 
@@ -53,14 +83,25 @@ if (!function_exists('getSchoolDirectoryRank')) {
         if ($customRank !== null && $customRank > 0) {
             return $customRank;
         }
-        try {
-            $stmt = $pdo->prepare("SELECT COUNT(*) FROM daleel_schools WHERE id <= ? AND status != 'rejected'");
-            $stmt->execute([$schoolId]);
-            $rank = (int) $stmt->fetchColumn();
-            return max(1, $rank);
-        } catch (Throwable $e) {
-            return max(1, $schoolId);
+        static $cachedRanks = null;
+        if ($cachedRanks === null) {
+            try {
+                $stmt = $pdo->query("SELECT id, directory_rank FROM daleel_schools WHERE status != 'rejected' ORDER BY id ASC");
+                $cachedRanks = [];
+                $seq = 1;
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $cRank = !empty($row['directory_rank']) ? (int)$row['directory_rank'] : null;
+                    $cachedRanks[(int)$row['id']] = ($cRank !== null && $cRank > 0) ? $cRank : $seq;
+                    $seq++;
+                }
+            } catch (Throwable $e) {
+                $cachedRanks = [];
+            }
         }
+        if (isset($cachedRanks[$schoolId])) {
+            return $cachedRanks[$schoolId];
+        }
+        return max(1, $schoolId);
     }
 }
 
@@ -301,6 +342,18 @@ function ensureTablesExist(PDO $pdo): void {
             if (!isset($existingCols[$colName])) {
                 $pdo->exec($sql);
             }
+        }
+
+        // News table schema update: branch_name
+        $newsCols = [];
+        $nColsQuery = $pdo->query("SHOW COLUMNS FROM daleel_school_news");
+        if ($nColsQuery) {
+            foreach ($nColsQuery->fetchAll() as $ncRow) {
+                $newsCols[$ncRow['Field']] = true;
+            }
+        }
+        if (!isset($newsCols['branch_name'])) {
+            $pdo->exec("ALTER TABLE daleel_school_news ADD COLUMN branch_name VARCHAR(150) NULL AFTER title");
         }
     } catch (Exception $e) {}
 

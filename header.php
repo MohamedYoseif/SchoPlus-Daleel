@@ -75,7 +75,7 @@ $currSchool = currentSchool();
         html {
             font-size: 13.5px !important;
             -webkit-text-size-adjust: 100%;
-            overflow-x: hidden !important;
+            overflow-x: clip !important;
             max-width: 100%;
         }
 
@@ -85,7 +85,7 @@ $currSchool = currentSchool();
             color: var(--text-body);
             font-size: 0.75rem;
             line-height: 1.6;
-            overflow-x: hidden !important;
+            overflow-x: clip !important;
             max-width: 100%;
             width: 100%;
             position: relative;
@@ -156,14 +156,24 @@ $currSchool = currentSchool();
         }
 
         .daleel-navbar {
-            background-color: rgba(255, 255, 255, 0.94);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-subtle);
-            padding: 14px 0;
-            position: sticky;
-            top: 0;
-            z-index: 1040;
+            background-color: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(226, 215, 200, 0.85);
+            padding: 10px 0;
+            position: -webkit-sticky !important;
+            position: sticky !important;
+            top: 0 !important;
+            z-index: 1040 !important;
+            box-shadow: 0 4px 18px rgba(11, 42, 82, 0.05);
             transition: all 0.25s ease;
+        }
+
+        .daleel-navbar.scrolled {
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 8px 24px rgba(11, 42, 82, 0.1);
+            padding: 7px 0;
+            border-bottom-color: #DCCFBF;
         }
 
         .daleel-brand {
@@ -175,7 +185,7 @@ $currSchool = currentSchool();
         }
 
         .daleel-logo-img {
-            height: 46px;
+            height: 44px;
             width: auto;
             object-fit: contain;
             display: block;
@@ -188,51 +198,86 @@ $currSchool = currentSchool();
 
         @media (max-width: 767px) {
             .daleel-logo-img {
-                height: 38px;
+                height: 36px;
             }
         }
 
-        .daleel-logo-icon {
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, var(--brand-navy) 0%, var(--brand-blue) 100%);
-            display: flex;
+        .daleel-nav-island {
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            color: #FFFFFF;
-            font-size: 1.1rem;
-            box-shadow: 0 3px 10px rgba(30, 95, 168, 0.22);
-        }
-
-        .daleel-brand-title {
-            font-weight: 700;
-            font-size: 1.02rem;
-            color: var(--brand-navy);
-            line-height: 1.15;
-            margin: 0;
-        }
-
-        .daleel-brand-tag {
-            font-size: 0.65rem;
-            color: var(--brand-gold);
-            font-weight: 700;
-            letter-spacing: 0.4px;
+            gap: 3px;
+            background: #F5ECE0;
+            border: 1px solid #E4D8C7;
+            padding: 4px 6px;
+            border-radius: 999px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.04);
         }
 
         .nav-link-custom {
-            color: var(--text-body);
-            font-weight: 600;
-            font-size: 0.78rem;
-            padding: 6px 12px;
-            border-radius: 8px;
+            color: #4A5568;
+            font-weight: 700;
+            font-size: 0.77rem;
+            padding: 6px 14px;
+            border-radius: 999px;
             text-decoration: none;
-            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid transparent;
         }
 
         .nav-link-custom:hover {
-            color: var(--brand-blue);
-            background-color: var(--bg-surface-soft);
+            color: var(--brand-navy);
+            background-color: #FFFFFF;
+            border-color: #E2D7C8;
+            box-shadow: 0 2px 8px rgba(11, 42, 82, 0.06);
+            transform: translateY(-1px);
+        }
+
+        .nav-link-custom.active {
+            color: var(--brand-navy);
+            background-color: #FFFFFF;
+            border-color: #D9CBB7;
+            box-shadow: 0 2px 8px rgba(11, 42, 82, 0.08);
+        }
+
+        /* Rank Badges */
+        .badge-directory-rank {
+            background: linear-gradient(135deg, rgba(11, 42, 82, 0.94) 0%, rgba(22, 70, 125, 0.94) 100%);
+            color: #FCD34D !important;
+            border: 1px solid rgba(252, 211, 77, 0.45);
+            padding: 3px 9px;
+            border-radius: 8px;
+            font-size: 0.68rem;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 3px 8px rgba(11, 42, 82, 0.25);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .badge-rank-tag {
+            background: #F4ECE1;
+            color: var(--brand-navy);
+            border: 1px solid #E2D7C8;
+            font-size: 0.68rem;
+            font-weight: 800;
+            padding: 2px 7px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+        .badge-rank-tag::before {
+            content: "ترتيب ";
+            font-size: 0.62rem;
+            font-weight: 600;
+            color: #6B7280;
         }
 
         /* Buttons & CTAs */
@@ -600,12 +645,14 @@ $currSchool = currentSchool();
                 <img src="/assets/images/logo.png" alt="دليل المدارس السودانية" class="daleel-logo-img">
             </a>
 
-            <nav class="d-none d-lg-flex align-items-center gap-1">
-                <a href="/" class="nav-link-custom"><i class="fas fa-home me-1 text-muted"></i> الرئيسية</a>
-                <a href="/#schoplus-schools" class="nav-link-custom"><i class="fas fa-star text-warning me-1"></i> المدارس الذكية</a>
-                <a href="/#top-rated" class="nav-link-custom"><i class="fas fa-award text-primary me-1"></i> الأعلى تقييماً</a>
-                <a href="/#search-section" class="nav-link-custom"><i class="fas fa-search text-muted me-1"></i> استكشف المدارس</a>
-                <a href="https://schoplus.sd" target="_blank" class="nav-link-custom"><i class="fas fa-info-circle text-muted me-1"></i> عن النظام</a>
+            <nav class="d-none d-lg-flex align-items-center">
+                <div class="daleel-nav-island">
+                    <a href="/" class="nav-link-custom"><i class="fas fa-home text-muted"></i> الرئيسية</a>
+                    <a href="/#schoplus-schools" class="nav-link-custom"><i class="fas fa-bolt text-warning"></i> المدارس الذكية</a>
+                    <a href="/#top-rated" class="nav-link-custom"><i class="fas fa-award text-primary"></i> الأعلى تقييماً</a>
+                    <a href="/#search-section" class="nav-link-custom"><i class="fas fa-search text-muted"></i> استكشف المدارس</a>
+                    <a href="https://schoplus.sd" target="_blank" class="nav-link-custom"><i class="fas fa-globe text-info"></i> عن المنظومة</a>
+                </div>
             </nav>
 
             <div class="d-flex align-items-center gap-2">
@@ -616,25 +663,24 @@ $currSchool = currentSchool();
                 </button>
                 <!-- Desktop CTA buttons -->
                 <?php if ($currSchool): ?>
-                    <a href="/dashboard.php" class="btn-luxury-outline d-none d-lg-inline-flex">
+                    <a href="/dashboard.php" class="btn-luxury-outline d-none d-lg-inline-flex" style="border-radius: 999px; padding: 7px 16px;">
                         <i class="fas fa-columns text-primary"></i>
                         <span>لوحة إدارة المدرسة</span>
                     </a>
-                    <a href="/logout.php" class="btn btn-sm btn-light border text-danger d-none d-lg-inline-flex" title="تسجيل الخروج">
+                    <a href="/logout.php" class="btn btn-sm btn-light border text-danger d-none d-lg-inline-flex rounded-circle" style="width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center;" title="تسجيل الخروج">
                         <i class="fas fa-sign-out-alt"></i>
                     </a>
                 <?php else: ?>
-                    <a href="/login.php" class="btn-luxury-outline d-none d-lg-inline-flex">
+                    <a href="/login.php" class="btn-luxury-outline d-none d-lg-inline-flex" style="border-radius: 999px; padding: 7px 16px;">
                         <i class="fas fa-user-tie text-secondary"></i>
                         <span>دخول أصحاب المدارس</span>
                     </a>
-                    <a href="/register.php" class="btn-luxury-primary d-none d-lg-inline-flex">
+                    <a href="/register.php" class="btn-luxury-primary d-none d-lg-inline-flex" style="border-radius: 999px; padding: 7px 18px;">
                         <i class="fas fa-plus-circle"></i>
                         <span>سجّل مدرستك الآن</span>
                     </a>
                 <?php endif; ?>
             </div>
-
 
         </div>
     </header>

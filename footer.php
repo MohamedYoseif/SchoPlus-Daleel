@@ -117,6 +117,18 @@
             }, { threshold: 0.3 });
             stats.forEach(function(el) { obs2.observe(el); });
         }
+
+        // Sticky Navbar scroll state
+        window.addEventListener('scroll', function() {
+            var nav = document.querySelector('.daleel-navbar');
+            if (nav) {
+                if (window.scrollY > 20) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            }
+        }, { passive: true });
     })();
     </script>
 </body>

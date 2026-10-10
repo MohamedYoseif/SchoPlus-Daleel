@@ -1407,48 +1407,65 @@ $totalRev = max(1, count($reviewsList));
                             <?php else: ?>
                                 <div class="d-flex flex-column gap-3">
                                     <?php foreach ($newsList as $item): ?>
-                                        <div class="sp-news-card" id="news-item-<?= $item['id'] ?>">
-                                            <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-2">
-                                                <h5 class="fw-bold mb-0" style="color: var(--brand-navy); font-size: 1.05rem;"><?= e($item['title']) ?></h5>
-                                                <span class="sp-news-date">
-                                                    <i class="far fa-calendar-alt"></i>
-                                                    <?= date('d / m / Y', strtotime($item['published_at'] ?: $item['created_at'])) ?>
-                                                </span>
-                                            </div>
-
-                                            <?php 
-                                                $newsImgUrl = defaultNewsImage($item['image_path'] ?? null);
-                                                $hasCustomImg = !empty($item['image_path']);
-                                            ?>
-                                            <div class="my-3 text-center" style="cursor: pointer;" onclick="openNewsReaderModal(<?= htmlspecialchars(json_encode([
+                                        <?php 
+                                            $newsImgUrl = defaultNewsImage(
+                                                $item['image_path'] ?? null, 
+                                                $item['title'] ?? '', 
+                                                $school['name'] ?? '', 
+                                                $item['branch_name'] ?? ''
+                                            );
+                                            $newsPayload = [
                                                 'id' => $item['id'],
                                                 'title' => $item['title'],
+                                                'branch' => $item['branch_name'] ?? '',
                                                 'date' => date('d / m / Y', strtotime($item['published_at'] ?: $item['created_at'])),
                                                 'image' => $newsImgUrl,
                                                 'content' => sanitizeHtml($item['content'])
-                                            ]), ENT_QUOTES, 'UTF-8') ?>)">
-                                                <img src="<?= e($newsImgUrl) ?>" alt="صورة الخبر" loading="lazy" class="img-fluid rounded-3 shadow-xs" style="max-height: 180px; width: 100%; max-width: 480px; object-fit: cover; border: 1px solid var(--border-subtle);">
-                                            </div>
+                                            ];
+                                            $jsonPayload = htmlspecialchars(json_encode($newsPayload, JSON_UNESCAPED_UNICODE), ENT_QUOTES, 'UTF-8');
+                                        ?>
+                                        <div class="sp-news-card" id="news-item-<?= $item['id'] ?>">
+                                            <div class="d-flex flex-column flex-md-row gap-3 align-items-start">
+                                                <!-- صورة مصغرة للخبر -->
+                                                <div class="flex-shrink-0" style="cursor: pointer;" onclick="openNewsReaderModal(<?= $jsonPayload ?>)" title="انقر لقراءة الخبر">
+                                                    <img src="<?= e($newsImgUrl) ?>" alt="صورة الخبر" loading="lazy" class="rounded-3 shadow-xs border" style="width: 140px; height: 95px; object-fit: cover; max-width: 100%;">
+                                                </div>
 
-                                            <!-- Render rich formatted content (from Word-like editor) -->
-                                            <div class="sp-news-content">
-                                                <?= sanitizeHtml($item['content']) ?>
-                                            </div>
+                                                <!-- تفاصيل وعنوان الخبر وبداية النص -->
+                                                <div class="flex-grow-1 w-100">
+                                                    <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-1">
+                                                        <div class="d-flex align-items-center gap-2 flex-wrap">
+                                                            <h5 class="fw-bold mb-0 text-dark" style="font-size: 1.02rem; cursor: pointer;" onclick="openNewsReaderModal(<?= $jsonPayload ?>)">
+                                                                <?= e($item['title']) ?>
+                                                            </h5>
+                                                            <?php if (!empty($item['branch_name'])): ?>
+                                                                <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill small" style="font-size: 0.72rem;">
+                                                                    <i class="fas fa-code-branch me-1"></i> <?= e($item['branch_name']) ?>
+                                                                </span>
+                                                            <?php endif; ?>
+                                                        </div>
+                                                        <span class="sp-news-date">
+                                                            <i class="far fa-calendar-alt"></i>
+                                                            <?= date('d / m / Y', strtotime($item['published_at'] ?: $item['created_at'])) ?>
+                                                        </span>
+                                                    </div>
 
-                                            <div class="d-flex justify-content-between align-items-center mt-3 pt-2 border-top">
-                                                <button type="button" class="btn btn-sm btn-luxury-outline py-1 px-3" onclick="openNewsReaderModal(<?= htmlspecialchars(json_encode([
-                                                    'id' => $item['id'],
-                                                    'title' => $item['title'],
-                                                    'date' => date('d / m / Y', strtotime($item['published_at'] ?: $item['created_at'])),
-                                                    'image' => $newsImgUrl,
-                                                    'content' => sanitizeHtml($item['content'])
-                                                ]), ENT_QUOTES, 'UTF-8') ?>)">
-                                                    <i class="fas fa-book-open me-1"></i> قراءة الخبر كاملاً
-                                                </button>
+                                                    <!-- بداية نص الخبر -->
+                                                    <div class="text-secondary small mb-3" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.65;">
+                                                        <?= mb_substr(strip_tags($item['content']), 0, 180) ?>...
+                                                    </div>
 
-                                                <button type="button" class="btn btn-sm btn-light border py-1 px-2 text-muted" onclick="copyNewsLink(<?= $item['id'] ?>)" title="مشاركة رابط الخبر">
-                                                    <i class="fas fa-share-alt me-1"></i> مشاركة
-                                                </button>
+                                                    <!-- إجراءات: عرض المزيد لفتح الخبر ومشاركة -->
+                                                    <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                                                        <button type="button" class="btn btn-sm btn-luxury-primary py-1 px-3 fw-bold" onclick="openNewsReaderModal(<?= $jsonPayload ?>)">
+                                                            <i class="fas fa-book-open me-1"></i> عرض المزيد
+                                                        </button>
+
+                                                        <button type="button" class="btn btn-sm btn-light border py-1 px-2 text-muted" onclick="copyNewsLink(<?= $item['id'] ?>)" title="مشاركة رابط الخبر">
+                                                            <i class="fas fa-share-alt me-1"></i> مشاركة
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     <?php endforeach; ?>
@@ -2003,8 +2020,11 @@ $totalRev = max(1, count($reviewsList));
         <div class="modal-content rounded-4 border-0 shadow-lg">
             <div class="modal-header bg-light border-bottom px-4 py-3">
                 <div>
-                    <span class="badge bg-white text-primary border px-2 py-1 rounded-pill small mb-1" id="newsReaderModalDate"></span>
-                    <h5 class="modal-title fw-bold text-dark fs-5" id="newsReaderModalTitle"></h5>
+                    <div class="d-flex align-items-center gap-2 flex-wrap mb-1">
+                        <span class="badge bg-white text-primary border px-2 py-1 rounded-pill small" id="newsReaderModalDate"></span>
+                        <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-2 py-1 rounded-pill small" id="newsReaderModalBranch" style="display: none;"></span>
+                    </div>
+                    <h5 class="modal-title fw-bold text-dark fs-5 mb-0" id="newsReaderModalTitle"></h5>
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
             </div>
@@ -2055,6 +2075,16 @@ function openNewsReaderModal(item) {
     document.getElementById('newsReaderModalTitle').innerText = item.title;
     document.getElementById('newsReaderModalDate').innerText = item.date;
     document.getElementById('newsReaderModalContent').innerHTML = item.content;
+
+    const branchBadge = document.getElementById('newsReaderModalBranch');
+    if (branchBadge) {
+        if (item.branch) {
+            branchBadge.innerHTML = '<i class="fas fa-code-branch me-1"></i> ' + item.branch;
+            branchBadge.style.display = 'inline-block';
+        } else {
+            branchBadge.style.display = 'none';
+        }
+    }
 
     const imgWrap = document.getElementById('newsReaderModalImgWrap');
     const imgElem = document.getElementById('newsReaderModalImg');

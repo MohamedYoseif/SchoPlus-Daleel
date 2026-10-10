@@ -227,18 +227,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         elseif ($action === 'add_news') {
             $activeDashTab = 'news';
             $newsTitle = trim($_POST['title'] ?? '');
+            $branchName = trim($_POST['branch_name'] ?? '');
             $newsContent = sanitizeHtml($_POST['content'] ?? '');
 
             if (!$newsTitle || !$newsContent) {
                 $errorMsg = 'يرجى إدخال عنوان وتفاصيل الخبر.';
             } else {
-                $imagePath = null;
-                if (!empty($_FILES['news_image']['tmp_name'])) {
-                    $imagePath = handleUpload($_FILES['news_image'], 'news');
-                }
-
-                $nStmt = $pdo->prepare("INSERT INTO daleel_school_news (school_id, title, content, image_path, published_at, is_active, created_at) VALUES (?, ?, ?, ?, NOW(), 1, NOW())");
-                $nStmt->execute([$schoolId, $newsTitle, $newsContent, $imagePath]);
+                $nStmt = $pdo->prepare("INSERT INTO daleel_school_news (school_id, title, branch_name, content, image_path, published_at, is_active, created_at) VALUES (?, ?, ?, ?, NULL, NOW(), 1, NOW())");
+                $nStmt->execute([$schoolId, $newsTitle, $branchName ?: null, $newsContent]);
                 $successMsg = 'تم نشر الخبر الجديد بنجاح!';
             }
         }
@@ -248,26 +244,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $activeDashTab = 'news';
             $newsId = (int)($_POST['news_id'] ?? 0);
             $newsTitle = trim($_POST['title'] ?? '');
+            $branchName = trim($_POST['branch_name'] ?? '');
             $newsContent = sanitizeHtml($_POST['content'] ?? '');
 
             if (!$newsId || !$newsTitle || !$newsContent) {
                 $errorMsg = 'يرجى إدخال عنوان وتفاصيل الخبر.';
             } else {
-                // Check if existing news belongs to this school
-                $checkStmt = $pdo->prepare("SELECT image_path FROM daleel_school_news WHERE id = ? AND school_id = ?");
-                $checkStmt->execute([$newsId, $schoolId]);
-                $existingImage = $checkStmt->fetchColumn();
-
-                $imagePath = $existingImage;
-                if (!empty($_FILES['news_image']['tmp_name'])) {
-                    $newImage = handleUpload($_FILES['news_image'], 'news');
-                    if ($newImage) {
-                        $imagePath = $newImage;
-                    }
-                }
-
-                $uStmt = $pdo->prepare("UPDATE daleel_school_news SET title = ?, content = ?, image_path = ?, updated_at = NOW() WHERE id = ? AND school_id = ?");
-                $uStmt->execute([$newsTitle, $newsContent, $imagePath, $newsId, $schoolId]);
+                $uStmt = $pdo->prepare("UPDATE daleel_school_news SET title = ?, branch_name = ?, content = ?, updated_at = NOW() WHERE id = ? AND school_id = ?");
+                $uStmt->execute([$newsTitle, $branchName ?: null, $newsContent, $newsId, $schoolId]);
                 $successMsg = 'تم تحديث وتعديل الخبر بنجاح!';
             }
         }
@@ -1710,11 +1694,16 @@ require_once __DIR__ . '/header.php';
                             <?php foreach ($newsList as $item): ?>
                                 <div class="p-3 border rounded-3 bg-white shadow-sm d-flex flex-column flex-md-row align-items-md-start justify-content-between gap-3">
                                     <div class="d-flex gap-3 flex-grow-1">
-                                        <img src="<?= e(defaultNewsImage($item['image_path'] ?? null)) ?>" alt="صورة الخبر" style="width: 85px; height: 85px; object-fit: cover; flex-shrink: 0;" class="rounded-3 border">
+                                        <img src="<?= e(defaultNewsImage($item['image_path'] ?? null, $item['title'] ?? '', $school['name'] ?? '', $item['branch_name'] ?? '')) ?>" alt="صورة الخبر" style="width: 100px; height: 75px; object-fit: cover; flex-shrink: 0;" class="rounded-3 border shadow-xs">
                                         <div class="flex-grow-1">
                                             <div class="d-flex align-items-center gap-2 flex-wrap mb-1">
                                                 <h6 class="fw-bold text-dark mb-0" style="font-size: 0.95rem;"><?= e($item['title']) ?></h6>
                                                 <span class="badge bg-light text-secondary border small">#<?= $item['id'] ?></span>
+                                                <?php if (!empty($item['branch_name'])): ?>
+                                                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle small">
+                                                        <i class="fas fa-code-branch me-1"></i> <?= e($item['branch_name']) ?>
+                                                    </span>
+                                                <?php endif; ?>
                                             </div>
                                             <small class="text-muted d-block mb-2">
                                                 <i class="far fa-calendar-alt me-1"></i> <?= date('Y-m-d H:i', strtotime($item['created_at'])) ?>
@@ -1734,6 +1723,7 @@ require_once __DIR__ . '/header.php';
                                         <button type="button" class="btn btn-sm btn-outline-warning text-dark fw-bold" onclick="openEditNewsModal(<?= htmlspecialchars(json_encode([
                                             'id' => $item['id'],
                                             'title' => $item['title'],
+                                            'branch_name' => $item['branch_name'] ?? '',
                                             'content' => $item['content'],
                                             'image_path' => assetUrl($item['image_path'])
                                         ]), ENT_QUOTES, 'UTF-8') ?>)" title="تعديل الخبر">
@@ -1987,6 +1977,22 @@ require_once __DIR__ . '/header.php';
                             </label>
                             <input type="text" name="title" id="addNewsTitleInput" required class="form-control form-control-lg fs-6" placeholder="مثال: بدء التسجيل للعام الدراسي الجديد أو تكريم الطلاب المتفوقين...">
                         </div>
+                        <?php if (!empty($branchesList)): ?>
+                            <div class="col-12">
+                                <label class="form-label small fw-bold text-secondary">
+                                    <i class="fas fa-code-branch text-primary me-1"></i> الفرع التابع له الخبر (اختياري)
+                                </label>
+                                <select name="branch_name" class="form-select">
+                                    <option value="">المركز الرئيسي (كافة الفروع / عام)</option>
+                                    <?php foreach ($branchesList as $br): ?>
+                                        <?php if (!empty($br['name'])): ?>
+                                            <option value="<?= e($br['name']) ?>"><?= e($br['name']) ?></option>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </select>
+                                <small class="text-muted d-block mt-1">إذا تم تحديد فرع، سيظهر اسم الفرع في بطاقة وصورة الخبر</small>
+                            </div>
+                        <?php endif; ?>
                         <div class="col-12">
                             <div class="d-flex align-items-center justify-content-between mb-1">
                                 <label class="form-label small fw-bold text-secondary mb-0">
@@ -2026,7 +2032,7 @@ require_once __DIR__ . '/header.php';
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
             </div>
-            <form method="POST" action="dashboard.php" enctype="multipart/form-data" id="editNewsForm" onsubmit="syncQuillToEditNews()">
+            <form method="POST" action="dashboard.php" id="editNewsForm" onsubmit="syncQuillToEditNews()">
                 <?= csrf_field() ?>
                 <input type="hidden" name="action" value="edit_news">
                 <input type="hidden" name="news_id" id="editNewsId">
@@ -2038,6 +2044,22 @@ require_once __DIR__ . '/header.php';
                             <label class="form-label small fw-bold text-secondary">عنوان الخبر / الإعلان <span class="text-danger">*</span></label>
                             <input type="text" name="title" id="editNewsTitle" required class="form-control form-control-lg fs-6" placeholder="عنوان الخبر...">
                         </div>
+                        <?php if (!empty($branchesList)): ?>
+                            <div class="col-12">
+                                <label class="form-label small fw-bold text-secondary">
+                                    <i class="fas fa-code-branch text-primary me-1"></i> الفرع التابع له الخبر (اختياري)
+                                </label>
+                                <select name="branch_name" id="editNewsBranch" class="form-select">
+                                    <option value="">المركز الرئيسي (كافة الفروع / عام)</option>
+                                    <?php foreach ($branchesList as $br): ?>
+                                        <?php if (!empty($br['name'])): ?>
+                                            <option value="<?= e($br['name']) ?>"><?= e($br['name']) ?></option>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </select>
+                                <small class="text-muted d-block mt-1">إذا تم تحديد فرع، سيظهر اسم الفرع في بطاقة وصورة الخبر</small>
+                            </div>
+                        <?php endif; ?>
                         <div class="col-12">
                             <label class="form-label small fw-bold text-secondary">نص وتفاصيل الخبر (محرر Word متقدم)</label>
                             <!-- Quill Edit Editor Container -->
@@ -2148,6 +2170,12 @@ function openEditNewsModal(item) {
     document.getElementById('editNewsId').value = item.id;
     document.getElementById('editNewsTitle').value = item.title;
     
+    // Set branch selection if branch select exists
+    const branchSelect = document.getElementById('editNewsBranch');
+    if (branchSelect) {
+        branchSelect.value = item.branch_name || '';
+    }
+
     // Set content into Quill
     if (editNewsQuill) {
         editNewsQuill.root.innerHTML = item.content || '';
@@ -2155,14 +2183,16 @@ function openEditNewsModal(item) {
         document.getElementById('editNewsContentInput').value = item.content || '';
     }
 
-    // Existing image preview
+    // Existing image preview (if element exists)
     const imgWrap = document.getElementById('editNewsCurrentImageWrap');
     const imgElem = document.getElementById('editNewsCurrentImage');
-    if (item.image_path) {
-        imgElem.src = item.image_path;
-        imgWrap.style.display = 'block';
-    } else {
-        imgWrap.style.display = 'none';
+    if (imgWrap && imgElem) {
+        if (item.image_path) {
+            imgElem.src = item.image_path;
+            imgWrap.style.display = 'block';
+        } else {
+            imgWrap.style.display = 'none';
+        }
     }
 
     const modal = new bootstrap.Modal(document.getElementById('editNewsModal'));
