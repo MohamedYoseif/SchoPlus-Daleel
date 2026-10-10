@@ -248,10 +248,43 @@ $reviewsStmt = $pdo->prepare("SELECT * FROM daleel_school_reviews WHERE school_i
 $reviewsStmt->execute([$school['id']]);
 $reviewsList = $reviewsStmt->fetchAll();
 
-// Facilities, Stages & Campus Gallery
+// Facilities, Stages, Gallery & Optional Tabs (Branches, Activities, Teachers)
 $facilities = json_decode($school['facilities'] ?? '[]', true) ?: [];
 $stages = json_decode($school['stages'] ?? '[]', true) ?: [];
 $galleryList = json_decode($school['gallery'] ?? '[]', true) ?: [];
+$branchesList = json_decode($school['branches_data'] ?? '[]', true) ?: [];
+$activitiesList = json_decode($school['activities_data'] ?? '[]', true) ?: [];
+$teachersList = json_decode($school['teachers_data'] ?? '[]', true) ?: [];
+
+$optionalTabsCfg = json_decode($school['optional_tabs'] ?? '{}', true);
+if (!is_array($optionalTabsCfg)) $optionalTabsCfg = [];
+$showBranchesTab = (isset($optionalTabsCfg['branches']) ? (bool)$optionalTabsCfg['branches'] : true) && !empty($branchesList);
+$showActivitiesTab = (isset($optionalTabsCfg['activities']) ? (bool)$optionalTabsCfg['activities'] : true) && !empty($activitiesList);
+$showTeachersTab = (isset($optionalTabsCfg['teachers']) ? (bool)$optionalTabsCfg['teachers'] : true) && !empty($teachersList);
+
+// Non-empty social links only
+$socialLinks = [];
+if (!empty(trim($school['website'] ?? ''))) {
+    $socialLinks[] = ['url' => trim($school['website']), 'label' => 'الموقع الإلكتروني', 'icon' => 'fas fa-globe', 'color' => '#475569'];
+}
+if (!empty(trim($school['facebook'] ?? ''))) {
+    $socialLinks[] = ['url' => trim($school['facebook']), 'label' => 'صفحة فيسبوك', 'icon' => 'fab fa-facebook', 'color' => '#1877F2'];
+}
+if (!empty(trim($school['twitter'] ?? ''))) {
+    $socialLinks[] = ['url' => trim($school['twitter']), 'label' => 'منصة إكس (تويتر)', 'icon' => 'fab fa-x-twitter', 'color' => '#0F172A'];
+}
+if (!empty(trim($school['youtube'] ?? ''))) {
+    $socialLinks[] = ['url' => trim($school['youtube']), 'label' => 'قناة يوتيوب', 'icon' => 'fab fa-youtube', 'color' => '#DC2626'];
+}
+if (!empty(trim($school['telegram'] ?? ''))) {
+    $socialLinks[] = ['url' => trim($school['telegram']), 'label' => 'قناة تيليجرام', 'icon' => 'fab fa-telegram', 'color' => '#0284C7'];
+}
+if (!empty(trim($school['instagram'] ?? ''))) {
+    $socialLinks[] = ['url' => trim($school['instagram']), 'label' => 'حساب انستغرام', 'icon' => 'fab fa-instagram', 'color' => '#E1306C'];
+}
+if (!empty(trim($school['tiktok'] ?? ''))) {
+    $socialLinks[] = ['url' => trim($school['tiktok']), 'label' => 'حساب تيك توك', 'icon' => 'fab fa-tiktok', 'color' => '#111827'];
+}
 
 $pageTitle = $school['name'];
 $ogTitle = $school['name'] . ' | دليل المدارس الذكي';
@@ -1021,6 +1054,27 @@ $totalRev = max(1, count($reviewsList));
                         <i class="fas fa-info-circle"></i>
                         <span>نبذة ومعلومات</span>
                     </button>
+                    <?php if ($showBranchesTab): ?>
+                    <button class="sp-tab-btn" data-target="tab-branches" onclick="switchTab(this, 'tab-branches')">
+                        <i class="fas fa-code-branch"></i>
+                        <span>الفروع</span>
+                        <span class="tab-count"><?= count($branchesList) ?></span>
+                    </button>
+                    <?php endif; ?>
+                    <?php if ($showActivitiesTab): ?>
+                    <button class="sp-tab-btn" data-target="tab-activities" onclick="switchTab(this, 'tab-activities')">
+                        <i class="fas fa-trophy"></i>
+                        <span>المناشط</span>
+                        <span class="tab-count"><?= count($activitiesList) ?></span>
+                    </button>
+                    <?php endif; ?>
+                    <?php if ($showTeachersTab): ?>
+                    <button class="sp-tab-btn" data-target="tab-teachers" onclick="switchTab(this, 'tab-teachers')">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <span>المعلمون</span>
+                        <span class="tab-count"><?= count($teachersList) ?></span>
+                    </button>
+                    <?php endif; ?>
                     <button class="sp-tab-btn" data-target="tab-gallery" onclick="switchTab(this, 'tab-gallery')">
                         <i class="fas fa-images"></i>
                         <span>معرض الصور</span>
@@ -1158,9 +1212,19 @@ $totalRev = max(1, count($reviewsList));
                                 </div>
                             <?php endif; ?>
                             <?php if (!empty($school['google_map_url'])): ?>
-                                <a href="<?= e($school['google_map_url']) ?>" target="_blank" class="btn btn-outline-secondary btn-sm w-100 rounded-3 py-2 fw-bold">
+                                <a href="<?= e($school['google_map_url']) ?>" target="_blank" class="btn btn-outline-secondary btn-sm w-100 rounded-3 py-2 fw-bold mb-2">
                                     <i class="fas fa-map-marked-alt text-danger me-1"></i> فتح الموقع في خرائط Google
                                 </a>
+                            <?php endif; ?>
+                            <?php if (!empty($socialLinks)): ?>
+                                <div class="d-flex flex-wrap gap-2 mt-2 pt-2 border-top">
+                                    <?php foreach ($socialLinks as $sl): ?>
+                                        <a href="<?= e($sl['url']) ?>" target="_blank" class="btn btn-sm btn-light border rounded-pill px-3 py-1 fw-bold d-inline-flex align-items-center gap-1" style="font-size: 0.72rem;">
+                                            <i class="<?= e($sl['icon']) ?>" style="color: <?= e($sl['color']) ?>;"></i>
+                                            <span><?= e($sl['label']) ?></span>
+                                        </a>
+                                    <?php endforeach; ?>
+                                </div>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -1457,6 +1521,162 @@ $totalRev = max(1, count($reviewsList));
 
                 </div>
 
+                <!-- TAB: OPTIONAL — BRANCHES (الفروع) -->
+                <?php if ($showBranchesTab): ?>
+                <div id="tab-branches" class="sp-tab-pane" style="display: none;">
+                    <div class="sp-section">
+                        <div class="sp-section-head">
+                            <div class="sp-section-title">
+                                <div class="title-icon" style="background: #EFF6FF; color: var(--brand-blue);"><i class="fas fa-code-branch"></i></div>
+                                فروع المدرسة المعتمدة
+                            </div>
+                            <span class="badge" style="background: #EFF6FF; color: var(--brand-blue); border: 1px solid #BFDBFE; border-radius: 20px; padding: 5px 14px; font-size: 0.74rem; font-weight: 700;"><?= count($branchesList) ?> فروع</span>
+                        </div>
+                        <div class="sp-section-body">
+                            <div class="row g-3">
+                                <?php foreach ($branchesList as $br): ?>
+                                    <div class="col-md-6">
+                                        <div class="p-3 rounded-4 border h-100 d-flex flex-column justify-content-between" style="background: #FAF8F5; border-color: var(--border-subtle) !important;">
+                                            <div>
+                                                <div class="d-flex align-items-center gap-2 mb-2">
+                                                    <div style="width: 34px; height: 34px; border-radius: 10px; background: #EFF6FF; color: var(--brand-blue); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                                        <i class="fas fa-school"></i>
+                                                    </div>
+                                                    <h6 class="fw-bold mb-0" style="color: var(--brand-navy); font-size: 0.88rem;"><?= e($br['name'] ?? '') ?></h6>
+                                                </div>
+                                                <?php if (!empty($br['address'])): ?>
+                                                    <p class="mb-2 d-flex align-items-start gap-2" style="font-size: 0.75rem; color: var(--text-body);">
+                                                        <i class="fas fa-map-marker-alt text-danger mt-1"></i>
+                                                        <span><?= e($br['address']) ?></span>
+                                                    </p>
+                                                <?php endif; ?>
+                                            </div>
+                                            <div class="d-flex flex-wrap gap-2 mt-2 pt-2 border-top">
+                                                <?php if (!empty($br['phone'])): ?>
+                                                    <a href="tel:<?= e($br['phone']) ?>" class="btn btn-sm btn-light border rounded-pill px-3 py-1 fw-bold d-inline-flex align-items-center gap-1" style="font-size: 0.72rem; color: var(--brand-navy);">
+                                                        <i class="fas fa-phone-alt text-primary"></i> <?= e($br['phone']) ?>
+                                                    </a>
+                                                <?php endif; ?>
+                                                <?php if (!empty($br['whatsapp'])): ?>
+                                                    <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $br['whatsapp']) ?>" target="_blank" class="btn btn-sm btn-light border rounded-pill px-3 py-1 fw-bold d-inline-flex align-items-center gap-1" style="font-size: 0.72rem; color: #16a34a;">
+                                                        <i class="fab fa-whatsapp"></i> واتساب الفرع
+                                                    </a>
+                                                <?php endif; ?>
+                                                <?php if (!empty($br['map_url'])): ?>
+                                                    <a href="<?= e($br['map_url']) ?>" target="_blank" class="btn btn-sm btn-light border rounded-pill px-3 py-1 fw-bold d-inline-flex align-items-center gap-1" style="font-size: 0.72rem; color: #dc2626;">
+                                                        <i class="fas fa-map-marked-alt"></i> الخريطة
+                                                    </a>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <!-- TAB: OPTIONAL — ACTIVITIES (المناشط) -->
+                <?php if ($showActivitiesTab): ?>
+                <div id="tab-activities" class="sp-tab-pane" style="display: none;">
+                    <div class="sp-section">
+                        <div class="sp-section-head">
+                            <div class="sp-section-title">
+                                <div class="title-icon" style="background: #FFFBEB; color: #d97706;"><i class="fas fa-trophy"></i></div>
+                                المناشط والأنشطة اللاصفية بالمدرسة
+                            </div>
+                            <span class="badge" style="background: #FFFBEB; color: #b45309; border: 1px solid #FDE68A; border-radius: 20px; padding: 5px 14px; font-size: 0.74rem; font-weight: 700;"><?= count($activitiesList) ?> مناشط</span>
+                        </div>
+                        <div class="sp-section-body">
+                            <div class="row g-3">
+                                <?php foreach ($activitiesList as $act): ?>
+                                    <div class="col-md-6">
+                                        <div class="p-3 rounded-4 border h-100 d-flex flex-column justify-content-between" style="background: #FFFFFF; border-color: var(--border-subtle) !important;">
+                                            <div>
+                                                <?php if (!empty($act['image_path'])): ?>
+                                                    <div class="rounded-3 overflow-hidden mb-3" style="height: 150px; cursor: pointer;" onclick="spLightboxOpen('<?= e($act['image_path']) ?>', '<?= e(addslashes($act['title'] ?? '')) ?>')">
+                                                        <img src="<?= e($act['image_path']) ?>" alt="<?= e($act['title'] ?? '') ?>" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+                                                    </div>
+                                                <?php endif; ?>
+                                                <div class="d-flex align-items-center justify-content-between gap-2 flex-wrap mb-2">
+                                                    <h6 class="fw-bold mb-0" style="color: var(--brand-navy); font-size: 0.88rem;">
+                                                        <i class="fas fa-star text-warning me-1"></i> <?= e($act['title'] ?? '') ?>
+                                                    </h6>
+                                                    <?php if (!empty($act['category'])): ?>
+                                                        <span class="badge rounded-pill" style="background: #EFF6FF; color: var(--brand-blue); border: 1px solid #BFDBFE; font-size: 0.68rem;"><?= e($act['category']) ?></span>
+                                                    <?php endif; ?>
+                                                </div>
+                                                <p class="mb-0" style="font-size: 0.75rem; color: var(--text-body); line-height: 1.65;"><?= e($act['description'] ?? '') ?></p>
+                                            </div>
+                                            <?php if (!empty($act['schedule'])): ?>
+                                                <div class="mt-2 pt-2 border-top d-flex align-items-center gap-1" style="font-size: 0.7rem; color: var(--text-muted); font-weight: 600;">
+                                                    <i class="far fa-clock text-warning"></i>
+                                                    <span>الموعد: <?= e($act['schedule']) ?></span>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <!-- TAB: OPTIONAL — TEACHERS (المعلمون) -->
+                <?php if ($showTeachersTab): ?>
+                <div id="tab-teachers" class="sp-tab-pane" style="display: none;">
+                    <div class="sp-section">
+                        <div class="sp-section-head">
+                            <div class="sp-section-title">
+                                <div class="title-icon" style="background: #F0FDF4; color: #16a34a;"><i class="fas fa-chalkboard-teacher"></i></div>
+                                نخبة المعلمين والكادر التدريسي
+                            </div>
+                            <span class="badge" style="background: #F0FDF4; color: #15803d; border: 1px solid #BBF7D0; border-radius: 20px; padding: 5px 14px; font-size: 0.74rem; font-weight: 700;"><?= count($teachersList) ?> معلم</span>
+                        </div>
+                        <div class="sp-section-body">
+                            <div class="row g-3">
+                                <?php
+                                $tchColors = ['#1E5FA8', '#0B2A52', '#059669', '#D97706', '#7C3AED'];
+                                $tIdx = 0;
+                                foreach ($teachersList as $tch):
+                                    $tchColor = $tchColors[$tIdx++ % count($tchColors)];
+                                ?>
+                                    <div class="col-md-6">
+                                        <div class="p-3 rounded-4 border d-flex align-items-center gap-3 h-100" style="background: #FAF8F5; border-color: var(--border-subtle) !important;">
+                                            <div style="width: 44px; height: 44px; border-radius: 12px; background: <?= $tchColor ?>; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1rem; flex-shrink: 0;">
+                                                <?= mb_substr($tch['name'] ?? 'م', 0, 1) ?>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <div class="fw-bold mb-1" style="color: var(--brand-navy); font-size: 0.84rem;"><?= e($tch['name'] ?? '') ?></div>
+                                                <div class="d-flex flex-wrap gap-1">
+                                                    <?php if (!empty($tch['subject'])): ?>
+                                                        <span class="badge rounded-pill" style="background: #EFF6FF; color: var(--brand-blue); border: 1px solid #BFDBFE; font-size: 0.68rem;">
+                                                            <i class="fas fa-book me-1"></i> <?= e($tch['subject']) ?>
+                                                        </span>
+                                                    <?php endif; ?>
+                                                    <?php if (!empty($tch['stage'])): ?>
+                                                        <span class="badge rounded-pill" style="background: #FFFFFF; color: var(--text-body); border: 1px solid var(--border-subtle); font-size: 0.68rem;">
+                                                            <i class="fas fa-layer-group text-muted me-1"></i> <?= e($tch['stage']) ?>
+                                                        </span>
+                                                    <?php endif; ?>
+                                                    <?php if (!empty($tch['class_name'])): ?>
+                                                        <span class="badge rounded-pill" style="background: #FFFBEB; color: #b45309; border: 1px solid #FDE68A; font-size: 0.68rem;">
+                                                            <i class="fas fa-door-open me-1"></i> <?= e($tch['class_name']) ?>
+                                                        </span>
+                                                    <?php endif; ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php endif; ?>
+
             </div>
 
             <!-- RIGHT SIDEBAR -->
@@ -1574,26 +1794,20 @@ $totalRev = max(1, count($reviewsList));
                 </div>
                 <?php endif; ?>
 
-                <!-- Social Links -->
-                <?php if (!empty($school['facebook']) || !empty($school['website'])): ?>
+                <!-- Social Links (Only non-empty links appear) -->
+                <?php if (!empty($socialLinks)): ?>
                 <div class="sp-info-card">
                     <div class="sp-info-card-head">
-                        <i class="fas fa-globe" style="color: var(--brand-blue);"></i>
-                        الحضور الرقمي للمدرسة
+                        <i class="fas fa-share-alt" style="color: var(--brand-blue);"></i>
+                        الحضور الرقمي ومنصات التواصل
                     </div>
                     <div class="sp-info-card-body d-flex flex-column gap-2">
-                        <?php if (!empty($school['facebook'])): ?>
-                            <a href="<?= e($school['facebook']) ?>" target="_blank" class="btn-luxury-outline justify-content-between" style="font-size: 0.76rem;">
-                                <span><i class="fab fa-facebook me-2 text-primary"></i> صفحة فيسبوك</span>
+                        <?php foreach ($socialLinks as $sl): ?>
+                            <a href="<?= e($sl['url']) ?>" target="_blank" class="btn-luxury-outline justify-content-between" style="font-size: 0.76rem;">
+                                <span><i class="<?= e($sl['icon']) ?> me-2" style="color: <?= e($sl['color']) ?>;"></i> <?= e($sl['label']) ?></span>
                                 <i class="fas fa-external-link-alt text-muted small"></i>
                             </a>
-                        <?php endif; ?>
-                        <?php if (!empty($school['website'])): ?>
-                            <a href="<?= e($school['website']) ?>" target="_blank" class="btn-luxury-outline justify-content-between" style="font-size: 0.76rem;">
-                                <span><i class="fas fa-globe me-2 text-muted"></i> الموقع الإلكتروني</span>
-                                <i class="fas fa-external-link-alt text-muted small"></i>
-                            </a>
-                        <?php endif; ?>
+                        <?php endforeach; ?>
                     </div>
                 </div>
                 <?php endif; ?>

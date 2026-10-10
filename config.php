@@ -121,6 +121,11 @@ function ensureTablesExist(PDO $pdo): void {
         email VARCHAR(150) NULL,
         website VARCHAR(255) NULL,
         facebook VARCHAR(255) NULL,
+        twitter VARCHAR(255) NULL,
+        youtube VARCHAR(255) NULL,
+        telegram VARCHAR(255) NULL,
+        instagram VARCHAR(255) NULL,
+        tiktok VARCHAR(255) NULL,
         logo_path VARCHAR(255) NULL,
         cover_path VARCHAR(255) NULL,
         gallery TEXT NULL,
@@ -130,6 +135,10 @@ function ensureTablesExist(PDO $pdo): void {
         approx_fees VARCHAR(100) NULL,
         working_hours VARCHAR(100) NULL,
         facilities TEXT NULL,
+        branches_data LONGTEXT NULL,
+        activities_data LONGTEXT NULL,
+        teachers_data LONGTEXT NULL,
+        optional_tabs TEXT NULL,
         is_schoplus_client TINYINT(1) NOT NULL DEFAULT 0,
         schoplus_school_id BIGINT UNSIGNED NULL,
         is_featured TINYINT(1) NOT NULL DEFAULT 0,
@@ -200,11 +209,31 @@ function ensureTablesExist(PDO $pdo): void {
         INDEX idx_school (school_id)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
 
-    // Zero-Skip Schema Migration: Ensure gallery column exists in daleel_schools
+    // Zero-Skip Schema Migration: Ensure all new columns exist in daleel_schools
     try {
-        $colCheck = $pdo->query("SHOW COLUMNS FROM daleel_schools LIKE 'gallery'")->fetch();
-        if (!$colCheck) {
-            $pdo->exec("ALTER TABLE daleel_schools ADD COLUMN gallery TEXT NULL AFTER cover_path");
+        $existingCols = [];
+        $colsQuery = $pdo->query("SHOW COLUMNS FROM daleel_schools");
+        if ($colsQuery) {
+            foreach ($colsQuery->fetchAll() as $colRow) {
+                $existingCols[$colRow['Field']] = true;
+            }
+        }
+        $alterStatements = [
+            'gallery'         => "ALTER TABLE daleel_schools ADD COLUMN gallery TEXT NULL AFTER cover_path",
+            'twitter'         => "ALTER TABLE daleel_schools ADD COLUMN twitter VARCHAR(255) NULL AFTER facebook",
+            'youtube'         => "ALTER TABLE daleel_schools ADD COLUMN youtube VARCHAR(255) NULL AFTER twitter",
+            'telegram'        => "ALTER TABLE daleel_schools ADD COLUMN telegram VARCHAR(255) NULL AFTER youtube",
+            'instagram'       => "ALTER TABLE daleel_schools ADD COLUMN instagram VARCHAR(255) NULL AFTER telegram",
+            'tiktok'          => "ALTER TABLE daleel_schools ADD COLUMN tiktok VARCHAR(255) NULL AFTER instagram",
+            'branches_data'   => "ALTER TABLE daleel_schools ADD COLUMN branches_data LONGTEXT NULL AFTER facilities",
+            'activities_data' => "ALTER TABLE daleel_schools ADD COLUMN activities_data LONGTEXT NULL AFTER branches_data",
+            'teachers_data'   => "ALTER TABLE daleel_schools ADD COLUMN teachers_data LONGTEXT NULL AFTER activities_data",
+            'optional_tabs'   => "ALTER TABLE daleel_schools ADD COLUMN optional_tabs TEXT NULL AFTER teachers_data",
+        ];
+        foreach ($alterStatements as $colName => $sql) {
+            if (!isset($existingCols[$colName])) {
+                $pdo->exec($sql);
+            }
         }
     } catch (Exception $e) {}
 

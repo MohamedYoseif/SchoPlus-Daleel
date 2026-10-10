@@ -55,6 +55,8 @@ function handleUpload(array $file, string $subfolder): ?string {
 // ----------------------------------------------------
 // Handle Form Submissions
 // ----------------------------------------------------
+$activeDashTab = $_GET['tab'] ?? 'profile';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!csrf_verify()) {
         $errorMsg = 'انتهت صلاحية الجلسة، يرجى المحاولة ثانية.';
@@ -63,6 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // 1. UPDATE PROFILE & DETAILS
         if ($action === 'update_profile') {
+            $activeDashTab = 'profile';
             $name = trim($_POST['name'] ?? '');
             $name_en = trim($_POST['name_en'] ?? '');
             $state = trim($_POST['state'] ?? '');
@@ -75,6 +78,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = trim($_POST['email'] ?? '');
             $website = trim($_POST['website'] ?? '');
             $facebook = trim($_POST['facebook'] ?? '');
+            $twitter = trim($_POST['twitter'] ?? '');
+            $youtube = trim($_POST['youtube'] ?? '');
+            $telegram = trim($_POST['telegram'] ?? '');
+            $instagram = trim($_POST['instagram'] ?? '');
+            $tiktok = trim($_POST['tiktok'] ?? '');
             $school_type = trim($_POST['school_type'] ?? 'private');
             $gender_type = trim($_POST['gender_type'] ?? 'mixed');
             $curriculum = trim($_POST['curriculum'] ?? 'sudanese');
@@ -109,8 +117,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $upStmt = $pdo->prepare("UPDATE daleel_schools SET 
                     name = :name, name_en = :name_en, state = :state, city = :city, district = :district,
                     address = :address, google_map_url = :google_map_url, phone = :phone, whatsapp = :whatsapp,
-                    email = :email, website = :website, facebook = :facebook, school_type = :school_type,
-                    gender_type = :gender_type, curriculum = :curriculum, approx_fees = :approx_fees,
+                    email = :email, website = :website, facebook = :facebook,
+                    twitter = :twitter, youtube = :youtube, telegram = :telegram, instagram = :instagram, tiktok = :tiktok,
+                    school_type = :school_type, gender_type = :gender_type, curriculum = :curriculum, approx_fees = :approx_fees,
                     working_hours = :working_hours, description = :description, vision = :vision, mission = :mission,
                     stages = :stages, facilities = :facilities, logo_path = :logo_path, cover_path = :cover_path,
                     updated_at = NOW()
@@ -129,6 +138,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ':email' => $email ?: null,
                     ':website' => $website ?: null,
                     ':facebook' => $facebook ?: null,
+                    ':twitter' => $twitter ?: null,
+                    ':youtube' => $youtube ?: null,
+                    ':telegram' => $telegram ?: null,
+                    ':instagram' => $instagram ?: null,
+                    ':tiktok' => $tiktok ?: null,
                     ':school_type' => $school_type,
                     ':gender_type' => $gender_type,
                     ':curriculum' => $curriculum,
@@ -144,7 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ':id' => $schoolId,
                 ]);
 
-                $successMsg = 'تم حفظ وتحديث بيانات مدرستكم بنجاح!';
+                $successMsg = 'تم حفظ وتحديث بيانات مدرستكم والروابط الرقمية بنجاح!';
                 // refresh
                 $stmt->execute([$schoolId]);
                 $school = $stmt->fetch();
@@ -155,6 +169,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // 2. ADD NEWS
         elseif ($action === 'add_news') {
+            $activeDashTab = 'news';
             $newsTitle = trim($_POST['title'] ?? '');
             $newsContent = trim($_POST['content'] ?? '');
 
@@ -174,6 +189,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // 3. DELETE NEWS
         elseif ($action === 'delete_news') {
+            $activeDashTab = 'news';
             $newsId = (int)($_POST['news_id'] ?? 0);
             $delStmt = $pdo->prepare("DELETE FROM daleel_school_news WHERE id = ? AND school_id = ?");
             $delStmt->execute([$newsId, $schoolId]);
@@ -182,6 +198,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // 4. REPLY TO REVIEW
         elseif ($action === 'reply_review') {
+            $activeDashTab = 'reviews';
             $reviewId = (int)($_POST['review_id'] ?? 0);
             $replyText = trim($_POST['reply'] ?? '');
 
@@ -196,6 +213,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // 5. UPLOAD / DELETE LOGO
         elseif ($action === 'upload_logo') {
+            $activeDashTab = 'media';
             if (!empty($_FILES['logo']['tmp_name'])) {
                 $upLogo = handleUpload($_FILES['logo'], 'logos');
                 if ($upLogo) {
@@ -211,6 +229,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
         elseif ($action === 'delete_logo') {
+            $activeDashTab = 'media';
             $pdo->prepare("UPDATE daleel_schools SET logo_path = NULL WHERE id = ?")->execute([$schoolId]);
             $successMsg = 'تم حذف شعار المدرسة بنجاح.';
             $stmt->execute([$schoolId]);
@@ -219,6 +238,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // 6. UPLOAD / DELETE COVER
         elseif ($action === 'upload_cover') {
+            $activeDashTab = 'media';
             if (!empty($_FILES['cover']['tmp_name'])) {
                 $upCover = handleUpload($_FILES['cover'], 'covers');
                 if ($upCover) {
@@ -234,6 +254,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
         elseif ($action === 'delete_cover') {
+            $activeDashTab = 'media';
             $pdo->prepare("UPDATE daleel_schools SET cover_path = NULL WHERE id = ?")->execute([$schoolId]);
             $successMsg = 'تم حذف صورة الغلاف بنجاح.';
             $stmt->execute([$schoolId]);
@@ -242,6 +263,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // 7. ADD GALLERY PHOTO (Max 8)
         elseif ($action === 'add_gallery_photo') {
+            $activeDashTab = 'media';
             $currGallery = json_decode($school['gallery'] ?? '[]', true) ?: [];
             if (count($currGallery) >= 8) {
                 $errorMsg = 'الحد الأقصى لمعرض الصور هو 8 صور. يمكنك حذف صورة سابقة لإفساح المجال لصورة جديدة.';
@@ -272,6 +294,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // 8. DELETE GALLERY PHOTO
         elseif ($action === 'delete_gallery_photo') {
+            $activeDashTab = 'media';
             $photoId = trim($_POST['photo_id'] ?? '');
             $currGallery = json_decode($school['gallery'] ?? '[]', true) ?: [];
             $filtered = [];
@@ -292,6 +315,188 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute([$schoolId]);
             $school = $stmt->fetch();
         }
+
+        // 9. TOGGLE OPTIONAL TAB VISIBILITY (branches / activities / teachers)
+        elseif ($action === 'toggle_optional_tab') {
+            $tabKey = trim($_POST['tab_key'] ?? '');
+            if (in_array($tabKey, ['branches', 'activities', 'teachers'], true)) {
+                $activeDashTab = $tabKey;
+                $optTabs = json_decode($school['optional_tabs'] ?? '{}', true);
+                if (!is_array($optTabs)) $optTabs = [];
+                $currentState = isset($optTabs[$tabKey]) ? (bool)$optTabs[$tabKey] : true;
+                $optTabs[$tabKey] = !$currentState;
+                $pdo->prepare("UPDATE daleel_schools SET optional_tabs = ? WHERE id = ?")->execute([
+                    json_encode($optTabs, JSON_UNESCAPED_UNICODE),
+                    $schoolId
+                ]);
+                $tabNames = ['branches' => 'تبويب الفروع', 'activities' => 'تبويب المناشط', 'teachers' => 'تبويب المعلمين'];
+                $successMsg = $optTabs[$tabKey]
+                    ? 'تم تفعيل إظهار ' . $tabNames[$tabKey] . ' في صفحة المدرسة العامة.'
+                    : 'تم إخفاء ' . $tabNames[$tabKey] . ' مؤقتاً من صفحة المدرسة العامة.';
+                $stmt->execute([$schoolId]);
+                $school = $stmt->fetch();
+            }
+        }
+
+        // 10. ADD / DELETE BRANCH (الفروع)
+        elseif ($action === 'add_branch') {
+            $activeDashTab = 'branches';
+            $branchName = trim($_POST['branch_name'] ?? '');
+            $branchAddress = trim($_POST['branch_address'] ?? '');
+            $branchPhone = trim($_POST['branch_phone'] ?? '');
+            $branchWhatsapp = trim($_POST['branch_whatsapp'] ?? '');
+            $branchMapUrl = trim($_POST['branch_map_url'] ?? '');
+
+            if (!$branchName || !$branchAddress) {
+                $errorMsg = 'يرجى إدخال اسم الفرع والعنوان التفصيلي.';
+            } else {
+                $currBranches = json_decode($school['branches_data'] ?? '[]', true) ?: [];
+                $currBranches[] = [
+                    'id' => uniqid('br_', true),
+                    'name' => $branchName,
+                    'address' => $branchAddress,
+                    'phone' => $branchPhone,
+                    'whatsapp' => $branchWhatsapp,
+                    'map_url' => $branchMapUrl,
+                    'created_at' => date('Y-m-d H:i')
+                ];
+                $optTabs = json_decode($school['optional_tabs'] ?? '{}', true);
+                if (!is_array($optTabs)) $optTabs = [];
+                $optTabs['branches'] = true;
+
+                $pdo->prepare("UPDATE daleel_schools SET branches_data = ?, optional_tabs = ? WHERE id = ?")->execute([
+                    json_encode($currBranches, JSON_UNESCAPED_UNICODE),
+                    json_encode($optTabs, JSON_UNESCAPED_UNICODE),
+                    $schoolId
+                ]);
+                $successMsg = 'تمت إضافة الفرع الجديد بنجاح إلى تبويب فروع المدرسة!';
+                $stmt->execute([$schoolId]);
+                $school = $stmt->fetch();
+            }
+        }
+        elseif ($action === 'delete_branch') {
+            $activeDashTab = 'branches';
+            $branchId = trim($_POST['branch_id'] ?? '');
+            $currBranches = json_decode($school['branches_data'] ?? '[]', true) ?: [];
+            $filtered = array_values(array_filter($currBranches, fn($b) => ($b['id'] ?? '') !== $branchId));
+            $pdo->prepare("UPDATE daleel_schools SET branches_data = ? WHERE id = ?")->execute([
+                json_encode($filtered, JSON_UNESCAPED_UNICODE),
+                $schoolId
+            ]);
+            $successMsg = 'تم حذف الفرع بنجاح.';
+            $stmt->execute([$schoolId]);
+            $school = $stmt->fetch();
+        }
+
+        // 11. ADD / DELETE ACTIVITY (المناشط)
+        elseif ($action === 'add_activity') {
+            $activeDashTab = 'activities';
+            $actTitle = trim($_POST['activity_title'] ?? '');
+            $actCategory = trim($_POST['activity_category'] ?? 'ثقافي وأدبي');
+            $actSchedule = trim($_POST['activity_schedule'] ?? '');
+            $actDesc = trim($_POST['activity_description'] ?? '');
+
+            if (!$actTitle || !$actDesc) {
+                $errorMsg = 'يرجى إدخال اسم المنشط ووصفه.';
+            } else {
+                $actImage = null;
+                if (!empty($_FILES['activity_image']['tmp_name'])) {
+                    $actImage = handleUpload($_FILES['activity_image'], 'activities');
+                }
+                $currActivities = json_decode($school['activities_data'] ?? '[]', true) ?: [];
+                $currActivities[] = [
+                    'id' => uniqid('act_', true),
+                    'title' => $actTitle,
+                    'category' => $actCategory,
+                    'schedule' => $actSchedule,
+                    'description' => $actDesc,
+                    'image_path' => $actImage,
+                    'created_at' => date('Y-m-d H:i')
+                ];
+                $optTabs = json_decode($school['optional_tabs'] ?? '{}', true);
+                if (!is_array($optTabs)) $optTabs = [];
+                $optTabs['activities'] = true;
+
+                $pdo->prepare("UPDATE daleel_schools SET activities_data = ?, optional_tabs = ? WHERE id = ?")->execute([
+                    json_encode($currActivities, JSON_UNESCAPED_UNICODE),
+                    json_encode($optTabs, JSON_UNESCAPED_UNICODE),
+                    $schoolId
+                ]);
+                $successMsg = 'تمت إضافة المنشط بنجاح إلى تبويب المناشط والأنشطة!';
+                $stmt->execute([$schoolId]);
+                $school = $stmt->fetch();
+            }
+        }
+        elseif ($action === 'delete_activity') {
+            $activeDashTab = 'activities';
+            $actId = trim($_POST['activity_id'] ?? '');
+            $currActivities = json_decode($school['activities_data'] ?? '[]', true) ?: [];
+            $filtered = [];
+            foreach ($currActivities as $item) {
+                if (($item['id'] ?? '') === $actId) {
+                    if (!empty($item['image_path']) && file_exists(__DIR__ . '/' . $item['image_path'])) {
+                        @unlink(__DIR__ . '/' . $item['image_path']);
+                    }
+                } else {
+                    $filtered[] = $item;
+                }
+            }
+            $pdo->prepare("UPDATE daleel_schools SET activities_data = ? WHERE id = ?")->execute([
+                json_encode($filtered, JSON_UNESCAPED_UNICODE),
+                $schoolId
+            ]);
+            $successMsg = 'تم حذف المنشط بنجاح.';
+            $stmt->execute([$schoolId]);
+            $school = $stmt->fetch();
+        }
+
+        // 12. ADD / DELETE TEACHER (المعلمون)
+        elseif ($action === 'add_teacher') {
+            $activeDashTab = 'teachers';
+            $tName = trim($_POST['teacher_name'] ?? '');
+            $tSubject = trim($_POST['teacher_subject'] ?? '');
+            $tStage = trim($_POST['teacher_stage'] ?? '');
+            $tClass = trim($_POST['teacher_class'] ?? '');
+
+            if (!$tName || !$tSubject) {
+                $errorMsg = 'يرجى إدخال اسم المعلم والمادة الدراسية.';
+            } else {
+                $currTeachers = json_decode($school['teachers_data'] ?? '[]', true) ?: [];
+                $currTeachers[] = [
+                    'id' => uniqid('tch_', true),
+                    'name' => $tName,
+                    'subject' => $tSubject,
+                    'stage' => $tStage,
+                    'class_name' => $tClass,
+                    'created_at' => date('Y-m-d H:i')
+                ];
+                $optTabs = json_decode($school['optional_tabs'] ?? '{}', true);
+                if (!is_array($optTabs)) $optTabs = [];
+                $optTabs['teachers'] = true;
+
+                $pdo->prepare("UPDATE daleel_schools SET teachers_data = ?, optional_tabs = ? WHERE id = ?")->execute([
+                    json_encode($currTeachers, JSON_UNESCAPED_UNICODE),
+                    json_encode($optTabs, JSON_UNESCAPED_UNICODE),
+                    $schoolId
+                ]);
+                $successMsg = 'تمت إضافة المعلم بنجاح إلى تبويب الكادر التدريسي!';
+                $stmt->execute([$schoolId]);
+                $school = $stmt->fetch();
+            }
+        }
+        elseif ($action === 'delete_teacher') {
+            $activeDashTab = 'teachers';
+            $tId = trim($_POST['teacher_id'] ?? '');
+            $currTeachers = json_decode($school['teachers_data'] ?? '[]', true) ?: [];
+            $filtered = array_values(array_filter($currTeachers, fn($t) => ($t['id'] ?? '') !== $tId));
+            $pdo->prepare("UPDATE daleel_schools SET teachers_data = ? WHERE id = ?")->execute([
+                json_encode($filtered, JSON_UNESCAPED_UNICODE),
+                $schoolId
+            ]);
+            $successMsg = 'تم حذف بيانات المعلم بنجاح.';
+            $stmt->execute([$schoolId]);
+            $school = $stmt->fetch();
+        }
     }
 }
 
@@ -309,6 +514,15 @@ $inqStmt->execute([$schoolId]);
 $inquiriesList = $inqStmt->fetchAll();
 
 $galleryList = json_decode($school['gallery'] ?? '[]', true) ?: [];
+$branchesList = json_decode($school['branches_data'] ?? '[]', true) ?: [];
+$activitiesList = json_decode($school['activities_data'] ?? '[]', true) ?: [];
+$teachersList = json_decode($school['teachers_data'] ?? '[]', true) ?: [];
+$optionalTabsCfg = json_decode($school['optional_tabs'] ?? '{}', true);
+if (!is_array($optionalTabsCfg)) $optionalTabsCfg = [];
+$isBranchesTabEnabled = isset($optionalTabsCfg['branches']) ? (bool)$optionalTabsCfg['branches'] : true;
+$isActivitiesTabEnabled = isset($optionalTabsCfg['activities']) ? (bool)$optionalTabsCfg['activities'] : true;
+$isTeachersTabEnabled = isset($optionalTabsCfg['teachers']) ? (bool)$optionalTabsCfg['teachers'] : true;
+
 $currentStages = json_decode($school['stages'] ?? '[]', true) ?: [];
 $currentFacilities = json_decode($school['facilities'] ?? '[]', true) ?: [];
 $statesWithCities = SudanGeography::statesWithCities();
@@ -521,30 +735,45 @@ require_once __DIR__ . '/header.php';
         <!-- Main Dashboard Tabs -->
         <div class="card border-0 rounded-4 bg-white shadow-sm p-4">
             
-            <ul class="nav nav-pills p-1 bg-light rounded-4 border mb-4" id="dashboardTabs" role="tablist">
+            <ul class="nav nav-pills p-1 bg-light rounded-4 border mb-4 gap-1" id="dashboardTabs" role="tablist">
                 <li class="nav-item flex-fill text-center" role="presentation">
-                    <button class="nav-link active rounded-pill fw-bold py-2 w-100" id="dash-profile-tab" data-bs-toggle="tab" data-bs-target="#dash-profile" type="button" role="tab">
-                        <i class="fas fa-edit me-1"></i> بيانات وبروفايل المدرسة
+                    <button class="nav-link <?= $activeDashTab === 'profile' ? 'active' : '' ?> rounded-pill fw-bold py-2 w-100" id="dash-profile-tab" data-bs-toggle="tab" data-bs-target="#dash-profile" type="button" role="tab">
+                        <i class="fas fa-edit me-1"></i> بيانات المدرسة والروابط
                     </button>
                 </li>
                 <li class="nav-item flex-fill text-center" role="presentation">
-                    <button class="nav-link rounded-pill fw-bold py-2 w-100" id="dash-media-tab" data-bs-toggle="tab" data-bs-target="#dash-media" type="button" role="tab">
-                        <i class="fas fa-images me-1"></i> الشعار والغلاف ومعرض الصور (<?= count($galleryList) ?>)
+                    <button class="nav-link <?= $activeDashTab === 'media' ? 'active' : '' ?> rounded-pill fw-bold py-2 w-100" id="dash-media-tab" data-bs-toggle="tab" data-bs-target="#dash-media" type="button" role="tab">
+                        <i class="fas fa-images me-1"></i> الشعار والمعرض (<?= count($galleryList) ?>)
                     </button>
                 </li>
                 <li class="nav-item flex-fill text-center" role="presentation">
-                    <button class="nav-link rounded-pill fw-bold py-2 w-100" id="dash-news-tab" data-bs-toggle="tab" data-bs-target="#dash-news" type="button" role="tab">
-                        <i class="fas fa-bullhorn me-1"></i> إدارة الأخبار والإعلانات (<?= count($newsList) ?>)
+                    <button class="nav-link <?= $activeDashTab === 'branches' ? 'active' : '' ?> rounded-pill fw-bold py-2 w-100" id="dash-branches-tab" data-bs-toggle="tab" data-bs-target="#dash-branches" type="button" role="tab">
+                        <i class="fas fa-code-branch me-1"></i> الفروع (<?= count($branchesList) ?>)
                     </button>
                 </li>
                 <li class="nav-item flex-fill text-center" role="presentation">
-                    <button class="nav-link rounded-pill fw-bold py-2 w-100" id="dash-reviews-tab" data-bs-toggle="tab" data-bs-target="#dash-reviews" type="button" role="tab">
-                        <i class="fas fa-comments me-1"></i> التقييمات والردود (<?= count($reviewsList) ?>)
+                    <button class="nav-link <?= $activeDashTab === 'activities' ? 'active' : '' ?> rounded-pill fw-bold py-2 w-100" id="dash-activities-tab" data-bs-toggle="tab" data-bs-target="#dash-activities" type="button" role="tab">
+                        <i class="fas fa-trophy me-1"></i> المناشط (<?= count($activitiesList) ?>)
                     </button>
                 </li>
                 <li class="nav-item flex-fill text-center" role="presentation">
-                    <button class="nav-link rounded-pill fw-bold py-2 w-100" id="dash-inquiries-tab" data-bs-toggle="tab" data-bs-target="#dash-inquiries" type="button" role="tab">
-                        <i class="fas fa-inbox me-1"></i> طلبات القبول والاستفسارات (<?= count($inquiriesList) ?>)
+                    <button class="nav-link <?= $activeDashTab === 'teachers' ? 'active' : '' ?> rounded-pill fw-bold py-2 w-100" id="dash-teachers-tab" data-bs-toggle="tab" data-bs-target="#dash-teachers" type="button" role="tab">
+                        <i class="fas fa-chalkboard-teacher me-1"></i> المعلمون (<?= count($teachersList) ?>)
+                    </button>
+                </li>
+                <li class="nav-item flex-fill text-center" role="presentation">
+                    <button class="nav-link <?= $activeDashTab === 'news' ? 'active' : '' ?> rounded-pill fw-bold py-2 w-100" id="dash-news-tab" data-bs-toggle="tab" data-bs-target="#dash-news" type="button" role="tab">
+                        <i class="fas fa-bullhorn me-1"></i> الأخبار (<?= count($newsList) ?>)
+                    </button>
+                </li>
+                <li class="nav-item flex-fill text-center" role="presentation">
+                    <button class="nav-link <?= $activeDashTab === 'reviews' ? 'active' : '' ?> rounded-pill fw-bold py-2 w-100" id="dash-reviews-tab" data-bs-toggle="tab" data-bs-target="#dash-reviews" type="button" role="tab">
+                        <i class="fas fa-comments me-1"></i> التقييمات (<?= count($reviewsList) ?>)
+                    </button>
+                </li>
+                <li class="nav-item flex-fill text-center" role="presentation">
+                    <button class="nav-link <?= $activeDashTab === 'inquiries' ? 'active' : '' ?> rounded-pill fw-bold py-2 w-100" id="dash-inquiries-tab" data-bs-toggle="tab" data-bs-target="#dash-inquiries" type="button" role="tab">
+                        <i class="fas fa-inbox me-1"></i> طلبات القبول (<?= count($inquiriesList) ?>)
                     </button>
                 </li>
             </ul>
@@ -552,23 +781,33 @@ require_once __DIR__ . '/header.php';
             <div class="tab-content" id="dashboardTabsContent">
                 
                 <!-- TAB 1: EDIT PROFILE & MEDIA -->
-                <div class="tab-pane fade show active" id="dash-profile" role="tabpanel">
+                <div class="tab-pane fade <?= $activeDashTab === 'profile' ? 'show active' : '' ?>" id="dash-profile" role="tabpanel">
                     
-                    <!-- Quick Jump to Media & Gallery -->
+                    <!-- Quick Jump to Media & Optional Tabs -->
                     <div class="alert alert-light border shadow-sm rounded-4 p-3 mb-4 d-flex align-items-center justify-content-between flex-wrap gap-2" style="background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%); border: 1.5px solid #BFDBFE !important;">
                         <div class="d-flex align-items-center gap-3">
                             <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center flex-shrink-0" style="width: 44px; height: 44px;">
-                                <i class="fas fa-camera-retro fs-5"></i>
+                                <i class="fas fa-layer-group fs-5"></i>
                             </div>
                             <div>
-                                <strong class="text-dark d-block">الهوية البصرية ومعرض الصور:</strong>
-                                <small class="text-muted">هل تريد تغيير الشعار، صورة الغلاف، أو إضافة صور مرافق المدرسة؟ يمكنك إدارتها الآن عبر التبويب المخصص بكل سهولة.</small>
+                                <strong class="text-dark d-block">التبويبات الاختيارية والهوية البصرية:</strong>
+                                <small class="text-muted">يمكنك إدارة (الشعار والمعرض، الفروع، المناشط، والمعلمين) من التبويبات العلوية. التبويبات الاختيارية لا تظهر للزوار إلا عند إضافة بيانات فيها.</small>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-sm btn-primary rounded-pill px-3 py-2 fw-bold d-flex align-items-center gap-2 shadow-sm" onclick="document.getElementById('dash-media-tab').click()">
-                            <i class="fas fa-images"></i>
-                            <span>فتح إدارة الشعار والغلاف والمعرض</span>
-                        </button>
+                        <div class="d-flex flex-wrap gap-2">
+                            <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1 fw-bold" onclick="document.getElementById('dash-branches-tab').click()">
+                                <i class="fas fa-code-branch me-1"></i> الفروع
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1 fw-bold" onclick="document.getElementById('dash-activities-tab').click()">
+                                <i class="fas fa-trophy me-1"></i> المناشط
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1 fw-bold" onclick="document.getElementById('dash-teachers-tab').click()">
+                                <i class="fas fa-chalkboard-teacher me-1"></i> المعلمون
+                            </button>
+                            <button type="button" class="btn btn-sm btn-primary rounded-pill px-3 py-1 fw-bold" onclick="document.getElementById('dash-media-tab').click()">
+                                <i class="fas fa-images me-1"></i> الشعار والمعرض
+                            </button>
+                        </div>
                     </div>
 
                     <form method="POST" action="dashboard.php" enctype="multipart/form-data">
@@ -762,20 +1001,53 @@ require_once __DIR__ . '/header.php';
                                 <input type="text" name="working_hours" class="form-control" value="<?= e($school['working_hours'] ?? '') ?>" placeholder="مثال: من الأحد إلى الخميس 7:30 ص - 2:30 م">
                             </div>
 
+                            <!-- Social Media & Digital Links -->
+                            <div class="col-12 mt-4">
+                                <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 pb-2 border-bottom">
+                                    <h6 class="fw-bold text-dark mb-0"><i class="fas fa-share-alt text-primary me-2"></i> الروابط الرقمية ومنصات التواصل الاجتماعي (اختيارية)</h6>
+                                    <span class="badge bg-light text-secondary border small">أي حقل يُترك فارغاً لن يظهر في صفحة المدرسة</span>
+                                </div>
+                            </div>
+
                             <div class="col-md-6">
-                                <label class="form-label small fw-bold text-secondary">الموقع الإلكتروني للمدرسة</label>
+                                <label class="form-label small fw-bold text-secondary"><i class="fas fa-globe text-secondary me-1"></i> الموقع الإلكتروني للمدرسة</label>
                                 <input type="url" name="website" dir="ltr" class="form-control" value="<?= e($school['website'] ?? '') ?>" placeholder="https://myschool.com">
                             </div>
 
                             <div class="col-md-6">
-                                <label class="form-label small fw-bold text-secondary">رابط صفحة فيسبوك</label>
+                                <label class="form-label small fw-bold text-secondary"><i class="fab fa-facebook text-primary me-1"></i> رابط صفحة فيسبوك (Facebook)</label>
                                 <input type="url" name="facebook" dir="ltr" class="form-control" value="<?= e($school['facebook'] ?? '') ?>" placeholder="https://facebook.com/myschool">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold text-secondary"><i class="fab fa-x-twitter text-dark me-1"></i> رابط منصة إكس / تويتر (X / Twitter)</label>
+                                <input type="url" name="twitter" dir="ltr" class="form-control" value="<?= e($school['twitter'] ?? '') ?>" placeholder="https://x.com/myschool">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold text-secondary"><i class="fab fa-youtube text-danger me-1"></i> رابط قناة يوتيوب (YouTube)</label>
+                                <input type="url" name="youtube" dir="ltr" class="form-control" value="<?= e($school['youtube'] ?? '') ?>" placeholder="https://youtube.com/@myschool">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold text-secondary"><i class="fab fa-telegram text-info me-1"></i> رابط قناة تيليجرام (Telegram)</label>
+                                <input type="url" name="telegram" dir="ltr" class="form-control" value="<?= e($school['telegram'] ?? '') ?>" placeholder="https://t.me/myschool">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-secondary"><i class="fab fa-instagram text-danger me-1"></i> رابط حساب انستغرام (Instagram)</label>
+                                <input type="url" name="instagram" dir="ltr" class="form-control" value="<?= e($school['instagram'] ?? '') ?>" placeholder="https://instagram.com/myschool">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-secondary"><i class="fab fa-tiktok text-dark me-1"></i> رابط حساب تيك توك (TikTok)</label>
+                                <input type="url" name="tiktok" dir="ltr" class="form-control" value="<?= e($school['tiktok'] ?? '') ?>" placeholder="https://tiktok.com/@myschool">
                             </div>
 
                             <!-- Submit Button -->
                             <div class="col-12 mt-4 pt-3 border-top text-end">
                                 <button type="submit" class="btn-luxury-primary px-5 py-2">
-                                    <i class="fas fa-save me-1"></i> حفظ كافة التعديلات
+                                    <i class="fas fa-save me-1"></i> حفظ كافة التعديلات والروابط
                                 </button>
                             </div>
                         </div>
@@ -783,7 +1055,7 @@ require_once __DIR__ . '/header.php';
                 </div>
 
                 <!-- TAB: MEDIA & PHOTO GALLERY -->
-                <div class="tab-pane fade" id="dash-media" role="tabpanel">
+                <div class="tab-pane fade <?= $activeDashTab === 'media' ? 'show active' : '' ?>" id="dash-media" role="tabpanel">
                     
                     <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-4 p-3 bg-light rounded-4 border">
                         <div>
@@ -970,8 +1242,341 @@ require_once __DIR__ . '/header.php';
                     </div>
                 </div>
 
+                <!-- TAB: OPTIONAL — BRANCHES (الفروع) -->
+                <div class="tab-pane fade <?= $activeDashTab === 'branches' ? 'show active' : '' ?>" id="dash-branches" role="tabpanel">
+                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-4 p-3 bg-light rounded-4 border">
+                        <div>
+                            <div class="d-flex align-items-center gap-2 mb-1">
+                                <h6 class="fw-bold text-dark mb-0"><i class="fas fa-code-branch text-primary me-2"></i> إدارة فروع المدرسة</h6>
+                                <span class="badge bg-info-subtle text-info-emphasis border border-info-subtle rounded-pill small">تبويب اختياري</span>
+                                <?php if ($isBranchesTabEnabled && count($branchesList) > 0): ?>
+                                    <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill small"><i class="fas fa-eye me-1"></i> ظاهر للزوار</span>
+                                <?php else: ?>
+                                    <span class="badge bg-secondary-subtle text-secondary border rounded-pill small"><i class="fas fa-eye-slash me-1"></i> مخفي عن الزوار<?= empty($branchesList) ? ' (فارغ)' : '' ?></span>
+                                <?php endif; ?>
+                            </div>
+                            <small class="text-muted">أضف فروع مدرستك (اسم الفرع، العنوان، أرقام التواصل، ورابط الخريطة). إذا كانت القائمة فارغة أو معطلة لن يظهر التبويب في صفحة المدرسة العامة.</small>
+                        </div>
+                        <form method="POST" action="dashboard.php">
+                            <?= csrf_field() ?>
+                            <input type="hidden" name="action" value="toggle_optional_tab">
+                            <input type="hidden" name="tab_key" value="branches">
+                            <button type="submit" class="btn btn-sm <?= $isBranchesTabEnabled ? 'btn-outline-secondary' : 'btn-success' ?> rounded-pill px-3 fw-bold">
+                                <i class="fas <?= $isBranchesTabEnabled ? 'fa-eye-slash' : 'fa-eye' ?> me-1"></i>
+                                <?= $isBranchesTabEnabled ? 'إخفاء التبويب مؤقتاً' : 'تفعيل وإظهار التبويب' ?>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Add Branch Form -->
+                    <div class="p-4 rounded-4 bg-light border mb-4">
+                        <h6 class="fw-bold text-dark mb-3"><i class="fas fa-plus-circle text-primary me-1"></i> إضافة فرع جديد للمدرسة</h6>
+                        <form method="POST" action="dashboard.php">
+                            <?= csrf_field() ?>
+                            <input type="hidden" name="action" value="add_branch">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold text-secondary">اسم الفرع <span class="text-danger">*</span></label>
+                                    <input type="text" name="branch_name" required class="form-control" placeholder="مثال: الفرع الرئيسي - الخرطوم / فرع البنين - بحري">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold text-secondary">العنوان التفصيلي للفرع <span class="text-danger">*</span></label>
+                                    <input type="text" name="branch_address" required class="form-control" placeholder="المدينة، الحي، الشارع، المعالم القريبة...">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label small fw-bold text-secondary">أرقام التواصل والهاتف</label>
+                                    <input type="text" name="branch_phone" class="form-control" placeholder="مثال: 0912345678 - 0123456789">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label small fw-bold text-secondary">رقم واتساب الفرع (اختياري)</label>
+                                    <input type="text" name="branch_whatsapp" class="form-control" placeholder="مثال: +249912345678">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label small fw-bold text-secondary">رابط الخريطة (Google Maps)</label>
+                                    <input type="url" name="branch_map_url" dir="ltr" class="form-control" placeholder="https://maps.app.goo.gl/...">
+                                </div>
+                                <div class="col-12 text-end">
+                                    <button type="submit" class="btn-luxury-primary px-4 py-2">
+                                        <i class="fas fa-plus-circle me-1"></i> إضافة الفرع
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Branches List -->
+                    <h6 class="fw-bold text-dark mb-3">الفروع المضافة (<?= count($branchesList) ?>)</h6>
+                    <?php if (empty($branchesList)): ?>
+                        <div class="text-center py-4 text-muted border rounded-3 bg-light">
+                            <i class="fas fa-code-branch display-6 mb-2 text-secondary opacity-50"></i>
+                            <p class="mb-0 small">لم تقم بإضافة أي فروع بعد. لا يظهر تبويب الفروع للزوار طالما كان فارغاً.</p>
+                        </div>
+                    <?php else: ?>
+                        <div class="row g-3">
+                            <?php foreach ($branchesList as $br): ?>
+                                <div class="col-md-6">
+                                    <div class="p-3 border rounded-4 bg-white shadow-sm h-100 d-flex flex-column justify-content-between">
+                                        <div>
+                                            <div class="d-flex align-items-start justify-content-between gap-2 mb-2">
+                                                <h6 class="fw-bold text-dark mb-0"><i class="fas fa-building text-primary me-1"></i> <?= e($br['name'] ?? '') ?></h6>
+                                                <form method="POST" action="dashboard.php" onsubmit="return confirm('تأكيد حذف هذا الفرع؟');">
+                                                    <?= csrf_field() ?>
+                                                    <input type="hidden" name="action" value="delete_branch">
+                                                    <input type="hidden" name="branch_id" value="<?= e($br['id'] ?? '') ?>">
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger py-0 px-2" title="حذف الفرع">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                            <p class="text-secondary small mb-2"><i class="fas fa-map-marker-alt text-danger me-1"></i> <?= e($br['address'] ?? '') ?></p>
+                                            <div class="d-flex flex-wrap gap-2 small">
+                                                <?php if (!empty($br['phone'])): ?>
+                                                    <span class="badge bg-light text-dark border"><i class="fas fa-phone-alt text-primary me-1"></i> <?= e($br['phone']) ?></span>
+                                                <?php endif; ?>
+                                                <?php if (!empty($br['whatsapp'])): ?>
+                                                    <span class="badge bg-success-subtle text-success border border-success-subtle"><i class="fab fa-whatsapp me-1"></i> <?= e($br['whatsapp']) ?></span>
+                                                <?php endif; ?>
+                                                <?php if (!empty($br['map_url'])): ?>
+                                                    <a href="<?= e($br['map_url']) ?>" target="_blank" class="badge bg-primary-subtle text-primary text-decoration-none border border-primary-subtle">
+                                                        <i class="fas fa-map-marked-alt me-1"></i> موقع الفرع على الخريطة
+                                                    </a>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+
+                <!-- TAB: OPTIONAL — ACTIVITIES (المناشط) -->
+                <div class="tab-pane fade <?= $activeDashTab === 'activities' ? 'show active' : '' ?>" id="dash-activities" role="tabpanel">
+                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-4 p-3 bg-light rounded-4 border">
+                        <div>
+                            <div class="d-flex align-items-center gap-2 mb-1">
+                                <h6 class="fw-bold text-dark mb-0"><i class="fas fa-trophy text-primary me-2"></i> إدارة المناشط والأنشطة اللاصفية</h6>
+                                <span class="badge bg-info-subtle text-info-emphasis border border-info-subtle rounded-pill small">تبويب اختياري</span>
+                                <?php if ($isActivitiesTabEnabled && count($activitiesList) > 0): ?>
+                                    <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill small"><i class="fas fa-eye me-1"></i> ظاهر للزوار</span>
+                                <?php else: ?>
+                                    <span class="badge bg-secondary-subtle text-secondary border rounded-pill small"><i class="fas fa-eye-slash me-1"></i> مخفي عن الزوار<?= empty($activitiesList) ? ' (فارغ)' : '' ?></span>
+                                <?php endif; ?>
+                            </div>
+                            <small class="text-muted">استعرض المناشط الثقافية، الرياضية، العلمية، والفنية بالمدرسة. إذا كانت القائمة فارغة لن يظهر التبويب للزوار.</small>
+                        </div>
+                        <form method="POST" action="dashboard.php">
+                            <?= csrf_field() ?>
+                            <input type="hidden" name="action" value="toggle_optional_tab">
+                            <input type="hidden" name="tab_key" value="activities">
+                            <button type="submit" class="btn btn-sm <?= $isActivitiesTabEnabled ? 'btn-outline-secondary' : 'btn-success' ?> rounded-pill px-3 fw-bold">
+                                <i class="fas <?= $isActivitiesTabEnabled ? 'fa-eye-slash' : 'fa-eye' ?> me-1"></i>
+                                <?= $isActivitiesTabEnabled ? 'إخفاء التبويب مؤقتاً' : 'تفعيل وإظهار التبويب' ?>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Add Activity Form -->
+                    <div class="p-4 rounded-4 bg-light border mb-4">
+                        <h6 class="fw-bold text-dark mb-3"><i class="fas fa-plus-circle text-primary me-1"></i> إضافة منشط مدرسي جديد</h6>
+                        <form method="POST" action="dashboard.php" enctype="multipart/form-data">
+                            <?= csrf_field() ?>
+                            <input type="hidden" name="action" value="add_activity">
+                            <div class="row g-3">
+                                <div class="col-md-5">
+                                    <label class="form-label small fw-bold text-secondary">اسم المنشط / النشاط <span class="text-danger">*</span></label>
+                                    <input type="text" name="activity_title" required class="form-control" placeholder="مثال: الجمعية الأدبية والخطابة / نادي الروبوت / النشاط الرياضي">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label small fw-bold text-secondary">تصنيف المنشط</label>
+                                    <select name="activity_category" class="form-select">
+                                        <option value="ثقافي وأدبي">ثقافي وأدبي</option>
+                                        <option value="رياضي وبدني">رياضي وبدني</option>
+                                        <option value="علمي وتقني">علمي وتقني</option>
+                                        <option value="فني وإبداعي">فني وإبداعي</option>
+                                        <option value="ديني واجتماعي">ديني واجتماعي</option>
+                                        <option value="رحلات وكشافة">رحلات وكشافة</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label small fw-bold text-secondary">موعد أو دورية النشاط (اختياري)</label>
+                                    <input type="text" name="activity_schedule" class="form-control" placeholder="مثال: كل يوم خميس / أسبوعي">
+                                </div>
+                                <div class="col-md-8">
+                                    <label class="form-label small fw-bold text-secondary">وصف وتفاصيل المنشط <span class="text-danger">*</span></label>
+                                    <textarea name="activity_description" required rows="2" class="form-control" placeholder="اشرح أهداف المنشط والمهارات التي يكتسبها الطلاب..."></textarea>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label small fw-bold text-secondary">صورة للمنشط (اختياري)</label>
+                                    <input type="file" name="activity_image" accept="image/*" class="form-control">
+                                </div>
+                                <div class="col-12 text-end">
+                                    <button type="submit" class="btn-luxury-primary px-4 py-2">
+                                        <i class="fas fa-plus-circle me-1"></i> إضافة المنشط
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Activities List -->
+                    <h6 class="fw-bold text-dark mb-3">المناشط المضافة (<?= count($activitiesList) ?>)</h6>
+                    <?php if (empty($activitiesList)): ?>
+                        <div class="text-center py-4 text-muted border rounded-3 bg-light">
+                            <i class="fas fa-trophy display-6 mb-2 text-secondary opacity-50"></i>
+                            <p class="mb-0 small">لم تقم بإضافة أي مناشط بعد. لا يظهر تبويب المناشط للزوار طالما كان فارغاً.</p>
+                        </div>
+                    <?php else: ?>
+                        <div class="row g-3">
+                            <?php foreach ($activitiesList as $act): ?>
+                                <div class="col-md-6">
+                                    <div class="p-3 border rounded-4 bg-white shadow-sm h-100 d-flex gap-3 align-items-start justify-content-between">
+                                        <div class="d-flex gap-3 align-items-start">
+                                            <?php if (!empty($act['image_path'])): ?>
+                                                <img src="<?= e($act['image_path']) ?>" alt="<?= e($act['title'] ?? '') ?>" style="width: 72px; height: 72px; object-fit: cover;" class="rounded-3 border flex-shrink-0">
+                                            <?php else: ?>
+                                                <div class="rounded-3 bg-warning-subtle text-warning-emphasis d-flex align-items-center justify-content-center flex-shrink-0" style="width: 52px; height: 52px;">
+                                                    <i class="fas fa-trophy fs-5"></i>
+                                                </div>
+                                            <?php endif; ?>
+                                            <div>
+                                                <div class="d-flex align-items-center gap-2 flex-wrap mb-1">
+                                                    <h6 class="fw-bold text-dark mb-0"><?= e($act['title'] ?? '') ?></h6>
+                                                    <?php if (!empty($act['category'])): ?>
+                                                        <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill"><?= e($act['category']) ?></span>
+                                                    <?php endif; ?>
+                                                    <?php if (!empty($act['schedule'])): ?>
+                                                        <span class="badge bg-light text-muted border rounded-pill"><i class="far fa-clock me-1"></i> <?= e($act['schedule']) ?></span>
+                                                    <?php endif; ?>
+                                                </div>
+                                                <p class="text-secondary small mb-0"><?= e($act['description'] ?? '') ?></p>
+                                            </div>
+                                        </div>
+                                        <form method="POST" action="dashboard.php" onsubmit="return confirm('تأكيد حذف هذا المنشط؟');">
+                                            <?= csrf_field() ?>
+                                            <input type="hidden" name="action" value="delete_activity">
+                                            <input type="hidden" name="activity_id" value="<?= e($act['id'] ?? '') ?>">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger py-0 px-2" title="حذف المنشط">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+
+                <!-- TAB: OPTIONAL — TEACHERS (المعلمون) -->
+                <div class="tab-pane fade <?= $activeDashTab === 'teachers' ? 'show active' : '' ?>" id="dash-teachers" role="tabpanel">
+                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-4 p-3 bg-light rounded-4 border">
+                        <div>
+                            <div class="d-flex align-items-center gap-2 mb-1">
+                                <h6 class="fw-bold text-dark mb-0"><i class="fas fa-chalkboard-teacher text-primary me-2"></i> إدارة قائمة المعلمين والكادر التدريسي</h6>
+                                <span class="badge bg-info-subtle text-info-emphasis border border-info-subtle rounded-pill small">تبويب اختياري</span>
+                                <?php if ($isTeachersTabEnabled && count($teachersList) > 0): ?>
+                                    <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill small"><i class="fas fa-eye me-1"></i> ظاهر للزوار</span>
+                                <?php else: ?>
+                                    <span class="badge bg-secondary-subtle text-secondary border rounded-pill small"><i class="fas fa-eye-slash me-1"></i> مخفي عن الزوار<?= empty($teachersList) ? ' (فارغ)' : '' ?></span>
+                                <?php endif; ?>
+                            </div>
+                            <small class="text-muted">أضف نخبة معلمي المدرسة (اسم المعلم، المادة، المرحلة، والفصل). إذا كانت القائمة فارغة لن يظهر التبويب للزوار.</small>
+                        </div>
+                        <form method="POST" action="dashboard.php">
+                            <?= csrf_field() ?>
+                            <input type="hidden" name="action" value="toggle_optional_tab">
+                            <input type="hidden" name="tab_key" value="teachers">
+                            <button type="submit" class="btn btn-sm <?= $isTeachersTabEnabled ? 'btn-outline-secondary' : 'btn-success' ?> rounded-pill px-3 fw-bold">
+                                <i class="fas <?= $isTeachersTabEnabled ? 'fa-eye-slash' : 'fa-eye' ?> me-1"></i>
+                                <?= $isTeachersTabEnabled ? 'إخفاء التبويب مؤقتاً' : 'تفعيل وإظهار التبويب' ?>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Add Teacher Form -->
+                    <div class="p-4 rounded-4 bg-light border mb-4">
+                        <h6 class="fw-bold text-dark mb-3"><i class="fas fa-user-plus text-primary me-1"></i> إضافة معلم إلى الكادر التدريسي</h6>
+                        <form method="POST" action="dashboard.php">
+                            <?= csrf_field() ?>
+                            <input type="hidden" name="action" value="add_teacher">
+                            <div class="row g-3 align-items-end">
+                                <div class="col-md-3">
+                                    <label class="form-label small fw-bold text-secondary">اسم المعلم <span class="text-danger">*</span></label>
+                                    <input type="text" name="teacher_name" required class="form-control" placeholder="مثال: أ. محمد عبد الله">
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label small fw-bold text-secondary">المادة الدراسية <span class="text-danger">*</span></label>
+                                    <input type="text" name="teacher_subject" required class="form-control" placeholder="مثال: الرياضيات / اللغة العربية">
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label small fw-bold text-secondary">المرحلة الدراسية</label>
+                                    <select name="teacher_stage" class="form-select">
+                                        <option value="المرحلة الثانوية">المرحلة الثانوية</option>
+                                        <option value="المرحلة المتوسطة">المرحلة المتوسطة</option>
+                                        <option value="المرحلة الابتدائية">المرحلة الابتدائية</option>
+                                        <option value="رياض الأطفال">رياض الأطفال</option>
+                                        <option value="جميع المراحل">جميع المراحل</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label small fw-bold text-secondary">الفصل الدراسي</label>
+                                    <input type="text" name="teacher_class" class="form-control" placeholder="مثال: الصف الثالث ثانوي - أ">
+                                </div>
+                                <div class="col-12 text-end">
+                                    <button type="submit" class="btn-luxury-primary px-4 py-2">
+                                        <i class="fas fa-plus-circle me-1"></i> إضافة المعلم للقائمة
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Teachers Table / List -->
+                    <h6 class="fw-bold text-dark mb-3">الكادر التدريسي المضاف (<?= count($teachersList) ?>)</h6>
+                    <?php if (empty($teachersList)): ?>
+                        <div class="text-center py-4 text-muted border rounded-3 bg-light">
+                            <i class="fas fa-chalkboard-teacher display-6 mb-2 text-secondary opacity-50"></i>
+                            <p class="mb-0 small">لم تقم بإضافة معلمين بعد. لا يظهر تبويب المعلمين للزوار طالما كان فارغاً.</p>
+                        </div>
+                    <?php else: ?>
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle border small">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>اسم المعلم</th>
+                                        <th>المادة الدراسية</th>
+                                        <th>المرحلة</th>
+                                        <th>الفصل</th>
+                                        <th class="text-center">إجراء</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($teachersList as $tch): ?>
+                                        <tr>
+                                            <td class="fw-bold text-dark"><i class="fas fa-user-tie text-primary me-1"></i> <?= e($tch['name'] ?? '') ?></td>
+                                            <td><span class="badge bg-primary-subtle text-primary border border-primary-subtle"><?= e($tch['subject'] ?? '') ?></span></td>
+                                            <td><?= e($tch['stage'] ?: '—') ?></td>
+                                            <td><?= e($tch['class_name'] ?: '—') ?></td>
+                                            <td class="text-center">
+                                                <form method="POST" action="dashboard.php" style="display:inline;" onsubmit="return confirm('تأكيد حذف المعلم من القائمة؟');">
+                                                    <?= csrf_field() ?>
+                                                    <input type="hidden" name="action" value="delete_teacher">
+                                                    <input type="hidden" name="teacher_id" value="<?= e($tch['id'] ?? '') ?>">
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger py-0 px-2" title="حذف">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    <?php endif; ?>
+                </div>
+
                 <!-- TAB 2: NEWS & ANNOUNCEMENTS -->
-                <div class="tab-pane fade" id="dash-news" role="tabpanel">
+                <div class="tab-pane fade <?= $activeDashTab === 'news' ? 'show active' : '' ?>" id="dash-news" role="tabpanel">
                     <!-- Add News Form -->
                     <div class="p-4 rounded-4 bg-light border mb-4">
                         <h6 class="fw-bold text-dark mb-3"><i class="fas fa-plus-circle text-primary me-1"></i> نشر خبر أو إعلان جديد</h6>
@@ -1041,7 +1646,7 @@ require_once __DIR__ . '/header.php';
                 </div>
 
                 <!-- TAB 3: REVIEWS & REPLIES -->
-                <div class="tab-pane fade" id="dash-reviews" role="tabpanel">
+                <div class="tab-pane fade <?= $activeDashTab === 'reviews' ? 'show active' : '' ?>" id="dash-reviews" role="tabpanel">
                     <h6 class="fw-bold text-dark mb-3">تقييمات أولياء الأمور والطلاب</h6>
 
                     <?php if (empty($reviewsList)): ?>
@@ -1098,7 +1703,7 @@ require_once __DIR__ . '/header.php';
                 </div>
 
                 <!-- TAB 4: ADMISSION INQUIRIES -->
-                <div class="tab-pane fade" id="dash-inquiries" role="tabpanel">
+                <div class="tab-pane fade <?= $activeDashTab === 'inquiries' ? 'show active' : '' ?>" id="dash-inquiries" role="tabpanel">
                     <h6 class="fw-bold text-dark mb-3">طلبات القبول واستفسارات أولياء الأمور الواصلة</h6>
 
                     <?php if (empty($inquiriesList)): ?>
