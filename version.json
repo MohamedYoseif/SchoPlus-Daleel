@@ -1,5 +1,5 @@
 {
-    "version": "3.5.47",
+    "version": "3.5.48",
     "release_date": "2026-10-10",
-    "release_notes": "اعتماد الشعار الرسمي الجديد لدليل المدارس السودانية بخلفية شفافة فائقة النقاء (Transparent PNG Logo & Emblem) في النافبار والتذييل وقائمة الجوال والأيقونة المفضلة (Favicon) وبوابات التسجيل والدخول."
+    "release_notes": "إصلاح التمدد الأفقي والفراغ الجانبي على شاشات الجوال (Mobile Horizontal Overflow Fix) عبر ضبط overflow-x على html و body وتقييد عناصر الإضاءة الخلفية (.ambient-cream-glow) وإضافة وسم <body>."
 }

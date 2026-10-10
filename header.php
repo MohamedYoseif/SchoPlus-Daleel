@@ -71,6 +71,8 @@ $currSchool = currentSchool();
         html {
             font-size: 13.5px !important;
             -webkit-text-size-adjust: 100%;
+            overflow-x: hidden !important;
+            max-width: 100%;
         }
 
         body {
@@ -79,8 +81,16 @@ $currSchool = currentSchool();
             color: var(--text-body);
             font-size: 0.75rem;
             line-height: 1.6;
-            overflow-x: hidden;
+            overflow-x: hidden !important;
+            max-width: 100%;
+            width: 100%;
+            position: relative;
+            margin: 0;
             -webkit-font-smoothing: antialiased;
+        }
+
+        main, header, footer, section {
+            max-width: 100%;
         }
 
         p {
@@ -117,13 +127,19 @@ $currSchool = currentSchool();
         }
 
         .ambient-cream-glow {
-            position: absolute;
-            width: 600px;
-            height: 600px;
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            max-width: 100vw;
             border-radius: 50%;
             background: radial-gradient(circle, rgba(245, 230, 211, 0.45) 0%, rgba(250, 248, 245, 0) 70%);
             pointer-events: none;
-            z-index: 0;
+            z-index: -1;
+        }
+        @media (max-width: 767px) {
+            .ambient-cream-glow {
+                display: none !important;
+            }
         }
 
         /* Top Bar & Navbar */
@@ -501,6 +517,7 @@ $currSchool = currentSchool();
     </style>
 
 </head>
+<body>
     <!-- Mobile Topbar (visible only on small screens) -->
     <div class="daleel-topbar-mobile">
         <a href="https://wa.me/249912345678" target="_blank" class="text-decoration-none text-muted d-flex align-items-center gap-1">
