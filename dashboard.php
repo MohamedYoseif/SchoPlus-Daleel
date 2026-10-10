@@ -202,7 +202,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         elseif ($action === 'add_news') {
             $activeDashTab = 'news';
             $newsTitle = trim($_POST['title'] ?? '');
-            $newsContent = trim($_POST['content'] ?? '');
+            $newsContent = sanitizeHtml($_POST['content'] ?? '');
 
             if (!$newsTitle || !$newsContent) {
                 $errorMsg = 'يرجى إدخال عنوان وتفاصيل الخبر.';
@@ -215,6 +215,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $nStmt = $pdo->prepare("INSERT INTO daleel_school_news (school_id, title, content, image_path, published_at, is_active, created_at) VALUES (?, ?, ?, ?, NOW(), 1, NOW())");
                 $nStmt->execute([$schoolId, $newsTitle, $newsContent, $imagePath]);
                 $successMsg = 'تم نشر الخبر الجديد بنجاح!';
+            }
+        }
+
+        // 2.1 EDIT NEWS
+        elseif ($action === 'edit_news') {
+            $activeDashTab = 'news';
+            $newsId = (int)($_POST['news_id'] ?? 0);
+            $newsTitle = trim($_POST['title'] ?? '');
+            $newsContent = sanitizeHtml($_POST['content'] ?? '');
+
+            if (!$newsId || !$newsTitle || !$newsContent) {
+                $errorMsg = 'يرجى إدخال عنوان وتفاصيل الخبر.';
+            } else {
+                // Check if existing news belongs to this school
+                $checkStmt = $pdo->prepare("SELECT image_path FROM daleel_school_news WHERE id = ? AND school_id = ?");
+                $checkStmt->execute([$newsId, $schoolId]);
+                $existingImage = $checkStmt->fetchColumn();
+
+                $imagePath = $existingImage;
+                if (!empty($_FILES['news_image']['tmp_name'])) {
+                    $newImage = handleUpload($_FILES['news_image'], 'news');
+                    if ($newImage) {
+                        $imagePath = $newImage;
+                    }
+                }
+
+                $uStmt = $pdo->prepare("UPDATE daleel_school_news SET title = ?, content = ?, image_path = ?, updated_at = NOW() WHERE id = ? AND school_id = ?");
+                $uStmt->execute([$newsTitle, $newsContent, $imagePath, $newsId, $schoolId]);
+                $successMsg = 'تم تحديث وتعديل الخبر بنجاح!';
             }
         }
 
@@ -1616,26 +1645,33 @@ require_once __DIR__ . '/header.php';
 
                 <!-- TAB 2: NEWS & ANNOUNCEMENTS -->
                 <div class="tab-pane fade <?= $activeDashTab === 'news' ? 'show active' : '' ?>" id="dash-news" role="tabpanel">
-                    <!-- Add News Form -->
-                    <div class="p-4 rounded-4 bg-light border mb-4">
-                        <h6 class="fw-bold text-dark mb-3"><i class="fas fa-plus-circle text-primary me-1"></i> نشر خبر أو إعلان جديد</h6>
-                        <form method="POST" action="dashboard.php" enctype="multipart/form-data">
+                    <!-- Add News Form with Word-like Rich Editor (Quill) -->
+                    <div class="p-4 rounded-4 bg-light border mb-4 shadow-sm">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <h6 class="fw-bold text-dark mb-0"><i class="fas fa-plus-circle text-primary me-2"></i> نشر خبر أو إعلان جديد</h6>
+                            <span class="badge bg-white text-secondary border px-3 py-2 rounded-pill small"><i class="fas fa-pen-fancy text-warning me-1"></i> محرر متقدم لتنسيق النصوص والصور</span>
+                        </div>
+
+                        <form method="POST" action="dashboard.php" enctype="multipart/form-data" id="addNewsForm" onsubmit="syncQuillToAddNews()">
                             <?= csrf_field() ?>
                             <input type="hidden" name="action" value="add_news">
+                            <input type="hidden" name="content" id="addNewsContentInput">
+                            
                             <div class="row g-3">
                                 <div class="col-md-8">
                                     <label class="form-label small fw-bold text-secondary">عنوان الخبر / الإعلان</label>
-                                    <input type="text" name="title" required class="form-control" placeholder="مثال: بدء التسجيل للعام الدراسي الجديد أو تكريم الأوائل">
+                                    <input type="text" name="title" required class="form-control" placeholder="مثال: بدء التسجيل للعام الدراسي الجديد أو تكريم الطلاب المتفوقين">
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="form-label small fw-bold text-secondary">صورة مرفقة (اختياري)</label>
+                                    <label class="form-label small fw-bold text-secondary">صورة بارزة للخبر (اختياري)</label>
                                     <input type="file" name="news_image" accept="image/*" class="form-control">
                                 </div>
                                 <div class="col-12">
-                                    <label class="form-label small fw-bold text-secondary">نص الخبر والتفاصيل</label>
-                                    <textarea name="content" required rows="3" class="form-control" placeholder="اكتب تفاصيل الخبر هنا..."></textarea>
+                                    <label class="form-label small fw-bold text-secondary">نص الخبر والتفاصيل (محرر Word متقدم للتنسيق)</label>
+                                    <!-- Quill Word-like Editor Container -->
+                                    <div id="addNewsQuillEditor" style="min-height: 180px; background: #FFFFFF; border-radius: 0 0 10px 10px; font-size: 0.95rem; line-height: 1.8;"></div>
                                 </div>
-                                <div class="col-12 text-end">
+                                <div class="col-12 text-end pt-2">
                                     <button type="submit" class="btn-luxury-primary px-4 py-2">
                                         <i class="fas fa-paper-plane me-1"></i> نشر الخبر الآن
                                     </button>
@@ -1645,35 +1681,62 @@ require_once __DIR__ . '/header.php';
                     </div>
 
                     <!-- News List -->
-                    <h6 class="fw-bold text-dark mb-3">الأخبار المنشورة</h6>
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h6 class="fw-bold text-dark mb-0">الأخبار والإعلانات المنشورة (<?= count($newsList) ?>)</h6>
+                        <span class="text-muted small">يمكنك تعديل أي خبر، تغيير عنوانه أو صوره وتنسيقه في أي وقت</span>
+                    </div>
+
                     <?php if (empty($newsList)): ?>
-                        <div class="text-center py-4 text-muted border rounded-3 bg-light">
+                        <div class="text-center py-5 text-muted border rounded-3 bg-light">
                             <i class="fas fa-newspaper display-6 mb-2 text-secondary opacity-50"></i>
-                            <p class="mb-0 small">لم تقم بنشر أي أخبار بعد. استخدم النموذج أعلاه لنشر أول إعلان لمدرستك!</p>
+                            <p class="mb-0 small fw-bold">لم تقم بنشر أي أخبار أو إعلانات بعد.</p>
+                            <span class="text-muted small">استخدم محرر النصوص المتقدم أعلاه لكتابة وتنسيق أول خبر لمدرستك!</span>
                         </div>
                     <?php else: ?>
                         <div class="d-flex flex-column gap-3">
                             <?php foreach ($newsList as $item): ?>
                                 <div class="p-3 border rounded-3 bg-white shadow-sm d-flex flex-column flex-md-row align-items-md-start justify-content-between gap-3">
-                                    <div class="d-flex gap-3">
+                                    <div class="d-flex gap-3 flex-grow-1">
                                         <?php if (!empty($item['image_path'])): ?>
-                                            <img src="<?= e(assetUrl($item['image_path'])) ?>" alt="صورة الخبر" style="width: 80px; height: 80px; object-fit: cover;" class="rounded-3 border">
+                                            <img src="<?= e(assetUrl($item['image_path'])) ?>" alt="صورة الخبر" style="width: 85px; height: 85px; object-fit: cover; flex-shrink: 0;" class="rounded-3 border">
+                                        <?php else: ?>
+                                            <div style="width: 85px; height: 85px; background: #F1F5F9; color: #94A3B8; display: flex; align-items: center; justify-content: center; flex-shrink: 0;" class="rounded-3 border">
+                                                <i class="fas fa-newspaper fa-2x"></i>
+                                            </div>
                                         <?php endif; ?>
-                                        <div>
-                                            <h6 class="fw-bold text-dark mb-1"><?= e($item['title']) ?></h6>
+                                        <div class="flex-grow-1">
+                                            <div class="d-flex align-items-center gap-2 flex-wrap mb-1">
+                                                <h6 class="fw-bold text-dark mb-0" style="font-size: 0.95rem;"><?= e($item['title']) ?></h6>
+                                                <span class="badge bg-light text-secondary border small">#<?= $item['id'] ?></span>
+                                            </div>
                                             <small class="text-muted d-block mb-2">
-                                                <i class="far fa-clock me-1"></i> <?= date('Y-m-d H:i', strtotime($item['created_at'])) ?>
+                                                <i class="far fa-calendar-alt me-1"></i> <?= date('Y-m-d H:i', strtotime($item['created_at'])) ?>
                                                 • <i class="fas fa-eye me-1 ms-2"></i> <?= number_format($item['views_count']) ?> مشاهدة
                                             </small>
-                                            <p class="text-secondary small mb-0 lh-base"><?= e($item['content']) ?></p>
+                                            <div class="text-secondary small mb-0 lh-base line-clamp-2" style="max-height: 48px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+                                                <?= strip_tags($item['content']) ?>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div>
-                                        <form method="POST" action="dashboard.php" onsubmit="return confirm('هل أنت متأكد من حذف هذا الخبر؟');">
+
+                                    <!-- Action buttons: View, Edit, Delete -->
+                                    <div class="d-flex align-items-center gap-2 align-self-end align-self-md-start flex-shrink-0">
+                                        <a href="/school/<?= urlencode($school['slug']) ?>#tab-news" target="_blank" class="btn btn-sm btn-outline-primary" title="معاينة في صفحة المدرسة">
+                                            <i class="fas fa-external-link-alt me-1"></i> عرض
+                                        </a>
+                                        <button type="button" class="btn btn-sm btn-outline-warning text-dark fw-bold" onclick="openEditNewsModal(<?= htmlspecialchars(json_encode([
+                                            'id' => $item['id'],
+                                            'title' => $item['title'],
+                                            'content' => $item['content'],
+                                            'image_path' => assetUrl($item['image_path'])
+                                        ]), ENT_QUOTES, 'UTF-8') ?>)" title="تعديل الخبر">
+                                            <i class="fas fa-edit me-1"></i> تعديل
+                                        </button>
+                                        <form method="POST" action="dashboard.php" onsubmit="return confirm('هل أنت متأكد من حذف هذا الخبر نهائياً؟');" class="d-inline">
                                             <?= csrf_field() ?>
                                             <input type="hidden" name="action" value="delete_news">
                                             <input type="hidden" name="news_id" value="<?= $item['id'] ?>">
-                                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger" title="حذف الخبر">
                                                 <i class="fas fa-trash-alt me-1"></i> حذف
                                             </button>
                                         </form>
@@ -1887,6 +1950,55 @@ require_once __DIR__ . '/header.php';
     </div>
 </div>
 
+<!-- EDIT NEWS MODAL (Word-like WYSIWYG Editor) -->
+<div class="modal fade" id="editNewsModal" tabindex="-1" aria-labelledby="editNewsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0 shadow-lg">
+            <div class="modal-header bg-light border-bottom px-4 py-3">
+                <h5 class="modal-title fw-bold text-dark fs-6" id="editNewsModalLabel">
+                    <i class="fas fa-edit text-warning me-2"></i> تعديل الخبر أو الإعلان
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+            </div>
+            <form method="POST" action="dashboard.php" enctype="multipart/form-data" id="editNewsForm" onsubmit="syncQuillToEditNews()">
+                <?= csrf_field() ?>
+                <input type="hidden" name="action" value="edit_news">
+                <input type="hidden" name="news_id" id="editNewsId">
+                <input type="hidden" name="content" id="editNewsContentInput">
+
+                <div class="modal-body p-4">
+                    <div class="row g-3">
+                        <div class="col-md-8">
+                            <label class="form-label small fw-bold text-secondary">عنوان الخبر / الإعلان</label>
+                            <input type="text" name="title" id="editNewsTitle" required class="form-control" placeholder="عنوان الخبر...">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label small fw-bold text-secondary">تغيير الصورة البارزة (اختياري)</label>
+                            <input type="file" name="news_image" accept="image/*" class="form-control">
+                        </div>
+                        <div class="col-12" id="editNewsCurrentImageWrap" style="display: none;">
+                            <label class="form-label small text-muted d-block">الصورة الحالية:</label>
+                            <img id="editNewsCurrentImage" src="" alt="صورة الخبر" style="max-height: 100px; border-radius: 8px;" class="border">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label small fw-bold text-secondary">نص وتفاصيل الخبر (محرر Word متقدم)</label>
+                            <!-- Quill Edit Editor Container -->
+                            <div id="editNewsQuillEditor" style="min-height: 220px; background: #FFFFFF; border-radius: 0 0 10px 10px; font-size: 0.95rem; line-height: 1.8;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer bg-light border-top px-4 py-2">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="submit" class="btn-luxury-primary btn-sm px-4">
+                        <i class="fas fa-check-circle me-1"></i> حفظ التعديلات
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script>
 function openShareModal() {
     const modal = new bootstrap.Modal(document.getElementById('shareSchoolModal'));
@@ -1902,6 +2014,89 @@ function copyShortUrl() {
         btnText.innerText = 'تم النسخ!';
         setTimeout(() => { btnText.innerText = 'نسخ'; }, 2500);
     });
+}
+
+// ==========================================
+// QUILL WORD-LIKE RICH TEXT EDITORS SETUP
+// ==========================================
+let addNewsQuill = null;
+let editNewsQuill = null;
+
+const quillToolbarOptions = [
+    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+    [{ 'font': [] }],
+    ['bold', 'italic', 'underline', 'strike'],
+    [{ 'color': [] }, { 'background': [] }],
+    [{ 'align': [] }],
+    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+    [{ 'indent': '-1'}, { 'indent': '+1' }],
+    ['blockquote'],
+    ['link', 'clean']
+];
+
+document.addEventListener('DOMContentLoaded', function() {
+    // 1. Initialize Add News Editor
+    const addEditorElem = document.getElementById('addNewsQuillEditor');
+    if (addEditorElem && typeof Quill !== 'undefined') {
+        addNewsQuill = new Quill('#addNewsQuillEditor', {
+            theme: 'snow',
+            placeholder: 'اكتب نص الخبر هنا ونسقه بالطريقة التي تناسبك...',
+            modules: {
+                toolbar: quillToolbarOptions
+            }
+        });
+    }
+
+    // 2. Initialize Edit News Editor
+    const editEditorElem = document.getElementById('editNewsQuillEditor');
+    if (editEditorElem && typeof Quill !== 'undefined') {
+        editNewsQuill = new Quill('#editNewsQuillEditor', {
+            theme: 'snow',
+            placeholder: 'تعديل تفاصيل الخبر والتنسيقات...',
+            modules: {
+                toolbar: quillToolbarOptions
+            }
+        });
+    }
+});
+
+function syncQuillToAddNews() {
+    if (addNewsQuill) {
+        document.getElementById('addNewsContentInput').value = addNewsQuill.root.innerHTML;
+    }
+    return true;
+}
+
+function syncQuillToEditNews() {
+    if (editNewsQuill) {
+        document.getElementById('editNewsContentInput').value = editNewsQuill.root.innerHTML;
+    }
+    return true;
+}
+
+function openEditNewsModal(item) {
+    document.getElementById('editNewsId').value = item.id;
+    document.getElementById('editNewsTitle').value = item.title;
+    
+    // Set content into Quill
+    if (editNewsQuill) {
+        editNewsQuill.root.innerHTML = item.content || '';
+    } else {
+        document.getElementById('editNewsContentInput').value = item.content || '';
+    }
+
+    // Existing image preview
+    const imgWrap = document.getElementById('editNewsCurrentImageWrap');
+    const imgElem = document.getElementById('editNewsCurrentImage');
+    if (item.image_path) {
+        imgElem.src = item.image_path;
+        imgWrap.style.display = 'block';
+    } else {
+        imgWrap.style.display = 'none';
+    }
+
+    const modal = new bootstrap.Modal(document.getElementById('editNewsModal'));
+    modal.show();
 }
 </script>
 

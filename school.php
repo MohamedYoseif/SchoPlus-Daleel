@@ -561,7 +561,7 @@ require_once __DIR__ . '/header.php';
 .sp-news-card {
     border-radius: 16px;
     border: 1px solid var(--border-subtle);
-    padding: 18px 20px;
+    padding: 20px 22px;
     background: #FFFFFF;
     transition: all 0.22s ease;
     position: relative;
@@ -583,6 +583,32 @@ require_once __DIR__ . '/header.php';
     padding: 3px 8px;
     font-size: 0.68rem; font-weight: 700; color: var(--text-muted);
 }
+.sp-news-content {
+    font-size: 0.8rem;
+    color: var(--text-body);
+    line-height: 1.8;
+}
+.sp-news-content p { margin-bottom: 0.6rem; }
+.sp-news-content h1, .sp-news-content h2, .sp-news-content h3, .sp-news-content h4 {
+    color: var(--brand-navy);
+    font-weight: 700;
+    margin-top: 0.8rem;
+    margin-bottom: 0.4rem;
+}
+.sp-news-content ul, .sp-news-content ol { padding-right: 1.4rem; margin-bottom: 0.6rem; }
+.sp-news-content blockquote {
+    border-right: 3px solid var(--brand-gold);
+    padding-right: 12px;
+    margin: 10px 0;
+    color: #4B5563;
+    font-style: italic;
+    background: #FDFBF7;
+    padding: 8px 12px;
+    border-radius: 0 8px 8px 0;
+}
+.sp-news-content a { color: var(--brand-blue); text-decoration: underline; }
+.sp-news-content img { max-width: 100%; height: auto; border-radius: 8px; margin: 8px 0; }
+
 
 .sp-review-card {
     border-radius: 16px;
@@ -1380,21 +1406,42 @@ $totalRev = max(1, count($reviewsList));
                             <?php else: ?>
                                 <div class="d-flex flex-column gap-3">
                                     <?php foreach ($newsList as $item): ?>
-                                        <div class="sp-news-card">
+                                        <div class="sp-news-card" id="news-item-<?= $item['id'] ?>">
                                             <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-2">
-                                                <h6 class="fw-bold mb-0" style="color: var(--brand-navy); font-size: 0.98rem;"><?= e($item['title']) ?></h6>
+                                                <h5 class="fw-bold mb-0" style="color: var(--brand-navy); font-size: 1.05rem;"><?= e($item['title']) ?></h5>
                                                 <span class="sp-news-date">
                                                     <i class="far fa-calendar-alt"></i>
                                                     <?= date('d / m / Y', strtotime($item['published_at'] ?: $item['created_at'])) ?>
                                                 </span>
                                             </div>
-                                            <p style="font-size: 0.75rem; color: var(--text-body); line-height: 1.65; white-space: pre-line; margin: 0;"><?= e($item['content']) ?></p>
+
                                             <?php if (!empty($item['image_path'])): ?>
                                                 <?php $newsImgUrl = assetUrl($item['image_path']); ?>
-                                                <div class="mt-3" style="cursor: pointer;" onclick="spLightboxOpen('<?= e($newsImgUrl) ?>', '<?= e(addslashes($item['title'])) ?>')">
-                                                    <img src="<?= e($newsImgUrl) ?>" alt="صورة الخبر" loading="lazy" class="img-fluid rounded-3" style="max-height: 280px; object-fit: cover; width: 100%;">
+                                                <div class="my-3" style="cursor: pointer;" onclick="spLightboxOpen('<?= e($newsImgUrl) ?>', '<?= e(addslashes($item['title'])) ?>')">
+                                                    <img src="<?= e($newsImgUrl) ?>" alt="صورة الخبر" loading="lazy" class="img-fluid rounded-3" style="max-height: 340px; object-fit: cover; width: 100%;">
                                                 </div>
                                             <?php endif; ?>
+
+                                            <!-- Render rich formatted content (from Word-like editor) -->
+                                            <div class="sp-news-content">
+                                                <?= sanitizeHtml($item['content']) ?>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between align-items-center mt-3 pt-2 border-top">
+                                                <button type="button" class="btn btn-sm btn-luxury-outline py-1 px-3" onclick="openNewsReaderModal(<?= htmlspecialchars(json_encode([
+                                                    'id' => $item['id'],
+                                                    'title' => $item['title'],
+                                                    'date' => date('d / m / Y', strtotime($item['published_at'] ?: $item['created_at'])),
+                                                    'image' => !empty($item['image_path']) ? assetUrl($item['image_path']) : '',
+                                                    'content' => sanitizeHtml($item['content'])
+                                                ]), ENT_QUOTES, 'UTF-8') ?>)">
+                                                    <i class="fas fa-book-open me-1"></i> قراءة الخبر كاملاً
+                                                </button>
+
+                                                <button type="button" class="btn btn-sm btn-light border py-1 px-2 text-muted" onclick="copyNewsLink(<?= $item['id'] ?>)" title="مشاركة رابط الخبر">
+                                                    <i class="fas fa-share-alt me-1"></i> مشاركة
+                                                </button>
+                                            </div>
                                         </div>
                                     <?php endforeach; ?>
                                 </div>
@@ -1935,6 +1982,35 @@ $totalRev = max(1, count($reviewsList));
     </div>
 </div>
 
+<!-- NEWS READER MODAL (فتح الخبر كاملاً بتنسيقه الكامل) -->
+<div class="modal fade" id="newsReaderModal" tabindex="-1" aria-labelledby="newsReaderModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content rounded-4 border-0 shadow-lg">
+            <div class="modal-header bg-light border-bottom px-4 py-3">
+                <div>
+                    <span class="badge bg-white text-primary border px-2 py-1 rounded-pill small mb-1" id="newsReaderModalDate"></span>
+                    <h5 class="modal-title fw-bold text-dark fs-5" id="newsReaderModalTitle"></h5>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+            </div>
+            <div class="modal-body p-4">
+                <div id="newsReaderModalImgWrap" class="mb-4 text-center" style="display: none;">
+                    <img id="newsReaderModalImg" src="" alt="صورة الخبر" class="img-fluid rounded-4 shadow-sm" style="max-height: 400px; width: 100%; object-fit: cover;">
+                </div>
+                <div id="newsReaderModalContent" class="sp-news-content" style="font-size: 0.95rem; line-height: 1.9;"></div>
+            </div>
+            <div class="modal-footer bg-light border-top px-4 py-2 justify-content-between">
+                <div class="d-flex gap-2">
+                    <button type="button" class="btn btn-outline-secondary btn-sm" id="newsReaderShareBtn" onclick="copyCurrentNewsLink()">
+                        <i class="fas fa-link me-1"></i> نسخ رابط الخبر
+                    </button>
+                </div>
+                <button type="button" class="btn btn-secondary btn-sm px-4" data-bs-dismiss="modal">إغلاق</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- CUSTOM LIGHTBOX -->
 <div id="spLightbox" onclick="spLightboxClose()">
     <div style="text-align: center;" onclick="event.stopPropagation()">
@@ -1956,6 +2032,56 @@ function switchTab(btn, targetId) {
         document.querySelector('.sp-tabs-nav').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 }
+
+// News Reader Modal
+let currentReadingNewsId = 0;
+function openNewsReaderModal(item) {
+    currentReadingNewsId = item.id;
+    document.getElementById('newsReaderModalTitle').innerText = item.title;
+    document.getElementById('newsReaderModalDate').innerText = item.date;
+    document.getElementById('newsReaderModalContent').innerHTML = item.content;
+
+    const imgWrap = document.getElementById('newsReaderModalImgWrap');
+    const imgElem = document.getElementById('newsReaderModalImg');
+    if (item.image) {
+        imgElem.src = item.image;
+        imgWrap.style.display = 'block';
+    } else {
+        imgWrap.style.display = 'none';
+    }
+
+    new bootstrap.Modal(document.getElementById('newsReaderModal')).show();
+}
+
+function copyNewsLink(newsId) {
+    const url = window.location.origin + window.location.pathname + '#news-item-' + newsId;
+    navigator.clipboard.writeText(url).then(function() {
+        alert('تم نسخ رابط الخبر بنجاح!');
+    });
+}
+
+function copyCurrentNewsLink() {
+    if (currentReadingNewsId) {
+        copyNewsLink(currentReadingNewsId);
+    }
+}
+
+// Auto open news if hash exists in URL
+document.addEventListener('DOMContentLoaded', function() {
+    if (window.location.hash) {
+        const hash = window.location.hash;
+        if (hash.startsWith('#news-item-')) {
+            const newsBtn = document.querySelector('[data-target="tab-news"]');
+            if (newsBtn) {
+                switchTab(newsBtn, 'tab-news');
+                setTimeout(() => {
+                    const targetEl = document.querySelector(hash);
+                    if (targetEl) targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 300);
+            }
+        }
+    }
+});
 
 // Share Modal
 function openShareModal() {

@@ -51,6 +51,23 @@ if (!function_exists('csrf_verify')) {
     }
 }
 
+if (!function_exists('sanitizeHtml')) {
+    function sanitizeHtml(?string $html): string {
+        $html = trim((string)($html ?? ''));
+        if ($html === '') {
+            return '';
+        }
+        // Allowed tags for rich text formatted news / announcements
+        $allowedTags = '<p><br><b><strong><i><em><u><s><strike><h1><h2><h3><h4><h5><h6><ul><ol><li><blockquote><a><font><span><div><hr><table><thead><tbody><tr><th><td><img>';
+        $cleaned = strip_tags($html, $allowedTags);
+        // Strip out dangerous attributes like onload, onclick, javascript:
+        $cleaned = preg_replace('/(\s+on[a-z]+=["\'][^"\']*["\'])/i', '', $cleaned);
+        $cleaned = preg_replace('/href=["\']javascript:[^"\']*["\']/i', 'href="#"', $cleaned);
+        $cleaned = preg_replace('/src=["\']javascript:[^"\']*["\']/i', '', $cleaned);
+        return $cleaned;
+    }
+}
+
 /**
  * Singleton Database Connection
  */
