@@ -14,6 +14,7 @@ $isDaleelMobile = (
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="_N537rCkVvCqHnhP1qUaVRtqiNzAB-tcGFNeAm9z5gU">
     <link rel="icon" type="image/png" href="/assets/images/favicon.png">
     <link rel="apple-touch-icon" href="/assets/images/logo-icon.png">
     <title><?= isset($pageTitle) ? e($pageTitle) . ' | دليل المدارس السودانية — SchoPlus' : 'دليل المدارس السودانية — دليلك الشامل لاختيار أفضل المدارس في السودان' ?></title>

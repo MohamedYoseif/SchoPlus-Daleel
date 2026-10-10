@@ -1,7 +1,7 @@
 {
-    "version": "3.5.87",
+    "version": "3.5.89",
     "release_date": "2026-10-10",
     "version_type": "enterprise",
     "min_php_version": "8.2",
-    "release_notes": "دليل المدارس (daleel.schoplus.sd) — إصلاح إغلاق وسم تبويب نظرة عامة (tab-overview) واستعادة استقلالية كافة التبويبات وعزل الشريط الجانبي"
+    "release_notes": "دليل المدارس (daleel.schoplus.sd) — إضافة كود إثبات ملكية Google Search Console وتفعيل خريطة الموقع الديناميكية وفهرسة المدارس"
 }
