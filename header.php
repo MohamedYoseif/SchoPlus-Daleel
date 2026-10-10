@@ -46,6 +46,62 @@ $isDaleelMobile = (
     <meta name="twitter:description" content="<?= isset($ogDesc) ? e($ogDesc) : 'دليلك الشامل لاختيار أفضل المدارس في السودان' ?>">
     <meta name="twitter:image" content="<?= isset($ogImage) ? e($ogImage) : 'https://daleel.schoplus.sd/logo.png' ?>">
 
+    <!-- Schema.org Structured Data (JSON-LD) for Rich Google Snippets -->
+    <?php
+    $schemaTargetSchool = $school ?? ($currSchool ?? null);
+    if (!empty($schemaTargetSchool) && is_array($schemaTargetSchool)) {
+        $daleelSchema = [
+            "@context" => "https://schema.org",
+            "@type" => "School",
+            "name" => $schemaTargetSchool['name'] ?? '',
+            "alternateName" => $schemaTargetSchool['name_en'] ?? '',
+            "url" => "https://daleel.schoplus.sd/school/" . ($schemaTargetSchool['slug'] ?? $schemaTargetSchool['id']),
+            "description" => $schemaTargetSchool['description'] ?? 'الملف التعريفي للمدرسة في دليل المدارس السودانية',
+            "address" => [
+                "@type" => "PostalAddress",
+                "addressLocality" => $schemaTargetSchool['city'] ?? '',
+                "addressRegion" => $schemaTargetSchool['state'] ?? '',
+                "addressCountry" => "SD"
+            ]
+        ];
+        if (!empty($schemaTargetSchool['logo'])) {
+            $daleelSchema["image"] = 'https://daleel.schoplus.sd' . assetUrl($schemaTargetSchool['logo']);
+        }
+        if (!empty($schemaTargetSchool['phone'])) {
+            $daleelSchema["telephone"] = $schemaTargetSchool['phone'];
+        }
+    } else {
+        $daleelSchema = [
+            "@context" => "https://schema.org",
+            "@graph" => [
+                [
+                    "@type" => "WebSite",
+                    "@id" => "https://daleel.schoplus.sd/#website",
+                    "url" => "https://daleel.schoplus.sd",
+                    "name" => "دليل المدارس السودانية — SchoPlus",
+                    "description" => "دليلك الشامل لاختيار أفضل المدارس الخاصة والنموذجية في السودان",
+                    "inLanguage" => "ar",
+                    "potentialAction" => [
+                        "@type" => "SearchAction",
+                        "target" => "https://daleel.schoplus.sd/?q={search_term_string}",
+                        "query-input" => "required name=search_term_string"
+                    ]
+                ],
+                [
+                    "@type" => "EducationalOrganization",
+                    "@id" => "https://daleel.schoplus.sd/#organization",
+                    "name" => "دليل المدارس السودانية الذكي",
+                    "url" => "https://daleel.schoplus.sd",
+                    "logo" => "https://daleel.schoplus.sd/logo.png"
+                ]
+            ]
+        ];
+    }
+    ?>
+    <script type="application/ld+json">
+    <?= json_encode($daleelSchema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) ?>
+    </script>
+
     <!-- Cairo Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
