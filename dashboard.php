@@ -2212,6 +2212,257 @@ require_once __DIR__ . '/header.php';
                     </div>
                 </div>
 
+                <!-- TAB: FEES & DISCOUNTS (الرسوم الدراسية والعروض والخصومات) -->
+                <div class="tab-pane fade <?= $activeDashTab === 'fees' ? 'show active' : '' ?>" id="dash-fees" role="tabpanel">
+                    
+                    <form method="POST" action="dashboard.php" id="formMainFees">
+                        <?= csrf_field() ?>
+                        <input type="hidden" name="action" value="update_school_fees">
+                        <input type="hidden" name="tab" value="fees">
+
+                        <!-- 1. Fees Header Banner -->
+                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-4 p-4 rounded-4" style="background: linear-gradient(135deg, #064E3B 0%, #047857 100%); color: #ffffff;">
+                            <div>
+                                <div class="d-flex align-items-center gap-2 mb-2 flex-wrap">
+                                    <span class="badge bg-white text-success px-3 py-1 rounded-pill fw-bold small">
+                                        <i class="fas fa-coins me-1"></i> إدارة الرسوم والخصومات
+                                    </span>
+                                    <span class="badge bg-warning text-dark px-3 py-1 rounded-pill fw-bold small">
+                                        <i class="fas fa-star me-1"></i> تظهر في صفحة المدرسة بالدليل
+                                    </span>
+                                </div>
+                                <h5 class="fw-bold mb-1">الرسوم الدراسية والتسهيلات والعروض والخصومات</h5>
+                                <p class="small text-light opacity-90 mb-0">
+                                    حدد نظام عرض الرسوم (متوسط عام سريع أو جدول مفصل حسب المراحل)، وأضف المنح والعروض التشجيعية المتاحة لجذب أولياء الأمور.
+                                </p>
+                            </div>
+                            <div class="text-md-end">
+                                <a href="/school/<?= urlencode($school['slug']) ?>#tab-fees" target="_blank" class="btn btn-sm btn-light fw-bold text-dark rounded-pill px-3 py-2 shadow-sm">
+                                    <i class="fas fa-external-link-alt text-success me-1"></i> معاينة تبويب الرسوم بالبروفايل
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- 2. Mode Selection & Approx Fees -->
+                        <div class="dash-card-section">
+                            <div class="dash-sec-header">
+                                <div class="dash-sec-title-wrap">
+                                    <div class="dash-sec-icon" style="background: #ECFDF5; color: #059669;">
+                                        <i class="fas fa-sliders-h"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="dash-sec-title">1. نظام وطريقة عرض الرسوم</h5>
+                                        <p class="dash-sec-desc">اختر ما إذا كنت ترغب في عرض رقم متوسط سريع، أو جدول تفصيلي كامل لكل مرحلة وصف دراسي.</p>
+                                    </div>
+                                </div>
+                                <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-1 rounded-pill small fw-bold">نظام الرسوم</span>
+                            </div>
+
+                            <div class="row g-3 mb-4">
+                                <div class="col-md-6">
+                                    <label class="card h-100 p-3 border rounded-3 cursor-pointer fee-mode-card" style="cursor: pointer;">
+                                        <div class="d-flex align-items-start gap-3">
+                                            <input class="form-check-input mt-1" type="radio" name="fees_type" value="average" id="feesTypeAvg" <?= $currentFeesType === 'average' ? 'checked' : '' ?> onchange="toggleFeesMode('average')">
+                                            <div>
+                                                <div class="fw-bold text-dark"><i class="fas fa-calculator text-primary me-1"></i> الخيار 1: متوسط تقريبي عام</div>
+                                                <small class="text-muted d-block mt-1">عرض رقم أو جملة توضح متوسط الرسوم الإجمالية للمدرسة (مناسب للبساطة والسرعة).</small>
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="card h-100 p-3 border rounded-3 cursor-pointer fee-mode-card" style="cursor: pointer;">
+                                        <div class="d-flex align-items-start gap-3">
+                                            <input class="form-check-input mt-1" type="radio" name="fees_type" value="detailed" id="feesTypeDet" <?= $currentFeesType === 'detailed' ? 'checked' : '' ?> onchange="toggleFeesMode('detailed')">
+                                            <div>
+                                                <div class="fw-bold text-dark"><i class="fas fa-list-ol text-success me-1"></i> الخيار 2: تفصيل الرسوم حسب المراحل والبنود</div>
+                                                <small class="text-muted d-block mt-1">تحديد رسوم كل مرحلة أو صف دراسي بشكل جدول منظم مع توضيح شروط السداد والأقساط.</small>
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Average Fees Input Box -->
+                            <div id="feesAverageBox" class="mb-2">
+                                <label class="form-label fw-bold">
+                                    <span id="approxFeesLabel"><?= $currentFeesType === 'detailed' ? 'متوسط الرسوم السنوية الإجمالي (ملخص لكروت البحث):' : 'متوسط الرسوم الدراسية السنوية:' ?></span>
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white"><i class="fas fa-tag text-muted"></i></span>
+                                    <input type="text" name="approx_fees" class="form-control" value="<?= e($school['approx_fees'] ?? '') ?>" placeholder="مثال: تبدأ من 250,000 ج.س سنوياً (أو 400,000 ج.س)">
+                                </div>
+                                <small class="text-muted d-block mt-1" style="font-size: 0.72rem;">
+                                    يظهر هذا النص كملخص سريع في بطاقات المدرسة بالصفحة الرئيسية ونتائج البحث.
+                                </small>
+                            </div>
+                        </div>
+
+                        <!-- 3. Detailed Stage Fees Builder Box -->
+                        <div class="dash-card-section" id="feesDetailedBox" style="<?= $currentFeesType === 'detailed' ? '' : 'display: none;' ?>">
+                            <div class="dash-sec-header">
+                                <div class="dash-sec-title-wrap">
+                                    <div class="dash-sec-icon" style="background: #F0FDF4; color: #16A34A;">
+                                        <i class="fas fa-table-list"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="dash-sec-title">2. جدول بنود ورسوم المراحل والصفوف الدراسية</h5>
+                                        <p class="dash-sec-desc">أضف بنود الرسوم لكل مرحلة تعليمية أو صف دراسي، مع تحديد المبلغ وطريقة السداد والأقساط.</p>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-sm btn-success fw-bold px-3 rounded-pill" onclick="addStageFeeRow()">
+                                    <i class="fas fa-plus me-1"></i> إضافة بند دراسي جديد
+                                </button>
+                            </div>
+
+                            <div class="table-responsive bg-white rounded-3 border">
+                                <table class="table table-hover align-middle mb-0" id="stageFeesTable">
+                                    <thead class="table-light">
+                                        <tr style="font-size: 0.73rem;">
+                                            <th style="min-width: 160px; padding: 10px;">المرحلة الدراسية / البند</th>
+                                            <th style="min-width: 180px; padding: 10px;">البيان أو الصف الدراسي</th>
+                                            <th style="min-width: 140px; padding: 10px;">قيمة الرسوم</th>
+                                            <th style="min-width: 170px; padding: 10px;">طريقة السداد / ملاحظات</th>
+                                            <th style="width: 45px; text-align: center; padding: 10px;">حذف</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="stageFeesTbody">
+                                        <?php if (!empty($currentStageFees)): ?>
+                                            <?php foreach ($currentStageFees as $item): ?>
+                                            <tr class="fee-row-item">
+                                                <td style="min-width: 160px; padding: 8px 10px;">
+                                                    <select name="stage_fee_stage[]" class="form-select form-select-sm">
+                                                        <?php 
+                                                        $stgVal = $item['stage'] ?? '';
+                                                        $optList = ['رياض الأطفال', 'المرحلة الابتدائية', 'المرحلة المتوسطة', 'المرحلة الثانوية', 'رسوم التسجيل والزي', 'رسوم الترحيل والمواصلات', 'أخرى / بند مخصص'];
+                                                        foreach ($optList as $opt):
+                                                        ?>
+                                                        <option value="<?= e($opt) ?>" <?= $stgVal === $opt ? 'selected' : '' ?>><?= e($opt) ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </td>
+                                                <td style="min-width: 180px; padding: 8px 10px;">
+                                                    <input type="text" name="stage_fee_title[]" value="<?= e($item['title'] ?? '') ?>" class="form-control form-control-sm" placeholder="مثال: الصفوف 1 إلى 6">
+                                                </td>
+                                                <td style="min-width: 140px; padding: 8px 10px;">
+                                                    <input type="text" name="stage_fee_amount[]" value="<?= e($item['amount'] ?? '') ?>" class="form-control form-control-sm fw-bold text-success" placeholder="مثال: 350,000 ج.س">
+                                                </td>
+                                                <td style="min-width: 170px; padding: 8px 10px;">
+                                                    <input type="text" name="stage_fee_notes[]" value="<?= e($item['notes'] ?? '') ?>" class="form-control form-control-sm" placeholder="مثال: على 3 أقساط">
+                                                </td>
+                                                <td style="width: 45px; text-align: center; padding: 8px 10px;">
+                                                    <button type="button" class="btn btn-sm btn-outline-danger p-1 px-2 rounded-2" onclick="this.closest('tr').remove()" title="حذف البند">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <small class="text-muted d-block mt-2" style="font-size: 0.72rem;">
+                                <i class="fas fa-info-circle text-primary me-1"></i> يمكنك إضافة رسوم كل مرحلة دراسية، أو إضافة بنود إضافية مثل رسوم التسجيل، الزي المدرسي، أو الترحيل.
+                            </small>
+                        </div>
+
+                        <!-- 4. Discounts & Special Offers Builder -->
+                        <div class="dash-card-section" style="background: linear-gradient(135deg, #FCFAF6 0%, #FFFFFF 100%);">
+                            <div class="dash-sec-header">
+                                <div class="dash-sec-title-wrap">
+                                    <div class="dash-sec-icon" style="background: #FAF5FF; color: #9333EA;">
+                                        <i class="fas fa-tags"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="dash-sec-title">3. العروض والخصومات والتسهيلات المالية (اختياري)</h5>
+                                        <p class="dash-sec-desc">أضف الخصومات والمنح التي تقدمها مدرستك لجذب أولياء الأمور (مثل: خصم الإخوة، السداد المبكر، حفظة القرآن، أو إعفاء رسوم التسجيل).</p>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-sm btn-outline-purple fw-bold px-3 rounded-pill" style="color: #7E22CE; border-color: #C084FC;" onclick="addDiscountRow()">
+                                    <i class="fas fa-plus me-1"></i> إضافة عرض / خصم جديد
+                                </button>
+                            </div>
+
+                            <!-- Quick Presets -->
+                            <div class="mb-3 p-3 rounded-3 bg-white border d-flex flex-wrap gap-2 align-items-center">
+                                <span class="text-muted fw-bold d-flex align-items-center gap-1" style="font-size: 0.72rem;">
+                                    <i class="fas fa-magic text-warning"></i> نماذج سريعة جاهزة:
+                                </span>
+                                <button type="button" class="btn btn-sm btn-light border rounded-pill py-1 px-2 text-dark" style="font-size: 0.72rem;" onclick="addQuickDiscount('خصم الإخوة والأشقاء', '15%', 'الأخ الثاني فما فوق', 'يطبق على الرسوم الدراسية السنوية')">
+                                    <i class="fas fa-users text-primary me-1"></i> خصم الإخوة (15%)
+                                </button>
+                                <button type="button" class="btn btn-sm btn-light border rounded-pill py-1 px-2 text-dark" style="font-size: 0.72rem;" onclick="addQuickDiscount('خصم السداد المبكر (كاش)', '10%', 'جميع المراحل', 'عند سداد كامل الرسوم دفعة واحدة قبل بدء العام')">
+                                    <i class="fas fa-bolt text-warning me-1"></i> سداد مبكر كاش (10%)
+                                </button>
+                                <button type="button" class="btn btn-sm btn-light border rounded-pill py-1 px-2 text-dark" style="font-size: 0.72rem;" onclick="addQuickDiscount('منحة التفوق وحفظ القرآن', '25% - 50%', 'الطلاب المتفوقين', 'بناءً على النتيجة والشهادة المعتمدة')">
+                                    <i class="fas fa-award text-success me-1"></i> منحة التفوق والقرآن
+                                </button>
+                                <button type="button" class="btn btn-sm btn-light border rounded-pill py-1 px-2 text-dark" style="font-size: 0.72rem;" onclick="addQuickDiscount('خصم أبناء الكوادر التعليمية', '20%', 'أبناء المعلمين والعاملين', 'تسهيلات مخصصة لأبناء الكادر التعليمي')">
+                                    <i class="fas fa-chalkboard-teacher text-info me-1"></i> أبناء المعلمين (20%)
+                                </button>
+                                <button type="button" class="btn btn-sm btn-light border rounded-pill py-1 px-2 text-dark" style="font-size: 0.72rem;" onclick="addQuickDiscount('عرض التسجيل المبكر', 'إعفاء رسوم التسجيل', 'الطلاب الجدد', 'يسري للطلبات المسجلة قبل بداية الشهر')">
+                                    <i class="fas fa-gift text-danger me-1"></i> إعفاء رسوم التسجيل
+                                </button>
+                            </div>
+
+                            <!-- Discounts Table -->
+                            <div class="table-responsive bg-white rounded-3 border">
+                                <table class="table table-hover align-middle mb-0" id="discountsTable">
+                                    <thead class="table-light">
+                                        <tr style="font-size: 0.73rem;">
+                                            <th style="min-width: 170px; padding: 10px;">عنوان العرض / الخصم <span class="text-danger">*</span></th>
+                                            <th style="min-width: 130px; padding: 10px;">قيمة الخصم (نسبة أو مبلغ) <span class="text-danger">*</span></th>
+                                            <th style="min-width: 150px; padding: 10px;">الفئة المستفيدة / ينطبق على</th>
+                                            <th style="min-width: 180px; padding: 10px;">الشروط والملاحظات</th>
+                                            <th style="width: 45px; text-align: center; padding: 10px;">حذف</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="discountsTbody">
+                                        <?php if (!empty($currentFeeDiscounts)): ?>
+                                            <?php foreach ($currentFeeDiscounts as $disc): ?>
+                                            <tr class="discount-row-item">
+                                                <td style="min-width: 170px; padding: 8px 10px;">
+                                                    <input type="text" name="discount_title[]" value="<?= e($disc['title'] ?? '') ?>" required class="form-control form-control-sm fw-bold text-dark" placeholder="مثال: خصم الإخوة والأشقاء">
+                                                </td>
+                                                <td style="min-width: 130px; padding: 8px 10px;">
+                                                    <input type="text" name="discount_value[]" value="<?= e($disc['value'] ?? '') ?>" required class="form-control form-control-sm fw-bold" style="color: #7E22CE;" placeholder="مثال: 15% أو 50,000 ج.س">
+                                                </td>
+                                                <td style="min-width: 150px; padding: 8px 10px;">
+                                                    <input type="text" name="discount_applies_to[]" value="<?= e($disc['applies_to'] ?? '') ?>" class="form-control form-control-sm" placeholder="مثال: الأخ الثاني فما فوق">
+                                                </td>
+                                                <td style="min-width: 180px; padding: 8px 10px;">
+                                                    <input type="text" name="discount_notes[]" value="<?= e($disc['notes'] ?? '') ?>" class="form-control form-control-sm" placeholder="مثال: يطبق عند سداد القسط كاملاً">
+                                                </td>
+                                                <td style="width: 45px; text-align: center; padding: 8px 10px;">
+                                                    <button type="button" class="btn btn-sm btn-outline-danger p-1 px-2 rounded-2" onclick="this.closest('tr').remove()" title="حذف العرض">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <small class="text-muted d-block mt-2" style="font-size: 0.72rem;">
+                                <i class="fas fa-info-circle text-primary me-1"></i> تظهر هذه العروض في كروت مميزة في تبويب الرسوم بصفحة المدرسة لتشجيع أولياء الأمور على التقديم.
+                            </small>
+                        </div>
+
+                        <!-- Save Card -->
+                        <div class="dash-card-section bg-light border p-3 rounded-4 d-flex align-items-center justify-content-between flex-wrap gap-2">
+                            <div>
+                                <h6 class="fw-bold text-dark mb-0"><i class="fas fa-check-circle text-success me-1"></i> حفظ وتحديث الرسوم الدراسية والعروض والخصومات</h6>
+                                <small class="text-muted">يتم تطبيق جدول الرسوم والعروض فوراً على صفحة المدرسة بالدليل</small>
+                            </div>
+                            <button type="submit" class="btn-luxury-primary px-4 py-2">
+                                <i class="fas fa-save me-1"></i> حفظ وتحديث الرسوم والعروض
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+
                 <!-- TAB: MEDIA & PHOTO GALLERY -->
                 <div class="tab-pane fade <?= $activeDashTab === 'media' ? 'show active' : '' ?>" id="dash-media" role="tabpanel">
                     
