@@ -1094,18 +1094,18 @@ $totalRev = max(1, count($reviewsList));
                 <?php if ($feesType === 'detailed' && !empty($stageFeesList)): ?>
                 <div class="sp-stat-item">
                     <i class="fas fa-coins" style="color: #059669;"></i>
-                    <span>الرسوم: <a href="#school-fees-section" class="text-success fw-bold text-decoration-none">مفصلة حسب المراحل <i class="fas fa-arrow-down small"></i></a></span>
+                    <span>الرسوم: <a href="#tab-fees" class="text-success fw-bold text-decoration-none" onclick="switchTab(document.querySelector('[data-target=\'tab-fees\']'), 'tab-fees'); return false;">مفصلة حسب المراحل <i class="fas fa-arrow-left small"></i></a></span>
                 </div>
                 <?php elseif (!empty($school['approx_fees'])): ?>
                 <div class="sp-stat-item">
                     <i class="fas fa-coins" style="color: #059669;"></i>
-                    <span>الرسوم: <strong><?= e($school['approx_fees']) ?></strong></span>
+                    <span>الرسوم: <a href="#tab-fees" class="text-success fw-bold text-decoration-none" onclick="switchTab(document.querySelector('[data-target=\'tab-fees\']'), 'tab-fees'); return false;"><?= e($school['approx_fees']) ?> <i class="fas fa-arrow-left small"></i></a></span>
                 </div>
                 <?php endif; ?>
                 <?php if (!empty($feeDiscountsList)): ?>
                 <div class="sp-stat-item">
                     <i class="fas fa-tags" style="color: #9333EA;"></i>
-                    <span><a href="#school-fees-section" class="fw-bold text-decoration-none" style="color: #7E22CE;">عروض وخصومات (<?= count($feeDiscountsList) ?>) <i class="fas fa-arrow-down small"></i></a></span>
+                    <span><a href="#tab-fees" class="fw-bold text-decoration-none" style="color: #7E22CE;" onclick="switchTab(document.querySelector('[data-target=\'tab-fees\']'), 'tab-fees'); return false;">عروض وخصومات (<?= count($feeDiscountsList) ?>) <i class="fas fa-arrow-left small"></i></a></span>
                 </div>
                 <?php endif; ?>
                 <?php if (!empty($stages)): ?>
@@ -1150,6 +1150,17 @@ $totalRev = max(1, count($reviewsList));
                     <button class="sp-tab-btn active" data-target="tab-overview" onclick="switchTab(this, 'tab-overview')">
                         <i class="fas fa-info-circle"></i>
                         <span>نبذة ومعلومات</span>
+                    </button>
+                    <button class="sp-tab-btn" data-target="tab-fees" id="tabBtnFees" onclick="switchTab(this, 'tab-fees')">
+                        <i class="fas fa-coins" style="color: #F59E0B;"></i>
+                        <span>الرسوم الدراسية</span>
+                        <?php if (!empty($feeDiscountsList)): ?>
+                            <span class="tab-count" style="background: #9333EA; color: #fff;">عروض (<?= count($feeDiscountsList) ?>)</span>
+                        <?php elseif ($feesType === 'detailed' && !empty($stageFeesList)): ?>
+                            <span class="tab-count" style="background: #059669; color: #fff;"><?= count($stageFeesList) ?> مراحل</span>
+                        <?php elseif (!empty($school['approx_fees'])): ?>
+                            <span class="tab-count" style="background: #059669; color: #fff;">محددة</span>
+                        <?php endif; ?>
                     </button>
                     <button class="sp-tab-btn" data-target="tab-admission" id="tabBtnAdmission" onclick="switchTab(this, 'tab-admission')">
                         <i class="fas fa-user-graduate"></i>
@@ -1272,111 +1283,46 @@ $totalRev = max(1, count($reviewsList));
                         </div>
                     </div>
 
-                    <!-- Detailed Stage Fees & Discounts Section -->
+                    <!-- Quick Fees Teaser Card inside Overview -->
                     <?php if (($feesType === 'detailed' && !empty($stageFeesList)) || !empty($feeDiscountsList) || !empty($school['approx_fees'])): ?>
-                    <div class="sp-section" id="school-fees-section">
+                    <div class="sp-section">
                         <div class="sp-section-head">
                             <div class="sp-section-title">
                                 <div class="title-icon" style="background: #ECFDF5; color: #059669;"><i class="fas fa-coins"></i></div>
                                 الرسوم الدراسية والتسهيلات المالية
                             </div>
-                            <div class="d-flex align-items-center gap-2 flex-wrap">
-                                <?php if (!empty($feeDiscountsList)): ?>
-                                    <span class="badge" style="background: #FAF5FF; color: #7E22CE; border: 1px solid #E9D5FF; border-radius: 20px; padding: 5px 12px; font-size: 0.74rem; font-weight: 800;">
-                                        <i class="fas fa-tags me-1"></i> <?= count($feeDiscountsList) ?> عروض وخصومات
-                                    </span>
-                                <?php endif; ?>
-                                <?php if ($feesType === 'detailed' && !empty($stageFeesList)): ?>
-                                    <span class="badge" style="background: #ECFDF5; color: #047857; border: 1px solid #A7F3D0; border-radius: 20px; padding: 5px 12px; font-size: 0.74rem; font-weight: 800;">
-                                        <?= count($stageFeesList) ?> بنود دراسية
-                                    </span>
-                                <?php endif; ?>
-                            </div>
+                            <button type="button" class="btn btn-sm btn-light border rounded-pill px-3 py-1 fw-bold" style="font-size: 0.74rem; color: #059669;" onclick="switchTab(document.querySelector('[data-target=\'tab-fees\']'), 'tab-fees')">
+                                <span>عرض جدول الرسوم والخصومات</span> <i class="fas fa-arrow-left ms-1"></i>
+                            </button>
                         </div>
                         <div class="sp-section-body">
-                            <?php if ($feesType === 'detailed' && !empty($stageFeesList)): ?>
-                            <div class="table-responsive">
-                                <table class="table table-hover align-middle mb-0" style="border: 1px solid #E2E8F0; border-radius: 12px; overflow: hidden;">
-                                    <thead style="background: #F8FAFC;">
-                                        <tr>
-                                            <th style="font-size: 0.75rem; color: #475569; padding: 10px 14px;">المرحلة / القسم</th>
-                                            <th style="font-size: 0.75rem; color: #475569; padding: 10px 14px;">البيان أو الصف الدراسي</th>
-                                            <th style="font-size: 0.75rem; color: #475569; padding: 10px 14px;">قيمة الرسوم</th>
-                                            <th style="font-size: 0.75rem; color: #475569; padding: 10px 14px;">طريقة السداد / ملاحظات</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($stageFeesList as $item): ?>
-                                        <tr>
-                                            <td style="font-weight: 700; color: #0F172A; font-size: 0.78rem; padding: 12px 14px;">
-                                                <span class="badge bg-light text-dark border"><?= e($item['stage'] ?? 'عام') ?></span>
-                                            </td>
-                                            <td style="font-size: 0.78rem; color: #334155; padding: 12px 14px;">
-                                                <?= e($item['title'] ?? '') ?>
-                                            </td>
-                                            <td style="font-size: 0.85rem; font-weight: 800; color: #059669; padding: 12px 14px;">
-                                                <?= e($item['amount'] ?? '') ?>
-                                            </td>
-                                            <td style="font-size: 0.74rem; color: #64748B; padding: 12px 14px;">
-                                                <?= e($item['notes'] ?? '—') ?>
-                                            </td>
-                                        </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <?php endif; ?>
-
-                            <?php if (!empty($school['approx_fees'])): ?>
-                            <div class="<?= ($feesType === 'detailed' && !empty($stageFeesList)) ? 'mt-3' : 'mb-3' ?> p-3 rounded-3 bg-light border text-muted small d-flex align-items-center justify-content-between flex-wrap gap-2" style="font-size: 0.76rem;">
-                                <div class="d-flex align-items-center gap-2">
-                                    <i class="fas fa-info-circle text-primary"></i>
-                                    <span>متوسط الرسوم السنوية: <strong class="text-dark"><?= e($school['approx_fees']) ?></strong></span>
-                                </div>
-                                <span class="badge bg-white text-secondary border">ملخص تقديري</span>
-                            </div>
-                            <?php endif; ?>
-
-                            <?php if (!empty($feeDiscountsList)): ?>
-                            <!-- Special Offers & Discounts Block -->
-                            <div class="mt-4 pt-3 border-top">
-                                <h6 class="fw-bold mb-3 d-flex align-items-center gap-2 text-dark" style="font-size: 0.9rem;">
-                                    <span class="d-inline-flex align-items-center justify-content-center rounded-circle" style="width: 28px; height: 28px; background: #FAF5FF; color: #9333EA; font-size: 0.8rem;">
-                                        <i class="fas fa-gift"></i>
-                                    </span>
-                                    <span>العروض والخصومات والمنح المتاحة</span>
-                                </h6>
-                                <div class="row g-3">
-                                    <?php foreach ($feeDiscountsList as $disc): ?>
-                                    <div class="col-md-6">
-                                        <div class="card h-100 border rounded-3 p-3 position-relative overflow-hidden" style="background: linear-gradient(135deg, #FAF5FF 0%, #FFFFFF 100%); border-color: #E9D5FF !important;">
-                                            <div class="d-flex align-items-start justify-content-between gap-2 mb-2">
-                                                <h6 class="fw-bold text-dark mb-0" style="font-size: 0.88rem;">
-                                                    <i class="fas fa-tag text-purple me-1" style="color: #9333EA;"></i>
-                                                    <?= e($disc['title'] ?? '') ?>
-                                                </h6>
-                                                <span class="badge px-3 py-1 rounded-pill fw-bold shadow-sm" style="background: linear-gradient(135deg, #9333EA 0%, #7E22CE 100%); color: #FFFFFF; font-size: 0.8rem;">
-                                                    <?= e($disc['value'] ?? '') ?>
-                                                </span>
-                                            </div>
-                                            <?php if (!empty($disc['applies_to'])): ?>
-                                            <div class="mb-2" style="font-size: 0.74rem; color: #6B21A8; font-weight: 600;">
-                                                <i class="fas fa-user-check me-1"></i>
-                                                الفئة المستفيدة: <span class="text-dark fw-normal"><?= e($disc['applies_to']) ?></span>
-                                            </div>
-                                            <?php endif; ?>
-                                            <?php if (!empty($disc['notes'])): ?>
-                                            <div class="text-muted" style="font-size: 0.72rem; line-height: 1.6;">
-                                                <i class="fas fa-info-circle me-1 text-secondary"></i>
-                                                <?= e($disc['notes']) ?>
-                                            </div>
+                            <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 p-3 rounded-3" style="background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%); border: 1px solid #BBF7D0;">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div style="width: 44px; height: 44px; border-radius: 12px; background: #059669; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; box-shadow: 0 4px 10px rgba(5,150,105,0.25);">
+                                        <i class="fas fa-receipt"></i>
+                                    </div>
+                                    <div>
+                                        <div class="fw-bold text-dark" style="font-size: 0.92rem;">
+                                            <?php if ($feesType === 'detailed' && !empty($stageFeesList)): ?>
+                                                جدول الرسوم مفصل لـ <?= count($stageFeesList) ?> مراحل دراسية معتمدة
+                                            <?php elseif (!empty($school['approx_fees'])): ?>
+                                                متوسط الرسوم السنوية: <?= e($school['approx_fees']) ?>
+                                            <?php else: ?>
+                                                تفاصيل الرسوم الدراسية متاحة
                                             <?php endif; ?>
                                         </div>
+                                        <div class="text-secondary small mt-1" style="font-size: 0.74rem;">
+                                            <?php if (!empty($feeDiscountsList)): ?>
+                                                <span class="badge text-white px-2 py-0 me-1" style="background: #9333EA; font-size: 0.7rem;"><i class="fas fa-tags me-1"></i> <?= count($feeDiscountsList) ?> عروض وخصومات</span>
+                                            <?php endif; ?>
+                                            يمكنكم الاطلاع على جدول الرسوم الكامل لكل مرحلة دراسية، شروط السداد، والتخفيضات في تبويب الرسوم المخصص.
+                                        </div>
                                     </div>
-                                    <?php endforeach; ?>
                                 </div>
+                                <button type="button" class="btn btn-sm btn-success fw-bold px-3 py-2 rounded-3 shadow-sm d-inline-flex align-items-center gap-1" style="font-size: 0.8rem; background: #059669; border-color: #059669;" onclick="switchTab(document.querySelector('[data-target=\'tab-fees\']'), 'tab-fees')">
+                                    <i class="fas fa-coins me-1"></i> فتح تبويب الرسوم الدراسية
+                                </button>
                             </div>
-                            <?php endif; ?>
                         </div>
                     </div>
                     <?php endif; ?>
@@ -1484,6 +1430,197 @@ $totalRev = max(1, count($reviewsList));
                         </div>
                         <button type="button" class="btn-luxury-gold px-3 py-2 fw-bold" onclick="switchTab(document.querySelector('[data-target=\'tab-admission\']'), 'tab-admission')">
                             <i class="fas fa-file-signature me-1"></i> فتح بوابة القبول والتسجيل
+                        </button>
+                    </div>
+
+                </div>
+
+                <!-- TAB: FEES (بوابة الرسوم الدراسية والتسهيلات المالية) -->
+                <div id="tab-fees" class="sp-tab-pane" style="display: none;">
+                    
+                    <!-- 1. Fees Hero Banner -->
+                    <div class="sp-section mb-4" style="background: linear-gradient(135deg, #064E3B 0%, #047857 60%, #0D9488 100%); color: #ffffff; border-radius: 18px; padding: 26px; border: 1px solid #10B981;">
+                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                            <div>
+                                <div class="d-flex align-items-center gap-2 mb-2 flex-wrap">
+                                    <span class="badge" style="background: rgba(255,255,255,0.18); color: #A7F3D0; font-size: 0.75rem; font-weight: 700; padding: 5px 12px; border-radius: 20px;">
+                                        <i class="fas fa-coins me-1"></i> الرسوم المعتمدة
+                                    </span>
+                                    <span class="badge" style="background: rgba(255,255,255,0.15); color: #FCD34D; font-size: 0.75rem; padding: 5px 12px; border-radius: 20px;">
+                                        <i class="fas fa-calendar-alt me-1"></i> العام الدراسي الجديد
+                                    </span>
+                                    <?php if (!empty($feeDiscountsList)): ?>
+                                    <span class="badge" style="background: #FAF5FF; color: #7E22CE; font-size: 0.75rem; font-weight: 700; padding: 5px 12px; border-radius: 20px;">
+                                        <i class="fas fa-tags me-1"></i> <?= count($feeDiscountsList) ?> عروض وخصومات متاحة
+                                    </span>
+                                    <?php endif; ?>
+                                </div>
+                                <h4 class="fw-bold mb-1" style="font-size: 1.25rem;">الرسوم الدراسية والتسهيلات المالية</h4>
+                                <p class="mb-0 text-light opacity-75" style="font-size: 0.76rem; max-width: 580px; line-height: 1.6;">
+                                    تفاصيل الرسوم لكافة المراحل الدراسية، بنود وخيارات السداد، والمنح والعروض التشجيعية المتاحة في <?= e($school['name']) ?> لتيسير تعليم أبنائكم.
+                                </p>
+                            </div>
+                            <div class="d-flex flex-column gap-2 text-md-end">
+                                <button type="button" class="btn btn-sm btn-luxury-gold px-3 py-2 fw-bold d-inline-flex align-items-center justify-content-center gap-2 shadow-sm" onclick="switchTab(document.querySelector('[data-target=\'tab-admission\']'), 'tab-admission')">
+                                    <i class="fas fa-file-signature"></i>
+                                    <span>الانتقال لبوابة القبول</span>
+                                </button>
+                                <?php if (!empty($school['whatsapp'])): ?>
+                                <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $school['whatsapp']) ?>?text=<?= urlencode('مرحباً بكم، أود الاستفسار عن تفاصيل الرسوم الدراسية وخيارات السداد في ' . $school['name']) ?>" target="_blank" class="btn btn-sm btn-outline-light px-3 py-2 rounded-3 d-inline-flex align-items-center justify-content-center gap-2">
+                                    <i class="fab fa-whatsapp"></i>
+                                    <span>استفسار مالي عبر واتساب</span>
+                                </a>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Detailed Fees Table or Overview -->
+                    <?php if (($feesType === 'detailed' && !empty($stageFeesList)) || !empty($school['approx_fees'])): ?>
+                    <div class="sp-section" id="school-fees-section">
+                        <div class="sp-section-head">
+                            <div class="sp-section-title">
+                                <div class="title-icon" style="background: #ECFDF5; color: #059669;"><i class="fas fa-receipt"></i></div>
+                                جدول الرسوم حسب المرحلة والصف الدراسي
+                            </div>
+                            <?php if ($feesType === 'detailed' && !empty($stageFeesList)): ?>
+                                <span class="badge" style="background: #ECFDF5; color: #047857; border: 1px solid #A7F3D0; border-radius: 20px; padding: 5px 12px; font-size: 0.74rem; font-weight: 800;">
+                                    <?= count($stageFeesList) ?> مراحل معتمدة
+                                </span>
+                            <?php endif; ?>
+                        </div>
+                        <div class="sp-section-body">
+                            <?php if ($feesType === 'detailed' && !empty($stageFeesList)): ?>
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle mb-0" style="border: 1px solid #E2E8F0; border-radius: 12px; overflow: hidden;">
+                                    <thead style="background: #F8FAFC;">
+                                        <tr>
+                                            <th style="font-size: 0.75rem; color: #475569; padding: 10px 14px;">المرحلة / القسم</th>
+                                            <th style="font-size: 0.75rem; color: #475569; padding: 10px 14px;">البيان أو الصف الدراسي</th>
+                                            <th style="font-size: 0.75rem; color: #475569; padding: 10px 14px;">قيمة الرسوم</th>
+                                            <th style="font-size: 0.75rem; color: #475569; padding: 10px 14px;">طريقة السداد / ملاحظات</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($stageFeesList as $item): ?>
+                                        <tr>
+                                            <td style="font-weight: 700; color: #0F172A; font-size: 0.78rem; padding: 12px 14px;">
+                                                <span class="badge bg-light text-dark border"><?= e($item['stage'] ?? 'عام') ?></span>
+                                            </td>
+                                            <td style="font-size: 0.78rem; color: #334155; padding: 12px 14px;">
+                                                <?= e($item['title'] ?? '') ?>
+                                            </td>
+                                            <td style="font-size: 0.85rem; font-weight: 800; color: #059669; padding: 12px 14px;">
+                                                <?= e($item['amount'] ?? '') ?>
+                                            </td>
+                                            <td style="font-size: 0.74rem; color: #64748B; padding: 12px 14px;">
+                                                <?= e($item['notes'] ?? '—') ?>
+                                            </td>
+                                        </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <?php endif; ?>
+
+                            <?php if (!empty($school['approx_fees'])): ?>
+                            <div class="<?= ($feesType === 'detailed' && !empty($stageFeesList)) ? 'mt-3' : '' ?> p-3 rounded-3 bg-light border text-muted small d-flex align-items-center justify-content-between flex-wrap gap-2" style="font-size: 0.76rem;">
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="fas fa-info-circle text-primary"></i>
+                                    <span>متوسط الرسوم السنوية: <strong class="text-dark"><?= e($school['approx_fees']) ?></strong></span>
+                                </div>
+                                <span class="badge bg-white text-secondary border">ملخص تقديري</span>
+                            </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <?php else: ?>
+                    <div class="sp-section" id="school-fees-section">
+                        <div class="sp-section-body text-center p-5">
+                            <div style="width: 60px; height: 60px; border-radius: 50%; background: #ECFDF5; color: #059669; font-size: 1.5rem; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 12px;">
+                                <i class="fas fa-coins"></i>
+                            </div>
+                            <h6 class="fw-bold text-dark mb-1">الرسوم الدراسية تحدد مع إدارة المدرسة</h6>
+                            <p class="text-muted small mb-3" style="max-width: 440px; margin: 0 auto 16px;">
+                                لم يتم نشر جدول الرسوم التفصيلي للمدرسة حتى الآن. يمكنكم التواصل المباشر مع إدارة التسجيل أو تقديم طلب استفسار لمعرفة الرسوم وطرق السداد.
+                            </p>
+                            <?php if (!empty($school['phone']) || !empty($school['whatsapp'])): ?>
+                            <div class="d-flex justify-content-center gap-2 flex-wrap">
+                                <?php if (!empty($school['whatsapp'])): ?>
+                                <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $school['whatsapp']) ?>?text=<?= urlencode('مرحباً بكم، أود الاستفسار عن تفاصيل الرسوم الدراسية وطرق السداد في ' . $school['name']) ?>" target="_blank" class="btn btn-sm btn-success px-3 py-2 fw-bold rounded-3">
+                                    <i class="fab fa-whatsapp me-1"></i> استفسار واتساب
+                                </a>
+                                <?php endif; ?>
+                                <?php if (!empty($school['phone'])): ?>
+                                <a href="tel:<?= e($school['phone']) ?>" class="btn btn-sm btn-outline-primary px-3 py-2 fw-bold rounded-3">
+                                    <i class="fas fa-phone-alt me-1"></i> اتصال: <?= e($school['phone']) ?>
+                                </a>
+                                <?php endif; ?>
+                            </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <?php endif; ?>
+
+                    <!-- 3. Special Offers & Discounts Section -->
+                    <?php if (!empty($feeDiscountsList)): ?>
+                    <div class="sp-section mt-4">
+                        <div class="sp-section-head">
+                            <div class="sp-section-title">
+                                <div class="title-icon" style="background: #FAF5FF; color: #9333EA;"><i class="fas fa-gift"></i></div>
+                                العروض والخصومات والمنح الدراسية
+                            </div>
+                            <span class="badge" style="background: #FAF5FF; color: #7E22CE; border: 1px solid #E9D5FF; border-radius: 20px; padding: 5px 12px; font-size: 0.74rem; font-weight: 800;">
+                                <?= count($feeDiscountsList) ?> عروض نشطة
+                            </span>
+                        </div>
+                        <div class="sp-section-body">
+                            <div class="row g-3">
+                                <?php foreach ($feeDiscountsList as $disc): ?>
+                                <div class="col-md-6">
+                                    <div class="card h-100 border rounded-3 p-3 position-relative overflow-hidden" style="background: linear-gradient(135deg, #FAF5FF 0%, #FFFFFF 100%); border-color: #E9D5FF !important;">
+                                        <div class="d-flex align-items-start justify-content-between gap-2 mb-2">
+                                            <h6 class="fw-bold text-dark mb-0" style="font-size: 0.88rem;">
+                                                <i class="fas fa-tag text-purple me-1" style="color: #9333EA;"></i>
+                                                <?= e($disc['title'] ?? '') ?>
+                                            </h6>
+                                            <span class="badge px-3 py-1 rounded-pill fw-bold shadow-sm" style="background: linear-gradient(135deg, #9333EA 0%, #7E22CE 100%); color: #FFFFFF; font-size: 0.8rem;">
+                                                <?= e($disc['value'] ?? '') ?>
+                                            </span>
+                                        </div>
+                                        <?php if (!empty($disc['applies_to'])): ?>
+                                        <div class="mb-2" style="font-size: 0.74rem; color: #6B21A8; font-weight: 600;">
+                                            <i class="fas fa-user-check me-1"></i>
+                                            الفئة المستفيدة: <span class="text-dark fw-normal"><?= e($disc['applies_to']) ?></span>
+                                        </div>
+                                        <?php endif; ?>
+                                        <?php if (!empty($disc['notes'])): ?>
+                                        <div class="text-muted" style="font-size: 0.72rem; line-height: 1.6;">
+                                            <i class="fas fa-info-circle me-1 text-secondary"></i>
+                                            <?= e($disc['notes']) ?>
+                                        </div>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endif; ?>
+
+                    <!-- 4. Next Step: Call To Action to Admission Tab -->
+                    <div class="mt-4 p-4 rounded-4 border d-flex align-items-center justify-content-between flex-wrap gap-3" style="background: linear-gradient(135deg, #F0FDF4 0%, #E6F9EE 100%); border-color: #86EFAC !important;">
+                        <div class="d-flex align-items-center gap-3">
+                            <div style="width: 48px; height: 48px; border-radius: 14px; background: linear-gradient(135deg, #059669, #047857); display: flex; align-items: center; justify-content: center; color: #FFFFFF; font-size: 1.3rem; flex-shrink: 0; box-shadow: 0 4px 14px rgba(5,150,105,0.25);">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-1" style="color: #064E3B; font-size: 0.95rem;">هل أنت جاهز لتسجيل ابنك في المدرسة؟</h6>
+                                <p class="mb-0 text-muted" style="font-size: 0.76rem;">انتقل إلى بوابة القبول والتسجيل للاطلاع على الشروط والمستندات المطلوبة وتقديم طلب القبول الإلكتروني مباشرة.</p>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-luxury-primary px-3 py-2 fw-bold" style="background: linear-gradient(135deg, #059669 0%, #047857 100%);" onclick="switchTab(document.querySelector('[data-target=\'tab-admission\']'), 'tab-admission')">
+                            <i class="fas fa-file-signature me-1"></i> التقديم في القبول والتسجيل
                         </button>
                     </div>
 
@@ -2244,18 +2381,23 @@ $totalRev = max(1, count($reviewsList));
                             <div>
                                 <span class="sp-fact-label">الرسوم الدراسية</span>
                                 <?php if ($feesType === 'detailed' && !empty($stageFeesList)): ?>
-                                    <a href="#school-fees-section" class="sp-fact-value text-decoration-none d-inline-flex align-items-center gap-1" style="color: #16a34a; font-weight: 700;">
+                                    <a href="#tab-fees" onclick="switchTab(document.querySelector('[data-target=\'tab-fees\']'), 'tab-fees'); return false;" class="sp-fact-value text-decoration-none d-inline-flex align-items-center gap-1" style="color: #16a34a; font-weight: 700;">
                                         <span>مفصلة حسب المراحل</span>
-                                        <i class="fas fa-chevron-down" style="font-size: 0.65rem;"></i>
+                                        <i class="fas fa-arrow-left" style="font-size: 0.65rem;"></i>
                                     </a>
                                     <?php if (!empty($school['approx_fees'])): ?>
                                         <small class="text-muted d-block" style="font-size: 0.68rem;">(متوسط: <?= e($school['approx_fees']) ?>)</small>
                                     <?php endif; ?>
+                                <?php elseif (!empty($school['approx_fees'])): ?>
+                                    <a href="#tab-fees" onclick="switchTab(document.querySelector('[data-target=\'tab-fees\']'), 'tab-fees'); return false;" class="sp-fact-value text-decoration-none d-inline-flex align-items-center gap-1" style="color: #16a34a; font-weight: 700;">
+                                        <span><?= e($school['approx_fees']) ?></span>
+                                        <i class="fas fa-arrow-left" style="font-size: 0.65rem;"></i>
+                                    </a>
                                 <?php else: ?>
-                                    <span class="sp-fact-value" style="color: #16a34a;"><?= e($school['approx_fees'] ?: 'تحدد مع الإدارة') ?></span>
+                                    <span class="sp-fact-value" style="color: var(--text-muted);">تحدد مع الإدارة</span>
                                 <?php endif; ?>
                                 <?php if (!empty($feeDiscountsList)): ?>
-                                    <a href="#school-fees-section" class="badge text-decoration-none mt-1 d-inline-block" style="background: #FAF5FF; color: #7E22CE; border: 1px solid #E9D5FF; font-size: 0.68rem; font-weight: 700;">
+                                    <a href="#tab-fees" onclick="switchTab(document.querySelector('[data-target=\'tab-fees\']'), 'tab-fees'); return false;" class="badge text-decoration-none mt-1 d-inline-block" style="background: #FAF5FF; color: #7E22CE; border: 1px solid #E9D5FF; font-size: 0.68rem; font-weight: 700;">
                                         <i class="fas fa-tags me-1"></i> تتوفر عروض وخصومات (<?= count($feeDiscountsList) ?>)
                                     </a>
                                 <?php endif; ?>
@@ -2581,6 +2723,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 switchTab(admBtn, 'tab-admission');
                 setTimeout(() => {
                     const targetEl = document.getElementById(hash.replace('#', '')) || document.getElementById('inquiry-form-section');
+                    if (targetEl) targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 250);
+            }
+        } else if (hash === '#tab-fees' || hash === '#school-fees-section') {
+            const feesBtn = document.querySelector('[data-target="tab-fees"]');
+            if (feesBtn) {
+                switchTab(feesBtn, 'tab-fees');
+                setTimeout(() => {
+                    const targetEl = document.getElementById('school-fees-section');
                     if (targetEl) targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }, 250);
             }
