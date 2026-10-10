@@ -466,18 +466,6 @@ if ($isSearching) {
 
             <!-- SMART UNIFIED FILTER BAR (Preserved & Integrated inside Hero) -->
             <form action="/" method="GET" class="filter-bar-card" id="smartFilterForm">
-                <div class="filter-bar-header">
-                    <div class="filter-bar-title">
-                        <i class="fas fa-sliders-h text-warning"></i>
-                        <span>البحث السريع والفلترة الذكية</span>
-                    </div>
-                    <div class="filter-quick-links">
-                        <a href="/?view=all" class="filter-quick-pill"><i class="fas fa-school text-primary me-1"></i> كل المدارس</a>
-                        <a href="/?view=schoplus" class="filter-quick-pill"><i class="fas fa-bolt text-warning me-1"></i> مدارس SchoPlus</a>
-                        <a href="/register.php" class="filter-quick-pill" style="color: var(--brand-gold); border-color: #FCD34D; background: #FFFBEB;"><i class="fas fa-plus-circle me-1"></i> أضف مدرستك مجاناً</a>
-                    </div>
-                </div>
-
                 <div class="row g-2 align-items-center">
                     
                     <!-- 1. State Filter (الولاية) -->
