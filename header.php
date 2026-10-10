@@ -15,6 +15,19 @@ $isDaleelMobile = (
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="_N537rCkVvCqHnhP1qUaVRtqiNzAB-tcGFNeAm9z5gU">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <link rel="canonical" href="<?= isset($canonicalUrl) ? e($canonicalUrl) : (isset($ogUrl) ? e($ogUrl) : 'https://daleel.schoplus.sd' . e(parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH))) ?>">
+
+    <!-- Google tag (gtag.js) - Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SMPS2NBVZ3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-SMPS2NBVZ3');
+    </script>
+
     <link rel="icon" type="image/png" href="/assets/images/favicon.png">
     <link rel="apple-touch-icon" href="/assets/images/logo-icon.png">
     <title><?= isset($pageTitle) ? e($pageTitle) . ' | دليل المدارس السودانية — SchoPlus' : 'دليل المدارس السودانية — دليلك الشامل لاختيار أفضل المدارس في السودان' ?></title>

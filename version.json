@@ -1,7 +1,7 @@
 {
-    "version": "3.5.89",
+    "version": "3.5.92",
     "release_date": "2026-10-10",
     "version_type": "enterprise",
     "min_php_version": "8.2",
-    "release_notes": "دليل المدارس (daleel.schoplus.sd) — إضافة كود إثبات ملكية Google Search Console وتفعيل خريطة الموقع الديناميكية وفهرسة المدارس"
+    "release_notes": "دليل المدارس (daleel.schoplus.sd) — ربط Google Analytics 4 (G-SMPS2NBVZ3) وتفعيل وسوم Canonical و Robots لتعزيز فهرسة كافة صفحات المدارس"
 }
