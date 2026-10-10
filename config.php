@@ -54,9 +54,9 @@ if (!function_exists('defaultNewsImage')) {
         $words = preg_split('/\s+/u', $cleanTitle, -1, PREG_SPLIT_NO_EMPTY);
         $line1 = '';
         $line2 = '';
-        if (is_array($words) && count($words) > 1 && mb_strlen($cleanTitle) > 35) {
+        if (is_array($words) && count($words) > 1 && mb_strlen($cleanTitle) > 30) {
             foreach ($words as $w) {
-                if (mb_strlen($line1 . ' ' . $w) <= 35) {
+                if (mb_strlen($line1 . ' ' . $w) <= 32) {
                     $line1 = trim($line1 . ' ' . $w);
                 } else {
                     $line2 = trim($line2 . ' ' . $w);
@@ -68,34 +68,34 @@ if (!function_exists('defaultNewsImage')) {
 
         $titleSvg = '';
         if ($line2 !== '') {
-            $titleSvg = '<text x="545" y="130" fill="#FFFFFF" font-family="Cairo, Segoe UI, Tahoma, sans-serif" font-size="20" font-weight="800" text-anchor="end" direction="rtl">' . $line1 . '</text>'
-                      . '<text x="545" y="162" fill="#FFFFFF" font-family="Cairo, Segoe UI, Tahoma, sans-serif" font-size="19" font-weight="800" text-anchor="end" direction="rtl">' . $line2 . '</text>';
+            $titleSvg = '<text x="300" y="125" fill="#FFFFFF" font-family="Cairo, Segoe UI, Tahoma, sans-serif" font-size="19" font-weight="800" text-anchor="middle">' . $line1 . '</text>'
+                      . '<text x="300" y="156" fill="#FFFFFF" font-family="Cairo, Segoe UI, Tahoma, sans-serif" font-size="18" font-weight="800" text-anchor="middle">' . $line2 . '</text>';
         } else {
-            $titleSvg = '<text x="545" y="145" fill="#FFFFFF" font-family="Cairo, Segoe UI, Tahoma, sans-serif" font-size="22" font-weight="800" text-anchor="end" direction="rtl">' . $line1 . '</text>';
+            $titleSvg = '<text x="300" y="140" fill="#FFFFFF" font-family="Cairo, Segoe UI, Tahoma, sans-serif" font-size="22" font-weight="800" text-anchor="middle">' . $line1 . '</text>';
         }
 
-        $svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 340" width="600" height="340">'
+        $svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320" width="600" height="320">'
             . '<defs>'
             . '<linearGradient id="nBg" x1="0%" y1="0%" x2="100%" y2="100%">'
-            . '<stop offset="0%" stop-color="#0B2A52"/>'
-            . '<stop offset="50%" stop-color="#163870"/>'
-            . '<stop offset="100%" stop-color="#1E5FA8"/>'
+            . '<stop offset="0%" stop-color="#081F3D"/>'
+            . '<stop offset="50%" stop-color="#0F2E59"/>'
+            . '<stop offset="100%" stop-color="#1A4A85"/>'
             . '</linearGradient>'
             . '<linearGradient id="goldAcc" x1="0%" y1="0%" x2="100%" y2="0%">'
             . '<stop offset="0%" stop-color="#F59E0B"/>'
             . '<stop offset="100%" stop-color="#D97706"/>'
             . '</linearGradient>'
             . '</defs>'
-            . '<rect width="600" height="340" rx="16" fill="url(#nBg)"/>'
+            . '<rect width="600" height="320" rx="16" fill="url(#nBg)"/>'
             . '<circle cx="530" cy="50" r="140" fill="rgba(255,255,255,0.03)"/>'
-            . '<circle cx="70" cy="280" r="120" fill="rgba(255,255,255,0.02)"/>'
-            . '<rect x="25" y="25" width="550" height="290" rx="12" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>'
-            . '<rect x="420" y="38" width="135" height="30" rx="15" fill="rgba(255,255,255,0.12)"/>'
-            . '<text x="487" y="58" fill="#FBBF24" font-family="Cairo, Segoe UI, Tahoma, sans-serif" font-size="13" font-weight="700" text-anchor="middle">إعلان مدرسي</text>'
+            . '<circle cx="70" cy="270" r="120" fill="rgba(255,255,255,0.02)"/>'
+            . '<rect x="20" y="20" width="560" height="280" rx="14" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>'
+            . '<rect x="235" y="34" width="130" height="28" rx="14" fill="rgba(255,255,255,0.12)" stroke="rgba(245,158,11,0.3)" stroke-width="1"/>'
+            . '<text x="300" y="53" fill="#FBBF24" font-family="Cairo, Segoe UI, Tahoma, sans-serif" font-size="12" font-weight="700" text-anchor="middle">📢 إعلان مدرسي</text>'
             . $titleSvg
-            . '<line x1="55" y1="195" x2="545" y2="195" stroke="url(#goldAcc)" stroke-width="3" stroke-linecap="round"/>'
-            . '<text x="545" y="240" fill="#E2E8F0" font-family="Cairo, Segoe UI, Tahoma, sans-serif" font-size="17" font-weight="700" text-anchor="end" direction="rtl">' . $cleanSchool . $cleanBranch . '</text>'
-            . '<rect x="0" y="332" width="600" height="8" fill="url(#goldAcc)"/>'
+            . '<line x1="200" y1="188" x2="400" y2="188" stroke="url(#goldAcc)" stroke-width="3" stroke-linecap="round"/>'
+            . '<text x="300" y="228" fill="#E2E8F0" font-family="Cairo, Segoe UI, Tahoma, sans-serif" font-size="16" font-weight="700" text-anchor="middle">' . $cleanSchool . $cleanBranch . '</text>'
+            . '<rect x="0" y="312" width="600" height="8" fill="url(#goldAcc)"/>'
             . '</svg>';
 
         return 'data:image/svg+xml;base64,' . base64_encode($svg);

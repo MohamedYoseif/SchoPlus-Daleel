@@ -2045,8 +2045,8 @@ $totalRev = max(1, count($reviewsList));
             <div class="modal-body p-4">
                 <!-- Frame for News Banner Image (منسقة بشكل فاخر وجذاب دون قص) -->
                 <div id="newsReaderModalImgWrap" class="mb-4 text-center" style="display: none;">
-                    <div class="p-2 rounded-4 bg-light border shadow-xs d-inline-block w-100" style="max-width: 600px;">
-                        <img id="newsReaderModalImg" src="" alt="صورة الخبر أو الإعلان" class="img-fluid rounded-3" style="width: 100%; height: auto; max-height: 380px; object-fit: contain; display: block; margin: 0 auto; box-shadow: 0 4px 14px rgba(11,42,82,0.06); cursor: pointer;" onclick="spLightboxOpen(this.src, document.getElementById('newsReaderModalTitle').innerText)" title="انقر لتكبير الصورة">
+                    <div style="display: inline-block; max-width: 520px; width: 100%;">
+                        <img id="newsReaderModalImg" src="" alt="صورة الخبر أو الإعلان" class="img-fluid rounded-4 shadow-sm" style="width: 100%; height: auto; max-height: 290px; object-fit: contain; display: block; margin: 0 auto; border: 1px solid rgba(11,42,82,0.08); cursor: pointer;" onclick="spLightboxOpen(this.src, document.getElementById('newsReaderModalTitle').innerText)" title="انقر لتكبير الصورة">
                     </div>
                 </div>
 
