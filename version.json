@@ -1,7 +1,7 @@
 {
-    "version": "3.5.67",
+    "version": "3.5.68",
     "release_date": "2026-10-10",
     "version_type": "enterprise",
     "min_php_version": "8.2",
-    "release_notes": "daleel.schoplus.sd — إعادة هيكلة وتصميم تبويب تعديل وإضافة بيانات المدرسة بلوحة التحكم (dashboard.php): تحويل النموذج إلى 7 بطاقات تخصصية منظمة مع شريط تنقل سريع وانسيابي وشريط حفظ علوي وسفلي"
+    "release_notes": "daleel.schoplus.sd — بناء تطبيق أندرويد أصيل بالكامل (100% Native Android App) باسم «دليل المدارس السودانية»: واجهات أصلية Material Design مع RecyclerView للمدارس، شريط أفقي للولايات، تبويب الأخبار، شريط سفلي BottomNavigationView، وأيقونة اللوغو الرسمية"
 }

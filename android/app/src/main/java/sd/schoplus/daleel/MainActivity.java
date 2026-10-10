@@ -1,393 +1,353 @@
 package sd.schoplus.daleel;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.app.DownloadManager;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.net.ConnectivityManager;
-import android.net.NetworkCapabilities;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.Handler;
-import android.os.Looper;
-import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
-import android.webkit.GeolocationPermissions;
-import android.webkit.ValueCallback;
-import android.webkit.WebChromeClient;
-import android.webkit.WebResourceError;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.activity.OnBackPressedCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
 import androidx.core.splashscreen.SplashScreen;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import org.json.JSONObject;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String TARGET_URL = "https://daleel.schoplus.sd/";
-
-    private WebView webView;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private ProgressBar progressBar;
-    private View offlineLayout;
-    private Button btnRetry;
+    private RecyclerView rvSchools, rvStates, rvNews;
+    private SchoolsAdapter schoolsAdapter;
+    private StatesAdapter statesAdapter;
+    private NewsAdapter newsAdapter;
 
-    private ValueCallback<Uri[]> filePathCallback;
-    private Uri cameraImageUri;
-    private GeolocationPermissions.Callback geolocationCallback;
-    private String geolocationOrigin;
+    private final List<School> schoolList = new ArrayList<>();
+    private final List<StateItem> stateList = new ArrayList<>();
+    private final List<NewsItem> newsList = new ArrayList<>();
 
-    private boolean doubleBackToExitPressedOnce = false;
+    private EditText etSearch;
+    private ImageView btnClearSearch, btnRefreshTop;
+    private ProgressBar pbLoading;
+    private TextView tvEmptyState, tvSchoolsCount, tvSchoolsSectionTitle;
+    private LinearLayout sectionStates, layoutNewsFeed;
+    private BottomNavigationView bottomNav;
 
-    // File Chooser Launcher (Camera + Gallery)
-    private final ActivityResultLauncher<Intent> fileChooserLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (filePathCallback == null) return;
-                Uri[] results = null;
-                if (result.getResultCode() == RESULT_OK) {
-                    Intent data = result.getData();
-                    if (data != null && data.getData() != null) {
-                        results = new Uri[]{data.getData()};
-                    } else if (data != null && data.getClipData() != null) {
-                        int count = data.getClipData().getItemCount();
-                        results = new Uri[count];
-                        for (int i = 0; i < count; i++) {
-                            results[i] = data.getClipData().getItemAt(i).getUri();
-                        }
-                    } else if (cameraImageUri != null) {
-                        results = new Uri[]{cameraImageUri};
-                    }
-                }
-                filePathCallback.onReceiveValue(results);
-                filePathCallback = null;
-            }
-    );
-
-    // Permission Launcher for Location
-    private final ActivityResultLauncher<String[]> locationPermissionLauncher = registerForActivityResult(
-            new ActivityResultContracts.RequestMultiplePermissions(),
-            permissions -> {
-                boolean granted = Boolean.TRUE.equals(permissions.get(Manifest.permission.ACCESS_FINE_LOCATION))
-                        || Boolean.TRUE.equals(permissions.get(Manifest.permission.ACCESS_COARSE_LOCATION));
-                if (geolocationCallback != null && geolocationOrigin != null) {
-                    geolocationCallback.invoke(geolocationOrigin, granted, false);
-                    geolocationCallback = null;
-                    geolocationOrigin = null;
-                }
-            }
-    );
+    private String currentStateFilter = "";
+    private boolean isSchoplusFilter = false;
+    private long backPressedTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Initialize Material Splash Screen
         SplashScreen.installSplashScreen(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         initViews();
-        setupWebView();
-        setupSwipeRefresh();
-        setupBackNavigation();
+        setupAdapters();
+        setupListeners();
 
-        if (isNetworkAvailable()) {
-            showWebView();
-            webView.loadUrl(TARGET_URL);
-        } else {
-            showOfflineView();
-        }
+        loadHomeData();
     }
 
     private void initViews() {
-        webView = findViewById(R.id.webView);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
-        progressBar = findViewById(R.id.progressBar);
-        offlineLayout = findViewById(R.id.offlineLayout);
-        btnRetry = findViewById(R.id.btnRetry);
+        swipeRefreshLayout.setColorSchemeColors(getColor(R.color.colorGold), getColor(R.color.colorBlue));
 
-        btnRetry.setOnClickListener(v -> {
-            if (isNetworkAvailable()) {
-                showWebView();
-                webView.reload();
-            } else {
-                Toast.makeText(this, R.string.offline_title, Toast.LENGTH_SHORT).show();
-            }
-        });
+        rvSchools = findViewById(R.id.rvSchools);
+        rvStates = findViewById(R.id.rvStates);
+        rvNews = findViewById(R.id.rvNews);
+
+        etSearch = findViewById(R.id.etSearchSchool);
+        btnClearSearch = findViewById(R.id.btnClearSearch);
+        btnRefreshTop = findViewById(R.id.btnRefreshTop);
+        pbLoading = findViewById(R.id.pbLoading);
+        tvEmptyState = findViewById(R.id.tvEmptyState);
+        tvSchoolsCount = findViewById(R.id.tvSchoolsCount);
+        tvSchoolsSectionTitle = findViewById(R.id.tvSchoolsSectionTitle);
+
+        sectionStates = findViewById(R.id.sectionStates);
+        layoutNewsFeed = findViewById(R.id.layoutNewsFeed);
+        bottomNav = findViewById(R.id.bottomNavigationView);
     }
 
-    @SuppressLint("SetJavaScriptEnabled")
-    private void setupWebView() {
-        WebSettings settings = webView.getSettings();
-        settings.setJavaScriptEnabled(true);
-        settings.setDomStorageEnabled(true);
-        settings.setDatabaseEnabled(true);
-        settings.setGeolocationEnabled(true);
-        settings.setAllowFileAccess(true);
-        settings.setAllowContentAccess(true);
-        settings.setLoadWithOverviewMode(true);
-        settings.setUseWideViewPort(true);
-        settings.setSupportZoom(false);
-        settings.setBuiltInZoomControls(false);
-        settings.setMediaPlaybackRequiresUserGesture(false);
+    private void setupAdapters() {
+        // Schools Vertical List
+        schoolsAdapter = new SchoolsAdapter(this, schoolList, school -> {
+            Intent intent = new Intent(MainActivity.this, SchoolDetailActivity.class);
+            intent.putExtra("school", school);
+            startActivity(intent);
+        });
+        rvSchools.setLayoutManager(new LinearLayoutManager(this));
+        rvSchools.setAdapter(schoolsAdapter);
 
-        // Cache setup for fast loading
-        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
+        // States Horizontal List
+        statesAdapter = new StatesAdapter(this, stateList, stateItem -> {
+            currentStateFilter = stateItem.name;
+            etSearch.setText("");
+            performSearch();
+        });
+        rvStates.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        rvStates.setAdapter(statesAdapter);
 
-        // Custom SchoPlus User Agent suffix
-        String customUA = settings.getUserAgentString() + " SchoPlusApp/1.0.0 (Android; DaleelApp)";
-        settings.setUserAgentString(customUA);
-
-        webView.setWebViewClient(new DaleelWebViewClient());
-        webView.setWebChromeClient(new DaleelWebChromeClient());
-
-        // Handle File Downloads
-        webView.setDownloadListener((url, userAgent, contentDisposition, mimetype, contentLength) -> {
-            try {
-                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
-                request.setMimeType(mimetype);
-                request.addRequestHeader("User-Agent", userAgent);
-                request.setDescription("تحميل ملف من دليل المدارس");
-                request.setTitle(url.substring(url.lastIndexOf('/') + 1));
-                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, url.substring(url.lastIndexOf('/') + 1));
-
-                DownloadManager dm = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-                if (dm != null) {
-                    dm.enqueue(request);
-                    Toast.makeText(this, "جارٍ تنزيل الملف...", Toast.LENGTH_SHORT).show();
-                }
-            } catch (Exception e) {
-                Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                startActivity(i);
+        // News List
+        newsAdapter = new NewsAdapter(this, newsList, news -> {
+            if (news.schoolId > 0) {
+                School dummy = new School();
+                dummy.id = news.schoolId;
+                dummy.name = news.schoolName;
+                dummy.shareUrl = "https://daleel.schoplus.sd/school.php?id=" + news.schoolId;
+                Intent intent = new Intent(MainActivity.this, SchoolDetailActivity.class);
+                intent.putExtra("school", dummy);
+                startActivity(intent);
             }
         });
+        rvNews.setLayoutManager(new LinearLayoutManager(this));
+        rvNews.setAdapter(newsAdapter);
     }
 
-    private void setupSwipeRefresh() {
-        swipeRefreshLayout.setColorSchemeColors(
-                ContextCompat.getColor(this, R.color.colorGold),
-                ContextCompat.getColor(this, R.color.colorNavy),
-                ContextCompat.getColor(this, R.color.colorBlue)
-        );
+    private void setupListeners() {
         swipeRefreshLayout.setOnRefreshListener(() -> {
-            if (isNetworkAvailable()) {
-                webView.reload();
+            if (layoutNewsFeed.getVisibility() == View.VISIBLE) {
+                loadNewsData();
+            } else if (!currentStateFilter.isEmpty() || etSearch.getText().length() > 0 || isSchoplusFilter) {
+                performSearch();
             } else {
-                swipeRefreshLayout.setRefreshing(false);
-                showOfflineView();
+                loadHomeData();
             }
         });
-    }
 
-    private void setupBackNavigation() {
-        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+        btnRefreshTop.setOnClickListener(v -> {
+            currentStateFilter = "";
+            isSchoplusFilter = false;
+            etSearch.setText("");
+            loadHomeData();
+        });
+
+        btnClearSearch.setOnClickListener(v -> {
+            etSearch.setText("");
+            currentStateFilter = "";
+            isSchoplusFilter = false;
+            loadHomeData();
+        });
+
+        etSearch.addTextChangedListener(new TextWatcher() {
             @Override
-            public void handleOnBackPressed() {
-                if (webView.canGoBack()) {
-                    webView.goBack();
-                } else {
-                    if (doubleBackToExitPressedOnce) {
-                        finish();
-                        return;
-                    }
-                    doubleBackToExitPressedOnce = true;
-                    Toast.makeText(MainActivity.this, R.string.press_again_to_exit, Toast.LENGTH_SHORT).show();
-                    new Handler(Looper.getMainLooper()).postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                btnClearSearch.setVisibility(s.length() > 0 ? View.VISIBLE : View.GONE);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() >= 2) {
+                    performSearch();
+                } else if (s.length() == 0) {
+                    loadHomeData();
                 }
             }
         });
-    }
 
-    private boolean isNetworkAvailable() {
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (cm == null) return false;
-        NetworkCapabilities nc = cm.getNetworkCapabilities(cm.getActiveNetwork());
-        return nc != null && (nc.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
-                || nc.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
-                || nc.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET));
-    }
-
-    private void showOfflineView() {
-        offlineLayout.setVisibility(View.VISIBLE);
-        swipeRefreshLayout.setVisibility(View.GONE);
-        progressBar.setVisibility(View.GONE);
-    }
-
-    private void showWebView() {
-        offlineLayout.setVisibility(View.GONE);
-        swipeRefreshLayout.setVisibility(View.VISIBLE);
-    }
-
-    // ==========================================
-    // WEBVIEW CLIENT
-    // ==========================================
-    private class DaleelWebViewClient extends WebViewClient {
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-            Uri uri = request.getUrl();
-            String scheme = uri.getScheme();
-            String url = uri.toString();
-
-            // WhatsApp Handling
-            if (url.startsWith("whatsapp://") || url.contains("wa.me") || url.contains("api.whatsapp.com")) {
-                try {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                    startActivity(intent);
+        bottomNav.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int itemId = item.getItemId();
+                if (itemId == R.id.nav_home) {
+                    showHomeView();
+                    currentStateFilter = "";
+                    isSchoplusFilter = false;
+                    etSearch.setText("");
+                    loadHomeData();
                     return true;
-                } catch (Exception e) {
-                    Toast.makeText(MainActivity.this, "تطبيق واتساب غير مثبت على الجهاز", Toast.LENGTH_SHORT).show();
+                } else if (itemId == R.id.nav_search) {
+                    showHomeView();
+                    etSearch.requestFocus();
+                    return true;
+                } else if (itemId == R.id.nav_news) {
+                    showNewsView();
+                    loadNewsData();
+                    return true;
+                } else if (itemId == R.id.nav_schoplus) {
+                    showHomeView();
+                    isSchoplusFilter = true;
+                    currentStateFilter = "";
+                    performSearch();
                     return true;
                 }
-            }
-
-            // Phone Dialer Handling
-            if ("tel".equalsIgnoreCase(scheme)) {
-                Intent intent = new Intent(Intent.ACTION_DIAL, uri);
-                startActivity(intent);
-                return true;
-            }
-
-            // Email Handling
-            if ("mailto".equalsIgnoreCase(scheme)) {
-                Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
-                startActivity(intent);
-                return true;
-            }
-
-            // Google Maps & Geo Handling
-            if ("geo".equalsIgnoreCase(scheme) || url.contains("maps.google.com") || url.contains("goo.gl/maps")) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
-                return true;
-            }
-
-            // Internal SchoPlus domains stay inside WebView
-            String host = uri.getHost();
-            if (host != null && (host.endsWith("schoplus.sd") || host.equals("localhost"))) {
                 return false;
             }
-
-            // External URLs open in system browser
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            startActivity(intent);
-            return true;
-        }
-
-        @Override
-        public void onPageStarted(WebView view, String url, Bitmap favicon) {
-            super.onPageStarted(view, url, favicon);
-            progressBar.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        public void onPageFinished(WebView view, String url) {
-            super.onPageFinished(view, url);
-            progressBar.setVisibility(View.GONE);
-            swipeRefreshLayout.setRefreshing(false);
-        }
-
-        @Override
-        public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
-            super.onReceivedError(view, request, error);
-            if (request.isForMainFrame()) {
-                showOfflineView();
-            }
-        }
+        });
     }
 
-    // ==========================================
-    // WEBCHROME CLIENT
-    // ==========================================
-    private class DaleelWebChromeClient extends WebChromeClient {
-        @Override
-        public void onProgressChanged(WebView view, int newProgress) {
-            progressBar.setProgress(newProgress);
-            if (newProgress >= 100) {
-                progressBar.setVisibility(View.GONE);
+    private void showHomeView() {
+        layoutNewsFeed.setVisibility(View.GONE);
+        findViewById(R.id.nestedScrollView).setVisibility(View.VISIBLE);
+    }
+
+    private void showNewsView() {
+        findViewById(R.id.nestedScrollView).setVisibility(View.GONE);
+        layoutNewsFeed.setVisibility(View.VISIBLE);
+    }
+
+    private void loadHomeData() {
+        pbLoading.setVisibility(View.VISIBLE);
+        sectionStates.setVisibility(View.VISIBLE);
+        tvSchoolsSectionTitle.setText("🏫 المدارس المعتمدة في الدليل");
+
+        ApiClient.get("?action=home", new ApiClient.ApiCallback() {
+            @Override
+            public void onSuccess(String response) {
+                pbLoading.setVisibility(View.GONE);
                 swipeRefreshLayout.setRefreshing(false);
-            } else {
-                progressBar.setVisibility(View.VISIBLE);
+
+                try {
+                    JSONObject json = new JSONObject(response);
+                    if (json.optBoolean("success")) {
+                        JSONObject data = json.optJSONObject("data");
+                        if (data != null) {
+                            // States
+                            stateList.clear();
+                            stateList.addAll(StateItem.fromJsonArray(data.optJSONArray("states")));
+                            statesAdapter.notifyDataSetChanged();
+
+                            // Schools (Combined Latest + Top Rated)
+                            schoolList.clear();
+                            schoolList.addAll(School.fromJsonArray(data.optJSONArray("schoplus_schools")));
+                            schoolList.addAll(School.fromJsonArray(data.optJSONArray("top_rated_schools")));
+                            schoolsAdapter.notifyDataSetChanged();
+
+                            tvSchoolsCount.setText(schoolList.size() + " مدارس");
+                            tvEmptyState.setVisibility(schoolList.isEmpty() ? View.VISIBLE : View.GONE);
+                        }
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(MainActivity.this, "تعذر قراءة البيانات: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
+
+            @Override
+            public void onError(Exception e) {
+                pbLoading.setVisibility(View.GONE);
+                swipeRefreshLayout.setRefreshing(false);
+                Toast.makeText(MainActivity.this, "فشل الاتصال بالخادم. تأكد من اتصال الإنترنت.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void performSearch() {
+        pbLoading.setVisibility(View.VISIBLE);
+        String query = etSearch.getText().toString().trim();
+
+        StringBuilder params = new StringBuilder("?action=schools&limit=30");
+        try {
+            if (!query.isEmpty()) {
+                params.append("&q=").append(URLEncoder.encode(query, "UTF-8"));
+            }
+            if (!currentStateFilter.isEmpty()) {
+                params.append("&state=").append(URLEncoder.encode(currentStateFilter, "UTF-8"));
+            }
+            if (isSchoplusFilter) {
+                params.append("&schoplus_only=1");
+            }
+        } catch (Exception ignored) {}
+
+        if (!currentStateFilter.isEmpty()) {
+            tvSchoolsSectionTitle.setText("📍 مدارس ولاية " + currentStateFilter);
+        } else if (isSchoplusFilter) {
+            tvSchoolsSectionTitle.setText("⚡ مدارس SchoPlus الذكية");
+        } else if (!query.isEmpty()) {
+            tvSchoolsSectionTitle.setText("🔍 نتائج البحث عن: " + query);
         }
 
-        @Override
-        public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
-            geolocationCallback = callback;
-            geolocationOrigin = origin;
+        ApiClient.get(params.toString(), new ApiClient.ApiCallback() {
+            @Override
+            public void onSuccess(String response) {
+                pbLoading.setVisibility(View.GONE);
+                swipeRefreshLayout.setRefreshing(false);
 
-            if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                callback.invoke(origin, true, false);
-            } else {
-                locationPermissionLauncher.launch(new String[]{
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION
-                });
+                try {
+                    JSONObject json = new JSONObject(response);
+                    if (json.optBoolean("success")) {
+                        JSONObject data = json.optJSONObject("data");
+                        if (data != null) {
+                            schoolList.clear();
+                            schoolList.addAll(School.fromJsonArray(data.optJSONArray("schools")));
+                            schoolsAdapter.notifyDataSetChanged();
+
+                            tvSchoolsCount.setText(schoolList.size() + " مدارس");
+                            tvEmptyState.setVisibility(schoolList.isEmpty() ? View.VISIBLE : View.GONE);
+                        }
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(MainActivity.this, "خطأ: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
+
+            @Override
+            public void onError(Exception e) {
+                pbLoading.setVisibility(View.GONE);
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+    }
+
+    private void loadNewsData() {
+        pbLoading.setVisibility(View.VISIBLE);
+        ApiClient.get("?action=news&limit=20", new ApiClient.ApiCallback() {
+            @Override
+            public void onSuccess(String response) {
+                pbLoading.setVisibility(View.GONE);
+                swipeRefreshLayout.setRefreshing(false);
+
+                try {
+                    JSONObject json = new JSONObject(response);
+                    if (json.optBoolean("success")) {
+                        JSONObject data = json.optJSONObject("data");
+                        if (data != null) {
+                            newsList.clear();
+                            newsList.addAll(NewsItem.fromJsonArray(data.optJSONArray("news")));
+                            newsAdapter.notifyDataSetChanged();
+                        }
+                    }
+                } catch (Exception ignored) {}
+            }
+
+            @Override
+            public void onError(Exception e) {
+                pbLoading.setVisibility(View.GONE);
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (layoutNewsFeed.getVisibility() == View.VISIBLE || isSchoplusFilter || !currentStateFilter.isEmpty() || etSearch.getText().length() > 0) {
+            showHomeView();
+            currentStateFilter = "";
+            isSchoplusFilter = false;
+            etSearch.setText("");
+            loadHomeData();
+            return;
         }
 
-        @Override
-        public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams) {
-            MainActivity.this.filePathCallback = filePathCallback;
-
-            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ignored) {}
-
-            if (photoFile != null) {
-                cameraImageUri = FileProvider.getUriForFile(MainActivity.this, "sd.schoplus.daleel.fileprovider", photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, cameraImageUri);
-            }
-
-            Intent contentSelectionIntent = new Intent(Intent.ACTION_GET_CONTENT);
-            contentSelectionIntent.addCategory(Intent.CATEGORY_OPENABLE);
-            contentSelectionIntent.setType("image/*");
-
-            Intent[] intentArray;
-            if (photoFile != null) {
-                intentArray = new Intent[]{takePictureIntent};
-            } else {
-                intentArray = new Intent[0];
-            }
-
-            Intent chooserIntent = new Intent(Intent.ACTION_CHOOSER);
-            chooserIntent.putExtra(Intent.EXTRA_INTENT, contentSelectionIntent);
-            chooserIntent.putExtra(Intent.EXTRA_TITLE, "اختيار صورة");
-            chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intentArray);
-
-            fileChooserLauncher.launch(chooserIntent);
-            return true;
-        }
-
-        private File createImageFile() throws IOException {
-            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date());
-            String imageFileName = "JPEG_" + timeStamp + "_";
-            File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-            return File.createTempFile(imageFileName, ".jpg", storageDir);
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            super.onBackPressed();
+        } else {
+            Toast.makeText(this, "اضغط مرة أخرى للخروج من التطبيق", Toast.LENGTH_SHORT).show();
+            backPressedTime = System.currentTimeMillis();
         }
     }
 }
