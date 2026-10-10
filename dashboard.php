@@ -193,6 +193,105 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $successMsg = 'تم حفظ وإرسال رد المدرسة على التقييم بنجاح.';
             }
         }
+
+        // 5. UPLOAD / DELETE LOGO
+        elseif ($action === 'upload_logo') {
+            if (!empty($_FILES['logo']['tmp_name'])) {
+                $upLogo = handleUpload($_FILES['logo'], 'logos');
+                if ($upLogo) {
+                    $pdo->prepare("UPDATE daleel_schools SET logo_path = ? WHERE id = ?")->execute([$upLogo, $schoolId]);
+                    $successMsg = 'تم تحديث ورفع شعار المدرسة بنجاح!';
+                    $stmt->execute([$schoolId]);
+                    $school = $stmt->fetch();
+                } else {
+                    $errorMsg = 'فشل رفع الشعار، يرجى التأكد من أن الملف صورة صالحة (PNG أو JPG أو WebP).';
+                }
+            } else {
+                $errorMsg = 'يرجى اختيار صورة الشعار أولاً.';
+            }
+        }
+        elseif ($action === 'delete_logo') {
+            $pdo->prepare("UPDATE daleel_schools SET logo_path = NULL WHERE id = ?")->execute([$schoolId]);
+            $successMsg = 'تم حذف شعار المدرسة بنجاح.';
+            $stmt->execute([$schoolId]);
+            $school = $stmt->fetch();
+        }
+
+        // 6. UPLOAD / DELETE COVER
+        elseif ($action === 'upload_cover') {
+            if (!empty($_FILES['cover']['tmp_name'])) {
+                $upCover = handleUpload($_FILES['cover'], 'covers');
+                if ($upCover) {
+                    $pdo->prepare("UPDATE daleel_schools SET cover_path = ? WHERE id = ?")->execute([$upCover, $schoolId]);
+                    $successMsg = 'تم تحديث ورفع صورة الغلاف بنجاح!';
+                    $stmt->execute([$schoolId]);
+                    $school = $stmt->fetch();
+                } else {
+                    $errorMsg = 'فشل رفع الغلاف، يرجى التأكد من أن الملف صورة صالحة.';
+                }
+            } else {
+                $errorMsg = 'يرجى اختيار صورة الغلاف أولاً.';
+            }
+        }
+        elseif ($action === 'delete_cover') {
+            $pdo->prepare("UPDATE daleel_schools SET cover_path = NULL WHERE id = ?")->execute([$schoolId]);
+            $successMsg = 'تم حذف صورة الغلاف بنجاح.';
+            $stmt->execute([$schoolId]);
+            $school = $stmt->fetch();
+        }
+
+        // 7. ADD GALLERY PHOTO (Max 8)
+        elseif ($action === 'add_gallery_photo') {
+            $currGallery = json_decode($school['gallery'] ?? '[]', true) ?: [];
+            if (count($currGallery) >= 8) {
+                $errorMsg = 'الحد الأقصى لمعرض الصور هو 8 صور. يمكنك حذف صورة سابقة لإفساح المجال لصورة جديدة.';
+            } elseif (!empty($_FILES['gallery_photo']['tmp_name'])) {
+                $upPhoto = handleUpload($_FILES['gallery_photo'], 'gallery');
+                if ($upPhoto) {
+                    $caption = trim($_POST['caption'] ?? '');
+                    $currGallery[] = [
+                        'id' => uniqid('gal_', true),
+                        'path' => $upPhoto,
+                        'caption' => $caption,
+                        'created_at' => date('Y-m-d H:i')
+                    ];
+                    $pdo->prepare("UPDATE daleel_schools SET gallery = ? WHERE id = ?")->execute([
+                        json_encode($currGallery, JSON_UNESCAPED_UNICODE),
+                        $schoolId
+                    ]);
+                    $successMsg = 'تمت إضافة الصورة بنجاح إلى معرض مرافق المدرسة!';
+                    $stmt->execute([$schoolId]);
+                    $school = $stmt->fetch();
+                } else {
+                    $errorMsg = 'فشل رفع الصورة، يرجى التأكد من اختيار ملف صورة صالح.';
+                }
+            } else {
+                $errorMsg = 'يرجى تحديد ملف الصورة المراد إضافتها.';
+            }
+        }
+
+        // 8. DELETE GALLERY PHOTO
+        elseif ($action === 'delete_gallery_photo') {
+            $photoId = trim($_POST['photo_id'] ?? '');
+            $currGallery = json_decode($school['gallery'] ?? '[]', true) ?: [];
+            $filtered = [];
+            foreach ($currGallery as $item) {
+                if ($item['id'] === $photoId) {
+                    if (!empty($item['path']) && file_exists(__DIR__ . '/' . $item['path'])) {
+                        @unlink(__DIR__ . '/' . $item['path']);
+                    }
+                } else {
+                    $filtered[] = $item;
+                }
+            }
+            $pdo->prepare("UPDATE daleel_schools SET gallery = ? WHERE id = ?")->execute([
+                json_encode($filtered, JSON_UNESCAPED_UNICODE),
+                $schoolId
+            ]);
+            $successMsg = 'تم حذف الصورة من المعرض بنجاح.';
+            $stmt->execute([$schoolId]);
+            $school = $stmt->fetch();
+        }
     }
 }
 
@@ -209,6 +308,7 @@ $inqStmt = $pdo->prepare("SELECT * FROM daleel_school_inquiries WHERE school_id 
 $inqStmt->execute([$schoolId]);
 $inquiriesList = $inqStmt->fetchAll();
 
+$galleryList = json_decode($school['gallery'] ?? '[]', true) ?: [];
 $currentStages = json_decode($school['stages'] ?? '[]', true) ?: [];
 $currentFacilities = json_decode($school['facilities'] ?? '[]', true) ?: [];
 $statesWithCities = SudanGeography::statesWithCities();
@@ -428,6 +528,11 @@ require_once __DIR__ . '/header.php';
                     </button>
                 </li>
                 <li class="nav-item flex-fill text-center" role="presentation">
+                    <button class="nav-link rounded-pill fw-bold py-2 w-100" id="dash-media-tab" data-bs-toggle="tab" data-bs-target="#dash-media" type="button" role="tab">
+                        <i class="fas fa-images me-1"></i> الشعار والغلاف ومعرض الصور (<?= count($galleryList) ?>)
+                    </button>
+                </li>
+                <li class="nav-item flex-fill text-center" role="presentation">
                     <button class="nav-link rounded-pill fw-bold py-2 w-100" id="dash-news-tab" data-bs-toggle="tab" data-bs-target="#dash-news" type="button" role="tab">
                         <i class="fas fa-bullhorn me-1"></i> إدارة الأخبار والإعلانات (<?= count($newsList) ?>)
                     </button>
@@ -448,6 +553,24 @@ require_once __DIR__ . '/header.php';
                 
                 <!-- TAB 1: EDIT PROFILE & MEDIA -->
                 <div class="tab-pane fade show active" id="dash-profile" role="tabpanel">
+                    
+                    <!-- Quick Jump to Media & Gallery -->
+                    <div class="alert alert-light border shadow-sm rounded-4 p-3 mb-4 d-flex align-items-center justify-content-between flex-wrap gap-2" style="background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%); border: 1.5px solid #BFDBFE !important;">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center flex-shrink-0" style="width: 44px; height: 44px;">
+                                <i class="fas fa-camera-retro fs-5"></i>
+                            </div>
+                            <div>
+                                <strong class="text-dark d-block">الهوية البصرية ومعرض الصور:</strong>
+                                <small class="text-muted">هل تريد تغيير الشعار، صورة الغلاف، أو إضافة صور مرافق المدرسة؟ يمكنك إدارتها الآن عبر التبويب المخصص بكل سهولة.</small>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-primary rounded-pill px-3 py-2 fw-bold d-flex align-items-center gap-2 shadow-sm" onclick="document.getElementById('dash-media-tab').click()">
+                            <i class="fas fa-images"></i>
+                            <span>فتح إدارة الشعار والغلاف والمعرض</span>
+                        </button>
+                    </div>
+
                     <form method="POST" action="dashboard.php" enctype="multipart/form-data">
                         <?= csrf_field() ?>
                         <input type="hidden" name="action" value="update_profile">
@@ -657,6 +780,194 @@ require_once __DIR__ . '/header.php';
                             </div>
                         </div>
                     </form>
+                </div>
+
+                <!-- TAB: MEDIA & PHOTO GALLERY -->
+                <div class="tab-pane fade" id="dash-media" role="tabpanel">
+                    
+                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-4 p-3 bg-light rounded-4 border">
+                        <div>
+                            <h6 class="fw-bold text-dark mb-1"><i class="fas fa-camera-retro text-primary me-2"></i> الهوية البصرية ومعرض صور مرافق المدرسة</h6>
+                            <small class="text-muted">قم برفع وتحديث شعار مدرستك وغلاف الواجهة وصور المرافق والفصول والأنشطة لجذب أولياء الأمور.</small>
+                        </div>
+                        <span class="badge bg-primary px-3 py-2 rounded-pill fw-bold" style="font-size:0.85rem">معرض الصور: <?= count($galleryList) ?> / 8 صور</span>
+                    </div>
+
+                    <!-- Row 1: Logo & Cover Cards -->
+                    <div class="row g-4 mb-4">
+                        <!-- Card 1: Official Logo -->
+                        <div class="col-lg-5">
+                            <div class="card border rounded-4 shadow-sm p-4 h-100 bg-white">
+                                <h6 class="fw-bold text-dark mb-3 d-flex align-items-center justify-content-between">
+                                    <span><i class="fas fa-shield-alt text-primary me-2"></i> الشعار الرسمي للمدرسة (Logo)</span>
+                                    <?php if (!empty($school['logo_path'])): ?>
+                                        <span class="badge bg-success-subtle text-success small fw-bold">مرفوع</span>
+                                    <?php else: ?>
+                                        <span class="badge bg-warning-subtle text-warning small fw-bold">غير مرفوع</span>
+                                    <?php endif; ?>
+                                </h6>
+
+                                <div class="text-center my-3 p-3 bg-light rounded-3 border">
+                                    <?php if (!empty($school['logo_path'])): ?>
+                                        <img src="<?= e($school['logo_path']) ?>" alt="الشعار" style="max-height: 110px; max-width: 100%; object-fit: contain;">
+                                    <?php else: ?>
+                                        <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle shadow-sm text-primary fw-bold" style="width: 80px; height: 80px; font-size: 2rem;">
+                                            <?= mb_substr($school['name'], 0, 1) ?>
+                                        </div>
+                                        <div class="small text-muted mt-2">لا يوجد شعار حالياً</div>
+                                    <?php endif; ?>
+                                </div>
+
+                                <form method="POST" action="dashboard.php" enctype="multipart/form-data" class="mt-auto">
+                                    <?= csrf_field() ?>
+                                    <input type="hidden" name="action" value="upload_logo">
+                                    <label class="form-label small fw-bold text-secondary">اختر ملف الشعار (PNG / JPG / WebP):</label>
+                                    <div class="input-group mb-2">
+                                        <input type="file" name="logo" accept="image/*" required class="form-control form-control-sm">
+                                        <button type="submit" class="btn btn-primary btn-sm fw-bold">
+                                            <i class="fas fa-upload me-1"></i> رفع الشعار
+                                        </button>
+                                    </div>
+                                    <small class="text-muted d-block" style="font-size: 0.72rem;">يفضل مقاس مربع لا يقل عن 300 × 300 بكسل بخلفية شفافة أو بيضاء.</small>
+                                </form>
+
+                                <?php if (!empty($school['logo_path'])): ?>
+                                    <form method="POST" action="dashboard.php" class="mt-2 text-start" onsubmit="return confirm('هل أنت متأكد من حذف الشعار؟');">
+                                        <?= csrf_field() ?>
+                                        <input type="hidden" name="action" value="delete_logo">
+                                        <button type="submit" class="btn btn-link text-danger p-0 small text-decoration-none">
+                                            <i class="fas fa-trash-alt me-1"></i> حذف الشعار الحالي
+                                        </button>
+                                    </form>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: Cover Photo Banner -->
+                        <div class="col-lg-7">
+                            <div class="card border rounded-4 shadow-sm p-4 h-100 bg-white">
+                                <h6 class="fw-bold text-dark mb-3 d-flex align-items-center justify-content-between">
+                                    <span><i class="fas fa-panorama text-primary me-2"></i> صورة غلاف الواجهة (Cover Banner)</span>
+                                    <?php if (!empty($school['cover_path'])): ?>
+                                        <span class="badge bg-success-subtle text-success small fw-bold">مرفوع</span>
+                                    <?php else: ?>
+                                        <span class="badge bg-secondary-subtle text-secondary small fw-bold">غلاف افتراضي</span>
+                                    <?php endif; ?>
+                                </h6>
+
+                                <div class="my-3 rounded-3 border overflow-hidden position-relative" style="height: 110px; background: linear-gradient(135deg, #0B2A52 0%, #1E5FA8 100%);">
+                                    <?php if (!empty($school['cover_path'])): ?>
+                                        <img src="<?= e($school['cover_path']) ?>" alt="الغلاف" style="width: 100%; height: 100%; object-fit: cover;">
+                                    <?php else: ?>
+                                        <div class="w-100 h-100 d-flex align-items-center justify-content-center text-white-50 small">
+                                            <i class="fas fa-image me-2"></i> غلاف الواجهة البانورامي الافتراضي
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+
+                                <form method="POST" action="dashboard.php" enctype="multipart/form-data" class="mt-auto">
+                                    <?= csrf_field() ?>
+                                    <input type="hidden" name="action" value="upload_cover">
+                                    <label class="form-label small fw-bold text-secondary">اختر صورة الغلاف العريضة:</label>
+                                    <div class="input-group mb-2">
+                                        <input type="file" name="cover" accept="image/*" required class="form-control form-control-sm">
+                                        <button type="submit" class="btn btn-primary btn-sm fw-bold">
+                                            <i class="fas fa-upload me-1"></i> رفع الغلاف
+                                        </button>
+                                    </div>
+                                    <small class="text-muted d-block" style="font-size: 0.72rem;">المقاس المثالي: 1200 × 400 بكسل لمظهر جذاب على كافة شاشات الحواسيب والهواتف.</small>
+                                </form>
+
+                                <?php if (!empty($school['cover_path'])): ?>
+                                    <form method="POST" action="dashboard.php" class="mt-2 text-start" onsubmit="return confirm('هل أنت متأكد من حذف الغلاف؟');">
+                                        <?= csrf_field() ?>
+                                        <input type="hidden" name="action" value="delete_cover">
+                                        <button type="submit" class="btn btn-link text-danger p-0 small text-decoration-none">
+                                            <i class="fas fa-trash-alt me-1"></i> حذف الغلاف والعودة للافتراضي
+                                        </button>
+                                    </form>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 2: Campus Photo Gallery Card -->
+                    <div class="card border rounded-4 shadow-sm p-4 bg-white">
+                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3 pb-3 border-bottom">
+                            <div>
+                                <h6 class="fw-bold text-dark mb-1"><i class="fas fa-images text-primary me-2"></i> معرض صور مرافق وفعاليات المدرسة (حتى 8 صور)</h6>
+                                <p class="small text-muted mb-0">أظهر مباني المدرسة، الفصول الذكية، المعامل، الملاعب، والمسارح لإعطاء ولي الأمر تجربة بصرية واقعية.</p>
+                            </div>
+                            <span class="badge bg-secondary px-3 py-2 rounded-pill fw-bold">
+                                المتبقي: <?= max(0, 8 - count($galleryList)) ?> صور
+                            </span>
+                        </div>
+
+                        <!-- Add Photo Form (if < 8) -->
+                        <?php if (count($galleryList) < 8): ?>
+                            <div class="p-3 bg-light rounded-4 border mb-4">
+                                <form method="POST" action="dashboard.php" enctype="multipart/form-data">
+                                    <?= csrf_field() ?>
+                                    <input type="hidden" name="action" value="add_gallery_photo">
+                                    <div class="row g-3 align-items-end">
+                                        <div class="col-md-5">
+                                            <label class="form-label small fw-bold text-secondary">اختر صورة المرفق / الفعالية</label>
+                                            <input type="file" name="gallery_photo" accept="image/*" required class="form-control form-control-sm">
+                                        </div>
+                                        <div class="col-md-5">
+                                            <label class="form-label small fw-bold text-secondary">عنوان أو وصف الصورة (اختياري)</label>
+                                            <input type="text" name="caption" class="form-control form-control-sm" placeholder="مثال: معمل العلوم والفيزياء، المسبح المدرسي، الفصول الذكية">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="submit" class="btn btn-success btn-sm w-100 fw-bold py-2 d-flex align-items-center justify-content-center gap-1">
+                                                <i class="fas fa-plus-circle"></i>
+                                                <span>إضافة للمعرض</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        <?php else: ?>
+                            <div class="alert alert-info border-0 rounded-3 small mb-4 py-2">
+                                <i class="fas fa-info-circle me-1"></i> لقد أضفت الحد الأقصى (8 صور). إذا أردت استبدال أي صورة، قم بحذف إحداها أولاً.
+                            </div>
+                        <?php endif; ?>
+
+                        <!-- Current Photos Grid -->
+                        <?php if (empty($galleryList)): ?>
+                            <div class="text-center py-5 bg-light rounded-4 border my-2">
+                                <div class="display-6 text-muted mb-2"><i class="fas fa-images"></i></div>
+                                <h6 class="fw-bold text-dark mb-1">المعرض فارغ حالياً</h6>
+                                <p class="small text-muted mb-0">ابدأ الآن بإضافة صور من واقع مدرستك لجذب آلاف أولياء الأمور الذين يتصفحون الدليل يومياً.</p>
+                            </div>
+                        <?php else: ?>
+                            <div class="row g-3">
+                                <?php foreach ($galleryList as $photo): ?>
+                                    <div class="col-sm-6 col-md-3">
+                                        <div class="card border rounded-3 overflow-hidden h-100 shadow-sm position-relative group-hover">
+                                            <div style="height: 150px; overflow: hidden; background: #f8fafc;">
+                                                <img src="<?= e($photo['path']) ?>" alt="<?= e($photo['caption'] ?: 'مرفق مدرسي') ?>" style="width: 100%; height: 100%; object-fit: cover;">
+                                            </div>
+                                            <div class="p-2 bg-white d-flex align-items-center justify-content-between">
+                                                <small class="text-dark fw-bold text-truncate" style="max-width: 130px;" title="<?= e($photo['caption'] ?: 'بدون عنوان') ?>">
+                                                    <?= e($photo['caption'] ?: 'مرفق مدرسي') ?>
+                                                </small>
+                                                <form method="POST" action="dashboard.php" style="display:inline" onsubmit="return confirm('تأكيد حذف هذه الصورة من المعرض؟');">
+                                                    <?= csrf_field() ?>
+                                                    <input type="hidden" name="action" value="delete_gallery_photo">
+                                                    <input type="hidden" name="photo_id" value="<?= e($photo['id']) ?>">
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger p-0 px-2" style="font-size: 0.75rem;" title="حذف الصورة">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        <?php endif; ?>
+
+                    </div>
                 </div>
 
                 <!-- TAB 2: NEWS & ANNOUNCEMENTS -->

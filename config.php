@@ -123,6 +123,7 @@ function ensureTablesExist(PDO $pdo): void {
         facebook VARCHAR(255) NULL,
         logo_path VARCHAR(255) NULL,
         cover_path VARCHAR(255) NULL,
+        gallery TEXT NULL,
         description TEXT NULL,
         vision TEXT NULL,
         mission TEXT NULL,
@@ -198,6 +199,14 @@ function ensureTablesExist(PDO $pdo): void {
         updated_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         INDEX idx_school (school_id)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
+
+    // Zero-Skip Schema Migration: Ensure gallery column exists in daleel_schools
+    try {
+        $colCheck = $pdo->query("SHOW COLUMNS FROM daleel_schools LIKE 'gallery'")->fetch();
+        if (!$colCheck) {
+            $pdo->exec("ALTER TABLE daleel_schools ADD COLUMN gallery TEXT NULL AFTER cover_path");
+        }
+    } catch (Exception $e) {}
 
     // Seed default flagship schools if empty
     $count = (int) $pdo->query("SELECT COUNT(*) FROM daleel_schools")->fetchColumn();

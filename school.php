@@ -161,13 +161,14 @@ $reviewsStmt = $pdo->prepare("SELECT * FROM daleel_school_reviews WHERE school_i
 $reviewsStmt->execute([$school['id']]);
 $reviewsList = $reviewsStmt->fetchAll();
 
-// Facilities & Stages
+// Facilities, Stages & Campus Gallery
 $facilities = json_decode($school['facilities'] ?? '[]', true) ?: [];
 $stages = json_decode($school['stages'] ?? '[]', true) ?: [];
+$galleryList = json_decode($school['gallery'] ?? '[]', true) ?: [];
 
 $pageTitle = $school['name'];
 $ogTitle = $school['name'] . ' | دليل المدارس الذكي';
-$ogDesc = mb_substr(strip_tags($school['about'] ?: ($school['name'] . ' — ' . $school['state'] . '، ' . $school['city'] . '. تصفح الرسوم، المرافق، وتواصل مباشرة.')), 0, 160);
+$ogDesc = mb_substr(strip_tags(($school['description'] ?? '') ?: ($school['name'] . ' — ' . $school['state'] . '، ' . $school['city'] . '. تصفح الرسوم، المرافق، وتواصل مباشرة.')), 0, 160);
 $ogImage = !empty($school['logo_path']) ? (str_starts_with($school['logo_path'], 'http') ? $school['logo_path'] : 'https://daleel.schoplus.sd/' . ltrim($school['logo_path'], '/')) : (!empty($school['cover_path']) ? (str_starts_with($school['cover_path'], 'http') ? $school['cover_path'] : 'https://daleel.schoplus.sd/' . ltrim($school['cover_path'], '/')) : 'https://daleel.schoplus.sd/logo.png');
 $ogUrl = 'https://daleel.schoplus.sd/school/' . urlencode($school['slug']);
 require_once __DIR__ . '/header.php';
@@ -324,6 +325,12 @@ require_once __DIR__ . '/header.php';
                         </button>
                     </li>
                     <li class="nav-item flex-fill text-center" role="presentation">
+                        <button class="nav-link rounded-pill fw-bold py-2 w-100" id="gallery-tab" data-bs-toggle="tab" data-bs-target="#gallery" type="button" role="tab">
+                            <i class="fas fa-images me-1"></i> معرض الصور
+                            <span class="badge bg-secondary ms-1"><?= count($galleryList) ?></span>
+                        </button>
+                    </li>
+                    <li class="nav-item flex-fill text-center" role="presentation">
                         <button class="nav-link rounded-pill fw-bold py-2 w-100" id="news-tab" data-bs-toggle="tab" data-bs-target="#news" type="button" role="tab">
                             <i class="fas fa-bullhorn me-1"></i> آخر الأخبار
                             <span class="badge bg-secondary ms-1"><?= count($newsList) ?></span>
@@ -445,6 +452,49 @@ require_once __DIR__ . '/header.php';
                                     </div>
                                 </div>
                             </form>
+                        </div>
+                    </div>
+
+                    <!-- TAB: CAMPUS & FACILITIES GALLERY -->
+                    <div class="tab-pane fade" id="gallery" role="tabpanel">
+                        <div class="card border-0 rounded-4 p-4 bg-white shadow-sm mb-4">
+                            <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-4 pb-2 border-bottom">
+                                <h5 class="fw-bold text-dark mb-0 d-flex align-items-center gap-2">
+                                    <span class="text-primary"><i class="fas fa-images"></i></span>
+                                    <span>معرض صور مرافق وفعاليات المدرسة</span>
+                                </h5>
+                                <span class="badge bg-light text-dark border px-3 py-2 rounded-pill small fw-bold">
+                                    <?= count($galleryList) ?> صور متوفرة
+                                </span>
+                            </div>
+
+                            <?php if (empty($galleryList)): ?>
+                                <div class="text-center py-5 text-muted">
+                                    <i class="fas fa-camera display-4 mb-3 text-secondary opacity-50"></i>
+                                    <h6 class="fw-bold text-dark mb-1">لا توجد صور في المعرض حالياً</h6>
+                                    <p class="small text-muted mb-0">لم تقم المدرسة بإضافة صور لمرافقها بعد.</p>
+                                </div>
+                            <?php else: ?>
+                                <div class="row g-3">
+                                    <?php foreach ($galleryList as $idx => $photo): ?>
+                                        <div class="col-sm-6 col-md-4">
+                                            <div class="card border rounded-3 overflow-hidden shadow-sm h-100 position-relative group-hover" style="cursor: pointer;" onclick="openLightbox('<?= e($photo['path']) ?>', '<?= e(addslashes($photo['caption'] ?: $school['name'])) ?>')">
+                                                <div style="height: 190px; overflow: hidden; background: #f8fafc;">
+                                                    <img src="<?= e($photo['path']) ?>" alt="<?= e($photo['caption'] ?: $school['name']) ?>" class="w-100 h-100" style="object-fit: cover; transition: transform 0.3s ease;">
+                                                </div>
+                                                <?php if (!empty($photo['caption'])): ?>
+                                                    <div class="p-2 bg-white border-top text-center">
+                                                        <small class="text-dark fw-bold d-block text-truncate"><?= e($photo['caption']) ?></small>
+                                                    </div>
+                                                <?php endif; ?>
+                                                <div class="position-absolute top-0 end-0 m-2 bg-dark bg-opacity-50 text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 30px; height: 30px; font-size: 0.85rem;">
+                                                    <i class="fas fa-search-plus"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            <?php endif; ?>
                         </div>
                     </div>
 
@@ -801,7 +851,37 @@ require_once __DIR__ . '/header.php';
     </div>
 </div>
 
+<!-- PHOTO LIGHTBOX MODAL -->
+<div class="modal fade" id="photoLightboxModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-transparent border-0 shadow-none">
+            <div class="modal-header border-0 pb-0 justify-content-end">
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-2 text-center">
+                <img id="lightboxImage" src="" alt="" class="img-fluid rounded-4 shadow-lg mb-2" style="max-height: 80vh; object-fit: contain;">
+                <div>
+                    <div id="lightboxCaption" class="text-white fw-bold py-2 bg-dark bg-opacity-75 rounded-pill px-4 d-inline-block small"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
+function openLightbox(src, caption) {
+    document.getElementById('lightboxImage').src = src;
+    const capEl = document.getElementById('lightboxCaption');
+    if (caption && caption.trim()) {
+        capEl.innerText = caption;
+        capEl.style.display = 'inline-block';
+    } else {
+        capEl.style.display = 'none';
+    }
+    const modal = new bootstrap.Modal(document.getElementById('photoLightboxModal'));
+    modal.show();
+}
+
 function openShareModal() {
     const modal = new bootstrap.Modal(document.getElementById('shareSchoolModal'));
     modal.show();
