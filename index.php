@@ -106,7 +106,7 @@ $genderTypes = SudanGeography::genderTypes();
             <span>المنصة الأولى المعتمدة لدليل المدارس في السودان</span>
         </div>
 
-        <h1 style="font-weight: 900; font-size: 2.75rem; color: var(--brand-navy); line-height: 1.25; margin-bottom: 18px; letter-spacing: -0.5px;">
+        <h1 style="font-weight: 900; font-size: clamp(1.4rem, 5vw, 2.75rem); color: var(--brand-navy); line-height: 1.25; margin-bottom: 18px; letter-spacing: -0.5px;">
             اكتشف المدرسة الأنسب لمستقبل أبنائك<br>
             <span style="color: var(--brand-blue);">بكل ثقة وشفافية وسهولة</span>
         </h1>

@@ -51,48 +51,27 @@ if (!$school && !empty($slug)) {
             is_schoplus_client, is_featured, is_verified, rating_avg, reviews_count, views_count,
             status, owner_name, owner_title, owner_phone, password, created_at, updated_at
         ) VALUES (
-            :name, :name_en, :slug, :school_type, :gender_type, :curriculum, :stages,
-            :state, :city, :district, :address, :phone, :whatsapp, :email, :website,
-            :description, :vision, :mission, :approx_fees, :working_hours, :facilities,
-            :is_schoplus_client, :is_featured, :is_verified, :rating_avg, :reviews_count, :views_count,
-            :status, :owner_name, :owner_title, :owner_phone, :password, :created_at, :updated_at
+            :name, :name_en, :slug, 'private', 'mixed', 'sudanese', :stages,
+            'الخرطوم', 'الخرطوم', 'المركز التعليمي المعتمد', 'السودان - ولاية الخرطوم',
+            '+249912345678', '+249912345678', 'info@schoplus.sd', 'https://schoplus.sd',
+            'صرح تعليمي رائد ومتميز مسجل رسمياً في دليل المدارس السودانية المعتمدة، يقدم تعليماً نوعياً متقدماً مدعوماً بأحدث التقنيات السحابية والشراكة مع منظومة SchoPlus.',
+            'الريادة والتميز التربوي والأكاديمي وصناعة قادة المستقبل وفق أعلى المعايير التربوية.',
+            'تقديم بيئة تعليمية محفزة ترعى الإبداع والمواهب بأعلى معايير الجودة والأمان.',
+            'رسوم مناسبة مع توفير خطط تقسيط ميسرة لأولياء الأمور',
+            'الأحد إلى الخميس: 7:30 صباحاً - 2:30 مساءً',
+            :facilities, 1, 1, 1, 5.00, 1, 150,
+            'approved', 'إدارة المدرسة', 'مدير عام الصرح التعليمي', '0912345678',
+            :password, :now, :now
         )");
 
         $ins->execute([
             ':name' => $nameAr,
             ':name_en' => $capitalized,
             ':slug' => $slug,
-            ':school_type' => 'private',
-            ':gender_type' => 'mixed',
-            ':curriculum' => 'sudanese',
             ':stages' => $defaultStages,
-            ':state' => 'الخرطوم',
-            ':city' => 'الخرطوم',
-            ':district' => 'المركز التعليمي المعتمد',
-            ':address' => 'السودان - ولاية الخرطوم',
-            ':phone' => '+249912345678',
-            ':whatsapp' => '+249912345678',
-            ':email' => 'info@schoplus.sd',
-            ':website' => 'https://schoplus.sd',
-            ':description' => 'صرح تعليمي رائد ومتميز مسجل رسمياً في دليل المدارس السودانية المعتمدة، يقدم تعليماً نوعياً متقدماً مدعوماً بأحدث التقنيات السحابية والشراكة مع منظومة SchoPlus.',
-            ':vision' => 'الريادة والتميز التربوي والأكاديمي وصناعة قادة المستقبل وفق أعلى المعايير التربوية.',
-            ':mission' => 'تقديم بيئة تعليمية محفزة ترعى الإبداع والمواهب بأعلى معايير الجودة والأمان.',
-            ':approx_fees' => 'رسوم مناسبة مع توفير خطط تقسيط ميسرة لأولياء الأمور',
-            ':working_hours' => 'الأحد إلى الخميس: 7:30 صباحاً - 2:30 مساءً',
             ':facilities' => $defaultFacilities,
-            ':is_schoplus_client' => 1,
-            ':is_featured' => 1,
-            ':is_verified' => 1,
-            ':rating_avg' => 5.00,
-            ':reviews_count' => 1,
-            ':views_count' => 150,
-            ':status' => 'approved',
-            ':owner_name' => 'إدارة المدرسة',
-            ':owner_title' => 'مدير عام الصرح التعليمي',
-            ':owner_phone' => '0912345678',
             ':password' => password_hash('password123', PASSWORD_BCRYPT),
-            ':created_at' => $now,
-            ':updated_at' => $now,
+            ':now' => $now,
         ]);
 
         $newId = (int)$pdo->lastInsertId();
@@ -115,7 +94,6 @@ if (!$school && !empty($slug)) {
             $school = $stmt->fetch();
         }
     } catch (\Throwable $e) {
-        // Fallback: try fetching by slug or error log
         @error_log("Daleel Auto-Provision error for slug [{$slug}]: " . $e->getMessage());
         $stmt = $pdo->prepare("SELECT * FROM daleel_schools WHERE slug = ?");
         $stmt->execute([$slug]);
@@ -293,6 +271,32 @@ require_once __DIR__ . '/header.php';
     background-size: 16px 16px;
 }
 
+/* Safe Top Cover Badges Container */
+.sp-cover-badges-bar {
+    position: absolute;
+    top: 16px; right: 20px; left: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    z-index: 4;
+}
+.sp-cover-rating-badge {
+    background: rgba(11,42,82,0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 12px;
+    padding: 6px 14px;
+    color: #FFFFFF;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    border: 1px solid rgba(255,255,255,0.18);
+    white-space: nowrap;
+}
+
 .sp-profile-card {
     background: #FFFFFF;
     border-radius: 0 0 24px 24px;
@@ -301,10 +305,6 @@ require_once __DIR__ . '/header.php';
     border-top: none;
     padding: 0 32px 28px;
     position: relative;
-}
-@media (max-width: 767px) {
-    .sp-hero-cover { height: 190px; border-radius: 16px 16px 0 0; }
-    .sp-profile-card { padding: 0 16px 20px; border-radius: 0 0 16px 16px; }
 }
 
 .sp-logo-wrap {
@@ -326,6 +326,33 @@ require_once __DIR__ . '/header.php';
     background: linear-gradient(135deg, var(--brand-navy), var(--brand-blue));
     display: flex; align-items: center; justify-content: center;
     font-size: 2.6rem; font-weight: 900; color: #FFFFFF;
+}
+
+.sp-school-title {
+    font-size: clamp(1.2rem, 3.5vw, 1.85rem);
+    color: var(--brand-navy);
+    line-height: 1.25;
+    font-weight: 800;
+}
+.sp-school-subtitle {
+    font-size: 0.86rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+.sp-school-loc {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    display: flex; align-items: center; gap: 6px;
+}
+
+.sp-action-btns-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.sp-action-btns-wrap .sp-btn-action {
+    padding: 9px 14px;
+    font-size: 0.86rem;
 }
 
 .sp-quick-stats {
@@ -406,9 +433,6 @@ require_once __DIR__ . '/header.php';
     font-size: 0.95rem; flex-shrink: 0;
 }
 .sp-section-body { padding: 24px; }
-@media (max-width: 767px) {
-    .sp-section-head, .sp-section-body { padding: 16px; }
-}
 
 .vm-block {
     border-radius: 16px;
@@ -456,7 +480,6 @@ require_once __DIR__ . '/header.php';
 }
 
 .sp-gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-@media (max-width: 576px) { .sp-gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } }
 .sp-gallery-item {
     border-radius: 16px; overflow: hidden;
     aspect-ratio: 4/3;
@@ -642,6 +665,169 @@ require_once __DIR__ . '/header.php';
     cursor: pointer; transition: background 0.2s ease;
 }
 #spLightboxClose:hover { background: rgba(255,255,255,0.28); }
+
+/* ===== SPECIFIC MOBILE ENHANCEMENTS ===== */
+.sp-mobile-bottom-bar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-top: 1px solid #EAE3D8;
+    padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 0px));
+    box-shadow: 0 -4px 20px rgba(11,42,82,0.12);
+    z-index: 1000;
+}
+.sp-mob-bottom-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.82rem;
+    text-decoration: none;
+    padding: 10px 10px;
+    border: none;
+    transition: transform 0.15s ease;
+}
+.sp-mob-bottom-btn:active {
+    transform: scale(0.96);
+}
+.sp-mob-wa {
+    background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+    color: #FFFFFF !important;
+    flex: 1.1 1 auto;
+    box-shadow: 0 3px 10px rgba(22,163,74,0.25);
+}
+.sp-mob-call {
+    background: #EFF6FF;
+    color: var(--brand-blue) !important;
+    border: 1.5px solid #BFDBFE !important;
+    flex: 0.9 1 auto;
+}
+.sp-mob-inquiry {
+    background: linear-gradient(135deg, #F5A020 0%, #D97706 100%);
+    color: #FFFFFF !important;
+    flex: 1.2 1 auto;
+    box-shadow: 0 3px 10px rgba(245,160,32,0.25);
+}
+.sp-mob-share {
+    background: #F8FAFC;
+    color: var(--text-main);
+    border: 1.5px solid var(--border-subtle) !important;
+    width: 42px; height: 42px;
+    padding: 0; flex: 0 0 42px;
+}
+
+@media (max-width: 767px) {
+    .school-profile-page {
+        padding-bottom: 95px !important;
+    }
+    .sp-hero-cover {
+        height: 195px !important;
+        border-radius: 16px 16px 0 0 !important;
+    }
+    .sp-cover-badges-bar {
+        top: 10px !important;
+        right: 12px !important;
+        left: 12px !important;
+    }
+    .badge-schoplus, .badge-verified, .sp-cover-rating-badge {
+        font-size: 0.72rem !important;
+        padding: 4px 9px !important;
+    }
+    .sp-profile-card {
+        padding: 0 16px 20px !important;
+        border-radius: 0 0 18px 18px !important;
+    }
+    .sp-logo-wrap {
+        width: 88px !important;
+        height: 88px !important;
+        margin-top: -44px !important;
+        border-radius: 18px !important;
+        padding: 4px !important;
+    }
+    .sp-logo-placeholder {
+        font-size: 2rem !important;
+        border-radius: 14px !important;
+    }
+    .sp-school-title {
+        font-size: 1.28rem !important;
+        line-height: 1.3 !important;
+    }
+    .sp-school-subtitle {
+        font-size: 0.8rem !important;
+    }
+    .sp-school-loc {
+        font-size: 0.78rem !important;
+    }
+    .sp-action-btns-wrap {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+        width: 100% !important;
+        margin-top: 12px !important;
+    }
+    .sp-action-btns-wrap .sp-btn-action {
+        width: 100% !important;
+        justify-content: center !important;
+        font-size: 0.82rem !important;
+        padding: 8px 10px !important;
+    }
+    .sp-quick-stats {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+        padding-top: 12px !important;
+        margin-top: 12px !important;
+    }
+    .sp-stat-item {
+        background: #FAF8F5 !important;
+        border: 1px solid #EAE3D8 !important;
+        border-radius: 12px !important;
+        padding: 8px 10px !important;
+        font-size: 0.78rem !important;
+        justify-content: flex-start !important;
+    }
+    .sp-tabs-nav {
+        top: 60px !important;
+        padding: 4px !important;
+        border-radius: 14px !important;
+        overflow-x: auto !important;
+        flex-wrap: nowrap !important;
+        white-space: nowrap !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+        gap: 4px !important;
+    }
+    .sp-tabs-nav::-webkit-scrollbar { display: none !important; }
+    .sp-tab-btn {
+        flex: 0 0 auto !important;
+        padding: 8px 13px !important;
+        font-size: 0.82rem !important;
+        border-radius: 10px !important;
+    }
+    .sp-section-head, .sp-section-body {
+        padding: 16px !important;
+    }
+    .sp-inquiry-card {
+        padding: 18px !important;
+    }
+    .sp-inquiry-card .form-control, .sp-inquiry-card .form-select {
+        font-size: 16px !important;
+    }
+    .sp-gallery-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+    }
+    .sp-reviews-stat-col {
+        border-inline-start: none !important;
+        border-bottom: 1px solid var(--border-subtle) !important;
+        padding-bottom: 18px !important;
+        margin-bottom: 14px !important;
+    }
+}
 </style>
 
 <?php
@@ -651,12 +837,12 @@ foreach ($reviewsList as $rev) { $ratingDist[(int)$rev['rating']]++; }
 $totalRev = max(1, count($reviewsList));
 ?>
 
-<div class="school-profile-page" style="padding-bottom: 60px;">
+<div class="school-profile-page">
 
     <!-- Breadcrumb -->
-    <div class="container" style="padding-top: 20px; padding-bottom: 8px;">
+    <div class="container px-3" style="padding-top: 16px; padding-bottom: 8px;">
         <nav aria-label="breadcrumb">
-            <ol class="breadcrumb bg-transparent p-0 mb-0" style="font-size: 0.82rem;">
+            <ol class="breadcrumb bg-transparent p-0 mb-0 d-flex flex-nowrap overflow-x-auto text-nowrap" style="font-size: 0.8rem; scrollbar-width: none;">
                 <li class="breadcrumb-item"><a href="index.php" class="text-decoration-none" style="color: var(--text-muted);"><i class="fas fa-home me-1"></i> دليل المدارس</a></li>
                 <li class="breadcrumb-item"><a href="index.php?state=<?= urlencode($school['state']) ?>" class="text-decoration-none" style="color: var(--text-muted);"><?= e($school['state']) ?></a></li>
                 <li class="breadcrumb-item"><a href="index.php?state=<?= urlencode($school['state']) ?>&city=<?= urlencode($school['city']) ?>" class="text-decoration-none" style="color: var(--text-muted);"><?= e($school['city']) ?></a></li>
@@ -666,7 +852,7 @@ $totalRev = max(1, count($reviewsList));
     </div>
 
     <?php if ($isOwner && $school['status'] === 'pending'): ?>
-    <div class="container mb-3">
+    <div class="container px-3 mb-3">
         <div class="d-flex align-items-center gap-3 p-3 rounded-4 border" style="background: #FFFBEB; border-color: #FCD34D !important;">
             <i class="fas fa-hourglass-half text-warning fs-4"></i>
             <div class="flex-grow-1">
@@ -679,7 +865,7 @@ $totalRev = max(1, count($reviewsList));
     <?php endif; ?>
 
     <!-- HERO COVER + PROFILE CARD -->
-    <div class="container">
+    <div class="container px-2 px-md-3">
         <div class="sp-hero-cover mb-0">
             <?php if (!empty($school['cover_path'])): ?>
                 <img src="<?= e($school['cover_path']) ?>" alt="غلاف <?= e($school['name']) ?>" class="cover-img">
@@ -687,29 +873,30 @@ $totalRev = max(1, count($reviewsList));
             <div class="cover-overlay"></div>
             <div class="cover-pattern"></div>
 
-            <!-- Top Badges on Cover -->
-            <div style="position: absolute; top: 18px; right: 22px; display: flex; gap: 8px; z-index: 3; flex-wrap: wrap;">
-                <?php if ($school['is_schoplus_client']): ?>
-                    <span class="badge-schoplus"><i class="fas fa-bolt"></i> مدرسة SchoPlus الذكية</span>
-                <?php endif; ?>
-                <?php if ($school['is_verified']): ?>
-                    <span class="badge-verified"><i class="fas fa-check-circle"></i> معتمدة رسمياً</span>
-                <?php endif; ?>
-            </div>
+            <!-- Top Header Badges Container -->
+            <div class="sp-cover-badges-bar">
+                <div class="d-flex align-items-center gap-2 flex-wrap">
+                    <?php if ($school['is_schoplus_client']): ?>
+                        <span class="badge-schoplus"><i class="fas fa-bolt"></i> <span class="d-none d-sm-inline">مدرسة</span> SchoPlus الذكية</span>
+                    <?php endif; ?>
+                    <?php if ($school['is_verified']): ?>
+                        <span class="badge-verified"><i class="fas fa-check-circle"></i> معتمدة</span>
+                    <?php endif; ?>
+                </div>
 
-            <!-- Top Rating on Cover -->
-            <?php if ($school['reviews_count'] > 0): ?>
-            <div style="position: absolute; top: 18px; left: 22px; z-index: 3; background: rgba(11,42,82,0.65); backdrop-filter: blur(8px); border-radius: 12px; padding: 6px 14px; color: #FFFFFF; display: flex; align-items: center; gap: 6px; font-size: 0.86rem; font-weight: 800; border: 1px solid rgba(255,255,255,0.15);">
-                <i class="fas fa-star text-warning"></i>
-                <?= number_format($school['rating_avg'], 1) ?>
-                <span style="opacity: 0.8; font-weight: 400; font-size: 0.78rem;">(<?= $school['reviews_count'] ?> تقييم)</span>
+                <?php if ($school['reviews_count'] > 0): ?>
+                <div class="sp-cover-rating-badge">
+                    <i class="fas fa-star text-warning"></i>
+                    <span><?= number_format($school['rating_avg'], 1) ?></span>
+                    <span class="d-none d-sm-inline" style="opacity: 0.8; font-weight: 500;">(<?= $school['reviews_count'] ?> تقييم)</span>
+                </div>
+                <?php endif; ?>
             </div>
-            <?php endif; ?>
         </div>
 
         <div class="sp-profile-card">
             <div class="d-flex flex-column flex-md-row align-items-md-end gap-3 justify-content-between">
-                <div class="d-flex align-items-end gap-3">
+                <div class="d-flex align-items-end gap-2 gap-md-3">
                     <!-- Logo -->
                     <div class="sp-logo-wrap">
                         <?php if (!empty($school['logo_path'])): ?>
@@ -719,39 +906,39 @@ $totalRev = max(1, count($reviewsList));
                         <?php endif; ?>
                     </div>
                     <!-- Title & Details -->
-                    <div style="padding-bottom: 4px;">
-                        <h1 class="fw-bold mb-1" style="font-size: clamp(1.25rem, 3.5vw, 1.85rem); color: var(--brand-navy); line-height: 1.25;"><?= e($school['name']) ?></h1>
+                    <div style="padding-bottom: 2px;">
+                        <h1 class="sp-school-title mb-1"><?= e($school['name']) ?></h1>
                         <?php if (!empty($school['name_en'])): ?>
-                            <div style="font-size: 0.88rem; color: var(--text-muted); font-weight: 600; margin-bottom: 4px;"><?= e($school['name_en']) ?></div>
+                            <div class="sp-school-subtitle mb-1"><?= e($school['name_en']) ?></div>
                         <?php endif; ?>
-                        <div style="font-size: 0.84rem; color: var(--text-muted); display: flex; align-items: center; gap: 6px;">
+                        <div class="sp-school-loc">
                             <i class="fas fa-map-marker-alt text-danger"></i>
                             <span><?= e($school['state']) ?> — <?= e($school['city']) ?><?= !empty($school['district']) ? ' (' . e($school['district']) . ')' : '' ?></span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Action Buttons -->
-                <div class="d-flex flex-wrap gap-2 pb-1" style="margin-bottom: 2px;">
+                <!-- Action Buttons (2x2 grid on mobile, flex on desktop) -->
+                <div class="sp-action-btns-wrap pb-1">
                     <?php if (!empty($school['whatsapp'])): ?>
-                        <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $school['whatsapp']) ?>?text=<?= urlencode('مرحباً، رأيت مدرستكم على دليل SchoPlus وأود الاستفسار.') ?>" target="_blank" class="btn-luxury-primary px-3 py-2" style="background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); box-shadow: 0 4px 14px rgba(22,163,74,0.24);">
+                        <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $school['whatsapp']) ?>?text=<?= urlencode('مرحباً، رأيت مدرستكم على دليل SchoPlus وأود الاستفسار.') ?>" target="_blank" class="btn-luxury-primary sp-btn-action" style="background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); box-shadow: 0 4px 14px rgba(22,163,74,0.24);">
                             <i class="fab fa-whatsapp"></i> <span>واتساب</span>
                         </a>
                     <?php endif; ?>
                     <?php if (!empty($school['phone'])): ?>
-                        <a href="tel:<?= e($school['phone']) ?>" class="btn-luxury-outline px-3 py-2">
-                            <i class="fas fa-phone-alt"></i> <span class="d-none d-sm-inline">اتصال</span>
+                        <a href="tel:<?= e($school['phone']) ?>" class="btn-luxury-outline sp-btn-action">
+                            <i class="fas fa-phone-alt"></i> <span>اتصال</span>
                         </a>
                     <?php endif; ?>
-                    <a href="#inquiry-form-section" class="btn-luxury-gold px-3 py-2">
+                    <a href="#inquiry-form-section" class="btn-luxury-gold sp-btn-action" onclick="switchTab(document.querySelector('[data-target=\'tab-overview\']'), 'tab-overview')">
                         <i class="fas fa-pen-alt"></i> <span>طلب قبول</span>
                     </a>
-                    <button type="button" class="btn-luxury-outline px-3 py-2" onclick="openShareModal()" title="مشاركة الرابط والباركود">
-                        <i class="fas fa-share-alt text-primary"></i>
+                    <button type="button" class="btn-luxury-outline sp-btn-action" onclick="openShareModal()" title="مشاركة الرابط والباركود">
+                        <i class="fas fa-share-alt text-primary"></i> <span class="d-inline d-md-none">مشاركة</span>
                     </button>
                     <?php if ($isOwner): ?>
-                        <a href="dashboard.php" class="btn-luxury-outline px-3 py-2" title="لوحة إدارة المدرسة">
-                            <i class="fas fa-cog text-muted"></i>
+                        <a href="dashboard.php" class="btn-luxury-outline sp-btn-action" title="لوحة إدارة المدرسة">
+                            <i class="fas fa-cog text-muted"></i> <span class="d-inline d-md-none">الإدارة</span>
                         </a>
                     <?php endif; ?>
                 </div>
@@ -765,7 +952,7 @@ $totalRev = max(1, count($reviewsList));
                 </div>
                 <div class="sp-stat-item">
                     <i class="fas fa-star" style="color: #F59E0B;"></i>
-                    <span><strong><?= number_format($school['rating_avg'], 1) ?></strong> / 5 (<?= $school['reviews_count'] ?> تقييم)</span>
+                    <span><strong><?= number_format($school['rating_avg'], 1) ?></strong> (<?= $school['reviews_count'] ?> تقييم)</span>
                 </div>
                 <div class="sp-stat-item">
                     <i class="fas fa-building" style="color: var(--brand-gold);"></i>
@@ -789,15 +976,15 @@ $totalRev = max(1, count($reviewsList));
 
     <?php if ($school['is_schoplus_client']): ?>
     <!-- SchoPlus Smart Banner -->
-    <div class="container mt-4">
-        <div style="background: linear-gradient(135deg, #0B2A52 0%, #163870 100%); border-radius: 20px; padding: 20px 26px; color: #FFFFFF; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; box-shadow: 0 8px 28px rgba(11,42,82,0.18);">
+    <div class="container px-2 px-md-3 mt-4">
+        <div style="background: linear-gradient(135deg, #0B2A52 0%, #163870 100%); border-radius: 20px; padding: 18px 22px; color: #FFFFFF; display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; box-shadow: 0 8px 28px rgba(11,42,82,0.18);">
             <div class="d-flex align-items-center gap-3">
-                <div style="width: 48px; height: 48px; border-radius: 14px; background: rgba(245,160,32,0.18); display: flex; align-items: center; justify-content: center; font-size: 1.35rem; flex-shrink: 0;">
+                <div style="width: 46px; height: 46px; border-radius: 14px; background: rgba(245,160,32,0.18); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0;">
                     <i class="fas fa-bolt text-warning"></i>
                 </div>
                 <div>
-                    <div class="fw-bold" style="font-size: 1rem;">مدرسة ذكية معتمدة — تعمل بنظام SchoPlus السحابي</div>
-                    <div style="font-size: 0.8rem; opacity: 0.85; margin-top: 3px;">بوابة إلكترونية لأولياء الأمور · متابعة الدرجات والغياب فورياً · إشعارات واتساب لحظية</div>
+                    <div class="fw-bold" style="font-size: 0.96rem;">مدرسة ذكية معتمدة — تعمل بنظام SchoPlus السحابي</div>
+                    <div style="font-size: 0.78rem; opacity: 0.85; margin-top: 2px;">بوابة أولياء الأمور · متابعة الدرجات والغياب فورياً · إشعارات واتساب لحظية</div>
                 </div>
             </div>
             <a href="https://schoplus.sd" target="_blank" class="btn-luxury-gold btn-sm px-4 py-2" style="white-space: nowrap;">
@@ -808,35 +995,31 @@ $totalRev = max(1, count($reviewsList));
     <?php endif; ?>
 
     <!-- MAIN CONTENT LAYOUT -->
-    <div class="container mt-4">
+    <div class="container px-2 px-md-3 mt-4">
         <div class="row g-4">
 
             <!-- LEFT: TABS CONTENT -->
             <div class="col-lg-8">
 
-                <!-- Tab Navigation -->
+                <!-- Tab Navigation (Smooth horizontal scroll on mobile) -->
                 <div class="sp-tabs-nav mb-4">
                     <button class="sp-tab-btn active" data-target="tab-overview" onclick="switchTab(this, 'tab-overview')">
                         <i class="fas fa-info-circle"></i>
-                        <span class="d-none d-sm-inline">نبذة ومعلومات</span>
-                        <span class="d-sm-none">نبذة</span>
+                        <span>نبذة ومعلومات</span>
                     </button>
                     <button class="sp-tab-btn" data-target="tab-gallery" onclick="switchTab(this, 'tab-gallery')">
                         <i class="fas fa-images"></i>
-                        <span class="d-none d-sm-inline">معرض الصور</span>
-                        <span class="d-sm-none">صور</span>
+                        <span>معرض الصور</span>
                         <?php if (count($galleryList)): ?><span class="tab-count"><?= count($galleryList) ?></span><?php endif; ?>
                     </button>
                     <button class="sp-tab-btn" data-target="tab-news" onclick="switchTab(this, 'tab-news')">
                         <i class="fas fa-bullhorn"></i>
-                        <span class="d-none d-sm-inline">الأخبار</span>
-                        <span class="d-sm-none">أخبار</span>
+                        <span>الأخبار</span>
                         <?php if (count($newsList)): ?><span class="tab-count"><?= count($newsList) ?></span><?php endif; ?>
                     </button>
                     <button class="sp-tab-btn" data-target="tab-reviews" onclick="switchTab(this, 'tab-reviews')">
                         <i class="fas fa-star"></i>
-                        <span class="d-none d-sm-inline">التقييمات</span>
-                        <span class="d-sm-none">تقييم</span>
+                        <span>التقييمات</span>
                         <?php if (count($reviewsList)): ?><span class="tab-count"><?= count($reviewsList) ?></span><?php endif; ?>
                     </button>
                 </div>
@@ -919,6 +1102,55 @@ $totalRev = max(1, count($reviewsList));
                         </div>
                     </div>
 
+                    <!-- MOBILE-ONLY COMPACT FACTS & CONTACT CARD (Visible on phones without scrolling to bottom) -->
+                    <div class="sp-section d-lg-none">
+                        <div class="sp-section-head">
+                            <div class="sp-section-title">
+                                <div class="title-icon" style="background: #EFF6FF; color: var(--brand-blue);"><i class="fas fa-id-card"></i></div>
+                                معلومات المدرسة والتواصل
+                            </div>
+                        </div>
+                        <div class="sp-section-body p-3">
+                            <div class="row g-2 mb-3">
+                                <div class="col-6">
+                                    <div class="p-2 rounded-3 bg-light border">
+                                        <small class="text-muted d-block" style="font-size: 0.72rem;">نوع المدرسة</small>
+                                        <span class="fw-bold text-dark small"><?= SudanGeography::schoolTypeLabel($school['school_type']) ?></span>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-2 rounded-3 bg-light border">
+                                        <small class="text-muted d-block" style="font-size: 0.72rem;">نوع الطلاب</small>
+                                        <span class="fw-bold text-dark small"><?= SudanGeography::genderTypeLabel($school['gender_type']) ?></span>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-2 rounded-3 bg-light border">
+                                        <small class="text-muted d-block" style="font-size: 0.72rem;">المنهج التعليمي</small>
+                                        <span class="fw-bold text-dark small"><?= SudanGeography::curriculumLabel($school['curriculum']) ?></span>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-2 rounded-3 bg-light border">
+                                        <small class="text-muted d-block" style="font-size: 0.72rem;">ساعات الدوام</small>
+                                        <span class="fw-bold text-dark small"><?= e($school['working_hours'] ?: '7:30 ص — 2:30 م') ?></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php if (!empty($school['address'])): ?>
+                                <div class="p-2 px-3 rounded-3 bg-light border mb-2 d-flex align-items-center gap-2">
+                                    <i class="fas fa-map-pin text-danger"></i>
+                                    <small class="text-dark fw-bold"><?= e($school['address']) ?></small>
+                                </div>
+                            <?php endif; ?>
+                            <?php if (!empty($school['google_map_url'])): ?>
+                                <a href="<?= e($school['google_map_url']) ?>" target="_blank" class="btn btn-outline-secondary btn-sm w-100 rounded-3 py-2 fw-bold">
+                                    <i class="fas fa-map-marked-alt text-danger me-1"></i> فتح الموقع في خرائط Google
+                                </a>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+
                     <!-- Inquiry Form -->
                     <div class="sp-inquiry-card" id="inquiry-form-section">
                         <div class="d-flex align-items-center gap-3 mb-4">
@@ -966,7 +1198,7 @@ $totalRev = max(1, count($reviewsList));
                                     <input type="text" name="message" class="form-control" placeholder="استفسار عن الرسوم أو المواصلات...">
                                 </div>
                                 <div class="col-12 mt-2">
-                                    <button type="submit" class="btn-luxury-primary px-4 py-2">
+                                    <button type="submit" class="btn-luxury-primary w-100 w-md-auto px-4 py-2">
                                         <i class="fas fa-paper-plane"></i> إرسال الطلب الآن
                                     </button>
                                 </div>
@@ -1066,7 +1298,7 @@ $totalRev = max(1, count($reviewsList));
                     <div class="sp-section mb-4">
                         <div class="sp-section-body">
                             <div class="row align-items-center g-4">
-                                <div class="col-md-3 text-center border-start">
+                                <div class="col-md-3 text-center sp-reviews-stat-col border-start">
                                     <div style="font-size: 3.5rem; font-weight: 900; color: var(--brand-navy); line-height: 1;"><?= number_format($school['rating_avg'], 1) ?></div>
                                     <div class="sp-stars my-2">
                                         <?php for ($i = 1; $i <= 5; $i++): ?>
@@ -1144,7 +1376,7 @@ $totalRev = max(1, count($reviewsList));
                                         <textarea name="comment" required rows="3" class="form-control" placeholder="اكتب تقييمك بصدق عن البيئة التعليمية، الكادر، والاهتمام بالطلاب..."></textarea>
                                     </div>
                                     <div class="col-12">
-                                        <button type="submit" class="btn-luxury-primary px-4 py-2">
+                                        <button type="submit" class="btn-luxury-primary w-100 w-md-auto px-4 py-2">
                                             <i class="fas fa-check"></i> نشر التقييم الآن
                                         </button>
                                     </div>
@@ -1374,6 +1606,28 @@ $totalRev = max(1, count($reviewsList));
     </div>
 </div>
 
+<!-- FLOATING MOBILE BOTTOM ACTION BAR (Native App feel) -->
+<div class="sp-mobile-bottom-bar d-md-none">
+    <div class="d-flex align-items-center gap-2">
+        <?php if (!empty($school['whatsapp'])): ?>
+            <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $school['whatsapp']) ?>?text=<?= urlencode('مرحباً، رأيت مدرستكم على دليل SchoPlus وأود الاستفسار.') ?>" target="_blank" class="sp-mob-bottom-btn sp-mob-wa">
+                <i class="fab fa-whatsapp"></i> <span>واتساب</span>
+            </a>
+        <?php endif; ?>
+        <?php if (!empty($school['phone'])): ?>
+            <a href="tel:<?= e($school['phone']) ?>" class="sp-mob-bottom-btn sp-mob-call">
+                <i class="fas fa-phone-alt"></i> <span>اتصال</span>
+            </a>
+        <?php endif; ?>
+        <a href="#inquiry-form-section" class="sp-mob-bottom-btn sp-mob-inquiry" onclick="switchTab(document.querySelector('[data-target=\'tab-overview\']'), 'tab-overview')">
+            <i class="fas fa-paper-plane"></i> <span>طلب قبول</span>
+        </a>
+        <button type="button" class="sp-mob-bottom-btn sp-mob-share" onclick="openShareModal()" title="مشاركة">
+            <i class="fas fa-share-alt"></i>
+        </button>
+    </div>
+</div>
+
 <!-- SHARE MODAL -->
 <div class="modal fade" id="shareSchoolModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -1425,7 +1679,7 @@ $totalRev = max(1, count($reviewsList));
 function switchTab(btn, targetId) {
     document.querySelectorAll('.sp-tab-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.sp-tab-pane').forEach(p => p.style.display = 'none');
-    btn.classList.add('active');
+    if (btn) btn.classList.add('active');
     const pane = document.getElementById(targetId);
     if (pane) pane.style.display = 'block';
     if (window.innerWidth < 768) {
