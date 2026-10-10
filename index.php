@@ -111,21 +111,21 @@ $genderTypes = SudanGeography::genderTypes();
             <span style="color: var(--brand-blue);">بكل ثقة وشفافية وسهولة</span>
         </h1>
 
-        <p style="font-size: 0.88rem; color: #4A5568; line-height: 1.6; max-width: 620px; margin: 0 auto 26px;">
+        <p style="font-size: 0.76rem; color: #4A5568; line-height: 1.6; max-width: 580px; margin: 0 auto 24px;">
             الدليل التفاعلي الأكبر لاستكشاف ومقارنة المدارس بالولاية والمدينة والحي، مع إبراز المدارس الذكية المعتمدة وتجارب وتقييمات أولياء الأمور الحقيقية.
         </p>
 
         <!-- Fast Search Box inside Hero -->
-        <form action="/" method="GET" style="background: #FFFFFF; border: 1px solid #E2D8C9; border-radius: 16px; padding: 10px; box-shadow: 0 8px 24px -5px rgba(50, 40, 20, 0.06); max-width: 780px; margin: 0 auto;">
+        <form action="/" method="GET" style="background: #FFFFFF; border: 1px solid #E2D8C9; border-radius: 16px; padding: 8px; box-shadow: 0 8px 24px -5px rgba(50, 40, 20, 0.06); max-width: 780px; margin: 0 auto;">
             <div class="row g-2 align-items-center">
                 <div class="col-lg-5 col-md-4">
                     <div class="d-flex align-items-center px-2">
                         <i class="fas fa-search text-muted me-2"></i>
-                        <input type="text" name="q" value="<?= e($q) ?>" style="border: none; outline: none; padding: 9px 12px; font-size: 0.86rem; width: 100%; color: var(--text-main); font-weight: 600;" placeholder="ابحث باسم المدرسة، الحي، أو المنطقة...">
+                        <input type="text" name="q" value="<?= e($q) ?>" style="border: none; outline: none; padding: 7px 10px; font-size: 0.78rem; width: 100%; color: var(--text-main); font-weight: 600;" placeholder="ابحث باسم المدرسة، الحي، أو المنطقة...">
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4">
-                    <select name="state" class="form-select border-0 bg-light" style="font-size: 0.84rem; padding: 8px 12px;" onchange="this.form.submit()">
+                    <select name="state" class="form-select border-0 bg-light" style="font-size: 0.76rem; padding: 6px 10px;" onchange="this.form.submit()">
                         <option value="">كل الولايات السودانية</option>
                         <?php foreach($statesWithCities as $stName => $cities): ?>
                             <option value="<?= e($stName) ?>" <?= $state === $stName ? 'selected' : '' ?>>ولاية <?= e($stName) ?></option>
@@ -133,7 +133,7 @@ $genderTypes = SudanGeography::genderTypes();
                     </select>
                 </div>
                 <div class="col-lg-2 col-md-4">
-                    <select name="stage" class="form-select border-0 bg-light" style="font-size: 0.84rem; padding: 8px 12px;" onchange="this.form.submit()">
+                    <select name="stage" class="form-select border-0 bg-light" style="font-size: 0.76rem; padding: 6px 10px;" onchange="this.form.submit()">
                         <option value="">جميع المراحل</option>
                         <?php foreach($schoolStages as $key => $lbl): ?>
                             <option value="<?= e($key) ?>" <?= $stage === $key ? 'selected' : '' ?>><?= e($lbl) ?></option>
@@ -141,7 +141,7 @@ $genderTypes = SudanGeography::genderTypes();
                     </select>
                 </div>
                 <div class="col-lg-2 col-md-12">
-                    <button type="submit" class="btn-luxury-primary w-100 justify-content-center py-2" style="font-size: 0.84rem;">
+                    <button type="submit" class="btn-luxury-primary w-100 justify-content-center py-2" style="font-size: 0.78rem;">
                         <i class="fas fa-search"></i>
                         <span>بحث سريع</span>
                     </button>
@@ -154,19 +154,19 @@ $genderTypes = SudanGeography::genderTypes();
             <div class="row justify-content-center g-3 text-center">
                 <div class="col-lg-3 col-6">
                     <div data-countup="<?= $statTotal ?>" data-suffix="+" style="font-size: 1.25rem; font-weight: 700; color: var(--brand-navy);"><?= number_format($statTotal) ?>+</div>
-                    <div style="font-size: 0.74rem; color: #6B7280; font-weight: 600;">مدرسة مسجلة بالدليل</div>
+                    <div style="font-size: 0.67rem; color: #6B7280; font-weight: 600;">مدرسة مسجلة بالدليل</div>
                 </div>
                 <div class="col-lg-3 col-6">
                     <div data-countup="<?= $statSchoplus ?>" style="font-size: 1.25rem; font-weight: 700; color: var(--brand-blue);"><?= number_format($statSchoplus) ?></div>
-                    <div style="font-size: 0.74rem; color: #6B7280; font-weight: 600;">مدرسة ذكية بنظام SchoPlus</div>
+                    <div style="font-size: 0.67rem; color: #6B7280; font-weight: 600;">مدرسة ذكية بنظام SchoPlus</div>
                 </div>
                 <div class="col-lg-3 col-6">
                     <div data-countup="<?= $statStates ?>" style="font-size: 1.25rem; font-weight: 700; color: var(--brand-gold);"><?= $statStates ?></div>
-                    <div style="font-size: 0.74rem; color: #6B7280; font-weight: 600;">ولاية مغطاة بالكامل</div>
+                    <div style="font-size: 0.67rem; color: #6B7280; font-weight: 600;">ولاية مغطاة بالكامل</div>
                 </div>
                 <div class="col-lg-3 col-6">
                     <div data-countup="<?= $statReviews ?>" data-suffix="+" style="font-size: 1.25rem; font-weight: 700; color: var(--brand-emerald);"><?= number_format($statReviews) ?>+</div>
-                    <div style="font-size: 0.74rem; color: #6B7280; font-weight: 600;">تقييم موثق من أولياء الأمور</div>
+                    <div style="font-size: 0.67rem; color: #6B7280; font-weight: 600;">تقييم موثق من أولياء الأمور</div>
                 </div>
             </div>
         </div>
@@ -182,11 +182,11 @@ $genderTypes = SudanGeography::genderTypes();
         
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
             <div>
-                <span style="color: var(--brand-gold); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase;">
+                <span style="color: var(--brand-gold); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase;">
                     <i class="fas fa-award"></i> التميز والرقمنة
                 </span>
                 <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--brand-navy); margin: 0;">مدارس ذكية تعمل بنظام SchoPlus</h2>
-                <p style="color: #6B7280; font-size: 0.82rem; margin-top: 4px;">
+                <p style="color: #6B7280; font-size: 0.74rem; margin-top: 4px;">
                     مدارس رائدة تتيح متابعة إلكترونية فورية لدرجات وحضور ابنك، إشعارات واتساب لحظية، وبوابة مخصصة لأولياء الأمور.
                 </p>
             </div>
@@ -226,16 +226,16 @@ $genderTypes = SudanGeography::genderTypes();
                         </div>
 
                         <div style="padding: 32px 18px 18px; display: flex; flex-direction: column;">
-                            <a href="/school/<?= urlencode($s['slug']) ?>" style="font-weight: 700; font-size: 0.96rem; color: var(--brand-navy); margin-bottom: 5px; text-decoration: none;">
+                            <a href="/school/<?= urlencode($s['slug']) ?>" style="font-weight: 700; font-size: 0.88rem; color: var(--brand-navy); margin-bottom: 4px; text-decoration: none;">
                                 <?= e($s['name']) ?>
                             </a>
 
-                            <div style="color: #64748B; font-size: 0.78rem; margin-bottom: 8px;">
+                            <div style="color: #64748B; font-size: 0.72rem; margin-bottom: 6px;">
                                 <i class="fas fa-map-marker-alt text-danger me-1"></i>
                                 <?= e($s['state']) ?> — <?= e($s['city']) ?> <?= !empty($s['district']) ? '(' . e($s['district']) . ')' : '' ?>
                             </div>
 
-                            <p class="school-card-desc" style="font-size: 0.8rem; color: #4B5563; margin-bottom: 10px;">
+                            <p class="school-card-desc" style="font-size: 0.74rem; color: #4B5563; margin-bottom: 10px;">
                                 <?= e($s['description'] ?: 'مؤسسة تعليمية رائدة تقدم تعليماً حديثاً وبيئة محفزة للطلاب.') ?>
                             </p>
 
@@ -283,11 +283,11 @@ $genderTypes = SudanGeography::genderTypes();
     <div class="container">
         
         <div class="text-center mb-4">
-            <span style="color: var(--brand-gold); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase;">
+            <span style="color: var(--brand-gold); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase;">
                 <i class="fas fa-star"></i> ثقة أولياء الأمور
             </span>
             <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--brand-navy); margin: 0;">المدارس الأعلى تقييماً</h2>
-            <p style="color: #6B7280; font-size: 0.82rem; margin-top: 4px;">
+            <p style="color: #6B7280; font-size: 0.74rem; margin-top: 4px;">
                 مدارس حازت على أعلى التقييمات ورضا أولياء الأمور والطلاب لجودة التعليم والرعاية التربوية.
             </p>
         </div>
@@ -302,10 +302,10 @@ $genderTypes = SudanGeography::genderTypes();
                         <div class="d-flex align-items-center gap-3 mb-3">
                             <img src="<?= $logo ?>" alt="" style="width: 50px; height: 50px; border-radius: 12px; object-fit: cover;">
                             <div>
-                                <a href="/school/<?= urlencode($s['slug']) ?>" class="fw-bold text-dark text-decoration-none d-block text-truncate" style="max-width: 170px; font-size: 0.9rem;">
+                                <a href="/school/<?= urlencode($s['slug']) ?>" class="fw-bold text-dark text-decoration-none d-block text-truncate" style="max-width: 170px; font-size: 0.84rem;">
                                     <?= e($s['name']) ?>
                                 </a>
-                                <div class="small text-muted"><?= e($s['city']) ?></div>
+                                <div class="text-muted" style="font-size: 0.7rem;"><?= e($s['city']) ?></div>
                             </div>
                         </div>
 
@@ -335,11 +335,11 @@ $genderTypes = SudanGeography::genderTypes();
     <div class="container">
         
         <div class="mb-4">
-            <span style="color: var(--brand-gold); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase;">
+            <span style="color: var(--brand-gold); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase;">
                 <i class="fas fa-sliders-h"></i> التصفية الذكية
             </span>
             <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--brand-navy); margin: 0;">استكشف جميع المدارس</h2>
-            <p style="color: #6B7280; font-size: 0.82rem; margin-top: 4px;">
+            <p style="color: #6B7280; font-size: 0.74rem; margin-top: 4px;">
                 استخدم الفلاتر الجغرافية الدقيقة لاختيار المدرسة الملائمة حسب مدينتك، نوع التعليم، والمراحل الدراسية.
             </p>
         </div>
@@ -484,16 +484,16 @@ $genderTypes = SudanGeography::genderTypes();
                             </div>
 
                             <div style="padding: 32px 18px 18px; display: flex; flex-direction: column; flex-grow: 1;">
-                                <a href="/school/<?= urlencode($s['slug']) ?>" style="font-weight: 700; font-size: 0.96rem; color: var(--brand-navy); margin-bottom: 5px; text-decoration: none;">
+                                <a href="/school/<?= urlencode($s['slug']) ?>" style="font-weight: 700; font-size: 0.88rem; color: var(--brand-navy); margin-bottom: 4px; text-decoration: none;">
                                     <?= e($s['name']) ?>
                                 </a>
 
-                                <div style="color: #64748B; font-size: 0.78rem; margin-bottom: 8px;">
+                                <div style="color: #64748B; font-size: 0.72rem; margin-bottom: 6px;">
                                     <i class="fas fa-map-marker-alt text-muted me-1"></i>
                                     ولاية <?= e($s['state']) ?> — <?= e($s['city']) ?> <?= !empty($s['district']) ? '(' . e($s['district']) . ')' : '' ?>
                                 </div>
 
-                                <p class="school-card-desc" style="font-size: 0.8rem; color: #4B5563; margin-bottom: 10px;">
+                                <p class="school-card-desc" style="font-size: 0.74rem; color: #4B5563; margin-bottom: 10px;">
                                     <?= e($s['description'] ?: 'مؤسسة تعليمية وتربوية تقدم برامج أكاديمية متميزة وبيئة متطورة للطلاب.') ?>
                                 </p>
 
@@ -539,19 +539,19 @@ $genderTypes = SudanGeography::genderTypes();
     <div class="container">
         <div class="row align-items-center g-4">
             <div class="col-lg-8">
-                <span class="badge bg-warning text-dark fw-bold px-3 py-1 rounded-pill mb-3" style="font-size: 0.76rem;">
+                <span class="badge bg-warning text-dark fw-bold px-3 py-1 rounded-pill mb-3" style="font-size: 0.72rem;">
                     <i class="fas fa-gift me-1"></i> تسجيل مجاني بالكامل
                 </span>
                 <h2 class="fw-bold mb-2" style="font-size: 1.35rem;">هل تدير مدرسة أو مجمعاً تعليمياً؟</h2>
-                <p class="mb-4" style="max-width: 650px; font-size: 0.88rem; opacity: 0.9; line-height: 1.65;">
+                <p class="mb-4" style="max-width: 650px; font-size: 0.76rem; opacity: 0.9; line-height: 1.65;">
                     انضم إلى مئات المدارس في الدليل الأكبر في السودان. احصل على بروفايل إلكتروني موثق، انشر أخبار مدرستك، واستقبل طلبات التسجيل واستفسارات أولياء الأمور بسهولة تامة.
                 </p>
                 <div class="d-flex flex-wrap gap-2">
-                    <a href="/register.php" class="btn-luxury-gold px-3 py-2" style="font-size: 0.86rem;">
+                    <a href="/register.php" class="btn-luxury-gold px-3 py-2" style="font-size: 0.78rem;">
                         <i class="fas fa-school"></i>
                         <span>سجّل مدرستك الآن مجاناً</span>
                     </a>
-                    <a href="/login.php" class="btn btn-outline-light px-3 py-2 rounded-3 fw-bold" style="font-size: 0.86rem;">
+                    <a href="/login.php" class="btn btn-outline-light px-3 py-2 rounded-3 fw-bold" style="font-size: 0.78rem;">
                         <i class="fas fa-sign-in-alt me-1"></i>
                         <span>دخول أصحاب المدارس</span>
                     </a>
@@ -560,9 +560,9 @@ $genderTypes = SudanGeography::genderTypes();
             <div class="col-lg-4 text-center d-none d-lg-block">
                 <div class="p-4 rounded-4" style="background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.15);">
                     <i class="fas fa-certificate fa-4x text-warning mb-3"></i>
-                    <h5 class="fw-bold">ارتقِ بمدرستك مع SchoPlus</h5>
-                    <p class="small opacity-80 mb-3">حوّل مدرستك إلى مدرسة ذكية مع أنظمة الحسابات، شؤون الطلاب، الجداول الآلية، وبوابة أولياء الأمور عبر الواتساب.</p>
-                    <a href="https://schoplus.sd" target="_blank" class="btn btn-sm btn-light text-primary fw-bold w-100">
+                    <h5 class="fw-bold" style="font-size: 0.95rem;">ارتقِ بمدرستك مع SchoPlus</h5>
+                    <p class="small opacity-80 mb-3" style="font-size: 0.72rem !important; line-height: 1.6;">حوّل مدرستك إلى مدرسة ذكية مع أنظمة الحسابات، شؤون الطلاب، الجداول الآلية، وبوابة أولياء الأمور عبر الواتساب.</p>
+                    <a href="https://schoplus.sd" target="_blank" class="btn btn-sm btn-light text-primary fw-bold w-100" style="font-size: 0.78rem;">
                         تعرف على نظام SchoPlus
                     </a>
                 </div>

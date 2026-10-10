@@ -68,7 +68,7 @@ $currSchool = currentSchool();
         }
 
         html {
-            font-size: 14px !important;
+            font-size: 13.5px !important;
             -webkit-text-size-adjust: 100%;
         }
 
@@ -76,10 +76,37 @@ $currSchool = currentSchool();
             font-family: 'Cairo', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background-color: var(--bg-body);
             color: var(--text-body);
-            font-size: 0.86rem;
+            font-size: 0.75rem;
             line-height: 1.6;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+        }
+
+        p {
+            font-size: 0.75rem;
+            line-height: 1.6;
+            color: var(--text-body);
+            margin-bottom: 0.65rem;
+        }
+
+        .lead {
+            font-size: 0.8rem !important;
+            line-height: 1.6 !important;
+        }
+
+        .small, small {
+            font-size: 0.68rem !important;
+        }
+
+        .form-control, .form-select {
+            font-size: 0.75rem !important;
+            padding: 6px 10px !important;
+        }
+
+        .form-label {
+            font-size: 0.72rem !important;
+            font-weight: 600;
+            margin-bottom: 4px;
         }
 
         h1, h2, h3, h4, h5, h6 {
@@ -157,7 +184,7 @@ $currSchool = currentSchool();
         .nav-link-custom {
             color: var(--text-body);
             font-weight: 600;
-            font-size: 0.84rem;
+            font-size: 0.78rem;
             padding: 6px 12px;
             border-radius: 8px;
             text-decoration: none;
@@ -174,8 +201,8 @@ $currSchool = currentSchool();
             background: linear-gradient(135deg, #1E5FA8 0%, #16467D 100%);
             color: #FFFFFF !important;
             font-weight: 700;
-            font-size: 0.84rem;
-            padding: 7px 16px;
+            font-size: 0.78rem;
+            padding: 6px 14px;
             border-radius: 10px;
             border: none;
             box-shadow: 0 3px 10px rgba(30, 95, 168, 0.2);
@@ -196,7 +223,7 @@ $currSchool = currentSchool();
             background: #FFFFFF;
             color: var(--brand-navy) !important;
             font-weight: 700;
-            font-size: 0.84rem;
+            font-size: 0.78rem;
             padding: 6px 14px;
             border-radius: 10px;
             border: 1.5px solid var(--border-subtle);
@@ -219,8 +246,8 @@ $currSchool = currentSchool();
             background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
             color: #FFFFFF !important;
             font-weight: 700;
-            font-size: 0.84rem;
-            padding: 7px 16px;
+            font-size: 0.78rem;
+            padding: 6px 14px;
             border-radius: 10px;
             border: none;
             box-shadow: 0 3px 10px rgba(217, 119, 6, 0.22);
@@ -260,7 +287,7 @@ $currSchool = currentSchool();
             border: 1px solid #FCD34D;
             padding: 4px 10px;
             border-radius: 20px;
-            font-size: 0.76rem;
+            font-size: 0.72rem;
             font-weight: 700;
             display: inline-flex;
             align-items: center;
@@ -273,7 +300,7 @@ $currSchool = currentSchool();
             border: 1px solid #A7F3D0;
             padding: 4px 10px;
             border-radius: 20px;
-            font-size: 0.74rem;
+            font-size: 0.72rem;
             font-weight: 700;
             display: inline-flex;
             align-items: center;
@@ -286,13 +313,13 @@ $currSchool = currentSchool();
             border: 1px solid #E2E8F0;
             padding: 3px 8px;
             border-radius: 6px;
-            font-size: 0.72rem;
+            font-size: 0.7rem;
             font-weight: 600;
         }
 
         .star-rating {
             color: #F59E0B;
-            font-size: 0.88rem;
+            font-size: 0.78rem;
             display: inline-flex;
             align-items: center;
             gap: 2px;
@@ -307,7 +334,7 @@ $currSchool = currentSchool();
             border: 1px solid #2563EB;
             padding: 4px 11px;
             border-radius: 20px;
-            font-size: 0.74rem;
+            font-size: 0.72rem;
             font-weight: 700;
             display: inline-flex;
             align-items: center;
@@ -330,6 +357,7 @@ $currSchool = currentSchool();
             overflow: hidden;
             min-height: 2.6em;
             line-height: 1.55;
+            font-size: 0.74rem;
         }
 
         /* Fix 4: Cover placeholder for schools without cover photo */

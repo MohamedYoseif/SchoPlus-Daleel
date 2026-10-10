@@ -304,8 +304,8 @@ require_once __DIR__ . '/header.php';
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    font-size: 0.85rem;
-    font-weight: 800;
+    font-size: 0.72rem;
+    font-weight: 700;
     border: 1px solid rgba(255,255,255,0.18);
     white-space: nowrap;
 }
@@ -348,12 +348,12 @@ require_once __DIR__ . '/header.php';
     font-weight: 700;
 }
 .sp-school-subtitle {
-    font-size: 0.8rem;
+    font-size: 0.74rem;
     color: var(--text-muted);
     font-weight: 600;
 }
 .sp-school-loc {
-    font-size: 0.78rem;
+    font-size: 0.72rem;
     color: var(--text-muted);
     display: flex; align-items: center; gap: 6px;
 }
@@ -364,8 +364,8 @@ require_once __DIR__ . '/header.php';
     gap: 7px;
 }
 .sp-action-btns-wrap .sp-btn-action {
-    padding: 7px 12px;
-    font-size: 0.82rem;
+    padding: 6px 12px;
+    font-size: 0.76rem;
 }
 
 .sp-quick-stats {
@@ -377,7 +377,7 @@ require_once __DIR__ . '/header.php';
 }
 .sp-stat-item {
     display: flex; align-items: center; gap: 6px;
-    font-size: 0.78rem; color: var(--text-muted); font-weight: 600;
+    font-size: 0.72rem; color: var(--text-muted); font-weight: 600;
 }
 .sp-stat-item strong { color: var(--text-main); font-weight: 700; }
 
@@ -395,7 +395,7 @@ require_once __DIR__ . '/header.php';
     background: none; border: none;
     padding: 8px 8px;
     border-radius: 10px;
-    font-weight: 600; font-size: 0.82rem;
+    font-weight: 600; font-size: 0.75rem;
     color: var(--text-muted);
     cursor: pointer;
     transition: all 0.22s ease;
@@ -437,31 +437,31 @@ require_once __DIR__ . '/header.php';
 }
 .sp-section-title {
     display: flex; align-items: center; gap: 8px;
-    font-size: 0.95rem; font-weight: 700; color: var(--brand-navy);
+    font-size: 0.88rem; font-weight: 700; color: var(--brand-navy);
 }
 .sp-section-title .title-icon {
-    width: 32px; height: 32px;
+    width: 30px; height: 30px;
     border-radius: 9px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 0.88rem; flex-shrink: 0;
+    font-size: 0.82rem; flex-shrink: 0;
 }
 .sp-section-body { padding: 18px; }
 
 .vm-block {
     border-radius: 16px;
-    padding: 18px 20px;
+    padding: 16px 18px;
     position: relative; overflow: hidden;
 }
 .vm-vision { background: #EFF6FF; border: 1px solid #DBEAFE; border-right: 4px solid var(--brand-blue); }
 .vm-mission { background: #FFFBEB; border: 1px solid #FEF3C7; border-right: 4px solid var(--brand-gold); }
 
 .facility-chip {
-    display: inline-flex; align-items: center; gap: 8px;
+    display: inline-flex; align-items: center; gap: 7px;
     background: #FFFFFF;
     border: 1.5px solid var(--border-subtle);
     border-radius: 12px;
-    padding: 9px 16px;
-    font-size: 0.84rem; font-weight: 700; color: var(--text-body);
+    padding: 7px 14px;
+    font-size: 0.74rem; font-weight: 700; color: var(--text-body);
     transition: all 0.2s ease;
 }
 .facility-chip:hover {
@@ -471,20 +471,20 @@ require_once __DIR__ . '/header.php';
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(30,95,168,0.1);
 }
-.facility-chip i { color: var(--brand-blue); font-size: 0.95rem; }
+.facility-chip i { color: var(--brand-blue); font-size: 0.88rem; }
 
 .sp-inquiry-card {
     background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
     border: 1.5px solid #BFDBFE;
-    border-radius: 20px; padding: 26px;
+    border-radius: 20px; padding: 22px;
     margin-bottom: 22px;
     box-shadow: 0 4px 20px rgba(30,95,168,0.05);
 }
 .sp-inquiry-card .form-control, .sp-inquiry-card .form-select {
     border: 1.5px solid var(--border-subtle);
     border-radius: 12px;
-    padding: 10px 14px;
-    font-size: 0.9rem;
+    padding: 7px 12px;
+    font-size: 0.76rem;
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 .sp-inquiry-card .form-control:focus, .sp-inquiry-card .form-select:focus {
@@ -512,14 +512,14 @@ require_once __DIR__ . '/header.php';
     display: flex; align-items: flex-end; padding: 14px;
 }
 .sp-gallery-item:hover .sp-gallery-overlay { opacity: 1; }
-.sp-gallery-caption { color: #FFFFFF; font-size: 0.8rem; font-weight: 700; line-height: 1.35; }
+.sp-gallery-caption { color: #FFFFFF; font-size: 0.72rem; font-weight: 700; line-height: 1.35; }
 .sp-gallery-zoom {
     position: absolute; top: 10px; left: 10px;
-    width: 34px; height: 34px;
+    width: 32px; height: 32px;
     background: rgba(255,255,255,0.92);
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-size: 0.85rem; color: var(--brand-navy);
+    font-size: 0.8rem; color: var(--brand-navy);
     opacity: 0; transition: opacity 0.25s ease;
     backdrop-filter: blur(4px);
 }
@@ -528,7 +528,7 @@ require_once __DIR__ . '/header.php';
 .sp-news-card {
     border-radius: 16px;
     border: 1px solid var(--border-subtle);
-    padding: 20px 22px;
+    padding: 18px 20px;
     background: #FFFFFF;
     transition: all 0.22s ease;
     position: relative;
@@ -547,34 +547,34 @@ require_once __DIR__ . '/header.php';
     background: var(--bg-surface-soft);
     border: 1px solid var(--border-subtle);
     border-radius: 8px;
-    padding: 4px 10px;
-    font-size: 0.76rem; font-weight: 700; color: var(--text-muted);
+    padding: 3px 8px;
+    font-size: 0.68rem; font-weight: 700; color: var(--text-muted);
 }
 
 .sp-review-card {
     border-radius: 16px;
     border: 1px solid var(--border-subtle);
-    padding: 20px 22px;
+    padding: 18px 20px;
     background: #FFFFFF;
     transition: all 0.22s ease;
 }
 .sp-review-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(11,42,82,0.06); }
 .sp-reviewer-avatar {
-    width: 44px; height: 44px;
+    width: 40px; height: 40px;
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-weight: 900; font-size: 1.15rem; color: #FFFFFF;
+    font-weight: 900; font-size: 1.05rem; color: #FFFFFF;
     flex-shrink: 0;
 }
 .sp-stars { display: inline-flex; gap: 3px; }
-.sp-stars i { font-size: 0.85rem; }
+.sp-stars i { font-size: 0.78rem; }
 .sp-school-reply {
     border-radius: 14px;
     background: #F8FAFC;
     border: 1px solid #E2E8F0;
     border-right: 4px solid var(--brand-blue);
-    padding: 14px 16px;
-    margin-top: 14px;
+    padding: 12px 14px;
+    margin-top: 12px;
 }
 
 .sp-info-card {
@@ -586,27 +586,27 @@ require_once __DIR__ . '/header.php';
     margin-bottom: 20px;
 }
 .sp-info-card-head {
-    padding: 16px 22px;
+    padding: 14px 18px;
     background: var(--bg-surface-tint);
     border-bottom: 1px solid var(--border-subtle);
     display: flex; align-items: center; gap: 8px;
-    font-size: 0.92rem; font-weight: 800; color: var(--brand-navy);
+    font-size: 0.84rem; font-weight: 800; color: var(--brand-navy);
 }
-.sp-info-card-body { padding: 18px 22px; }
+.sp-info-card-body { padding: 16px 18px; }
 
 .sp-fact-row {
-    display: flex; align-items: center; gap: 14px;
-    padding: 12px 0;
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 0;
     border-bottom: 1px solid var(--border-subtle);
 }
 .sp-fact-row:last-child { border-bottom: none; padding-bottom: 0; }
 .sp-fact-icon {
-    width: 36px; height: 36px; border-radius: 11px;
+    width: 32px; height: 32px; border-radius: 10px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 0.9rem; flex-shrink: 0;
+    font-size: 0.82rem; flex-shrink: 0;
 }
-.sp-fact-label { font-size: 0.76rem; color: var(--text-muted); font-weight: 700; display: block; }
-.sp-fact-value { font-size: 0.9rem; color: var(--text-main); font-weight: 800; }
+.sp-fact-label { font-size: 0.68rem; color: var(--text-muted); font-weight: 700; display: block; }
+.sp-fact-value { font-size: 0.78rem; color: var(--text-main); font-weight: 700; }
 
 .sp-contact-row {
     display: flex; align-items: center; gap: 14px;
@@ -698,7 +698,7 @@ require_once __DIR__ . '/header.php';
     gap: 6px;
     border-radius: 12px;
     font-weight: 700;
-    font-size: 0.82rem;
+    font-size: 0.76rem;
     text-decoration: none;
     padding: 10px 10px;
     border: none;
@@ -771,10 +771,10 @@ require_once __DIR__ . '/header.php';
         font-weight: 700 !important;
     }
     .sp-school-subtitle {
-        font-size: 0.8rem !important;
+        font-size: 0.72rem !important;
     }
     .sp-school-loc {
-        font-size: 0.78rem !important;
+        font-size: 0.7rem !important;
     }
     .sp-action-btns-wrap {
         display: grid !important;
@@ -786,7 +786,7 @@ require_once __DIR__ . '/header.php';
     .sp-action-btns-wrap .sp-btn-action {
         width: 100% !important;
         justify-content: center !important;
-        font-size: 0.82rem !important;
+        font-size: 0.75rem !important;
         padding: 8px 10px !important;
     }
     .sp-quick-stats {
@@ -801,7 +801,7 @@ require_once __DIR__ . '/header.php';
         border: 1px solid #EAE3D8 !important;
         border-radius: 12px !important;
         padding: 8px 10px !important;
-        font-size: 0.78rem !important;
+        font-size: 0.72rem !important;
         justify-content: flex-start !important;
     }
     .sp-tabs-nav {
@@ -819,7 +819,7 @@ require_once __DIR__ . '/header.php';
     .sp-tab-btn {
         flex: 0 0 auto !important;
         padding: 8px 13px !important;
-        font-size: 0.82rem !important;
+        font-size: 0.74rem !important;
         border-radius: 10px !important;
     }
     .sp-section-head, .sp-section-body {
@@ -856,7 +856,7 @@ $totalRev = max(1, count($reviewsList));
     <!-- Breadcrumb -->
     <div class="container px-3" style="padding-top: 16px; padding-bottom: 8px;">
         <nav aria-label="breadcrumb">
-            <ol class="breadcrumb bg-transparent p-0 mb-0 d-flex flex-nowrap overflow-x-auto text-nowrap" style="font-size: 0.8rem; scrollbar-width: none;">
+            <ol class="breadcrumb bg-transparent p-0 mb-0 d-flex flex-nowrap overflow-x-auto text-nowrap" style="font-size: 0.72rem; scrollbar-width: none;">
                 <li class="breadcrumb-item"><a href="/" class="text-decoration-none" style="color: var(--text-muted);"><i class="fas fa-home me-1"></i> دليل المدارس</a></li>
                 <li class="breadcrumb-item"><a href="/?state=<?= urlencode($school['state']) ?>" class="text-decoration-none" style="color: var(--text-muted);"><?= e($school['state']) ?></a></li>
                 <li class="breadcrumb-item"><a href="/?state=<?= urlencode($school['state']) ?>&city=<?= urlencode($school['city']) ?>" class="text-decoration-none" style="color: var(--text-muted);"><?= e($school['city']) ?></a></li>
@@ -1051,9 +1051,9 @@ $totalRev = max(1, count($reviewsList));
                         </div>
                         <div class="sp-section-body">
                             <?php if (!empty($school['description'])): ?>
-                                <p style="color: var(--text-body); line-height: 1.85; white-space: pre-line; font-size: 0.94rem; margin: 0;"><?= e($school['description']) ?></p>
+                                <p style="color: var(--text-body); line-height: 1.7; white-space: pre-line; font-size: 0.76rem; margin: 0;"><?= e($school['description']) ?></p>
                             <?php else: ?>
-                                <p class="text-muted fst-italic mb-0">لم تضف المدرسة وصفاً تعريفياً بعد.</p>
+                                <p class="text-muted fst-italic mb-0" style="font-size: 0.72rem;">لم تضف المدرسة وصفاً تعريفياً بعد.</p>
                             <?php endif; ?>
 
                             <?php if (!empty($school['vision']) || !empty($school['mission'])): ?>
@@ -1063,9 +1063,9 @@ $totalRev = max(1, count($reviewsList));
                                             <div class="vm-block vm-vision">
                                                 <div class="d-flex align-items-center gap-2 mb-2">
                                                     <i class="fas fa-eye" style="color: var(--brand-blue);"></i>
-                                                    <span class="fw-bold" style="font-size: 0.9rem; color: var(--brand-blue);">رؤية المدرسة</span>
+                                                    <span class="fw-bold" style="font-size: 0.78rem; color: var(--brand-blue);">رؤية المدرسة</span>
                                                 </div>
-                                                <p style="font-size: 0.86rem; color: #374151; margin: 0; line-height: 1.7;"><?= e($school['vision']) ?></p>
+                                                <p style="font-size: 0.74rem; color: #374151; margin: 0; line-height: 1.65;"><?= e($school['vision']) ?></p>
                                             </div>
                                         </div>
                                     <?php endif; ?>
@@ -1074,9 +1074,9 @@ $totalRev = max(1, count($reviewsList));
                                             <div class="vm-block vm-mission">
                                                 <div class="d-flex align-items-center gap-2 mb-2">
                                                     <i class="fas fa-bullseye" style="color: var(--brand-gold);"></i>
-                                                    <span class="fw-bold" style="font-size: 0.9rem; color: var(--brand-gold);">رسالة المدرسة</span>
+                                                    <span class="fw-bold" style="font-size: 0.78rem; color: var(--brand-gold);">رسالة المدرسة</span>
                                                 </div>
-                                                <p style="font-size: 0.86rem; color: #374151; margin: 0; line-height: 1.7;"><?= e($school['mission']) ?></p>
+                                                <p style="font-size: 0.74rem; color: #374151; margin: 0; line-height: 1.65;"><?= e($school['mission']) ?></p>
                                             </div>
                                         </div>
                                     <?php endif; ?>
@@ -1173,7 +1173,7 @@ $totalRev = max(1, count($reviewsList));
                             </div>
                             <div>
                                 <h5 class="fw-bold mb-0" style="color: var(--brand-navy); font-size: 1.05rem;">طلب قبول أو استفسار مباشر</h5>
-                                <p class="mb-0" style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;">أرسل بياناتك وسيقوم فريق التسجيل بالمدرسة بالتواصل معك مباشرة</p>
+                                <p class="mb-0" style="font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;">أرسل بياناتك وسيقوم فريق التسجيل بالمدرسة بالتواصل معك مباشرة</p>
                             </div>
                         </div>
 
@@ -1290,7 +1290,7 @@ $totalRev = max(1, count($reviewsList));
                                                     <?= date('d / m / Y', strtotime($item['published_at'] ?: $item['created_at'])) ?>
                                                 </span>
                                             </div>
-                                            <p style="font-size: 0.88rem; color: var(--text-body); line-height: 1.75; white-space: pre-line; margin: 0;"><?= e($item['content']) ?></p>
+                                            <p style="font-size: 0.75rem; color: var(--text-body); line-height: 1.65; white-space: pre-line; margin: 0;"><?= e($item['content']) ?></p>
                                             <?php if (!empty($item['image_path'])): ?>
                                                 <div class="mt-3">
                                                     <img src="<?= e($item['image_path']) ?>" alt="صورة الخبر" loading="lazy" class="img-fluid rounded-3" style="max-height: 280px; object-fit: cover; width: 100%;">
@@ -1319,17 +1319,17 @@ $totalRev = max(1, count($reviewsList));
                                             <i class="fas fa-star <?= $i <= round($school['rating_avg']) ? 'text-warning' : 'text-muted opacity-25' ?>"></i>
                                         <?php endfor; ?>
                                     </div>
-                                    <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700;"><?= $school['reviews_count'] ?> تقييم موثق</div>
+                                    <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700;"><?= $school['reviews_count'] ?> تقييم موثق</div>
                                 </div>
                                 <div class="col-md-9">
                                     <?php for ($star = 5; $star >= 1; $star--): ?>
                                         <div class="rating-bar-wrap">
-                                            <span style="font-size: 0.8rem; color: var(--text-muted); width: 14px; text-align: left; font-weight: 700;"><?= $star ?></span>
+                                            <span style="font-size: 0.72rem; color: var(--text-muted); width: 14px; text-align: left; font-weight: 700;"><?= $star ?></span>
                                             <i class="fas fa-star text-warning" style="font-size: 0.72rem;"></i>
                                             <div class="rating-bar flex-grow-1">
                                                 <div class="rating-bar-fill" style="width: <?= $totalRev > 0 ? round($ratingDist[$star] / $totalRev * 100) : 0 ?>%;"></div>
                                             </div>
-                                            <span style="font-size: 0.78rem; color: var(--text-muted); width: 28px; font-weight: 700;"><?= $ratingDist[$star] ?></span>
+                                            <span style="font-size: 0.72rem; color: var(--text-muted); width: 28px; font-weight: 700;"><?= $ratingDist[$star] ?></span>
                                         </div>
                                     <?php endfor; ?>
                                 </div>
@@ -1423,9 +1423,9 @@ $totalRev = max(1, count($reviewsList));
                                         <div class="sp-reviewer-avatar" style="background: <?= $avatarColor ?>;">
                                             <?= mb_substr($rev['reviewer_name'], 0, 1) ?>
                                         </div>
-                                        <div>
-                                            <div class="fw-bold" style="color: var(--text-main); font-size: 0.95rem;"><?= e($rev['reviewer_name']) ?></div>
-                                            <div style="font-size: 0.78rem; color: var(--text-muted); font-weight: 600;">
+                                         <div>
+                                            <div class="fw-bold" style="color: var(--text-main); font-size: 0.84rem;"><?= e($rev['reviewer_name']) ?></div>
+                                            <div style="font-size: 0.68rem; color: var(--text-muted); font-weight: 600;">
                                                 <?= $roleLabel ?> · <?= date('d / m / Y', strtotime($rev['created_at'])) ?>
                                             </div>
                                         </div>
@@ -1436,18 +1436,18 @@ $totalRev = max(1, count($reviewsList));
                                         <?php endfor; ?>
                                     </div>
                                 </div>
-                                <p style="font-size: 0.9rem; color: var(--text-body); line-height: 1.75; margin: 0;"><?= e($rev['comment']) ?></p>
+                                <p style="font-size: 0.75rem; color: var(--text-body); line-height: 1.65; margin: 0;"><?= e($rev['comment']) ?></p>
                                 <?php if (!empty($rev['school_reply'])): ?>
                                     <div class="sp-school-reply">
                                         <div class="d-flex align-items-center gap-2 mb-2">
-                                            <span class="badge" style="background: #DBEAFE; color: #1d4ed8; font-size: 0.74rem; padding: 4px 10px; border-radius: 20px; font-weight: 800;">
+                                            <span class="badge" style="background: #DBEAFE; color: #1d4ed8; font-size: 0.7rem; padding: 3px 9px; border-radius: 20px; font-weight: 800;">
                                                 <i class="fas fa-reply me-1"></i> رد إدارة المدرسة
                                             </span>
                                             <?php if (!empty($rev['school_replied_at'])): ?>
-                                                <span style="font-size: 0.74rem; color: var(--text-muted); font-weight: 600;"><?= date('d / m / Y', strtotime($rev['school_replied_at'])) ?></span>
+                                                <span style="font-size: 0.68rem; color: var(--text-muted); font-weight: 600;"><?= date('d / m / Y', strtotime($rev['school_replied_at'])) ?></span>
                                             <?php endif; ?>
                                         </div>
-                                        <p style="font-size: 0.86rem; color: var(--text-body); margin: 0; line-height: 1.7;"><?= e($rev['school_reply']) ?></p>
+                                        <p style="font-size: 0.74rem; color: var(--text-body); margin: 0; line-height: 1.6;"><?= e($rev['school_reply']) ?></p>
                                     </div>
                                 <?php endif; ?>
                             </div>
@@ -1531,8 +1531,8 @@ $totalRev = max(1, count($reviewsList));
                             <a href="tel:<?= e($school['phone']) ?>" class="sp-contact-row text-decoration-none">
                                 <div class="sp-contact-icon" style="background: #EFF6FF; color: var(--brand-blue);"><i class="fas fa-phone"></i></div>
                                 <div>
-                                    <span style="font-size: 0.74rem; color: var(--text-muted); display: block; font-weight: 700;">هاتف المدرسة</span>
-                                    <span class="fw-bold" style="color: var(--text-main); font-size: 0.92rem;"><?= e($school['phone']) ?></span>
+                                    <span style="font-size: 0.68rem; color: var(--text-muted); display: block; font-weight: 700;">هاتف المدرسة</span>
+                                    <span class="fw-bold" style="color: var(--text-main); font-size: 0.82rem;"><?= e($school['phone']) ?></span>
                                 </div>
                             </a>
                         <?php endif; ?>
@@ -1540,8 +1540,8 @@ $totalRev = max(1, count($reviewsList));
                             <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $school['whatsapp']) ?>" target="_blank" class="sp-contact-row text-decoration-none">
                                 <div class="sp-contact-icon" style="background: #F0FDF4; color: #16a34a;"><i class="fab fa-whatsapp"></i></div>
                                 <div>
-                                    <span style="font-size: 0.74rem; color: var(--text-muted); display: block; font-weight: 700;">واتساب مباشر</span>
-                                    <span class="fw-bold" style="color: #16a34a; font-size: 0.92rem;"><?= e($school['whatsapp']) ?></span>
+                                    <span style="font-size: 0.68rem; color: var(--text-muted); display: block; font-weight: 700;">واتساب مباشر</span>
+                                    <span class="fw-bold" style="color: #16a34a; font-size: 0.82rem;"><?= e($school['whatsapp']) ?></span>
                                 </div>
                             </a>
                         <?php endif; ?>
@@ -1549,8 +1549,8 @@ $totalRev = max(1, count($reviewsList));
                             <a href="mailto:<?= e($school['email']) ?>" class="sp-contact-row text-decoration-none">
                                 <div class="sp-contact-icon" style="background: #F0F9FF; color: #0284c7;"><i class="fas fa-envelope"></i></div>
                                 <div>
-                                    <span style="font-size: 0.74rem; color: var(--text-muted); display: block; font-weight: 700;">البريد الإلكتروني</span>
-                                    <span style="color: var(--text-body); font-size: 0.88rem;"><?= e($school['email']) ?></span>
+                                    <span style="font-size: 0.68rem; color: var(--text-muted); display: block; font-weight: 700;">البريد الإلكتروني</span>
+                                    <span style="color: var(--text-body); font-size: 0.78rem;"><?= e($school['email']) ?></span>
                                 </div>
                             </a>
                         <?php endif; ?>
@@ -1558,15 +1558,15 @@ $totalRev = max(1, count($reviewsList));
                             <div class="sp-contact-row">
                                 <div class="sp-contact-icon" style="background: #FFF1F2; color: #e11d48;"><i class="fas fa-map-pin"></i></div>
                                 <div>
-                                    <span style="font-size: 0.74rem; color: var(--text-muted); display: block; font-weight: 700;">العنوان الفعلي</span>
-                                    <span style="color: var(--text-body); font-size: 0.88rem;"><?= e($school['address']) ?></span>
+                                    <span style="font-size: 0.68rem; color: var(--text-muted); display: block; font-weight: 700;">العنوان الفعلي</span>
+                                    <span style="color: var(--text-body); font-size: 0.78rem;"><?= e($school['address']) ?></span>
                                 </div>
                             </div>
                         <?php endif; ?>
                     </div>
                     <?php if (!empty($school['google_map_url'])): ?>
                         <div style="padding: 0 16px 16px;">
-                            <a href="<?= e($school['google_map_url']) ?>" target="_blank" class="btn-luxury-outline justify-content-center w-100" style="font-size: 0.84rem;">
+                            <a href="<?= e($school['google_map_url']) ?>" target="_blank" class="btn-luxury-outline justify-content-center w-100" style="font-size: 0.76rem;">
                                 <i class="fas fa-map-marked-alt text-danger"></i> فتح في خرائط Google
                             </a>
                         </div>
@@ -1583,13 +1583,13 @@ $totalRev = max(1, count($reviewsList));
                     </div>
                     <div class="sp-info-card-body d-flex flex-column gap-2">
                         <?php if (!empty($school['facebook'])): ?>
-                            <a href="<?= e($school['facebook']) ?>" target="_blank" class="btn-luxury-outline justify-content-between" style="font-size: 0.86rem;">
+                            <a href="<?= e($school['facebook']) ?>" target="_blank" class="btn-luxury-outline justify-content-between" style="font-size: 0.76rem;">
                                 <span><i class="fab fa-facebook me-2 text-primary"></i> صفحة فيسبوك</span>
                                 <i class="fas fa-external-link-alt text-muted small"></i>
                             </a>
                         <?php endif; ?>
                         <?php if (!empty($school['website'])): ?>
-                            <a href="<?= e($school['website']) ?>" target="_blank" class="btn-luxury-outline justify-content-between" style="font-size: 0.86rem;">
+                            <a href="<?= e($school['website']) ?>" target="_blank" class="btn-luxury-outline justify-content-between" style="font-size: 0.76rem;">
                                 <span><i class="fas fa-globe me-2 text-muted"></i> الموقع الإلكتروني</span>
                                 <i class="fas fa-external-link-alt text-muted small"></i>
                             </a>
@@ -1605,9 +1605,9 @@ $totalRev = max(1, count($reviewsList));
                         <div style="width: 52px; height: 52px; border-radius: 16px; background: rgba(245,160,32,0.22); border: 1.5px solid rgba(245,160,32,0.35); display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; font-size: 1.4rem;">
                             <i class="fas fa-rocket text-warning"></i>
                         </div>
-                        <h6 class="fw-bold mb-2" style="font-size: 1rem;">حوّل مدرستك لمدرسة ذكية!</h6>
-                        <p style="font-size: 0.82rem; opacity: 0.85; line-height: 1.65; margin-bottom: 18px;">انضم لمنظومة SchoPlus السحابية — إدارة أكاديمية ومالية متكاملة، تطبيق أولياء الأمور، وإشعارات واتساب فورية.</p>
-                        <a href="https://schoplus.sd" target="_blank" class="btn-luxury-gold justify-content-center w-100">
+                        <h6 class="fw-bold mb-2" style="font-size: 0.95rem;">حوّل مدرستك لمدرسة ذكية!</h6>
+                        <p style="font-size: 0.74rem; opacity: 0.85; line-height: 1.6; margin-bottom: 16px;">انضم لمنظومة SchoPlus السحابية — إدارة أكاديمية ومالية متكاملة، تطبيق أولياء الأمور، وإشعارات واتساب فورية.</p>
+                        <a href="https://schoplus.sd" target="_blank" class="btn-luxury-gold justify-content-center w-100" style="font-size: 0.78rem;">
                             <i class="fas fa-arrow-left"></i> تعرف على SchoPlus
                         </a>
                     </div>

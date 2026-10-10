@@ -11,7 +11,7 @@
                         </div>
                         <h4 class="daleel-brand-title m-0" style="font-size: 1.1rem;">دليل المدارس الذكي</h4>
                     </div>
-                    <p class="text-muted small leading-relaxed">
+                    <p class="text-muted leading-relaxed" style="font-size: 0.72rem; line-height: 1.6;">
                         المنصة الوطنية المفتوحة الأولى لربط أولياء الأمور والطلاب بأفضل المدارس في السودان، مع إبراز المؤسسات التعليمية الرائدة التي تعتمد حلول التحول الرقمي وإدارة المدارس السحابية عبر SchoPlus.
                     </p>
                     <div class="d-flex gap-2 mt-3">
@@ -21,27 +21,27 @@
                 </div>
 
                 <div class="col-lg-2 col-md-6 col-6">
-                    <h5 class="fw-bold text-dark mb-3">تصفح الدليل</h5>
-                    <a href="/" class="d-block text-secondary text-decoration-none small mb-2">كافة المدارس</a>
-                    <a href="/#schoplus-schools" class="d-block text-secondary text-decoration-none small mb-2">مدارس SchoPlus الذكية</a>
-                    <a href="/#top-rated" class="d-block text-secondary text-decoration-none small mb-2">المدارس الأعلى تقييماً</a>
-                    <a href="/register.php" class="d-block text-secondary text-decoration-none small mb-2">إضافة مدرسة جديدة</a>
+                    <h5 class="fw-bold text-dark mb-3" style="font-size: 0.88rem;">تصفح الدليل</h5>
+                    <a href="/" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">كافة المدارس</a>
+                    <a href="/#schoplus-schools" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">مدارس SchoPlus الذكية</a>
+                    <a href="/#top-rated" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">المدارس الأعلى تقييماً</a>
+                    <a href="/register.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">إضافة مدرسة جديدة</a>
                 </div>
 
                 <div class="col-lg-3 col-md-6 col-6">
-                    <h5 class="fw-bold text-dark mb-3">لأصحاب المدارس</h5>
-                    <a href="/login.php" class="d-block text-secondary text-decoration-none small mb-2">بوابة مدراء المدارس</a>
-                    <a href="/register.php" class="d-block text-secondary text-decoration-none small mb-2">تسجيل المدرسة مجاناً</a>
-                    <a href="https://schoplus.sd/pricing.html" target="_blank" class="d-block text-secondary text-decoration-none small mb-2">باقات نظام SchoPlus</a>
-                    <a href="https://schoplus.sd/demo.html" target="_blank" class="d-block text-secondary text-decoration-none small mb-2">طلب عرض تجريبي مجاني</a>
+                    <h5 class="fw-bold text-dark mb-3" style="font-size: 0.88rem;">لأصحاب المدارس</h5>
+                    <a href="/login.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">بوابة مدراء المدارس</a>
+                    <a href="/register.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">تسجيل المدرسة مجاناً</a>
+                    <a href="https://schoplus.sd/pricing.html" target="_blank" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">باقات نظام SchoPlus</a>
+                    <a href="https://schoplus.sd/demo.html" target="_blank" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">طلب عرض تجريبي مجاني</a>
                 </div>
 
                 <div class="col-lg-3 col-md-6">
-                    <h5 class="fw-bold text-dark mb-3">تواصل ومساعدة</h5>
-                    <p class="small text-muted mb-2"><i class="fas fa-map-marker-alt text-warning me-2"></i> الخرطوم / بورتسودان، جمهورية السودان</p>
-                    <p class="small text-muted mb-2"><i class="fab fa-whatsapp text-success me-2"></i> واتساب الدليل المباشر: +249 91 234 5678</p>
-                    <p class="small text-muted mb-3"><i class="fas fa-envelope text-primary me-2"></i> support@schoplus.sd</p>
-                    <a href="/register.php" class="btn-luxury-gold btn-sm w-100 justify-content-center">
+                    <h5 class="fw-bold text-dark mb-3" style="font-size: 0.88rem;">تواصل ومساعدة</h5>
+                    <p class="text-muted mb-2" style="font-size: 0.72rem;"><i class="fas fa-map-marker-alt text-warning me-2"></i> الخرطوم / بورتسودان، جمهورية السودان</p>
+                    <p class="text-muted mb-2" style="font-size: 0.72rem;"><i class="fab fa-whatsapp text-success me-2"></i> واتساب الدليل المباشر: +249 91 234 5678</p>
+                    <p class="text-muted mb-3" style="font-size: 0.72rem;"><i class="fas fa-envelope text-primary me-2"></i> support@schoplus.sd</p>
+                    <a href="/register.php" class="btn-luxury-gold btn-sm w-100 justify-content-center" style="font-size: 0.78rem;">
                         <i class="fas fa-plus-circle"></i> سجّل مدرستك اليوم مجاناً
                     </a>
                 </div>
@@ -49,12 +49,12 @@
 
             <hr class="my-4" style="border-color: #E2D7C8;">
 
-            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2 small text-muted">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2 text-muted" style="font-size: 0.7rem;">
                 <div>
                     جميع الحقوق محفوظة © <?= date('Y') ?> — دليل المدارس الذكي | إحدى مبادرات <strong>SchoPlus Cloud Ecosystem</strong>.
                 </div>
                 <div>
-                    عقدة سحابية مستقلة (Node 6) • النسخة 3.5.45
+                    عقدة سحابية مستقلة (Node 6) • النسخة 3.5.46
                 </div>
             </div>
         </div>
