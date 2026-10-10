@@ -1642,15 +1642,62 @@ require_once __DIR__ . '/header.php';
                 <!-- TAB 2: NEWS & ANNOUNCEMENTS -->
                 <div class="tab-pane fade <?= $activeDashTab === 'news' ? 'show active' : '' ?>" id="dash-news" role="tabpanel">
                     
-                    <!-- Header with Add News Trigger Button -->
-                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-4 p-3 bg-light rounded-4 border">
-                        <div>
-                            <h6 class="fw-bold text-dark mb-1"><i class="fas fa-bullhorn text-primary me-2"></i> الأخبار والإعلانات المدرسية</h6>
-                            <small class="text-muted">انشر مواعيد التسجيل، الفعاليات، تكريم الأوائل، والأنشطة بتنسيق Word متقدم لإبقاء أولياء الأمور على اطلاع دائم.</small>
+                    <!-- Direct Inline Add News Form Card with Word-like WYSIWYG -->
+                    <div class="card border-0 rounded-4 shadow-sm bg-white p-4 mb-4" id="inlineAddNewsCard">
+                        <div class="d-flex align-items-center justify-content-between pb-3 mb-3 border-bottom flex-wrap gap-2">
+                            <div class="d-flex align-items-center gap-2">
+                                <div style="width: 36px; height: 36px; border-radius: 10px; background: #EFF6FF; color: var(--brand-blue); display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">
+                                    <i class="fas fa-bullhorn"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold text-dark mb-0 fs-6">إضافة خبر أو إعلان جديد لمدرستكم</h6>
+                                    <small class="text-muted">انشر مواعيد التسجيل، الفعاليات، تكريم الأوائل، والأنشطة بتنسيق Word متقدم</small>
+                                </div>
+                            </div>
+                            <span class="badge bg-light text-secondary border px-3 py-1 rounded-pill small">
+                                <i class="fas fa-magic me-1 text-warning"></i> محرر متقدم
+                            </span>
                         </div>
-                        <button type="button" class="btn-luxury-primary px-3 py-2 fw-bold" onclick="openAddNewsModal()">
-                            <i class="fas fa-plus-circle me-1"></i> إضافة خبر أو إعلان جديد
-                        </button>
+
+                        <form method="POST" action="dashboard.php" enctype="multipart/form-data" id="addNewsForm" onsubmit="syncQuillToAddNews()">
+                            <?= csrf_field() ?>
+                            <input type="hidden" name="action" value="add_news">
+                            <input type="hidden" name="content" id="addNewsContentInput">
+
+                            <div class="row g-3">
+                                <div class="col-md-8">
+                                    <label class="form-label small fw-bold text-secondary">
+                                        عنوان الخبر / الإعلان <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="text" name="title" id="addNewsTitleInput" required class="form-control form-control-lg fs-6" placeholder="مثال: بدء التسجيل للعام الدراسي الجديد أو تكريم الطلاب المتفوقين...">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label small fw-bold text-secondary">
+                                        صورة بارزة للخبر (اختياري)
+                                    </label>
+                                    <input type="file" name="news_image" accept="image/*" class="form-control">
+                                    <small class="text-muted" style="font-size: 0.7rem;">في حال عدم رفع صورة، ستظهر تلقائياً صورة إعلان افتراضية أنيقة.</small>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label small fw-bold text-secondary">
+                                        نص وتفاصيل الخبر (محرر Word متقدم للتنسيق) <span class="text-danger">*</span>
+                                    </label>
+                                    <!-- Quill Word-like Editor Container -->
+                                    <div id="addNewsQuillEditor" style="min-height: 240px; background: #FFFFFF; border-radius: 0 0 10px 10px; font-size: 0.95rem; line-height: 1.8;"></div>
+                                </div>
+
+                                <div class="col-12 d-flex justify-content-between align-items-center pt-3 border-top mt-3 flex-wrap gap-2">
+                                    <div class="text-muted small">
+                                        <i class="fas fa-info-circle me-1 text-primary"></i>
+                                        سيتم نشر الخبر فوراً في صفحة مدرستكم العامة بدليل إسكوبلص.
+                                    </div>
+                                    <button type="submit" class="btn btn-primary px-4 py-2 fw-bold d-inline-flex align-items-center gap-2 shadow-sm rounded-3 fs-6">
+                                        <i class="fas fa-paper-plane"></i>
+                                        <span>حفظ ونشر الخبر الآن</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
 
                     <!-- News List Header -->
@@ -1917,55 +1964,6 @@ require_once __DIR__ . '/header.php';
     </div>
 </div>
 
-<!-- ADD NEWS MODAL (Word-like WYSIWYG Editor - يفتح فقط عند الضغط على إضافة خبر) -->
-<div class="modal fade" id="addNewsModal" tabindex="-1" aria-labelledby="addNewsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content rounded-4 border-0 shadow-lg">
-            <div class="modal-header bg-light border-bottom px-4 py-3">
-                <div class="d-flex align-items-center gap-2">
-                    <div style="width: 32px; height: 32px; border-radius: 8px; background: #EFF6FF; color: var(--brand-blue); display: flex; align-items: center; justify-content: center;">
-                        <i class="fas fa-plus"></i>
-                    </div>
-                    <div>
-                        <h5 class="modal-title fw-bold text-dark fs-6 mb-0" id="addNewsModalLabel">إضافة خبر أو إعلان جديد لمدرستكم</h5>
-                        <small class="text-muted">استخدم محرر Word المتقدم لتنسيق الخبر بالألوان والعناوين والقوائم</small>
-                    </div>
-                </div>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
-            </div>
-            <form method="POST" action="dashboard.php" enctype="multipart/form-data" id="addNewsForm" onsubmit="syncQuillToAddNews()">
-                <?= csrf_field() ?>
-                <input type="hidden" name="action" value="add_news">
-                <input type="hidden" name="content" id="addNewsContentInput">
-                
-                <div class="modal-body p-4">
-                    <div class="row g-3">
-                        <div class="col-md-8">
-                            <label class="form-label small fw-bold text-secondary">عنوان الخبر / الإعلان</label>
-                            <input type="text" name="title" id="addNewsTitleInput" required class="form-control" placeholder="مثال: بدء التسجيل للعام الدراسي الجديد أو تكريم الطلاب المتفوقين">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label small fw-bold text-secondary">صورة بارزة للخبر (اختياري)</label>
-                            <input type="file" name="news_image" accept="image/*" class="form-control">
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label small fw-bold text-secondary">نص الخبر والتفاصيل (محرر Word متقدم للتنسيق)</label>
-                            <!-- Quill Word-like Editor Container -->
-                            <div id="addNewsQuillEditor" style="min-height: 220px; background: #FFFFFF; border-radius: 0 0 10px 10px; font-size: 0.95rem; line-height: 1.8;"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-footer bg-light border-top px-4 py-2">
-                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">إلغاء</button>
-                    <button type="submit" class="btn-luxury-primary btn-sm px-4">
-                        <i class="fas fa-paper-plane me-1"></i> نشر الخبر الآن
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 
 <!-- EDIT NEWS MODAL (Word-like WYSIWYG Editor) -->
 <div class="modal fade" id="editNewsModal" tabindex="-1" aria-labelledby="editNewsModalLabel" aria-hidden="true">
@@ -2092,14 +2090,15 @@ function syncQuillToEditNews() {
 }
 
 function openAddNewsModal() {
-    // Reset form
-    document.getElementById('addNewsTitleInput').value = '';
-    if (addNewsQuill) {
-        addNewsQuill.root.innerHTML = '';
+    // Focus and scroll smoothly to the inline Add News form
+    const card = document.getElementById('inlineAddNewsCard');
+    if (card) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
-    document.getElementById('addNewsContentInput').value = '';
-    const modal = new bootstrap.Modal(document.getElementById('addNewsModal'));
-    modal.show();
+    const titleInput = document.getElementById('addNewsTitleInput');
+    if (titleInput) {
+        titleInput.focus();
+    }
 }
 
 function openEditNewsModal(item) {

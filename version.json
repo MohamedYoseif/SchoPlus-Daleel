@@ -1,7 +1,7 @@
 {
-    "release_notes": "daleel.schoplus.sd — إضافة لوغو افتراضي ذكي للمدارس وصورة مدمجة افتراضية للأخبار",
+    "release_notes": "daleel.schoplus.sd — تثبيت نموذج إضافة الأخبار ومحرر Word مباشرة في التبويب مع زر حفظ ونشر بارز",
     "min_php_version": "8.2",
-    "version": "3.5.56",
+    "version": "3.5.57",
     "release_date": "2026-10-10",
     "version_type": "enterprise"
 }
