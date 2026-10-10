@@ -48,6 +48,22 @@ if (!function_exists('defaultNewsImage')) {
     }
 }
 
+if (!function_exists('getSchoolDirectoryRank')) {
+    function getSchoolDirectoryRank(PDO $pdo, int $schoolId, ?int $customRank = null): int {
+        if ($customRank !== null && $customRank > 0) {
+            return $customRank;
+        }
+        try {
+            $stmt = $pdo->prepare("SELECT COUNT(*) FROM daleel_schools WHERE id <= ? AND status != 'rejected'");
+            $stmt->execute([$schoolId]);
+            $rank = (int) $stmt->fetchColumn();
+            return max(1, $rank);
+        } catch (Throwable $e) {
+            return max(1, $schoolId);
+        }
+    }
+}
+
 if (!function_exists('csrf_token')) {
     function csrf_token(): string {
         if (empty($_SESSION['_csrf_token'])) {
@@ -279,6 +295,7 @@ function ensureTablesExist(PDO $pdo): void {
             'activities_data' => "ALTER TABLE daleel_schools ADD COLUMN activities_data LONGTEXT NULL AFTER branches_data",
             'teachers_data'   => "ALTER TABLE daleel_schools ADD COLUMN teachers_data LONGTEXT NULL AFTER activities_data",
             'optional_tabs'   => "ALTER TABLE daleel_schools ADD COLUMN optional_tabs TEXT NULL AFTER teachers_data",
+            'directory_rank'  => "ALTER TABLE daleel_schools ADD COLUMN directory_rank INT UNSIGNED NULL DEFAULT NULL AFTER is_featured",
         ];
         foreach ($alterStatements as $colName => $sql) {
             if (!isset($existingCols[$colName])) {

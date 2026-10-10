@@ -95,6 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $activeDashTab = 'profile';
             $name = trim($_POST['name'] ?? '');
             $name_en = trim($_POST['name_en'] ?? '');
+            $rawSlug = trim($_POST['slug'] ?? '');
             $state = trim($_POST['state'] ?? '');
             $city = trim($_POST['city'] ?? '');
             $district = trim($_POST['district'] ?? '');
@@ -122,6 +123,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stages = isset($_POST['stages']) && is_array($_POST['stages']) ? $_POST['stages'] : [];
             $facilities = isset($_POST['facilities']) && is_array($_POST['facilities']) ? $_POST['facilities'] : [];
 
+            // Validate & sanitize custom slug
+            $newSlug = $school['slug'];
+            if ($rawSlug !== '' && $rawSlug !== $school['slug']) {
+                $cleanSlug = preg_replace('/[^a-z0-9\-]+/i', '-', strtolower($rawSlug));
+                $cleanSlug = trim(preg_replace('/-+/', '-', $cleanSlug), '-');
+                $reservedSlugs = ['index.php', 'index', 'home', 'schools', 'school', 's', 'admin', 'api', 'dashboard', 'login', 'register', 'logout'];
+                if (strlen($cleanSlug) < 3) {
+                    $errorMsg = 'يجب أن يتكون الرابط المخصص (Slug) من 3 أحرف إنجليزية أو أرقام على الأقل.';
+                } elseif (in_array($cleanSlug, $reservedSlugs, true)) {
+                    $errorMsg = 'هذا الرابط محجوز للنظام، يرجى اختيار رابط مخصص آخر.';
+                } else {
+                    $slugChk = $pdo->prepare("SELECT id FROM daleel_schools WHERE slug = ? AND id != ? LIMIT 1");
+                    $slugChk->execute([$cleanSlug, $schoolId]);
+                    if ($slugChk->fetch()) {
+                        $errorMsg = 'الرابط المخصص (' . $cleanSlug . ') مستخدم بالفعل لمدرسة أخرى، يرجى اختيار رابط آخر.';
+                    } else {
+                        $newSlug = $cleanSlug;
+                    }
+                }
+            }
+
             // Upload Logo
             $logoPath = $school['logo_path'];
             if (!empty($_FILES['logo']['tmp_name'])) {
@@ -146,7 +168,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             try {
                 $upStmt = $pdo->prepare("UPDATE daleel_schools SET 
-                    name = :name, name_en = :name_en, state = :state, city = :city, district = :district,
+                    name = :name, name_en = :name_en, slug = :slug, state = :state, city = :city, district = :district,
                     address = :address, google_map_url = :google_map_url, phone = :phone, whatsapp = :whatsapp,
                     email = :email, website = :website, facebook = :facebook,
                     twitter = :twitter, youtube = :youtube, telegram = :telegram, instagram = :instagram, tiktok = :tiktok,
@@ -159,6 +181,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $upStmt->execute([
                     ':name' => $name,
                     ':name_en' => $name_en ?: null,
+                    ':slug' => $newSlug,
                     ':state' => $state,
                     ':city' => $city,
                     ':district' => $district ?: null,
@@ -189,7 +212,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ':id' => $schoolId,
                 ]);
 
-                $successMsg = 'تم حفظ وتحديث بيانات مدرستكم والروابط الرقمية بنجاح!';
+                if (!$errorMsg) {
+                    $successMsg = 'تم حفظ وتحديث بيانات مدرستكم والروابط الرقمية بنجاح!';
+                }
                 // refresh
                 $stmt->execute([$schoolId]);
                 $school = $stmt->fetch();
@@ -1642,73 +1667,18 @@ require_once __DIR__ . '/header.php';
                 <!-- TAB 2: NEWS & ANNOUNCEMENTS -->
                 <div class="tab-pane fade <?= $activeDashTab === 'news' ? 'show active' : '' ?>" id="dash-news" role="tabpanel">
                     
-                    <!-- Header with Add News Trigger Button -->
+                    <!-- Header with Add News Modal Trigger Button -->
                     <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-4 p-3 bg-light rounded-4 border">
                         <div>
                             <h6 class="fw-bold text-dark mb-1"><i class="fas fa-bullhorn text-primary me-2"></i> الأخبار والإعلانات المدرسية</h6>
                             <small class="text-muted">انشر مواعيد التسجيل، الفعاليات، تكريم الأوائل، والأنشطة بتنسيق Word متقدم لإبقاء أولياء الأمور على اطلاع دائم.</small>
                         </div>
-                        <button type="button" class="btn-luxury-primary px-3 py-2 fw-bold" id="toggleAddNewsBtn" onclick="toggleAddNewsForm()">
-                            <i class="fas fa-plus-circle me-1" id="toggleAddNewsIcon"></i> <span id="toggleAddNewsText">إضافة خبر أو إعلان جديد</span>
+                        <button type="button" class="btn btn-primary px-3 py-2 fw-bold d-inline-flex align-items-center gap-2 rounded-3 shadow-sm" onclick="openAddNewsModal()">
+                            <i class="fas fa-plus-circle"></i> <span>إضافة خبر أو إعلان جديد</span>
                         </button>
                     </div>
 
-                    <!-- Collapsible Add News Form Card with Word-like WYSIWYG -->
-                    <div class="card border-0 rounded-4 shadow-sm bg-white p-4 mb-4" id="inlineAddNewsCard" style="display: none; border-top: 4px solid var(--brand-blue) !important;">
-                        <div class="d-flex align-items-center justify-content-between pb-3 mb-3 border-bottom flex-wrap gap-2">
-                            <div class="d-flex align-items-center gap-2">
-                                <div style="width: 36px; height: 36px; border-radius: 10px; background: #EFF6FF; color: var(--brand-blue); display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">
-                                    <i class="fas fa-bullhorn"></i>
-                                </div>
-                                <div>
-                                    <h6 class="fw-bold text-dark mb-0 fs-6">إضافة خبر أو إعلان جديد لمدرستكم</h6>
-                                    <small class="text-muted">املأ البيانات ونسق الخبر باستخدام محرر Word المتقدم أدناه ثم اضغط حفظ ونشر</small>
-                                </div>
-                            </div>
-                            <button type="button" class="btn btn-sm btn-light border rounded-pill px-3 py-1 text-muted fw-bold" onclick="toggleAddNewsForm()">
-                                <i class="fas fa-times me-1"></i> إغلاق النموذج
-                            </button>
-                        </div>
 
-                        <form method="POST" action="dashboard.php" enctype="multipart/form-data" id="addNewsForm" onsubmit="syncQuillToAddNews()">
-                            <?= csrf_field() ?>
-                            <input type="hidden" name="action" value="add_news">
-                            <input type="hidden" name="content" id="addNewsContentInput">
-
-                            <div class="row g-3">
-                                <div class="col-md-8">
-                                    <label class="form-label small fw-bold text-secondary">
-                                        عنوان الخبر / الإعلان <span class="text-danger">*</span>
-                                    </label>
-                                    <input type="text" name="title" id="addNewsTitleInput" required class="form-control form-control-lg fs-6" placeholder="مثال: بدء التسجيل للعام الدراسي الجديد أو تكريم الطلاب المتفوقين...">
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label small fw-bold text-secondary">
-                                        صورة بارزة للخبر (اختياري)
-                                    </label>
-                                    <input type="file" name="news_image" accept="image/*" class="form-control">
-                                    <small class="text-muted" style="font-size: 0.7rem;">في حال عدم رفع صورة، ستظهر تلقائياً صورة إعلان افتراضية أنيقة وصغيرة.</small>
-                                </div>
-                                <div class="col-12">
-                                    <label class="form-label small fw-bold text-secondary">
-                                        نص وتفاصيل الخبر (محرر Word متقدم للتنسيق) <span class="text-danger">*</span>
-                                    </label>
-                                    <!-- Quill Word-like Editor Container -->
-                                    <div id="addNewsQuillEditor" style="min-height: 240px; background: #FFFFFF; border-radius: 0 0 10px 10px; font-size: 0.95rem; line-height: 1.8;"></div>
-                                </div>
-
-                                <div class="col-12 d-flex justify-content-between align-items-center pt-3 border-top mt-3 flex-wrap gap-2">
-                                    <button type="button" class="btn btn-light border btn-sm px-3" onclick="toggleAddNewsForm()">
-                                        إلغاء التراجع
-                                    </button>
-                                    <button type="submit" class="btn btn-primary px-4 py-2 fw-bold d-inline-flex align-items-center gap-2 shadow-sm rounded-3 fs-6">
-                                        <i class="fas fa-paper-plane"></i>
-                                        <span>حفظ ونشر الخبر الآن</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
 
                     <!-- News List Header -->
                     <div class="d-flex align-items-center justify-content-between mb-3">
@@ -1975,6 +1945,64 @@ require_once __DIR__ . '/header.php';
 </div>
 
 
+<!-- ADD NEWS MODAL (Word-like WYSIWYG Editor - يفتح عند الضغط على إضافة خبر) -->
+<div class="modal fade" id="addNewsModal" tabindex="-1" aria-labelledby="addNewsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content rounded-4 border-0 shadow-lg">
+            <div class="modal-header bg-light border-bottom px-4 py-3">
+                <div class="d-flex align-items-center gap-2">
+                    <div style="width: 36px; height: 36px; border-radius: 10px; background: #EFF6FF; color: var(--brand-blue); display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">
+                        <i class="fas fa-bullhorn"></i>
+                    </div>
+                    <div>
+                        <h5 class="modal-title fw-bold text-dark fs-6 mb-0" id="addNewsModalLabel">إضافة خبر أو إعلان جديد لمدرستكم</h5>
+                        <small class="text-muted">استخدم محرر Word لتنسيق تفاصيل الخبر (تُعتمد صورة إعلان افتراضية تلقائياً بحجم مدمج)</small>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+            </div>
+            <form method="POST" action="dashboard.php" id="addNewsForm" onsubmit="syncQuillToAddNews()">
+                <?= csrf_field() ?>
+                <input type="hidden" name="action" value="add_news">
+                <input type="hidden" name="content" id="addNewsContentInput">
+
+                <div class="modal-body p-4">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label class="form-label small fw-bold text-secondary">
+                                عنوان الخبر / الإعلان <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" name="title" id="addNewsTitleInput" required class="form-control form-control-lg fs-6" placeholder="مثال: بدء التسجيل للعام الدراسي الجديد أو تكريم الطلاب المتفوقين...">
+                        </div>
+                        <div class="col-12">
+                            <div class="d-flex align-items-center justify-content-between mb-1">
+                                <label class="form-label small fw-bold text-secondary mb-0">
+                                    نص وتفاصيل الخبر (محرر Word متقدم) <span class="text-danger">*</span>
+                                </label>
+                                <span class="badge bg-light text-secondary border small">
+                                    <i class="fas fa-magic text-warning me-1"></i> يدعم العناوين، الألوان، والقوائم
+                                </span>
+                            </div>
+                            <!-- Quill Word-like Editor Container -->
+                            <div id="addNewsQuillEditor" style="min-height: 250px; background: #FFFFFF; border-radius: 0 0 10px 10px; font-size: 0.95rem; line-height: 1.8;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer bg-light border-top px-4 py-3 justify-content-between">
+                    <button type="button" class="btn btn-secondary btn-sm px-3" data-bs-dismiss="modal">
+                        إلغاء
+                    </button>
+                    <button type="submit" class="btn btn-primary px-4 py-2 fw-bold d-inline-flex align-items-center gap-2 shadow-sm rounded-3">
+                        <i class="fas fa-paper-plane"></i>
+                        <span>حفظ ونشر الخبر الآن</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <!-- EDIT NEWS MODAL (Word-like WYSIWYG Editor) -->
 <div class="modal fade" id="editNewsModal" tabindex="-1" aria-labelledby="editNewsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -1993,17 +2021,9 @@ require_once __DIR__ . '/header.php';
 
                 <div class="modal-body p-4">
                     <div class="row g-3">
-                        <div class="col-md-8">
-                            <label class="form-label small fw-bold text-secondary">عنوان الخبر / الإعلان</label>
-                            <input type="text" name="title" id="editNewsTitle" required class="form-control" placeholder="عنوان الخبر...">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label small fw-bold text-secondary">تغيير الصورة البارزة (اختياري)</label>
-                            <input type="file" name="news_image" accept="image/*" class="form-control">
-                        </div>
-                        <div class="col-12" id="editNewsCurrentImageWrap" style="display: none;">
-                            <label class="form-label small text-muted d-block">الصورة الحالية:</label>
-                            <img id="editNewsCurrentImage" src="" alt="صورة الخبر" style="max-height: 100px; border-radius: 8px;" class="border">
+                        <div class="col-12">
+                            <label class="form-label small fw-bold text-secondary">عنوان الخبر / الإعلان <span class="text-danger">*</span></label>
+                            <input type="text" name="title" id="editNewsTitle" required class="form-control form-control-lg fs-6" placeholder="عنوان الخبر...">
                         </div>
                         <div class="col-12">
                             <label class="form-label small fw-bold text-secondary">نص وتفاصيل الخبر (محرر Word متقدم)</label>
@@ -2099,30 +2119,16 @@ function syncQuillToEditNews() {
     return true;
 }
 
-function toggleAddNewsForm() {
-    const card = document.getElementById('inlineAddNewsCard');
-    const textSpan = document.getElementById('toggleAddNewsText');
-    const icon = document.getElementById('toggleAddNewsIcon');
-    if (!card) return;
-
-    if (card.style.display === 'none' || card.style.display === '') {
-        card.style.display = 'block';
-        if (textSpan) textSpan.innerText = 'إلغاء إضافة الخبر';
-        if (icon) icon.className = 'fas fa-times me-1';
-        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        setTimeout(() => {
-            const titleInput = document.getElementById('addNewsTitleInput');
-            if (titleInput) titleInput.focus();
-        }, 150);
-    } else {
-        card.style.display = 'none';
-        if (textSpan) textSpan.innerText = 'إضافة خبر أو إعلان جديد';
-        if (icon) icon.className = 'fas fa-plus-circle me-1';
-    }
-}
-
 function openAddNewsModal() {
-    toggleAddNewsForm();
+    // Reset form fields
+    const titleInput = document.getElementById('addNewsTitleInput');
+    if (titleInput) titleInput.value = '';
+    if (addNewsQuill) addNewsQuill.root.innerHTML = '';
+    const contentInput = document.getElementById('addNewsContentInput');
+    if (contentInput) contentInput.value = '';
+
+    const modal = new bootstrap.Modal(document.getElementById('addNewsModal'));
+    modal.show();
 }
 
 function openEditNewsModal(item) {

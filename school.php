@@ -1016,7 +1016,12 @@ $totalRev = max(1, count($reviewsList));
             </div>
 
             <!-- Quick Stats Bar -->
+            <?php $schoolRank = getSchoolDirectoryRank($pdo, (int)$school['id'], !empty($school['directory_rank']) ? (int)$school['directory_rank'] : null); ?>
             <div class="sp-quick-stats">
+                <div class="sp-stat-item">
+                    <i class="fas fa-hashtag" style="color: var(--brand-gold);"></i>
+                    <span>الترتيب في الدليل: <strong style="color: var(--brand-navy);"><?= $schoolRank ?></strong></span>
+                </div>
                 <div class="sp-stat-item">
                     <i class="fas fa-eye" style="color: var(--brand-blue);"></i>
                     <span><strong><?= number_format($school['views_count']) ?></strong> مشاهدة</span>
@@ -1776,6 +1781,13 @@ $totalRev = max(1, count($reviewsList));
                     </div>
                     <div class="sp-info-card-body">
                         <div class="sp-fact-row">
+                            <div class="sp-fact-icon" style="background: #FFFBEB; color: #d97706;"><i class="fas fa-hashtag"></i></div>
+                            <div>
+                                <span class="sp-fact-label">الترتيب في الدليل</span>
+                                <span class="sp-fact-value" style="color: var(--brand-navy);">#<?= $schoolRank ?></span>
+                            </div>
+                        </div>
+                        <div class="sp-fact-row">
                             <div class="sp-fact-icon" style="background: #EFF6FF; color: var(--brand-blue);"><i class="fas fa-building"></i></div>
                             <div>
                                 <span class="sp-fact-label">نوع المدرسة</span>
@@ -1901,7 +1913,7 @@ $totalRev = max(1, count($reviewsList));
                 <!-- Data Disclaimer Note -->
                 <div class="p-3 rounded-4 mb-3" style="background: #FAF8F5; border: 1px solid var(--border-subtle); font-size: 0.7rem; color: var(--text-muted); line-height: 1.7;">
                     <i class="fas fa-info-circle text-warning me-1"></i>
-                    <strong class="text-dark">تنويه:</strong> البيانات والمعلومات المنشورة في هذه الصفحة تمت إضافتها مباشرة بواسطة إدارة المدرسة وعلى مسؤوليتها. دليل المدارس هو خدمة رقمية مجانية من منظومة <strong>ايسكو بلص (SchoPlus)</strong> دون أي مقابل مادي، وليس دليلاً رسمياً حكومياً.
+                    <strong class="text-dark">تنويه:</strong> البيانات والمعلومات المنشورة في هذه الصفحة تمت إضافتها مباشرة بواسطة إدارة المدرسة وعلى مسؤوليتها. دليل المدارس هو خدمة رقمية مقدمة من منظومة <strong>ايسكو بلص (SchoPlus)</strong>، وليس دليلاً رسمياً حكومياً.
                 </div>
 
                 <!-- SchoPlus Upgrade CTA (for non-clients) -->
