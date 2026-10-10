@@ -1927,6 +1927,56 @@ require_once __DIR__ . '/header.php';
     </div>
 </div>
 
+<!-- ADD NEWS MODAL (Word-like WYSIWYG Editor - يفتح فقط عند الضغط على إضافة خبر) -->
+<div class="modal fade" id="addNewsModal" tabindex="-1" aria-labelledby="addNewsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0 shadow-lg">
+            <div class="modal-header bg-light border-bottom px-4 py-3">
+                <div class="d-flex align-items-center gap-2">
+                    <div style="width: 32px; height: 32px; border-radius: 8px; background: #EFF6FF; color: var(--brand-blue); display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div>
+                        <h5 class="modal-title fw-bold text-dark fs-6 mb-0" id="addNewsModalLabel">إضافة خبر أو إعلان جديد لمدرستكم</h5>
+                        <small class="text-muted">استخدم محرر Word المتقدم لتنسيق الخبر بالألوان والعناوين والقوائم</small>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+            </div>
+            <form method="POST" action="dashboard.php" enctype="multipart/form-data" id="addNewsForm" onsubmit="syncQuillToAddNews()">
+                <?= csrf_field() ?>
+                <input type="hidden" name="action" value="add_news">
+                <input type="hidden" name="content" id="addNewsContentInput">
+                
+                <div class="modal-body p-4">
+                    <div class="row g-3">
+                        <div class="col-md-8">
+                            <label class="form-label small fw-bold text-secondary">عنوان الخبر / الإعلان</label>
+                            <input type="text" name="title" id="addNewsTitleInput" required class="form-control" placeholder="مثال: بدء التسجيل للعام الدراسي الجديد أو تكريم الطلاب المتفوقين">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label small fw-bold text-secondary">صورة بارزة للخبر (اختياري)</label>
+                            <input type="file" name="news_image" accept="image/*" class="form-control">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label small fw-bold text-secondary">نص الخبر والتفاصيل (محرر Word متقدم للتنسيق)</label>
+                            <!-- Quill Word-like Editor Container -->
+                            <div id="addNewsQuillEditor" style="min-height: 220px; background: #FFFFFF; border-radius: 0 0 10px 10px; font-size: 0.95rem; line-height: 1.8;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer bg-light border-top px-4 py-2">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="submit" class="btn-luxury-primary btn-sm px-4">
+                        <i class="fas fa-paper-plane me-1"></i> نشر الخبر الآن
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <!-- EDIT NEWS MODAL (Word-like WYSIWYG Editor) -->
 <div class="modal fade" id="editNewsModal" tabindex="-1" aria-labelledby="editNewsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -2051,6 +2101,17 @@ function syncQuillToEditNews() {
     return true;
 }
 
+function openAddNewsModal() {
+    // Reset form
+    document.getElementById('addNewsTitleInput').value = '';
+    if (addNewsQuill) {
+        addNewsQuill.root.innerHTML = '';
+    }
+    document.getElementById('addNewsContentInput').value = '';
+    const modal = new bootstrap.Modal(document.getElementById('addNewsModal'));
+    modal.show();
+}
+
 function openEditNewsModal(item) {
     document.getElementById('editNewsId').value = item.id;
     document.getElementById('editNewsTitle').value = item.title;
@@ -2075,6 +2136,35 @@ function openEditNewsModal(item) {
     const modal = new bootstrap.Modal(document.getElementById('editNewsModal'));
     modal.show();
 }
+
+// Ensure active tab is stored in URL hash and restored properly
+document.addEventListener('DOMContentLoaded', function() {
+    const tabTriggers = document.querySelectorAll('#dashboardTabs [data-bs-toggle="tab"]');
+    tabTriggers.forEach(trigger => {
+        trigger.addEventListener('shown.bs.tab', function(e) {
+            const targetId = e.target.getAttribute('data-bs-target');
+            if (targetId) {
+                history.replaceState(null, null, targetId);
+            }
+        });
+    });
+
+    // Check if server set a specific active tab (e.g. after adding media/news/photo)
+    const serverActiveTab = '<?= e($activeDashTab) ?>';
+    const serverTabBtn = document.getElementById('dash-' + serverActiveTab + '-tab');
+
+    // If server active tab is NOT profile, or there is no URL hash, show server tab and set hash
+    if (serverActiveTab && serverActiveTab !== 'profile' && serverTabBtn) {
+        new bootstrap.Tab(serverTabBtn).show();
+        history.replaceState(null, null, '#dash-' + serverActiveTab);
+    } else if (window.location.hash) {
+        // Otherwise if URL has hash on load, switch to that tab
+        const hashTab = document.querySelector('#dashboardTabs [data-bs-target="' + window.location.hash + '"]');
+        if (hashTab) {
+            new bootstrap.Tab(hashTab).show();
+        }
+    }
+});
 </script>
 
 <?php
