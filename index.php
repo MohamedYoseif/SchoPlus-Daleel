@@ -436,8 +436,8 @@ if ($isSearching) {
                 <?php else: ?>
                     <?php foreach($searchResults as $s): ?>
                         <?php
-                            $logo = !empty($s['logo_path']) ? e($s['logo_path']) : "https://ui-avatars.com/api/?name=" . urlencode(mb_substr($s['name'], 0, 1, 'UTF-8')) . "&background=1E5FA8&color=ffffff&size=160&bold=true";
-                            $cover = !empty($s['cover_path']) ? e($s['cover_path']) : '';
+                            $logo = !empty($s['logo_path']) ? e(assetUrl($s['logo_path'])) : "https://ui-avatars.com/api/?name=" . urlencode(mb_substr($s['name'], 0, 1, 'UTF-8')) . "&background=1E5FA8&color=ffffff&size=160&bold=true";
+                            $cover = !empty($s['cover_path']) ? e(assetUrl($s['cover_path'])) : '';
                             $stagesArr = json_decode($s['stages'] ?? '[]', true) ?: [];
                             $schoolUrl = '/school/' . urlencode($s['slug']);
                         ?>
@@ -581,8 +581,8 @@ if ($isSearching) {
             <div class="row g-4">
                 <?php foreach($schoplusSchools as $s): ?>
                     <?php
-                        $logo = !empty($s['logo_path']) ? e($s['logo_path']) : "https://ui-avatars.com/api/?name=" . urlencode(mb_substr($s['name'], 0, 1, 'UTF-8')) . "&background=1E5FA8&color=ffffff&size=160&bold=true";
-                        $cover = !empty($s['cover_path']) ? e($s['cover_path']) : '';
+                        $logo = !empty($s['logo_path']) ? e(assetUrl($s['logo_path'])) : "https://ui-avatars.com/api/?name=" . urlencode(mb_substr($s['name'], 0, 1, 'UTF-8')) . "&background=1E5FA8&color=ffffff&size=160&bold=true";
+                        $cover = !empty($s['cover_path']) ? e(assetUrl($s['cover_path'])) : '';
                         $stagesArr = json_decode($s['stages'] ?? '[]', true) ?: [];
                         $schoolUrl = '/school/' . urlencode($s['slug']);
                     ?>
@@ -683,7 +683,7 @@ if ($isSearching) {
             <div class="row g-4">
                 <?php foreach($topRatedSchools as $s): ?>
                     <?php
-                        $logo = !empty($s['logo_path']) ? e($s['logo_path']) : "https://ui-avatars.com/api/?name=" . urlencode(mb_substr($s['name'], 0, 1, 'UTF-8')) . "&background=1E5FA8&color=ffffff&size=160&bold=true";
+                        $logo = !empty($s['logo_path']) ? e(assetUrl($s['logo_path'])) : "https://ui-avatars.com/api/?name=" . urlencode(mb_substr($s['name'], 0, 1, 'UTF-8')) . "&background=1E5FA8&color=ffffff&size=160&bold=true";
                         $schoolUrl = '/school/' . urlencode($s['slug']);
                     ?>
                     <div class="col-lg-4 col-md-6">
@@ -751,7 +751,7 @@ if ($isSearching) {
             <div class="row g-4">
                 <?php foreach($latestSchools as $s): ?>
                     <?php
-                        $logo = !empty($s['logo_path']) ? e($s['logo_path']) : "https://ui-avatars.com/api/?name=" . urlencode(mb_substr($s['name'], 0, 1, 'UTF-8')) . "&background=1E5FA8&color=ffffff&size=160&bold=true";
+                        $logo = !empty($s['logo_path']) ? e(assetUrl($s['logo_path'])) : "https://ui-avatars.com/api/?name=" . urlencode(mb_substr($s['name'], 0, 1, 'UTF-8')) . "&background=1E5FA8&color=ffffff&size=160&bold=true";
                         $schoolUrl = '/school/' . urlencode($s['slug']);
                     ?>
                     <div class="col-lg-4 col-md-6">

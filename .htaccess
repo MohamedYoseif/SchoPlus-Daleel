@@ -2,6 +2,20 @@
 Options -Indexes +FollowSymLinks
 RewriteEngine On
 
+# Increase PHP upload limits where supported
+<IfModule mod_php.c>
+    php_value upload_max_filesize 20M
+    php_value post_max_size 25M
+</IfModule>
+<IfModule mod_php8.c>
+    php_value upload_max_filesize 20M
+    php_value post_max_size 25M
+</IfModule>
+
+# Rewrite any relative /school/uploads/... or /s/uploads/... requests to root /uploads/...
+RewriteRule ^(?:school|s)/uploads/(.*)$ /uploads/$1 [L,NC]
+RewriteRule ^(?:school|s)/assets/(.*)$ /assets/$1 [L,NC]
+
 # Allow direct access to real files and directories
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d

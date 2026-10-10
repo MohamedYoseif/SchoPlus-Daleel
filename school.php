@@ -906,7 +906,7 @@ $totalRev = max(1, count($reviewsList));
                 <span class="fw-bold text-dark small">معاينة أولية — هذا الملف بانتظار مراجعة الإدارة</span>
                 <span class="text-muted small d-none d-sm-inline ms-2">سيظهر للجمهور فور اكتمال التدقيق والموافقة</span>
             </div>
-            <a href="dashboard.php" class="btn-luxury-primary btn-sm py-1 px-3 text-nowrap"><i class="fas fa-edit me-1"></i> لوحة الإدارة</a>
+            <a href="/dashboard.php" class="btn-luxury-primary btn-sm py-1 px-3 text-nowrap"><i class="fas fa-edit me-1"></i> لوحة الإدارة</a>
         </div>
     </div>
     <?php endif; ?>
@@ -915,10 +915,12 @@ $totalRev = max(1, count($reviewsList));
     <div class="container px-2 px-md-3">
         <div class="sp-hero-cover mb-0">
             <?php if (!empty($school['cover_path'])): ?>
-                <img src="<?= e($school['cover_path']) ?>" alt="غلاف <?= e($school['name']) ?>" class="cover-img">
+                <img src="<?= e(assetUrl($school['cover_path'])) ?>" alt="غلاف <?= e($school['name']) ?>" class="cover-img">
+                <div class="cover-overlay" style="background: linear-gradient(to bottom, rgba(11,42,82,0.06) 0%, rgba(11,42,82,0.42) 100%);"></div>
+            <?php else: ?>
+                <div class="cover-overlay"></div>
+                <div class="cover-pattern"></div>
             <?php endif; ?>
-            <div class="cover-overlay"></div>
-            <div class="cover-pattern"></div>
 
             <!-- Top Header Badges Container -->
             <div class="sp-cover-badges-bar">
@@ -947,7 +949,7 @@ $totalRev = max(1, count($reviewsList));
                     <!-- Logo -->
                     <div class="sp-logo-wrap">
                         <?php if (!empty($school['logo_path'])): ?>
-                            <img src="<?= e($school['logo_path']) ?>" alt="<?= e($school['name']) ?>">
+                            <img src="<?= e(assetUrl($school['logo_path'])) ?>" alt="<?= e($school['name']) ?>">
                         <?php else: ?>
                             <div class="sp-logo-placeholder"><?= mb_substr($school['name'], 0, 1) ?></div>
                         <?php endif; ?>
@@ -984,7 +986,7 @@ $totalRev = max(1, count($reviewsList));
                         <i class="fas fa-share-alt text-primary"></i> <span class="d-inline d-md-none">مشاركة</span>
                     </button>
                     <?php if ($isOwner): ?>
-                        <a href="dashboard.php" class="btn-luxury-outline sp-btn-action" title="لوحة إدارة المدرسة">
+                        <a href="/dashboard.php" class="btn-luxury-outline sp-btn-action" title="لوحة إدارة المدرسة">
                             <i class="fas fa-cog text-muted"></i> <span class="d-inline d-md-none">الإدارة</span>
                         </a>
                     <?php endif; ?>
@@ -1170,6 +1172,37 @@ $totalRev = max(1, count($reviewsList));
                         </div>
                     </div>
 
+                    <!-- Uploaded Campus Photos Preview in Main Overview (Appears automatically when photos exist) -->
+                    <?php if (!empty($galleryList)): ?>
+                    <div class="sp-section">
+                        <div class="sp-section-head">
+                            <div class="sp-section-title">
+                                <div class="title-icon" style="background: #FFF7ED; color: #ea580c;"><i class="fas fa-camera"></i></div>
+                                صور من مرافق وفعاليات المدرسة
+                            </div>
+                            <button type="button" class="btn btn-sm btn-light border rounded-pill px-3 py-1 fw-bold" style="font-size: 0.72rem; color: var(--brand-navy);" onclick="switchTab(document.querySelector('[data-target=\'tab-gallery\']'), 'tab-gallery')">
+                                <i class="fas fa-images text-warning me-1"></i> كل الصور (<?= count($galleryList) ?>)
+                            </button>
+                        </div>
+                        <div class="sp-section-body">
+                            <div class="sp-gallery-grid">
+                                <?php foreach ($galleryList as $idx => $photo): ?>
+                                    <?php $photoUrl = assetUrl($photo['path'] ?? ''); if (!$photoUrl) continue; ?>
+                                    <div class="sp-gallery-item" onclick="spLightboxOpen('<?= e($photoUrl) ?>', '<?= e(addslashes($photo['caption'] ?: $school['name'])) ?>')">
+                                        <img src="<?= e($photoUrl) ?>" alt="<?= e($photo['caption'] ?: $school['name']) ?>" loading="lazy">
+                                        <div class="sp-gallery-overlay">
+                                            <?php if (!empty($photo['caption'])): ?>
+                                                <div class="sp-gallery-caption"><?= e($photo['caption']) ?></div>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="sp-gallery-zoom"><i class="fas fa-expand-alt"></i></div>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endif; ?>
+
                     <!-- MOBILE-ONLY COMPACT FACTS & CONTACT CARD (Visible on phones without scrolling to bottom) -->
                     <div class="sp-section d-lg-none">
                         <div class="sp-section-head">
@@ -1255,7 +1288,7 @@ $totalRev = max(1, count($reviewsList));
                             <div class="alert alert-danger border-0 rounded-4 py-2 mb-3"><i class="fas fa-exclamation-triangle me-1"></i> <?= e($inquiryError) ?></div>
                         <?php endif; ?>
 
-                        <form method="POST" action="school.php?slug=<?= urlencode($school['slug']) ?>#inquiry-form-section">
+                        <form method="POST" action="/school.php?slug=<?= urlencode($school['slug']) ?>#inquiry-form-section">
                             <?= csrf_field() ?>
                             <input type="hidden" name="action" value="add_inquiry">
                             <div class="row g-3">
@@ -1308,8 +1341,9 @@ $totalRev = max(1, count($reviewsList));
                             <?php else: ?>
                                 <div class="sp-gallery-grid">
                                     <?php foreach ($galleryList as $idx => $photo): ?>
-                                        <div class="sp-gallery-item" onclick="spLightboxOpen('<?= e($photo['path']) ?>', '<?= e(addslashes($photo['caption'] ?: $school['name'])) ?>')">
-                                            <img src="<?= e($photo['path']) ?>" alt="<?= e($photo['caption'] ?: $school['name']) ?>" loading="lazy">
+                                        <?php $photoUrl = assetUrl($photo['path'] ?? ''); if (!$photoUrl) continue; ?>
+                                        <div class="sp-gallery-item" onclick="spLightboxOpen('<?= e($photoUrl) ?>', '<?= e(addslashes($photo['caption'] ?: $school['name'])) ?>')">
+                                            <img src="<?= e($photoUrl) ?>" alt="<?= e($photo['caption'] ?: $school['name']) ?>" loading="lazy">
                                             <div class="sp-gallery-overlay">
                                                 <?php if (!empty($photo['caption'])): ?>
                                                     <div class="sp-gallery-caption"><?= e($photo['caption']) ?></div>
@@ -1356,8 +1390,9 @@ $totalRev = max(1, count($reviewsList));
                                             </div>
                                             <p style="font-size: 0.75rem; color: var(--text-body); line-height: 1.65; white-space: pre-line; margin: 0;"><?= e($item['content']) ?></p>
                                             <?php if (!empty($item['image_path'])): ?>
-                                                <div class="mt-3">
-                                                    <img src="<?= e($item['image_path']) ?>" alt="صورة الخبر" loading="lazy" class="img-fluid rounded-3" style="max-height: 280px; object-fit: cover; width: 100%;">
+                                                <?php $newsImgUrl = assetUrl($item['image_path']); ?>
+                                                <div class="mt-3" style="cursor: pointer;" onclick="spLightboxOpen('<?= e($newsImgUrl) ?>', '<?= e(addslashes($item['title'])) ?>')">
+                                                    <img src="<?= e($newsImgUrl) ?>" alt="صورة الخبر" loading="lazy" class="img-fluid rounded-3" style="max-height: 280px; object-fit: cover; width: 100%;">
                                                 </div>
                                             <?php endif; ?>
                                         </div>
@@ -1423,7 +1458,7 @@ $totalRev = max(1, count($reviewsList));
                             <?php if ($reviewError): ?>
                                 <div class="alert alert-danger border-0 rounded-4 py-2 mb-3"><i class="fas fa-exclamation-triangle me-1"></i> <?= e($reviewError) ?></div>
                             <?php endif; ?>
-                            <form method="POST" action="school.php?slug=<?= urlencode($school['slug']) ?>#reviews">
+                            <form method="POST" action="/school.php?slug=<?= urlencode($school['slug']) ?>#reviews">
                                 <?= csrf_field() ?>
                                 <input type="hidden" name="action" value="add_review">
                                 <div class="row g-3">
@@ -1595,8 +1630,9 @@ $totalRev = max(1, count($reviewsList));
                                         <div class="p-3 rounded-4 border h-100 d-flex flex-column justify-content-between" style="background: #FFFFFF; border-color: var(--border-subtle) !important;">
                                             <div>
                                                 <?php if (!empty($act['image_path'])): ?>
-                                                    <div class="rounded-3 overflow-hidden mb-3" style="height: 150px; cursor: pointer;" onclick="spLightboxOpen('<?= e($act['image_path']) ?>', '<?= e(addslashes($act['title'] ?? '')) ?>')">
-                                                        <img src="<?= e($act['image_path']) ?>" alt="<?= e($act['title'] ?? '') ?>" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+                                                    <?php $actImgUrl = assetUrl($act['image_path']); ?>
+                                                    <div class="rounded-3 overflow-hidden mb-3" style="height: 150px; cursor: pointer;" onclick="spLightboxOpen('<?= e($actImgUrl) ?>', '<?= e(addslashes($act['title'] ?? '')) ?>')">
+                                                        <img src="<?= e($actImgUrl) ?>" alt="<?= e($act['title'] ?? '') ?>" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
                                                     </div>
                                                 <?php endif; ?>
                                                 <div class="d-flex align-items-center justify-content-between gap-2 flex-wrap mb-2">

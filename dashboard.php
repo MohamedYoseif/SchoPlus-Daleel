@@ -26,28 +26,55 @@ $errorMsg = '';
 
 // Helper for file upload
 function handleUpload(array $file, string $subfolder): ?string {
-    if ($file['error'] !== UPLOAD_ERR_OK) {
+    if (($file['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK || empty($file['tmp_name'])) {
         return null;
     }
-    $allowedMimes = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg', 'image/svg+xml'];
-    $finfo = finfo_open(FILEINFO_MIME_TYPE);
-    $mime = finfo_file($finfo, $file['tmp_name']);
-    finfo_close($finfo);
+    $allowedMimes = [
+        'image/jpeg', 'image/png', 'image/webp', 'image/jpg',
+        'image/svg+xml', 'image/gif', 'image/bmp', 'image/avif',
+        'image/x-icon', 'image/vnd.microsoft.icon'
+    ];
+    $allowedExts = ['jpg', 'jpeg', 'png', 'webp', 'svg', 'gif', 'bmp', 'avif', 'jfif'];
 
-    if (!in_array($mime, $allowedMimes)) {
-        return null;
+    $ext = strtolower(pathinfo($file['name'] ?? '', PATHINFO_EXTENSION) ?: 'jpg');
+    if ($ext === 'jfif') $ext = 'jpg';
+
+    $mime = '';
+    if (function_exists('finfo_open')) {
+        $finfo = @finfo_open(FILEINFO_MIME_TYPE);
+        if ($finfo) {
+            $mime = (string)@finfo_file($finfo, $file['tmp_name']);
+            @finfo_close($finfo);
+        }
+    }
+    if (!$mime && function_exists('getimagesize')) {
+        $imgInfo = @getimagesize($file['tmp_name']);
+        if (!empty($imgInfo['mime'])) {
+            $mime = $imgInfo['mime'];
+        }
     }
 
-    $ext = pathinfo($file['name'], PATHINFO_EXTENSION) ?: 'jpg';
+    $isValidMime = in_array($mime, $allowedMimes, true) || str_starts_with($mime, 'image/');
+    $isValidExt = in_array($ext, $allowedExts, true);
+
+    if (!$isValidMime && !$isValidExt) {
+        return null;
+    }
+    if (!in_array($ext, $allowedExts, true)) {
+        $ext = 'jpg';
+    }
+
     $filename = time() . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
-    $targetDir = __DIR__ . '/uploads/' . trim($subfolder, '/') . '/';
+    $cleanSubfolder = trim($subfolder, '/');
+    $targetDir = __DIR__ . '/uploads/' . $cleanSubfolder . '/';
     if (!is_dir($targetDir)) {
         @mkdir($targetDir, 0755, true);
     }
     $targetPath = $targetDir . $filename;
 
-    if (move_uploaded_file($file['tmp_name'], $targetPath)) {
-        return 'uploads/' . trim($subfolder, '/') . '/' . $filename;
+    if (@move_uploaded_file($file['tmp_name'], $targetPath)) {
+        @chmod($targetPath, 0644);
+        return '/uploads/' . $cleanSubfolder . '/' . $filename;
     }
     return null;
 }
@@ -102,6 +129,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if ($upLogo) {
                     $logoPath = $upLogo;
                 }
+            } elseif (isset($_FILES['logo']['error']) && in_array($_FILES['logo']['error'], [UPLOAD_ERR_INI_SIZE, UPLOAD_ERR_FORM_SIZE], true)) {
+                $errorMsg = 'حجم صورة الشعار كبير جداً، يرجى اختيار صورة بحجم أقل.';
             }
 
             // Upload Cover
@@ -111,6 +140,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if ($upCover) {
                     $coverPath = $upCover;
                 }
+            } elseif (isset($_FILES['cover']['error']) && in_array($_FILES['cover']['error'], [UPLOAD_ERR_INI_SIZE, UPLOAD_ERR_FORM_SIZE], true)) {
+                $errorMsg = 'حجم صورة الغلاف كبير جداً، يرجى اختيار صورة بحجم أقل.';
             }
 
             try {
@@ -224,6 +255,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 } else {
                     $errorMsg = 'فشل رفع الشعار، يرجى التأكد من أن الملف صورة صالحة (PNG أو JPG أو WebP).';
                 }
+            } elseif (isset($_FILES['logo']['error']) && in_array($_FILES['logo']['error'], [UPLOAD_ERR_INI_SIZE, UPLOAD_ERR_FORM_SIZE], true)) {
+                $errorMsg = 'حجم ملف الشعار كبير جداً، يرجى اختيار صورة بحجم أقل.';
             } else {
                 $errorMsg = 'يرجى اختيار صورة الشعار أولاً.';
             }
@@ -249,6 +282,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 } else {
                     $errorMsg = 'فشل رفع الغلاف، يرجى التأكد من أن الملف صورة صالحة.';
                 }
+            } elseif (isset($_FILES['cover']['error']) && in_array($_FILES['cover']['error'], [UPLOAD_ERR_INI_SIZE, UPLOAD_ERR_FORM_SIZE], true)) {
+                $errorMsg = 'حجم صورة الغلاف كبير جداً، يرجى اختيار صورة بحجم أقل.';
             } else {
                 $errorMsg = 'يرجى اختيار صورة الغلاف أولاً.';
             }
@@ -287,6 +322,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 } else {
                     $errorMsg = 'فشل رفع الصورة، يرجى التأكد من اختيار ملف صورة صالح.';
                 }
+            } elseif (isset($_FILES['gallery_photo']['error']) && in_array($_FILES['gallery_photo']['error'], [UPLOAD_ERR_INI_SIZE, UPLOAD_ERR_FORM_SIZE], true)) {
+                $errorMsg = 'حجم الصورة كبير جداً، يرجى اختيار صورة بحجم أقل.';
             } else {
                 $errorMsg = 'يرجى تحديد ملف الصورة المراد إضافتها.';
             }
@@ -300,8 +337,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $filtered = [];
             foreach ($currGallery as $item) {
                 if ($item['id'] === $photoId) {
-                    if (!empty($item['path']) && file_exists(__DIR__ . '/' . $item['path'])) {
-                        @unlink(__DIR__ . '/' . $item['path']);
+                    $relPath = ltrim($item['path'] ?? '', '/');
+                    if ($relPath && file_exists(__DIR__ . '/' . $relPath)) {
+                        @unlink(__DIR__ . '/' . $relPath);
                     }
                 } else {
                     $filtered[] = $item;
@@ -434,8 +472,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $filtered = [];
             foreach ($currActivities as $item) {
                 if (($item['id'] ?? '') === $actId) {
-                    if (!empty($item['image_path']) && file_exists(__DIR__ . '/' . $item['image_path'])) {
-                        @unlink(__DIR__ . '/' . $item['image_path']);
+                    $relPath = ltrim($item['image_path'] ?? '', '/');
+                    if ($relPath && file_exists(__DIR__ . '/' . $relPath)) {
+                        @unlink(__DIR__ . '/' . $relPath);
                     }
                 } else {
                     $filtered[] = $item;
@@ -559,7 +598,7 @@ require_once __DIR__ . '/header.php';
                 <div class="d-flex align-items-center gap-3">
                     <div class="bg-light border rounded-3 p-2 d-flex align-items-center justify-content-center" style="width: 64px; height: 64px;">
                         <?php if (!empty($school['logo_path'])): ?>
-                            <img src="<?= e($school['logo_path']) ?>" alt="شعار" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                            <img src="<?= e(assetUrl($school['logo_path'])) ?>" alt="شعار" style="max-width: 100%; max-height: 100%; object-fit: contain;">
                         <?php else: ?>
                             <span class="fs-3 fw-bold text-primary"><?= mb_substr($school['name'], 0, 1) ?></span>
                         <?php endif; ?>
@@ -594,7 +633,7 @@ require_once __DIR__ . '/header.php';
                 </div>
 
                 <div class="d-flex align-items-center gap-2 flex-wrap">
-                    <a href="school/<?= urlencode($school['slug']) ?>" target="_blank" class="btn-luxury-outline">
+                    <a href="/school/<?= urlencode($school['slug']) ?>" target="_blank" class="btn-luxury-outline">
                         <i class="fas fa-external-link-alt text-primary"></i>
                         <span>معاينة صفحة المدرسة</span>
                     </a>
@@ -911,7 +950,7 @@ require_once __DIR__ . '/header.php';
                                 <label class="form-label small fw-bold text-secondary">شعار المدرسة (Logo)</label>
                                 <?php if (!empty($school['logo_path'])): ?>
                                     <div class="mb-2">
-                                        <img src="<?= e($school['logo_path']) ?>" alt="الشعار الحالي" style="height: 60px; object-fit: contain;" class="border p-1 rounded-2 bg-light">
+                                        <img src="<?= e(assetUrl($school['logo_path'])) ?>" alt="الشعار الحالي" style="height: 60px; object-fit: contain;" class="border p-1 rounded-2 bg-light">
                                     </div>
                                 <?php endif; ?>
                                 <input type="file" name="logo" accept="image/*" class="form-control">
@@ -922,7 +961,7 @@ require_once __DIR__ . '/header.php';
                                 <label class="form-label small fw-bold text-secondary">صورة الغلاف (Cover Banner)</label>
                                 <?php if (!empty($school['cover_path'])): ?>
                                     <div class="mb-2">
-                                        <img src="<?= e($school['cover_path']) ?>" alt="الغلاف الحالي" style="height: 60px; width: 140px; object-fit: cover;" class="border p-1 rounded-2">
+                                        <img src="<?= e(assetUrl($school['cover_path'])) ?>" alt="الغلاف الحالي" style="height: 60px; width: 140px; object-fit: cover;" class="border p-1 rounded-2">
                                     </div>
                                 <?php endif; ?>
                                 <input type="file" name="cover" accept="image/*" class="form-control">
@@ -1081,7 +1120,7 @@ require_once __DIR__ . '/header.php';
 
                                 <div class="text-center my-3 p-3 bg-light rounded-3 border">
                                     <?php if (!empty($school['logo_path'])): ?>
-                                        <img src="<?= e($school['logo_path']) ?>" alt="الشعار" style="max-height: 110px; max-width: 100%; object-fit: contain;">
+                                        <img src="<?= e(assetUrl($school['logo_path'])) ?>" alt="الشعار" style="max-height: 110px; max-width: 100%; object-fit: contain;">
                                     <?php else: ?>
                                         <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle shadow-sm text-primary fw-bold" style="width: 80px; height: 80px; font-size: 2rem;">
                                             <?= mb_substr($school['name'], 0, 1) ?>
@@ -1129,7 +1168,7 @@ require_once __DIR__ . '/header.php';
 
                                 <div class="my-3 rounded-3 border overflow-hidden position-relative" style="height: 110px; background: linear-gradient(135deg, #0B2A52 0%, #1E5FA8 100%);">
                                     <?php if (!empty($school['cover_path'])): ?>
-                                        <img src="<?= e($school['cover_path']) ?>" alt="الغلاف" style="width: 100%; height: 100%; object-fit: cover;">
+                                        <img src="<?= e(assetUrl($school['cover_path'])) ?>" alt="الغلاف" style="width: 100%; height: 100%; object-fit: cover;">
                                     <?php else: ?>
                                         <div class="w-100 h-100 d-flex align-items-center justify-content-center text-white-50 small">
                                             <i class="fas fa-image me-2"></i> غلاف الواجهة البانورامي الافتراضي
@@ -1218,7 +1257,7 @@ require_once __DIR__ . '/header.php';
                                     <div class="col-sm-6 col-md-3">
                                         <div class="card border rounded-3 overflow-hidden h-100 shadow-sm position-relative group-hover">
                                             <div style="height: 150px; overflow: hidden; background: #f8fafc;">
-                                                <img src="<?= e($photo['path']) ?>" alt="<?= e($photo['caption'] ?: 'مرفق مدرسي') ?>" style="width: 100%; height: 100%; object-fit: cover;">
+                                                <img src="<?= e(assetUrl($photo['path'])) ?>" alt="<?= e($photo['caption'] ?: 'مرفق مدرسي') ?>" style="width: 100%; height: 100%; object-fit: cover;">
                                             </div>
                                             <div class="p-2 bg-white d-flex align-items-center justify-content-between">
                                                 <small class="text-dark fw-bold text-truncate" style="max-width: 130px;" title="<?= e($photo['caption'] ?: 'بدون عنوان') ?>">
@@ -1433,7 +1472,7 @@ require_once __DIR__ . '/header.php';
                                     <div class="p-3 border rounded-4 bg-white shadow-sm h-100 d-flex gap-3 align-items-start justify-content-between">
                                         <div class="d-flex gap-3 align-items-start">
                                             <?php if (!empty($act['image_path'])): ?>
-                                                <img src="<?= e($act['image_path']) ?>" alt="<?= e($act['title'] ?? '') ?>" style="width: 72px; height: 72px; object-fit: cover;" class="rounded-3 border flex-shrink-0">
+                                                <img src="<?= e(assetUrl($act['image_path'])) ?>" alt="<?= e($act['title'] ?? '') ?>" style="width: 72px; height: 72px; object-fit: cover;" class="rounded-3 border flex-shrink-0">
                                             <?php else: ?>
                                                 <div class="rounded-3 bg-warning-subtle text-warning-emphasis d-flex align-items-center justify-content-center flex-shrink-0" style="width: 52px; height: 52px;">
                                                     <i class="fas fa-trophy fs-5"></i>
@@ -1618,7 +1657,7 @@ require_once __DIR__ . '/header.php';
                                 <div class="p-3 border rounded-3 bg-white shadow-sm d-flex flex-column flex-md-row align-items-md-start justify-content-between gap-3">
                                     <div class="d-flex gap-3">
                                         <?php if (!empty($item['image_path'])): ?>
-                                            <img src="<?= e($item['image_path']) ?>" alt="صورة الخبر" style="width: 80px; height: 80px; object-fit: cover;" class="rounded-3 border">
+                                            <img src="<?= e(assetUrl($item['image_path'])) ?>" alt="صورة الخبر" style="width: 80px; height: 80px; object-fit: cover;" class="rounded-3 border">
                                         <?php endif; ?>
                                         <div>
                                             <h6 class="fw-bold text-dark mb-1"><?= e($item['title']) ?></h6>

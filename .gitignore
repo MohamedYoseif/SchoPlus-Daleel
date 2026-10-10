@@ -12,3 +12,5 @@ uploads/news/*
 !uploads/news/.gitkeep
 uploads/gallery/*
 !uploads/gallery/.gitkeep
+uploads/activities/*
+!uploads/activities/.gitkeep

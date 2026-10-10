@@ -15,6 +15,19 @@ if (!function_exists('e')) {
     }
 }
 
+if (!function_exists('assetUrl')) {
+    function assetUrl(?string $path): string {
+        $path = trim((string)($path ?? ''));
+        if ($path === '') {
+            return '';
+        }
+        if (preg_match('#^(https?:)?//#i', $path) || str_starts_with($path, 'data:')) {
+            return $path;
+        }
+        return '/' . ltrim($path, '/');
+    }
+}
+
 if (!function_exists('csrf_token')) {
     function csrf_token(): string {
         if (empty($_SESSION['_csrf_token'])) {

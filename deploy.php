@@ -49,9 +49,8 @@ if (!is_dir(__DIR__ . '/.git')) {
         $output[] = "Synced repository files into daleel.schoplus.sd successfully.";
     }
 } else {
-    // Standard git deployment
+    // Standard git deployment (never stash -u so untracked uploads remain untouched)
     exec("git fetch origin master 2>&1", $output);
-    exec("git stash -u 2>&1", $output);
     exec("git reset --hard origin/master 2>&1", $output);
     exec("git pull origin master 2>&1", $output);
 }
