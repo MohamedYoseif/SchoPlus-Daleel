@@ -251,6 +251,8 @@ $reviewsList = $reviewsStmt->fetchAll();
 // Facilities, Stages, Gallery & Optional Tabs (Branches, Activities, Teachers)
 $facilities = json_decode($school['facilities'] ?? '[]', true) ?: [];
 $stages = json_decode($school['stages'] ?? '[]', true) ?: [];
+$stageFeesList = json_decode($school['stage_fees'] ?? '[]', true) ?: [];
+$feesType = $school['fees_type'] ?? 'average';
 $galleryList = json_decode($school['gallery'] ?? '[]', true) ?: [];
 $branchesList = json_decode($school['branches_data'] ?? '[]', true) ?: [];
 $activitiesList = json_decode($school['activities_data'] ?? '[]', true) ?: [];
@@ -1046,7 +1048,12 @@ $totalRev = max(1, count($reviewsList));
                     <i class="fas fa-building" style="color: var(--brand-gold);"></i>
                     <span><?= SudanGeography::schoolTypeLabel($school['school_type']) ?></span>
                 </div>
-                <?php if (!empty($school['approx_fees'])): ?>
+                <?php if ($feesType === 'detailed' && !empty($stageFeesList)): ?>
+                <div class="sp-stat-item">
+                    <i class="fas fa-coins" style="color: #059669;"></i>
+                    <span>الرسوم: <a href="#school-fees-section" class="text-success fw-bold text-decoration-none">مفصلة حسب المراحل <i class="fas fa-arrow-down small"></i></a></span>
+                </div>
+                <?php elseif (!empty($school['approx_fees'])): ?>
                 <div class="sp-stat-item">
                     <i class="fas fa-coins" style="color: #059669;"></i>
                     <span>الرسوم: <strong><?= e($school['approx_fees']) ?></strong></span>
@@ -1210,6 +1217,59 @@ $totalRev = max(1, count($reviewsList));
                             <?php endif; ?>
                         </div>
                     </div>
+
+                    <!-- Detailed Stage Fees Section -->
+                    <?php if ($feesType === 'detailed' && !empty($stageFeesList)): ?>
+                    <div class="sp-section" id="school-fees-section">
+                        <div class="sp-section-head">
+                            <div class="sp-section-title">
+                                <div class="title-icon" style="background: #ECFDF5; color: #059669;"><i class="fas fa-coins"></i></div>
+                                الرسوم الدراسية المعتمدة
+                            </div>
+                            <span class="badge" style="background: #ECFDF5; color: #047857; border: 1px solid #A7F3D0; border-radius: 20px; padding: 5px 14px; font-size: 0.76rem; font-weight: 800;">
+                                <?= count($stageFeesList) ?> بنود دراسية
+                            </span>
+                        </div>
+                        <div class="sp-section-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle mb-0" style="border: 1px solid #E2E8F0; border-radius: 12px; overflow: hidden;">
+                                    <thead style="background: #F8FAFC;">
+                                        <tr>
+                                            <th style="font-size: 0.75rem; color: #475569; padding: 10px 14px;">المرحلة / القسم</th>
+                                            <th style="font-size: 0.75rem; color: #475569; padding: 10px 14px;">البيان أو الصف الدراسي</th>
+                                            <th style="font-size: 0.75rem; color: #475569; padding: 10px 14px;">قيمة الرسوم</th>
+                                            <th style="font-size: 0.75rem; color: #475569; padding: 10px 14px;">طريقة السداد / ملاحظات</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($stageFeesList as $item): ?>
+                                        <tr>
+                                            <td style="font-weight: 700; color: #0F172A; font-size: 0.78rem; padding: 12px 14px;">
+                                                <span class="badge bg-light text-dark border"><?= e($item['stage'] ?? 'عام') ?></span>
+                                            </td>
+                                            <td style="font-size: 0.78rem; color: #334155; padding: 12px 14px;">
+                                                <?= e($item['title'] ?? '') ?>
+                                            </td>
+                                            <td style="font-size: 0.85rem; font-weight: 800; color: #059669; padding: 12px 14px;">
+                                                <?= e($item['amount'] ?? '') ?>
+                                            </td>
+                                            <td style="font-size: 0.74rem; color: #64748B; padding: 12px 14px;">
+                                                <?= e($item['notes'] ?? '—') ?>
+                                            </td>
+                                        </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <?php if (!empty($school['approx_fees'])): ?>
+                            <div class="mt-3 p-2 px-3 rounded-3 bg-light border text-muted small d-flex align-items-center gap-2" style="font-size: 0.74rem;">
+                                <i class="fas fa-info-circle text-primary"></i>
+                                <span>متوسط الرسوم السنوية الإجمالي: <strong class="text-dark"><?= e($school['approx_fees']) ?></strong></span>
+                            </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <?php endif; ?>
 
                     <!-- Uploaded Campus Photos Preview in Main Overview (Appears automatically when photos exist) -->
                     <?php if (!empty($galleryList)): ?>
@@ -1867,8 +1927,18 @@ $totalRev = max(1, count($reviewsList));
                         <div class="sp-fact-row">
                             <div class="sp-fact-icon" style="background: #FFFBEB; color: #d97706;"><i class="fas fa-coins"></i></div>
                             <div>
-                                <span class="sp-fact-label">متوسط الرسوم السنوية</span>
-                                <span class="sp-fact-value" style="color: #16a34a;"><?= e($school['approx_fees'] ?: 'تحدد مع الإدارة') ?></span>
+                                <span class="sp-fact-label">الرسوم الدراسية</span>
+                                <?php if ($feesType === 'detailed' && !empty($stageFeesList)): ?>
+                                    <a href="#school-fees-section" class="sp-fact-value text-decoration-none d-inline-flex align-items-center gap-1" style="color: #16a34a; font-weight: 700;">
+                                        <span>مفصلة حسب المراحل</span>
+                                        <i class="fas fa-chevron-down" style="font-size: 0.65rem;"></i>
+                                    </a>
+                                    <?php if (!empty($school['approx_fees'])): ?>
+                                        <small class="text-muted d-block" style="font-size: 0.68rem;">(متوسط: <?= e($school['approx_fees']) ?>)</small>
+                                    <?php endif; ?>
+                                <?php else: ?>
+                                    <span class="sp-fact-value" style="color: #16a34a;"><?= e($school['approx_fees'] ?: 'تحدد مع الإدارة') ?></span>
+                                <?php endif; ?>
                             </div>
                         </div>
                         <div class="sp-fact-row">

@@ -112,7 +112,8 @@ public class SchoolsAdapter extends RecyclerView.Adapter<SchoolsAdapter.ViewHold
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView imgSchoolLogo, btnSchoolWhatsapp, btnSchoolCall;
+        ImageView imgSchoolLogo;
+        View btnSchoolWhatsapp, btnSchoolCall;
         TextView tvSchoolName, tvBadgeSchoplus, tvLocation, tvEstablished, tvRating, tvDescription, tvTypeTag;
         View layoutRating;
 
