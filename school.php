@@ -88,10 +88,14 @@ if (!$school && !empty($slug)) {
         } catch (Exception $e) {}
 
         // Fetch newly created school record
-        $stmt = $pdo->prepare("SELECT * FROM daleel_schools WHERE id = ?");
-        $stmt->execute([$newId]);
-        $school = $stmt->fetch();
-    } catch (Exception $e) {
+        if ($newId > 0) {
+            $stmt = $pdo->prepare("SELECT * FROM daleel_schools WHERE id = ?");
+            $stmt->execute([$newId]);
+            $school = $stmt->fetch();
+        }
+    } catch (\Throwable $e) {
+        // Fallback: try fetching by slug or error log
+        @error_log("Daleel Auto-Provision error for slug [{$slug}]: " . $e->getMessage());
         $stmt = $pdo->prepare("SELECT * FROM daleel_schools WHERE slug = ?");
         $stmt->execute([$slug]);
         $school = $stmt->fetch();
