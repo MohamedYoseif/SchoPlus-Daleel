@@ -14,7 +14,7 @@ $apkSize = '5.1 MB';
 $apkVersion = '1.0.0';
 ?>
 
-<div class="py-5" style="background: linear-gradient(180deg, #F0F4F8 0%, #FFFFFF 100%);">
+<div class="py-5" style="background: #F0F4F8;">
     <div class="container">
 
         <!-- HERO SECTION -->
@@ -36,7 +36,7 @@ $apkVersion = '1.0.0';
 
                 <!-- Download Actions -->
                 <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start mb-4">
-                    <a href="<?= $apkDownloadUrl ?>" download class="btn px-4 py-3 fw-bold text-white shadow-sm d-inline-flex align-items-center gap-3 rounded-4" style="background: linear-gradient(135deg, #0B2A52 0%, #163870 100%); font-size: 1.02rem; border: 2px solid #F5A020;">
+                    <a href="<?= $apkDownloadUrl ?>" download class="btn px-4 py-3 fw-bold text-white shadow-sm d-inline-flex align-items-center gap-3 rounded-4" style="background: #0B2A52; font-size: 1.02rem; border: 2px solid #F5A020;">
                         <i class="fab fa-android fa-2x text-warning"></i>
                         <div class="text-start">
                             <span class="d-block small text-warning opacity-75" style="font-size: 0.72rem;">تنزيل مباشر وسريع</span>
@@ -71,9 +71,6 @@ $apkVersion = '1.0.0';
             <!-- Phone Showcase Mockup -->
             <div class="col-lg-5 text-center">
                 <div class="position-relative d-inline-block">
-                    
-                    <!-- Decorative Glow -->
-                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 280px; height: 280px; background: radial-gradient(circle, rgba(245, 160, 32, 0.25) 0%, rgba(11, 42, 82, 0) 70%); border-radius: 50%; z-index: 0;"></div>
 
                     <!-- Phone Frame -->
                     <div class="position-relative bg-white rounded-5 p-3 shadow-lg border border-3" style="max-width: 320px; margin: 0 auto; z-index: 1; border-color: #0B2A52 !important;">
@@ -88,7 +85,7 @@ $apkVersion = '1.0.0';
                         </div>
 
                         <!-- Screen Content Card -->
-                        <div class="rounded-4 overflow-hidden border p-3 text-center" style="background: linear-gradient(180deg, #0B2A52 0%, #163870 100%); color: #FFFFFF;">
+                        <div class="rounded-4 overflow-hidden border p-3 text-center" style="background: #0B2A52; color: #FFFFFF;">
                             <img src="/assets/images/logo.png" alt="شعار الدليل" style="max-height: 52px; width: auto;" class="my-3">
                             <h5 class="fw-bold mb-1" style="font-size: 1.05rem;">دليل المدارس السودانية</h5>
                             <p class="text-white-50 small mb-3" style="font-size: 0.72rem;">منظومة البحث والتعليم الذكي في السودان</p>

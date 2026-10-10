@@ -105,32 +105,14 @@ if ($isSearching) {
 /* ===== REDESIGNED MAIN HERO & INTEGRATED FILTER BAR ===== */
 .daleel-hero-v2 {
     position: relative;
-    background: linear-gradient(165deg, #FFFDF9 0%, #F7EFE4 52%, #EFE4D4 100%);
+    background: #F0F4F8;
     padding: 36px 0 32px;
-    border-bottom: 1px solid #E5D9C8;
+    border-bottom: 1px solid #DDE4ED;
     overflow: hidden;
 }
-.daleel-hero-v2::before {
-    content: '';
-    position: absolute;
-    top: -120px;
-    right: -120px;
-    width: 380px;
-    height: 380px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(30, 95, 168, 0.07) 0%, rgba(30, 95, 168, 0) 70%);
-    pointer-events: none;
-}
+.daleel-hero-v2::before,
 .daleel-hero-v2::after {
-    content: '';
-    position: absolute;
-    bottom: -140px;
-    left: -100px;
-    width: 360px;
-    height: 360px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(217, 119, 6, 0.09) 0%, rgba(217, 119, 6, 0) 70%);
-    pointer-events: none;
+    display: none;
 }
 .hero-v2-inner {
     position: relative;
@@ -372,7 +354,7 @@ if ($isSearching) {
     border-color: var(--brand-gold);
     transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(217, 119, 6, 0.12);
-    background: linear-gradient(180deg, #FFFFFF 0%, #FFFDF9 100%);
+    background: #FFFFFF;
 }
 .state-slide-icon {
     width: 36px;
@@ -388,7 +370,7 @@ if ($isSearching) {
     transition: all 0.2s ease;
 }
 .state-slide-card:hover .state-slide-icon, .state-slide-card.active .state-slide-icon {
-    background: linear-gradient(135deg, var(--brand-navy) 0%, var(--brand-blue) 100%);
+    background: #0B2A52;
     color: #FFFFFF;
 }
 .state-slide-title {
@@ -675,7 +657,7 @@ if ($isSearching) {
                             <div class="luxury-card h-100 d-flex flex-column clickable-school-card" onclick="window.location.href='<?= $schoolUrl ?>'">
                                 
                                 <div style="height: 140px; background-size: cover; background-position: center; position: relative; <?= $cover ? "background-image: url('{$cover}');" : '' ?>" class="<?= !$cover ? 'cover-placeholder' : '' ?>">
-                                    <div style="position: absolute; inset: 0; background: <?= $cover ? 'linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.52) 100%)' : 'linear-gradient(180deg, rgba(11,42,82,0.0) 0%, rgba(11,42,82,0.35) 100%)' ?>;"></div>
+                                    <div style="position: absolute; inset: 0; background: <?= $cover ? 'rgba(0,0,0,0.35)' : 'rgba(11,42,82,0.35)' ?>;"></div>
                                     <?php if (!$cover): ?><div class="cover-placeholder-icon"><i class="fas fa-school"></i></div><?php endif; ?>
 
                                     <div style="position: absolute; top: 12px; left: 12px; z-index: 2; display: flex; flex-direction: column; gap: 5px; align-items: flex-end;">
@@ -797,14 +779,14 @@ if ($isSearching) {
                         $sRank = getSchoolDirectoryRank($pdo, (int)$s['id'], !empty($s['directory_rank']) ? (int)$s['directory_rank'] : null);
                     ?>
                     <div class="col-lg-4 col-md-6">
-                        <div class="luxury-card clickable-school-card" style="border: 1.5px solid #FCD34D; background: linear-gradient(135deg, #FFFDF9 0%, #FEF9EC 100%);" onclick="window.location.href='<?= $schoolUrl ?>'">
+                        <div class="luxury-card clickable-school-card" style="border: 1.5px solid #F5A020; background: #FFFFFF;" onclick="window.location.href='<?= $schoolUrl ?>'">
                             
-                            <div style="position: absolute; top: 0; right: 25px; background: linear-gradient(135deg, #1E5FA8 0%, #0B2A52 100%); color: #fff; font-size: 0.7rem; font-weight: 700; padding: 3px 10px; border-radius: 0 0 8px 8px; z-index: 3;">
+                            <div style="position: absolute; top: 0; right: 25px; background: #0B2A52; color: #fff; font-size: 0.7rem; font-weight: 700; padding: 3px 10px; border-radius: 0 0 8px 8px; z-index: 3;">
                                 <i class="fas fa-bolt text-warning me-1"></i> تستخدم نظام SchoPlus
                             </div>
 
                             <div style="height: 140px; background-size: cover; background-position: center; position: relative; <?= $cover ? "background-image: url('{$cover}');" : '' ?>" class="<?= !$cover ? 'cover-placeholder' : '' ?>">
-                                <div style="position: absolute; inset: 0; background: <?= $cover ? 'linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.52) 100%)' : 'linear-gradient(180deg, rgba(11,42,82,0.0) 0%, rgba(11,42,82,0.35) 100%)' ?>;"></div>
+                                <div style="position: absolute; inset: 0; background: <?= $cover ? 'rgba(0,0,0,0.35)' : 'rgba(11,42,82,0.35)' ?>;"></div>
                                 <?php if (!$cover): ?><div class="cover-placeholder-icon"><i class="fas fa-school"></i></div><?php endif; ?>
                                 
                                 <div style="position: absolute; top: 12px; left: 12px; z-index: 2; display: flex; flex-direction: column; gap: 5px; align-items: flex-end;">
@@ -1042,7 +1024,7 @@ if ($isSearching) {
 <?php endif; ?>
 
 <!-- SECTION 5: SCHOOL OWNERS CTA -->
-<section class="py-5" style="background: linear-gradient(135deg, #0B2A52 0%, #16467D 100%); color: #FFFFFF;">
+<section class="py-5" style="background: #0B2A52; color: #FFFFFF;">
     <div class="container">
         <div class="row align-items-center g-4">
             <div class="col-lg-8">

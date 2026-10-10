@@ -146,14 +146,7 @@ $isDaleelMobile = (
         }
 
         .ambient-cream-glow {
-            position: fixed;
-            width: 500px;
-            height: 500px;
-            max-width: 100vw;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(245, 230, 211, 0.45) 0%, rgba(250, 248, 245, 0) 70%);
-            pointer-events: none;
-            z-index: -1;
+            display: none !important;
         }
         @media (max-width: 767px) {
             .ambient-cream-glow {
@@ -272,9 +265,9 @@ $isDaleelMobile = (
 
         /* Rank Badges */
         .badge-directory-rank {
-            background: linear-gradient(135deg, rgba(11, 42, 82, 0.94) 0%, rgba(22, 70, 125, 0.94) 100%);
-            color: #FCD34D !important;
-            border: 1px solid rgba(252, 211, 77, 0.45);
+            background: #0B2A52;
+            color: #F5A020 !important;
+            border: 1px solid #1E5FA8;
             padding: 3px 9px;
             border-radius: 8px;
             font-size: 0.68rem;
@@ -324,7 +317,7 @@ $isDaleelMobile = (
 
         /* Buttons & CTAs */
         .btn-luxury-primary {
-            background: linear-gradient(135deg, #1E5FA8 0%, #16467D 100%);
+            background: #1E5FA8;
             color: #FFFFFF !important;
             font-weight: 700;
             font-size: 0.78rem;
@@ -342,7 +335,7 @@ $isDaleelMobile = (
         .btn-luxury-primary:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 16px rgba(30, 95, 168, 0.28);
-            background: linear-gradient(135deg, #16467D 0%, #0F325C 100%);
+            background: #0B2A52;
         }
 
         .btn-luxury-outline {
@@ -369,14 +362,14 @@ $isDaleelMobile = (
         }
 
         .btn-luxury-gold {
-            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            background: #F5A020;
             color: #FFFFFF !important;
             font-weight: 700;
             font-size: 0.78rem;
             padding: 6px 14px;
             border-radius: 10px;
             border: none;
-            box-shadow: 0 3px 10px rgba(217, 119, 6, 0.22);
+            box-shadow: 0 3px 10px rgba(245, 160, 32, 0.22);
             transition: all 0.25s ease;
             text-decoration: none;
             display: inline-flex;
@@ -386,7 +379,8 @@ $isDaleelMobile = (
 
         .btn-luxury-gold:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 22px rgba(217, 119, 6, 0.35);
+            box-shadow: 0 8px 22px rgba(245, 160, 32, 0.35);
+            background: #D97706;
         }
 
         /* Cards & Styling */
@@ -408,9 +402,9 @@ $isDaleelMobile = (
 
         /* Badges */
         .badge-schoplus-smart {
-            background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
-            color: #92400E;
-            border: 1px solid #FCD34D;
+            background: #FFFDF5;
+            color: #0B2A52;
+            border: 1px solid #F5A020;
             padding: 4px 10px;
             border-radius: 20px;
             font-size: 0.72rem;
@@ -421,9 +415,9 @@ $isDaleelMobile = (
         }
 
         .badge-verified {
-            background: #ECFDF5;
-            color: #065F46;
-            border: 1px solid #A7F3D0;
+            background: #F0F4F8;
+            color: #1E5FA8;
+            border: 1px solid #DDE4ED;
             padding: 4px 10px;
             border-radius: 20px;
             font-size: 0.72rem;
@@ -444,7 +438,7 @@ $isDaleelMobile = (
         }
 
         .star-rating {
-            color: #F59E0B;
+            color: #F5A020;
             font-size: 0.78rem;
             display: inline-flex;
             align-items: center;
@@ -455,9 +449,9 @@ $isDaleelMobile = (
 
         /* Fix 1: badge-schoplus was undefined — now defined */
         .badge-schoplus {
-            background: linear-gradient(135deg, #1E5FA8 0%, #0B2A52 100%);
-            color: #FCD34D;
-            border: 1px solid #2563EB;
+            background: #0B2A52;
+            color: #F5A020;
+            border: 1px solid #1E5FA8;
             padding: 4px 11px;
             border-radius: 20px;
             font-size: 0.72rem;
@@ -488,7 +482,7 @@ $isDaleelMobile = (
 
         /* Fix 4: Cover placeholder for schools without cover photo */
         .cover-placeholder {
-            background: linear-gradient(135deg, #0B2A52 0%, #1E5FA8 60%, #D97706 120%) !important;
+            background: #0B2A52 !important;
         }
         .cover-placeholder-icon {
             position: absolute;
@@ -509,15 +503,9 @@ $isDaleelMobile = (
             transform: scale(1.06);
         }
 
-        /* Fix 6: Skeleton loading shimmer */
-        @keyframes shimmer {
-            0% { background-position: -800px 0; }
-            100% { background-position: 800px 0; }
-        }
+        /* Fix 6: Skeleton loading */
         .skeleton {
-            background: linear-gradient(90deg, #f0ece8 25%, #e8e2dc 50%, #f0ece8 75%);
-            background-size: 800px 100%;
-            animation: shimmer 1.4s infinite linear;
+            background: #F0F4F8;
             border-radius: 8px;
         }
 

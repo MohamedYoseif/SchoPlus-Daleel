@@ -1117,7 +1117,7 @@ $totalRev = max(1, count($reviewsList));
     <?php if ($school['is_schoplus_client']): ?>
     <!-- SchoPlus Smart Banner -->
     <div class="container px-2 px-md-3 mt-4">
-        <div style="background: linear-gradient(135deg, #0B2A52 0%, #163870 100%); border-radius: 20px; padding: 18px 22px; color: #FFFFFF; display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; box-shadow: 0 8px 28px rgba(11,42,82,0.18);">
+        <div style="background: #0B2A52; border-radius: 20px; padding: 18px 22px; color: #FFFFFF; display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; box-shadow: 0 8px 28px rgba(11,42,82,0.18);">
             <div class="d-flex align-items-center gap-3">
                 <div style="width: 46px; height: 46px; border-radius: 14px; background: rgba(245,160,32,0.18); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0;">
                     <i class="fas fa-bolt text-warning"></i>
@@ -1284,18 +1284,18 @@ $totalRev = max(1, count($reviewsList));
                     <div class="sp-section">
                         <div class="sp-section-head">
                             <div class="sp-section-title">
-                                <div class="title-icon" style="background: #ECFDF5; color: #059669;"><i class="fas fa-coins"></i></div>
+                                <div class="title-icon" style="background: #F0F4F8; color: #1E5FA8;"><i class="fas fa-coins text-warning"></i></div>
                                 الرسوم الدراسية والتسهيلات المالية
                             </div>
-                            <button type="button" class="btn btn-sm btn-light border rounded-pill px-3 py-1 fw-bold" style="font-size: 0.74rem; color: #059669;" onclick="switchTab(document.querySelector('[data-target=\'tab-fees\']'), 'tab-fees')">
+                            <button type="button" class="btn btn-sm btn-light border rounded-pill px-3 py-1 fw-bold" style="font-size: 0.74rem; color: #1E5FA8;" onclick="switchTab(document.querySelector('[data-target=\'tab-fees\']'), 'tab-fees')">
                                 <span>عرض جدول الرسوم والخصومات</span> <i class="fas fa-arrow-left ms-1"></i>
                             </button>
                         </div>
                         <div class="sp-section-body">
-                            <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 p-3 rounded-3" style="background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%); border: 1px solid #BBF7D0;">
+                            <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 p-3 rounded-3" style="background: #F0F4F8; border: 1px solid #DDE4ED;">
                                 <div class="d-flex align-items-center gap-3">
-                                    <div style="width: 44px; height: 44px; border-radius: 12px; background: #059669; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; box-shadow: 0 4px 10px rgba(5,150,105,0.25);">
-                                        <i class="fas fa-receipt"></i>
+                                    <div style="width: 44px; height: 44px; border-radius: 12px; background: #0B2A52; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;">
+                                        <i class="fas fa-receipt text-warning"></i>
                                     </div>
                                     <div>
                                         <div class="fw-bold text-dark" style="font-size: 0.92rem;">
@@ -1414,9 +1414,9 @@ $totalRev = max(1, count($reviewsList));
                     </div>
 
                     <!-- Quick Admission Banner inside Overview -->
-                    <div class="mt-4 p-3 rounded-4 border d-flex align-items-center justify-content-between flex-wrap gap-3" style="background: linear-gradient(135deg, #FFFDF8 0%, #FEF9EC 100%); border-color: #FCD34D !important;">
+                    <div class="mt-4 p-3 rounded-4 border d-flex align-items-center justify-content-between flex-wrap gap-3" style="background: #F0F4F8; border-color: #1E5FA8 !important;">
                         <div class="d-flex align-items-center gap-3">
-                            <div style="width: 46px; height: 46px; border-radius: 14px; background: linear-gradient(135deg, #D97706, #B45309); display: flex; align-items: center; justify-content: center; color: #FFFFFF; font-size: 1.2rem; flex-shrink: 0; box-shadow: 0 4px 14px rgba(217,119,6,0.25);">
+                            <div style="width: 46px; height: 46px; border-radius: 14px; background: #F5A020; display: flex; align-items: center; justify-content: center; color: #FFFFFF; font-size: 1.2rem; flex-shrink: 0;">
                                 <i class="fas fa-user-graduate"></i>
                             </div>
                             <div>
@@ -1435,18 +1435,18 @@ $totalRev = max(1, count($reviewsList));
                 <div id="tab-fees" class="sp-tab-pane" style="display: none;">
                     
                     <!-- 1. Fees Hero Banner -->
-                    <div class="sp-section mb-4" style="background: linear-gradient(135deg, #064E3B 0%, #047857 60%, #0D9488 100%); color: #ffffff; border-radius: 18px; padding: 26px; border: 1px solid #10B981;">
+                    <div class="sp-section mb-4" style="background: #0B2A52; color: #ffffff; border-radius: 18px; padding: 26px; border: 1px solid #1E5FA8;">
                         <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
                             <div>
                                 <div class="d-flex align-items-center gap-2 mb-2 flex-wrap">
-                                    <span class="badge" style="background: rgba(255,255,255,0.18); color: #A7F3D0; font-size: 0.75rem; font-weight: 700; padding: 5px 12px; border-radius: 20px;">
-                                        <i class="fas fa-coins me-1"></i> الرسوم المعتمدة
+                                    <span class="badge" style="background: rgba(255,255,255,0.18); color: #ffffff; font-size: 0.75rem; font-weight: 700; padding: 5px 12px; border-radius: 20px;">
+                                        <i class="fas fa-coins me-1 text-warning"></i> الرسوم المعتمدة
                                     </span>
-                                    <span class="badge" style="background: rgba(255,255,255,0.15); color: #FCD34D; font-size: 0.75rem; padding: 5px 12px; border-radius: 20px;">
+                                    <span class="badge" style="background: #F5A020; color: #ffffff; font-size: 0.75rem; padding: 5px 12px; border-radius: 20px;">
                                         <i class="fas fa-calendar-alt me-1"></i> العام الدراسي الجديد
                                     </span>
                                     <?php if (!empty($feeDiscountsList)): ?>
-                                    <span class="badge" style="background: #FAF5FF; color: #7E22CE; font-size: 0.75rem; font-weight: 700; padding: 5px 12px; border-radius: 20px;">
+                                    <span class="badge" style="background: rgba(255,255,255,0.15); color: #F5A020; font-size: 0.75rem; font-weight: 700; padding: 5px 12px; border-radius: 20px;">
                                         <i class="fas fa-tags me-1"></i> <?= count($feeDiscountsList) ?> عروض وخصومات متاحة
                                     </span>
                                     <?php endif; ?>
@@ -1574,18 +1574,18 @@ $totalRev = max(1, count($reviewsList));
                             <div class="row g-3">
                                 <?php foreach ($feeDiscountsList as $disc): ?>
                                 <div class="col-md-6">
-                                    <div class="card h-100 border rounded-3 p-3 position-relative overflow-hidden" style="background: linear-gradient(135deg, #FAF5FF 0%, #FFFFFF 100%); border-color: #E9D5FF !important;">
+                                    <div class="card h-100 border rounded-3 p-3 position-relative overflow-hidden" style="background: #FFFFFF; border: 1.5px solid #1E5FA8 !important;">
                                         <div class="d-flex align-items-start justify-content-between gap-2 mb-2">
                                             <h6 class="fw-bold text-dark mb-0" style="font-size: 0.88rem;">
-                                                <i class="fas fa-tag text-purple me-1" style="color: #9333EA;"></i>
+                                                <i class="fas fa-tag me-1" style="color: #F5A020;"></i>
                                                 <?= e($disc['title'] ?? '') ?>
                                             </h6>
-                                            <span class="badge px-3 py-1 rounded-pill fw-bold shadow-sm" style="background: linear-gradient(135deg, #9333EA 0%, #7E22CE 100%); color: #FFFFFF; font-size: 0.8rem;">
+                                            <span class="badge px-3 py-1 rounded-pill fw-bold" style="background: #F5A020; color: #FFFFFF; font-size: 0.8rem;">
                                                 <?= e($disc['value'] ?? '') ?>
                                             </span>
                                         </div>
                                         <?php if (!empty($disc['applies_to'])): ?>
-                                        <div class="mb-2" style="font-size: 0.74rem; color: #6B21A8; font-weight: 600;">
+                                        <div class="mb-2" style="font-size: 0.74rem; color: #1E5FA8; font-weight: 600;">
                                             <i class="fas fa-user-check me-1"></i>
                                             الفئة المستفيدة: <span class="text-dark fw-normal"><?= e($disc['applies_to']) ?></span>
                                         </div>
@@ -1605,17 +1605,17 @@ $totalRev = max(1, count($reviewsList));
                     <?php endif; ?>
 
                     <!-- 4. Next Step: Call To Action to Admission Tab -->
-                    <div class="mt-4 p-4 rounded-4 border d-flex align-items-center justify-content-between flex-wrap gap-3" style="background: linear-gradient(135deg, #F0FDF4 0%, #E6F9EE 100%); border-color: #86EFAC !important;">
+                    <div class="mt-4 p-4 rounded-4 border d-flex align-items-center justify-content-between flex-wrap gap-3" style="background: #F0F4F8; border-color: #1E5FA8 !important;">
                         <div class="d-flex align-items-center gap-3">
-                            <div style="width: 48px; height: 48px; border-radius: 14px; background: linear-gradient(135deg, #059669, #047857); display: flex; align-items: center; justify-content: center; color: #FFFFFF; font-size: 1.3rem; flex-shrink: 0; box-shadow: 0 4px 14px rgba(5,150,105,0.25);">
+                            <div style="width: 48px; height: 48px; border-radius: 14px; background: #0B2A52; display: flex; align-items: center; justify-content: center; color: #FFFFFF; font-size: 1.3rem; flex-shrink: 0;">
                                 <i class="fas fa-user-graduate"></i>
                             </div>
                             <div>
-                                <h6 class="fw-bold mb-1" style="color: #064E3B; font-size: 0.95rem;">هل أنت جاهز لتسجيل ابنك في المدرسة؟</h6>
+                                <h6 class="fw-bold mb-1" style="color: #0B2A52; font-size: 0.95rem;">هل أنت جاهز لتسجيل ابنك في المدرسة؟</h6>
                                 <p class="mb-0 text-muted" style="font-size: 0.76rem;">انتقل إلى بوابة القبول والتسجيل للاطلاع على الشروط والمستندات المطلوبة وتقديم طلب القبول الإلكتروني مباشرة.</p>
                             </div>
                         </div>
-                        <button type="button" class="btn-luxury-primary px-3 py-2 fw-bold" style="background: linear-gradient(135deg, #059669 0%, #047857 100%);" onclick="switchTab(document.querySelector('[data-target=\'tab-admission\']'), 'tab-admission')">
+                        <button type="button" class="btn-luxury-primary px-3 py-2 fw-bold" style="background: #F5A020; color: #FFFFFF; border: none;" onclick="switchTab(document.querySelector('[data-target=\'tab-admission\']'), 'tab-admission')">
                             <i class="fas fa-file-signature me-1"></i> التقديم في القبول والتسجيل
                         </button>
                     </div>
@@ -1626,7 +1626,7 @@ $totalRev = max(1, count($reviewsList));
                 <div id="tab-admission" class="sp-tab-pane" style="display: none;">
                     
                     <!-- 1. Admission Hero / Status Banner -->
-                    <div class="sp-section mb-4" style="background: linear-gradient(135deg, #0B2A52 0%, #163870 100%); color: #ffffff; border-radius: 18px; padding: 26px; border: 1px solid #1E5FA8;">
+                    <div class="sp-section mb-4" style="background: #0B2A52; color: #ffffff; border-radius: 18px; padding: 26px; border: 1px solid #1E5FA8;">
                         <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
                             <div>
                                 <div class="d-flex align-items-center gap-2 mb-2">
@@ -1724,8 +1724,8 @@ $totalRev = max(1, count($reviewsList));
                     <!-- 3. Online Admission Form Card -->
                     <div class="sp-inquiry-card" id="inquiry-form-section">
                         <div class="d-flex align-items-center gap-3 mb-4 pb-3 border-bottom">
-                            <div style="width: 48px; height: 48px; border-radius: 14px; background: linear-gradient(135deg, var(--brand-blue), var(--brand-navy)); display: flex; align-items: center; justify-content: center; color: #FFFFFF; font-size: 1.2rem; flex-shrink: 0; box-shadow: 0 4px 14px rgba(30,95,168,0.25);">
-                                <i class="fas fa-file-signature"></i>
+                            <div style="width: 48px; height: 48px; border-radius: 14px; background: #0B2A52; display: flex; align-items: center; justify-content: center; color: #FFFFFF; font-size: 1.2rem; flex-shrink: 0;">
+                                <i class="fas fa-file-signature text-warning"></i>
                             </div>
                             <div>
                                 <h5 class="fw-bold mb-0" style="color: var(--brand-navy); font-size: 1.08rem;">استمارة تقديم طلب القبول والتسجيل</h5>
