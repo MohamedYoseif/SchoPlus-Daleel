@@ -1151,11 +1151,11 @@ $totalRev = max(1, count($reviewsList));
                         <i class="fas fa-coins" style="color: #F59E0B;"></i>
                         <span>الرسوم الدراسية</span>
                         <?php if (!empty($feeDiscountsList)): ?>
-                            <span class="tab-count" style="background: #9333EA; color: #fff;">عروض (<?= count($feeDiscountsList) ?>)</span>
+                            <span class="tab-count" style="background: #F5A020; color: #fff;">عروض (<?= count($feeDiscountsList) ?>)</span>
                         <?php elseif ($feesType === 'detailed' && !empty($stageFeesList)): ?>
-                            <span class="tab-count" style="background: #059669; color: #fff;"><?= count($stageFeesList) ?> مراحل</span>
+                            <span class="tab-count" style="background: #1E5FA8; color: #fff;"><?= count($stageFeesList) ?> مراحل</span>
                         <?php elseif (!empty($school['approx_fees'])): ?>
-                            <span class="tab-count" style="background: #059669; color: #fff;">محددة</span>
+                            <span class="tab-count" style="background: #1E5FA8; color: #fff;">محددة</span>
                         <?php endif; ?>
                     </button>
                     <button class="sp-tab-btn" data-target="tab-admission" id="tabBtnAdmission" onclick="switchTab(this, 'tab-admission')">
@@ -2237,29 +2237,23 @@ $totalRev = max(1, count($reviewsList));
                             </div>
                         </div>
                         <div class="sp-fact-row">
-                            <div class="sp-fact-icon" style="background: #FFFBEB; color: #d97706;"><i class="fas fa-coins"></i></div>
+                            <div class="sp-fact-icon" style="background: #F0F4F8; color: #1E5FA8;"><i class="fas fa-coins"></i></div>
                             <div>
                                 <span class="sp-fact-label">الرسوم الدراسية</span>
                                 <?php if ($feesType === 'detailed' && !empty($stageFeesList)): ?>
-                                    <a href="#tab-fees" onclick="switchTab(document.querySelector('[data-target=\'tab-fees\']'), 'tab-fees'); return false;" class="sp-fact-value text-decoration-none d-inline-flex align-items-center gap-1" style="color: #16a34a; font-weight: 700;">
-                                        <span>مفصلة حسب المراحل</span>
-                                        <i class="fas fa-arrow-left" style="font-size: 0.65rem;"></i>
-                                    </a>
+                                    <span class="sp-fact-value fw-bold" style="color: var(--brand-navy);">مفصلة حسب المراحل</span>
                                     <?php if (!empty($school['approx_fees'])): ?>
                                         <small class="text-muted d-block" style="font-size: 0.68rem;">(متوسط: <?= e($school['approx_fees']) ?>)</small>
                                     <?php endif; ?>
                                 <?php elseif (!empty($school['approx_fees'])): ?>
-                                    <a href="#tab-fees" onclick="switchTab(document.querySelector('[data-target=\'tab-fees\']'), 'tab-fees'); return false;" class="sp-fact-value text-decoration-none d-inline-flex align-items-center gap-1" style="color: #16a34a; font-weight: 700;">
-                                        <span><?= e($school['approx_fees']) ?></span>
-                                        <i class="fas fa-arrow-left" style="font-size: 0.65rem;"></i>
-                                    </a>
+                                    <span class="sp-fact-value fw-bold" style="color: var(--brand-navy);"><?= e($school['approx_fees']) ?></span>
                                 <?php else: ?>
                                     <span class="sp-fact-value" style="color: var(--text-muted);">تحدد مع الإدارة</span>
                                 <?php endif; ?>
                                 <?php if (!empty($feeDiscountsList)): ?>
-                                    <a href="#tab-fees" onclick="switchTab(document.querySelector('[data-target=\'tab-fees\']'), 'tab-fees'); return false;" class="badge text-decoration-none mt-1 d-inline-block" style="background: #FAF5FF; color: #7E22CE; border: 1px solid #E9D5FF; font-size: 0.68rem; font-weight: 700;">
-                                        <i class="fas fa-tags me-1"></i> تتوفر عروض وخصومات (<?= count($feeDiscountsList) ?>)
-                                    </a>
+                                    <span class="badge mt-1 d-inline-block" style="background: #F0F4F8; color: #1E5FA8; border: 1px solid #DDE4ED; font-size: 0.68rem; font-weight: 700;">
+                                        <i class="fas fa-tag me-1" style="color: #F5A020;"></i> تتوفر عروض وخصومات (<?= count($feeDiscountsList) ?>)
+                                    </span>
                                 <?php endif; ?>
                             </div>
                         </div>
