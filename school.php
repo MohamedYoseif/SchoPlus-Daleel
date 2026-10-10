@@ -47,6 +47,24 @@ if (!$school) {
 // Check permission if pending/rejected: only owner can view
 $currSchool = currentSchool();
 $isOwner = $currSchool && ($currSchool['id'] === $school['id']);
+if ($school['status'] === 'suspended') {
+    http_response_code(403);
+    $pageTitle = 'المدرسة موقوفة مؤقتاً';
+    require_once __DIR__ . '/header.php';
+    ?>
+    <div class="container py-5 text-center">
+        <div class="p-5 bg-white rounded-4 border border-danger shadow-sm my-5" style="max-width: 600px; margin: auto;">
+            <div class="display-3 text-danger mb-3"><i class="fas fa-ban"></i></div>
+            <h3 class="fw-bold mb-3">تم إيقاف ظهور المدرسة مؤقتاً</h3>
+            <p class="text-muted mb-4"><?= e($school['rejection_reason'] ?: 'تم إيقاف ظهور صفحة هذه المدرسة مؤقتاً بقرار إداري. للمراجعة يرجى التواصل مع إدارة دليل المدارس.') ?></p>
+            <a href="index.php" class="btn-luxury-outline"><i class="fas fa-arrow-right me-2"></i> تصفح المدارس المعتمدة</a>
+        </div>
+    </div>
+    <?php
+    require_once __DIR__ . '/footer.php';
+    exit;
+}
+
 if ($school['status'] !== 'approved' && !$isOwner) {
     http_response_code(403);
     $pageTitle = 'المدرسة بانتظار التأكيد';
@@ -64,6 +82,7 @@ if ($school['status'] !== 'approved' && !$isOwner) {
     require_once __DIR__ . '/footer.php';
     exit;
 }
+
 
 // Increment view count
 $pdo->prepare("UPDATE daleel_schools SET views_count = views_count + 1 WHERE id = ?")->execute([$school['id']]);

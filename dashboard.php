@@ -261,11 +261,16 @@ require_once __DIR__ . '/header.php';
                                 <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle rounded-pill px-3 py-1 fw-bold small">
                                     <i class="fas fa-hourglass-half me-1"></i> بانتظار التأكيد والاعتماد
                                 </span>
+                            <?php elseif ($school['status'] === 'suspended'): ?>
+                                <span class="badge bg-danger text-white rounded-pill px-3 py-1 fw-bold small">
+                                    <i class="fas fa-ban me-1"></i> موقوفة / محظورة مؤقتاً
+                                </span>
                             <?php else: ?>
                                 <span class="badge bg-danger-subtle text-danger border border-danger-subtle rounded-pill px-3 py-1 fw-bold small">
                                     <i class="fas fa-times-circle me-1"></i> مرفوضة
                                 </span>
                             <?php endif; ?>
+
                         </div>
                         <div class="small text-muted mt-1">
                             <span><i class="fas fa-user text-secondary me-1"></i> المسؤول: <?= e($school['owner_name']) ?> (<?= e($school['owner_title'] ?: 'مدير') ?>)</span>
@@ -292,6 +297,31 @@ require_once __DIR__ . '/header.php';
         <?php if ($errorMsg): ?>
             <div class="alert alert-danger border-0 shadow-sm rounded-4 mb-4">
                 <i class="fas fa-exclamation-triangle me-1"></i> <?= e($errorMsg) ?>
+            </div>
+        <?php endif; ?>
+
+        <!-- SUSPENDED STATUS ALERT -->
+        <?php if ($school['status'] === 'suspended'): ?>
+            <div class="card border-0 rounded-4 shadow-sm p-4 mb-4" style="background: linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%); border: 1.5px solid #F87171 !important;">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="rounded-circle bg-danger text-white d-flex align-items-center justify-content-center flex-shrink-0" style="width: 48px; height: 48px; font-size: 1.25rem;">
+                        <i class="fas fa-ban"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <div class="d-flex align-items-center gap-2 mb-1">
+                            <span class="badge bg-danger text-white px-3 py-1 rounded-pill fw-bold" style="font-size: 0.8rem;">
+                                إيقاف إداري مؤقت
+                            </span>
+                        </div>
+                        <h5 class="fw-bold text-danger mb-1">تم إيقاف ظهور صفحة مدرستكم في دليل المدارس بقرار إداري</h5>
+                        <p class="text-secondary small mb-2 lh-base">
+                            <?= !empty($school['rejection_reason']) ? '<strong>السبب المحدد:</strong> ' . e($school['rejection_reason']) : 'تم إيقاف نشر بيانات المدرسة مؤقتاً لمراجعة المعايير أو تحديث البيانات. يرجى التواصل مع إدارة دليل SchoPlus لاستيضاح الحالة واستئناف النشر.' ?>
+                        </p>
+                        <a href="https://wa.me/249912345678?text=<?= urlencode('مرحباً إدارة SchoPlus، استفسر بخصوص إيقاف صفحة مدرستنا في الدليل: ' . $school['name']) ?>" target="_blank" class="btn btn-sm btn-outline-danger fw-bold rounded-pill px-3">
+                            <i class="fab fa-whatsapp me-1"></i> مراجعة الإدارة عبر واتساب
+                        </a>
+                    </div>
+                </div>
             </div>
         <?php endif; ?>
 
