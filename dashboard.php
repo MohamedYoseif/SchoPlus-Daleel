@@ -629,6 +629,245 @@ $pageTitle = 'لوحة إدارة المدرسة: ' . $school['name'];
 require_once __DIR__ . '/header.php';
 ?>
 
+<style>
+/* Dashboard Tabs Navigation (Horizontal Smooth Scroll) */
+.dash-tabs-scroll-wrap {
+    position: relative;
+    margin-bottom: 22px;
+}
+.dash-tabs-scroll {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 6px 4px 12px;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+    border-bottom: 2px solid #EAE2D5;
+}
+.dash-tabs-scroll::-webkit-scrollbar {
+    height: 5px;
+}
+.dash-tabs-scroll::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 4px;
+}
+.dash-tab-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 16px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-body);
+    background: #FFFFFF;
+    border: 1.5px solid #E2D7C8;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    text-decoration: none;
+}
+.dash-tab-link:hover {
+    background: #FAF6F0;
+    border-color: #D4C3AC;
+    color: var(--brand-navy);
+}
+.dash-tab-link.active {
+    background: linear-gradient(135deg, #0B2A52 0%, #16467D 100%) !important;
+    color: #FFFFFF !important;
+    border-color: #0B2A52 !important;
+    box-shadow: 0 4px 12px rgba(11, 42, 82, 0.18);
+}
+.dash-tab-link.active i {
+    color: #F5A020 !important;
+}
+.dash-tab-link .dash-tab-badge {
+    background: #EFF6FF;
+    color: var(--brand-blue);
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: 999px;
+}
+.dash-tab-link.active .dash-tab-badge {
+    background: rgba(255, 255, 255, 0.2);
+    color: #FFFFFF;
+}
+
+/* Quick Anchor Bar inside Edit Profile */
+.dash-subnav-bar {
+    position: sticky;
+    top: 72px;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid #E2D7C8;
+    border-radius: 16px;
+    padding: 10px 14px;
+    margin-bottom: 22px;
+    box-shadow: 0 8px 20px -6px rgba(11, 42, 82, 0.08);
+}
+.dash-subnav-links {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    flex-wrap: nowrap;
+}
+.dash-subnav-links::-webkit-scrollbar {
+    display: none;
+}
+.dash-subnav-btn {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-body);
+    background: #FAF8F5;
+    border: 1px solid #EAE2D5;
+    border-radius: 999px;
+    padding: 5px 12px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+.dash-subnav-btn:hover {
+    background: var(--brand-navy);
+    color: #FFFFFF !important;
+    border-color: var(--brand-navy);
+}
+.dash-subnav-btn:hover i {
+    color: #F5A020 !important;
+}
+
+/* Form Section Cards */
+.dash-card-section {
+    background: #FFFFFF;
+    border: 1px solid #E6DCCD;
+    border-radius: 18px;
+    padding: 24px 26px;
+    margin-bottom: 22px;
+    box-shadow: 0 4px 14px -3px rgba(11, 42, 82, 0.04);
+    scroll-margin-top: 140px;
+}
+.dash-card-section:hover {
+    border-color: #D4C3AC;
+}
+.dash-sec-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-bottom: 14px;
+    margin-bottom: 18px;
+    border-bottom: 1.5px solid #F1EAE0;
+}
+.dash-sec-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.dash-sec-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+.dash-sec-title {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--brand-navy);
+    margin: 0;
+}
+.dash-sec-desc {
+    font-size: 0.73rem;
+    color: #64748B;
+    margin: 2px 0 0;
+}
+
+/* Stage check pills */
+.stage-check-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: #FAF8F5;
+    border: 1.5px solid #E2D7C8;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-main);
+    transition: all 0.2s ease;
+    user-select: none;
+}
+.stage-check-pill:hover {
+    background: #EFF6FF;
+    border-color: var(--brand-blue);
+}
+.stage-check-pill input:checked ~ span {
+    color: var(--brand-navy);
+    font-weight: 800;
+}
+
+/* Facility check cards */
+.fac-check-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: #FAF8F5;
+    border: 1px solid #EAE2D5;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--text-main);
+    transition: all 0.2s ease;
+    user-select: none;
+}
+.fac-check-item:hover {
+    background: #FFFFFF;
+    border-color: var(--brand-blue);
+    box-shadow: 0 2px 8px rgba(30, 95, 168, 0.08);
+}
+.fac-check-item input:checked ~ span {
+    font-weight: 800;
+    color: var(--brand-navy);
+}
+
+/* Form input enhancements */
+.dash-card-section .form-label {
+    margin-bottom: 6px;
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: #475569;
+}
+.dash-card-section .form-control,
+.dash-card-section .form-select {
+    border-radius: 10px;
+    border: 1px solid #CBD5E1;
+    font-size: 0.78rem;
+    padding: 9px 12px;
+    transition: all 0.2s ease;
+}
+.dash-card-section .form-control:focus,
+.dash-card-section .form-select:focus {
+    border-color: var(--brand-blue);
+    box-shadow: 0 0 0 3px rgba(30, 95, 168, 0.12);
+}
+</style>
+
 <div class="dashboard-page py-4">
     <div class="container">
 
@@ -811,344 +1050,456 @@ require_once __DIR__ . '/header.php';
         <?php endif; ?>
 
         <!-- Main Dashboard Tabs -->
-        <div class="card border-0 rounded-4 bg-white shadow-sm p-4">
+        <div class="card border-0 rounded-4 bg-white shadow-sm p-3 p-md-4">
             
-            <ul class="nav nav-pills p-1 bg-light rounded-4 border mb-4 gap-1" id="dashboardTabs" role="tablist">
-                <li class="nav-item flex-fill text-center" role="presentation">
-                    <button class="nav-link <?= $activeDashTab === 'profile' ? 'active' : '' ?> rounded-pill fw-bold py-2 w-100" id="dash-profile-tab" data-bs-toggle="tab" data-bs-target="#dash-profile" type="button" role="tab">
-                        <i class="fas fa-edit me-1"></i> بيانات المدرسة والروابط
+            <div class="dash-tabs-scroll-wrap">
+                <div class="dash-tabs-scroll" id="dashboardTabs" role="tablist">
+                    <button class="dash-tab-link <?= $activeDashTab === 'profile' ? 'active' : '' ?>" id="dash-profile-tab" data-bs-toggle="tab" data-bs-target="#dash-profile" type="button" role="tab" aria-selected="<?= $activeDashTab === 'profile' ? 'true' : 'false' ?>">
+                        <i class="fas fa-edit"></i>
+                        <span>تعديل بيانات المدرسة</span>
                     </button>
-                </li>
-                <li class="nav-item flex-fill text-center" role="presentation">
-                    <button class="nav-link <?= $activeDashTab === 'media' ? 'active' : '' ?> rounded-pill fw-bold py-2 w-100" id="dash-media-tab" data-bs-toggle="tab" data-bs-target="#dash-media" type="button" role="tab">
-                        <i class="fas fa-images me-1"></i> الشعار والمعرض (<?= count($galleryList) ?>)
+                    <button class="dash-tab-link <?= $activeDashTab === 'media' ? 'active' : '' ?>" id="dash-media-tab" data-bs-toggle="tab" data-bs-target="#dash-media" type="button" role="tab" aria-selected="<?= $activeDashTab === 'media' ? 'true' : 'false' ?>">
+                        <i class="fas fa-images"></i>
+                        <span>الشعار والمعرض</span>
+                        <span class="dash-tab-badge"><?= count($galleryList) ?></span>
                     </button>
-                </li>
-                <li class="nav-item flex-fill text-center" role="presentation">
-                    <button class="nav-link <?= $activeDashTab === 'branches' ? 'active' : '' ?> rounded-pill fw-bold py-2 w-100" id="dash-branches-tab" data-bs-toggle="tab" data-bs-target="#dash-branches" type="button" role="tab">
-                        <i class="fas fa-code-branch me-1"></i> الفروع (<?= count($branchesList) ?>)
+                    <button class="dash-tab-link <?= $activeDashTab === 'branches' ? 'active' : '' ?>" id="dash-branches-tab" data-bs-toggle="tab" data-bs-target="#dash-branches" type="button" role="tab" aria-selected="<?= $activeDashTab === 'branches' ? 'true' : 'false' ?>">
+                        <i class="fas fa-code-branch"></i>
+                        <span>الفروع</span>
+                        <span class="dash-tab-badge"><?= count($branchesList) ?></span>
                     </button>
-                </li>
-                <li class="nav-item flex-fill text-center" role="presentation">
-                    <button class="nav-link <?= $activeDashTab === 'activities' ? 'active' : '' ?> rounded-pill fw-bold py-2 w-100" id="dash-activities-tab" data-bs-toggle="tab" data-bs-target="#dash-activities" type="button" role="tab">
-                        <i class="fas fa-trophy me-1"></i> المناشط (<?= count($activitiesList) ?>)
+                    <button class="dash-tab-link <?= $activeDashTab === 'activities' ? 'active' : '' ?>" id="dash-activities-tab" data-bs-toggle="tab" data-bs-target="#dash-activities" type="button" role="tab" aria-selected="<?= $activeDashTab === 'activities' ? 'true' : 'false' ?>">
+                        <i class="fas fa-trophy"></i>
+                        <span>المناشط والأنشطة</span>
+                        <span class="dash-tab-badge"><?= count($activitiesList) ?></span>
                     </button>
-                </li>
-                <li class="nav-item flex-fill text-center" role="presentation">
-                    <button class="nav-link <?= $activeDashTab === 'teachers' ? 'active' : '' ?> rounded-pill fw-bold py-2 w-100" id="dash-teachers-tab" data-bs-toggle="tab" data-bs-target="#dash-teachers" type="button" role="tab">
-                        <i class="fas fa-chalkboard-teacher me-1"></i> المعلمون (<?= count($teachersList) ?>)
+                    <button class="dash-tab-link <?= $activeDashTab === 'teachers' ? 'active' : '' ?>" id="dash-teachers-tab" data-bs-toggle="tab" data-bs-target="#dash-teachers" type="button" role="tab" aria-selected="<?= $activeDashTab === 'teachers' ? 'true' : 'false' ?>">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <span>الكادر التعليمي</span>
+                        <span class="dash-tab-badge"><?= count($teachersList) ?></span>
                     </button>
-                </li>
-                <li class="nav-item flex-fill text-center" role="presentation">
-                    <button class="nav-link <?= $activeDashTab === 'news' ? 'active' : '' ?> rounded-pill fw-bold py-2 w-100" id="dash-news-tab" data-bs-toggle="tab" data-bs-target="#dash-news" type="button" role="tab">
-                        <i class="fas fa-bullhorn me-1"></i> الأخبار (<?= count($newsList) ?>)
+                    <button class="dash-tab-link <?= $activeDashTab === 'news' ? 'active' : '' ?>" id="dash-news-tab" data-bs-toggle="tab" data-bs-target="#dash-news" type="button" role="tab" aria-selected="<?= $activeDashTab === 'news' ? 'true' : 'false' ?>">
+                        <i class="fas fa-bullhorn"></i>
+                        <span>الأخبار والإعلانات</span>
+                        <span class="dash-tab-badge"><?= count($newsList) ?></span>
                     </button>
-                </li>
-                <li class="nav-item flex-fill text-center" role="presentation">
-                    <button class="nav-link <?= $activeDashTab === 'reviews' ? 'active' : '' ?> rounded-pill fw-bold py-2 w-100" id="dash-reviews-tab" data-bs-toggle="tab" data-bs-target="#dash-reviews" type="button" role="tab">
-                        <i class="fas fa-comments me-1"></i> التقييمات (<?= count($reviewsList) ?>)
+                    <button class="dash-tab-link <?= $activeDashTab === 'reviews' ? 'active' : '' ?>" id="dash-reviews-tab" data-bs-toggle="tab" data-bs-target="#dash-reviews" type="button" role="tab" aria-selected="<?= $activeDashTab === 'reviews' ? 'true' : 'false' ?>">
+                        <i class="fas fa-comments"></i>
+                        <span>تقييمات الأهالي</span>
+                        <span class="dash-tab-badge"><?= count($reviewsList) ?></span>
                     </button>
-                </li>
-                <li class="nav-item flex-fill text-center" role="presentation">
-                    <button class="nav-link <?= $activeDashTab === 'inquiries' ? 'active' : '' ?> rounded-pill fw-bold py-2 w-100" id="dash-inquiries-tab" data-bs-toggle="tab" data-bs-target="#dash-inquiries" type="button" role="tab">
-                        <i class="fas fa-inbox me-1"></i> طلبات القبول (<?= count($inquiriesList) ?>)
+                    <button class="dash-tab-link <?= $activeDashTab === 'inquiries' ? 'active' : '' ?>" id="dash-inquiries-tab" data-bs-toggle="tab" data-bs-target="#dash-inquiries" type="button" role="tab" aria-selected="<?= $activeDashTab === 'inquiries' ? 'true' : 'false' ?>">
+                        <i class="fas fa-inbox"></i>
+                        <span>طلبات القبول</span>
+                        <span class="dash-tab-badge"><?= count($inquiriesList) ?></span>
                     </button>
-                </li>
-            </ul>
+                </div>
+            </div>
 
             <div class="tab-content" id="dashboardTabsContent">
                 
-                <!-- TAB 1: EDIT PROFILE & MEDIA -->
+                <!-- TAB 1: EDIT PROFILE & DATA -->
                 <div class="tab-pane fade <?= $activeDashTab === 'profile' ? 'show active' : '' ?>" id="dash-profile" role="tabpanel">
                     
-                    <!-- Quick Jump to Media & Optional Tabs -->
-                    <div class="alert alert-light border shadow-sm rounded-4 p-3 mb-4 d-flex align-items-center justify-content-between flex-wrap gap-2" style="background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%); border: 1.5px solid #BFDBFE !important;">
-                        <div class="d-flex align-items-center gap-3">
-                            <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center flex-shrink-0" style="width: 44px; height: 44px;">
-                                <i class="fas fa-layer-group fs-5"></i>
-                            </div>
-                            <div>
-                                <strong class="text-dark d-block">التبويبات الاختيارية والهوية البصرية:</strong>
-                                <small class="text-muted">يمكنك إدارة (الشعار والمعرض، الفروع، المناشط، والمعلمين) من التبويبات العلوية. التبويبات الاختيارية لا تظهر للزوار إلا عند إضافة بيانات فيها.</small>
-                            </div>
-                        </div>
-                        <div class="d-flex flex-wrap gap-2">
-                            <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1 fw-bold" onclick="document.getElementById('dash-branches-tab').click()">
-                                <i class="fas fa-code-branch me-1"></i> الفروع
-                            </button>
-                            <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1 fw-bold" onclick="document.getElementById('dash-activities-tab').click()">
-                                <i class="fas fa-trophy me-1"></i> المناشط
-                            </button>
-                            <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1 fw-bold" onclick="document.getElementById('dash-teachers-tab').click()">
-                                <i class="fas fa-chalkboard-teacher me-1"></i> المعلمون
-                            </button>
-                            <button type="button" class="btn btn-sm btn-primary rounded-pill px-3 py-1 fw-bold" onclick="document.getElementById('dash-media-tab').click()">
-                                <i class="fas fa-images me-1"></i> الشعار والمعرض
-                            </button>
-                        </div>
-                    </div>
-
-                    <form method="POST" action="dashboard.php" enctype="multipart/form-data">
+                    <form method="POST" action="dashboard.php" enctype="multipart/form-data" id="schoolProfileForm">
                         <?= csrf_field() ?>
                         <input type="hidden" name="action" value="update_profile">
 
-                        <div class="row g-4">
-                            <!-- Basic Info -->
-                            <div class="col-12">
-                                <h6 class="fw-bold text-dark pb-2 border-bottom"><i class="fas fa-school text-primary me-2"></i> البيانات الأساسية والرابط المخصص</h6>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class="form-label small fw-bold text-secondary">اسم المدرسة (عربي)</label>
-                                <input type="text" name="name" required class="form-control" value="<?= e($school['name']) ?>">
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class="form-label small fw-bold text-secondary">اسم المدرسة (إنجليزي)</label>
-                                <input type="text" name="name_en" dir="ltr" class="form-control" value="<?= e($school['name_en'] ?? '') ?>">
-                            </div>
-
-                            <div class="col-12">
-                                <label class="form-label small fw-bold text-secondary">
-                                    <i class="fas fa-link text-primary me-1"></i> الرابط المخصص لصفحة المدرسة (Slug)
-                                </label>
-                                <div class="input-group" dir="ltr">
-                                    <span class="input-group-text bg-light text-muted font-monospace" style="font-size: 0.74rem;">https://daleel.schoplus.sd/school/</span>
-                                    <input type="text" name="slug" required pattern="[a-zA-Z0-9\-]{3,100}" class="form-control font-monospace fw-bold text-primary" value="<?= e($school['slug']) ?>" placeholder="al-manar-school">
+                        <!-- Quick Sticky Anchor Navigation Bar -->
+                        <div class="dash-subnav-bar">
+                            <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+                                <div class="dash-subnav-links">
+                                    <span class="small fw-bold text-muted ps-1"><i class="fas fa-bars-staggered me-1"></i> الأقسام:</span>
+                                    <a href="#sec-basic" class="dash-subnav-btn"><i class="fas fa-school text-primary"></i> 1. الهوية والتصنيف</a>
+                                    <a href="#sec-location" class="dash-subnav-btn"><i class="fas fa-map-marked-alt text-danger"></i> 2. الموقع والعنوان</a>
+                                    <a href="#sec-academic" class="dash-subnav-btn"><i class="fas fa-cubes text-success"></i> 3. المراحل والمرافق</a>
+                                    <a href="#sec-about" class="dash-subnav-btn"><i class="fas fa-align-right text-info"></i> 4. النبذة والرؤية</a>
+                                    <a href="#sec-contact" class="dash-subnav-btn"><i class="fas fa-phone-alt text-warning"></i> 5. التواصل والرسوم</a>
+                                    <a href="#sec-social" class="dash-subnav-btn"><i class="fas fa-share-alt text-secondary"></i> 6. المنصات الرقمية</a>
+                                    <a href="#sec-media" class="dash-subnav-btn"><i class="fas fa-images text-danger"></i> 7. الشعار والغلاف</a>
                                 </div>
-                                <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">
-                                    يُكتب بالأحرف الإنجليزية والأرقام والشرطة الوسطية (-) فقط بدون مسافات. يعمل أيضاً عبر الرابط المختصر: <span dir="ltr" class="text-primary fw-bold">daleel.schoplus.sd/s/<?= e($school['slug']) ?></span>
-                                </small>
+                                <div class="d-flex align-items-center gap-2">
+                                    <button type="submit" class="btn-luxury-primary btn-sm px-3 py-1">
+                                        <i class="fas fa-save me-1"></i> حفظ التعديلات
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECTION 1: BASIC INFO & CLASSIFICATION -->
+                        <div class="dash-card-section" id="sec-basic">
+                            <div class="dash-sec-header">
+                                <div class="dash-sec-title-wrap">
+                                    <div class="dash-sec-icon" style="background: #EFF6FF; color: var(--brand-blue);">
+                                        <i class="fas fa-school"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="dash-sec-title">1. الهوية والتصنيف الدراسي للمدرسة</h5>
+                                        <p class="dash-sec-desc">الاسم الرسمي للمدرسة، الرابط التعريفي المخصص، سنة التأسيس، نوع المدرسة، والمناهج المعتمدة.</p>
+                                    </div>
+                                </div>
+                                <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-1 rounded-pill small fw-bold">البيانات الأساسية</span>
                             </div>
 
-                            <div class="col-md-4">
-                                <label class="form-label small fw-bold text-secondary">الولاية</label>
-                                <select name="state" id="dashState" class="form-select">
-                                    <?php foreach ($statesWithCities as $stName => $cities): ?>
-                                        <option value="<?= e($stName) ?>" <?= $school['state'] === $stName ? 'selected' : '' ?>><?= e($stName) ?></option>
-                                    <?php endforeach; ?>
-                                </select>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">اسم المدرسة باللغة العربية <span class="text-danger">*</span></label>
+                                    <input type="text" name="name" required class="form-control" value="<?= e($school['name']) ?>" placeholder="مثال: مدارس المنار النموذجية الخاصة">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">اسم المدرسة باللغة الإنجليزية (اختياري)</label>
+                                    <input type="text" name="name_en" dir="ltr" class="form-control" value="<?= e($school['name_en'] ?? '') ?>" placeholder="e.g. Al-Manar Model Schools">
+                                </div>
+
+                                <div class="col-12">
+                                    <label class="form-label">
+                                        <i class="fas fa-link text-primary me-1"></i> الرابط المخصص لصفحة المدرسة (Slug) <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="input-group" dir="ltr">
+                                        <span class="input-group-text bg-light text-muted font-monospace" style="font-size: 0.74rem;">https://daleel.schoplus.sd/school/</span>
+                                        <input type="text" name="slug" required pattern="[a-zA-Z0-9\-]{3,100}" class="form-control font-monospace fw-bold text-primary" value="<?= e($school['slug']) ?>" placeholder="al-manar-school">
+                                    </div>
+                                    <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">
+                                        يُكتب بالأحرف الإنجليزية والأرقام والشرطة الوسطية (-) فقط. يعمل أيضاً عبر الرابط المختصر: <span dir="ltr" class="text-primary fw-bold">daleel.schoplus.sd/s/<?= e($school['slug']) ?></span>
+                                    </small>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label class="form-label">نوع المدرسة</label>
+                                    <select name="school_type" class="form-select">
+                                        <?php foreach (SudanGeography::schoolTypes() as $k => $lbl): ?>
+                                            <option value="<?= $k ?>" <?= $school['school_type'] === $k ? 'selected' : '' ?>><?= $lbl ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label class="form-label">نوع الطلاب</label>
+                                    <select name="gender_type" class="form-select">
+                                        <?php foreach (SudanGeography::genderTypes() as $k => $lbl): ?>
+                                            <option value="<?= $k ?>" <?= $school['gender_type'] === $k ? 'selected' : '' ?>><?= $lbl ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label class="form-label">المنهج الدراسي</label>
+                                    <select name="curriculum" class="form-select">
+                                        <?php foreach (SudanGeography::curricula() as $k => $lbl): ?>
+                                            <option value="<?= $k ?>" <?= $school['curriculum'] === $k ? 'selected' : '' ?>><?= $lbl ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label class="form-label">
+                                        <i class="fas fa-landmark text-warning me-1"></i> سنة / تاريخ التأسيس
+                                    </label>
+                                    <input type="text" name="established_year" class="form-control" value="<?= e($school['established_year'] ?? '') ?>" placeholder="مثال: 2012 أو عام 1998">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECTION 2: LOCATION & ADDRESS -->
+                        <div class="dash-card-section" id="sec-location">
+                            <div class="dash-sec-header">
+                                <div class="dash-sec-title-wrap">
+                                    <div class="dash-sec-icon" style="background: #FEF2F2; color: #DC2626;">
+                                        <i class="fas fa-map-marked-alt"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="dash-sec-title">2. الموقع الجغرافي والعنوان على الخريطة</h5>
+                                        <p class="dash-sec-desc">حدد ولاية ومدينة ومقر المدرسة بدقة لسهولة وصول أولياء الأمور والطلاب.</p>
+                                    </div>
+                                </div>
+                                <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-3 py-1 rounded-pill small fw-bold">العنوان والخرائط</span>
                             </div>
 
-                            <div class="col-md-4">
-                                <label class="form-label small fw-bold text-secondary">المدينة / المحلية</label>
-                                <select name="city" id="dashCity" class="form-select">
-                                    <option value="<?= e($school['city']) ?>" selected><?= e($school['city']) ?></option>
-                                </select>
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">الولاية <span class="text-danger">*</span></label>
+                                    <select name="state" id="dashState" class="form-select">
+                                        <?php foreach ($statesWithCities as $stName => $cities): ?>
+                                            <option value="<?= e($stName) ?>" <?= $school['state'] === $stName ? 'selected' : '' ?>><?= e($stName) ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">المدينة / المحلية <span class="text-danger">*</span></label>
+                                    <select name="city" id="dashCity" class="form-select">
+                                        <option value="<?= e($school['city']) ?>" selected><?= e($school['city']) ?></option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">الحي أو المنطقة</label>
+                                    <input type="text" name="district" class="form-control" value="<?= e($school['district'] ?? '') ?>" placeholder="مثال: الرياض، المعمورة، الثورة، الصافية">
+                                </div>
+
+                                <div class="col-md-7">
+                                    <label class="form-label">العنوان التفصيلي للمقر</label>
+                                    <input type="text" name="address" class="form-control" value="<?= e($school['address'] ?? '') ?>" placeholder="اسم الشارع، المعالم البارزة المجاورة...">
+                                </div>
+
+                                <div class="col-md-5">
+                                    <label class="form-label">رابط الموقع على Google Maps</label>
+                                    <input type="url" name="google_map_url" dir="ltr" class="form-control" value="<?= e($school['google_map_url'] ?? '') ?>" placeholder="https://maps.app.goo.gl/...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECTION 3: ACADEMIC STAGES & FACILITIES -->
+                        <div class="dash-card-section" id="sec-academic">
+                            <div class="dash-sec-header">
+                                <div class="dash-sec-title-wrap">
+                                    <div class="dash-sec-icon" style="background: #F0FDF4; color: #16A34A;">
+                                        <i class="fas fa-cubes"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="dash-sec-title">3. المراحل التعليمية المتوفرة والمرافق المدرسية</h5>
+                                        <p class="dash-sec-desc">حدد المراحل الدراسية والخدمات والتجهيزات المتاحة بمدرستكم لإبرازها في بطاقة المدرسة.</p>
+                                    </div>
+                                </div>
+                                <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-1 rounded-pill small fw-bold">المراحل والخدمات</span>
                             </div>
 
-                            <div class="col-md-4">
-                                <label class="form-label small fw-bold text-secondary">الحي أو المنطقة</label>
-                                <input type="text" name="district" class="form-control" value="<?= e($school['district'] ?? '') ?>">
-                            </div>
-
-                            <div class="col-md-8">
-                                <label class="form-label small fw-bold text-secondary">العنوان التفصيلي</label>
-                                <input type="text" name="address" class="form-control" value="<?= e($school['address'] ?? '') ?>" placeholder="الشارع، المعالم المجاورة...">
-                            </div>
-
-                            <div class="col-md-4">
-                                <label class="form-label small fw-bold text-secondary">رابط الموقع على Google Maps</label>
-                                <input type="url" name="google_map_url" dir="ltr" class="form-control" value="<?= e($school['google_map_url'] ?? '') ?>" placeholder="https://maps.app.goo.gl/...">
-                            </div>
-
-                            <!-- Classification & Foundation -->
-                            <div class="col-md-3">
-                                <label class="form-label small fw-bold text-secondary">نوع المدرسة</label>
-                                <select name="school_type" class="form-select">
-                                    <?php foreach (SudanGeography::schoolTypes() as $k => $lbl): ?>
-                                        <option value="<?= $k ?>" <?= $school['school_type'] === $k ? 'selected' : '' ?>><?= $lbl ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-
-                            <div class="col-md-3">
-                                <label class="form-label small fw-bold text-secondary">نوع الطلاب</label>
-                                <select name="gender_type" class="form-select">
-                                    <?php foreach (SudanGeography::genderTypes() as $k => $lbl): ?>
-                                        <option value="<?= $k ?>" <?= $school['gender_type'] === $k ? 'selected' : '' ?>><?= $lbl ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-
-                            <div class="col-md-3">
-                                <label class="form-label small fw-bold text-secondary">المنهج الدراسي</label>
-                                <select name="curriculum" class="form-select">
-                                    <?php foreach (SudanGeography::curricula() as $k => $lbl): ?>
-                                        <option value="<?= $k ?>" <?= $school['curriculum'] === $k ? 'selected' : '' ?>><?= $lbl ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-
-                            <div class="col-md-3">
-                                <label class="form-label small fw-bold text-secondary">
-                                    <i class="fas fa-landmark text-muted me-1"></i> سنة / تاريخ التأسيس
+                            <!-- Stages Sub-block -->
+                            <div class="mb-4">
+                                <label class="form-label d-block fw-bold mb-2 text-dark">
+                                    <i class="fas fa-layer-group text-primary me-1"></i> المراحل التعليمية المتوفرة بالمدرسة:
                                 </label>
-                                <input type="text" name="established_year" class="form-control" value="<?= e($school['established_year'] ?? '') ?>" placeholder="مثال: 2012 أو عام 1998">
-                            </div>
-
-                            <!-- Stages -->
-                            <div class="col-12">
-                                <label class="form-label small fw-bold text-secondary d-block">المراحل التعليمية المتوفرة</label>
-                                <div class="d-flex flex-wrap gap-3">
+                                <div class="d-flex flex-wrap gap-2">
                                     <?php foreach (SudanGeography::stages() as $stgKey => $stgLabel): ?>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="stages[]" value="<?= $stgKey ?>" id="d_stg_<?= $stgKey ?>" <?= in_array($stgKey, $currentStages) ? 'checked' : '' ?>>
-                                            <label class="form-check-label small fw-bold text-dark" for="d_stg_<?= $stgKey ?>"><?= $stgLabel ?></label>
-                                        </div>
+                                        <label class="stage-check-pill" for="d_stg_<?= $stgKey ?>">
+                                            <input class="form-check-input mt-0" type="checkbox" name="stages[]" value="<?= $stgKey ?>" id="d_stg_<?= $stgKey ?>" <?= in_array($stgKey, $currentStages) ? 'checked' : '' ?>>
+                                            <span><?= $stgLabel ?></span>
+                                        </label>
                                     <?php endforeach; ?>
                                 </div>
                             </div>
 
-                            <!-- Logo & Cover Media -->
-                            <div class="col-12 mt-4">
-                                <h6 class="fw-bold text-dark pb-2 border-bottom"><i class="fas fa-images text-primary me-2"></i> الشعار وصورة الغلاف</h6>
-                            </div>
+                            <hr class="my-4" style="border-color: #F1EAE0;">
 
-                            <div class="col-md-6">
-                                <label class="form-label small fw-bold text-secondary">شعار المدرسة (Logo)</label>
-                                <?php if (!empty($school['logo_path'])): ?>
-                                    <div class="mb-2">
-                                        <img src="<?= e(assetUrl($school['logo_path'])) ?>" alt="الشعار الحالي" style="height: 60px; object-fit: contain;" class="border p-1 rounded-2 bg-light">
-                                    </div>
-                                <?php endif; ?>
-                                <input type="file" name="logo" accept="image/*" class="form-control">
-                                <small class="text-muted" style="font-size: 0.72rem;">يفضل صورة مربعة عالية الدقة بصيغة PNG أو JPG أو SVG.</small>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class="form-label small fw-bold text-secondary">صورة الغلاف (Cover Banner)</label>
-                                <?php if (!empty($school['cover_path'])): ?>
-                                    <div class="mb-2">
-                                        <img src="<?= e(assetUrl($school['cover_path'])) ?>" alt="الغلاف الحالي" style="height: 60px; width: 140px; object-fit: cover;" class="border p-1 rounded-2">
-                                    </div>
-                                <?php endif; ?>
-                                <input type="file" name="cover" accept="image/*" class="form-control">
-                                <small class="text-muted" style="font-size: 0.72rem;">يفضل صورة أفقية عريضة (1200 × 400 بكسل).</small>
-                            </div>
-
-                            <!-- About & Mission -->
-                            <div class="col-12 mt-4">
-                                <h6 class="fw-bold text-dark pb-2 border-bottom"><i class="fas fa-align-right text-primary me-2"></i> النبذة التعريفية والرؤية والرسالة</h6>
-                            </div>
-
-                            <div class="col-12">
-                                <label class="form-label small fw-bold text-secondary">نبذة تعريفية شاملة عن المدرسة</label>
-                                <textarea name="description" rows="4" class="form-control" placeholder="اكتب نبذة تشرح تاريخ المدرسة، البيئة التعليمية، الكادر التدريسي، والأنشطة..."><?= e($school['description'] ?? '') ?></textarea>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class="form-label small fw-bold text-secondary">رؤية المدرسة (Vision)</label>
-                                <textarea name="vision" rows="2" class="form-control" placeholder="الريادة والتميز في..."><?= e($school['vision'] ?? '') ?></textarea>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class="form-label small fw-bold text-secondary">رسالة المدرسة (Mission)</label>
-                                <textarea name="mission" rows="2" class="form-control" placeholder="تقديم تعليم نوعي يبني شخصية الطالب..."><?= e($school['mission'] ?? '') ?></textarea>
-                            </div>
-
-                            <!-- Facilities -->
-                            <div class="col-12 mt-4">
-                                <h6 class="fw-bold text-dark pb-2 border-bottom"><i class="fas fa-cubes text-primary me-2"></i> المرافق والخدمات المتوفرة</h6>
-                            </div>
-
-                            <div class="col-12">
+                            <!-- Facilities Sub-block -->
+                            <div>
+                                <label class="form-label d-block fw-bold mb-2 text-dark">
+                                    <i class="fas fa-check-circle text-success me-1"></i> المرافق والخدمات والتجهيزات المتاحة:
+                                </label>
                                 <div class="row g-2">
                                     <?php foreach (SudanGeography::facilitiesList() as $facKey => $facData): ?>
                                         <div class="col-sm-6 col-md-4">
-                                            <div class="p-2 border rounded-3 bg-light">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="facilities[]" value="<?= $facKey ?>" id="fac_<?= $facKey ?>" <?= in_array($facKey, $currentFacilities) ? 'checked' : '' ?>>
-                                                    <label class="form-check-label small fw-bold text-dark" for="fac_<?= $facKey ?>">
-                                                        <i class="<?= $facData['icon'] ?> text-primary me-1"></i> <?= $facData['label'] ?>
-                                                    </label>
-                                                </div>
-                                            </div>
+                                            <label class="fac-check-item w-100" for="fac_<?= $facKey ?>">
+                                                <input class="form-check-input mt-0" type="checkbox" name="facilities[]" value="<?= $facKey ?>" id="fac_<?= $facKey ?>" <?= in_array($facKey, $currentFacilities) ? 'checked' : '' ?>>
+                                                <i class="<?= $facData['icon'] ?> text-primary"></i>
+                                                <span><?= $facData['label'] ?></span>
+                                            </label>
                                         </div>
                                     <?php endforeach; ?>
                                 </div>
                             </div>
+                        </div>
 
-                            <!-- Contacts, Fees & Social -->
-                            <div class="col-12 mt-4">
-                                <h6 class="fw-bold text-dark pb-2 border-bottom"><i class="fas fa-phone-alt text-primary me-2"></i> بيانات التواصل والرسوم</h6>
+                        <!-- SECTION 4: ABOUT, VISION & MISSION -->
+                        <div class="dash-card-section" id="sec-about">
+                            <div class="dash-sec-header">
+                                <div class="dash-sec-title-wrap">
+                                    <div class="dash-sec-icon" style="background: #F0F9FF; color: #0284C7;">
+                                        <i class="fas fa-align-right"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="dash-sec-title">4. النبذة التعريفية والرؤية والرسالة</h5>
+                                        <p class="dash-sec-desc">المحتوى الترويجي والتربوي الذي يقرأه أولياء الأمور للتعرف على أهداف وقيم وبيئة المدرسة.</p>
+                                    </div>
+                                </div>
+                                <span class="badge bg-info-subtle text-info-emphasis border border-info-subtle px-3 py-1 rounded-pill small fw-bold">النبذة والرؤية</span>
                             </div>
 
-                            <div class="col-md-4">
-                                <label class="form-label small fw-bold text-secondary">هاتف المدرسة</label>
-                                <input type="tel" name="phone" required class="form-control" value="<?= e($school['phone']) ?>">
-                            </div>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label class="form-label">نبذة تعريفية شاملة عن المدرسة</label>
+                                    <textarea name="description" rows="4" class="form-control" placeholder="اكتب نبذة تشرح تاريخ المدرسة، البيئة التعليمية، الكادر التدريسي، والأنشطة والبرامج الخاصة..."><?= e($school['description'] ?? '') ?></textarea>
+                                    <small class="text-muted d-block mt-1" style="font-size: 0.71rem;">يظهر هذا النص كبطاقة تعريفية رئيسية في مقدمة صفحة مدرستكم بالدليل.</small>
+                                </div>
 
-                            <div class="col-md-4">
-                                <label class="form-label small fw-bold text-secondary">رقم واتساب للتواصل</label>
-                                <input type="tel" name="whatsapp" class="form-control" value="<?= e($school['whatsapp'] ?? '') ?>">
-                            </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">رؤية المدرسة (Vision)</label>
+                                    <textarea name="vision" rows="3" class="form-control" placeholder="الريادة والتميز في تقديم بيئة تربوية رائدة..."><?= e($school['vision'] ?? '') ?></textarea>
+                                </div>
 
-                            <div class="col-md-4">
-                                <label class="form-label small fw-bold text-secondary">البريد الإلكتروني</label>
-                                <input type="email" name="email" class="form-control" value="<?= e($school['email'] ?? '') ?>">
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class="form-label small fw-bold text-secondary">متوسط الرسوم الدراسية التقريبية</label>
-                                <input type="text" name="approx_fees" class="form-control" value="<?= e($school['approx_fees'] ?? '') ?>" placeholder="مثال: تبدأ من 250,000 ج.س سنوياً">
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class="form-label small fw-bold text-secondary">أوقات وساعات الدوام</label>
-                                <input type="text" name="working_hours" class="form-control" value="<?= e($school['working_hours'] ?? '') ?>" placeholder="مثال: من الأحد إلى الخميس 7:30 ص - 2:30 م">
-                            </div>
-
-                            <!-- Social Media & Digital Links -->
-                            <div class="col-12 mt-4">
-                                <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 pb-2 border-bottom">
-                                    <h6 class="fw-bold text-dark mb-0"><i class="fas fa-share-alt text-primary me-2"></i> الروابط الرقمية ومنصات التواصل الاجتماعي (اختيارية)</h6>
-                                    <span class="badge bg-light text-secondary border small">أي حقل يُترك فارغاً لن يظهر في صفحة المدرسة</span>
+                                <div class="col-md-6">
+                                    <label class="form-label">رسالة المدرسة (Mission)</label>
+                                    <textarea name="mission" rows="3" class="form-control" placeholder="تقديم تعليم نوعي يبني شخصية الطالب ويواكب متطلبات العصر..."><?= e($school['mission'] ?? '') ?></textarea>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="col-md-6">
-                                <label class="form-label small fw-bold text-secondary"><i class="fas fa-globe text-secondary me-1"></i> الموقع الإلكتروني للمدرسة</label>
-                                <input type="url" name="website" dir="ltr" class="form-control" value="<?= e($school['website'] ?? '') ?>" placeholder="https://myschool.com">
+                        <!-- SECTION 5: CONTACT, FEES & HOURS -->
+                        <div class="dash-card-section" id="sec-contact">
+                            <div class="dash-sec-header">
+                                <div class="dash-sec-title-wrap">
+                                    <div class="dash-sec-icon" style="background: #FFFBEB; color: #D97706;">
+                                        <i class="fas fa-phone-alt"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="dash-sec-title">5. بيانات التواصل وأوقات الدوام والرسوم</h5>
+                                        <p class="dash-sec-desc">قنوات الاتصال المباشرة مع أولياء الأمور، مواعيد العمل، والرسوم الدراسية السنوية.</p>
+                                    </div>
+                                </div>
+                                <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle px-3 py-1 rounded-pill small fw-bold">التواصل والرسوم</span>
                             </div>
 
-                            <div class="col-md-6">
-                                <label class="form-label small fw-bold text-secondary"><i class="fab fa-facebook text-primary me-1"></i> رابط صفحة فيسبوك (Facebook)</label>
-                                <input type="url" name="facebook" dir="ltr" class="form-control" value="<?= e($school['facebook'] ?? '') ?>" placeholder="https://facebook.com/myschool">
-                            </div>
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">هاتف المدرسة للتواصل <span class="text-danger">*</span></label>
+                                    <input type="tel" name="phone" required class="form-control" value="<?= e($school['phone']) ?>" placeholder="0912345678">
+                                </div>
 
-                            <div class="col-md-4">
-                                <label class="form-label small fw-bold text-secondary"><i class="fab fa-x-twitter text-dark me-1"></i> رابط منصة إكس / تويتر (X / Twitter)</label>
-                                <input type="url" name="twitter" dir="ltr" class="form-control" value="<?= e($school['twitter'] ?? '') ?>" placeholder="https://x.com/myschool">
-                            </div>
+                                <div class="col-md-4">
+                                    <label class="form-label"><i class="fab fa-whatsapp text-success me-1"></i> رقم واتساب للتواصل السريع</label>
+                                    <input type="tel" name="whatsapp" class="form-control" value="<?= e($school['whatsapp'] ?? '') ?>" placeholder="0912345678">
+                                </div>
 
-                            <div class="col-md-4">
-                                <label class="form-label small fw-bold text-secondary"><i class="fab fa-youtube text-danger me-1"></i> رابط قناة يوتيوب (YouTube)</label>
-                                <input type="url" name="youtube" dir="ltr" class="form-control" value="<?= e($school['youtube'] ?? '') ?>" placeholder="https://youtube.com/@myschool">
-                            </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">البريد الإلكتروني الرسمي</label>
+                                    <input type="email" name="email" class="form-control" value="<?= e($school['email'] ?? '') ?>" placeholder="info@school.sd">
+                                </div>
 
-                            <div class="col-md-4">
-                                <label class="form-label small fw-bold text-secondary"><i class="fab fa-telegram text-info me-1"></i> رابط قناة تيليجرام (Telegram)</label>
-                                <input type="url" name="telegram" dir="ltr" class="form-control" value="<?= e($school['telegram'] ?? '') ?>" placeholder="https://t.me/myschool">
-                            </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">متوسط الرسوم الدراسية التقريبية</label>
+                                    <input type="text" name="approx_fees" class="form-control" value="<?= e($school['approx_fees'] ?? '') ?>" placeholder="مثال: تبدأ من 250,000 ج.س سنوياً">
+                                    <small class="text-muted d-block mt-1" style="font-size: 0.71rem;">تساعد أولياء الأمور في تقدير ميزانيتهم قبل التواصل.</small>
+                                </div>
 
-                            <div class="col-md-6">
-                                <label class="form-label small fw-bold text-secondary"><i class="fab fa-instagram text-danger me-1"></i> رابط حساب انستغرام (Instagram)</label>
-                                <input type="url" name="instagram" dir="ltr" class="form-control" value="<?= e($school['instagram'] ?? '') ?>" placeholder="https://instagram.com/myschool">
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class="form-label small fw-bold text-secondary"><i class="fab fa-tiktok text-dark me-1"></i> رابط حساب تيك توك (TikTok)</label>
-                                <input type="url" name="tiktok" dir="ltr" class="form-control" value="<?= e($school['tiktok'] ?? '') ?>" placeholder="https://tiktok.com/@myschool">
-                            </div>
-
-                            <!-- Submit Button -->
-                            <div class="col-12 mt-4 pt-3 border-top text-end">
-                                <button type="submit" class="btn-luxury-primary px-5 py-2">
-                                    <i class="fas fa-save me-1"></i> حفظ كافة التعديلات والروابط
-                                </button>
+                                <div class="col-md-6">
+                                    <label class="form-label">أوقات وساعات الدوام الرسمي</label>
+                                    <input type="text" name="working_hours" class="form-control" value="<?= e($school['working_hours'] ?? '') ?>" placeholder="مثال: من الأحد إلى الخميس 7:30 ص - 2:30 م">
+                                </div>
                             </div>
                         </div>
+
+                        <!-- SECTION 6: SOCIAL MEDIA & DIGITAL LINKS -->
+                        <div class="dash-card-section" id="sec-social">
+                            <div class="dash-sec-header">
+                                <div class="dash-sec-title-wrap">
+                                    <div class="dash-sec-icon" style="background: #FAF5FF; color: #9333EA;">
+                                        <i class="fas fa-share-alt"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="dash-sec-title">6. المنصات الرقمية وروابط التواصل الاجتماعي</h5>
+                                        <p class="dash-sec-desc">روابط صفحات وحسابات مدرستكم الرسمية على شبكات التواصل (الحقول الفارغة لا تظهر للزوار).</p>
+                                    </div>
+                                </div>
+                                <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle px-3 py-1 rounded-pill small fw-bold">المنصات الرقمية</span>
+                            </div>
+
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label"><i class="fas fa-globe text-primary me-1"></i> الموقع الإلكتروني للمدرسة</label>
+                                    <input type="url" name="website" dir="ltr" class="form-control" value="<?= e($school['website'] ?? '') ?>" placeholder="https://myschool.com">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label"><i class="fab fa-facebook text-primary me-1"></i> رابط صفحة فيسبوك (Facebook)</label>
+                                    <input type="url" name="facebook" dir="ltr" class="form-control" value="<?= e($school['facebook'] ?? '') ?>" placeholder="https://facebook.com/myschool">
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label"><i class="fab fa-x-twitter text-dark me-1"></i> منصة إكس / تويتر (X / Twitter)</label>
+                                    <input type="url" name="twitter" dir="ltr" class="form-control" value="<?= e($school['twitter'] ?? '') ?>" placeholder="https://x.com/myschool">
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label"><i class="fab fa-youtube text-danger me-1"></i> قناة يوتيوب (YouTube)</label>
+                                    <input type="url" name="youtube" dir="ltr" class="form-control" value="<?= e($school['youtube'] ?? '') ?>" placeholder="https://youtube.com/@myschool">
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label"><i class="fab fa-telegram text-info me-1"></i> قناة تيليجرام (Telegram)</label>
+                                    <input type="url" name="telegram" dir="ltr" class="form-control" value="<?= e($school['telegram'] ?? '') ?>" placeholder="https://t.me/myschool">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label"><i class="fab fa-instagram text-danger me-1"></i> حساب انستغرام (Instagram)</label>
+                                    <input type="url" name="instagram" dir="ltr" class="form-control" value="<?= e($school['instagram'] ?? '') ?>" placeholder="https://instagram.com/myschool">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label"><i class="fab fa-tiktok text-dark me-1"></i> حساب تيك توك (TikTok)</label>
+                                    <input type="url" name="tiktok" dir="ltr" class="form-control" value="<?= e($school['tiktok'] ?? '') ?>" placeholder="https://tiktok.com/@myschool">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECTION 7: QUICK MEDIA (LOGO & COVER) -->
+                        <div class="dash-card-section" id="sec-media">
+                            <div class="dash-sec-header">
+                                <div class="dash-sec-title-wrap">
+                                    <div class="dash-sec-icon" style="background: #FDF2F8; color: #DB2777;">
+                                        <i class="fas fa-images"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="dash-sec-title">7. الهوية البصرية السريعة (الشعار والغلاف)</h5>
+                                        <p class="dash-sec-desc">تحديث سريع لشعار وغلاف المدرسة، أو الانتقال لتبويب المعرض لإدارة صور المدرسة وفصولها بالكامل.</p>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1 fw-bold" onclick="document.getElementById('dash-media-tab').click()">
+                                    <i class="fas fa-camera-retro me-1"></i> إدارة معرض الصور بالكامل (<?= count($galleryList) ?> صور)
+                                </button>
+                            </div>
+
+                            <div class="row g-4 align-items-center">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">شعار المدرسة الرسمي (Logo)</label>
+                                    <div class="d-flex align-items-center gap-3 p-3 bg-light rounded-3 border">
+                                        <div style="width: 60px; height: 60px; flex-shrink: 0;" class="bg-white rounded-2 border p-1 d-flex align-items-center justify-content-center">
+                                            <img src="<?= e(defaultSchoolLogo($school['logo_path'] ?? null)) ?>" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                                        </div>
+                                        <div class="flex-grow-1 min-w-0">
+                                            <input type="file" name="logo" accept="image/*" class="form-control form-control-sm">
+                                            <small class="text-muted d-block mt-1" style="font-size: 0.68rem;">صورة مربعة واضحة (PNG أو JPG)</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">صورة غلاف الواجهة (Cover Banner)</label>
+                                    <div class="d-flex align-items-center gap-3 p-3 bg-light rounded-3 border">
+                                        <div style="width: 80px; height: 50px; flex-shrink: 0;" class="bg-dark rounded-2 border overflow-hidden d-flex align-items-center justify-content-center">
+                                            <?php if (!empty($school['cover_path'])): ?>
+                                                <img src="<?= e(assetUrl($school['cover_path'])) ?>" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+                                            <?php else: ?>
+                                                <i class="fas fa-image text-white-50"></i>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="flex-grow-1 min-w-0">
+                                            <input type="file" name="cover" accept="image/*" class="form-control form-control-sm">
+                                            <small class="text-muted d-block mt-1" style="font-size: 0.68rem;">صورة أفقية عريضة (1200 × 400 بكسل)</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- BOTTOM SAVE ACTION CARD -->
+                        <div class="dash-card-section bg-light border p-4 text-center">
+                            <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                                <div class="text-start">
+                                    <h6 class="fw-bold text-dark mb-1"><i class="fas fa-check-double text-success me-1"></i> جاهز لحفظ التعديلات؟</h6>
+                                    <small class="text-muted">يتم تطبيق التحديثات مباشرة على صفحة مدرستكم في الدليل فور النقر على زر الحفظ.</small>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <a href="/school/<?= urlencode($school['slug']) ?>" target="_blank" class="btn-luxury-outline px-3 py-2">
+                                        <i class="fas fa-external-link-alt me-1"></i> معاينة البروفايل
+                                    </a>
+                                    <button type="submit" class="btn-luxury-primary px-4 py-2">
+                                        <i class="fas fa-save me-1"></i> حفظ كافة التعديلات والبيانات
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
                     </form>
                 </div>
 
@@ -2238,6 +2589,20 @@ document.addEventListener('DOMContentLoaded', function() {
             new bootstrap.Tab(hashTab).show();
         }
     }
+
+    // Smooth scroll for dash subnav buttons
+    document.querySelectorAll('.dash-subnav-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            if (targetId && targetId.startsWith('#')) {
+                const targetElem = document.querySelector(targetId);
+                if (targetElem) {
+                    e.preventDefault();
+                    targetElem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        });
+    });
 });
 </script>
 

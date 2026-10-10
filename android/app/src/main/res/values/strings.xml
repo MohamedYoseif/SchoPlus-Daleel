@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">دليل المدارس</string>
-    <string name="app_full_name">دليل المدارس السودانية</string>
+    <string name="app_name">دليل المدارس السودانية</string>
+    <string name="app_full_name">دليل المدارس السودانية — منصة SchoPlus</string>
     <string name="offline_title">لا يوجد اتصال بالإنترنت</string>
     <string name="offline_desc">يرجى التأكد من تشغيل الواي فاي أو بيانات الهاتف والمحاولة مرة أخرى.</string>
     <string name="retry">إعادة المحاولة</string>

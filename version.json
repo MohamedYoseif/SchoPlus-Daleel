@@ -1,7 +1,7 @@
 {
-    "version": "3.5.66",
+    "version": "3.5.67",
     "release_date": "2026-10-10",
     "version_type": "enterprise",
     "min_php_version": "8.2",
-    "release_notes": "daleel.schoplus.sd — إطلاق تطبيق دليل المدارس السودانية الرسمي للأندرويد (APK جاهز للتحميل، كود سورس Native Android كامل، صفحة تحميل app.php، وتكامل PWA)"
+    "release_notes": "daleel.schoplus.sd — إعادة هيكلة وتصميم تبويب تعديل وإضافة بيانات المدرسة بلوحة التحكم (dashboard.php): تحويل النموذج إلى 7 بطاقات تخصصية منظمة مع شريط تنقل سريع وانسيابي وشريط حفظ علوي وسفلي"
 }
