@@ -50,7 +50,31 @@ if (!function_exists('defaultNewsImage')) {
         $cleanSchool = htmlspecialchars(mb_substr($schoolName ?: 'مؤسسة تعليمية', 0, 60), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
         $cleanBranch = $branchName ? ' — ' . htmlspecialchars(mb_substr($branchName, 0, 40), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') : '';
 
-        $svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 340" width="100%" height="100%">'
+        // Multi-line wrap for long headlines to ensure perfect visibility without clipping
+        $words = preg_split('/\s+/u', $cleanTitle, -1, PREG_SPLIT_NO_EMPTY);
+        $line1 = '';
+        $line2 = '';
+        if (is_array($words) && count($words) > 1 && mb_strlen($cleanTitle) > 35) {
+            foreach ($words as $w) {
+                if (mb_strlen($line1 . ' ' . $w) <= 35) {
+                    $line1 = trim($line1 . ' ' . $w);
+                } else {
+                    $line2 = trim($line2 . ' ' . $w);
+                }
+            }
+        } else {
+            $line1 = $cleanTitle;
+        }
+
+        $titleSvg = '';
+        if ($line2 !== '') {
+            $titleSvg = '<text x="545" y="130" fill="#FFFFFF" font-family="Cairo, Segoe UI, Tahoma, sans-serif" font-size="20" font-weight="800" text-anchor="end" direction="rtl">' . $line1 . '</text>'
+                      . '<text x="545" y="162" fill="#FFFFFF" font-family="Cairo, Segoe UI, Tahoma, sans-serif" font-size="19" font-weight="800" text-anchor="end" direction="rtl">' . $line2 . '</text>';
+        } else {
+            $titleSvg = '<text x="545" y="145" fill="#FFFFFF" font-family="Cairo, Segoe UI, Tahoma, sans-serif" font-size="22" font-weight="800" text-anchor="end" direction="rtl">' . $line1 . '</text>';
+        }
+
+        $svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 340" width="600" height="340">'
             . '<defs>'
             . '<linearGradient id="nBg" x1="0%" y1="0%" x2="100%" y2="100%">'
             . '<stop offset="0%" stop-color="#0B2A52"/>'
@@ -68,13 +92,13 @@ if (!function_exists('defaultNewsImage')) {
             . '<rect x="25" y="25" width="550" height="290" rx="12" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>'
             . '<rect x="420" y="38" width="135" height="30" rx="15" fill="rgba(255,255,255,0.12)"/>'
             . '<text x="487" y="58" fill="#FBBF24" font-family="Cairo, Segoe UI, Tahoma, sans-serif" font-size="13" font-weight="700" text-anchor="middle">إعلان مدرسي</text>'
-            . '<text x="545" y="145" fill="#FFFFFF" font-family="Cairo, Segoe UI, Tahoma, sans-serif" font-size="22" font-weight="800" text-anchor="end" direction="rtl">' . $cleanTitle . '</text>'
-            . '<line x1="160" y1="185" x2="545" y2="185" stroke="url(#goldAcc)" stroke-width="3" stroke-linecap="round"/>'
-            . '<text x="545" y="235" fill="#E2E8F0" font-family="Cairo, Segoe UI, Tahoma, sans-serif" font-size="17" font-weight="700" text-anchor="end" direction="rtl">' . $cleanSchool . $cleanBranch . '</text>'
+            . $titleSvg
+            . '<line x1="55" y1="195" x2="545" y2="195" stroke="url(#goldAcc)" stroke-width="3" stroke-linecap="round"/>'
+            . '<text x="545" y="240" fill="#E2E8F0" font-family="Cairo, Segoe UI, Tahoma, sans-serif" font-size="17" font-weight="700" text-anchor="end" direction="rtl">' . $cleanSchool . $cleanBranch . '</text>'
             . '<rect x="0" y="332" width="600" height="8" fill="url(#goldAcc)"/>'
             . '</svg>';
 
-        return 'data:image/svg+xml;utf8,' . rawurlencode($svg);
+        return 'data:image/svg+xml;base64,' . base64_encode($svg);
     }
 }
 

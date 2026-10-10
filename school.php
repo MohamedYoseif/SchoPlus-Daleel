@@ -1405,29 +1405,34 @@ $totalRev = max(1, count($reviewsList));
                                     <p>لم تنشر المدرسة أي إعلانات أو أخبار بعد</p>
                                 </div>
                             <?php else: ?>
+                                <?php 
+                                    $newsDataStore = [];
+                                    foreach ($newsList as $item) {
+                                        $nImg = defaultNewsImage(
+                                            $item['image_path'] ?? null, 
+                                            $item['title'] ?? '', 
+                                            $school['name'] ?? '', 
+                                            $item['branch_name'] ?? ''
+                                        );
+                                        $newsDataStore[$item['id']] = [
+                                            'id' => (int)$item['id'],
+                                            'title' => (string)$item['title'],
+                                            'branch' => (string)($item['branch_name'] ?? ''),
+                                            'date' => date('d / m / Y', strtotime($item['published_at'] ?: $item['created_at'])),
+                                            'image' => $nImg,
+                                            'content' => sanitizeHtml($item['content'])
+                                        ];
+                                    }
+                                ?>
                                 <div class="d-flex flex-column gap-3">
                                     <?php foreach ($newsList as $item): ?>
                                         <?php 
-                                            $newsImgUrl = defaultNewsImage(
-                                                $item['image_path'] ?? null, 
-                                                $item['title'] ?? '', 
-                                                $school['name'] ?? '', 
-                                                $item['branch_name'] ?? ''
-                                            );
-                                            $newsPayload = [
-                                                'id' => $item['id'],
-                                                'title' => $item['title'],
-                                                'branch' => $item['branch_name'] ?? '',
-                                                'date' => date('d / m / Y', strtotime($item['published_at'] ?: $item['created_at'])),
-                                                'image' => $newsImgUrl,
-                                                'content' => sanitizeHtml($item['content'])
-                                            ];
-                                            $jsonPayload = htmlspecialchars(json_encode($newsPayload, JSON_UNESCAPED_UNICODE), ENT_QUOTES, 'UTF-8');
+                                            $newsImgUrl = $newsDataStore[$item['id']]['image'];
                                         ?>
                                         <div class="sp-news-card" id="news-item-<?= $item['id'] ?>">
                                             <div class="d-flex flex-column flex-md-row gap-3 align-items-start">
                                                 <!-- صورة مصغرة للخبر -->
-                                                <div class="flex-shrink-0" style="cursor: pointer;" onclick="openNewsReaderModal(<?= $jsonPayload ?>)" title="انقر لقراءة الخبر">
+                                                <div class="flex-shrink-0" style="cursor: pointer;" onclick="openNewsReaderModal(<?= $item['id'] ?>)" title="انقر لقراءة الخبر">
                                                     <img src="<?= e($newsImgUrl) ?>" alt="صورة الخبر" loading="lazy" class="rounded-3 shadow-xs border" style="width: 140px; height: 95px; object-fit: cover; max-width: 100%;">
                                                 </div>
 
@@ -1435,7 +1440,7 @@ $totalRev = max(1, count($reviewsList));
                                                 <div class="flex-grow-1 w-100">
                                                     <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-1">
                                                         <div class="d-flex align-items-center gap-2 flex-wrap">
-                                                            <h5 class="fw-bold mb-0 text-dark" style="font-size: 1.02rem; cursor: pointer;" onclick="openNewsReaderModal(<?= $jsonPayload ?>)">
+                                                            <h5 class="fw-bold mb-0 text-dark" style="font-size: 1.02rem; cursor: pointer;" onclick="openNewsReaderModal(<?= $item['id'] ?>)">
                                                                 <?= e($item['title']) ?>
                                                             </h5>
                                                             <?php if (!empty($item['branch_name'])): ?>
@@ -1451,13 +1456,13 @@ $totalRev = max(1, count($reviewsList));
                                                     </div>
 
                                                     <!-- بداية نص الخبر -->
-                                                    <div class="text-secondary small mb-3" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.65;">
+                                                    <div class="text-secondary small mb-3" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.65; cursor: pointer;" onclick="openNewsReaderModal(<?= $item['id'] ?>)">
                                                         <?= mb_substr(strip_tags($item['content']), 0, 180) ?>...
                                                     </div>
 
                                                     <!-- إجراءات: عرض المزيد لفتح الخبر ومشاركة -->
                                                     <div class="d-flex justify-content-between align-items-center pt-2 border-top">
-                                                        <button type="button" class="btn btn-sm btn-luxury-primary py-1 px-3 fw-bold" onclick="openNewsReaderModal(<?= $jsonPayload ?>)">
+                                                        <button type="button" class="btn btn-sm btn-luxury-primary py-1 px-3 fw-bold" onclick="openNewsReaderModal(<?= $item['id'] ?>)">
                                                             <i class="fas fa-book-open me-1"></i> عرض المزيد
                                                         </button>
 
@@ -1470,6 +1475,10 @@ $totalRev = max(1, count($reviewsList));
                                         </div>
                                     <?php endforeach; ?>
                                 </div>
+                                <script>
+                                    window.newsDataStore = window.newsDataStore || {};
+                                    Object.assign(window.newsDataStore, <?= json_encode($newsDataStore, JSON_UNESCAPED_UNICODE) ?>);
+                                </script>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -2017,22 +2026,32 @@ $totalRev = max(1, count($reviewsList));
 <!-- NEWS READER MODAL (فتح الخبر كاملاً بتنسيقه الكامل) -->
 <div class="modal fade" id="newsReaderModal" tabindex="-1" aria-labelledby="newsReaderModalTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content rounded-4 border-0 shadow-lg">
+        <div class="modal-content rounded-4 border-0 shadow-lg overflow-hidden">
             <div class="modal-header bg-light border-bottom px-4 py-3">
-                <div>
-                    <div class="d-flex align-items-center gap-2 flex-wrap mb-1">
-                        <span class="badge bg-white text-primary border px-2 py-1 rounded-pill small" id="newsReaderModalDate"></span>
-                        <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-2 py-1 rounded-pill small" id="newsReaderModalBranch" style="display: none;"></span>
+                <div class="w-100 me-2">
+                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
+                        <div class="d-flex align-items-center gap-2 flex-wrap">
+                            <span class="badge bg-white text-primary border px-2 py-1 rounded-pill small" id="newsReaderModalDate"></span>
+                            <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-2 py-1 rounded-pill small" id="newsReaderModalBranch" style="display: none;"></span>
+                        </div>
+                        <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle rounded-pill small px-2 py-1">
+                            <i class="fas fa-bullhorn me-1"></i> إعلان مدرسي
+                        </span>
                     </div>
-                    <h5 class="modal-title fw-bold text-dark fs-5 mb-0" id="newsReaderModalTitle"></h5>
+                    <h5 class="modal-title fw-bold text-dark fs-5 mb-0" id="newsReaderModalTitle" style="line-height: 1.45;"></h5>
                 </div>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+                <button type="button" class="btn-close align-self-start mt-1" data-bs-dismiss="modal" aria-label="إغلاق"></button>
             </div>
             <div class="modal-body p-4">
+                <!-- Frame for News Banner Image (منسقة بشكل فاخر وجذاب دون قص) -->
                 <div id="newsReaderModalImgWrap" class="mb-4 text-center" style="display: none;">
-                    <img id="newsReaderModalImg" src="" alt="صورة الخبر" class="img-fluid rounded-4 shadow-sm" style="max-height: 400px; width: 100%; object-fit: cover;">
+                    <div class="p-2 rounded-4 bg-light border shadow-xs d-inline-block w-100" style="max-width: 600px;">
+                        <img id="newsReaderModalImg" src="" alt="صورة الخبر أو الإعلان" class="img-fluid rounded-3" style="width: 100%; height: auto; max-height: 380px; object-fit: contain; display: block; margin: 0 auto; box-shadow: 0 4px 14px rgba(11,42,82,0.06); cursor: pointer;" onclick="spLightboxOpen(this.src, document.getElementById('newsReaderModalTitle').innerText)" title="انقر لتكبير الصورة">
+                    </div>
                 </div>
-                <div id="newsReaderModalContent" class="sp-news-content" style="font-size: 0.95rem; line-height: 1.9;"></div>
+
+                <!-- Rich text content formatted from Quill -->
+                <div id="newsReaderModalContent" class="sp-news-content p-2" style="font-size: 0.98rem; line-height: 1.95; color: #334155;"></div>
             </div>
             <div class="modal-footer bg-light border-top px-4 py-2 justify-content-between">
                 <div class="d-flex gap-2">
@@ -2040,7 +2059,7 @@ $totalRev = max(1, count($reviewsList));
                         <i class="fas fa-link me-1"></i> نسخ رابط الخبر
                     </button>
                 </div>
-                <button type="button" class="btn btn-secondary btn-sm px-4" data-bs-dismiss="modal">إغلاق</button>
+                <button type="button" class="btn btn-secondary btn-sm px-4 fw-bold" data-bs-dismiss="modal">إغلاق</button>
             </div>
         </div>
     </div>
@@ -2070,11 +2089,19 @@ function switchTab(btn, targetId) {
 
 // News Reader Modal
 let currentReadingNewsId = 0;
-function openNewsReaderModal(item) {
+function openNewsReaderModal(itemOrId) {
+    let item = null;
+    if (typeof itemOrId === 'object' && itemOrId !== null) {
+        item = itemOrId;
+    } else if (window.newsDataStore && window.newsDataStore[itemOrId]) {
+        item = window.newsDataStore[itemOrId];
+    }
+    if (!item) return;
+
     currentReadingNewsId = item.id;
-    document.getElementById('newsReaderModalTitle').innerText = item.title;
-    document.getElementById('newsReaderModalDate').innerText = item.date;
-    document.getElementById('newsReaderModalContent').innerHTML = item.content;
+    document.getElementById('newsReaderModalTitle').innerText = item.title || '';
+    document.getElementById('newsReaderModalDate').innerText = item.date || '';
+    document.getElementById('newsReaderModalContent').innerHTML = item.content || '';
 
     const branchBadge = document.getElementById('newsReaderModalBranch');
     if (branchBadge) {
