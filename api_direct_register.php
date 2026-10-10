@@ -102,8 +102,8 @@ try {
     ) VALUES (
         :name, :slug, 'private', 'mixed', 'sudanese', '[\"kindergarten\",\"primary\",\"intermediate\",\"secondary\"]',
         :state, :city, :phone, :whatsapp,
-        'approved', :owner_name, :owner_title, :owner_phone, :password,
-        5.00, 0, 1, 1, 1, NOW(), NOW()
+        'pending', :owner_name, :owner_title, :owner_phone, :password,
+        5.00, 0, 1, 0, 0, NOW(), NOW()
     )");
 
     $insStmt->execute([
@@ -127,7 +127,8 @@ try {
     echo json_encode([
         'success' => true,
         'already_registered' => false,
-        'message' => 'تم تسجيل وتوثيق مدرستكم بنجاح في دليل المدارس السودانية المعتمدة!',
+        'pending_approval' => true,
+        'message' => 'تم استلام طلب تسجيل مدرستكم بنجاح! يتم التدقيق والاعتماد الرسمي خلال 24 ساعة، وبعدها يمكنكم مشاركة الصفحة واستقبال الاستفسارات وطلبات التسجيل وإضافة الأخبار والفعاليات.',
         'school' => [
             'id' => $newId,
             'name' => $name,
