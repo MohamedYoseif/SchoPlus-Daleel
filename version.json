@@ -1,7 +1,7 @@
 {
-    "release_notes": "daleel.schoplus.sd — حذف الشارة العلوية من الهيرو الرئيسي",
+    "release_notes": "daleel.schoplus.sd — إضافة لوغو افتراضي ذكي للمدارس وصورة مدمجة افتراضية للأخبار",
     "min_php_version": "8.2",
-    "version": "3.5.55",
+    "version": "3.5.56",
     "release_date": "2026-10-10",
     "version_type": "enterprise"
 }

@@ -974,11 +974,7 @@ $totalRev = max(1, count($reviewsList));
                 <div class="d-flex align-items-end gap-2 gap-md-3">
                     <!-- Logo -->
                     <div class="sp-logo-wrap">
-                        <?php if (!empty($school['logo_path'])): ?>
-                            <img src="<?= e(assetUrl($school['logo_path'])) ?>" alt="<?= e($school['name']) ?>">
-                        <?php else: ?>
-                            <div class="sp-logo-placeholder"><?= mb_substr($school['name'], 0, 1) ?></div>
-                        <?php endif; ?>
+                        <img src="<?= e(defaultSchoolLogo($school['logo_path'] ?? null)) ?>" alt="<?= e($school['name']) ?>">
                     </div>
                     <!-- Title & Details -->
                     <div style="padding-bottom: 2px;">
@@ -1415,12 +1411,19 @@ $totalRev = max(1, count($reviewsList));
                                                 </span>
                                             </div>
 
-                                            <?php if (!empty($item['image_path'])): ?>
-                                                <?php $newsImgUrl = assetUrl($item['image_path']); ?>
-                                                <div class="my-3" style="cursor: pointer;" onclick="spLightboxOpen('<?= e($newsImgUrl) ?>', '<?= e(addslashes($item['title'])) ?>')">
-                                                    <img src="<?= e($newsImgUrl) ?>" alt="صورة الخبر" loading="lazy" class="img-fluid rounded-3" style="max-height: 340px; object-fit: cover; width: 100%;">
-                                                </div>
-                                            <?php endif; ?>
+                                            <?php 
+                                                $newsImgUrl = defaultNewsImage($item['image_path'] ?? null);
+                                                $hasCustomImg = !empty($item['image_path']);
+                                            ?>
+                                            <div class="my-3 text-center" style="cursor: pointer;" onclick="openNewsReaderModal(<?= htmlspecialchars(json_encode([
+                                                'id' => $item['id'],
+                                                'title' => $item['title'],
+                                                'date' => date('d / m / Y', strtotime($item['published_at'] ?: $item['created_at'])),
+                                                'image' => $newsImgUrl,
+                                                'content' => sanitizeHtml($item['content'])
+                                            ]), ENT_QUOTES, 'UTF-8') ?>)">
+                                                <img src="<?= e($newsImgUrl) ?>" alt="صورة الخبر" loading="lazy" class="img-fluid rounded-3 shadow-xs" style="max-height: 180px; width: 100%; max-width: 480px; object-fit: cover; border: 1px solid var(--border-subtle);">
+                                            </div>
 
                                             <!-- Render rich formatted content (from Word-like editor) -->
                                             <div class="sp-news-content">
@@ -1432,7 +1435,7 @@ $totalRev = max(1, count($reviewsList));
                                                     'id' => $item['id'],
                                                     'title' => $item['title'],
                                                     'date' => date('d / m / Y', strtotime($item['published_at'] ?: $item['created_at'])),
-                                                    'image' => !empty($item['image_path']) ? assetUrl($item['image_path']) : '',
+                                                    'image' => $newsImgUrl,
                                                     'content' => sanitizeHtml($item['content'])
                                                 ]), ENT_QUOTES, 'UTF-8') ?>)">
                                                     <i class="fas fa-book-open me-1"></i> قراءة الخبر كاملاً

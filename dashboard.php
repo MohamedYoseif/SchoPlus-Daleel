@@ -625,12 +625,8 @@ require_once __DIR__ . '/header.php';
         <div class="card border-0 rounded-4 shadow-sm bg-white p-4 mb-4">
             <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
                 <div class="d-flex align-items-center gap-3">
-                    <div class="bg-light border rounded-3 p-2 d-flex align-items-center justify-content-center" style="width: 64px; height: 64px;">
-                        <?php if (!empty($school['logo_path'])): ?>
-                            <img src="<?= e(assetUrl($school['logo_path'])) ?>" alt="شعار" style="max-width: 100%; max-height: 100%; object-fit: contain;">
-                        <?php else: ?>
-                            <span class="fs-3 fw-bold text-primary"><?= mb_substr($school['name'], 0, 1) ?></span>
-                        <?php endif; ?>
+                    <div class="bg-light border rounded-3 p-1 d-flex align-items-center justify-content-center" style="width: 64px; height: 64px;">
+                        <img src="<?= e(defaultSchoolLogo($school['logo_path'] ?? null)) ?>" alt="شعار المدرسة" style="max-width: 100%; max-height: 100%; object-fit: contain;" class="rounded-2">
                     </div>
                     <div>
                         <div class="d-flex align-items-center gap-2 flex-wrap">
@@ -1674,13 +1670,7 @@ require_once __DIR__ . '/header.php';
                             <?php foreach ($newsList as $item): ?>
                                 <div class="p-3 border rounded-3 bg-white shadow-sm d-flex flex-column flex-md-row align-items-md-start justify-content-between gap-3">
                                     <div class="d-flex gap-3 flex-grow-1">
-                                        <?php if (!empty($item['image_path'])): ?>
-                                            <img src="<?= e(assetUrl($item['image_path'])) ?>" alt="صورة الخبر" style="width: 85px; height: 85px; object-fit: cover; flex-shrink: 0;" class="rounded-3 border">
-                                        <?php else: ?>
-                                            <div style="width: 85px; height: 85px; background: #F1F5F9; color: #94A3B8; display: flex; align-items: center; justify-content: center; flex-shrink: 0;" class="rounded-3 border">
-                                                <i class="fas fa-newspaper fa-2x"></i>
-                                            </div>
-                                        <?php endif; ?>
+                                        <img src="<?= e(defaultNewsImage($item['image_path'] ?? null)) ?>" alt="صورة الخبر" style="width: 85px; height: 85px; object-fit: cover; flex-shrink: 0;" class="rounded-3 border">
                                         <div class="flex-grow-1">
                                             <div class="d-flex align-items-center gap-2 flex-wrap mb-1">
                                                 <h6 class="fw-bold text-dark mb-0" style="font-size: 0.95rem;"><?= e($item['title']) ?></h6>

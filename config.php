@@ -28,6 +28,26 @@ if (!function_exists('assetUrl')) {
     }
 }
 
+if (!function_exists('defaultSchoolLogo')) {
+    function defaultSchoolLogo(?string $path): string {
+        $path = trim((string)($path ?? ''));
+        if ($path !== '') {
+            return assetUrl($path);
+        }
+        return '/assets/images/default-school-logo.svg';
+    }
+}
+
+if (!function_exists('defaultNewsImage')) {
+    function defaultNewsImage(?string $path): string {
+        $path = trim((string)($path ?? ''));
+        if ($path !== '') {
+            return assetUrl($path);
+        }
+        return '/assets/images/default-news.svg';
+    }
+}
+
 if (!function_exists('csrf_token')) {
     function csrf_token(): string {
         if (empty($_SESSION['_csrf_token'])) {
