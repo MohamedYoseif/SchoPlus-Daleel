@@ -223,16 +223,27 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']) 
     } else {
         $parentName = trim($_POST['parent_name'] ?? '');
         $parentPhone = trim($_POST['parent_phone'] ?? '');
+        $parentEmail = trim($_POST['parent_email'] ?? '');
+        $studentName = trim($_POST['student_name'] ?? '');
+        $studentGender = trim($_POST['student_gender'] ?? '');
+        $studentStage = trim($_POST['student_stage'] ?? '');
         $studentGrade = trim($_POST['student_grade'] ?? '');
+        $previousSchool = trim($_POST['previous_school'] ?? '');
+        $branchName = trim($_POST['branch_name'] ?? '');
+        $needsTransportation = !empty($_POST['needs_transportation']) ? 1 : 0;
         $message = trim($_POST['message'] ?? '');
 
         if (!$parentName || !$parentPhone) {
-            $inquiryError = 'يرجى كتابة اسم ولي الأمر ورقم الهاتف.';
+            $inquiryError = 'يرجى كتابة اسم ولي الأمر ورقم الهاتف للتواصل.';
         } else {
             $inqStmt = $pdo->prepare("INSERT INTO daleel_school_inquiries 
-                (school_id, parent_name, parent_phone, student_grade, message, status, created_at) 
-                VALUES (?, ?, ?, ?, ?, 'new', NOW())");
-            $inqStmt->execute([$school['id'], $parentName, $parentPhone, $studentGrade, $message]);
+                (school_id, parent_name, parent_phone, parent_email, student_name, student_gender, student_stage, student_grade, previous_school, branch_name, needs_transportation, message, status, created_at) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'new', NOW())");
+            $inqStmt->execute([
+                $school['id'], $parentName, $parentPhone, $parentEmail ?: null,
+                $studentName ?: null, $studentGender ?: null, $studentStage ?: null, $studentGrade ?: null,
+                $previousSchool ?: null, $branchName ?: null, $needsTransportation, $message ?: null
+            ]);
             $inquirySuccess = true;
         }
     }
@@ -1004,8 +1015,8 @@ $totalRev = max(1, count($reviewsList));
                             <i class="fas fa-phone-alt"></i> <span>اتصال</span>
                         </a>
                     <?php endif; ?>
-                    <a href="#inquiry-form-section" class="btn-luxury-gold sp-btn-action" onclick="switchTab(document.querySelector('[data-target=\'tab-overview\']'), 'tab-overview')">
-                        <i class="fas fa-pen-alt"></i> <span>طلب قبول</span>
+                    <a href="#tab-admission" class="btn-luxury-gold sp-btn-action" onclick="switchTab(document.querySelector('[data-target=\'tab-admission\']'), 'tab-admission')">
+                        <i class="fas fa-user-graduate"></i> <span>طلب قبول</span>
                     </a>
                     <button type="button" class="btn-luxury-outline sp-btn-action" onclick="openShareModal()" title="مشاركة الرابط والباركود">
                         <i class="fas fa-share-alt text-primary"></i> <span class="d-inline d-md-none">مشاركة</span>
@@ -1108,6 +1119,11 @@ $totalRev = max(1, count($reviewsList));
                     <button class="sp-tab-btn active" data-target="tab-overview" onclick="switchTab(this, 'tab-overview')">
                         <i class="fas fa-info-circle"></i>
                         <span>نبذة ومعلومات</span>
+                    </button>
+                    <button class="sp-tab-btn" data-target="tab-admission" id="tabBtnAdmission" onclick="switchTab(this, 'tab-admission')">
+                        <i class="fas fa-user-graduate"></i>
+                        <span>القبول والتسجيل</span>
+                        <span class="tab-count" style="background: #10B981; color: #fff;">متاح</span>
                     </button>
                     <?php if ($showBranchesTab): ?>
                     <button class="sp-tab-btn" data-target="tab-branches" onclick="switchTab(this, 'tab-branches')">
@@ -1424,24 +1440,130 @@ $totalRev = max(1, count($reviewsList));
                         </div>
                     </div>
 
-                    <!-- Inquiry Form -->
-                    <div class="sp-inquiry-card" id="inquiry-form-section">
-                        <div class="d-flex align-items-center gap-3 mb-4">
-                            <div style="width: 46px; height: 46px; border-radius: 14px; background: linear-gradient(135deg, var(--brand-blue), var(--brand-navy)); display: flex; align-items: center; justify-content: center; color: #FFFFFF; font-size: 1.1rem; flex-shrink: 0; box-shadow: 0 4px 14px rgba(30,95,168,0.25);">
-                                <i class="fas fa-paper-plane"></i>
+                    <!-- Quick Admission Banner inside Overview -->
+                    <div class="mt-4 p-3 rounded-4 border d-flex align-items-center justify-content-between flex-wrap gap-3" style="background: linear-gradient(135deg, #FFFDF8 0%, #FEF9EC 100%); border-color: #FCD34D !important;">
+                        <div class="d-flex align-items-center gap-3">
+                            <div style="width: 46px; height: 46px; border-radius: 14px; background: linear-gradient(135deg, #D97706, #B45309); display: flex; align-items: center; justify-content: center; color: #FFFFFF; font-size: 1.2rem; flex-shrink: 0; box-shadow: 0 4px 14px rgba(217,119,6,0.25);">
+                                <i class="fas fa-user-graduate"></i>
                             </div>
                             <div>
-                                <h5 class="fw-bold mb-0" style="color: var(--brand-navy); font-size: 1.05rem;">طلب قبول أو استفسار مباشر</h5>
-                                <p class="mb-0" style="font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;">أرسل بياناتك وسيقوم فريق التسجيل بالمدرسة بالتواصل معك مباشرة</p>
+                                <h6 class="fw-bold mb-1" style="color: var(--brand-navy); font-size: 0.95rem;">التقديم والقبول الإلكتروني متاح الآن</h6>
+                                <p class="mb-0 text-muted" style="font-size: 0.74rem;">يمكنكم الاطلاع على شروط ومستندات القبول وتقديم طلب تسجيل إلكتروني رسمي للعام الدراسي.</p>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-luxury-gold px-3 py-2 fw-bold" onclick="switchTab(document.querySelector('[data-target=\'tab-admission\']'), 'tab-admission')">
+                            <i class="fas fa-file-signature me-1"></i> فتح بوابة القبول والتسجيل
+                        </button>
+                    </div>
+
+                </div>
+
+                <!-- TAB: ADMISSION (بوابة القبول والتسجيل المنفصلة) -->
+                <div id="tab-admission" class="sp-tab-pane" style="display: none;">
+                    
+                    <!-- 1. Admission Hero / Status Banner -->
+                    <div class="sp-section mb-4" style="background: linear-gradient(135deg, #0B2A52 0%, #163870 100%); color: #ffffff; border-radius: 18px; padding: 26px; border: 1px solid #1E5FA8;">
+                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                            <div>
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <span class="badge" style="background: #10B981; color: #ffffff; font-size: 0.75rem; font-weight: 700; padding: 5px 12px; border-radius: 20px;">
+                                        <i class="fas fa-check-circle me-1"></i> باب القبول والتسجيل مفتوح
+                                    </span>
+                                    <span class="badge" style="background: rgba(255,255,255,0.15); color: #FCD34D; font-size: 0.75rem; padding: 5px 12px; border-radius: 20px;">
+                                        <i class="fas fa-calendar-alt me-1"></i> العام الدراسي الجديد
+                                    </span>
+                                </div>
+                                <h4 class="fw-bold mb-1" style="font-size: 1.25rem;">بوابة القبول والتسجيل الإلكتروني</h4>
+                                <p class="mb-0 text-light opacity-75" style="font-size: 0.76rem; max-width: 580px; line-height: 1.6;">
+                                    مرحباً بكم في قسم القبول والتسجيل بـ <?= e($school['name']) ?>. يسعدنا استقبال طلباتكم وانضمام أبنائكم إلى مسيرتنا التعليمية. يمكنك تقديم طلب التسجيل الإلكتروني ومتابعة الإجراءات بكل يسر وسهولة.
+                                </p>
+                            </div>
+                            <div class="d-flex flex-column gap-2 text-md-end">
+                                <?php if (!empty($school['whatsapp'])): ?>
+                                <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $school['whatsapp']) ?>?text=<?= urlencode('مرحباً بكم، أود الاستفسار عن متطلبات القبول والتسجيل في ' . $school['name']) ?>" target="_blank" class="btn btn-sm btn-success fw-bold px-3 py-2 rounded-3 d-inline-flex align-items-center justify-content-center gap-2 shadow-sm">
+                                    <i class="fab fa-whatsapp fs-6"></i>
+                                    <span>واتساب مكتب القبول</span>
+                                </a>
+                                <?php endif; ?>
+                                <?php if (!empty($school['phone'])): ?>
+                                <a href="tel:<?= e($school['phone']) ?>" class="btn btn-sm btn-outline-light px-3 py-2 rounded-3 d-inline-flex align-items-center justify-content-center gap-2">
+                                    <i class="fas fa-phone-alt"></i>
+                                    <span>اتصال: <?= e($school['phone']) ?></span>
+                                </a>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Admission Guidelines & Requirements (Cards Grid) -->
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <div class="card h-100 border rounded-4 p-3 shadow-sm bg-white">
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <div style="width: 34px; height: 34px; border-radius: 10px; background: #EFF6FF; color: var(--brand-blue); display: flex; align-items: center; justify-content: center;">
+                                        <i class="fas fa-file-invoice"></i>
+                                    </div>
+                                    <h6 class="fw-bold mb-0 text-dark" style="font-size: 0.88rem;">المستندات المطلوبة للتسجيل</h6>
+                                </div>
+                                <ul class="list-unstyled mb-0 pe-2" style="font-size: 0.74rem; color: #475569; line-height: 1.8;">
+                                    <li><i class="fas fa-check text-success me-1"></i> أصل وصورة شهادة الميلاد أو الرقم الوطني للطالب.</li>
+                                    <li><i class="fas fa-check text-success me-1"></i> شهادة النقل أو آخر تقرير أكاديمي معتمد (للصفوف المنقولة).</li>
+                                    <li><i class="fas fa-check text-success me-1"></i> عدد 4 صور فوتوغرافية حديثة بحجم جواز السفر.</li>
+                                    <li><i class="fas fa-check text-success me-1"></i> كرت التطعيم والشهادة الصحية (لمرحلة رياض الأطفال).</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="card h-100 border rounded-4 p-3 shadow-sm bg-white">
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <div style="width: 34px; height: 34px; border-radius: 10px; background: #ECFDF5; color: #059669; display: flex; align-items: center; justify-content: center;">
+                                        <i class="fas fa-clipboard-check"></i>
+                                    </div>
+                                    <h6 class="fw-bold mb-0 text-dark" style="font-size: 0.88rem;">خطوات ومراحل القبول</h6>
+                                </div>
+                                <div class="d-flex flex-column gap-2" style="font-size: 0.73rem; color: #475569;">
+                                    <div class="d-flex align-items-start gap-2">
+                                        <span class="badge bg-primary-subtle text-primary rounded-circle" style="width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.68rem;">1</span>
+                                        <span>تقديم طلب القبول الإلكتروني بالاستمارة أدناه.</span>
+                                    </div>
+                                    <div class="d-flex align-items-start gap-2">
+                                        <span class="badge bg-primary-subtle text-primary rounded-circle" style="width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.68rem;">2</span>
+                                        <span>تواصل فريق القبول وتحديد موعد المقابلة واختبار المستوى.</span>
+                                    </div>
+                                    <div class="d-flex align-items-start gap-2">
+                                        <span class="badge bg-primary-subtle text-primary rounded-circle" style="width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.68rem;">3</span>
+                                        <span>إكمال تسليم المستندات واعتماد التسجيل وسداد الرسوم.</span>
+                                    </div>
+                                    <div class="d-flex align-items-start gap-2">
+                                        <span class="badge bg-primary-subtle text-primary rounded-circle" style="width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.68rem;">4</span>
+                                        <span>استلام الزي المدرسي والجدول وتوزيع الفصول.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. Online Admission Form Card -->
+                    <div class="sp-inquiry-card" id="inquiry-form-section">
+                        <div class="d-flex align-items-center gap-3 mb-4 pb-3 border-bottom">
+                            <div style="width: 48px; height: 48px; border-radius: 14px; background: linear-gradient(135deg, var(--brand-blue), var(--brand-navy)); display: flex; align-items: center; justify-content: center; color: #FFFFFF; font-size: 1.2rem; flex-shrink: 0; box-shadow: 0 4px 14px rgba(30,95,168,0.25);">
+                                <i class="fas fa-file-signature"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-bold mb-0" style="color: var(--brand-navy); font-size: 1.08rem;">استمارة تقديم طلب القبول والتسجيل</h5>
+                                <p class="mb-0" style="font-size: 0.74rem; color: var(--text-muted); margin-top: 2px;">
+                                    يرجى تعبئة بيانات ولي الأمر والطالب، وسيقوم مسؤول التسجيل بالتواصل معكم هاتفياً أو عبر الواتساب فور استلام الطلب.
+                                </p>
                             </div>
                         </div>
 
                         <?php if ($inquirySuccess): ?>
-                            <div class="d-flex align-items-center gap-3 p-3 rounded-4 mb-3" style="background: #F0FDF4; border: 1.5px solid #BBF7D0;">
-                                <i class="fas fa-check-circle text-success fs-3"></i>
+                            <div class="d-flex align-items-center gap-3 p-3 rounded-4 mb-4" style="background: #F0FDF4; border: 1.5px solid #BBF7D0;">
+                                <i class="fas fa-check-circle text-success fs-2"></i>
                                 <div>
-                                    <div class="fw-bold text-success">تم إرسال طلبكم بنجاح!</div>
-                                    <div class="small text-muted">تم استلام طلبكم في لوحة إدارة المدرسة وسيتواصلون معكم قريباً</div>
+                                    <div class="fw-bold text-success fs-6">تم إرسال طلب القبول والتسجيل بنجاح!</div>
+                                    <div class="small text-muted mt-1">تم إشعار إدارة المدرسة بطلبكم وسيتواصل معكم قسم القبول والتسجيل قريباً لاستكمال الإجراءات.</div>
                                 </div>
                             </div>
                         <?php endif; ?>
@@ -1450,31 +1572,117 @@ $totalRev = max(1, count($reviewsList));
                             <div class="alert alert-danger border-0 rounded-4 py-2 mb-3"><i class="fas fa-exclamation-triangle me-1"></i> <?= e($inquiryError) ?></div>
                         <?php endif; ?>
 
-                        <form method="POST" action="/school.php?slug=<?= urlencode($school['slug']) ?>#inquiry-form-section">
+                        <form method="POST" action="/school.php?slug=<?= urlencode($school['slug']) ?>#tab-admission">
                             <?= csrf_field() ?>
                             <input type="hidden" name="action" value="add_inquiry">
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label class="form-label fw-bold small text-secondary">اسم ولي الأمر <span class="text-danger">*</span></label>
-                                    <input type="text" name="parent_name" required class="form-control" placeholder="مثال: محمد أحمد علي">
+
+                            <!-- Section 1: Guardian Info -->
+                            <h6 class="fw-bold text-dark mb-3 d-flex align-items-center gap-2" style="font-size: 0.85rem;">
+                                <span class="badge bg-primary text-white rounded-circle" style="width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center;">1</span>
+                                <span>بيانات ولي الأمر (الأب / الأم / الوصي):</span>
+                            </h6>
+                            <div class="row g-3 mb-4">
+                                <div class="col-md-5">
+                                    <label class="form-label fw-bold small text-secondary">اسم ولي الأمر بالكامل <span class="text-danger">*</span></label>
+                                    <input type="text" name="parent_name" required class="form-control" placeholder="مثال: محمد أحمد علي عثمان">
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label class="form-label fw-bold small text-secondary">رقم الهاتف / واتساب <span class="text-danger">*</span></label>
                                     <input type="tel" name="parent_phone" required class="form-control" placeholder="09xxxxxxx أو 01xxxxxxx">
                                 </div>
-                                <div class="col-md-6">
-                                    <label class="form-label fw-bold small text-secondary">الصف / المرحلة المطلوبة</label>
-                                    <input type="text" name="student_grade" class="form-control" placeholder="مثال: الصف الثالث أساس / أولى ثانوي">
+                                <div class="col-md-3">
+                                    <label class="form-label fw-bold small text-secondary">البريد الإلكتروني (اختياري)</label>
+                                    <input type="email" name="parent_email" class="form-control" placeholder="parent@gmail.com">
+                                </div>
+                            </div>
+
+                            <!-- Section 2: Student Info -->
+                            <h6 class="fw-bold text-dark mb-3 d-flex align-items-center gap-2" style="font-size: 0.85rem;">
+                                <span class="badge bg-primary text-white rounded-circle" style="width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center;">2</span>
+                                <span>بيانات الطالب / الطالبة المراد تسجيله:</span>
+                            </h6>
+                            <div class="row g-3 mb-4">
+                                <div class="col-md-5">
+                                    <label class="form-label fw-bold small text-secondary">اسم الطالب / الطالبة الكامل</label>
+                                    <input type="text" name="student_name" class="form-control" placeholder="مثال: أحمد محمد أحمد">
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label fw-bold small text-secondary">النوع / الجنس</label>
+                                    <select name="student_gender" class="form-select">
+                                        <option value="">-- اختر --</option>
+                                        <option value="بنين">بنين (ذكر)</option>
+                                        <option value="بنات">بنات (أنثى)</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold small text-secondary">المرحلة الدراسية المطلوبة</label>
+                                    <select name="student_stage" class="form-select">
+                                        <option value="">-- اختر المرحلة --</option>
+                                        <?php if (!empty($stages)): ?>
+                                            <?php foreach ($stages as $stg): ?>
+                                                <option value="<?= e(SudanGeography::stageLabel($stg)) ?>"><?= e(SudanGeography::stageLabel($stg)) ?></option>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            <option value="رياض الأطفال">رياض الأطفال</option>
+                                            <option value="المرحلة الابتدائية">المرحلة الابتدائية</option>
+                                            <option value="المرحلة المتوسطة">المرحلة المتوسطة</option>
+                                            <option value="المرحلة الثانوية">المرحلة الثانوية</option>
+                                        <?php endif; ?>
+                                    </select>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label fw-bold small text-secondary">أية ملاحظات إضافية</label>
-                                    <input type="text" name="message" class="form-control" placeholder="استفسار عن الرسوم أو المواصلات...">
+                                    <label class="form-label fw-bold small text-secondary">الصف الدراسي المطلوب</label>
+                                    <input type="text" name="student_grade" class="form-control" placeholder="مثال: الصف الأول أساس / الثالث متوسط / ثاني ثانوي">
                                 </div>
-                                <div class="col-12 mt-2">
-                                    <button type="submit" class="btn-luxury-primary w-100 w-md-auto px-4 py-2">
-                                        <i class="fas fa-paper-plane"></i> إرسال الطلب الآن
-                                    </button>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold small text-secondary">المدرسة السابقة (للطلاب المحولين)</label>
+                                    <input type="text" name="previous_school" class="form-control" placeholder="اسم المدرسة السابقة إن وجدت">
                                 </div>
+                            </div>
+
+                            <!-- Section 3: Preferences & Notes -->
+                            <h6 class="fw-bold text-dark mb-3 d-flex align-items-center gap-2" style="font-size: 0.85rem;">
+                                <span class="badge bg-primary text-white rounded-circle" style="width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center;">3</span>
+                                <span>تفضيلات واستفسارات إضافية:</span>
+                            </h6>
+                            <div class="row g-3 mb-4">
+                                <?php if (!empty($branchesList)): ?>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold small text-secondary">الفرع المفضل</label>
+                                    <select name="branch_name" class="form-select">
+                                        <option value="">الفرع الرئيسي</option>
+                                        <?php foreach ($branchesList as $br): ?>
+                                            <option value="<?= e($br['name'] ?? '') ?>"><?= e($br['name'] ?? '') ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <?php endif; ?>
+
+                                <div class="<?= !empty($branchesList) ? 'col-md-6' : 'col-md-12' ?>">
+                                    <label class="form-label fw-bold small text-secondary">خدمة الترحيل والمواصلات المدرسية</label>
+                                    <div class="d-flex align-items-center gap-3 p-2 bg-light rounded-3 border">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="needs_transportation" value="1" id="inqNeedsTrans">
+                                            <label class="form-check-label small fw-bold text-dark" for="inqNeedsTrans">
+                                                <i class="fas fa-bus text-primary me-1"></i> نعم، أرغب في توفير خدمة الترحيل المدرسي للطالب
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <label class="form-label fw-bold small text-secondary">أية استفسارات أو ملاحظات صحية أو تفاصيل إضافية</label>
+                                    <textarea name="message" rows="3" class="form-control" placeholder="أية ملاحظات تود إبلاغ إدارة المدرسة بها أو استفسار عن الرسوم أو السداد..."></textarea>
+                                </div>
+                            </div>
+
+                            <div class="pt-2 text-start">
+                                <button type="submit" class="btn-luxury-primary px-5 py-3 fs-6">
+                                    <i class="fas fa-paper-plane me-2"></i> إرسال طلب القبول والتسجيل الآن
+                                </button>
+                                <span class="text-muted small ms-3 d-inline-block mt-2">
+                                    <i class="fas fa-shield-alt text-success me-1"></i> بياناتكم محفوظة ومحترمة وتُرسل مباشرة لإدارة المدرسة
+                                </span>
                             </div>
                         </form>
                     </div>
@@ -2145,7 +2353,7 @@ $totalRev = max(1, count($reviewsList));
                 <i class="fas fa-phone-alt"></i> <span>اتصال</span>
             </a>
         <?php endif; ?>
-        <a href="#inquiry-form-section" class="sp-mob-bottom-btn sp-mob-inquiry" onclick="switchTab(document.querySelector('[data-target=\'tab-overview\']'), 'tab-overview')">
+        <a href="#tab-admission" class="sp-mob-bottom-btn sp-mob-inquiry" onclick="switchTab(document.querySelector('[data-target=\'tab-admission\']'), 'tab-admission')">
             <i class="fas fa-paper-plane"></i> <span>طلب قبول</span>
         </a>
         <button type="button" class="sp-mob-bottom-btn sp-mob-share" onclick="openShareModal()" title="مشاركة">
@@ -2306,11 +2514,37 @@ function copyCurrentNewsLink() {
     }
 }
 
-// Auto open news if hash exists in URL
+// Auto open tab or item if hash exists in URL or after inquiry submit
 document.addEventListener('DOMContentLoaded', function() {
+    const hasInquiryResult = <?= ($inquirySuccess || $inquiryError) ? 'true' : 'false' ?>;
+    if (hasInquiryResult) {
+        const admBtn = document.querySelector('[data-target="tab-admission"]');
+        if (admBtn) {
+            switchTab(admBtn, 'tab-admission');
+            setTimeout(() => {
+                const formEl = document.getElementById('inquiry-form-section');
+                if (formEl) formEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 250);
+        }
+        return;
+    }
+
     if (window.location.hash) {
         const hash = window.location.hash;
-        if (hash.startsWith('#news-item-')) {
+        if (hash === '#tab-admission' || hash === '#inquiry-form-section') {
+            const admBtn = document.querySelector('[data-target="tab-admission"]');
+            if (admBtn) {
+                switchTab(admBtn, 'tab-admission');
+                setTimeout(() => {
+                    const targetEl = document.getElementById(hash.replace('#', '')) || document.getElementById('inquiry-form-section');
+                    if (targetEl) targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 250);
+            }
+        } else if (hash.startsWith('#tab-')) {
+            const targetTab = hash.substring(1);
+            const btn = document.querySelector('[data-target="' + targetTab + '"]');
+            if (btn) switchTab(btn, targetTab);
+        } else if (hash.startsWith('#news-item-')) {
             const newsBtn = document.querySelector('[data-target="tab-news"]');
             if (newsBtn) {
                 switchTab(newsBtn, 'tab-news');

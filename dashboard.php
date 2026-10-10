@@ -961,6 +961,37 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
             $stmt->execute([$schoolId]);
             $school = $stmt->fetch();
         }
+
+        // 13. UPDATE INQUIRY STATUS (تحديث حالة طلب القبول)
+        elseif ($action === 'update_inquiry_status') {
+            $activeDashTab = 'inquiries';
+            $inqId = (int)($_POST['inquiry_id'] ?? 0);
+            $newStatus = trim($_POST['status'] ?? 'new');
+            if (in_array($newStatus, ['new', 'contacted', 'accepted', 'rejected'], true) && $inqId > 0) {
+                $pdo->prepare("UPDATE daleel_school_inquiries SET status = ?, updated_at = NOW() WHERE id = ? AND school_id = ?")->execute([
+                    $newStatus, $inqId, $schoolId
+                ]);
+                $statusLabels = [
+                    'new' => 'جديد',
+                    'contacted' => 'تم التواصل',
+                    'accepted' => 'تم القبول',
+                    'rejected' => 'مرفوض/ملغي'
+                ];
+                $successMsg = 'تم تحديث حالة طلب القبول إلى "' . ($statusLabels[$newStatus] ?? $newStatus) . '" بنجاح.';
+            }
+        }
+
+        // 14. DELETE INQUIRY (حذف طلب القبول)
+        elseif ($action === 'delete_inquiry') {
+            $activeDashTab = 'inquiries';
+            $inqId = (int)($_POST['inquiry_id'] ?? 0);
+            if ($inqId > 0) {
+                $pdo->prepare("DELETE FROM daleel_school_inquiries WHERE id = ? AND school_id = ?")->execute([
+                    $inqId, $schoolId
+                ]);
+                $successMsg = 'تم حذف طلب القبول بنجاح.';
+            }
+        }
     }
 }
 
@@ -2905,40 +2936,256 @@ require_once __DIR__ . '/header.php';
 
                 <!-- TAB 4: ADMISSION INQUIRIES -->
                 <div class="tab-pane fade <?= $activeDashTab === 'inquiries' ? 'show active' : '' ?>" id="dash-inquiries" role="tabpanel">
-                    <h6 class="fw-bold text-dark mb-3">طلبات القبول واستفسارات أولياء الأمور الواصلة</h6>
+                    <?php
+                    $inqTotal = count($inquiriesList);
+                    $inqNew = count(array_filter($inquiriesList, fn($i) => ($i['status'] ?? 'new') === 'new'));
+                    $inqContacted = count(array_filter($inquiriesList, fn($i) => ($i['status'] ?? '') === 'contacted'));
+                    $inqAccepted = count(array_filter($inquiriesList, fn($i) => ($i['status'] ?? '') === 'accepted'));
+                    $inqRejected = count(array_filter($inquiriesList, fn($i) => ($i['status'] ?? '') === 'rejected'));
+                    ?>
+
+                    <!-- Header & Quick Action -->
+                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4 pb-3 border-bottom">
+                        <div>
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="rounded-3 p-2 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: #EFF6FF; color: var(--brand-blue);">
+                                    <i class="fas fa-user-graduate fs-5"></i>
+                                </div>
+                                <div>
+                                    <h5 class="fw-bold text-dark mb-0">طلبات القبول والتسجيل</h5>
+                                    <span class="text-muted small">متابعة وإدارة طلبات أولياء الأمور الواردة من صفحة المدرسة العامة في الدليل</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <a href="/school/<?= urlencode($school['slug']) ?>#tab-admission" target="_blank" class="btn-luxury-outline btn-sm px-3 py-1">
+                                <i class="fas fa-external-link-alt me-1"></i> صفحة القبول العامة
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Metrics Cards -->
+                    <div class="row g-3 mb-4">
+                        <div class="col-6 col-md-3">
+                            <div class="card border-0 rounded-4 p-3 bg-white shadow-sm h-100" style="border-right: 4px solid var(--brand-navy) !important;">
+                                <div class="d-flex align-items-center justify-content-between mb-1">
+                                    <span class="text-muted small fw-bold">إجمالي الطلبات</span>
+                                    <span class="badge bg-light text-dark border rounded-pill"><?= $inqTotal ?></span>
+                                </div>
+                                <h3 class="fw-bold mb-0" style="color: var(--brand-navy);"><?= $inqTotal ?></h3>
+                                <span class="text-muted" style="font-size: 0.72rem;">كافة الطلبات المسجلة</span>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="card border-0 rounded-4 p-3 bg-white shadow-sm h-100" style="border-right: 4px solid #F59E0B !important;">
+                                <div class="d-flex align-items-center justify-content-between mb-1">
+                                    <span class="text-muted small fw-bold">طلبات جديدة</span>
+                                    <span class="badge bg-warning text-dark rounded-pill"><?= $inqNew ?></span>
+                                </div>
+                                <h3 class="fw-bold mb-0 text-warning"><?= $inqNew ?></h3>
+                                <span class="text-muted" style="font-size: 0.72rem;">بحاجة للمتابعة الأولى</span>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="card border-0 rounded-4 p-3 bg-white shadow-sm h-100" style="border-right: 4px solid #0284C7 !important;">
+                                <div class="d-flex align-items-center justify-content-between mb-1">
+                                    <span class="text-muted small fw-bold">تم التواصل</span>
+                                    <span class="badge bg-info-subtle text-info-emphasis border border-info-subtle rounded-pill"><?= $inqContacted ?></span>
+                                </div>
+                                <h3 class="fw-bold mb-0" style="color: #0284C7;"><?= $inqContacted ?></h3>
+                                <span class="text-muted" style="font-size: 0.72rem;">تمت المتابعة مع ولي الأمر</span>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="card border-0 rounded-4 p-3 bg-white shadow-sm h-100" style="border-right: 4px solid #10B981 !important;">
+                                <div class="d-flex align-items-center justify-content-between mb-1">
+                                    <span class="text-muted small fw-bold">تم القبول</span>
+                                    <span class="badge bg-success text-white rounded-pill"><?= $inqAccepted ?></span>
+                                </div>
+                                <h3 class="fw-bold mb-0 text-success"><?= $inqAccepted ?></h3>
+                                <span class="text-muted" style="font-size: 0.72rem;">مسجلين ومعتمدين</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Filter Pills -->
+                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
+                        <div class="d-flex align-items-center gap-2 flex-wrap">
+                            <button type="button" class="btn btn-sm btn-dark rounded-pill px-3 fw-bold inq-filter-btn active" data-filter="all" onclick="filterInquiries('all', this)">
+                                الكل (<?= $inqTotal ?>)
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-warning rounded-pill px-3 fw-bold inq-filter-btn" data-filter="new" onclick="filterInquiries('new', this)">
+                                <i class="fas fa-sparkles me-1"></i> جديدة (<?= $inqNew ?>)
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-info rounded-pill px-3 fw-bold inq-filter-btn" data-filter="contacted" onclick="filterInquiries('contacted', this)">
+                                <i class="fas fa-phone-volume me-1"></i> تم التواصل (<?= $inqContacted ?>)
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-success rounded-pill px-3 fw-bold inq-filter-btn" data-filter="accepted" onclick="filterInquiries('accepted', this)">
+                                <i class="fas fa-check-circle me-1"></i> تم القبول (<?= $inqAccepted ?>)
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3 fw-bold inq-filter-btn" data-filter="rejected" onclick="filterInquiries('rejected', this)">
+                                ملغية / مرفوضة (<?= $inqRejected ?>)
+                            </button>
+                        </div>
+                        <div class="text-muted small">
+                            <span id="inqVisibleCount"><?= $inqTotal ?></span> طلب ظاهر
+                        </div>
+                    </div>
 
                     <?php if (empty($inquiriesList)): ?>
-                        <div class="text-center py-4 text-muted border rounded-3 bg-light">
-                            <i class="fas fa-inbox display-6 mb-2 text-secondary opacity-50"></i>
-                            <p class="mb-0 small">لم تصل أي طلبات استفسار بعد. ستظهر هنا بمجرد إرسالها من زوار صفحة مدرستكم.</p>
+                        <div class="text-center py-5 text-muted border rounded-4 bg-light">
+                            <div class="rounded-circle bg-white shadow-sm d-inline-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+                                <i class="fas fa-inbox text-muted fs-3 opacity-50"></i>
+                            </div>
+                            <h6 class="fw-bold text-dark">لا توجد طلبات قبول حتى الآن</h6>
+                            <p class="mb-0 small text-muted" style="max-width: 420px; margin: 0 auto;">ستظهر هنا أي طلبات قبول أو استفسارات تسجيل يرسلها أولياء الأمور مباشرة من صفحة مدرستكم في دليل SchoPlus.</p>
                         </div>
                     <?php else: ?>
-                        <div class="table-responsive">
-                            <table class="table table-hover align-middle border small">
-                                <thead class="table-light">
+                        <div class="table-responsive rounded-4 border bg-white shadow-sm">
+                            <table class="table table-hover align-middle mb-0" style="font-size: 0.82rem;">
+                                <thead style="background: #F8FAFC; border-bottom: 2px solid #E2E8F0; font-size: 0.76rem;" class="text-secondary">
                                     <tr>
-                                        <th>اسم ولي الأمر</th>
-                                        <th>الهاتف</th>
-                                        <th>الصف المطلوب</th>
-                                        <th>الرسالة / الملاحظات</th>
-                                        <th>التاريخ</th>
-                                        <th>إجراء</th>
+                                        <th class="py-3 px-3"># / التاريخ</th>
+                                        <th class="py-3">بيانات الطالب/ة</th>
+                                        <th class="py-3">المرحلة والصف</th>
+                                        <th class="py-3">ولي الأمر والتواصل</th>
+                                        <th class="py-3">الملاحظات</th>
+                                        <th class="py-3">حالة الطلب</th>
+                                        <th class="py-3 px-3 text-center">إجراءات المتابعة</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <?php foreach ($inquiriesList as $inq): ?>
-                                        <tr>
-                                            <td class="fw-bold text-dark"><?= e($inq['parent_name']) ?></td>
-                                            <td>
-                                                <a href="tel:<?= e($inq['parent_phone']) ?>" class="text-decoration-none fw-bold"><?= e($inq['parent_phone']) ?></a>
+                                <tbody id="inquiriesTableBody">
+                                    <?php foreach ($inquiriesList as $idx => $inq): 
+                                        $status = $inq['status'] ?? 'new';
+                                        $genderIcon = ($inq['student_gender'] === 'female') ? '<i class="fas fa-venus text-danger" title="أنثى"></i>' : (($inq['student_gender'] === 'male') ? '<i class="fas fa-mars text-primary" title="ذكر"></i>' : '<i class="fas fa-user-graduate text-muted"></i>');
+                                        
+                                        $cleanPhone = preg_replace('/[^0-9]/', '', $inq['parent_phone']);
+                                        $waStudentPart = !empty($inq['student_name']) ? ' للطالب/ة (' . $inq['student_name'] . ')' : '';
+                                        $waGradePart = !empty($inq['student_grade']) ? ' للصف ' . $inq['student_grade'] : (!empty($inq['student_stage']) ? ' بمرحلة ' . $inq['student_stage'] : '');
+                                        $waMsg = "مرحباً بك أستاذ " . $inq['parent_name'] . "،\n" .
+                                                 "نتواصل معك من إدارة مدرسة " . $school['name'] . " بخصوص طلب القبول والتسجيل المقدم" . $waStudentPart . $waGradePart . ".\n" .
+                                                 "يسعدنا خدمتكم والإجابة على أي استفسارات لديكم لاستكمال إجراءات التسجيل.";
+                                    ?>
+                                        <tr class="inquiry-row" data-status="<?= e($status) ?>">
+                                            <td class="px-3">
+                                                <div class="fw-bold text-dark font-monospace">#<?= $inq['id'] ?></div>
+                                                <div class="text-muted" style="font-size: 0.72rem; white-space: nowrap;">
+                                                    <i class="far fa-calendar-alt me-1"></i><?= date('Y-m-d', strtotime($inq['created_at'])) ?>
+                                                </div>
+                                                <div class="text-muted" style="font-size: 0.68rem;">
+                                                    <i class="far fa-clock me-1"></i><?= date('h:i A', strtotime($inq['created_at'])) ?>
+                                                </div>
                                             </td>
-                                            <td><span class="badge bg-light text-dark border"><?= e($inq['student_grade'] ?: 'غير محدد') ?></span></td>
-                                            <td class="text-secondary"><?= e($inq['message'] ?: '—') ?></td>
-                                            <td class="text-muted"><?= date('Y-m-d H:i', strtotime($inq['created_at'])) ?></td>
+
                                             <td>
-                                                <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $inq['parent_phone']) ?>?text=<?= urlencode('مرحباً بك أستاذ ' . $inq['parent_name'] . '، تواصلنا معك بخصوص طلبك في مدرسة ' . $school['name']) ?>" target="_blank" class="btn btn-sm btn-success px-2 py-1 rounded-2" title="مراسلة عبر واتساب">
-                                                    <i class="fab fa-whatsapp me-1"></i> محادثة واتساب
-                                                </a>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <span class="fs-6"><?= $genderIcon ?></span>
+                                                    <div>
+                                                        <div class="fw-bold text-dark" style="font-size: 0.88rem;">
+                                                            <?= e($inq['student_name'] ?: '— غير مدون —') ?>
+                                                        </div>
+                                                        <?php if (!empty($inq['previous_school'])): ?>
+                                                            <div class="text-muted" style="font-size: 0.72rem;">
+                                                                <i class="fas fa-history text-secondary me-1"></i> من: <?= e($inq['previous_school']) ?>
+                                                            </div>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                </div>
+                                            </td>
+
+                                            <td>
+                                                <div class="d-flex flex-column gap-1">
+                                                    <?php if (!empty($inq['student_stage'])): ?>
+                                                        <span class="badge bg-primary-subtle text-primary border border-primary-subtle align-self-start" style="font-size: 0.72rem;">
+                                                            <?= e($inq['student_stage']) ?>
+                                                        </span>
+                                                    <?php endif; ?>
+                                                    
+                                                    <div class="fw-bold text-dark" style="font-size: 0.8rem;">
+                                                        <?= e($inq['student_grade'] ?: 'غير محدد') ?>
+                                                    </div>
+
+                                                    <?php if (!empty($inq['branch_name'])): ?>
+                                                        <div class="text-secondary" style="font-size: 0.72rem;">
+                                                            <i class="fas fa-code-branch me-1 text-muted"></i> فرع: <?= e($inq['branch_name']) ?>
+                                                        </div>
+                                                    <?php endif; ?>
+
+                                                    <?php if (!empty($inq['needs_transportation'])): ?>
+                                                        <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle align-self-start" style="font-size: 0.68rem;">
+                                                            <i class="fas fa-bus-alt me-1"></i> يحتاج ترحيل
+                                                        </span>
+                                                    <?php endif; ?>
+                                                </div>
+                                            </td>
+
+                                            <td>
+                                                <div class="fw-bold text-dark"><?= e($inq['parent_name']) ?></div>
+                                                <div class="mt-1">
+                                                    <a href="tel:<?= e($inq['parent_phone']) ?>" class="text-decoration-none fw-bold text-primary font-monospace" style="font-size: 0.78rem;">
+                                                        <i class="fas fa-phone-alt me-1"></i><?= e($inq['parent_phone']) ?>
+                                                    </a>
+                                                </div>
+                                                <?php if (!empty($inq['parent_email'])): ?>
+                                                    <div class="text-muted" style="font-size: 0.72rem;">
+                                                        <i class="far fa-envelope me-1"></i><?= e($inq['parent_email']) ?>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </td>
+
+                                            <td style="max-width: 220px;">
+                                                <?php if (!empty($inq['message'])): ?>
+                                                    <div class="text-secondary lh-base" style="font-size: 0.76rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;" title="<?= e($inq['message']) ?>">
+                                                        <?= e($inq['message']) ?>
+                                                    </div>
+                                                <?php else: ?>
+                                                    <span class="text-muted small">— لا توجد ملاحظات —</span>
+                                                <?php endif; ?>
+                                            </td>
+
+                                            <td>
+                                                <form method="POST" action="dashboard.php" class="d-inline" id="statusForm_<?= $inq['id'] ?>">
+                                                    <?= csrf_field() ?>
+                                                    <input type="hidden" name="action" value="update_inquiry_status">
+                                                    <input type="hidden" name="inquiry_id" value="<?= $inq['id'] ?>">
+                                                    <select name="status" class="form-select form-select-sm fw-bold border-0 shadow-sm" style="font-size: 0.74rem; border-radius: 8px; width: auto; background-color: <?= $status === 'new' ? '#FEF3C7' : ($status === 'contacted' ? '#E0F2FE' : ($status === 'accepted' ? '#D1FAE5' : '#F1F5F9')) ?>; color: <?= $status === 'new' ? '#92400E' : ($status === 'contacted' ? '#0369A1' : ($status === 'accepted' ? '#065F46' : '#475569')) ?>;" onchange="this.form.submit()">
+                                                        <option value="new" <?= $status === 'new' ? 'selected' : '' ?>>🟡 جديد</option>
+                                                        <option value="contacted" <?= $status === 'contacted' ? 'selected' : '' ?>>🔵 تم التواصل</option>
+                                                        <option value="accepted" <?= $status === 'accepted' ? 'selected' : '' ?>>🟢 تم القبول</option>
+                                                        <option value="rejected" <?= $status === 'rejected' ? 'selected' : '' ?>>⚪ ملغي / مرفوض</option>
+                                                    </select>
+                                                </form>
+                                            </td>
+
+                                            <td class="px-3 text-center">
+                                                <div class="d-flex align-items-center justify-content-center gap-1">
+                                                    <!-- WhatsApp Direct -->
+                                                    <?php if ($cleanPhone): ?>
+                                                        <a href="https://wa.me/<?= $cleanPhone ?>?text=<?= urlencode($waMsg) ?>" target="_blank" class="btn btn-sm btn-success px-2 py-1 rounded-2 shadow-sm" title="محادثة واتساب سريعة">
+                                                            <i class="fab fa-whatsapp"></i>
+                                                        </a>
+                                                    <?php endif; ?>
+
+                                                    <!-- Direct Call -->
+                                                    <a href="tel:<?= e($inq['parent_phone']) ?>" class="btn btn-sm btn-outline-primary px-2 py-1 rounded-2" title="اتصال هاتفي">
+                                                        <i class="fas fa-phone-alt"></i>
+                                                    </a>
+
+                                                    <!-- View Details Modal Trigger -->
+                                                    <button type="button" class="btn btn-sm btn-outline-secondary px-2 py-1 rounded-2" title="عرض التفاصيل الكاملة" onclick='viewInquiryDetails(<?= json_encode($inq, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE) ?>)'>
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+
+                                                    <!-- Delete Button -->
+                                                    <form method="POST" action="dashboard.php" class="d-inline" onsubmit="return confirm('هل أنت متأكد من حذف هذا الطلب نهائياً؟');">
+                                                        <?= csrf_field() ?>
+                                                        <input type="hidden" name="action" value="delete_inquiry">
+                                                        <input type="hidden" name="inquiry_id" value="<?= $inq['id'] ?>">
+                                                        <button type="submit" class="btn btn-sm btn-outline-danger px-2 py-1 rounded-2" title="حذف الطلب">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -3181,7 +3428,133 @@ require_once __DIR__ . '/header.php';
     </div>
 </div>
 
+<!-- INQUIRY DETAILS MODAL (تفاصيل طلب القبول) -->
+<div class="modal fade" id="inquiryDetailsModal" tabindex="-1" aria-labelledby="inquiryDetailsModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0 shadow-lg overflow-hidden">
+            <div class="modal-header bg-light border-bottom px-4 py-3">
+                <div class="d-flex align-items-center gap-2">
+                    <div class="rounded-circle bg-primary-subtle text-primary d-flex align-items-center justify-content-center" style="width: 38px; height: 38px;">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div>
+                        <h5 class="modal-title fw-bold text-dark fs-6 mb-0" id="inquiryDetailsModalTitle">تفاصيل طلب القبول</h5>
+                        <span class="text-muted small" id="inquiryDetailsModalDate" style="font-size: 0.72rem;"></span>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+            </div>
+            <div class="modal-body p-4" id="inquiryDetailsModalBody">
+                <!-- dynamic content populated by JS -->
+            </div>
+            <div class="modal-footer bg-light border-top px-4 py-2 justify-content-between">
+                <div id="inquiryDetailsModalActions" class="d-flex gap-2"></div>
+                <button type="button" class="btn btn-secondary btn-sm px-4 fw-bold" data-bs-dismiss="modal">إغلاق</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
+function filterInquiries(status, btn) {
+    document.querySelectorAll('.inq-filter-btn').forEach(b => {
+        b.classList.remove('active', 'btn-dark');
+        if (b.dataset.filter === 'new') b.classList.add('btn-outline-warning');
+        else if (b.dataset.filter === 'contacted') b.classList.add('btn-outline-info');
+        else if (b.dataset.filter === 'accepted') b.classList.add('btn-outline-success');
+        else if (b.dataset.filter === 'rejected') b.classList.add('btn-outline-secondary');
+        else b.classList.add('btn-outline-dark');
+    });
+
+    btn.classList.add('active', 'btn-dark');
+    btn.classList.remove('btn-outline-warning', 'btn-outline-info', 'btn-outline-success', 'btn-outline-secondary', 'btn-outline-dark');
+
+    const rows = document.querySelectorAll('.inquiry-row');
+    let visibleCount = 0;
+    rows.forEach(r => {
+        if (status === 'all' || r.dataset.status === status) {
+            r.style.display = '';
+            visibleCount++;
+        } else {
+            r.style.display = 'none';
+        }
+    });
+    const counter = document.getElementById('inqVisibleCount');
+    if (counter) counter.textContent = visibleCount;
+}
+
+function viewInquiryDetails(inq) {
+    if (!inq) return;
+    document.getElementById('inquiryDetailsModalTitle').innerText = 'طلب قبول #' + inq.id + ' — ' + (inq.student_name || inq.parent_name);
+    document.getElementById('inquiryDetailsModalDate').innerText = 'تاريخ التقديم: ' + (inq.created_at || '');
+
+    const genderText = inq.student_gender === 'female' ? '<i class="fas fa-venus text-danger me-1"></i> أنثى' : (inq.student_gender === 'male' ? '<i class="fas fa-mars text-primary me-1"></i> ذكر' : 'غير محدد');
+    const transText = inq.needs_transportation == 1 ? '<span class="text-warning fw-bold"><i class="fas fa-bus-alt me-1"></i> نعم، يحتاج إلى ترحيل مدرسي</span>' : '<span class="text-muted">لا يحتاج ترحيل</span>';
+
+    const statusLabels = {
+        'new': '<span class="badge bg-warning text-dark px-2 py-1">🟡 جديد</span>',
+        'contacted': '<span class="badge bg-info text-white px-2 py-1">🔵 تم التواصل</span>',
+        'accepted': '<span class="badge bg-success px-2 py-1">🟢 تم القبول</span>',
+        'rejected': '<span class="badge bg-secondary px-2 py-1">⚪ ملغي / مرفوض</span>'
+    };
+
+    let html = `
+        <div class="d-flex align-items-center justify-content-between pb-3 mb-3 border-bottom">
+            <div>
+                <span class="text-muted small d-block mb-1">حالة الطلب:</span>
+                ${statusLabels[inq.status] || inq.status}
+            </div>
+            <div class="text-end">
+                <span class="text-muted small d-block mb-1">الفرع المطلوب:</span>
+                <strong class="text-dark">${inq.branch_name ? inq.branch_name : 'الفرع الرئيسي'}</strong>
+            </div>
+        </div>
+
+        <div class="mb-3 p-3 rounded-3 bg-light border">
+            <h6 class="fw-bold text-dark mb-2" style="font-size: 0.85rem;"><i class="fas fa-user-graduate text-primary me-2"></i> بيانات الطالب</h6>
+            <div class="row g-2" style="font-size: 0.8rem;">
+                <div class="col-6"><span class="text-muted">اسم الطالب:</span> <strong class="text-dark">${inq.student_name || '— غير مدون —'}</strong></div>
+                <div class="col-6"><span class="text-muted">الجنس:</span> <strong>${genderText}</strong></div>
+                <div class="col-6"><span class="text-muted">المرحلة:</span> <strong>${inq.student_stage || 'غير محدد'}</strong></div>
+                <div class="col-6"><span class="text-muted">الصف:</span> <strong>${inq.student_grade || 'غير محدد'}</strong></div>
+                <div class="col-12"><span class="text-muted">المدرسة السابقة:</span> <strong>${inq.previous_school || 'لا توجد / تسجيل جديد'}</strong></div>
+                <div class="col-12"><span class="text-muted">خدمة الترحيل:</span> ${transText}</div>
+            </div>
+        </div>
+
+        <div class="mb-3 p-3 rounded-3 bg-light border">
+            <h6 class="fw-bold text-dark mb-2" style="font-size: 0.85rem;"><i class="fas fa-user text-success me-2"></i> بيانات ولي الأمر</h6>
+            <div class="row g-2" style="font-size: 0.8rem;">
+                <div class="col-12"><span class="text-muted">اسم ولي الأمر:</span> <strong class="text-dark">${inq.parent_name || '—'}</strong></div>
+                <div class="col-6"><span class="text-muted">رقم الهاتف:</span> <a href="tel:${inq.parent_phone}" class="fw-bold text-decoration-none">${inq.parent_phone || '—'}</a></div>
+                <div class="col-6"><span class="text-muted">البريد الإلكتروني:</span> <strong>${inq.parent_email || 'غير مدون'}</strong></div>
+            </div>
+        </div>
+
+        ${inq.message ? `
+        <div class="p-3 rounded-3 bg-light border">
+            <h6 class="fw-bold text-dark mb-2" style="font-size: 0.85rem;"><i class="fas fa-comment-alt text-info me-2"></i> رسالة وملاحظات ولي الأمر</h6>
+            <p class="mb-0 text-secondary lh-base" style="font-size: 0.82rem; white-space: pre-line;">${inq.message}</p>
+        </div>
+        ` : ''}
+    `;
+
+    document.getElementById('inquiryDetailsModalBody').innerHTML = html;
+
+    const cleanPhone = (inq.parent_phone || '').replace(/[^0-9]/g, '');
+    let actionsHtml = '';
+    if (cleanPhone) {
+        const studentPart = inq.student_name ? ' للطالب/ة (' + inq.student_name + ')' : '';
+        const gradePart = inq.student_grade ? ' للصف ' + inq.student_grade : '';
+        const waMsg = encodeURIComponent("مرحباً بك أستاذ " + (inq.parent_name || '') + "،\nنتواصل معك من إدارة مدرسة <?= addslashes($school['name']) ?> بخصوص طلب القبول والتسجيل المقدم" + studentPart + gradePart + ".");
+        actionsHtml += `<a href="https://wa.me/${cleanPhone}?text=${waMsg}" target="_blank" class="btn btn-success btn-sm fw-bold"><i class="fab fa-whatsapp me-1"></i> محادثة واتساب</a>`;
+        actionsHtml += `<a href="tel:${inq.parent_phone}" class="btn btn-outline-primary btn-sm fw-bold"><i class="fas fa-phone-alt me-1"></i> اتصال</a>`;
+    }
+    document.getElementById('inquiryDetailsModalActions').innerHTML = actionsHtml;
+
+    new bootstrap.Modal(document.getElementById('inquiryDetailsModal')).show();
+}
+
 function openShareModal() {
     const modal = new bootstrap.Modal(document.getElementById('shareSchoolModal'));
     modal.show();

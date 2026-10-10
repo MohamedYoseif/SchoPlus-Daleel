@@ -359,7 +359,14 @@ function ensureTablesExist(PDO $pdo): void {
         school_id BIGINT UNSIGNED NOT NULL,
         parent_name VARCHAR(150) NOT NULL,
         parent_phone VARCHAR(50) NOT NULL,
+        parent_email VARCHAR(150) NULL,
+        student_name VARCHAR(150) NULL,
+        student_gender VARCHAR(50) NULL,
+        student_stage VARCHAR(100) NULL,
         student_grade VARCHAR(100) NULL,
+        previous_school VARCHAR(200) NULL,
+        branch_name VARCHAR(150) NULL,
+        needs_transportation TINYINT(1) NOT NULL DEFAULT 0,
         message TEXT NULL,
         status VARCHAR(50) NOT NULL DEFAULT 'new',
         created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
@@ -409,6 +416,29 @@ function ensureTablesExist(PDO $pdo): void {
         }
         if (!isset($newsCols['branch_name'])) {
             $pdo->exec("ALTER TABLE daleel_school_news ADD COLUMN branch_name VARCHAR(150) NULL AFTER title");
+        }
+
+        // Inquiries table schema update: extra fields
+        $inqCols = [];
+        $iColsQuery = $pdo->query("SHOW COLUMNS FROM daleel_school_inquiries");
+        if ($iColsQuery) {
+            foreach ($iColsQuery->fetchAll() as $icRow) {
+                $inqCols[$icRow['Field']] = true;
+            }
+        }
+        $inqAlters = [
+            'parent_email'         => "ALTER TABLE daleel_school_inquiries ADD COLUMN parent_email VARCHAR(150) NULL AFTER parent_phone",
+            'student_name'         => "ALTER TABLE daleel_school_inquiries ADD COLUMN student_name VARCHAR(150) NULL AFTER parent_email",
+            'student_gender'       => "ALTER TABLE daleel_school_inquiries ADD COLUMN student_gender VARCHAR(50) NULL AFTER student_name",
+            'student_stage'        => "ALTER TABLE daleel_school_inquiries ADD COLUMN student_stage VARCHAR(100) NULL AFTER student_gender",
+            'previous_school'      => "ALTER TABLE daleel_school_inquiries ADD COLUMN previous_school VARCHAR(200) NULL AFTER student_grade",
+            'branch_name'          => "ALTER TABLE daleel_school_inquiries ADD COLUMN branch_name VARCHAR(150) NULL AFTER previous_school",
+            'needs_transportation' => "ALTER TABLE daleel_school_inquiries ADD COLUMN needs_transportation TINYINT(1) NOT NULL DEFAULT 0 AFTER branch_name",
+        ];
+        foreach ($inqAlters as $col => $sql) {
+            if (!isset($inqCols[$col])) {
+                $pdo->exec($sql);
+            }
         }
         // Auto-assign permanent sequential directory_rank for approved schools without rank (حصر المدارس المعتمدة + 1)
         try {
