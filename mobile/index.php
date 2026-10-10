@@ -80,29 +80,67 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $reviewerRole = trim($_POST['reviewer_role'] ?? 'parent');
         $rating = max(1, min(5, (int)($_POST['rating'] ?? 5)));
         $comment = trim($_POST['comment'] ?? '');
+        $isAjax = (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest')
+               || (isset($_POST['ajax']) && $_POST['ajax'] === '1');
 
-        if (!$schoolId || mb_strlen($reviewerName) < 3 || mb_strlen($comment) < 5) {
-            $noticeError = 'يرجى كتابة الاسم والتقييم بوضوح.';
+        if (!$schoolId || mb_strlen($reviewerName) < 2 || mb_strlen($comment) < 2) {
+            $msg = 'يرجى كتابة الاسم والتقييم بوضوح.';
+            if ($isAjax) {
+                header('Content-Type: application/json; charset=utf-8');
+                echo json_encode(['success' => false, 'message' => $msg], JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+            $noticeError = $msg;
         } else {
             try {
                 $revStmt = $pdo->prepare("INSERT INTO daleel_school_reviews (
                     school_id, reviewer_name, reviewer_phone, reviewer_role, rating, comment, is_approved, created_at
                 ) VALUES (?, ?, ?, ?, ?, ?, 1, NOW())");
                 $revStmt->execute([$schoolId, $reviewerName, $reviewerPhone ?: null, $reviewerRole, $rating, $comment]);
+                $newReviewId = (int)$pdo->lastInsertId();
 
                 // Update school rating stats
                 $statStmt = $pdo->prepare("SELECT COUNT(*) as cnt, AVG(rating) as avg_rating FROM daleel_school_reviews WHERE school_id = ? AND is_approved = 1");
                 $statStmt->execute([$schoolId]);
                 $stats = $statStmt->fetch();
+                $newCount = (int)($stats['cnt'] ?? 1);
+                $newAvg = round((float)($stats['avg_rating'] ?? 5.0), 2);
+
                 $pdo->prepare("UPDATE daleel_schools SET reviews_count = ?, rating_avg = ? WHERE id = ?")->execute([
-                    (int)($stats['cnt'] ?? 1),
-                    round((float)($stats['avg_rating'] ?? 5.0), 2),
+                    $newCount,
+                    $newAvg,
                     $schoolId
                 ]);
 
-                $noticeSuccess = 'شكراً لتقييمك! تم نشر التقييم بنجاح.';
+                $msg = 'شكراً لتقييمك! تم حفظ ونشر التقييم بنجاح.';
+                if ($isAjax) {
+                    header('Content-Type: application/json; charset=utf-8');
+                    echo json_encode([
+                        'success' => true,
+                        'message' => $msg,
+                        'review' => [
+                            'id' => $newReviewId,
+                            'reviewer_name' => $reviewerName,
+                            'rating' => $rating,
+                            'comment' => $comment,
+                            'created_at' => date('Y-m-d H:i:s'),
+                        ],
+                        'stats' => [
+                            'reviews_count' => $newCount,
+                            'rating_avg' => $newAvg,
+                        ]
+                    ], JSON_UNESCAPED_UNICODE);
+                    exit;
+                }
+                $noticeSuccess = $msg;
             } catch (\Exception $e) {
-                $noticeError = 'تعذر إضافة التقييم حالياً.';
+                $msg = 'تعذر حفظ التقييم، يرجى المحاولة لاحقاً.';
+                if ($isAjax) {
+                    header('Content-Type: application/json; charset=utf-8');
+                    echo json_encode(['success' => false, 'message' => $msg], JSON_UNESCAPED_UNICODE);
+                    exit;
+                }
+                $noticeError = $msg;
             }
         }
     }
@@ -1579,57 +1617,74 @@ if (!empty($_SESSION['daleel_school_id'])) {
             </div>
 
             <!-- School Reviews Section -->
-            <div class="m-info-block">
-                <div class="m-info-title"><i class="fas fa-comments text-warning"></i> تقييمات أولياء الأمور (<?= count($schoolReviews) ?>)</div>
+            <div class="m-info-block" id="reviewsSection">
+                <div class="m-info-title d-flex justify-content-between align-items-center">
+                    <span><i class="fas fa-comments text-warning"></i> تقييمات أولياء الأمور (<span id="reviewsCountBadge"><?= count($schoolReviews) ?></span>)</span>
+                    <span class="badge rounded-pill px-2 py-1" style="background:rgba(245,160,32,0.12); color:#B45309; font-size:0.70rem;">
+                        <i class="fas fa-star text-warning me-1"></i> <span id="schoolRatingAvg"><?= number_format((float)($s['rating_avg'] ?? 5.0), 1) ?></span> / 5
+                    </span>
+                </div>
                 
-                <?php if (empty($schoolReviews)): ?>
-                    <p class="text-muted small mb-3" style="font-size:0.72rem;">كن أول من يقيّم هذه المدرسة ويشارك تجربته مع المجتمع التعليمي.</p>
-                <?php else: ?>
-                    <?php foreach ($schoolReviews as $rev): ?>
-                        <div class="p-2 mb-2 rounded-3 bg-light border">
-                            <div class="d-flex justify-content-between align-items-center mb-1">
-                                <span class="fw-bold small text-dark"><?= e($rev['reviewer_name']) ?></span>
-                                <span class="text-warning small">
-                                    <?php for($i=1; $i<=5; $i++): ?>
-                                        <i class="fas fa-star <?= $i <= (int)$rev['rating'] ? '' : 'text-muted opacity-25' ?>" style="font-size:0.65rem;"></i>
-                                    <?php endfor; ?>
-                                </span>
-                            </div>
-                            <div class="text-muted small" style="font-size:0.72rem;"><?= nl2br(e($rev['comment'])) ?></div>
-                            <?php if (!empty($rev['school_reply'])): ?>
-                                <div class="mt-2 p-2 rounded-2 bg-white border small" style="border-right:3px solid var(--m-brand-blue) !important; font-size:0.70rem;">
-                                    <strong class="text-primary d-block">رد إدارة المدرسة:</strong>
-                                    <?= nl2br(e($rev['school_reply'])) ?>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+                <div id="reviewFeedbackAlert" style="display:none;" class="alert alert-success border-0 rounded-3 py-2 px-3 small fw-bold mb-3" style="font-size:0.75rem;"></div>
 
-                <!-- Add Review Form -->
-                <form action="/mobile/?school_id=<?= (int)$s['id'] ?>" method="POST" class="mt-3 pt-3 border-top">
+                <div id="reviewsListContainer">
+                    <?php if (empty($schoolReviews)): ?>
+                        <p class="text-muted small mb-3 text-center py-2" id="emptyReviewsNotice" style="font-size:0.72rem;">كن أول من يقيّم هذه المدرسة ويشارك تجربته مع المجتمع التعليمي.</p>
+                    <?php else: ?>
+                        <?php foreach ($schoolReviews as $rev): ?>
+                            <div class="p-2 mb-2 rounded-3 bg-light border single-review-card">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="fw-bold small text-dark"><?= e($rev['reviewer_name']) ?></span>
+                                    <span class="text-warning small">
+                                        <?php for($i=1; $i<=5; $i++): ?>
+                                            <i class="fas fa-star <?= $i <= (int)$rev['rating'] ? '' : 'text-muted opacity-25' ?>" style="font-size:0.65rem;"></i>
+                                        <?php endfor; ?>
+                                    </span>
+                                </div>
+                                <div class="text-muted small" style="font-size:0.72rem;"><?= nl2br(e($rev['comment'])) ?></div>
+                                <?php if (!empty($rev['school_reply'])): ?>
+                                    <div class="mt-2 p-2 rounded-2 bg-white border small" style="border-right:3px solid var(--m-brand-blue) !important; font-size:0.70rem;">
+                                        <strong class="text-primary d-block">رد إدارة المدرسة:</strong>
+                                        <?= nl2br(e($rev['school_reply'])) ?>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
+
+                <!-- Add Review Form (AJAX + Fallback, Zero Emojis, Interactive Stars) -->
+                <form id="mobileReviewForm" action="/mobile/?school_id=<?= (int)$s['id'] ?>#reviewsSection" method="POST" class="mt-3 pt-3 border-top">
                     <input type="hidden" name="action" value="add_review">
                     <input type="hidden" name="school_id" value="<?= (int)$s['id'] ?>">
+                    <input type="hidden" name="ajax" value="1">
+                    <input type="hidden" name="rating" id="selectedRatingInput" value="5">
 
                     <div class="fw-bold text-dark mb-2" style="font-size:0.76rem;">أضف تقييمك للمدرسة:</div>
+                    
+                    <!-- Interactive Star Selector (No Emojis) -->
+                    <div class="mb-3 p-2 bg-light rounded-3 border text-center">
+                        <label class="d-block small text-muted mb-1" style="font-size:0.70rem;">حدد درجة التقييم</label>
+                        <div class="d-inline-flex align-items-center gap-2 flex-row-reverse" id="starPickerContainer" style="cursor:pointer;">
+                            <?php for($sIdx = 5; $sIdx >= 1; $sIdx--): ?>
+                                <i class="fas fa-star star-pick-btn active text-warning" data-val="<?= $sIdx ?>" style="font-size:1.35rem; transition:transform 0.15s ease;" title="<?= $sIdx ?> من 5"></i>
+                            <?php endfor; ?>
+                        </div>
+                        <div class="small fw-bold mt-1 text-primary" id="ratingLabelText" style="font-size:0.74rem;">ممتاز جداً (5 من 5)</div>
+                    </div>
+
                     <div class="mb-2">
-                        <input type="text" name="reviewer_name" class="form-control form-control-sm rounded-3" style="font-size:0.78rem;" placeholder="اسمك الكريم *" required>
+                        <input type="text" name="reviewer_name" id="reviewerNameInput" class="form-control form-control-sm rounded-3" style="font-size:0.78rem;" placeholder="اسمك الكريم *" required>
                     </div>
                     <div class="mb-2">
-                        <select name="rating" class="form-select form-select-sm rounded-3" style="font-size:0.78rem;">
-                            <option value="5">⭐⭐⭐⭐⭐ ممتاز جداً (5/5)</option>
-                            <option value="4">⭐⭐⭐⭐ جيد جداً (4/5)</option>
-                            <option value="3">⭐⭐⭐ متوسط (3/5)</option>
-                            <option value="2">⭐⭐ مقبول (2/5)</option>
-                            <option value="1">⭐ ضعيف (1/5)</option>
-                        </select>
+                        <input type="tel" name="reviewer_phone" class="form-control form-control-sm rounded-3" style="font-size:0.78rem;" placeholder="رقم الهاتف (اختياري)">
                     </div>
                     <div class="mb-2">
-                        <textarea name="comment" class="form-control form-control-sm rounded-3" rows="2" style="font-size:0.78rem;" placeholder="اكتب تقييمك وملاحظاتك..." required></textarea>
+                        <textarea name="comment" id="reviewerCommentInput" class="form-control form-control-sm rounded-3" rows="2" style="font-size:0.78rem;" placeholder="اكتب رأيك وتجربتك عن المدرسة..." required></textarea>
                     </div>
                     
-                    <button type="submit" class="btn btn-sm btn-outline-primary rounded-pill w-100 fw-bold" style="font-size:0.76rem;">
-                        <i class="fas fa-star me-1"></i> إرسال التقييم
+                    <button type="submit" id="submitReviewBtn" class="btn btn-sm btn-outline-primary rounded-pill w-100 fw-bold" style="font-size:0.78rem; padding:7px 0;">
+                        <i class="fas fa-paper-plane me-1"></i> <span>إرسال التقييم الآن</span>
                     </button>
                 </form>
             </div>
@@ -2438,6 +2493,159 @@ if (!empty($_SESSION['daleel_school_id'])) {
                 slider.scrollBy({ left: scrollDistance, behavior: 'smooth' });
             }
         }
+
+        // ── Interactive Star Rating & AJAX Review Submission ──
+        (function() {
+            const starPicker = document.getElementById('starPickerContainer');
+            const ratingInput = document.getElementById('selectedRatingInput');
+            const ratingLabel = document.getElementById('ratingLabelText');
+            const reviewForm = document.getElementById('mobileReviewForm');
+            const feedbackAlert = document.getElementById('reviewFeedbackAlert');
+            const reviewsContainer = document.getElementById('reviewsListContainer');
+            const countBadge = document.getElementById('reviewsCountBadge');
+            const avgBadge = document.getElementById('schoolRatingAvg');
+            const emptyNotice = document.getElementById('emptyReviewsNotice');
+            const submitBtn = document.getElementById('submitReviewBtn');
+
+            if (starPicker && ratingInput) {
+                const labels = {
+                    5: 'ممتاز جداً (5 من 5)',
+                    4: 'جيد جداً (4 من 5)',
+                    3: 'متوسط (3 من 5)',
+                    2: 'مقبول (2 من 5)',
+                    1: 'ضعيف (1 من 5)'
+                };
+
+                const stars = starPicker.querySelectorAll('.star-pick-btn');
+                function updateStars(val) {
+                    ratingInput.value = val;
+                    if (ratingLabel) {
+                        ratingLabel.textContent = labels[val] || (val + ' من 5');
+                    }
+                    stars.forEach(s => {
+                        const sVal = parseInt(s.getAttribute('data-val'), 10);
+                        if (sVal <= val) {
+                            s.classList.add('text-warning');
+                            s.classList.remove('text-muted', 'opacity-25');
+                        } else {
+                            s.classList.remove('text-warning');
+                            s.classList.add('text-muted', 'opacity-25');
+                        }
+                    });
+                }
+
+                stars.forEach(s => {
+                    s.addEventListener('click', function() {
+                        const val = parseInt(this.getAttribute('data-val'), 10) || 5;
+                        updateStars(val);
+                    });
+                });
+            }
+
+            if (reviewForm) {
+                reviewForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    const nameInput = document.getElementById('reviewerNameInput');
+                    const commentInput = document.getElementById('reviewerCommentInput');
+                    if (!nameInput || !commentInput) return;
+
+                    const nameVal = nameInput.value.trim();
+                    const commentVal = commentInput.value.trim();
+
+                    if (nameVal.length < 2 || commentVal.length < 2) {
+                        if (feedbackAlert) {
+                            feedbackAlert.className = 'alert alert-danger border-0 rounded-3 py-2 px-3 small fw-bold mb-3';
+                            feedbackAlert.textContent = 'يرجى كتابة الاسم والتقييم بوضوح.';
+                            feedbackAlert.style.display = 'block';
+                        }
+                        return;
+                    }
+
+                    if (submitBtn) {
+                        submitBtn.disabled = true;
+                        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> جارٍ حفظ التقييم...';
+                    }
+
+                    const formData = new FormData(reviewForm);
+
+                    fetch(reviewForm.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (submitBtn) {
+                            submitBtn.disabled = false;
+                            submitBtn.innerHTML = '<i class="fas fa-paper-plane me-1"></i> <span>إرسال التقييم الآن</span>';
+                        }
+
+                        if (data && data.success) {
+                            if (feedbackAlert) {
+                                feedbackAlert.className = 'alert alert-success border-0 rounded-3 py-2 px-3 small fw-bold mb-3';
+                                feedbackAlert.textContent = data.message || 'تم حفظ ونشر تقييمك بنجاح!';
+                                feedbackAlert.style.display = 'block';
+                            }
+
+                            if (emptyNotice) {
+                                emptyNotice.remove();
+                            }
+
+                            // Append review immediately
+                            if (reviewsContainer && data.review) {
+                                const rev = data.review;
+                                const card = document.createElement('div');
+                                card.className = 'p-2 mb-2 rounded-3 bg-light border single-review-card';
+                                
+                                let starsHtml = '';
+                                for (let i = 1; i <= 5; i++) {
+                                    starsHtml += `<i class="fas fa-star ${i <= rev.rating ? 'text-warning' : 'text-muted opacity-25'}" style="font-size:0.65rem;"></i> `;
+                                }
+
+                                const safeName = document.createTextNode(rev.reviewer_name).textContent;
+                                const safeComment = document.createTextNode(rev.comment).textContent;
+
+                                card.innerHTML = `
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <span class="fw-bold small text-dark">${safeName}</span>
+                                        <span class="text-warning small">${starsHtml}</span>
+                                    </div>
+                                    <div class="text-muted small" style="font-size:0.72rem;">${safeComment}</div>
+                                `;
+                                reviewsContainer.insertBefore(card, reviewsContainer.firstChild);
+                            }
+
+                            // Update counts and average
+                            if (countBadge && data.stats) {
+                                countBadge.textContent = data.stats.reviews_count;
+                            }
+                            if (avgBadge && data.stats) {
+                                avgBadge.textContent = Number(data.stats.rating_avg).toFixed(1);
+                            }
+
+                            // Reset form fields
+                            nameInput.value = '';
+                            commentInput.value = '';
+                            const phoneInput = reviewForm.querySelector('input[name="reviewer_phone"]');
+                            if (phoneInput) phoneInput.value = '';
+                        } else {
+                            if (feedbackAlert) {
+                                feedbackAlert.className = 'alert alert-danger border-0 rounded-3 py-2 px-3 small fw-bold mb-3';
+                                feedbackAlert.textContent = (data && data.message) ? data.message : 'تعذر حفظ التقييم، يرجى المحاولة لاحقاً.';
+                                feedbackAlert.style.display = 'block';
+                            }
+                        }
+                    })
+                    .catch(err => {
+                        // In case of network glitch or non-JSON fallback, submit normally
+                        reviewForm.submit();
+                    });
+                });
+            }
+        })();
     </script>
 
 </body>

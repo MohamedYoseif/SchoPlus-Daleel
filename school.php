@@ -1071,7 +1071,7 @@ $totalRev = max(1, count($reviewsList));
                 <?php endif; ?>
                 <?php if (!empty($school['created_at'])): ?>
                 <div class="sp-stat-item">
-                    <i class="far fa-calendar-alt" style="color: #059669;"></i>
+                    <i class="far fa-calendar-check" style="color: #1E5FA8;"></i>
                     <span>انضمت للدليل: <strong><?= arabicDate($school['created_at']) ?></strong></span>
                 </div>
                 <?php endif; ?>
@@ -1080,28 +1080,28 @@ $totalRev = max(1, count($reviewsList));
                     <span><strong><?= number_format($school['views_count']) ?></strong> مشاهدة</span>
                 </div>
                 <div class="sp-stat-item">
-                    <i class="fas fa-star" style="color: #F59E0B;"></i>
+                    <i class="fas fa-star" style="color: #F5A020;"></i>
                     <span><strong><?= number_format($school['rating_avg'], 1) ?></strong> (<?= $school['reviews_count'] ?> تقييم)</span>
                 </div>
                 <div class="sp-stat-item">
-                    <i class="fas fa-building" style="color: var(--brand-gold);"></i>
+                    <i class="fas fa-building" style="color: var(--brand-blue);"></i>
                     <span><?= SudanGeography::schoolTypeLabel($school['school_type']) ?></span>
                 </div>
                 <?php if ($feesType === 'detailed' && !empty($stageFeesList)): ?>
                 <div class="sp-stat-item">
-                    <i class="fas fa-coins" style="color: #059669;"></i>
-                    <span>الرسوم: <a href="#tab-fees" class="text-success fw-bold text-decoration-none" onclick="switchTab(document.querySelector('[data-target=\'tab-fees\']'), 'tab-fees'); return false;">مفصلة حسب المراحل <i class="fas fa-arrow-left small"></i></a></span>
+                    <i class="fas fa-coins" style="color: #1E5FA8;"></i>
+                    <span>الرسوم: <strong>مفصلة حسب المراحل</strong></span>
                 </div>
                 <?php elseif (!empty($school['approx_fees'])): ?>
                 <div class="sp-stat-item">
-                    <i class="fas fa-coins" style="color: #059669;"></i>
-                    <span>الرسوم: <a href="#tab-fees" class="text-success fw-bold text-decoration-none" onclick="switchTab(document.querySelector('[data-target=\'tab-fees\']'), 'tab-fees'); return false;"><?= e($school['approx_fees']) ?> <i class="fas fa-arrow-left small"></i></a></span>
+                    <i class="fas fa-coins" style="color: #1E5FA8;"></i>
+                    <span>الرسوم: <strong><?= e($school['approx_fees']) ?></strong></span>
                 </div>
                 <?php endif; ?>
                 <?php if (!empty($feeDiscountsList)): ?>
                 <div class="sp-stat-item">
-                    <i class="fas fa-tags" style="color: #9333EA;"></i>
-                    <span><a href="#tab-fees" class="fw-bold text-decoration-none" style="color: #7E22CE;" onclick="switchTab(document.querySelector('[data-target=\'tab-fees\']'), 'tab-fees'); return false;">عروض وخصومات (<?= count($feeDiscountsList) ?>) <i class="fas fa-arrow-left small"></i></a></span>
+                    <i class="fas fa-tag" style="color: #F5A020;"></i>
+                    <span>تتوفر عروض وخصومات (<?= count($feeDiscountsList) ?>)</span>
                 </div>
                 <?php endif; ?>
                 <?php if (!empty($stages)): ?>
@@ -1252,11 +1252,11 @@ $totalRev = max(1, count($reviewsList));
                     <div class="sp-section">
                         <div class="sp-section-head">
                             <div class="sp-section-title">
-                                <div class="title-icon" style="background: #F0FDF4; color: #16a34a;"><i class="fas fa-cubes"></i></div>
+                                <div class="title-icon" style="background: #F0F4F8; color: #1E5FA8;"><i class="fas fa-cubes text-warning"></i></div>
                                 المرافق والخدمات المتاحة
                             </div>
                             <?php if (!empty($facilities)): ?>
-                                <span class="badge" style="background: #F0FDF4; color: #15803d; border: 1px solid #BBF7D0; border-radius: 20px; padding: 5px 14px; font-size: 0.76rem; font-weight: 800;"><?= count($facilities) ?> مرافق</span>
+                                <span class="badge" style="background: #F0F4F8; color: #1E5FA8; border: 1px solid #DDE4ED; border-radius: 20px; padding: 5px 14px; font-size: 0.76rem; font-weight: 800;"><?= count($facilities) ?> مرافق</span>
                             <?php endif; ?>
                         </div>
                         <div class="sp-section-body">
@@ -1942,11 +1942,11 @@ $totalRev = max(1, count($reviewsList));
                                     <div class="col-md-3">
                                         <label class="form-label fw-bold small text-secondary">التقييم</label>
                                         <select name="rating" class="form-select">
-                                            <option value="5">⭐⭐⭐⭐⭐ ممتاز (5)</option>
-                                            <option value="4">⭐⭐⭐⭐ جيد جداً (4)</option>
-                                            <option value="3">⭐⭐⭐ متوسط (3)</option>
-                                            <option value="2">⭐⭐ دون المتوسط (2)</option>
-                                            <option value="1">⭐ ضعيف (1)</option>
+                                            <option value="5">5 من 5 — ممتاز</option>
+                                            <option value="4">4 من 5 — جيد جداً</option>
+                                            <option value="3">3 من 5 — متوسط</option>
+                                            <option value="2">2 من 5 — دون المتوسط</option>
+                                            <option value="1">1 من 5 — ضعيف</option>
                                         </select>
                                     </div>
                                     <div class="col-12">
@@ -1975,7 +1975,7 @@ $totalRev = max(1, count($reviewsList));
                     <?php else: ?>
                         <div class="d-flex flex-column gap-3">
                             <?php
-                            $avatarColors = ['#1E5FA8','#059669','#D97706','#7C3AED','#DB2777','#0B2A52'];
+                            $avatarColors = ['#1E5FA8', '#0B2A52', '#F5A020', '#3D5068'];
                             $ci = 0;
                             foreach ($reviewsList as $rev):
                                 $avatarColor = $avatarColors[$ci++ % count($avatarColors)];
@@ -2058,7 +2058,7 @@ $totalRev = max(1, count($reviewsList));
                                                     </a>
                                                 <?php endif; ?>
                                                 <?php if (!empty($br['whatsapp'])): ?>
-                                                    <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $br['whatsapp']) ?>" target="_blank" class="btn btn-sm btn-light border rounded-pill px-3 py-1 fw-bold d-inline-flex align-items-center gap-1" style="font-size: 0.72rem; color: #16a34a;">
+                                                    <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $br['whatsapp']) ?>" target="_blank" class="btn btn-sm btn-light border rounded-pill px-3 py-1 fw-bold d-inline-flex align-items-center gap-1" style="font-size: 0.72rem; color: var(--brand-navy);">
                                                         <i class="fab fa-whatsapp"></i> واتساب الفرع
                                                     </a>
                                                 <?php endif; ?>
@@ -2131,15 +2131,15 @@ $totalRev = max(1, count($reviewsList));
                     <div class="sp-section">
                         <div class="sp-section-head">
                             <div class="sp-section-title">
-                                <div class="title-icon" style="background: #F0FDF4; color: #16a34a;"><i class="fas fa-chalkboard-teacher"></i></div>
+                                <div class="title-icon" style="background: #F0F4F8; color: #1E5FA8;"><i class="fas fa-chalkboard-teacher text-warning"></i></div>
                                 نخبة المعلمين والكادر التدريسي
                             </div>
-                            <span class="badge" style="background: #F0FDF4; color: #15803d; border: 1px solid #BBF7D0; border-radius: 20px; padding: 5px 14px; font-size: 0.74rem; font-weight: 700;"><?= count($teachersList) ?> معلم</span>
+                            <span class="badge" style="background: #F0F4F8; color: #1E5FA8; border: 1px solid #DDE4ED; border-radius: 20px; padding: 5px 14px; font-size: 0.74rem; font-weight: 700;"><?= count($teachersList) ?> معلم</span>
                         </div>
                         <div class="sp-section-body">
                             <div class="row g-3">
                                 <?php
-                                $tchColors = ['#1E5FA8', '#0B2A52', '#059669', '#D97706', '#7C3AED'];
+                                $tchColors = ['#1E5FA8', '#0B2A52', '#F5A020', '#3D5068'];
                                 $tIdx = 0;
                                 foreach ($teachersList as $tch):
                                     $tchColor = $tchColors[$tIdx++ % count($tchColors)];
@@ -2298,10 +2298,10 @@ $totalRev = max(1, count($reviewsList));
                         <?php endif; ?>
                         <?php if (!empty($school['whatsapp'])): ?>
                             <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $school['whatsapp']) ?>" target="_blank" class="sp-contact-row text-decoration-none">
-                                <div class="sp-contact-icon" style="background: #F0FDF4; color: #16a34a;"><i class="fab fa-whatsapp"></i></div>
+                                <div class="sp-contact-icon" style="background: #F0F4F8; color: #1E5FA8;"><i class="fab fa-whatsapp"></i></div>
                                 <div>
                                     <span style="font-size: 0.68rem; color: var(--text-muted); display: block; font-weight: 700;">واتساب مباشر</span>
-                                    <span class="fw-bold" style="color: #16a34a; font-size: 0.82rem;"><?= e($school['whatsapp']) ?></span>
+                                    <span class="fw-bold" style="color: var(--brand-navy); font-size: 0.82rem;"><?= e($school['whatsapp']) ?></span>
                                 </div>
                             </a>
                         <?php endif; ?>
