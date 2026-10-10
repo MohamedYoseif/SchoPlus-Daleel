@@ -342,7 +342,7 @@ require_once __DIR__ . '/header.php';
 <style>
 /* ===== SCHOOL PROFILE — LUXURY REDESIGN ===== */
 .sp-hero-cover {
-    height: 280px;
+    height: 290px;
     position: relative;
     overflow: hidden;
     background: #0B2A52;
@@ -354,7 +354,8 @@ require_once __DIR__ . '/header.php';
 }
 .sp-hero-cover .cover-overlay {
     position: absolute; inset: 0;
-    background: rgba(11,42,82,0.45);
+    background: rgba(11, 42, 82, 0.45);
+    z-index: 1;
 }
 .sp-hero-cover .cover-pattern {
     display: none;
@@ -363,15 +364,15 @@ require_once __DIR__ . '/header.php';
 /* Safe Top Cover Badges Container */
 .sp-cover-badges-bar {
     position: absolute;
-    top: 16px; right: 20px; left: 20px;
+    top: 18px; right: 24px; left: 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 8px;
-    z-index: 4;
+    z-index: 3;
 }
 .sp-cover-rating-badge {
-    background: rgba(11,42,82,0.7);
+    background: rgba(11,42,82,0.75);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border-radius: 12px;
@@ -838,7 +839,7 @@ require_once __DIR__ . '/header.php';
         padding-bottom: 95px !important;
     }
     .sp-hero-cover {
-        height: 195px !important;
+        height: 250px !important;
         border-radius: 16px 16px 0 0 !important;
     }
     .sp-cover-badges-bar {
@@ -847,10 +848,10 @@ require_once __DIR__ . '/header.php';
         left: 12px !important;
     }
     .badge-schoplus, .badge-verified, .sp-cover-rating-badge {
-        font-size: 0.72rem !important;
-        padding: 4px 9px !important;
+        font-size: 0.7rem !important;
+        padding: 4px 8px !important;
     }
-    .sp-profile-card {
+        .sp-profile-card {
         padding: 0 16px 20px !important;
         border-radius: 0 0 18px 18px !important;
     }
@@ -876,6 +877,7 @@ require_once __DIR__ . '/header.php';
     .sp-school-loc {
         font-size: 0.7rem !important;
     }
+
     .sp-action-btns-wrap {
         display: grid !important;
         grid-template-columns: repeat(2, 1fr) !important;
@@ -983,11 +985,8 @@ $totalRev = max(1, count($reviewsList));
         <div class="sp-hero-cover mb-0">
             <?php if (!empty($school['cover_path'])): ?>
                 <img src="<?= e(assetUrl($school['cover_path'])) ?>" alt="غلاف <?= e($school['name']) ?>" class="cover-img">
-                <div class="cover-overlay" style="background: rgba(11,42,82,0.35);"></div>
-            <?php else: ?>
-                <div class="cover-overlay"></div>
-                <div class="cover-pattern"></div>
             <?php endif; ?>
+            <div class="cover-overlay"></div>
 
             <!-- Top Header Badges Container -->
             <div class="sp-cover-badges-bar">
@@ -1008,30 +1007,33 @@ $totalRev = max(1, count($reviewsList));
                 </div>
                 <?php endif; ?>
             </div>
-        </div>
 
-        <div class="sp-profile-card">
-            <div class="d-flex flex-column flex-md-row align-items-md-end gap-3 justify-content-between">
-                <div class="d-flex align-items-end gap-2 gap-md-3">
+            <!-- School Identity inside Cover (Logo + Title + Location) -->
+            <div class="sp-cover-identity-bar">
+                <div class="d-flex align-items-end gap-3 flex-wrap flex-md-nowrap">
                     <!-- Logo -->
-                    <div class="sp-logo-wrap">
+                    <div class="sp-cover-logo-box">
                         <img src="<?= e(defaultSchoolLogo($school['logo_path'] ?? null)) ?>" alt="<?= e($school['name']) ?>">
                     </div>
                     <!-- Title & Details -->
-                    <div style="padding-bottom: 2px;">
-                        <h1 class="sp-school-title mb-1"><?= e($school['name']) ?></h1>
+                    <div class="sp-cover-title-box pb-1">
+                        <h1 class="sp-cover-school-name mb-1"><?= e($school['name']) ?></h1>
                         <?php if (!empty($school['name_en'])): ?>
-                            <div class="sp-school-subtitle mb-1"><?= e($school['name_en']) ?></div>
+                            <div class="sp-cover-school-en mb-1"><?= e($school['name_en']) ?></div>
                         <?php endif; ?>
-                        <div class="sp-school-loc">
-                            <i class="fas fa-map-marker-alt text-danger"></i>
+                        <div class="sp-cover-school-meta">
+                            <i class="fas fa-map-marker-alt text-warning"></i>
                             <span><?= e($school['state']) ?> — <?= e($school['city']) ?><?= !empty($school['district']) ? ' (' . e($school['district']) . ')' : '' ?></span>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
 
-                <!-- Action Buttons (2x2 grid on mobile, flex on desktop) -->
-                <div class="sp-action-btns-wrap pb-1">
+        <div class="sp-profile-card">
+            <div class="d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-3 py-2">
+                <!-- Action Buttons (Left side in RTL) -->
+                <div class="sp-action-btns-wrap order-lg-2">
                     <?php if (!empty($school['whatsapp'])): ?>
                         <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $school['whatsapp']) ?>?text=<?= urlencode('مرحباً، رأيت مدرستكم على دليل SchoPlus وأود الاستفسار.') ?>" target="_blank" class="btn-luxury-primary sp-btn-action" style="background: #0B2A52; color: #FFFFFF;">
                             <i class="fab fa-whatsapp"></i> <span>واتساب</span>
@@ -1054,62 +1056,62 @@ $totalRev = max(1, count($reviewsList));
                         </a>
                     <?php endif; ?>
                 </div>
-            </div>
 
-            <!-- Quick Stats Bar -->
-            <?php $schoolRank = getSchoolDirectoryRank($pdo, (int)$school['id'], !empty($school['directory_rank']) ? (int)$school['directory_rank'] : null); ?>
-            <div class="sp-quick-stats">
-                <div class="sp-stat-item">
-                    <i class="fas fa-hashtag" style="color: var(--brand-gold);"></i>
-                    <span>الترتيب في الدليل: <strong style="color: var(--brand-navy);"><?= $schoolRank ?></strong></span>
+                <!-- Quick Stats Bar (Right side in RTL) -->
+                <?php $schoolRank = getSchoolDirectoryRank($pdo, (int)$school['id'], !empty($school['directory_rank']) ? (int)$school['directory_rank'] : null); ?>
+                <div class="sp-quick-stats order-lg-1 mt-0 pt-0 border-0 mb-0">
+                    <div class="sp-stat-item">
+                        <i class="fas fa-hashtag" style="color: var(--brand-gold);"></i>
+                        <span>الترتيب في الدليل: <strong style="color: var(--brand-navy);"><?= $schoolRank ?></strong></span>
+                    </div>
+                    <?php if (!empty($school['established_year'])): ?>
+                    <div class="sp-stat-item">
+                        <i class="fas fa-landmark" style="color: var(--brand-gold);"></i>
+                        <span>تأسست: <strong><?= e($school['established_year']) ?></strong></span>
+                    </div>
+                    <?php endif; ?>
+                    <?php if (!empty($school['created_at'])): ?>
+                    <div class="sp-stat-item">
+                        <i class="far fa-calendar-check" style="color: #1E5FA8;"></i>
+                        <span>انضمت للدليل: <strong><?= arabicDate($school['created_at']) ?></strong></span>
+                    </div>
+                    <?php endif; ?>
+                    <div class="sp-stat-item">
+                        <i class="fas fa-eye" style="color: var(--brand-blue);"></i>
+                        <span><strong><?= number_format($school['views_count']) ?></strong> مشاهدة</span>
+                    </div>
+                    <div class="sp-stat-item">
+                        <i class="fas fa-star" style="color: #F5A020;"></i>
+                        <span><strong><?= number_format($school['rating_avg'], 1) ?></strong> (<?= $school['reviews_count'] ?> تقييم)</span>
+                    </div>
+                    <div class="sp-stat-item">
+                        <i class="fas fa-building" style="color: var(--brand-blue);"></i>
+                        <span><?= SudanGeography::schoolTypeLabel($school['school_type']) ?></span>
+                    </div>
+                    <?php if ($feesType === 'detailed' && !empty($stageFeesList)): ?>
+                    <div class="sp-stat-item">
+                        <i class="fas fa-coins" style="color: #1E5FA8;"></i>
+                        <span>الرسوم: <strong>مفصلة حسب المراحل</strong></span>
+                    </div>
+                    <?php elseif (!empty($school['approx_fees'])): ?>
+                    <div class="sp-stat-item">
+                        <i class="fas fa-coins" style="color: #1E5FA8;"></i>
+                        <span>الرسوم: <strong><?= e($school['approx_fees']) ?></strong></span>
+                    </div>
+                    <?php endif; ?>
+                    <?php if (!empty($feeDiscountsList)): ?>
+                    <div class="sp-stat-item">
+                        <i class="fas fa-tag" style="color: #F5A020;"></i>
+                        <span>تتوفر عروض وخصومات (<?= count($feeDiscountsList) ?>)</span>
+                    </div>
+                    <?php endif; ?>
+                    <?php if (!empty($stages)): ?>
+                    <div class="sp-stat-item d-none d-md-flex">
+                        <i class="fas fa-layer-group" style="color: var(--brand-navy);"></i>
+                        <span><?= implode(' · ', array_map(fn($k) => SudanGeography::stageLabel($k), $stages)) ?></span>
+                    </div>
+                    <?php endif; ?>
                 </div>
-                <?php if (!empty($school['established_year'])): ?>
-                <div class="sp-stat-item">
-                    <i class="fas fa-landmark" style="color: var(--brand-gold);"></i>
-                    <span>تأسست: <strong><?= e($school['established_year']) ?></strong></span>
-                </div>
-                <?php endif; ?>
-                <?php if (!empty($school['created_at'])): ?>
-                <div class="sp-stat-item">
-                    <i class="far fa-calendar-check" style="color: #1E5FA8;"></i>
-                    <span>انضمت للدليل: <strong><?= arabicDate($school['created_at']) ?></strong></span>
-                </div>
-                <?php endif; ?>
-                <div class="sp-stat-item">
-                    <i class="fas fa-eye" style="color: var(--brand-blue);"></i>
-                    <span><strong><?= number_format($school['views_count']) ?></strong> مشاهدة</span>
-                </div>
-                <div class="sp-stat-item">
-                    <i class="fas fa-star" style="color: #F5A020;"></i>
-                    <span><strong><?= number_format($school['rating_avg'], 1) ?></strong> (<?= $school['reviews_count'] ?> تقييم)</span>
-                </div>
-                <div class="sp-stat-item">
-                    <i class="fas fa-building" style="color: var(--brand-blue);"></i>
-                    <span><?= SudanGeography::schoolTypeLabel($school['school_type']) ?></span>
-                </div>
-                <?php if ($feesType === 'detailed' && !empty($stageFeesList)): ?>
-                <div class="sp-stat-item">
-                    <i class="fas fa-coins" style="color: #1E5FA8;"></i>
-                    <span>الرسوم: <strong>مفصلة حسب المراحل</strong></span>
-                </div>
-                <?php elseif (!empty($school['approx_fees'])): ?>
-                <div class="sp-stat-item">
-                    <i class="fas fa-coins" style="color: #1E5FA8;"></i>
-                    <span>الرسوم: <strong><?= e($school['approx_fees']) ?></strong></span>
-                </div>
-                <?php endif; ?>
-                <?php if (!empty($feeDiscountsList)): ?>
-                <div class="sp-stat-item">
-                    <i class="fas fa-tag" style="color: #F5A020;"></i>
-                    <span>تتوفر عروض وخصومات (<?= count($feeDiscountsList) ?>)</span>
-                </div>
-                <?php endif; ?>
-                <?php if (!empty($stages)): ?>
-                <div class="sp-stat-item d-none d-md-flex">
-                    <i class="fas fa-layer-group" style="color: var(--brand-navy);"></i>
-                    <span><?= implode(' · ', array_map(fn($k) => SudanGeography::stageLabel($k), $stages)) ?></span>
-                </div>
-                <?php endif; ?>
             </div>
         </div>
     </div>

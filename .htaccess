@@ -16,6 +16,9 @@ RewriteEngine On
 RewriteRule ^(?:school|s)/uploads/(.*)$ /uploads/$1 [L,NC]
 RewriteRule ^(?:school|s)/assets/(.*)$ /assets/$1 [L,NC]
 
+# Sitemap dynamic XML routing
+RewriteRule ^sitemap\.xml$ sitemap.php [L]
+
 # Allow direct access to real files and directories
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d

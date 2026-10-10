@@ -1,0 +1,26 @@
+# ═══════════════════════════════════════════════════════
+# SchoPlus Schools Directory — robots.txt
+# Domain: https://daleel.schoplus.sd
+# ═══════════════════════════════════════════════════════
+
+User-agent: *
+Allow: /
+Allow: /school/
+Allow: /s/
+Allow: /register
+Allow: /login
+Allow: /assets/
+Allow: /uploads/
+
+# Disallow private management and sensitive scripts
+Disallow: /dashboard.php
+Disallow: /dashboard
+Disallow: /api/
+Disallow: /api_direct_register.php
+Disallow: /cairo_extracted/
+Disallow: /deploy.php
+Disallow: /config.php
+Disallow: /*.json$
+
+# Sitemap Location
+Sitemap: https://daleel.schoplus.sd/sitemap.xml
