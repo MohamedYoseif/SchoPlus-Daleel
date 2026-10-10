@@ -44,6 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $school_type = trim($_POST['school_type'] ?? 'private');
         $gender_type = trim($_POST['gender_type'] ?? 'mixed');
         $curriculum = trim($_POST['curriculum'] ?? 'sudanese');
+        $established_year = trim($_POST['established_year'] ?? '');
         $stages = isset($_POST['stages']) && is_array($_POST['stages']) ? $_POST['stages'] : [];
         $phone = trim($_POST['phone'] ?? '');
         $whatsapp = trim($_POST['whatsapp'] ?? '');
@@ -125,12 +126,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $facilitiesJson = json_encode([], JSON_UNESCAPED_UNICODE);
 
                 $insStmt = $pdo->prepare("INSERT INTO daleel_schools (
-                    name, name_en, slug, school_type, gender_type, curriculum, stages,
+                    name, name_en, slug, school_type, gender_type, curriculum, established_year, stages,
                     state, city, district, phone, whatsapp, email, facilities,
                     status, owner_name, owner_title, owner_phone, owner_email, password,
                     rating_avg, reviews_count, views_count, is_schoplus_client, is_verified, created_at, updated_at
                 ) VALUES (
-                    :name, :name_en, :slug, :school_type, :gender_type, :curriculum, :stages,
+                    :name, :name_en, :slug, :school_type, :gender_type, :curriculum, :established_year, :stages,
                     :state, :city, :district, :phone, :whatsapp, :email, :facilities,
                     'pending', :owner_name, :owner_title, :owner_phone, :owner_email, :password,
                     5.00, 0, 1, 0, 0, NOW(), NOW()
@@ -143,6 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ':school_type' => $school_type,
                     ':gender_type' => $gender_type,
                     ':curriculum' => $curriculum,
+                    ':established_year' => $established_year ?: null,
                     ':stages' => $stagesJson,
                     ':state' => $state,
                     ':city' => $city,
@@ -255,8 +257,8 @@ $statesWithCities = SudanGeography::statesWithCities();
                             <input type="text" name="district" class="form-control" value="<?= e($formData['district'] ?? '') ?>" placeholder="مثال: الرياض، المعمورة، الثورة">
                         </div>
 
-                        <!-- Type & Curriculum -->
-                        <div class="col-md-4">
+                        <!-- Type, Gender, Curriculum & Foundation -->
+                        <div class="col-md-3">
                             <label class="form-label small fw-bold text-secondary">نوع المدرسة</label>
                             <select name="school_type" class="form-select">
                                 <?php foreach (SudanGeography::schoolTypes() as $k => $lbl): ?>
@@ -265,7 +267,7 @@ $statesWithCities = SudanGeography::statesWithCities();
                             </select>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label class="form-label small fw-bold text-secondary">نوع الطلاب</label>
                             <select name="gender_type" class="form-select">
                                 <?php foreach (SudanGeography::genderTypes() as $k => $lbl): ?>
@@ -274,13 +276,20 @@ $statesWithCities = SudanGeography::statesWithCities();
                             </select>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label class="form-label small fw-bold text-secondary">المنهج الدراسي</label>
                             <select name="curriculum" class="form-select">
                                 <?php foreach (SudanGeography::curricula() as $k => $lbl): ?>
                                     <option value="<?= $k ?>" <?= ($formData['curriculum'] ?? 'sudanese') === $k ? 'selected' : '' ?>><?= $lbl ?></option>
                                 <?php endforeach; ?>
                             </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="form-label small fw-bold text-secondary">
+                                <i class="fas fa-landmark text-muted me-1"></i> سنة / تاريخ التأسيس
+                            </label>
+                            <input type="text" name="established_year" class="form-control" value="<?= e($formData['established_year'] ?? '') ?>" placeholder="مثال: 2012 أو عام 1998">
                         </div>
 
                         <!-- Stages -->

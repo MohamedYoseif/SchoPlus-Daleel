@@ -114,6 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $school_type = trim($_POST['school_type'] ?? 'private');
             $gender_type = trim($_POST['gender_type'] ?? 'mixed');
             $curriculum = trim($_POST['curriculum'] ?? 'sudanese');
+            $established_year = trim($_POST['established_year'] ?? '');
             $approx_fees = trim($_POST['approx_fees'] ?? '');
             $working_hours = trim($_POST['working_hours'] ?? '');
             $description = trim($_POST['description'] ?? '');
@@ -172,7 +173,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     address = :address, google_map_url = :google_map_url, phone = :phone, whatsapp = :whatsapp,
                     email = :email, website = :website, facebook = :facebook,
                     twitter = :twitter, youtube = :youtube, telegram = :telegram, instagram = :instagram, tiktok = :tiktok,
-                    school_type = :school_type, gender_type = :gender_type, curriculum = :curriculum, approx_fees = :approx_fees,
+                    school_type = :school_type, gender_type = :gender_type, curriculum = :curriculum, established_year = :established_year, approx_fees = :approx_fees,
                     working_hours = :working_hours, description = :description, vision = :vision, mission = :mission,
                     stages = :stages, facilities = :facilities, logo_path = :logo_path, cover_path = :cover_path,
                     updated_at = NOW()
@@ -200,6 +201,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ':school_type' => $school_type,
                     ':gender_type' => $gender_type,
                     ':curriculum' => $curriculum,
+                    ':established_year' => $established_year ?: null,
                     ':approx_fees' => $approx_fees ?: null,
                     ':working_hours' => $working_hours ?: null,
                     ':description' => $description ?: null,
@@ -950,8 +952,8 @@ require_once __DIR__ . '/header.php';
                                 <input type="url" name="google_map_url" dir="ltr" class="form-control" value="<?= e($school['google_map_url'] ?? '') ?>" placeholder="https://maps.app.goo.gl/...">
                             </div>
 
-                            <!-- Classification -->
-                            <div class="col-md-4">
+                            <!-- Classification & Foundation -->
+                            <div class="col-md-3">
                                 <label class="form-label small fw-bold text-secondary">نوع المدرسة</label>
                                 <select name="school_type" class="form-select">
                                     <?php foreach (SudanGeography::schoolTypes() as $k => $lbl): ?>
@@ -960,7 +962,7 @@ require_once __DIR__ . '/header.php';
                                 </select>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <label class="form-label small fw-bold text-secondary">نوع الطلاب</label>
                                 <select name="gender_type" class="form-select">
                                     <?php foreach (SudanGeography::genderTypes() as $k => $lbl): ?>
@@ -969,13 +971,20 @@ require_once __DIR__ . '/header.php';
                                 </select>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <label class="form-label small fw-bold text-secondary">المنهج الدراسي</label>
                                 <select name="curriculum" class="form-select">
                                     <?php foreach (SudanGeography::curricula() as $k => $lbl): ?>
                                         <option value="<?= $k ?>" <?= $school['curriculum'] === $k ? 'selected' : '' ?>><?= $lbl ?></option>
                                     <?php endforeach; ?>
                                 </select>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label class="form-label small fw-bold text-secondary">
+                                    <i class="fas fa-landmark text-muted me-1"></i> سنة / تاريخ التأسيس
+                                </label>
+                                <input type="text" name="established_year" class="form-control" value="<?= e($school['established_year'] ?? '') ?>" placeholder="مثال: 2012 أو عام 1998">
                             </div>
 
                             <!-- Stages -->

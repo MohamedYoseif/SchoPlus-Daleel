@@ -1,7 +1,7 @@
 {
-    "version": "3.5.63",
+    "version": "3.5.64",
     "release_date": "2026-10-10",
     "version_type": "enterprise",
     "min_php_version": "8.2",
-    "release_notes": "daleel.schoplus.sd — تصحيح محاذاة عناصر صورة الإعلان لتكون متمركزة بدقة (text-anchor middle) وتفادي قص النصوص والاتجاهات في المتصفحات، مع تحسين أبعاد إطار العرض داخل النافذة المنبثقة"
+    "release_notes": "daleel.schoplus.sd — إضافة تاريخ التأسيس (established_year) وتاريخ الانضمام للدليل مع تحويل التاريخ إلى صيغة عربية في بروفايل المدرسة ولوحة التحكم ونموذج التسجيل"
 }

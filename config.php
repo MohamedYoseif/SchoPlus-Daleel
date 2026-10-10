@@ -136,6 +136,22 @@ if (!function_exists('getSchoolDirectoryRank')) {
     }
 }
 
+if (!function_exists('arabicDate')) {
+    function arabicDate(?string $datetime): string {
+        if (!$datetime) return '';
+        $months = [
+            1 => 'يناير', 2 => 'فبراير', 3 => 'مارس', 4 => 'أبريل',
+            5 => 'مايو', 6 => 'يونيو', 7 => 'يوليو', 8 => 'أغسطس',
+            9 => 'سبتمبر', 10 => 'أكتوبر', 11 => 'نوفمبر', 12 => 'ديسمبر'
+        ];
+        $ts = strtotime($datetime);
+        $d = date('j', $ts);
+        $m = (int) date('n', $ts);
+        $y = date('Y', $ts);
+        return $d . ' ' . ($months[$m] ?? '') . ' ' . $y;
+    }
+}
+
 if (!function_exists('csrf_token')) {
     function csrf_token(): string {
         if (empty($_SESSION['_csrf_token'])) {
@@ -246,6 +262,7 @@ function ensureTablesExist(PDO $pdo): void {
         school_type VARCHAR(50) NOT NULL DEFAULT 'private',
         gender_type VARCHAR(50) NOT NULL DEFAULT 'mixed',
         curriculum VARCHAR(100) NOT NULL DEFAULT 'sudanese',
+        established_year VARCHAR(50) NULL,
         stages TEXT NULL,
         state VARCHAR(100) NOT NULL,
         city VARCHAR(100) NOT NULL,
@@ -368,6 +385,7 @@ function ensureTablesExist(PDO $pdo): void {
             'teachers_data'   => "ALTER TABLE daleel_schools ADD COLUMN teachers_data LONGTEXT NULL AFTER activities_data",
             'optional_tabs'   => "ALTER TABLE daleel_schools ADD COLUMN optional_tabs TEXT NULL AFTER teachers_data",
             'directory_rank'  => "ALTER TABLE daleel_schools ADD COLUMN directory_rank INT UNSIGNED NULL DEFAULT NULL AFTER is_featured",
+            'established_year'=> "ALTER TABLE daleel_schools ADD COLUMN established_year VARCHAR(50) NULL AFTER curriculum",
         ];
         foreach ($alterStatements as $colName => $sql) {
             if (!isset($existingCols[$colName])) {

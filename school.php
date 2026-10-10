@@ -1022,6 +1022,18 @@ $totalRev = max(1, count($reviewsList));
                     <i class="fas fa-hashtag" style="color: var(--brand-gold);"></i>
                     <span>الترتيب في الدليل: <strong style="color: var(--brand-navy);"><?= $schoolRank ?></strong></span>
                 </div>
+                <?php if (!empty($school['established_year'])): ?>
+                <div class="sp-stat-item">
+                    <i class="fas fa-landmark" style="color: var(--brand-gold);"></i>
+                    <span>تأسست: <strong><?= e($school['established_year']) ?></strong></span>
+                </div>
+                <?php endif; ?>
+                <?php if (!empty($school['created_at'])): ?>
+                <div class="sp-stat-item">
+                    <i class="far fa-calendar-alt" style="color: #059669;"></i>
+                    <span>انضمت للدليل: <strong><?= arabicDate($school['created_at']) ?></strong></span>
+                </div>
+                <?php endif; ?>
                 <div class="sp-stat-item">
                     <i class="fas fa-eye" style="color: var(--brand-blue);"></i>
                     <span><strong><?= number_format($school['views_count']) ?></strong> مشاهدة</span>
@@ -1813,6 +1825,24 @@ $totalRev = max(1, count($reviewsList));
                                 <span class="sp-fact-value" style="color: var(--brand-navy);">#<?= $schoolRank ?></span>
                             </div>
                         </div>
+                        <?php if (!empty($school['established_year'])): ?>
+                        <div class="sp-fact-row">
+                            <div class="sp-fact-icon" style="background: #FEF3C7; color: #b45309;"><i class="fas fa-landmark"></i></div>
+                            <div>
+                                <span class="sp-fact-label">سنة التأسيس</span>
+                                <span class="sp-fact-value fw-bold" style="color: var(--brand-navy);"><?= e($school['established_year']) ?></span>
+                            </div>
+                        </div>
+                        <?php endif; ?>
+                        <?php if (!empty($school['created_at'])): ?>
+                        <div class="sp-fact-row">
+                            <div class="sp-fact-icon" style="background: #ECFDF5; color: #059669;"><i class="far fa-calendar-check"></i></div>
+                            <div>
+                                <span class="sp-fact-label">تاريخ الانضمام للدليل</span>
+                                <span class="sp-fact-value" style="color: #059669; font-weight: 700;"><?= arabicDate($school['created_at']) ?></span>
+                            </div>
+                        </div>
+                        <?php endif; ?>
                         <div class="sp-fact-row">
                             <div class="sp-fact-icon" style="background: #EFF6FF; color: var(--brand-blue);"><i class="fas fa-building"></i></div>
                             <div>
