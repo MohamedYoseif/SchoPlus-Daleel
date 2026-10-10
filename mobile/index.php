@@ -14,7 +14,8 @@ $q        = trim($_GET['q'] ?? '');
 $state    = trim($_GET['state'] ?? '');
 $city     = trim($_GET['city'] ?? '');
 $stage    = trim($_GET['stage'] ?? '');
-$tab      = trim($_GET['tab'] ?? 'home'); // home, search, news, schoplus
+$quick    = trim($_GET['quick'] ?? ''); // smart, top_rated, latest, kg, primary, intermediate, secondary
+$tab      = trim($_GET['tab'] ?? 'home'); // home, search, news, schoplus, manage
 $schoolId = (int)($_GET['school_id'] ?? 0);
 
 // Single School Detail View
@@ -36,12 +37,13 @@ $statesCount = (int)$pdo->query("SELECT COUNT(DISTINCT state) FROM daleel_school
 // States distribution
 $stateCounts = $pdo->query("SELECT state, COUNT(*) as cnt FROM daleel_schools WHERE status = 'approved' GROUP BY state")->fetchAll(PDO::FETCH_KEY_PAIR) ?: [];
 $statesWithCities = SudanGeography::statesWithCities();
+$schoolStages = SudanGeography::schoolStages();
 
 // Query schools based on tab & filters
 $where = ["status = 'approved'"];
 $params = [];
 
-if ($tab === 'schoplus') {
+if ($tab === 'schoplus' || $quick === 'smart') {
     $where[] = "is_schoplus_client = 1";
 }
 if ($q !== '') {
@@ -61,9 +63,30 @@ if ($stage !== '') {
     $where[] = "stages LIKE ?";
     $params[] = "%\"{$stage}\"%";
 }
+if ($quick === 'kg') {
+    $where[] = "stages LIKE ?";
+    $params[] = "%\"kindergarten\"%";
+} elseif ($quick === 'primary') {
+    $where[] = "stages LIKE ?";
+    $params[] = "%\"primary\"%";
+} elseif ($quick === 'intermediate') {
+    $where[] = "stages LIKE ?";
+    $params[] = "%\"intermediate\"%";
+} elseif ($quick === 'secondary') {
+    $where[] = "stages LIKE ?";
+    $params[] = "%\"secondary\"%";
+}
+
+// Order clause
+$orderBy = "is_featured DESC, is_schoplus_client DESC, rating_avg DESC, id ASC";
+if ($quick === 'top_rated') {
+    $orderBy = "rating_avg DESC, reviews_count DESC, id ASC";
+} elseif ($quick === 'latest') {
+    $orderBy = "created_at DESC, id DESC";
+}
 
 $whereClause = implode(' AND ', $where);
-$schoolsStmt = $pdo->prepare("SELECT * FROM daleel_schools WHERE {$whereClause} ORDER BY is_featured DESC, is_schoplus_client DESC, rating_avg DESC, id ASC LIMIT 50");
+$schoolsStmt = $pdo->prepare("SELECT * FROM daleel_schools WHERE {$whereClause} ORDER BY {$orderBy} LIMIT 60");
 $schoolsStmt->execute($params);
 $schools = $schoolsStmt->fetchAll();
 
@@ -216,97 +239,208 @@ $allNews = $newsStmt->fetchAll();
             background: #F1F5F9;
         }
 
-        /* ── Hero Metrics Card: Financial & Stats Banner ── */
-        .m-hero-card {
-            background: linear-gradient(135deg, #0B2A52 0%, #163870 100%);
+        /* ── Hero Search & Interactive Filter Card (Parity with Web Hero) ── */
+        .m-hero-filter-card {
+            background: linear-gradient(165deg, #FFFDF9 0%, #F8F3EA 60%, #EFE4D4 100%);
+            border: 1.5px solid #E2D7C7;
             border-radius: var(--m-radius);
-            padding: 16px 18px;
-            color: #ffffff;
+            padding: 16px 14px 14px;
             margin: 14px 14px 12px;
-            box-shadow: 0 8px 24px -4px rgba(11, 42, 82, 0.25);
+            box-shadow: 0 8px 24px -4px rgba(11, 42, 82, 0.08);
             position: relative;
             overflow: hidden;
         }
-        .m-hero-card::after {
+        .m-hero-filter-card::before {
             content: '';
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--m-brand-gold);
+            top: -60px;
+            right: -60px;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(30, 95, 168, 0.08) 0%, transparent 70%);
+            pointer-events: none;
         }
-        .m-hero-head {
+        .m-hero-badge-wrap {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 12px;
-        }
-        .m-hero-title {
-            font-size: 0.82rem;
-            font-weight: 800;
-            color: #E2E8F0;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            margin-bottom: 8px;
         }
         .m-hero-badge {
-            font-size: 0.70rem;
-            background: rgba(255, 255, 255, 0.16);
-            color: #FFFFFF;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid #E2D5C3;
             padding: 3px 10px;
-            border-radius: 50px;
-            font-weight: 700;
+            border-radius: 999px;
+            font-size: 0.68rem;
+            font-weight: 800;
+            color: var(--m-brand-navy);
+            box-shadow: 0 2px 6px rgba(11, 42, 82, 0.04);
         }
-        .m-hero-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            text-align: center;
+        .m-hero-badge-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--m-brand-gold);
+            box-shadow: 0 0 0 2px rgba(245, 160, 32, 0.25);
         }
-        .m-hero-val {
-            font-size: 1.15rem;
+        .m-hero-stat-pill {
+            font-size: 0.68rem;
+            color: var(--m-brand-blue);
+            font-weight: 800;
+            background: rgba(30, 95, 168, 0.08);
+            padding: 3px 8px;
+            border-radius: 999px;
+        }
+        .m-hero-headline {
             font-weight: 900;
-            line-height: 1.2;
-            color: #FFFFFF;
+            font-size: 1.05rem;
+            color: var(--m-brand-navy);
+            line-height: 1.35;
+            margin-bottom: 2px;
         }
-        .m-hero-lbl {
-            font-size: 0.65rem;
-            opacity: 0.82;
-            margin-top: 2px;
+        .m-hero-subheadline {
+            font-size: 0.74rem;
+            color: #64748B;
             font-weight: 600;
+            line-height: 1.5;
+            margin-bottom: 12px;
         }
 
-        /* ── Search Bar: Sleek & Clean ── */
-        .m-search-box {
-            margin: 0 14px 12px;
+        /* Hero Search Form */
+        .m-filter-form {
             background: #ffffff;
-            border: 1.5px solid var(--m-border);
-            border-radius: 14px;
+            border: 1.5px solid #E2D7C7;
+            border-radius: 16px;
+            padding: 12px 10px;
+            box-shadow: 0 4px 16px rgba(11, 42, 82, 0.05);
+        }
+        .m-filter-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .m-filter-select-wrap {
+            flex: 1;
+            position: relative;
+        }
+        .m-filter-select {
+            width: 100%;
+            border: 1px solid #DCE4EE;
+            border-radius: 10px;
+            background: #F8FAFC;
+            color: var(--m-text);
+            font-size: 0.76rem;
+            font-weight: 700;
+            font-family: 'Cairo', sans-serif;
+            padding: 7px 10px;
+            outline: none;
+            transition: all 0.2s ease;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='%2364748B'%3E%3Cpath%20d='M7%2010l5%205%205-5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: left 8px center;
+            background-size: 16px;
+            padding-left: 26px;
+        }
+        .m-filter-select:focus {
+            border-color: var(--m-brand-blue);
+            background-color: #ffffff;
+            box-shadow: 0 0 0 2px rgba(30, 95, 168, 0.12);
+        }
+        .m-search-input-wrap {
             display: flex;
             align-items: center;
-            padding: 3px 12px;
-            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+            background: #F8FAFC;
+            border: 1px solid #DCE4EE;
+            border-radius: 10px;
+            padding: 1px 10px;
+            margin-bottom: 8px;
             transition: all 0.2s ease;
         }
-        .m-search-box:focus-within {
+        .m-search-input-wrap:focus-within {
             border-color: var(--m-brand-blue);
-            box-shadow: 0 0 0 3px rgba(30, 95, 168, 0.12);
+            background: #ffffff;
+            box-shadow: 0 0 0 2px rgba(30, 95, 168, 0.12);
         }
-        .m-search-input {
+        .m-search-input-wrap input {
             border: none;
             outline: none;
-            width: 100%;
-            padding: 9px 8px;
-            font-size: 0.82rem;
-            font-family: 'Cairo', sans-serif;
-            font-weight: 600;
-            color: var(--m-text);
             background: transparent;
+            font-size: 0.80rem;
+            font-weight: 600;
+            font-family: 'Cairo', sans-serif;
+            color: var(--m-text);
+            width: 100%;
+            padding: 8px 6px;
         }
-        .m-search-input::placeholder {
-            color: var(--m-muted);
-            font-weight: 500;
+        .m-search-submit-btn {
+            width: 100%;
+            border: none;
+            background: linear-gradient(135deg, var(--m-brand-navy) 0%, var(--m-brand-blue) 100%);
+            color: #ffffff;
+            font-size: 0.84rem;
+            font-weight: 800;
+            font-family: 'Cairo', sans-serif;
+            padding: 9px 14px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 14px rgba(11, 42, 82, 0.22);
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .m-search-submit-btn:active {
+            transform: scale(0.97);
+        }
+
+        /* ── Quick Filter Pills (Horizontal) ── */
+        .m-quick-pills {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding: 4px 14px 10px;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+        }
+        .m-quick-pills::-webkit-scrollbar { display: none; }
+        .m-quick-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: #ffffff;
+            border: 1px solid #E2E8F0;
+            padding: 5px 12px;
+            border-radius: 999px;
+            text-decoration: none;
+            color: #334155;
+            font-size: 0.72rem;
+            font-weight: 700;
+            white-space: nowrap;
+            flex-shrink: 0;
+            box-shadow: 0 2px 4px rgba(15, 23, 42, 0.02);
+            transition: all 0.15s ease;
+        }
+        .m-quick-pill.active {
+            background: var(--m-brand-navy);
+            color: #ffffff;
+            border-color: var(--m-brand-navy);
+        }
+        .m-quick-pill.gold {
+            background: #FFFBEB;
+            border-color: #FDE68A;
+            color: #B45309;
+        }
+        .m-quick-pill.gold.active {
+            background: var(--m-brand-gold);
+            color: #ffffff;
+            border-color: var(--m-brand-gold);
         }
 
         /* ── States Horizontal Pills Slider ── */
@@ -362,7 +496,7 @@ $allNews = $newsStmt->fetchAll();
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 4px 16px 8px;
+            padding: 6px 16px 8px;
         }
         .m-sec-title {
             font-size: 0.88rem;
@@ -378,7 +512,7 @@ $allNews = $newsStmt->fetchAll();
             font-weight: 700;
         }
 
-        /* ── School Card: Matching SchoPlus Glass & Portal Cards ── */
+        /* ── School Card ── */
         .m-school-card {
             background: var(--m-card-bg);
             border: 1px solid var(--m-border);
@@ -586,7 +720,7 @@ $allNews = $newsStmt->fetchAll();
             color: var(--m-muted);
             font-size: 0.65rem;
             font-weight: 700;
-            padding: 4px 12px;
+            padding: 4px 10px;
             border-radius: 12px;
             transition: all 0.15s ease;
             position: relative;
@@ -684,7 +818,7 @@ $allNews = $newsStmt->fetchAll();
             box-shadow: var(--m-shadow);
         }
         .m-info-title {
-            font-size: 0.82rem;
+            font-size: 0.84rem;
             font-weight: 800;
             color: var(--m-brand-navy);
             margin-bottom: 10px;
@@ -698,14 +832,144 @@ $allNews = $newsStmt->fetchAll();
             line-height: 1.6;
         }
         .m-tag-pill {
-            display: inline-block;
-            background: #F1F5F9;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
             color: #334155;
-            padding: 4px 10px;
+            padding: 6px 12px;
             border-radius: 50px;
-            font-size: 0.72rem;
+            font-size: 0.74rem;
             font-weight: 700;
-            margin: 2px 4px 4px 0;
+            margin: 3px 4px 5px 0;
+        }
+        .m-tag-pill i {
+            color: var(--m-brand-blue);
+            font-size: 0.85rem;
+        }
+
+        /* Action Bottom Sheet (إدارة الصفحة / طلبات الانضمام) */
+        .m-bottom-sheet-backdrop {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 1050;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+        .m-bottom-sheet-backdrop.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .m-bottom-sheet {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            background: #ffffff;
+            border-radius: 24px 24px 0 0;
+            padding: 20px 18px max(24px, env(safe-area-inset-bottom));
+            z-index: 1060;
+            transform: translateY(100%);
+            transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.2);
+        }
+        .m-bottom-sheet.active {
+            transform: translateY(0);
+        }
+        .m-sheet-bar {
+            width: 44px;
+            height: 4px;
+            border-radius: 99px;
+            background: #CBD5E1;
+            margin: 0 auto 16px;
+        }
+        .m-sheet-option {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            border-radius: 16px;
+            border: 1px solid var(--m-border);
+            text-decoration: none;
+            color: var(--m-text);
+            margin-bottom: 10px;
+            background: #FFFFFF;
+            transition: all 0.15s ease;
+        }
+        .m-sheet-option:active {
+            background: #F8FAFC;
+            transform: scale(0.98);
+        }
+        .m-sheet-opt-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            flex-shrink: 0;
+        }
+        .m-sheet-opt-title {
+            font-size: 0.88rem;
+            font-weight: 800;
+            color: var(--m-brand-navy);
+            margin-bottom: 2px;
+        }
+        .m-sheet-opt-desc {
+            font-size: 0.70rem;
+            color: var(--m-muted);
+            font-weight: 600;
+            line-height: 1.35;
+        }
+
+        /* Gallery Grid */
+        .m-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            margin-top: 8px;
+        }
+        .m-gallery-item {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--m-border);
+            background: #F1F5F9;
+        }
+        .m-gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Fees Table */
+        .m-fees-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border: 1px solid var(--m-border);
+            border-radius: 12px;
+            overflow: hidden;
+            font-size: 0.74rem;
+        }
+        .m-fees-table th {
+            background: #F8FAFC;
+            padding: 8px 10px;
+            font-weight: 800;
+            color: #475569;
+            border-bottom: 1px solid var(--m-border);
+        }
+        .m-fees-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #F1F5F9;
+            color: var(--m-text);
+        }
+        .m-fees-table tr:last-child td {
+            border-bottom: none;
         }
     </style>
 </head>
@@ -722,7 +986,7 @@ $allNews = $newsStmt->fetchAll();
         </a>
         <div class="m-header-actions">
             <?php if ($selectedSchool): ?>
-                <a href="/mobile/?tab=<?= urlencode($tab) ?>" class="m-btn-icon" title="رجوع">
+                <a href="/mobile/?tab=<?= urlencode($tab) ?><?= $state ? '&state='.urlencode($state) : '' ?><?= $q ? '&q='.urlencode($q) : '' ?>" class="m-btn-icon" title="رجوع">
                     <i class="fas fa-arrow-left"></i>
                 </a>
             <?php else: ?>
@@ -742,22 +1006,46 @@ $allNews = $newsStmt->fetchAll();
             $sLogo = !empty($s['logo_path']) ? '/' . ltrim($s['logo_path'], '/') : '/assets/images/default-school-logo.svg';
             $stages = !empty($s['stages']) ? json_decode($s['stages'], true) : [];
             $facilities = !empty($s['facilities']) ? json_decode($s['facilities'], true) : [];
+            $stageFees = !empty($s['stage_fees']) ? json_decode($s['stage_fees'], true) : [];
+            $feeDiscounts = !empty($s['fee_discounts']) ? json_decode($s['fee_discounts'], true) : [];
+            $gallery = !empty($s['gallery']) ? json_decode($s['gallery'], true) : [];
             $branches = !empty($s['branches_data']) ? json_decode($s['branches_data'], true) : [];
+            $admStatus = $s['admission_status'] ?? 'open';
+            $admReqs = !empty($s['admission_requirements']) ? json_decode($s['admission_requirements'], true) : [];
+
+            $admLabels = [
+                'open'    => ['label' => 'باب القبول والتسجيل مفتوح', 'badge' => 'متاح', 'color' => '#10B981', 'icon' => 'fa-check-circle'],
+                'limited' => ['label' => 'مقاعد محدودة متبقية', 'badge' => 'محدود', 'color' => '#F59E0B', 'icon' => 'fa-exclamation-circle'],
+                'early'   => ['label' => 'فتح باب التسجيل المبكر', 'badge' => 'مبكر', 'color' => '#0284C7', 'icon' => 'fa-clock'],
+                'closed'  => ['label' => 'القبول والتسجيل مغلق مؤقتاً', 'badge' => 'مغلق', 'color' => '#6B7280', 'icon' => 'fa-lock']
+            ];
+            $currAdm = $admLabels[$admStatus] ?? $admLabels['open'];
         ?>
         <div class="m-detail-sheet">
             
+            <!-- School Hero Card -->
             <div class="m-detail-header-card">
                 <img src="<?= e($sLogo) ?>" alt="<?= e($s['name']) ?>" class="m-detail-logo">
                 <h1 class="m-detail-name"><?= e($s['name']) ?></h1>
+                <?php if (!empty($s['name_en'])): ?>
+                    <div class="text-muted small fw-bold" style="font-size:0.75rem;"><?= e($s['name_en']) ?></div>
+                <?php endif; ?>
+
                 <div class="m-detail-loc">
                     <i class="fas fa-map-marker-alt text-danger me-1"></i>
                     ولاية <?= e($s['state']) ?> — <?= e($s['city']) ?> <?= $s['district'] ? '— ' . e($s['district']) : '' ?>
                 </div>
 
-                <div class="d-flex justify-content-center gap-2 mt-3">
+                <div class="d-flex justify-content-center gap-2 mt-3 flex-wrap">
                     <?php if ($s['is_schoplus_client']): ?>
                         <span class="m-card-schoplus-tag">⚡ مدرسة SchoPlus ذكية</span>
                     <?php endif; ?>
+                    <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-1 fw-bold" style="font-size:0.72rem;">
+                        <?= SudanGeography::schoolTypeLabel($s['school_type']) ?>
+                    </span>
+                    <span class="badge bg-secondary bg-opacity-10 text-secondary rounded-pill px-3 py-1 fw-bold" style="font-size:0.72rem;">
+                        <?= SudanGeography::genderTypeLabel($s['gender_type']) ?>
+                    </span>
                     <?php if (!empty($s['established_year'])): ?>
                         <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-1 fw-bold" style="font-size:0.72rem;">
                             تأسست: <?= e($s['established_year']) ?>
@@ -785,11 +1073,48 @@ $allNews = $newsStmt->fetchAll();
                 </div>
             </div>
 
+            <!-- Admission Status Banner -->
+            <div class="m-info-block" style="border-right: 4px solid <?= $currAdm['color'] ?>;">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <div class="m-info-title mb-0" style="color: <?= $currAdm['color'] ?>;">
+                        <i class="fas <?= $currAdm['icon'] ?>"></i> <?= $currAdm['label'] ?>
+                    </div>
+                    <span class="badge text-white" style="background: <?= $currAdm['color'] ?>; font-size:0.70rem;">
+                        <?= $currAdm['badge'] ?>
+                    </span>
+                </div>
+                <div class="m-info-content">
+                    <?php if (!empty($s['whatsapp'])): ?>
+                        يمكنكم التقديم والاستفسار المباشر عن شواغر ومقاعد الطلاب عبر مكتب القبول.
+                        <a href="https://wa.me/<?= preg_replace('/[^0-9+]/', '', $s['whatsapp']) ?>?text=<?= urlencode('مرحباً، أود الاستفسار عن القبول والتسجيل في ' . $s['name']) ?>" target="_blank" class="btn btn-sm btn-outline-success rounded-pill mt-2 w-100 fw-bold" style="font-size:0.75rem;">
+                            <i class="fab fa-whatsapp me-1"></i> الاستفسار والتقديم عبر الواتساب
+                        </a>
+                    <?php else: ?>
+                        يرجى مراجعة إدارة المدرسة أو الاتصال المباشر للاستفسار عن متطلبات التسجيل.
+                    <?php endif; ?>
+                </div>
+            </div>
+
             <!-- Description -->
             <?php if (!empty($s['description'])): ?>
                 <div class="m-info-block">
-                    <div class="m-info-title"><i class="fas fa-info-circle text-primary"></i> نبذة عن المدرسة</div>
+                    <div class="m-info-title"><i class="fas fa-info-circle text-primary"></i> نبذة عن الصرح التعليمي</div>
                     <div class="m-info-content"><?= nl2br(e($s['description'])) ?></div>
+                </div>
+            <?php endif; ?>
+
+            <!-- Vision & Mission -->
+            <?php if (!empty($s['vision']) || !empty($s['mission'])): ?>
+                <div class="m-info-block">
+                    <?php if (!empty($s['vision'])): ?>
+                        <div class="m-info-title"><i class="fas fa-eye text-warning"></i> الرؤية التربوية</div>
+                        <div class="m-info-content mb-3"><?= nl2br(e($s['vision'])) ?></div>
+                    <?php endif; ?>
+
+                    <?php if (!empty($s['mission'])): ?>
+                        <div class="m-info-title"><i class="fas fa-bullseye text-danger"></i> الرسالة والأهداف</div>
+                        <div class="m-info-content"><?= nl2br(e($s['mission'])) ?></div>
+                    <?php endif; ?>
                 </div>
             <?php endif; ?>
 
@@ -803,28 +1128,122 @@ $allNews = $newsStmt->fetchAll();
                             foreach ((array)$stages as $stg):
                                 $stgName = $allStages[$stg] ?? $stg;
                         ?>
-                            <span class="m-tag-pill"><i class="fas fa-check-circle text-success me-1"></i><?= e($stgName) ?></span>
+                            <span class="m-tag-pill"><i class="fas fa-check-circle text-success"></i><?= e($stgName) ?></span>
                         <?php endforeach; ?>
                     </div>
                 </div>
             <?php endif; ?>
 
-            <!-- Facilities -->
+            <!-- Facilities (Mapped with Arabic Labels and FontAwesome Icons) -->
             <?php if (!empty($facilities)): ?>
                 <div class="m-info-block">
-                    <div class="m-info-title"><i class="fas fa-cube text-info"></i> المرافق والخدمات</div>
+                    <div class="m-info-title"><i class="fas fa-cubes text-info"></i> المرافق والخدمات والتجهيزات</div>
                     <div>
-                        <?php foreach ((array)$facilities as $fac): ?>
-                            <span class="m-tag-pill"><?= e($fac) ?></span>
+                        <?php foreach ((array)$facilities as $facKey): ?>
+                            <?php
+                                $facLabel = SudanGeography::facilityLabel($facKey);
+                                $facIcon = SudanGeography::facilityIcon($facKey);
+                            ?>
+                            <span class="m-tag-pill">
+                                <i class="<?= e($facIcon) ?>"></i>
+                                <?= e($facLabel) ?>
+                            </span>
                         <?php endforeach; ?>
                     </div>
+                </div>
+            <?php endif; ?>
+
+            <!-- Fees & Discounts -->
+            <?php if (!empty($stageFees) || !empty($s['approx_fees']) || !empty($feeDiscounts)): ?>
+                <div class="m-info-block">
+                    <div class="m-info-title"><i class="fas fa-coins text-success"></i> الرسوم الدراسية والمنح</div>
+                    
+                    <?php if (!empty($s['approx_fees'])): ?>
+                        <div class="p-2 mb-3 rounded-3 bg-light border text-muted small d-flex align-items-center justify-content-between">
+                            <span>متوسط الرسوم: <strong class="text-dark"><?= e($s['approx_fees']) ?></strong></span>
+                            <span class="badge bg-white text-secondary border">تقديري</span>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if (!empty($stageFees)): ?>
+                        <table class="m-fees-table mb-3">
+                            <thead>
+                                <tr>
+                                    <th>المرحلة</th>
+                                    <th>البيان</th>
+                                    <th>القيمة</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ((array)$stageFees as $fItem): ?>
+                                    <tr>
+                                        <td><strong><?= e($fItem['stage'] ?? 'عام') ?></strong></td>
+                                        <td><?= e($fItem['title'] ?? '') ?></td>
+                                        <td class="text-success fw-bold"><?= e($fItem['amount'] ?? '') ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    <?php endif; ?>
+
+                    <?php if (!empty($feeDiscounts)): ?>
+                        <div class="mt-2 pt-2 border-top">
+                            <span class="fw-bold small text-purple d-block mb-2" style="color:#7E22CE;">
+                                <i class="fas fa-gift me-1"></i> العروض والخصومات المتاحة:
+                            </span>
+                            <?php foreach ((array)$feeDiscounts as $disc): ?>
+                                <div class="p-2 mb-2 rounded-3 bg-light border" style="border-right:3px solid #9333EA !important;">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="fw-bold small text-dark"><?= e($disc['title'] ?? '') ?></span>
+                                        <span class="badge bg-purple text-white" style="background:#9333EA;"><?= e($disc['value'] ?? '') ?></span>
+                                    </div>
+                                    <?php if (!empty($disc['applies_to'])): ?>
+                                        <div class="text-muted" style="font-size:0.68rem; margin-top:2px;"><?= e($disc['applies_to']) ?></div>
+                                    <?php endif; ?>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
+
+            <!-- Campus Photos Gallery -->
+            <?php if (!empty($gallery)): ?>
+                <div class="m-info-block">
+                    <div class="m-info-title"><i class="fas fa-camera text-primary"></i> صور من مرافق وفعاليات المدرسة</div>
+                    <div class="m-gallery-grid">
+                        <?php foreach ((array)$gallery as $photo): ?>
+                            <?php
+                                $photoPath = is_array($photo) ? ($photo['path'] ?? '') : $photo;
+                                $photoCaption = is_array($photo) ? ($photo['caption'] ?? '') : '';
+                                if (!$photoPath) continue;
+                                $photoUrl = '/' . ltrim($photoPath, '/');
+                            ?>
+                            <div class="m-gallery-item">
+                                <img src="<?= e($photoUrl) ?>" alt="<?= e($photoCaption ?: $s['name']) ?>" loading="lazy">
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <!-- Branches -->
+            <?php if (!empty($branches)): ?>
+                <div class="m-info-block">
+                    <div class="m-info-title"><i class="fas fa-code-branch text-secondary"></i> الفروع والمجمعات الأخرى</div>
+                    <?php foreach ((array)$branches as $br): ?>
+                        <div class="p-2 mb-2 rounded-3 bg-light border">
+                            <div class="fw-bold small text-dark"><?= e($br['name'] ?? $br['branch_name'] ?? 'فرع المدرسة') ?></div>
+                            <div class="text-muted" style="font-size:0.70rem;"><?= e($br['address'] ?? $br['city'] ?? '') ?></div>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
             <?php endif; ?>
 
             <!-- Address & Location -->
             <?php if (!empty($s['address']) || !empty($s['google_map_url'])): ?>
                 <div class="m-info-block">
-                    <div class="m-info-title"><i class="fas fa-map-marked-alt text-danger"></i> العنوان والموقع</div>
+                    <div class="m-info-title"><i class="fas fa-map-marked-alt text-danger"></i> العنوان والموقع على الخريطة</div>
                     <div class="m-info-content"><?= e($s['address'] ?: 'ولاية ' . $s['state'] . ' — ' . $s['city']) ?></div>
                     <?php if (!empty($s['google_map_url'])): ?>
                         <a href="<?= e($s['google_map_url']) ?>" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill mt-2 w-100 fw-bold" style="font-size:0.74rem;">
@@ -833,6 +1252,13 @@ $allNews = $newsStmt->fetchAll();
                     <?php endif; ?>
                 </div>
             <?php endif; ?>
+
+            <!-- Web Profile Full Link -->
+            <div class="text-center my-3">
+                <a href="/school.php?id=<?= (int)$s['id'] ?>" target="_blank" class="btn btn-sm btn-light border rounded-pill px-4 py-2 fw-bold text-secondary" style="font-size:0.75rem;">
+                    <i class="fas fa-external-link-alt me-1"></i> فتح الملف الكامل في المتصفح
+                </a>
+            </div>
 
         </div>
 
@@ -880,40 +1306,111 @@ $allNews = $newsStmt->fetchAll();
         <!-- VIEW: MAIN HOME & SEARCH VIEW (DEFAULT)                  -->
         <!-- ══════════════════════════════════════════════════════════ -->
 
-        <!-- Financial & Status Metrics Card (SchoPlus Style) -->
-        <div class="m-hero-card">
-            <div class="m-hero-head">
-                <span class="m-hero-title"><i class="fas fa-chart-pie text-warning"></i> مؤشرات دليل المدارس</span>
-                <span class="m-hero-badge">تحديث مباشر</span>
+        <!-- HERO SEARCH CARD (Parity with Web Hero Design & Capabilities) -->
+        <div class="m-hero-filter-card">
+            <div class="m-hero-badge-wrap">
+                <span class="m-hero-badge">
+                    <span class="m-hero-badge-dot"></span>
+                    دليل المدارس السودانية المعتمدة
+                </span>
+                <span class="m-hero-stat-pill">
+                    <?= number_format($totalSchools) ?>+ مدرسة
+                </span>
             </div>
-            <div class="m-hero-grid">
-                <div>
-                    <div class="m-hero-val"><?= number_format($totalSchools) ?>+</div>
-                    <div class="m-hero-lbl">مدرسة معتمدة</div>
+
+            <h1 class="m-hero-headline">
+                ابحث وتعرف على المدارس في السودان
+            </h1>
+            <p class="m-hero-subheadline">
+                اختر الولاية والمدينة والمرحلة للوصول إلى بيانات المدارس المعتمدة والتواصل المباشر.
+            </p>
+
+            <!-- SMART INTERACTIVE FILTER FORM (With working Search Button) -->
+            <form action="/mobile/" method="GET" class="m-filter-form" id="mobileSearchForm">
+                <input type="hidden" name="tab" value="<?= e($tab) ?>">
+                <?php if ($quick): ?><input type="hidden" name="quick" value="<?= e($quick) ?>"><?php endif; ?>
+
+                <!-- State & City Row -->
+                <div class="m-filter-row">
+                    <div class="m-filter-select-wrap">
+                        <select name="state" class="m-filter-select" id="mStateSelect">
+                            <option value="">جميع الولايات (الكل)</option>
+                            <?php foreach ($statesWithCities as $stName => $citiesList): ?>
+                                <option value="<?= e($stName) ?>" <?= $state === $stName ? 'selected' : '' ?>>ولاية <?= e($stName) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
+                    <div class="m-filter-select-wrap">
+                        <select name="city" class="m-filter-select" id="mCitySelect">
+                            <option value="">جميع المدن / المحليات</option>
+                            <?php if ($state && isset($statesWithCities[$state])): ?>
+                                <?php foreach ($statesWithCities[$state] as $c): ?>
+                                    <option value="<?= e($c) ?>" <?= $city === $c ? 'selected' : '' ?>><?= e($c) ?></option>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </select>
+                    </div>
                 </div>
-                <div>
-                    <div class="m-hero-val"><?= number_format($schoplusCount) ?></div>
-                    <div class="m-hero-lbl">مدارس SchoPlus</div>
+
+                <!-- Stage Select -->
+                <div class="m-filter-row">
+                    <div class="m-filter-select-wrap">
+                        <select name="stage" class="m-filter-select" id="mStageSelect">
+                            <option value="">جميع المراحل الدراسية</option>
+                            <?php foreach ($schoolStages as $sKey => $sLbl): ?>
+                                <option value="<?= e($sKey) ?>" <?= $stage === $sKey ? 'selected' : '' ?>><?= e($sLbl) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
                 </div>
-                <div>
-                    <div class="m-hero-val"><?= $statesCount ?></div>
-                    <div class="m-hero-lbl">ولاية سودانية</div>
+
+                <!-- Keyword / School Name Input -->
+                <div class="m-search-input-wrap">
+                    <i class="fas fa-search text-muted me-1" style="font-size:0.85rem;"></i>
+                    <input type="text" name="q" value="<?= e($q) ?>" placeholder="ابحث باسم المدرسة، الحي، أو المنطقة..." autocomplete="off">
+                    <?php if ($q !== '' || $state !== '' || $city !== '' || $stage !== '' || $quick !== ''): ?>
+                        <a href="/mobile/?tab=<?= e($tab) ?>" class="text-muted text-decoration-none px-2" title="إعادة تعيين">
+                            <i class="fas fa-times-circle"></i>
+                        </a>
+                    <?php endif; ?>
                 </div>
-            </div>
+
+                <!-- Working Submit Search Button -->
+                <button type="submit" class="m-search-submit-btn" id="mSearchBtn">
+                    <i class="fas fa-search"></i>
+                    <span>تطبيق البحث وعرض المدارس</span>
+                </button>
+            </form>
         </div>
 
-        <!-- Integrated Search Bar -->
-        <form action="/mobile/" method="GET" class="m-search-box">
-            <input type="hidden" name="tab" value="<?= e($tab) ?>">
-            <?php if ($state): ?><input type="hidden" name="state" value="<?= e($state) ?>"><?php endif; ?>
-            <i class="fas fa-search text-muted"></i>
-            <input type="text" name="q" value="<?= e($q) ?>" placeholder="ابحث باسم المدرسة، الولاية، أو الحي..." class="m-search-input" autocomplete="off">
-            <?php if ($q !== ''): ?>
-                <a href="/mobile/?tab=<?= e($tab) ?><?= $state ? '&state='.urlencode($state) : '' ?>" class="text-muted text-decoration-none px-2">
-                    <i class="fas fa-times-circle"></i>
-                </a>
-            <?php endif; ?>
-        </form>
+        <!-- Quick Filter Pills (مدارس ذكية، الأعلى تقييماً، الأحدث، روضات، أساس، ثانوي) -->
+        <div class="m-quick-pills">
+            <a href="/mobile/?tab=<?= e($tab) ?>" class="m-quick-pill <?= ($quick === '' && $tab !== 'schoplus') ? 'active' : '' ?>">
+                <i class="fas fa-th-large"></i> الكل
+            </a>
+            <a href="/mobile/?tab=schoplus" class="m-quick-pill gold <?= ($tab === 'schoplus' || $quick === 'smart') ? 'active' : '' ?>">
+                <i class="fas fa-bolt text-warning"></i> مدارس SchoPlus
+            </a>
+            <a href="/mobile/?quick=top_rated" class="m-quick-pill <?= $quick === 'top_rated' ? 'active' : '' ?>">
+                <i class="fas fa-star text-warning"></i> الأعلى تقييماً
+            </a>
+            <a href="/mobile/?quick=latest" class="m-quick-pill <?= $quick === 'latest' ? 'active' : '' ?>">
+                <i class="fas fa-sparkles text-primary"></i> المضافة حديثاً
+            </a>
+            <a href="/mobile/?stage=kindergarten" class="m-quick-pill <?= $stage === 'kindergarten' ? 'active' : '' ?>">
+                رياض أطفال
+            </a>
+            <a href="/mobile/?stage=primary" class="m-quick-pill <?= $stage === 'primary' ? 'active' : '' ?>">
+                ابتدائي / أساس
+            </a>
+            <a href="/mobile/?stage=intermediate" class="m-quick-pill <?= $stage === 'intermediate' ? 'active' : '' ?>">
+                متوسطة
+            </a>
+            <a href="/mobile/?stage=secondary" class="m-quick-pill <?= $stage === 'secondary' ? 'active' : '' ?>">
+                ثانوية
+            </a>
+        </div>
 
         <!-- Horizontal States Filter Bar -->
         <div class="m-states-bar">
@@ -935,10 +1432,14 @@ $allNews = $newsStmt->fetchAll();
         <!-- Schools Section Header -->
         <div class="m-sec-head">
             <span class="m-sec-title">
-                <?php if ($tab === 'schoplus'): ?>
+                <?php if ($tab === 'schoplus' || $quick === 'smart'): ?>
                     <i class="fas fa-bolt text-warning"></i> مدارس SchoPlus الذكية
+                <?php elseif ($quick === 'top_rated'): ?>
+                    <i class="fas fa-star text-warning"></i> المدارس الأعلى تقييماً
+                <?php elseif ($quick === 'latest'): ?>
+                    <i class="fas fa-clock text-primary"></i> المدارس المضافة حديثاً
                 <?php elseif ($state !== ''): ?>
-                    <i class="fas fa-map-marker-alt text-danger"></i> مدارس ولاية <?= e($state) ?>
+                    <i class="fas fa-map-marker-alt text-danger"></i> مدارس ولاية <?= e($state) ?> <?= $city ? '— ' . e($city) : '' ?>
                 <?php elseif ($q !== ''): ?>
                     <i class="fas fa-search text-primary"></i> نتائج البحث عن "<?= e($q) ?>"
                 <?php else: ?>
@@ -963,7 +1464,7 @@ $allNews = $newsStmt->fetchAll();
                     $scLogo = !empty($sc['logo_path']) ? '/' . ltrim($sc['logo_path'], '/') : '/assets/images/default-school-logo.svg';
                 ?>
                 <div class="m-school-card">
-                    <a href="/mobile/?school_id=<?= (int)$sc['id'] ?>" class="text-decoration-none text-dark">
+                    <a href="/mobile/?school_id=<?= (int)$sc['id'] ?><?= $state ? '&state='.urlencode($state) : '' ?><?= $q ? '&q='.urlencode($q) : '' ?>" class="text-decoration-none text-dark">
                         <div class="m-card-top">
                             <div class="m-card-avatar">
                                 <img src="<?= e($scLogo) ?>" alt="<?= e($sc['name']) ?>">
@@ -993,7 +1494,7 @@ $allNews = $newsStmt->fetchAll();
                     </a>
 
                     <div class="m-card-actions">
-                        <span class="m-card-tag"><?= e($sc['school_type'] ?? 'مدرسة خاصة') ?></span>
+                        <span class="m-card-tag"><?= SudanGeography::schoolTypeLabel($sc['school_type'] ?? 'private') ?></span>
 
                         <div class="m-card-btns">
                             <?php if (!empty($sc['whatsapp']) || !empty($sc['phone'])): ?>
@@ -1018,7 +1519,7 @@ $allNews = $newsStmt->fetchAll();
 
     <!-- ── Floating Bottom Navigation: Matching SchoPlus 5 Apps ── -->
     <nav class="m-bottom-nav">
-        <a href="/mobile/?tab=home" class="m-nav-link <?= ($tab === 'home' && !$selectedSchool) ? 'active' : '' ?>">
+        <a href="/mobile/?tab=home" class="m-nav-link <?= ($tab === 'home' && !$selectedSchool && $quick === '') ? 'active' : '' ?>">
             <i class="fas fa-home"></i>
             <span>الرئيسية</span>
         </a>
@@ -1029,7 +1530,7 @@ $allNews = $newsStmt->fetchAll();
         </a>
 
         <!-- Prominent Center Tab: Search -->
-        <a href="/mobile/?tab=search" class="m-nav-center-btn <?= $tab === 'search' ? 'active' : '' ?>" title="استكشف المدارس">
+        <a href="/mobile/?tab=home#mobileSearchForm" class="m-nav-center-btn" title="البحث السريع" onclick="focusSearchInput(event)">
             <i class="fas fa-search"></i>
         </a>
 
@@ -1038,11 +1539,109 @@ $allNews = $newsStmt->fetchAll();
             <span>الأخبار</span>
         </a>
 
-        <a href="https://schoplus.sd" target="_blank" class="m-nav-link">
-            <i class="fas fa-info-circle"></i>
-            <span>عن النظام</span>
+        <!-- Button 5: إدارة المدرسة وطلبات الانضمام (Replaced "عن النظام") -->
+        <a href="javascript:void(0)" class="m-nav-link <?= $tab === 'manage' ? 'active' : '' ?>" onclick="openManageSheet()">
+            <i class="fas fa-school"></i>
+            <span>إدارة المدرسة</span>
         </a>
     </nav>
+
+    <!-- ── Action Bottom Sheet: إدارة المدرسة وطلبات الانضمام ── -->
+    <div class="m-bottom-sheet-backdrop" id="manageBackdrop" onclick="closeManageSheet()"></div>
+    <div class="m-bottom-sheet" id="manageSheet">
+        <div class="m-sheet-bar"></div>
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <h5 class="fw-bold mb-0 text-dark" style="font-size: 1.05rem;">
+                <i class="fas fa-user-shield text-primary me-2"></i> إدارة المدرسة بالدليل
+            </h5>
+            <button type="button" class="btn-close" onclick="closeManageSheet()"></button>
+        </div>
+        <p class="text-muted small mb-3" style="font-size: 0.74rem;">
+            الخدمات الرقمية المخصصة لأصحاب وإدارات المدارس السودانية في المنظومة الوطنية الموحدة:
+        </p>
+
+        <!-- Option 1: تسجيل دخول إدارة المدرسة -->
+        <a href="/login.php" class="m-sheet-option">
+            <div class="m-sheet-opt-icon" style="background: #EFF6FF; color: var(--m-brand-blue);">
+                <i class="fas fa-sign-in-alt"></i>
+            </div>
+            <div class="flex-fill">
+                <div class="m-sheet-opt-title">تسجيل الدخول / لوحة المدرسة</div>
+                <div class="m-sheet-opt-desc">إدارة بيانات مدرستك، تحديث الرسوم، الصور، الأخبار، واستقبال طلبات القبول.</div>
+            </div>
+            <i class="fas fa-chevron-left text-muted small"></i>
+        </a>
+
+        <!-- Option 2: طلب انضمام وتسجيل مدرسة جديدة -->
+        <a href="/register.php" class="m-sheet-option">
+            <div class="m-sheet-opt-icon" style="background: #FEF3C7; color: #B45309;">
+                <i class="fas fa-plus-circle"></i>
+            </div>
+            <div class="flex-fill">
+                <div class="m-sheet-opt-title">طلب انضمام مدرسة جديدة</div>
+                <div class="m-sheet-opt-desc">سجل مدرستك الآن مجاناً في الدليل الوطني الرسمي واحصل على صفحة تعريفية متكاملة.</div>
+            </div>
+            <i class="fas fa-chevron-left text-muted small"></i>
+        </a>
+
+        <!-- Option 3: نبذة عن منظومة SchoPlus -->
+        <a href="https://schoplus.sd" target="_blank" class="m-sheet-option">
+            <div class="m-sheet-opt-icon" style="background: #F1F5F9; color: var(--m-brand-navy);">
+                <i class="fas fa-info-circle"></i>
+            </div>
+            <div class="flex-fill">
+                <div class="m-sheet-opt-title">عن منظومة SchoPlus السحابية</div>
+                <div class="m-sheet-opt-desc">تعرف على النظام الإداري والمالي والأكاديمي الذكي الرائد للمدارس.</div>
+            </div>
+            <i class="fas fa-external-link-alt text-muted small"></i>
+        </a>
+    </div>
+
+    <!-- ── JavaScript: City Cascading & Bottom Sheet Interactions ── -->
+    <script>
+        const statesData = <?= json_encode($statesWithCities, JSON_UNESCAPED_UNICODE) ?>;
+        const stateSelect = document.getElementById('mStateSelect');
+        const citySelect = document.getElementById('mCitySelect');
+
+        if (stateSelect && citySelect) {
+            stateSelect.addEventListener('change', function() {
+                const st = this.value;
+                citySelect.innerHTML = '<option value="">جميع المدن / المحليات</option>';
+                if (st && statesData[st]) {
+                    statesData[st].forEach(function(c) {
+                        const opt = document.createElement('option');
+                        opt.value = c;
+                        opt.textContent = c;
+                        citySelect.appendChild(opt);
+                    });
+                }
+            });
+        }
+
+        function focusSearchInput(e) {
+            const form = document.getElementById('mobileSearchForm');
+            if (form) {
+                e.preventDefault();
+                form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                const input = form.querySelector('input[name="q"]');
+                if (input) {
+                    setTimeout(() => input.focus(), 300);
+                }
+            }
+        }
+
+        function openManageSheet() {
+            document.getElementById('manageBackdrop').classList.add('active');
+            document.getElementById('manageSheet').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeManageSheet() {
+            document.getElementById('manageBackdrop').classList.remove('active');
+            document.getElementById('manageSheet').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    </script>
 
 </body>
 </html>
