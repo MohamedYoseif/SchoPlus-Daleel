@@ -814,7 +814,7 @@ require_once __DIR__ . '/header.php';
                     </div>
                     <div class="col-md-4 text-md-start">
                         <a href="https://schoplus.sd" target="_blank" class="btn btn-warning fw-bold text-dark rounded-pill px-4 py-2 shadow-sm">
-                            <i class="fas fa-star me-1"></i> اطلب تجربة النظام مجاناً
+                            <i class="fas fa-star me-1"></i> اطلب تجربة النظام الآن
                         </a>
                     </div>
                 </div>
@@ -906,7 +906,7 @@ require_once __DIR__ . '/header.php';
                         <div class="row g-4">
                             <!-- Basic Info -->
                             <div class="col-12">
-                                <h6 class="fw-bold text-dark pb-2 border-bottom"><i class="fas fa-school text-primary me-2"></i> البيانات الأساسية</h6>
+                                <h6 class="fw-bold text-dark pb-2 border-bottom"><i class="fas fa-school text-primary me-2"></i> البيانات الأساسية والرابط المخصص</h6>
                             </div>
 
                             <div class="col-md-6">
@@ -917,6 +917,19 @@ require_once __DIR__ . '/header.php';
                             <div class="col-md-6">
                                 <label class="form-label small fw-bold text-secondary">اسم المدرسة (إنجليزي)</label>
                                 <input type="text" name="name_en" dir="ltr" class="form-control" value="<?= e($school['name_en'] ?? '') ?>">
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label small fw-bold text-secondary">
+                                    <i class="fas fa-link text-primary me-1"></i> الرابط المخصص لصفحة المدرسة (Slug)
+                                </label>
+                                <div class="input-group" dir="ltr">
+                                    <span class="input-group-text bg-light text-muted font-monospace" style="font-size: 0.74rem;">https://daleel.schoplus.sd/school/</span>
+                                    <input type="text" name="slug" required pattern="[a-zA-Z0-9\-]{3,100}" class="form-control font-monospace fw-bold text-primary" value="<?= e($school['slug']) ?>" placeholder="al-manar-school">
+                                </div>
+                                <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">
+                                    يُكتب بالأحرف الإنجليزية والأرقام والشرطة الوسطية (-) فقط بدون مسافات. يعمل أيضاً عبر الرابط المختصر: <span dir="ltr" class="text-primary fw-bold">daleel.schoplus.sd/s/<?= e($school['slug']) ?></span>
+                                </small>
                             </div>
 
                             <div class="col-md-4">

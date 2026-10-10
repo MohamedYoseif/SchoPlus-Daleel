@@ -91,7 +91,7 @@ require_once __DIR__ . '/header.php';
 
                 <div class="text-center pt-3 border-top">
                     <span class="text-muted small">لم تقم بتسجيل مدرستك بعد؟</span>
-                    <a href="register.php" class="text-primary fw-bold small text-decoration-none ms-1">سجّل مدرستك مجاناً الآن</a>
+                    <a href="register.php" class="text-primary fw-bold small text-decoration-none ms-1">سجّل مدرستك الآن</a>
                 </div>
             </form>
         </div>

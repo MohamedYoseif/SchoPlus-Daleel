@@ -524,7 +524,7 @@ $currSchool = currentSchool();
 <body>
     <!-- Mobile Topbar (visible only on small screens) -->
     <div class="daleel-topbar-mobile">
-        <span class="text-muted"><i class="fas fa-book-reader text-warning me-1"></i> خدمة رقمية مجانية من منظومة ايسكو بلص</span>
+        <span class="text-muted"><i class="fas fa-book-reader text-warning me-1"></i> خدمة رقمية من منظومة ايسكو بلص</span>
         <span>•</span>
         <a href="/register.php" class="text-decoration-none fw-bold d-flex align-items-center gap-1" style="color: var(--brand-gold);">
             <i class="fas fa-plus-circle"></i> سجّل مدرستك
@@ -570,7 +570,7 @@ $currSchool = currentSchool();
                         <i class="fas fa-user-tie text-secondary"></i> دخول أصحاب المدارس
                     </a>
                     <a href="/register.php" class="btn-luxury-primary justify-content-center mt-1">
-                        <i class="fas fa-plus-circle"></i> سجّل مدرستك مجاناً
+                        <i class="fas fa-plus-circle"></i> سجّل مدرستك الآن
                     </a>
                 <?php endif; ?>
             </div>
@@ -585,9 +585,9 @@ $currSchool = currentSchool();
     <div class="daleel-topbar d-none d-md-block">
         <div class="container d-flex justify-content-center align-items-center">
             <div class="d-flex align-items-center gap-3">
-                <span><i class="fas fa-book-reader text-warning me-1"></i> دليل المدارس السودانية — خدمة رقمية مجانية من منظومة ايسكو بلص (SchoPlus)</span>
+                <span><i class="fas fa-book-reader text-warning me-1"></i> دليل المدارس السودانية — خدمة رقمية من منظومة ايسكو بلص (SchoPlus)</span>
                 <span>•</span>
-                <span class="text-success"><i class="fas fa-check-circle me-1"></i> إضافة وتصفح بيانات المدارس مجاناً دون أي رسوم</span>
+                <span class="text-success"><i class="fas fa-check-circle me-1"></i> تصفح المدارس وتواصل مع إداراتها مباشرة</span>
             </div>
         </div>
     </div>
@@ -630,7 +630,7 @@ $currSchool = currentSchool();
                     </a>
                     <a href="/register.php" class="btn-luxury-primary d-none d-lg-inline-flex">
                         <i class="fas fa-plus-circle"></i>
-                        <span>سجّل مدرستك مجاناً</span>
+                        <span>سجّل مدرستك الآن</span>
                     </a>
                 <?php endif; ?>
             </div>

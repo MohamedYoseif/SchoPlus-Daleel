@@ -11,7 +11,7 @@
                         </a>
                     </div>
                     <p class="text-muted leading-relaxed text-center mb-0" style="font-size: 0.73rem; line-height: 1.75;">
-                        خدمة رقمية مجانية مقدمة من منظومة <strong>ايسكو بلص (SchoPlus)</strong>، تهدف إلى مساعدة أولياء الأمور والطلاب في البحث والتعرف على المدارس في مختلف ولايات السودان، وإتاحة مساحة مفتوحة ومجانية لأصحاب المدارس للتعريف بمدارسهم وخدماتهم التعليمية.
+                        خدمة رقمية مقدمة من منظومة <strong>ايسكو بلص (SchoPlus)</strong>، تهدف إلى مساعدة أولياء الأمور والطلاب في البحث والتعرف على المدارس في مختلف ولايات السودان، وإتاحة مساحة مفتوحة لأصحاب المدارس للتعريف بمدارسهم وخدماتهم التعليمية.
                     </p>
                 </div>
 
@@ -26,9 +26,9 @@
                 <div class="col-lg-3 col-md-6 col-6">
                     <h5 class="fw-bold text-dark mb-3" style="font-size: 0.88rem;">لأصحاب المدارس</h5>
                     <a href="/login.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">بوابة مدراء المدارس</a>
-                    <a href="/register.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">تسجيل المدرسة مجاناً</a>
+                    <a href="/register.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">تسجيل مدرسة جديدة</a>
                     <a href="https://schoplus.sd/pricing.html" target="_blank" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">باقات نظام SchoPlus</a>
-                    <a href="https://schoplus.sd/demo.html" target="_blank" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">طلب عرض تجريبي مجاني</a>
+                    <a href="https://schoplus.sd/demo.html" target="_blank" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">طلب عرض تجريبي للنظام</a>
                 </div>
 
                 <div class="col-lg-3 col-md-6">
@@ -43,7 +43,7 @@
                         <i class="fas fa-plus-circle text-warning me-1"></i> تسجيل مدرسة جديدة
                     </a>
                     <a href="/register.php" class="btn-luxury-gold btn-sm w-100 justify-content-center" style="font-size: 0.78rem;">
-                        <i class="fas fa-school"></i> سجّل مدرستك مجاناً
+                        <i class="fas fa-school"></i> سجّل مدرستك الآن
                     </a>
                 </div>
             </div>
@@ -54,7 +54,7 @@
                     <i class="fas fa-info-circle text-warning mt-1" style="font-size: 0.85rem; flex-shrink: 0;"></i>
                     <div style="font-size: 0.71rem; color: #4B5563; line-height: 1.7;">
                         <strong class="text-dark">سياسة الاستخدام وإخلاء المسؤولية:</strong>
-                        هذا الدليل هو خدمة رقمية مجانية مقدمة من منظومة <strong>ايسكو بلص (SchoPlus)</strong> ولا يُعد دليلاً رسمياً معتمداً من وزارة التربية والتعليم أو أي جهة حكومية. كافة البيانات والمعلومات والرسوم المنشورة تتم إضافتها وإدارتها مباشرة من قِبل أصحاب وإدارات المدارس على مسؤوليتهم، ولا تتلقى منظومة ايسكو بلص أي مقابل مادي نظير نشر أو إدراج المدارس في الدليل.
+                        هذا الدليل هو خدمة رقمية مقدمة من منظومة <strong>ايسكو بلص (SchoPlus)</strong> ولا يُعد دليلاً رسمياً معتمداً من وزارة التربية والتعليم أو أي جهة حكومية. كافة البيانات والمعلومات والرسوم المنشورة تتم إضافتها وإدارتها مباشرة من قِبل أصحاب وإدارات المدارس على مسؤوليتهم.
                     </div>
                 </div>
             </div>

@@ -456,7 +456,7 @@ if ($isSearching) {
             </h1>
 
             <p class="hero-v2-desc">
-                خدمة رقمية مفتوحة ومجانية تجمع بيانات المدارس السودانية، مراحلها التعليمية، مرافقها، وفروعها في مكان واحد؛ لتسهيل وصول أولياء الأمور والطلاب للمعلومات، وإتاحة الفرصة لأصحاب المدارس للتعريف بمدارسهم دون أي مقابل مادي.
+                خدمة رقمية مفتوحة تجمع بيانات المدارس السودانية، مراحلها التعليمية، مرافقها، وفروعها في مكان واحد؛ لتسهيل وصول أولياء الأمور والطلاب للمعلومات، وإتاحة الفرصة لأصحاب المدارس للتعريف بمدارسهم وخدماتهم التعليمية.
             </p>
 
             <!-- SMART UNIFIED FILTER BAR (Preserved & Integrated inside Hero) -->
@@ -552,11 +552,11 @@ if ($isSearching) {
                 </div>
                 <div class="hero-highlight-card">
                     <div class="hero-highlight-icon" style="background: #F8FAFC; color: var(--brand-navy);">
-                        <i class="fas fa-hand-holding-heart"></i>
+                        <i class="fas fa-star text-warning"></i>
                     </div>
                     <div>
-                        <div class="hero-highlight-val" style="font-size: 0.82rem;">مجاني 100%</div>
-                        <div class="hero-highlight-lbl">للأهالي وأصحاب المدارس</div>
+                        <div class="hero-highlight-val" data-countup="<?= $statReviews ?>" data-suffix="+"><?= number_format($statReviews) ?>+</div>
+                        <div class="hero-highlight-lbl">تقييم ومشاركة للأهالي</div>
                     </div>
                 </div>
             </div>
@@ -980,24 +980,23 @@ if ($isSearching) {
 
 <?php endif; ?>
 
-<!-- SECTION 5: SCHOOL OWNERS CTA (Refined white text for free registration card) -->
+<!-- SECTION 5: SCHOOL OWNERS CTA -->
 <section class="py-5" style="background: linear-gradient(135deg, #0B2A52 0%, #16467D 100%); color: #FFFFFF;">
     <div class="container">
         <div class="row align-items-center g-4">
             <div class="col-lg-8">
-                <!-- Free Registration Badge: Pure white text with elegant golden accent -->
                 <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(245, 158, 11, 0.22); border: 1px solid rgba(252, 211, 77, 0.45); color: #FFFFFF; font-weight: 700; font-size: 0.74rem; padding: 5px 14px; border-radius: 20px; margin-bottom: 14px;">
-                    <i class="fas fa-gift text-warning"></i>
-                    <span style="color: #FFFFFF !important;">تسجيل مجاني بالكامل</span>
+                    <i class="fas fa-school text-warning"></i>
+                    <span style="color: #FFFFFF !important;">انضم إلى دليل المدارس السودانية</span>
                 </div>
                 <h2 class="fw-bold mb-2" style="font-size: 1.35rem; color: #FFFFFF;">هل تدير مدرسة أو مجمعاً تعليمياً؟</h2>
                 <p class="mb-4" style="max-width: 650px; font-size: 0.76rem; color: rgba(255, 255, 255, 0.9); line-height: 1.65;">
-                    خدمة مجانية بالكامل من منظومة ايسكو بلص (SchoPlus) دون أي رسوم أو مقابل مادي. أضف بيانات مدرستك بنفسك، أنشئ صفحة تعريفية متكاملة، انشر أخبار ومناشط مدرستك، واستقبل استفسارات أولياء الأمور مباشرة.
+                    خدمة رقمية مقدمة من منظومة ايسكو بلص (SchoPlus). أضف بيانات مدرستك بنفسك، أنشئ صفحة تعريفية متكاملة، انشر أخبار ومناشط مدرستك، واستقبل استفسارات أولياء الأمور مباشرة.
                 </p>
                 <div class="d-flex flex-wrap gap-2">
                     <a href="/register.php" class="btn-luxury-gold px-3 py-2" style="font-size: 0.78rem;">
                         <i class="fas fa-school"></i>
-                        <span>سجّل مدرستك الآن مجاناً</span>
+                        <span>سجّل مدرستك الآن</span>
                     </a>
                     <a href="/login.php" class="btn btn-outline-light px-3 py-2 rounded-3 fw-bold" style="font-size: 0.78rem;">
                         <i class="fas fa-sign-in-alt me-1"></i>

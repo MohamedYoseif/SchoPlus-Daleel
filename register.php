@@ -186,7 +186,7 @@ $statesWithCities = SudanGeography::statesWithCities();
         <div class="text-center mb-4">
             <img src="/assets/images/logo-icon.png" alt="دليل المدارس السودانية" class="mx-auto mb-3 d-block" style="width: 64px; height: 64px; object-fit: contain;">
             <span class="badge bg-warning text-dark px-3 py-1 rounded-pill fw-bold mb-2 shadow-sm" style="font-size: 0.72rem;">
-                <i class="fas fa-plus-circle me-1"></i> انضمام مجاني وسريع
+                <i class="fas fa-plus-circle me-1"></i> تسجيل سريع ومباشر
             </span>
             <h2 class="fw-bold text-dark mb-2" style="font-size: 1.25rem;">سجّل مدرستك في دليل المدارس السودانية</h2>
             <p class="text-muted" style="max-width: 620px; margin: auto; font-size: 0.76rem; line-height: 1.65;">
@@ -365,7 +365,7 @@ $statesWithCities = SudanGeography::statesWithCities();
                     <div class="d-flex align-items-start gap-2">
                         <i class="fas fa-info-circle text-primary mt-1"></i>
                         <small class="text-secondary lh-base">
-                            <strong>سياسة الاستخدام والتسجيل:</strong> هذا الدليل هو خدمة رقمية مجانية مقدمة من منظومة <strong>ايسكو بلص (SchoPlus)</strong> دون أي مقابل مادي، وليس دليلاً رسمياً تابعاً لوزارة التربية والتعليم. جميع البيانات والصور والرسوم المنشورة تتم إضافتها وإدارتها من قِبل إدارة المدرسة وعلى مسؤوليتها. بمجرد التسجيل يمكنك الدخول مباشرة للوحة التحكم وإكمال ملف مدرستك.
+                            <strong>سياسة الاستخدام والتسجيل:</strong> هذا الدليل هو خدمة رقمية مقدمة من منظومة <strong>ايسكو بلص (SchoPlus)</strong>، وليس دليلاً رسمياً تابعاً لوزارة التربية والتعليم. جميع البيانات والصور والرسوم المنشورة تتم إضافتها وإدارتها من قِبل إدارة المدرسة وعلى مسؤوليتها. بمجرد التسجيل يمكنك الدخول مباشرة للوحة التحكم وإكمال ملف مدرستك.
                         </small>
                     </div>
                 </div>

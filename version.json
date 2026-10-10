@@ -1,7 +1,7 @@
 {
-    "release_notes": "daleel.schoplus.sd — إعادة نافذة إضافة الخبر المنبثقة وحذف خيار رفع الصورة والاعتماد على الصورة الافتراضية مع زر حفظ ونشر بارز",
-    "min_php_version": "8.2",
-    "version": "3.5.59",
+    "version": "3.5.60",
     "release_date": "2026-10-10",
-    "version_type": "enterprise"
+    "version_type": "enterprise",
+    "min_php_version": "8.2",
+    "release_notes": "daleel.schoplus.sd — إضافة الترتيب التسلسلي للمدارس في الدليل، إتاحة تعديل الرابط المخصص (Slug) من لوحة المدرسة، وحذف كلمة مجاني من جميع صفحات الدليل"
 }
