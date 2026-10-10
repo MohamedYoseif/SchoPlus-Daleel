@@ -229,7 +229,12 @@ $statesWithCities = SudanGeography::statesWithCities();
 
                         <div class="col-md-5">
                             <label class="form-label small fw-bold text-secondary">اسم المدرسة باللغة الإنجليزية (اختياري)</label>
-                            <input type="text" name="name_en" dir="ltr" class="form-control" value="<?= e($formData['name_en'] ?? '') ?>" placeholder="e.g. Al-Manar Model Schools">
+                            <input type="text" name="name_en" id="regNameEn" dir="ltr" class="form-control" value="<?= e($formData['name_en'] ?? '') ?>" placeholder="e.g. Al-Manar Model Schools">
+                            <div class="form-text mt-1 d-flex align-items-center gap-1" style="font-size: 0.74rem;">
+                                <i class="fas fa-link text-primary"></i>
+                                <span>الرابط العام المخصص:</span>
+                                <code id="regSlugPreview" class="text-primary fw-bold dir-ltr">daleel.schoplus.sd/school.php?slug=...</code>
+                            </div>
                         </div>
 
                         <!-- State & City -->
@@ -421,9 +426,20 @@ $statesWithCities = SudanGeography::statesWithCities();
         populateCities(this.value);
     });
 
-    // Populate on load
-    if (stateSelect.value) {
-        populateCities(stateSelect.value);
+    // Live slug preview from English name
+    const regNameEn = document.getElementById('regNameEn');
+    const regSlugPreview = document.getElementById('regSlugPreview');
+    if (regNameEn && regSlugPreview) {
+        function updateRegSlug() {
+            let val = regNameEn.value.toLowerCase()
+                .replace(/[\s,،_./\\+=?!@#$%^&*()~`'"[\]{}|<>:;]+/g, '-')
+                .replace(/[^a-z0-9-]/g, '')
+                .replace(/-+/g, '-')
+                .replace(/^-+|-+$/g, '');
+            regSlugPreview.textContent = val ? 'daleel.schoplus.sd/school.php?slug=' + val : 'daleel.schoplus.sd/...';
+        }
+        regNameEn.addEventListener('input', updateRegSlug);
+        updateRegSlug();
     }
 </script>
 

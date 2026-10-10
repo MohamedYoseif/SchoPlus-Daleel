@@ -1,7 +1,7 @@
 {
-    "version": "3.5.71",
+    "version": "3.5.73",
     "release_date": "2026-10-10",
     "version_type": "enterprise",
     "min_php_version": "8.2",
-    "release_notes": "daleel.schoplus.sd — إصلاح استثناء الانهيار ClassCastException في بطاقة المدرسة لتطبيق الأندرويد، إعادة بناء الـ APK وإطلاقه بنجاح مع خط Cairo وهوية المنظومة"
+    "release_notes": "daleel.schoplus.sd — توليد تلقائي للرابط المخصص (Slug) من الاسم بالإنجليزية، والتصحيح اللحظي للفواصل والمسافات والرموز، مع الفحص الفوري للتوفر عبر AJAX واقتراح البدائل"
 }

@@ -1526,21 +1526,37 @@ require_once __DIR__ . '/header.php';
                                         </div>
 
                                         <div class="col-md-6">
-                                            <label class="form-label">اسم المدرسة باللغة الإنجليزية (اختياري)</label>
-                                            <input type="text" name="name_en" dir="ltr" class="form-control" value="<?= e($school['name_en'] ?? '') ?>" placeholder="e.g. Al-Manar Model Schools">
+                                            <div class="d-flex align-items-center justify-content-between mb-1">
+                                                <label class="form-label mb-0">اسم المدرسة باللغة الإنجليزية (اختياري)</label>
+                                                <small class="text-muted" style="font-size: 0.68rem;"><i class="fas fa-magic text-warning me-1"></i> يُولّد الرابط تلقائياً</small>
+                                            </div>
+                                            <input type="text" name="name_en" id="schoolNameEn" dir="ltr" class="form-control" value="<?= e($school['name_en'] ?? '') ?>" placeholder="e.g. Al-Manar Model Schools">
                                         </div>
 
                                         <div class="col-12">
-                                            <label class="form-label">
-                                                <i class="fas fa-link text-primary me-1"></i> الرابط المخصص لصفحة المدرسة (Slug) <span class="text-danger">*</span>
-                                            </label>
+                                            <div class="d-flex align-items-center justify-content-between mb-1 flex-wrap gap-1">
+                                                <label class="form-label mb-0">
+                                                    <i class="fas fa-link text-primary me-1"></i> الرابط المخصص لصفحة المدرسة (Slug) <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <button type="button" class="btn btn-sm btn-link p-0 text-decoration-none text-primary fw-bold" id="btnAutoGenerateSlug" style="font-size: 0.72rem;">
+                                                        <i class="fas fa-wand-magic-sparkles text-warning me-1"></i> توليد تلقائي من الاسم
+                                                    </button>
+                                                </div>
+                                            </div>
                                             <div class="input-group" dir="ltr">
                                                 <span class="input-group-text bg-light text-muted font-monospace" style="font-size: 0.74rem;">https://daleel.schoplus.sd/school/</span>
-                                                <input type="text" name="slug" required pattern="[a-zA-Z0-9\-]{3,100}" class="form-control font-monospace fw-bold text-primary" value="<?= e($school['slug']) ?>" placeholder="al-manar-school">
+                                                <input type="text" name="slug" id="schoolSlugInput" required pattern="[a-zA-Z0-9\-]{3,100}" class="form-control font-monospace fw-bold text-primary" value="<?= e($school['slug']) ?>" placeholder="al-manar-school" autocomplete="off">
+                                                <span class="input-group-text bg-white" id="slugStatusIcon" style="min-width: 44px; text-align: center;">
+                                                    <i class="fas fa-check-circle text-success" title="الرابط متاح"></i>
+                                                </span>
                                             </div>
-                                            <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">
-                                                يُكتب بالأحرف الإنجليزية والأرقام والشرطة الوسطية (-) فقط. يعمل أيضاً عبر الرابط المختصر: <span dir="ltr" class="text-primary fw-bold">daleel.schoplus.sd/s/<?= e($school['slug']) ?></span>
-                                            </small>
+                                            <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mt-1">
+                                                <small class="text-muted d-block" style="font-size: 0.7rem;">
+                                                    يُكتب بالأحرف الإنجليزية والأرقام والشرطة الوسطية (-) فقط. الرابط المختصر: <span dir="ltr" class="text-primary fw-bold">daleel.schoplus.sd/s/<span id="slugPreviewText"><?= e($school['slug']) ?></span></span>
+                                                </small>
+                                                <div id="slugFeedback" class="small fw-bold" style="font-size: 0.72rem;"></div>
+                                            </div>
                                         </div>
 
                                         <div class="col-md-3">
@@ -3257,6 +3273,164 @@ function escapeHtml(text) {
     if (!text) return '';
     return String(text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
+
+// ========================================================
+// Automatic Slug Generation & Live Formatting & Availability Check
+// ========================================================
+document.addEventListener('DOMContentLoaded', function() {
+    const nameEnInput = document.getElementById('schoolNameEn');
+    const slugInput = document.getElementById('schoolSlugInput');
+    const slugIcon = document.getElementById('slugStatusIcon');
+    const slugFeedback = document.getElementById('slugFeedback');
+    const slugPreview = document.getElementById('slugPreviewText');
+    const btnAuto = document.getElementById('btnAutoGenerateSlug');
+    const schoolId = <?= (int)$schoolId ?>;
+    const initialSlug = <?= json_encode((string)$school['slug']) ?>;
+
+    if (!slugInput) return;
+
+    let checkTimeout = null;
+    let isUserManuallyTypingSlug = false;
+
+    // Helper: Sanitize string into valid kebab-case slug
+    function sanitizeSlug(raw) {
+        if (!raw) return '';
+        let s = raw.toLowerCase();
+        // Replace spaces, commas, Arabic commas, underscores, slashes, punctuation with hyphens
+        s = s.replace(/[\s,،_./\\+=?!@#$%^&*()~`'"[\]{}|<>:;]+/g, '-');
+        // Remove non-alphanumeric and non-hyphen
+        s = s.replace(/[^a-z0-9-]/g, '');
+        // Collapse multiple hyphens
+        s = s.replace(/-+/g, '-');
+        return s;
+    }
+
+    // Live Availability Check via API
+    function checkSlug(slug) {
+        if (!slug || slug.length < 3) {
+            if (slugIcon) slugIcon.innerHTML = '<i class="fas fa-minus-circle text-muted"></i>';
+            if (slugFeedback) slugFeedback.innerHTML = '<span class="text-muted"><i class="fas fa-info-circle me-1"></i> يتكون الرابط من 3 أحرف إنجليزية أو أرقام على الأقل</span>';
+            slugInput.classList.remove('is-valid', 'is-invalid');
+            return;
+        }
+
+        if (slugIcon) slugIcon.innerHTML = '<i class="fas fa-spinner fa-spin text-primary"></i>';
+        if (slugFeedback) slugFeedback.innerHTML = '<span class="text-muted"><i class="fas fa-spinner fa-spin me-1"></i> جاري فحص توفر الرابط...</span>';
+
+        fetch(`/api/index.php?action=check_slug&slug=${encodeURIComponent(slug)}&school_id=${schoolId}`)
+            .then(r => r.json())
+            .then(res => {
+                if (res.status === 'available') {
+                    if (slugIcon) slugIcon.innerHTML = '<i class="fas fa-check-circle text-success" title="متاح"></i>';
+                    if (slugFeedback) slugFeedback.innerHTML = '<span class="text-success"><i class="fas fa-check-circle me-1"></i> الرابط متاح ومناسب للاستخدام!</span>';
+                    slugInput.classList.remove('is-invalid');
+                    slugInput.classList.add('is-valid');
+                } else if (res.status === 'current') {
+                    if (slugIcon) slugIcon.innerHTML = '<i class="fas fa-check-circle text-success" title="معتمد"></i>';
+                    if (slugFeedback) slugFeedback.innerHTML = '<span class="text-success"><i class="fas fa-check-circle me-1"></i> هذا هو الرابط الحالي المعتمد لمدرستكم.</span>';
+                    slugInput.classList.remove('is-invalid', 'is-valid');
+                } else if (res.status === 'taken') {
+                    if (slugIcon) slugIcon.innerHTML = '<i class="fas fa-times-circle text-danger" title="مستخدم"></i>';
+                    let sugHtml = '';
+                    if (res.suggestion) {
+                        sugHtml = ` <button type="button" class="btn btn-sm btn-link p-0 text-primary text-decoration-underline fw-bold" onclick="window.applySlugSuggestion('${res.suggestion}')">استخدم المقترح (${res.suggestion})</button>`;
+                    }
+                    if (slugFeedback) slugFeedback.innerHTML = `<span class="text-danger"><i class="fas fa-times-circle me-1"></i> ${res.message}${sugHtml}</span>`;
+                    slugInput.classList.remove('is-valid');
+                    slugInput.classList.add('is-invalid');
+                } else {
+                    if (slugIcon) slugIcon.innerHTML = '<i class="fas fa-exclamation-triangle text-warning"></i>';
+                    if (slugFeedback) slugFeedback.innerHTML = `<span class="text-warning"><i class="fas fa-exclamation-triangle me-1"></i> ${res.message}</span>`;
+                    slugInput.classList.remove('is-valid');
+                    slugInput.classList.add('is-invalid');
+                }
+            })
+            .catch(() => {
+                if (slugIcon) slugIcon.innerHTML = '<i class="fas fa-check text-muted"></i>';
+                if (slugFeedback) slugFeedback.innerHTML = '';
+            });
+    }
+
+    window.applySlugSuggestion = function(suggestion) {
+        slugInput.value = suggestion;
+        if (slugPreview) slugPreview.textContent = suggestion;
+        checkSlug(suggestion);
+    };
+
+    // Auto-generate from English Name on typing
+    if (nameEnInput) {
+        nameEnInput.addEventListener('input', function() {
+            // Auto-update slug if user hasn't manually edited slug, or slug is empty, or matches current initial
+            if (!isUserManuallyTypingSlug || slugInput.value === '' || slugInput.value === initialSlug) {
+                let generated = sanitizeSlug(this.value).replace(/^-+|-+$/g, '');
+                if (generated) {
+                    slugInput.value = generated;
+                    if (slugPreview) slugPreview.textContent = generated;
+                    clearTimeout(checkTimeout);
+                    checkTimeout = setTimeout(() => checkSlug(generated), 350);
+                }
+            }
+        });
+    }
+
+    // Auto-generate button click
+    if (btnAuto) {
+        btnAuto.addEventListener('click', function(e) {
+            e.preventDefault();
+            const source = (nameEnInput && nameEnInput.value.trim()) ? nameEnInput.value : '';
+            if (source) {
+                let clean = sanitizeSlug(source).replace(/^-+|-+$/g, '');
+                slugInput.value = clean;
+                if (slugPreview) slugPreview.textContent = clean;
+                isUserManuallyTypingSlug = false;
+                checkSlug(clean);
+            } else {
+                alert('يرجى كتابة اسم المدرسة باللغة الإنجليزية أولاً ليتم توليد الرابط منه تلقائياً.');
+                if (nameEnInput) nameEnInput.focus();
+            }
+        });
+    }
+
+    // On Slug Input: live auto-correct / format (spaces, commas, uppercase -> clean lowercase with single dashes)
+    slugInput.addEventListener('input', function() {
+        isUserManuallyTypingSlug = true;
+        const originalVal = this.value;
+
+        // Auto-correct: convert spaces, commas, uppercase to lowercase and single dashes
+        let clean = this.value.toLowerCase()
+            .replace(/[\s,،_./\\+=?!@#$%^&*()~`'"[\]{}|<>:;]+/g, '-')
+            .replace(/[^a-z0-9-]/g, '')
+            .replace(/-+/g, '-');
+
+        // Only update value if different to keep cursor position natural
+        if (clean !== originalVal) {
+            this.value = clean;
+        }
+
+        if (slugPreview) slugPreview.textContent = clean || '...';
+
+        clearTimeout(checkTimeout);
+        checkTimeout = setTimeout(() => {
+            const trimmed = clean.replace(/^-+|-+$/g, '');
+            checkSlug(trimmed);
+        }, 350);
+    });
+
+    // On blur: trim leading & trailing dashes
+    slugInput.addEventListener('blur', function() {
+        const trimmed = this.value.replace(/^-+|-+$/g, '');
+        if (trimmed !== this.value) {
+            this.value = trimmed;
+            if (slugPreview) slugPreview.textContent = trimmed || '...';
+        }
+        checkSlug(trimmed);
+    });
+
+    // Initial check on load
+    if (slugInput.value.trim()) {
+        checkSlug(slugInput.value.trim());
+    }
+});
 </script>
 
 <?php

@@ -9,7 +9,7 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
 
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'OPTIONS') {
     http_response_code(200);
     exit;
 }
@@ -371,6 +371,89 @@ if ($action === 'meta') {
             'stages'             => $stages,
             'types'              => $types
         ]
+    ]);
+}
+
+// -------------------------------------------------------------
+// ACTION: CHECK SLUG AVAILABILITY & SANITIZE
+// -------------------------------------------------------------
+if ($action === 'check_slug') {
+    $rawSlug = trim((string)($_GET['slug'] ?? ''));
+    $schoolId = (int)($_GET['school_id'] ?? 0);
+
+    // Sanitize slug (replace spaces, commas, special chars with single hyphens, lowercase)
+    $cleanSlug = preg_replace('/[^a-z0-9\-]+/i', '-', strtolower($rawSlug));
+    $cleanSlug = trim(preg_replace('/-+/', '-', $cleanSlug), '-');
+
+    $reservedSlugs = ['index.php', 'index', 'home', 'schools', 'school', 's', 'admin', 'api', 'dashboard', 'login', 'register', 'logout'];
+
+    if (strlen($cleanSlug) < 3) {
+        jsonRes([
+            'success'    => true,
+            'status'     => 'invalid',
+            'available'  => false,
+            'clean_slug' => $cleanSlug,
+            'message'    => 'يجب أن يتكون الرابط من 3 أحرف إنجليزية أو أرقام على الأقل.'
+        ]);
+    }
+
+    if (in_array($cleanSlug, $reservedSlugs, true)) {
+        jsonRes([
+            'success'    => true,
+            'status'     => 'reserved',
+            'available'  => false,
+            'clean_slug' => $cleanSlug,
+            'message'    => 'هذا الرابط محجوز للنظام، يرجى اختيار رابط آخر.'
+        ]);
+    }
+
+    // Check if this slug belongs to the current school
+    if ($schoolId > 0) {
+        $currChk = $pdo->prepare("SELECT id FROM daleel_schools WHERE id = ? AND slug = ? LIMIT 1");
+        $currChk->execute([$schoolId, $cleanSlug]);
+        if ($currChk->fetch()) {
+            jsonRes([
+                'success'    => true,
+                'status'     => 'current',
+                'available'  => true,
+                'clean_slug' => $cleanSlug,
+                'message'    => 'هذا هو رابط مدرستكم المعتمد حالياً.'
+            ]);
+        }
+    }
+
+    // Check if taken by another school
+    $chk = $pdo->prepare("SELECT id FROM daleel_schools WHERE slug = ? AND id != ? LIMIT 1");
+    $chk->execute([$cleanSlug, $schoolId]);
+    $taken = (bool)$chk->fetch();
+
+    if ($taken) {
+        $counter = 1;
+        $suggestion = $cleanSlug . '-' . $counter;
+        while (true) {
+            $chk2 = $pdo->prepare("SELECT id FROM daleel_schools WHERE slug = ? AND id != ? LIMIT 1");
+            $chk2->execute([$suggestion, $schoolId]);
+            if (!$chk2->fetch()) break;
+            $counter++;
+            $suggestion = $cleanSlug . '-' . $counter;
+        }
+
+        jsonRes([
+            'success'    => true,
+            'status'     => 'taken',
+            'available'  => false,
+            'clean_slug' => $cleanSlug,
+            'suggestion' => $suggestion,
+            'message'    => 'الرابط (' . $cleanSlug . ') مستخدم بالفعل لمدرسة أخرى.'
+        ]);
+    }
+
+    jsonRes([
+        'success'    => true,
+        'status'     => 'available',
+        'available'  => true,
+        'clean_slug' => $cleanSlug,
+        'message'    => 'الرابط متاح للاستخدام!'
     ]);
 }
 
