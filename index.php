@@ -381,10 +381,46 @@ if ($isSearching) {
     </div>
 </section>
 
+<!-- STATES SLIDER (CAROUSEL) - Always visible whether searching or on default view -->
+<section class="mb-4" id="states-slider-section">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <div>
+                <span style="color: var(--brand-gold); font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">
+                    <i class="fas fa-map-marked-alt"></i> التوزيع الجغرافي
+                </span>
+                <h3 style="font-size: 1rem; font-weight: 700; color: var(--brand-navy); margin: 0;">تصفح المدارس حسب الولايات</h3>
+            </div>
+            <div class="d-none d-md-block text-muted small" style="font-size: 0.7rem;">
+                اسحب لتصفح كافة ولايات السودان الـ 18 <i class="fas fa-arrows-left-right text-warning ms-1"></i>
+            </div>
+        </div>
+
+        <!-- States Slider: Exactly 3 cards visible simultaneously on mobile -->
+        <div class="states-slider-container">
+            <?php foreach($allStatesList as $stName): ?>
+                <?php 
+                    $countInState = $stateCounts[$stName] ?? 0;
+                    $isSelectedState = ($state === $stName);
+                    // If already clicked, clicking again resets state to show all; otherwise filters by state
+                    $stateUrl = $isSelectedState ? '/' : '/?state=' . urlencode($stName);
+                ?>
+                <a href="<?= $stateUrl ?>" class="state-slide-card <?= $isSelectedState ? 'active' : '' ?>" title="مدارس ولاية <?= e($stName) ?>">
+                    <div class="state-slide-icon">
+                        <i class="fas fa-landmark"></i>
+                    </div>
+                    <div class="state-slide-title"><?= e($stName) ?></div>
+                    <div class="state-slide-count"><?= $countInState ?> <?= $countInState == 1 ? 'مدرسة' : ($countInState > 2 && $countInState < 11 ? 'مدارس' : 'مدرسة') ?></div>
+                </a>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+
 <?php if ($isSearching): ?>
     <!-- ==========================================
          CASE A: SEARCH / DEDICATED VIEW ACTIVE
-         Results appear immediately below the filter
+         Results appear immediately below the states slider
          ========================================== -->
     <section class="py-4" id="search-results-section">
         <div class="container">
@@ -513,47 +549,12 @@ if ($isSearching) {
 <?php else: ?>
     <!-- ==========================================
          CASE B: DEFAULT HOME VIEW (NOT SEARCHING)
-         1. States Carousel (3 cards on mobile)
-         2. SchoPlus Smart Schools (max 5 random)
-         3. Top-Rated Schools (max 5 random)
-         4. Recently Added Schools (max 5 latest)
+         1. SchoPlus Smart Schools (max 5 random)
+         2. Top-Rated Schools (max 5 random)
+         3. Recently Added Schools (max 5 latest)
          ========================================== -->
 
-    <!-- SECTION 1: STATES SLIDER (CAROUSEL) -->
-    <section class="mb-4">
-        <div class="container">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-                <div>
-                    <span style="color: var(--brand-gold); font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">
-                        <i class="fas fa-map-marked-alt"></i> التوزيع الجغرافي
-                    </span>
-                    <h3 style="font-size: 1rem; font-weight: 700; color: var(--brand-navy); margin: 0;">تصفح المدارس حسب الولايات</h3>
-                </div>
-                <div class="d-none d-md-block text-muted small" style="font-size: 0.7rem;">
-                    اسحب لتصفح كافة ولايات السودان الـ 18 <i class="fas fa-arrows-left-right text-warning ms-1"></i>
-                </div>
-            </div>
-
-            <!-- States Slider: Exactly 3 cards visible simultaneously on mobile -->
-            <div class="states-slider-container">
-                <?php foreach($allStatesList as $stName): ?>
-                    <?php 
-                        $countInState = $stateCounts[$stName] ?? 0;
-                        $stateUrl = '/?state=' . urlencode($stName);
-                    ?>
-                    <a href="<?= $stateUrl ?>" class="state-slide-card" title="مدارس ولاية <?= e($stName) ?>">
-                        <div class="state-slide-icon">
-                            <i class="fas fa-landmark"></i>
-                        </div>
-                        <div class="state-slide-title"><?= e($stName) ?></div>
-                        <div class="state-slide-count"><?= $countInState ?> <?= $countInState == 1 ? 'مدرسة' : ($countInState > 2 && $countInState < 11 ? 'مدارس' : 'مدرسة') ?></div>
-                    </a>
-                <?php endforeach; ?>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION 2: SCHOPLUS SMART SCHOOLS (MAX 5 RANDOM) -->
+    <!-- SECTION 1: SCHOPLUS SMART SCHOOLS (MAX 5 RANDOM) -->
     <?php if (!empty($schoplusSchools)): ?>
     <section id="schoplus-schools" class="py-4" style="background-color: #F8F3EA; border-top: 1px solid #EAE2D5; border-bottom: 1px solid #EAE2D5;">
         <div class="container">
