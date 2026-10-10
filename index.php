@@ -116,7 +116,7 @@ $genderTypes = SudanGeography::genderTypes();
         </p>
 
         <!-- Fast Search Box inside Hero -->
-        <form action="index.php" method="GET" style="background: #FFFFFF; border: 1px solid #E2D8C9; border-radius: 20px; padding: 12px; box-shadow: 0 10px 30px -5px rgba(50, 40, 20, 0.08); max-width: 820px; margin: 0 auto;">
+        <form action="/" method="GET" style="background: #FFFFFF; border: 1px solid #E2D8C9; border-radius: 20px; padding: 12px; box-shadow: 0 10px 30px -5px rgba(50, 40, 20, 0.08); max-width: 820px; margin: 0 auto;">
             <div class="row g-2 align-items-center">
                 <div class="col-lg-5 col-md-4">
                     <div class="d-flex align-items-center px-2">
@@ -191,7 +191,7 @@ $genderTypes = SudanGeography::genderTypes();
                 </p>
             </div>
             <div class="mt-3 mt-md-0">
-                <a href="index.php?schoplus_only=1#search-section" class="btn-luxury-outline btn-sm">
+                <a href="/?schoplus_only=1#search-section" class="btn-luxury-outline btn-sm">
                     <span>عرض كافة مدارس SchoPlus</span>
                     <i class="fas fa-arrow-left"></i>
                 </a>
@@ -226,7 +226,7 @@ $genderTypes = SudanGeography::genderTypes();
                         </div>
 
                         <div style="padding: 34px 20px 20px; display: flex; flex-direction: column;">
-                            <a href="school/<?= urlencode($s['slug']) ?>" style="font-weight: 800; font-size: 1.15rem; color: var(--brand-navy); margin-bottom: 6px; text-decoration: none;">
+                            <a href="/school/<?= urlencode($s['slug']) ?>" style="font-weight: 800; font-size: 1.15rem; color: var(--brand-navy); margin-bottom: 6px; text-decoration: none;">
                                 <?= e($s['name']) ?>
                             </a>
 
@@ -260,7 +260,7 @@ $genderTypes = SudanGeography::genderTypes();
                                             <i class="fab fa-whatsapp"></i>
                                         </a>
                                     <?php endif; ?>
-                                    <a href="school/<?= urlencode($s['slug']) ?>" class="btn-luxury-primary btn-sm py-1 px-3">
+                                    <a href="/school/<?= urlencode($s['slug']) ?>" class="btn-luxury-primary btn-sm py-1 px-3">
                                         <span>البروفايل</span>
                                         <i class="fas fa-chevron-left small"></i>
                                     </a>
@@ -302,7 +302,7 @@ $genderTypes = SudanGeography::genderTypes();
                         <div class="d-flex align-items-center gap-3 mb-3">
                             <img src="<?= $logo ?>" alt="" style="width: 50px; height: 50px; border-radius: 12px; object-fit: cover;">
                             <div>
-                                <a href="school/<?= urlencode($s['slug']) ?>" class="fw-bold text-dark text-decoration-none d-block text-truncate" style="max-width: 170px;">
+                                <a href="/school/<?= urlencode($s['slug']) ?>" class="fw-bold text-dark text-decoration-none d-block text-truncate" style="max-width: 170px;">
                                     <?= e($s['name']) ?>
                                 </a>
                                 <div class="small text-muted"><?= e($s['city']) ?></div>
@@ -318,7 +318,7 @@ $genderTypes = SudanGeography::genderTypes();
                             </div>
                         </div>
 
-                        <a href="school/<?= urlencode($s['slug']) ?>" class="btn-luxury-outline btn-sm w-100 justify-content-center">
+                        <a href="/school/<?= urlencode($s['slug']) ?>" class="btn-luxury-outline btn-sm w-100 justify-content-center">
                             عرض التفاصيل
                         </a>
                     </div>
@@ -345,7 +345,7 @@ $genderTypes = SudanGeography::genderTypes();
         </div>
 
         <!-- FILTER FORM -->
-        <form action="index.php#search-section" method="GET" class="luxury-card p-4 mb-4">
+        <form action="/#search-section" method="GET" class="luxury-card p-4 mb-4">
             <div class="row g-3">
                 
                 <div class="col-lg-4 col-md-6">
@@ -438,7 +438,7 @@ $genderTypes = SudanGeography::genderTypes();
                 <div class="col-12 d-flex justify-content-between align-items-center pt-3 border-top">
                     <span class="small text-muted">تم العثور على <strong><?= $totalSchools ?></strong> مدرسة مطابقة</span>
                     <div class="d-flex gap-2">
-                        <a href="index.php#search-section" class="btn btn-sm btn-light border text-muted">إعادة ضبط</a>
+                        <a href="/#search-section" class="btn btn-sm btn-light border text-muted">إعادة ضبط</a>
                         <button type="submit" class="btn-luxury-primary btn-sm"><i class="fas fa-filter me-1"></i> تطبيق الفلاتر</button>
                     </div>
                 </div>
@@ -454,7 +454,7 @@ $genderTypes = SudanGeography::genderTypes();
                         <i class="fas fa-school fa-3x text-muted mb-3 opacity-50"></i>
                         <h4 class="fw-bold text-dark">لا توجد مدارس مطابقة للبحث حالياً</h4>
                         <p class="text-muted small">جرب تغيير شروط الفلترة أو اختيار ولاية ومدينة أخرى.</p>
-                        <a href="index.php#search-section" class="btn-luxury-outline btn-sm mt-2">إعادة ضبط الفلاتر</a>
+                        <a href="/#search-section" class="btn-luxury-outline btn-sm mt-2">إعادة ضبط الفلاتر</a>
                     </div>
                 </div>
             <?php else: ?>
@@ -484,7 +484,7 @@ $genderTypes = SudanGeography::genderTypes();
                             </div>
 
                             <div style="padding: 34px 20px 20px; display: flex; flex-direction: column; flex-grow: 1;">
-                                <a href="school/<?= urlencode($s['slug']) ?>" style="font-weight: 800; font-size: 1.15rem; color: var(--brand-navy); margin-bottom: 6px; text-decoration: none;">
+                                <a href="/school/<?= urlencode($s['slug']) ?>" style="font-weight: 800; font-size: 1.15rem; color: var(--brand-navy); margin-bottom: 6px; text-decoration: none;">
                                     <?= e($s['name']) ?>
                                 </a>
 
@@ -518,7 +518,7 @@ $genderTypes = SudanGeography::genderTypes();
                                                 <i class="fab fa-whatsapp"></i>
                                             </a>
                                         <?php endif; ?>
-                                        <a href="school/<?= urlencode($s['slug']) ?>" class="btn-luxury-outline btn-sm py-1 px-3">
+                                        <a href="/school/<?= urlencode($s['slug']) ?>" class="btn-luxury-outline btn-sm py-1 px-3">
                                             عرض البروفايل
                                         </a>
                                     </div>

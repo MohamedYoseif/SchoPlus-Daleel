@@ -22,16 +22,16 @@
 
                 <div class="col-lg-2 col-md-6 col-6">
                     <h5 class="fw-bold text-dark mb-3">تصفح الدليل</h5>
-                    <a href="index.php" class="d-block text-secondary text-decoration-none small mb-2">كافة المدارس</a>
-                    <a href="index.php#schoplus-schools" class="d-block text-secondary text-decoration-none small mb-2">مدارس SchoPlus الذكية</a>
-                    <a href="index.php#top-rated" class="d-block text-secondary text-decoration-none small mb-2">المدارس الأعلى تقييماً</a>
-                    <a href="register.php" class="d-block text-secondary text-decoration-none small mb-2">إضافة مدرسة جديدة</a>
+                    <a href="/" class="d-block text-secondary text-decoration-none small mb-2">كافة المدارس</a>
+                    <a href="/#schoplus-schools" class="d-block text-secondary text-decoration-none small mb-2">مدارس SchoPlus الذكية</a>
+                    <a href="/#top-rated" class="d-block text-secondary text-decoration-none small mb-2">المدارس الأعلى تقييماً</a>
+                    <a href="/register.php" class="d-block text-secondary text-decoration-none small mb-2">إضافة مدرسة جديدة</a>
                 </div>
 
                 <div class="col-lg-3 col-md-6 col-6">
                     <h5 class="fw-bold text-dark mb-3">لأصحاب المدارس</h5>
-                    <a href="login.php" class="d-block text-secondary text-decoration-none small mb-2">بوابة مدراء المدارس</a>
-                    <a href="register.php" class="d-block text-secondary text-decoration-none small mb-2">تسجيل المدرسة مجاناً</a>
+                    <a href="/login.php" class="d-block text-secondary text-decoration-none small mb-2">بوابة مدراء المدارس</a>
+                    <a href="/register.php" class="d-block text-secondary text-decoration-none small mb-2">تسجيل المدرسة مجاناً</a>
                     <a href="https://schoplus.sd/pricing.html" target="_blank" class="d-block text-secondary text-decoration-none small mb-2">باقات نظام SchoPlus</a>
                     <a href="https://schoplus.sd/demo.html" target="_blank" class="d-block text-secondary text-decoration-none small mb-2">طلب عرض تجريبي مجاني</a>
                 </div>
@@ -41,7 +41,7 @@
                     <p class="small text-muted mb-2"><i class="fas fa-map-marker-alt text-warning me-2"></i> الخرطوم / بورتسودان، جمهورية السودان</p>
                     <p class="small text-muted mb-2"><i class="fab fa-whatsapp text-success me-2"></i> واتساب الدليل المباشر: +249 91 234 5678</p>
                     <p class="small text-muted mb-3"><i class="fas fa-envelope text-primary me-2"></i> support@schoplus.sd</p>
-                    <a href="register.php" class="btn-luxury-gold btn-sm w-100 justify-content-center">
+                    <a href="/register.php" class="btn-luxury-gold btn-sm w-100 justify-content-center">
                         <i class="fas fa-plus-circle"></i> سجّل مدرستك اليوم مجاناً
                     </a>
                 </div>
@@ -54,7 +54,7 @@
                     جميع الحقوق محفوظة © <?= date('Y') ?> — دليل المدارس الذكي | إحدى مبادرات <strong>SchoPlus Cloud Ecosystem</strong>.
                 </div>
                 <div>
-                    عقدة سحابية مستقلة (Node 6) • النسخة 3.5.43
+                    عقدة سحابية مستقلة (Node 6) • النسخة 3.5.44
                 </div>
             </div>
         </div>

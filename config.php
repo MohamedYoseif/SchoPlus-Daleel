@@ -208,6 +208,14 @@ function ensureTablesExist(PDO $pdo): void {
         }
     } catch (Exception $e) {}
 
+    // Clean up any accidental rogue schools created from system filenames or reserved slugs
+    try {
+        $pdo->exec("DELETE FROM daleel_school_reviews WHERE school_id IN (SELECT id FROM daleel_schools WHERE slug IN ('index.php', 'index', 'home', 'schools', 'school', 'admin', 'api', 'dashboard', 'login', 'register', 'logout') OR name LIKE '%Index.php%')");
+        $pdo->exec("DELETE FROM daleel_school_news WHERE school_id IN (SELECT id FROM daleel_schools WHERE slug IN ('index.php', 'index', 'home', 'schools', 'school', 'admin', 'api', 'dashboard', 'login', 'register', 'logout') OR name LIKE '%Index.php%')");
+        $pdo->exec("DELETE FROM daleel_school_inquiries WHERE school_id IN (SELECT id FROM daleel_schools WHERE slug IN ('index.php', 'index', 'home', 'schools', 'school', 'admin', 'api', 'dashboard', 'login', 'register', 'logout') OR name LIKE '%Index.php%')");
+        $pdo->exec("DELETE FROM daleel_schools WHERE slug IN ('index.php', 'index', 'home', 'schools', 'school', 'admin', 'api', 'dashboard', 'login', 'register', 'logout') OR name LIKE '%Index.php%'");
+    } catch (Throwable $e) {}
+
     // Seed default flagship schools if empty
     $count = (int) $pdo->query("SELECT COUNT(*) FROM daleel_schools")->fetchColumn();
     if ($count === 0) {

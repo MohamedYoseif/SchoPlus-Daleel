@@ -466,16 +466,16 @@ $currSchool = currentSchool();
         </div>
         <div class="offcanvas-body p-3">
             <nav class="d-flex flex-column gap-1 mb-4">
-                <a href="index.php" class="offcanvas-nav-link">
+                <a href="/" class="offcanvas-nav-link">
                     <i class="fas fa-home text-muted" style="width:18px"></i> الرئيسية
                 </a>
-                <a href="index.php#schoplus-schools" class="offcanvas-nav-link">
+                <a href="/#schoplus-schools" class="offcanvas-nav-link">
                     <i class="fas fa-star text-warning" style="width:18px"></i> المدارس الذكية
                 </a>
-                <a href="index.php#top-rated" class="offcanvas-nav-link">
+                <a href="/#top-rated" class="offcanvas-nav-link">
                     <i class="fas fa-award text-primary" style="width:18px"></i> الأعلى تقييماً
                 </a>
-                <a href="index.php#search-section" class="offcanvas-nav-link">
+                <a href="/#search-section" class="offcanvas-nav-link">
                     <i class="fas fa-search text-muted" style="width:18px"></i> استكشف المدارس
                 </a>
                 <a href="https://schoplus.sd" target="_blank" class="offcanvas-nav-link">
@@ -484,17 +484,17 @@ $currSchool = currentSchool();
             </nav>
             <div class="border-top pt-3 d-flex flex-column gap-2">
                 <?php if ($currSchool): ?>
-                    <a href="dashboard.php" class="btn-luxury-primary justify-content-center">
+                    <a href="/dashboard.php" class="btn-luxury-primary justify-content-center">
                         <i class="fas fa-columns"></i> لوحة إدارة المدرسة
                     </a>
-                    <a href="logout.php" class="btn btn-sm btn-light border text-danger rounded-3 py-2">
+                    <a href="/logout.php" class="btn btn-sm btn-light border text-danger rounded-3 py-2">
                         <i class="fas fa-sign-out-alt me-1"></i> تسجيل الخروج
                     </a>
                 <?php else: ?>
-                    <a href="login.php" class="btn-luxury-outline justify-content-center">
+                    <a href="/login.php" class="btn-luxury-outline justify-content-center">
                         <i class="fas fa-user-tie text-secondary"></i> دخول أصحاب المدارس
                     </a>
-                    <a href="register.php" class="btn-luxury-primary justify-content-center mt-1">
+                    <a href="/register.php" class="btn-luxury-primary justify-content-center mt-1">
                         <i class="fas fa-plus-circle"></i> سجّل مدرستك مجاناً
                     </a>
                 <?php endif; ?>
@@ -526,7 +526,7 @@ $currSchool = currentSchool();
     <header class="daleel-navbar">
         <div class="container d-flex justify-content-between align-items-center">
             
-            <a href="index.php" class="daleel-brand">
+            <a href="/" class="daleel-brand">
                 <div class="daleel-logo-icon">
                     <i class="fas fa-graduation-cap"></i>
                 </div>
@@ -537,10 +537,10 @@ $currSchool = currentSchool();
             </a>
 
             <nav class="d-none d-lg-flex align-items-center gap-1">
-                <a href="index.php" class="nav-link-custom"><i class="fas fa-home me-1 text-muted"></i> الرئيسية</a>
-                <a href="index.php#schoplus-schools" class="nav-link-custom"><i class="fas fa-star text-warning me-1"></i> المدارس الذكية</a>
-                <a href="index.php#top-rated" class="nav-link-custom"><i class="fas fa-award text-primary me-1"></i> الأعلى تقييماً</a>
-                <a href="index.php#search-section" class="nav-link-custom"><i class="fas fa-search text-muted me-1"></i> استكشف المدارس</a>
+                <a href="/" class="nav-link-custom"><i class="fas fa-home me-1 text-muted"></i> الرئيسية</a>
+                <a href="/#schoplus-schools" class="nav-link-custom"><i class="fas fa-star text-warning me-1"></i> المدارس الذكية</a>
+                <a href="/#top-rated" class="nav-link-custom"><i class="fas fa-award text-primary me-1"></i> الأعلى تقييماً</a>
+                <a href="/#search-section" class="nav-link-custom"><i class="fas fa-search text-muted me-1"></i> استكشف المدارس</a>
                 <a href="https://schoplus.sd" target="_blank" class="nav-link-custom"><i class="fas fa-info-circle text-muted me-1"></i> عن النظام</a>
             </nav>
 
@@ -552,19 +552,19 @@ $currSchool = currentSchool();
                 </button>
                 <!-- Desktop CTA buttons -->
                 <?php if ($currSchool): ?>
-                    <a href="dashboard.php" class="btn-luxury-outline d-none d-lg-inline-flex">
+                    <a href="/dashboard.php" class="btn-luxury-outline d-none d-lg-inline-flex">
                         <i class="fas fa-columns text-primary"></i>
                         <span>لوحة إدارة المدرسة</span>
                     </a>
-                    <a href="logout.php" class="btn btn-sm btn-light border text-danger d-none d-lg-inline-flex" title="تسجيل الخروج">
+                    <a href="/logout.php" class="btn btn-sm btn-light border text-danger d-none d-lg-inline-flex" title="تسجيل الخروج">
                         <i class="fas fa-sign-out-alt"></i>
                     </a>
                 <?php else: ?>
-                    <a href="login.php" class="btn-luxury-outline d-none d-lg-inline-flex">
+                    <a href="/login.php" class="btn-luxury-outline d-none d-lg-inline-flex">
                         <i class="fas fa-user-tie text-secondary"></i>
                         <span>دخول أصحاب المدارس</span>
                     </a>
-                    <a href="register.php" class="btn-luxury-primary d-none d-lg-inline-flex">
+                    <a href="/register.php" class="btn-luxury-primary d-none d-lg-inline-flex">
                         <i class="fas fa-plus-circle"></i>
                         <span>سجّل مدرستك مجاناً</span>
                     </a>

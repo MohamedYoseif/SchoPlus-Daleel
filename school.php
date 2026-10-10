@@ -11,8 +11,21 @@ $pdo = db();
 $slug = trim($_GET['slug'] ?? '');
 $id = (int)($_GET['id'] ?? 0);
 
+// Reserved slugs and file patterns that should never be treated as school profile
+$reservedSlugs = [
+    'index', 'index.php', 'home', 'schools', 'school', 'daleel', 'admin', 'api',
+    'login', 'login.php', 'register', 'register.php', 'dashboard', 'dashboard.php',
+    'logout', 'logout.php', 'search', 'favicon.ico', 'robots.txt', 'sitemap.xml',
+    'deploy.php', 'config.php'
+];
+
+if (in_array(strtolower($slug), $reservedSlugs, true) || str_ends_with(strtolower($slug), '.php')) {
+    header('Location: /');
+    exit;
+}
+
 if (!$slug && !$id) {
-    header('Location: index.php');
+    header('Location: /');
     exit;
 }
 
@@ -26,8 +39,8 @@ if ($slug) {
 }
 $school = $stmt->fetch();
 
-// فحص الرابط أولاً: إذا لم يجد النظام المدرسة يتم إنشاؤها تلقائياً
-if (!$school && !empty($slug)) {
+// فحص الرابط أولاً: إذا لم يجد النظام المدرسة يتم إنشاؤها تلقائياً (فقط للـ Slugs الصالحة)
+if (!$school && !empty($slug) && !in_array(strtolower($slug), $reservedSlugs, true) && !str_ends_with(strtolower($slug), '.php') && strlen($slug) >= 3) {
     try {
         $cleanWords = array_filter(explode('-', $slug));
         $capitalized = ucwords(implode(' ', $cleanWords));
@@ -111,7 +124,7 @@ if (!$school) {
             <div class="display-1 text-muted mb-3"><i class="fas fa-school-flag"></i></div>
             <h2 class="fw-bold mb-3">عذراً، المدرسة غير موجودة</h2>
             <p class="text-muted mb-4">قد يكون الرابط الذي اتبعته غير صحيح أو تم إيقاف صفحة المدرسة مؤقتاً.</p>
-            <a href="index.php" class="btn-luxury-primary"><i class="fas fa-home me-2"></i> العودة لدليل المدارس</a>
+            <a href="/" class="btn-luxury-primary"><i class="fas fa-home me-2"></i> العودة لدليل المدارس</a>
         </div>
     </div>
     <?php
@@ -132,7 +145,7 @@ if ($school['status'] === 'suspended') {
             <div class="display-3 text-danger mb-3"><i class="fas fa-ban"></i></div>
             <h3 class="fw-bold mb-3">تم إيقاف ظهور المدرسة مؤقتاً</h3>
             <p class="text-muted mb-4"><?= e($school['rejection_reason'] ?: 'تم إيقاف ظهور صفحة هذه المدرسة مؤقتاً بقرار إداري. للمراجعة يرجى التواصل مع إدارة دليل المدارس.') ?></p>
-            <a href="index.php" class="btn-luxury-outline"><i class="fas fa-arrow-right me-2"></i> تصفح المدارس المعتمدة</a>
+            <a href="/" class="btn-luxury-outline"><i class="fas fa-arrow-right me-2"></i> تصفح المدارس المعتمدة</a>
         </div>
     </div>
     <?php
@@ -150,7 +163,7 @@ if ($school['status'] !== 'approved' && !$isOwner) {
             <div class="display-3 text-warning mb-3"><i class="fas fa-hourglass-half"></i></div>
             <h3 class="fw-bold mb-3">ملف المدرسة بانتظار الاعتماد</h3>
             <p class="text-muted mb-4">هذه المدرسة مسجلة لدينا وحالياً قيد المراجعة والتدقيق بواسطة فريق الدليل وسوف تظهر للجمهور فور اكتمال الاعتماد.</p>
-            <a href="index.php" class="btn-luxury-outline"><i class="fas fa-arrow-right me-2"></i> تصفح المدارس المعتمدة</a>
+            <a href="/" class="btn-luxury-outline"><i class="fas fa-arrow-right me-2"></i> تصفح المدارس المعتمدة</a>
         </div>
     </div>
     <?php
@@ -843,9 +856,9 @@ $totalRev = max(1, count($reviewsList));
     <div class="container px-3" style="padding-top: 16px; padding-bottom: 8px;">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent p-0 mb-0 d-flex flex-nowrap overflow-x-auto text-nowrap" style="font-size: 0.8rem; scrollbar-width: none;">
-                <li class="breadcrumb-item"><a href="index.php" class="text-decoration-none" style="color: var(--text-muted);"><i class="fas fa-home me-1"></i> دليل المدارس</a></li>
-                <li class="breadcrumb-item"><a href="index.php?state=<?= urlencode($school['state']) ?>" class="text-decoration-none" style="color: var(--text-muted);"><?= e($school['state']) ?></a></li>
-                <li class="breadcrumb-item"><a href="index.php?state=<?= urlencode($school['state']) ?>&city=<?= urlencode($school['city']) ?>" class="text-decoration-none" style="color: var(--text-muted);"><?= e($school['city']) ?></a></li>
+                <li class="breadcrumb-item"><a href="/" class="text-decoration-none" style="color: var(--text-muted);"><i class="fas fa-home me-1"></i> دليل المدارس</a></li>
+                <li class="breadcrumb-item"><a href="/?state=<?= urlencode($school['state']) ?>" class="text-decoration-none" style="color: var(--text-muted);"><?= e($school['state']) ?></a></li>
+                <li class="breadcrumb-item"><a href="/?state=<?= urlencode($school['state']) ?>&city=<?= urlencode($school['city']) ?>" class="text-decoration-none" style="color: var(--text-muted);"><?= e($school['city']) ?></a></li>
                 <li class="breadcrumb-item active fw-bold" style="color: var(--brand-navy);" aria-current="page"><?= e($school['name']) ?></li>
             </ol>
         </nav>

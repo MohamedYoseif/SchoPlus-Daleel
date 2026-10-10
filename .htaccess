@@ -7,6 +7,9 @@ RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
+# Redirect any accidental school/index or school/index.php to root
+RewriteRule ^school/index(\.php)?/?$ / [R=301,L]
+
 # 1. Ultra-Short Profile Link by numeric ID: /s/12 -> school.php?id=12
 RewriteRule ^s/([0-9]+)/?$ school.php?id=$1 [L,QSA]
 
@@ -17,6 +20,7 @@ RewriteRule ^s/([^/]+)/?$ school.php?slug=$1 [L,QSA]
 RewriteRule ^@([^/]+)/?$ school.php?slug=$1 [L,QSA]
 
 # 4. Standard Clean SEO URL: /school/{slug} -> school.php?slug=$1
+RewriteCond %{REQUEST_URI} !index(\.php)?$ [NC]
 RewriteRule ^school/([^/]+)/?$ school.php?slug=$1 [L,QSA]
 
 # 5. Clean URLs for existing .php files (e.g. /login -> login.php, /dashboard -> dashboard.php)
@@ -27,4 +31,5 @@ RewriteRule ^([a-zA-Z0-9\-_]+)/?$ $1.php [L,QSA]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{DOCUMENT_ROOT}/$1.php !-f
+RewriteCond $1 !^(index|login|register|dashboard|logout|schools|api)$ [NC]
 RewriteRule ^([^/]+)/?$ school.php?slug=$1 [L,QSA]
