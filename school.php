@@ -11,6 +11,14 @@ $pdo = db();
 $slug = trim($_GET['slug'] ?? '');
 $id = (int)($_GET['id'] ?? 0);
 
+// Fallback: extract slug directly from REQUEST_URI if rewrite engine didn't populate $_GET['slug']
+if (!$slug && !$id && !empty($_SERVER['REQUEST_URI'])) {
+    $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    if (preg_match('#^/(?:school|s|@)/([^/?]+)#', $path, $m)) {
+        $slug = trim(urldecode($m[1]));
+    }
+}
+
 if (!$slug && !$id) {
     header('Location: index.php');
     exit;
@@ -94,7 +102,7 @@ if (!$school && !empty($slug)) {
             $school = $stmt->fetch();
         }
     } catch (\Throwable $e) {
-        // Fallback: try fetching by slug or error log
+        $lastProvisionError = $e->getMessage();
         @error_log("Daleel Auto-Provision error for slug [{$slug}]: " . $e->getMessage());
         $stmt = $pdo->prepare("SELECT * FROM daleel_schools WHERE slug = ?");
         $stmt->execute([$slug]);
@@ -112,6 +120,11 @@ if (!$school) {
             <div class="display-1 text-muted mb-3"><i class="fas fa-school-flag"></i></div>
             <h2 class="fw-bold mb-3">عذراً، المدرسة غير موجودة</h2>
             <p class="text-muted mb-4">قد يكون الرابط الذي اتبعته غير صحيح أو تم إيقاف صفحة المدرسة مؤقتاً.</p>
+            <?php if (!empty($lastProvisionError)): ?>
+                <div class="alert alert-warning text-start small mb-3" style="direction: ltr; font-family: monospace;">
+                    Auto-Provision Diagnostic: <?= e($lastProvisionError) ?>
+                </div>
+            <?php endif; ?>
             <a href="index.php" class="btn-luxury-primary"><i class="fas fa-home me-2"></i> العودة لدليل المدارس</a>
         </div>
     </div>
