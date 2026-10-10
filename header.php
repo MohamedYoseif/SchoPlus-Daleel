@@ -8,8 +8,9 @@ $currSchool = currentSchool();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230B2A52'/%3E%3Cpath d='M16 6 L26 11 L26 17 C26 22 21 26 16 28 C11 26 6 22 6 17 L6 11 Z' fill='%23F5A020' opacity='0.9'/%3E%3Cpath d='M12 16 L15 19 L20 13' stroke='white' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-    <title><?= isset($pageTitle) ? e($pageTitle) . ' | دليل المدارس الذكي — SchoPlus' : 'دليل المدارس الذكي — دليلك الشامل لاختيار أفضل المدارس في السودان' ?></title>
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/images/logo-icon.png">
+    <title><?= isset($pageTitle) ? e($pageTitle) . ' | دليل المدارس السودانية — SchoPlus' : 'دليل المدارس السودانية — دليلك الشامل لاختيار أفضل المدارس في السودان' ?></title>
     
     <!-- Open Graph / WhatsApp / Facebook Meta Tags -->
     <meta property="og:type" content="website">
@@ -148,9 +149,27 @@ $currSchool = currentSchool();
         .daleel-brand {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             text-decoration: none;
             color: var(--text-main);
+        }
+
+        .daleel-logo-img {
+            height: 46px;
+            width: auto;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.2s ease;
+        }
+
+        .daleel-brand:hover .daleel-logo-img {
+            transform: scale(1.02);
+        }
+
+        @media (max-width: 767px) {
+            .daleel-logo-img {
+                height: 38px;
+            }
         }
 
         .daleel-logo-icon {
@@ -500,11 +519,8 @@ $currSchool = currentSchool();
     <!-- Mobile Offcanvas Navigation -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileNavOffcanvas" aria-labelledby="mobileNavLabel">
         <div class="offcanvas-header border-bottom" style="background: var(--bg-surface-tint);">
-            <div class="d-flex align-items-center gap-2">
-                <div class="daleel-logo-icon" style="width: 36px; height: 36px; font-size: 1rem;">
-                    <i class="fas fa-graduation-cap"></i>
-                </div>
-                <h5 class="offcanvas-title daleel-brand-title mb-0 fs-6" id="mobileNavLabel">دليل المدارس الذكي</h5>
+            <div class="d-flex align-items-center gap-2" id="mobileNavLabel">
+                <img src="/assets/images/logo.png" alt="دليل المدارس السودانية" style="height: 36px; width: auto; object-fit: contain;">
             </div>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
@@ -570,14 +586,8 @@ $currSchool = currentSchool();
     <header class="daleel-navbar">
         <div class="container d-flex justify-content-between align-items-center">
             
-            <a href="/" class="daleel-brand">
-                <div class="daleel-logo-icon">
-                    <i class="fas fa-graduation-cap"></i>
-                </div>
-                <div>
-                    <h1 class="daleel-brand-title">دليل المدارس</h1>
-                    <span class="daleel-brand-tag"><i class="fas fa-bolt me-1"></i>SCHOPLUS DIRECTORY</span>
-                </div>
+            <a href="/" class="daleel-brand" title="دليل المدارس السودانية — SchoPlus">
+                <img src="/assets/images/logo.png" alt="دليل المدارس السودانية" class="daleel-logo-img">
             </a>
 
             <nav class="d-none d-lg-flex align-items-center gap-1">

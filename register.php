@@ -183,12 +183,13 @@ $statesWithCities = SudanGeography::statesWithCities();
     <div class="container" style="max-width: 900px;">
         
         <!-- Header Banner -->
-        <div class="text-center mb-5">
-            <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold mb-2 shadow-sm">
+        <div class="text-center mb-4">
+            <img src="/assets/images/logo-icon.png" alt="دليل المدارس السودانية" class="mx-auto mb-3 d-block" style="width: 64px; height: 64px; object-fit: contain;">
+            <span class="badge bg-warning text-dark px-3 py-1 rounded-pill fw-bold mb-2 shadow-sm" style="font-size: 0.72rem;">
                 <i class="fas fa-plus-circle me-1"></i> انضمام مجاني وسريع
             </span>
-            <h2 class="fw-bold text-dark mb-2">سجّل مدرستك في دليل المدارس الذكي</h2>
-            <p class="text-muted" style="max-width: 650px; margin: auto;">
+            <h2 class="fw-bold text-dark mb-2" style="font-size: 1.25rem;">سجّل مدرستك في دليل المدارس السودانية</h2>
+            <p class="text-muted" style="max-width: 620px; margin: auto; font-size: 0.76rem; line-height: 1.65;">
                 عرّف بمدرستك لأولياء الأمور والطلاب في كافة مدن السودان. يمكنك إدخال البيانات الأساسية الآن، وإكمال التفاصيل والصور والأخبار والمرافق لاحقاً عبر لوحة التحكم في أي وقت.
             </p>
         </div>

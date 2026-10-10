@@ -5,11 +5,10 @@
         <div class="container">
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6">
-                    <div class="d-flex align-items-center gap-2 mb-3">
-                        <div class="daleel-logo-icon" style="width: 36px; height: 36px; font-size: 1rem;">
-                            <i class="fas fa-graduation-cap"></i>
-                        </div>
-                        <h4 class="daleel-brand-title m-0" style="font-size: 1.1rem;">دليل المدارس الذكي</h4>
+                    <div class="mb-3">
+                        <a href="/" class="d-inline-block text-decoration-none">
+                            <img src="/assets/images/logo.png" alt="دليل المدارس السودانية" style="height: 48px; width: auto; object-fit: contain;">
+                        </a>
                     </div>
                     <p class="text-muted leading-relaxed" style="font-size: 0.72rem; line-height: 1.6;">
                         المنصة الوطنية المفتوحة الأولى لربط أولياء الأمور والطلاب بأفضل المدارس في السودان، مع إبراز المؤسسات التعليمية الرائدة التي تعتمد حلول التحول الرقمي وإدارة المدارس السحابية عبر SchoPlus.
@@ -51,10 +50,10 @@
 
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2 text-muted" style="font-size: 0.7rem;">
                 <div>
-                    جميع الحقوق محفوظة © <?= date('Y') ?> — دليل المدارس الذكي | إحدى مبادرات <strong>SchoPlus Cloud Ecosystem</strong>.
+                    جميع الحقوق محفوظة © <?= date('Y') ?> — دليل المدارس السودانية | إحدى مبادرات <strong>SchoPlus Cloud Ecosystem</strong>.
                 </div>
                 <div>
-                    عقدة سحابية مستقلة (Node 6) • النسخة 3.5.46
+                    عقدة سحابية مستقلة (Node 6) • النسخة 3.5.47
                 </div>
             </div>
         </div>

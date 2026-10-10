@@ -50,10 +50,8 @@ require_once __DIR__ . '/header.php';
         
         <div class="card border-0 rounded-4 shadow-sm bg-white p-4 p-md-5 my-3">
             <div class="text-center mb-4">
-                <div class="daleel-logo-icon mx-auto mb-3" style="width: 58px; height: 58px; font-size: 1.6rem;">
-                    <i class="fas fa-user-tie"></i>
-                </div>
-                <h3 class="fw-bold text-dark mb-1">دخول أصحاب المدارس</h3>
+                <img src="/assets/images/logo-icon.png" alt="دليل المدارس السودانية" class="mx-auto mb-3 d-block" style="width: 68px; height: 68px; object-fit: contain;">
+                <h3 class="fw-bold text-dark mb-1" style="font-size: 1.15rem;">دخول أصحاب المدارس</h3>
                 <p class="text-muted small">لوحة إدارة الملف التعريفي، الأخبار، والتقييمات</p>
             </div>
 
