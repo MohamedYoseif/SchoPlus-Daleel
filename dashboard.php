@@ -1197,7 +1197,7 @@ require_once __DIR__ . '/header.php';
     color: var(--brand-navy);
 }
 .dash-tab-link.active {
-    background: linear-gradient(135deg, #0B2A52 0%, #16467D 100%) !important;
+    background: #0B2A52 !important;
     color: #FFFFFF !important;
     border-color: #0B2A52 !important;
     box-shadow: 0 4px 12px rgba(11, 42, 82, 0.18);
@@ -1482,7 +1482,7 @@ require_once __DIR__ . '/header.php';
 
         <!-- SUSPENDED STATUS ALERT -->
         <?php if ($school['status'] === 'suspended'): ?>
-            <div class="card border-0 rounded-4 shadow-sm p-4 mb-4" style="background: linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%); border: 1.5px solid #F87171 !important;">
+            <div class="card border-0 rounded-4 shadow-sm p-4 mb-4" style="background: #FEF2F2; border: 1.5px solid #EF4444 !important;">
                 <div class="d-flex align-items-center gap-3">
                     <div class="rounded-circle bg-danger text-white d-flex align-items-center justify-content-center flex-shrink-0" style="width: 48px; height: 48px; font-size: 1.25rem;">
                         <i class="fas fa-ban"></i>
@@ -1507,7 +1507,7 @@ require_once __DIR__ . '/header.php';
 
         <!-- PENDING STATUS HERO BANNER -->
         <?php if ($school['status'] === 'pending'): ?>
-            <div class="card border-0 rounded-4 shadow-sm p-4 p-md-5 mb-4" style="background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%); border: 1.5px solid #FCD34D !important;">
+            <div class="card border-0 rounded-4 shadow-sm p-4 p-md-5 mb-4" style="background: #FFFBEB; border: 1.5px solid #F5A020 !important;">
                 <div class="row align-items-center g-4">
                     <div class="col-md-8">
                         <div class="d-flex align-items-center gap-2 mb-2">
@@ -1524,7 +1524,7 @@ require_once __DIR__ . '/header.php';
                         <div class="d-flex align-items-center gap-3">
                             <div class="flex-grow-1">
                                 <div class="progress" style="height: 10px; border-radius: 6px;">
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width: <?= $score ?>%;" aria-valuenow="<?= $score ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar" role="progressbar" style="width: <?= $score ?>%; background: #F5A020;" aria-valuenow="<?= $score ?>" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
                             <span class="fw-bold text-dark small">اكتمال الملف: <?= $score ?>%</span>
@@ -1534,7 +1534,7 @@ require_once __DIR__ . '/header.php';
                     <div class="col-md-4 text-md-start">
                         <div class="p-3 bg-white rounded-4 shadow-sm border border-warning-subtle text-center">
                             <small class="text-muted d-block mb-2">لتسريع تفعيل ظهور الصفحة في الدليل:</small>
-                            <a href="https://wa.me/249912345678?text=<?= urlencode('مرحباً فريق SchoPlus، قمت بتسجيل مدرستي (' . $school['name'] . ') وأرجو تفعيلها في دليل المدارس.') ?>" target="_blank" class="btn btn-success fw-bold w-100 py-2 rounded-3 shadow-sm d-flex align-items-center justify-content-center gap-2">
+                            <a href="https://wa.me/249912345678?text=<?= urlencode('مرحباً فريق SchoPlus، قمت بتسجيل مدرستي (' . $school['name'] . ') وأرجو تفعيلها في دليل المدارس.') ?>" target="_blank" class="btn btn-primary fw-bold w-100 py-2 rounded-3 shadow-sm d-flex align-items-center justify-content-center gap-2" style="background: #1E5FA8; border-color: #1E5FA8;">
                                 <i class="fab fa-whatsapp fs-5"></i>
                                 <span>تواصل عبر واتساب للتأكيد</span>
                             </a>
@@ -1560,13 +1560,13 @@ require_once __DIR__ . '/header.php';
             </div>
             <div class="col-6 col-md-3">
                 <div class="card border-0 rounded-4 p-3 bg-white shadow-sm text-center">
-                    <span class="text-muted small d-block mb-1"><i class="fas fa-bullhorn text-success me-1"></i> الأخبار المنشورة</span>
+                    <span class="text-muted small d-block mb-1"><i class="fas fa-bullhorn text-primary me-1"></i> الأخبار المنشورة</span>
                     <h3 class="fw-bold text-dark mb-0"><?= count($newsList) ?></h3>
                 </div>
             </div>
             <div class="col-6 col-md-3">
                 <div class="card border-0 rounded-4 p-3 bg-white shadow-sm text-center">
-                    <span class="text-muted small d-block mb-1"><i class="fas fa-inbox text-info me-1"></i> طلبات القبول والاستفسار</span>
+                    <span class="text-muted small d-block mb-1"><i class="fas fa-inbox text-primary me-1"></i> طلبات القبول والاستفسار</span>
                     <h3 class="fw-bold text-dark mb-0"><?= count($inquiriesList) ?></h3>
                 </div>
             </div>
@@ -1574,7 +1574,7 @@ require_once __DIR__ . '/header.php';
 
         <!-- Upgrade to SchoPlus Banner -->
         <?php if (!$school['is_schoplus_client']): ?>
-            <div class="card border-0 rounded-4 p-4 mb-4 shadow-sm" style="background: linear-gradient(135deg, #0B2A52 0%, #16467D 100%); color: #ffffff;">
+            <div class="card border-0 rounded-4 p-4 mb-4 shadow-sm" style="background: #0B2A52; color: #ffffff; border: 1px solid #1E5FA8;">
                 <div class="row align-items-center g-3">
                     <div class="col-md-8">
                         <span class="badge bg-warning text-dark px-3 py-1 rounded-pill fw-bold mb-2 small">
@@ -1965,10 +1965,10 @@ require_once __DIR__ . '/header.php';
                                     </div>
 
                                     <!-- Notice Box: Fees Moved to Independent Tab -->
-                                    <div class="p-3 mb-4 rounded-4 d-flex align-items-center justify-content-between flex-wrap gap-3" style="background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%); border: 1.5px solid #FCD34D;">
+                                    <div class="p-3 mb-4 rounded-4 d-flex align-items-center justify-content-between flex-wrap gap-3" style="background: #F0F4F8; border: 1.5px solid #1E5FA8;">
                                         <div class="d-flex align-items-center gap-3">
-                                            <div style="width: 42px; height: 42px; border-radius: 12px; background: #D97706; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; flex-shrink: 0; box-shadow: 0 4px 10px rgba(217,119,6,0.25);">
-                                                <i class="fas fa-coins"></i>
+                                            <div style="width: 42px; height: 42px; border-radius: 12px; background: #0B2A52; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; flex-shrink: 0;">
+                                                <i class="fas fa-coins text-warning"></i>
                                             </div>
                                             <div>
                                                 <div class="fw-bold text-dark" style="font-size: 0.92rem;">الرسوم الدراسية والعروض والخصومات أصبحت في تبويب مستقل!</div>
@@ -1977,7 +1977,7 @@ require_once __DIR__ . '/header.php';
                                                 </small>
                                             </div>
                                         </div>
-                                        <button type="button" class="btn btn-sm btn-warning fw-bold px-3 py-2 rounded-3 text-dark shadow-sm d-inline-flex align-items-center gap-1" onclick="document.getElementById('dash-fees-tab').click()">
+                                        <button type="button" class="btn btn-sm fw-bold px-3 py-2 rounded-3 text-white shadow-sm d-inline-flex align-items-center gap-1" style="background: #F5A020; border: none;" onclick="document.getElementById('dash-fees-tab').click()">
                                             <i class="fas fa-coins me-1"></i> فتح تبويب الرسوم والعروض
                                         </button>
                                     </div>
@@ -2080,7 +2080,7 @@ require_once __DIR__ . '/header.php';
                                 <div class="dash-card-section">
                                     <div class="dash-sec-header">
                                         <div class="dash-sec-title-wrap">
-                                            <div class="dash-sec-icon" style="background: #FAF5FF; color: #9333EA;">
+                                            <div class="dash-sec-icon" style="background: #F0F4F8; color: #1E5FA8;">
                                                 <i class="fas fa-share-alt"></i>
                                             </div>
                                             <div>
@@ -2221,13 +2221,13 @@ require_once __DIR__ . '/header.php';
                         <input type="hidden" name="tab" value="fees">
 
                         <!-- 1. Fees Header Banner -->
-                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-4 p-4 rounded-4" style="background: linear-gradient(135deg, #064E3B 0%, #047857 100%); color: #ffffff;">
+                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-4 p-4 rounded-4" style="background: #0B2A52; color: #ffffff;">
                             <div>
                                 <div class="d-flex align-items-center gap-2 mb-2 flex-wrap">
-                                    <span class="badge bg-white text-success px-3 py-1 rounded-pill fw-bold small">
-                                        <i class="fas fa-coins me-1"></i> إدارة الرسوم والخصومات
+                                    <span class="badge bg-white px-3 py-1 rounded-pill fw-bold small" style="color: #0B2A52;">
+                                        <i class="fas fa-coins me-1 text-warning"></i> إدارة الرسوم والخصومات
                                     </span>
-                                    <span class="badge bg-warning text-dark px-3 py-1 rounded-pill fw-bold small">
+                                    <span class="badge px-3 py-1 rounded-pill fw-bold small text-white" style="background: #F5A020;">
                                         <i class="fas fa-star me-1"></i> تظهر في صفحة المدرسة بالدليل
                                     </span>
                                 </div>
@@ -2237,8 +2237,8 @@ require_once __DIR__ . '/header.php';
                                 </p>
                             </div>
                             <div class="text-md-end">
-                                <a href="/school/<?= urlencode($school['slug']) ?>#tab-fees" target="_blank" class="btn btn-sm btn-light fw-bold text-dark rounded-pill px-3 py-2 shadow-sm">
-                                    <i class="fas fa-external-link-alt text-success me-1"></i> معاينة تبويب الرسوم بالبروفايل
+                                <a href="/school/<?= urlencode($school['slug']) ?>#tab-fees" target="_blank" class="btn btn-sm btn-light fw-bold rounded-pill px-3 py-2 shadow-sm" style="color: #0B2A52;">
+                                    <i class="fas fa-external-link-alt me-1 text-primary"></i> معاينة تبويب الرسوم بالبروفايل
                                 </a>
                             </div>
                         </div>
@@ -2367,10 +2367,10 @@ require_once __DIR__ . '/header.php';
                         </div>
 
                         <!-- 4. Discounts & Special Offers Builder -->
-                        <div class="dash-card-section" style="background: linear-gradient(135deg, #FCFAF6 0%, #FFFFFF 100%);">
+                        <div class="dash-card-section" style="background: #FFFFFF;">
                             <div class="dash-sec-header">
                                 <div class="dash-sec-title-wrap">
-                                    <div class="dash-sec-icon" style="background: #FAF5FF; color: #9333EA;">
+                                    <div class="dash-sec-icon" style="background: #F0F4F8; color: #1E5FA8;">
                                         <i class="fas fa-tags"></i>
                                     </div>
                                     <div>
@@ -2378,7 +2378,7 @@ require_once __DIR__ . '/header.php';
                                         <p class="dash-sec-desc">أضف الخصومات والمنح التي تقدمها مدرستك لجذب أولياء الأمور (مثل: خصم الإخوة، السداد المبكر، حفظة القرآن، أو إعفاء رسوم التسجيل).</p>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-sm btn-outline-purple fw-bold px-3 rounded-pill" style="color: #7E22CE; border-color: #C084FC;" onclick="addDiscountRow()">
+                                <button type="button" class="btn btn-sm fw-bold px-3 rounded-pill" style="color: #1E5FA8; border: 1.5px solid #1E5FA8; background: #FFFFFF;" onclick="addDiscountRow()">
                                     <i class="fas fa-plus me-1"></i> إضافة عرض / خصم جديد
                                 </button>
                             </div>
@@ -2425,7 +2425,7 @@ require_once __DIR__ . '/header.php';
                                                     <input type="text" name="discount_title[]" value="<?= e($disc['title'] ?? '') ?>" required class="form-control form-control-sm fw-bold text-dark" placeholder="مثال: خصم الإخوة والأشقاء">
                                                 </td>
                                                 <td style="min-width: 130px; padding: 8px 10px;">
-                                                    <input type="text" name="discount_value[]" value="<?= e($disc['value'] ?? '') ?>" required class="form-control form-control-sm fw-bold" style="color: #7E22CE;" placeholder="مثال: 15% أو 50,000 ج.س">
+                                                    <input type="text" name="discount_value[]" value="<?= e($disc['value'] ?? '') ?>" required class="form-control form-control-sm fw-bold" style="color: #1E5FA8;" placeholder="مثال: 15% أو 50,000 ج.س">
                                                 </td>
                                                 <td style="min-width: 150px; padding: 8px 10px;">
                                                     <input type="text" name="discount_applies_to[]" value="<?= e($disc['applies_to'] ?? '') ?>" class="form-control form-control-sm" placeholder="مثال: الأخ الثاني فما فوق">
@@ -2536,7 +2536,7 @@ require_once __DIR__ . '/header.php';
                                     <?php endif; ?>
                                 </h6>
 
-                                <div class="my-3 rounded-3 border overflow-hidden position-relative" style="height: 110px; background: linear-gradient(135deg, #0B2A52 0%, #1E5FA8 100%);">
+                                <div class="my-3 rounded-3 border overflow-hidden position-relative" style="height: 110px; background: #0B2A52;">
                                     <?php if (!empty($school['cover_path'])): ?>
                                         <img src="<?= e(assetUrl($school['cover_path'])) ?>" alt="الغلاف" style="width: 100%; height: 100%; object-fit: cover;">
                                     <?php else: ?>
@@ -3350,11 +3350,11 @@ require_once __DIR__ . '/header.php';
                                                     <?= csrf_field() ?>
                                                     <input type="hidden" name="action" value="update_inquiry_status">
                                                     <input type="hidden" name="inquiry_id" value="<?= $inq['id'] ?>">
-                                                    <select name="status" class="form-select form-select-sm fw-bold border-0 shadow-sm" style="font-size: 0.74rem; border-radius: 8px; width: auto; background-color: <?= $status === 'new' ? '#FEF3C7' : ($status === 'contacted' ? '#E0F2FE' : ($status === 'accepted' ? '#D1FAE5' : '#F1F5F9')) ?>; color: <?= $status === 'new' ? '#92400E' : ($status === 'contacted' ? '#0369A1' : ($status === 'accepted' ? '#065F46' : '#475569')) ?>;" onchange="this.form.submit()">
-                                                        <option value="new" <?= $status === 'new' ? 'selected' : '' ?>>🟡 جديد</option>
-                                                        <option value="contacted" <?= $status === 'contacted' ? 'selected' : '' ?>>🔵 تم التواصل</option>
-                                                        <option value="accepted" <?= $status === 'accepted' ? 'selected' : '' ?>>🟢 تم القبول</option>
-                                                        <option value="rejected" <?= $status === 'rejected' ? 'selected' : '' ?>>⚪ ملغي / مرفوض</option>
+                                                    <select name="status" class="form-select form-select-sm fw-bold border shadow-sm" style="font-size: 0.74rem; border-radius: 8px; width: auto; background-color: <?= $status === 'new' ? '#FFFBEB' : ($status === 'contacted' ? '#EFF6FF' : ($status === 'accepted' ? '#F0F4F8' : '#F8FAFC')) ?>; color: <?= $status === 'new' ? '#D97706' : ($status === 'contacted' ? '#1E5FA8' : ($status === 'accepted' ? '#0B2A52' : '#64748B')) ?>; border-color: <?= $status === 'new' ? '#F5A020' : ($status === 'contacted' ? '#1E5FA8' : ($status === 'accepted' ? '#0B2A52' : '#CBD5E1')) ?> !important;" onchange="this.form.submit()">
+                                                        <option value="new" <?= $status === 'new' ? 'selected' : '' ?>>جديد</option>
+                                                        <option value="contacted" <?= $status === 'contacted' ? 'selected' : '' ?>>تم التواصل</option>
+                                                        <option value="accepted" <?= $status === 'accepted' ? 'selected' : '' ?>>تم القبول</option>
+                                                        <option value="rejected" <?= $status === 'rejected' ? 'selected' : '' ?>>ملغي / مرفوض</option>
                                                     </select>
                                                 </form>
                                             </td>
@@ -3420,10 +3420,10 @@ require_once __DIR__ . '/header.php';
                                     <div class="col-md-6">
                                         <label class="form-label small fw-bold">حالة التسجيل للعام الدراسي:</label>
                                         <select name="admission_status" class="form-select fw-bold" id="admStatusSelect">
-                                            <option value="open" <?= $currentAdmissionStatus === 'open' ? 'selected' : '' ?>>🟢 مفتوح ومتاح للجميع (الوضع الافتراضي)</option>
-                                            <option value="limited" <?= $currentAdmissionStatus === 'limited' ? 'selected' : '' ?>>🟡 مقاعد محدودة متبقية (تنبيه أولياء الأمور)</option>
-                                            <option value="early" <?= $currentAdmissionStatus === 'early' ? 'selected' : '' ?>>🔵 فتح باب التسجيل المبكر</option>
-                                            <option value="closed" <?= $currentAdmissionStatus === 'closed' ? 'selected' : '' ?>>🔴 التسجيل مغلق مؤقتاً للعام الحالي</option>
+                                            <option value="open" <?= $currentAdmissionStatus === 'open' ? 'selected' : '' ?>>مفتوح ومتاح للجميع (الوضع الافتراضي)</option>
+                                            <option value="limited" <?= $currentAdmissionStatus === 'limited' ? 'selected' : '' ?>>مقاعد محدودة متبقية (تنبيه أولياء الأمور)</option>
+                                            <option value="early" <?= $currentAdmissionStatus === 'early' ? 'selected' : '' ?>>فتح باب التسجيل المبكر</option>
+                                            <option value="closed" <?= $currentAdmissionStatus === 'closed' ? 'selected' : '' ?>>التسجيل مغلق مؤقتاً للعام الحالي</option>
                                         </select>
                                     </div>
                                     <div class="col-md-6">
@@ -3808,10 +3808,10 @@ function viewInquiryDetails(inq) {
     const transText = inq.needs_transportation == 1 ? '<span class="text-warning fw-bold"><i class="fas fa-bus-alt me-1"></i> نعم، يحتاج إلى ترحيل مدرسي</span>' : '<span class="text-muted">لا يحتاج ترحيل</span>';
 
     const statusLabels = {
-        'new': '<span class="badge bg-warning text-dark px-2 py-1">🟡 جديد</span>',
-        'contacted': '<span class="badge bg-info text-white px-2 py-1">🔵 تم التواصل</span>',
-        'accepted': '<span class="badge bg-success px-2 py-1">🟢 تم القبول</span>',
-        'rejected': '<span class="badge bg-secondary px-2 py-1">⚪ ملغي / مرفوض</span>'
+        'new': '<span class="badge px-2 py-1" style="background:#F5A020; color:#FFFFFF;">جديد</span>',
+        'contacted': '<span class="badge px-2 py-1" style="background:#1E5FA8; color:#FFFFFF;">تم التواصل</span>',
+        'accepted': '<span class="badge px-2 py-1" style="background:#0B2A52; color:#FFFFFF;">تم القبول</span>',
+        'rejected': '<span class="badge px-2 py-1" style="background:#64748B; color:#FFFFFF;">ملغي / مرفوض</span>'
     };
 
     let html = `
@@ -4197,7 +4197,7 @@ function addDiscountRow(title = '', value = '', appliesTo = '', notes = '') {
             <input type="text" name="discount_title[]" value="${escapeHtml(title)}" required class="form-control form-control-sm fw-bold text-dark" placeholder="مثال: خصم الإخوة والأشقاء">
         </td>
         <td style="min-width: 130px; padding: 8px 10px;">
-            <input type="text" name="discount_value[]" value="${escapeHtml(value)}" required class="form-control form-control-sm fw-bold" style="color: #7E22CE;" placeholder="مثال: 15% أو 50,000 ج.س">
+            <input type="text" name="discount_value[]" value="${escapeHtml(value)}" required class="form-control form-control-sm fw-bold" style="color: #1E5FA8;" placeholder="مثال: 15% أو 50,000 ج.س">
         </td>
         <td style="min-width: 150px; padding: 8px 10px;">
             <input type="text" name="discount_applies_to[]" value="${escapeHtml(appliesTo)}" class="form-control form-control-sm" placeholder="مثال: الأخ الثاني فما فوق">

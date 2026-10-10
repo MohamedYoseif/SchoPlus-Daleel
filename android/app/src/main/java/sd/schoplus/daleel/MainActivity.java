@@ -319,6 +319,12 @@ public class MainActivity extends AppCompatActivity {
                     webView.loadUrl("https://daleel.schoplus.sd/mobile/?school_id=" + schoolId);
                     return true;
                 }
+            } else if (path != null && path.equals("/login.php")) {
+                webView.loadUrl("https://daleel.schoplus.sd/mobile/?tab=login");
+                return true;
+            } else if (path != null && path.equals("/register.php")) {
+                webView.loadUrl("https://daleel.schoplus.sd/mobile/?tab=register");
+                return true;
             } else if (path != null && (path.equals("/") || path.equals("/index.php"))) {
                 // If user clicks home link inside web page, route to native mobile home
                 if (!url.contains("/mobile/")) {

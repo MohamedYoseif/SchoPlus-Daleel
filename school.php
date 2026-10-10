@@ -345,7 +345,7 @@ require_once __DIR__ . '/header.php';
     height: 280px;
     position: relative;
     overflow: hidden;
-    background: linear-gradient(135deg, #0B2A52 0%, #1E5FA8 60%, #D97706 130%);
+    background: #0B2A52;
     border-radius: 24px 24px 0 0;
 }
 .sp-hero-cover img.cover-img {
@@ -354,12 +354,10 @@ require_once __DIR__ . '/header.php';
 }
 .sp-hero-cover .cover-overlay {
     position: absolute; inset: 0;
-    background: linear-gradient(to bottom, rgba(11,42,82,0.15) 0%, rgba(11,42,82,0.75) 100%);
+    background: rgba(11,42,82,0.45);
 }
 .sp-hero-cover .cover-pattern {
-    position: absolute; inset: 0; opacity: 0.05;
-    background-image: repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 0, transparent 40%);
-    background-size: 16px 16px;
+    display: none;
 }
 
 /* Safe Top Cover Badges Container */
@@ -414,7 +412,7 @@ require_once __DIR__ . '/header.php';
 .sp-logo-placeholder {
     width: 100%; height: 100%;
     border-radius: 16px;
-    background: linear-gradient(135deg, var(--brand-navy), var(--brand-blue));
+    background: #0B2A52;
     display: flex; align-items: center; justify-content: center;
     font-size: 2.6rem; font-weight: 900; color: #FFFFFF;
 }
@@ -552,7 +550,7 @@ require_once __DIR__ . '/header.php';
 .facility-chip i { color: var(--brand-blue); font-size: 0.88rem; }
 
 .sp-inquiry-card {
-    background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
+    background: #FFFFFF;
     border: 1.5px solid #BFDBFE;
     border-radius: 20px; padding: 22px;
     margin-bottom: 22px;
@@ -584,7 +582,7 @@ require_once __DIR__ . '/header.php';
 .sp-gallery-item:hover img { transform: scale(1.08); }
 .sp-gallery-overlay {
     position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(11,42,82,0.85) 0%, rgba(11,42,82,0.1) 60%, transparent 100%);
+    background: rgba(11,42,82,0.8);
     opacity: 0;
     transition: opacity 0.25s ease;
     display: flex; align-items: flex-end; padding: 14px;
@@ -616,7 +614,7 @@ require_once __DIR__ . '/header.php';
     content: '';
     position: absolute; top: 0; right: 0;
     width: 4px; height: 100%;
-    background: linear-gradient(to bottom, var(--brand-blue), var(--brand-gold));
+    background: var(--brand-blue);
     border-radius: 0 16px 16px 0;
 }
 .sp-news-card:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(11,42,82,0.07); }
@@ -730,7 +728,7 @@ require_once __DIR__ . '/header.php';
 }
 
 .sp-upgrade-cta {
-    background: linear-gradient(135deg, #0B2A52 0%, #16467D 100%);
+    background: #0B2A52;
     border-radius: 20px; padding: 24px 22px; text-align: center; color: #FFFFFF;
     position: relative; overflow: hidden;
     box-shadow: 0 8px 28px rgba(11,42,82,0.18);
@@ -761,7 +759,7 @@ require_once __DIR__ . '/header.php';
 
 .rating-bar-wrap { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
 .rating-bar { flex: 1; height: 7px; background: #EAE3D8; border-radius: 6px; overflow: hidden; }
-.rating-bar-fill { height: 100%; border-radius: 6px; background: linear-gradient(90deg, #F59E0B, #D97706); }
+.rating-bar-fill { height: 100%; border-radius: 6px; background: #F5A020; }
 
 /* Custom Lightbox */
 #spLightbox {
@@ -812,22 +810,20 @@ require_once __DIR__ . '/header.php';
     transform: scale(0.96);
 }
 .sp-mob-wa {
-    background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+    background: #0B2A52;
     color: #FFFFFF !important;
     flex: 1.1 1 auto;
-    box-shadow: 0 3px 10px rgba(22,163,74,0.25);
 }
 .sp-mob-call {
-    background: #EFF6FF;
+    background: #FFFFFF;
     color: var(--brand-blue) !important;
-    border: 1.5px solid #BFDBFE !important;
+    border: 1.5px solid var(--brand-blue) !important;
     flex: 0.9 1 auto;
 }
 .sp-mob-inquiry {
-    background: linear-gradient(135deg, #F5A020 0%, #D97706 100%);
+    background: #F5A020;
     color: #FFFFFF !important;
     flex: 1.2 1 auto;
-    box-shadow: 0 3px 10px rgba(245,160,32,0.25);
 }
 .sp-mob-share {
     background: #F8FAFC;
@@ -987,7 +983,7 @@ $totalRev = max(1, count($reviewsList));
         <div class="sp-hero-cover mb-0">
             <?php if (!empty($school['cover_path'])): ?>
                 <img src="<?= e(assetUrl($school['cover_path'])) ?>" alt="غلاف <?= e($school['name']) ?>" class="cover-img">
-                <div class="cover-overlay" style="background: linear-gradient(to bottom, rgba(11,42,82,0.06) 0%, rgba(11,42,82,0.42) 100%);"></div>
+                <div class="cover-overlay" style="background: rgba(11,42,82,0.35);"></div>
             <?php else: ?>
                 <div class="cover-overlay"></div>
                 <div class="cover-pattern"></div>
@@ -1037,7 +1033,7 @@ $totalRev = max(1, count($reviewsList));
                 <!-- Action Buttons (2x2 grid on mobile, flex on desktop) -->
                 <div class="sp-action-btns-wrap pb-1">
                     <?php if (!empty($school['whatsapp'])): ?>
-                        <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $school['whatsapp']) ?>?text=<?= urlencode('مرحباً، رأيت مدرستكم على دليل SchoPlus وأود الاستفسار.') ?>" target="_blank" class="btn-luxury-primary sp-btn-action" style="background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); box-shadow: 0 4px 14px rgba(22,163,74,0.24);">
+                        <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $school['whatsapp']) ?>?text=<?= urlencode('مرحباً، رأيت مدرستكم على دليل SchoPlus وأود الاستفسار.') ?>" target="_blank" class="btn-luxury-primary sp-btn-action" style="background: #0B2A52; color: #FFFFFF;">
                             <i class="fab fa-whatsapp"></i> <span>واتساب</span>
                         </a>
                     <?php endif; ?>

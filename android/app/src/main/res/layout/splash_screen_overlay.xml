@@ -39,9 +39,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
-            android:text="دليل المدارس السودانية المعتمدة"
+            android:text="دليل المدارس السودانية"
             android:textColor="#FFFFFF"
-            android:textSize="13sp"
+            android:textSize="14sp"
             android:fontFamily="@font/cairo"
             android:textStyle="bold"
             android:alpha="0" />
@@ -51,10 +51,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="المنصة الوطنية الموحدة — مدعوم بمنظومة SchoPlus"
-            android:textColor="#93C5FD"
-            android:textSize="11sp"
+            android:text="خدمة رقمية من منظومة ايسكو بلص"
+            android:textColor="#F5A020"
+            android:textSize="12sp"
             android:fontFamily="@font/cairo"
+            android:textStyle="bold"
             android:alpha="0" />
 
     </LinearLayout>
