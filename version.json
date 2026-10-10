@@ -1,7 +1,7 @@
 {
-    "release_notes": "daleel.schoplus.sd — تثبيت نموذج إضافة الأخبار ومحرر Word مباشرة في التبويب مع زر حفظ ونشر بارز",
+    "release_notes": "daleel.schoplus.sd — جعل نموذج إضافة الأخبار يفتح ويغلق عند الطلب بزر إضافة خبر أو إعلان",
     "min_php_version": "8.2",
-    "version": "3.5.57",
+    "version": "3.5.58",
     "release_date": "2026-10-10",
     "version_type": "enterprise"
 }

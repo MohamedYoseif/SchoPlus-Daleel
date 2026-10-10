@@ -1642,8 +1642,19 @@ require_once __DIR__ . '/header.php';
                 <!-- TAB 2: NEWS & ANNOUNCEMENTS -->
                 <div class="tab-pane fade <?= $activeDashTab === 'news' ? 'show active' : '' ?>" id="dash-news" role="tabpanel">
                     
-                    <!-- Direct Inline Add News Form Card with Word-like WYSIWYG -->
-                    <div class="card border-0 rounded-4 shadow-sm bg-white p-4 mb-4" id="inlineAddNewsCard">
+                    <!-- Header with Add News Trigger Button -->
+                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-4 p-3 bg-light rounded-4 border">
+                        <div>
+                            <h6 class="fw-bold text-dark mb-1"><i class="fas fa-bullhorn text-primary me-2"></i> الأخبار والإعلانات المدرسية</h6>
+                            <small class="text-muted">انشر مواعيد التسجيل، الفعاليات، تكريم الأوائل، والأنشطة بتنسيق Word متقدم لإبقاء أولياء الأمور على اطلاع دائم.</small>
+                        </div>
+                        <button type="button" class="btn-luxury-primary px-3 py-2 fw-bold" id="toggleAddNewsBtn" onclick="toggleAddNewsForm()">
+                            <i class="fas fa-plus-circle me-1" id="toggleAddNewsIcon"></i> <span id="toggleAddNewsText">إضافة خبر أو إعلان جديد</span>
+                        </button>
+                    </div>
+
+                    <!-- Collapsible Add News Form Card with Word-like WYSIWYG -->
+                    <div class="card border-0 rounded-4 shadow-sm bg-white p-4 mb-4" id="inlineAddNewsCard" style="display: none; border-top: 4px solid var(--brand-blue) !important;">
                         <div class="d-flex align-items-center justify-content-between pb-3 mb-3 border-bottom flex-wrap gap-2">
                             <div class="d-flex align-items-center gap-2">
                                 <div style="width: 36px; height: 36px; border-radius: 10px; background: #EFF6FF; color: var(--brand-blue); display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">
@@ -1651,12 +1662,12 @@ require_once __DIR__ . '/header.php';
                                 </div>
                                 <div>
                                     <h6 class="fw-bold text-dark mb-0 fs-6">إضافة خبر أو إعلان جديد لمدرستكم</h6>
-                                    <small class="text-muted">انشر مواعيد التسجيل، الفعاليات، تكريم الأوائل، والأنشطة بتنسيق Word متقدم</small>
+                                    <small class="text-muted">املأ البيانات ونسق الخبر باستخدام محرر Word المتقدم أدناه ثم اضغط حفظ ونشر</small>
                                 </div>
                             </div>
-                            <span class="badge bg-light text-secondary border px-3 py-1 rounded-pill small">
-                                <i class="fas fa-magic me-1 text-warning"></i> محرر متقدم
-                            </span>
+                            <button type="button" class="btn btn-sm btn-light border rounded-pill px-3 py-1 text-muted fw-bold" onclick="toggleAddNewsForm()">
+                                <i class="fas fa-times me-1"></i> إغلاق النموذج
+                            </button>
                         </div>
 
                         <form method="POST" action="dashboard.php" enctype="multipart/form-data" id="addNewsForm" onsubmit="syncQuillToAddNews()">
@@ -1676,7 +1687,7 @@ require_once __DIR__ . '/header.php';
                                         صورة بارزة للخبر (اختياري)
                                     </label>
                                     <input type="file" name="news_image" accept="image/*" class="form-control">
-                                    <small class="text-muted" style="font-size: 0.7rem;">في حال عدم رفع صورة، ستظهر تلقائياً صورة إعلان افتراضية أنيقة.</small>
+                                    <small class="text-muted" style="font-size: 0.7rem;">في حال عدم رفع صورة، ستظهر تلقائياً صورة إعلان افتراضية أنيقة وصغيرة.</small>
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label small fw-bold text-secondary">
@@ -1687,10 +1698,9 @@ require_once __DIR__ . '/header.php';
                                 </div>
 
                                 <div class="col-12 d-flex justify-content-between align-items-center pt-3 border-top mt-3 flex-wrap gap-2">
-                                    <div class="text-muted small">
-                                        <i class="fas fa-info-circle me-1 text-primary"></i>
-                                        سيتم نشر الخبر فوراً في صفحة مدرستكم العامة بدليل إسكوبلص.
-                                    </div>
+                                    <button type="button" class="btn btn-light border btn-sm px-3" onclick="toggleAddNewsForm()">
+                                        إلغاء التراجع
+                                    </button>
                                     <button type="submit" class="btn btn-primary px-4 py-2 fw-bold d-inline-flex align-items-center gap-2 shadow-sm rounded-3 fs-6">
                                         <i class="fas fa-paper-plane"></i>
                                         <span>حفظ ونشر الخبر الآن</span>
@@ -2089,16 +2099,30 @@ function syncQuillToEditNews() {
     return true;
 }
 
-function openAddNewsModal() {
-    // Focus and scroll smoothly to the inline Add News form
+function toggleAddNewsForm() {
     const card = document.getElementById('inlineAddNewsCard');
-    if (card) {
+    const textSpan = document.getElementById('toggleAddNewsText');
+    const icon = document.getElementById('toggleAddNewsIcon');
+    if (!card) return;
+
+    if (card.style.display === 'none' || card.style.display === '') {
+        card.style.display = 'block';
+        if (textSpan) textSpan.innerText = 'إلغاء إضافة الخبر';
+        if (icon) icon.className = 'fas fa-times me-1';
         card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(() => {
+            const titleInput = document.getElementById('addNewsTitleInput');
+            if (titleInput) titleInput.focus();
+        }, 150);
+    } else {
+        card.style.display = 'none';
+        if (textSpan) textSpan.innerText = 'إضافة خبر أو إعلان جديد';
+        if (icon) icon.className = 'fas fa-plus-circle me-1';
     }
-    const titleInput = document.getElementById('addNewsTitleInput');
-    if (titleInput) {
-        titleInput.focus();
-    }
+}
+
+function openAddNewsModal() {
+    toggleAddNewsForm();
 }
 
 function openEditNewsModal(item) {
