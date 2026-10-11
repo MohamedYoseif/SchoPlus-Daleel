@@ -447,9 +447,9 @@ function ensureTablesExist(PDO $pdo): void {
         } catch (Throwable $e) {}
     } catch (Exception $e) {}
 
-    // Clean up any accidental rogue schools or auto-seeded dummy schools
+    // Clean up any accidental rogue schools created from system filenames or reserved slugs
     try {
-        $dummySlugs = "'index.php', 'index', 'home', 'schools', 'school', 'admin', 'api', 'dashboard', 'login', 'register', 'logout', 'isco-smart-model-schools', 'al-manar-modern-international-schools', 'al-sahel-model-schools', 'al-nukhba-educational-complex'";
+        $dummySlugs = "'index.php', 'index', 'home', 'schools', 'school', 'admin', 'api', 'dashboard', 'login', 'register', 'logout'";
         $pdo->exec("DELETE FROM daleel_school_reviews WHERE school_id IN (SELECT id FROM daleel_schools WHERE slug IN ({$dummySlugs}) OR name LIKE '%Index.php%')");
         $pdo->exec("DELETE FROM daleel_school_news WHERE school_id IN (SELECT id FROM daleel_schools WHERE slug IN ({$dummySlugs}) OR name LIKE '%Index.php%')");
         $pdo->exec("DELETE FROM daleel_school_inquiries WHERE school_id IN (SELECT id FROM daleel_schools WHERE slug IN ({$dummySlugs}) OR name LIKE '%Index.php%')");
