@@ -93,21 +93,15 @@ if (!function_exists('defaultNewsImage')) {
 
 if (!function_exists('getSchoolDirectoryRank')) {
     function getSchoolDirectoryRank(PDO $pdo, int $schoolId, ?int $customRank = null): int {
-        if ($customRank !== null && $customRank > 0) {
-            return $customRank;
-        }
-
         static $cachedRanks = null;
         if ($cachedRanks === null) {
             try {
                 // الترتيب حصراً للمدارس المعتمدة فقط (status = 'approved') وفق أسبقية الاعتماد
-                $stmt = $pdo->query("SELECT id, directory_rank FROM daleel_schools WHERE status = 'approved' ORDER BY id ASC");
+                $stmt = $pdo->query("SELECT id FROM daleel_schools WHERE status = 'approved' ORDER BY id ASC");
                 $cachedRanks = [];
                 $seq = 1;
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                    $savedRank = !empty($row['directory_rank']) ? (int)$row['directory_rank'] : null;
-                    $rankToUse = ($savedRank !== null && $savedRank > 0) ? $savedRank : $seq;
-                    $cachedRanks[(int)$row['id']] = $rankToUse;
+                    $cachedRanks[(int)$row['id']] = $seq;
                     $seq++;
                 }
             } catch (Throwable $e) {
@@ -119,9 +113,53 @@ if (!function_exists('getSchoolDirectoryRank')) {
             return $cachedRanks[$schoolId];
         }
 
+        if ($customRank !== null && $customRank > 0) {
+            return $customRank;
+        }
+
         // إذا كانت المدرسة قيد المراجعة أو جديدة، ترتيبها المتوقع عند الاعتماد هو (حصر المدارس المعتمدة + 1)
         $approvedCount = is_array($cachedRanks) ? count($cachedRanks) : 0;
         return max(1, $approvedCount + 1);
+    }
+}
+
+if (!function_exists('getSchoolStateRank')) {
+    function getSchoolStateRank(PDO $pdo, int $schoolId, ?string $state = null, ?int $customStateRank = null): int {
+        static $cachedStateRanks = null;
+        static $cachedStateCounts = null;
+        if ($cachedStateRanks === null) {
+            try {
+                // الترتيب داخل الولاية حصراً للمدارس المعتمدة فقط وفق أسبقية الاعتماد في كل ولاية
+                $stmt = $pdo->query("SELECT id, state FROM daleel_schools WHERE status = 'approved' ORDER BY id ASC");
+                $cachedStateRanks = [];
+                $cachedStateCounts = [];
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $st = trim((string)($row['state'] ?? ''));
+                    $cachedStateCounts[$st] = ($cachedStateCounts[$st] ?? 0) + 1;
+                    $cachedStateRanks[(int)$row['id']] = $cachedStateCounts[$st];
+                }
+            } catch (Throwable $e) {
+                $cachedStateRanks = [];
+                $cachedStateCounts = [];
+            }
+        }
+
+        if (isset($cachedStateRanks[$schoolId])) {
+            return $cachedStateRanks[$schoolId];
+        }
+
+        $stKey = trim((string)($state ?? ''));
+        if ($stKey === '' && $schoolId > 0) {
+            try {
+                $stStmt = $pdo->prepare("SELECT state FROM daleel_schools WHERE id = ?");
+                $stStmt->execute([$schoolId]);
+                $stKey = trim((string)($stStmt->fetchColumn() ?: ''));
+            } catch (Throwable $e) {}
+        }
+
+        // إذا كانت المدرسة قيد المراجعة أو جديدة، ترتيبها المتوقع في الولاية عند الاعتماد هو (حصر المدارس المعتمدة بالولاية + 1)
+        $approvedInState = ($stKey !== '' && isset($cachedStateCounts[$stKey])) ? (int)$cachedStateCounts[$stKey] : 0;
+        return max(1, $approvedInState + 1);
     }
 }
 
@@ -384,6 +422,7 @@ function ensureTablesExist(PDO $pdo): void {
             'teachers_data'   => "ALTER TABLE daleel_schools ADD COLUMN teachers_data LONGTEXT NULL AFTER activities_data",
             'optional_tabs'   => "ALTER TABLE daleel_schools ADD COLUMN optional_tabs TEXT NULL AFTER teachers_data",
             'directory_rank'  => "ALTER TABLE daleel_schools ADD COLUMN directory_rank INT UNSIGNED NULL DEFAULT NULL AFTER is_featured",
+            'state_rank'      => "ALTER TABLE daleel_schools ADD COLUMN state_rank INT UNSIGNED NULL DEFAULT NULL AFTER directory_rank",
             'established_year'=> "ALTER TABLE daleel_schools ADD COLUMN established_year VARCHAR(50) NULL AFTER curriculum",
             'fees_type'       => "ALTER TABLE daleel_schools ADD COLUMN fees_type VARCHAR(50) NOT NULL DEFAULT 'average' AFTER approx_fees",
             'stage_fees'      => "ALTER TABLE daleel_schools ADD COLUMN stage_fees LONGTEXT NULL AFTER fees_type",
@@ -433,15 +472,21 @@ function ensureTablesExist(PDO $pdo): void {
                 $pdo->exec($sql);
             }
         }
-        // Auto-assign permanent sequential directory_rank for approved schools without rank (حصر المدارس المعتمدة + 1)
+        // Sync sequential directory_rank and state_rank for approved schools
         try {
-            $unrankedApproved = $pdo->query("SELECT id FROM daleel_schools WHERE status = 'approved' AND (directory_rank IS NULL OR directory_rank = 0) ORDER BY id ASC")->fetchAll(PDO::FETCH_COLUMN);
-            if (!empty($unrankedApproved)) {
-                $maxRank = (int) $pdo->query("SELECT MAX(directory_rank) FROM daleel_schools WHERE status = 'approved'")->fetchColumn();
-                $updRankStmt = $pdo->prepare("UPDATE daleel_schools SET directory_rank = ? WHERE id = ?");
-                foreach ($unrankedApproved as $unId) {
-                    $maxRank++;
-                    $updRankStmt->execute([$maxRank, (int)$unId]);
+            $approvedRows = $pdo->query("SELECT id, state, directory_rank, state_rank FROM daleel_schools WHERE status = 'approved' ORDER BY id ASC")->fetchAll(PDO::FETCH_ASSOC);
+            if (!empty($approvedRows)) {
+                $dirSeq = 0;
+                $stateSeqs = [];
+                $updRanksStmt = $pdo->prepare("UPDATE daleel_schools SET directory_rank = ?, state_rank = ? WHERE id = ?");
+                foreach ($approvedRows as $aRow) {
+                    $dirSeq++;
+                    $stKey = trim((string)($aRow['state'] ?? ''));
+                    $stateSeqs[$stKey] = ($stateSeqs[$stKey] ?? 0) + 1;
+                    $stSeq = $stateSeqs[$stKey];
+                    if ((int)($aRow['directory_rank'] ?? 0) !== $dirSeq || (int)($aRow['state_rank'] ?? 0) !== $stSeq) {
+                        $updRanksStmt->execute([$dirSeq, $stSeq, (int)$aRow['id']]);
+                    }
                 }
             }
         } catch (Throwable $e) {}

@@ -1059,11 +1059,18 @@ $totalRev = max(1, count($reviewsList));
                 </div>
 
                 <!-- Quick Stats Bar (Right side in RTL) -->
-                <?php $schoolRank = getSchoolDirectoryRank($pdo, (int)$school['id'], !empty($school['directory_rank']) ? (int)$school['directory_rank'] : null); ?>
+                <?php
+                $schoolRank = getSchoolDirectoryRank($pdo, (int)$school['id'], !empty($school['directory_rank']) ? (int)$school['directory_rank'] : null);
+                $schoolStateRank = getSchoolStateRank($pdo, (int)$school['id'], (string)($school['state'] ?? ''), !empty($school['state_rank']) ? (int)$school['state_rank'] : null);
+                ?>
                 <div class="sp-quick-stats order-lg-1 mt-0 pt-0 border-0 mb-0">
                     <div class="sp-stat-item">
                         <i class="fas fa-hashtag" style="color: var(--brand-gold);"></i>
-                        <span>الترتيب في الدليل: <strong style="color: var(--brand-navy);"><?= $schoolRank ?></strong></span>
+                        <span>الترتيب في الدليل: <strong style="color: var(--brand-navy);">#<?= $schoolRank ?></strong></span>
+                    </div>
+                    <div class="sp-stat-item">
+                        <i class="fas fa-map-marker-alt" style="color: var(--brand-blue);"></i>
+                        <span>الترتيب في ولاية <?= e($school['state']) ?>: <strong style="color: var(--brand-navy);">#<?= $schoolStateRank ?></strong></span>
                     </div>
                     <?php if (!empty($school['established_year'])): ?>
                     <div class="sp-stat-item">
@@ -2195,10 +2202,17 @@ $totalRev = max(1, count($reviewsList));
                     </div>
                     <div class="sp-info-card-body">
                         <div class="sp-fact-row">
-                            <div class="sp-fact-icon" style="background: #FFFBEB; color: #d97706;"><i class="fas fa-hashtag"></i></div>
+                            <div class="sp-fact-icon" style="background: #FFFBEB; color: #F5A020;"><i class="fas fa-hashtag"></i></div>
                             <div>
                                 <span class="sp-fact-label">الترتيب في الدليل</span>
                                 <span class="sp-fact-value" style="color: var(--brand-navy);">#<?= $schoolRank ?></span>
+                            </div>
+                        </div>
+                        <div class="sp-fact-row">
+                            <div class="sp-fact-icon" style="background: #EFF6FF; color: var(--brand-blue);"><i class="fas fa-map-marker-alt"></i></div>
+                            <div>
+                                <span class="sp-fact-label">الترتيب في ولاية <?= e($school['state']) ?></span>
+                                <span class="sp-fact-value" style="color: var(--brand-navy);">#<?= $schoolStateRank ?></span>
                             </div>
                         </div>
                         <?php if (!empty($school['established_year'])): ?>

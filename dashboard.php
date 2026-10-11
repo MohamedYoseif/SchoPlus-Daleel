@@ -1425,17 +1425,17 @@ require_once __DIR__ . '/header.php';
                     </div>
                     <div>
                         <div class="d-flex align-items-center gap-2 flex-wrap">
-                            <?php $dashRank = getSchoolDirectoryRank($pdo, (int)$school['id'], !empty($school['directory_rank']) ? (int)$school['directory_rank'] : null); ?>
+                            <?php $dashRank = getSchoolDirectoryRank($pdo, (int)$school['id'], !empty($school['directory_rank']) ? (int)$school['directory_rank'] : null); $dashStateRank = getSchoolStateRank($pdo, (int)$school['id'], (string)($school['state'] ?? ''), !empty($school['state_rank']) ? (int)$school['state_rank'] : null); ?>
                             <?php if ($school['status'] === 'approved'): ?>
                                 <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3 py-1 fw-bold small">
                                     <i class="fas fa-check-circle me-1"></i> معتمدة ونشطة بالدليل
                                 </span>
                                 <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-3 py-1 fw-bold small">
-                                    <i class="fas fa-award me-1"></i> الترتيب في الدليل: #<?= $dashRank ?>
+                                    <i class="fas fa-award me-1"></i> الترتيب في الدليل: #<?= $dashRank ?></span> <span class="badge rounded-pill px-3 py-1 fw-bold small" style="background: #EFF6FF; color: #0B2A52; border: 1px solid #BFDBFE;"><i class="fas fa-map-marker-alt me-1" style="color: #F5A020;"></i> الترتيب في ولاية <?= e($school['state']) ?>: #<?= $dashStateRank ?>
                                 </span>
                             <?php elseif ($school['status'] === 'pending'): ?>
                                 <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle rounded-pill px-3 py-1 fw-bold small">
-                                    <i class="fas fa-hourglass-half me-1"></i> بانتظار التأكيد والاعتماد (الترتيب المتوقع: #<?= $dashRank ?>)
+                                    <i class="fas fa-hourglass-half me-1"></i> بانتظار التأكيد والاعتماد (الترتيب المتوقع بالدليل: #<?= $dashRank ?> — بالولاية: #<?= $dashStateRank ?>)
                                 </span>
                             <?php elseif ($school['status'] === 'suspended'): ?>
                                 <span class="badge bg-danger text-white rounded-pill px-3 py-1 fw-bold small">

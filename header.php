@@ -402,10 +402,31 @@ $isDaleelMobile = (
             white-space: nowrap;
         }
         .badge-rank-tag::before {
-            content: "ترتيب ";
+            content: "الدليل ";
             font-size: 0.62rem;
             font-weight: 600;
             color: #6B7280;
+        }
+
+        .badge-state-rank-tag {
+            background: #EFF6FF;
+            color: #1E5FA8;
+            border: 1px solid #BFDBFE;
+            font-size: 0.68rem;
+            font-weight: 800;
+            padding: 2px 7px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+        .badge-state-rank-tag::before {
+            content: "الولاية ";
+            font-size: 0.62rem;
+            font-weight: 600;
+            color: #1E5FA8;
         }
 
         .badge-established {

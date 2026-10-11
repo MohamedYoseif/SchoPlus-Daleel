@@ -652,6 +652,7 @@ if ($isSearching) {
                             $stagesArr = json_decode($s['stages'] ?? '[]', true) ?: [];
                             $schoolUrl = '/school/' . urlencode($s['slug']);
                             $sRank = getSchoolDirectoryRank($pdo, (int)$s['id'], !empty($s['directory_rank']) ? (int)$s['directory_rank'] : null);
+                            $sStateRank = getSchoolStateRank($pdo, (int)$s['id'], (string)($s['state'] ?? ''), !empty($s['state_rank']) ? (int)$s['state_rank'] : null);
                         ?>
                         <div class="col-lg-4 col-md-6">
                             <div class="luxury-card h-100 d-flex flex-column clickable-school-card" onclick="window.location.href='<?= $schoolUrl ?>'">
@@ -661,7 +662,7 @@ if ($isSearching) {
                                     <?php if (!$cover): ?><div class="cover-placeholder-icon"><i class="fas fa-school"></i></div><?php endif; ?>
 
                                     <div style="position: absolute; top: 12px; left: 12px; z-index: 2; display: flex; flex-direction: column; gap: 5px; align-items: flex-end;">
-                                        <span class="badge-directory-rank"><i class="fas fa-award text-warning"></i> الترتيب #<?= $sRank ?></span>
+                                        <span class="badge-directory-rank"><i class="fas fa-award text-warning"></i> الترتيب بالدليل #<?= $sRank ?></span>
                                         <?php if ($s['is_schoplus_client']): ?>
                                             <span class="badge-schoplus-smart"><i class="fas fa-bolt"></i> SchoPlus الذكي</span>
                                         <?php endif; ?>
@@ -678,7 +679,10 @@ if ($isSearching) {
                                         <a href="<?= $schoolUrl ?>" style="font-weight: 700; font-size: 0.88rem; color: var(--brand-navy); text-decoration: none;" onclick="event.stopPropagation();">
                                             <?= e($s['name']) ?>
                                         </a>
-                                        <span class="badge-rank-tag" title="الترتيب في الدليل">#<?= $sRank ?></span>
+                                        <div class="d-flex align-items-center gap-1 flex-shrink-0">
+                                            <span class="badge-rank-tag" title="الترتيب في الدليل">#<?= $sRank ?></span>
+                                            <span class="badge-state-rank-tag" title="الترتيب في ولاية <?= e($s['state']) ?>">#<?= $sStateRank ?></span>
+                                        </div>
                                     </div>
 
                                     <div class="d-flex justify-content-between align-items-center flex-wrap gap-1 mb-2" style="font-size: 0.72rem; color: #64748B;">
@@ -777,6 +781,7 @@ if ($isSearching) {
                         $stagesArr = json_decode($s['stages'] ?? '[]', true) ?: [];
                         $schoolUrl = '/school/' . urlencode($s['slug']);
                         $sRank = getSchoolDirectoryRank($pdo, (int)$s['id'], !empty($s['directory_rank']) ? (int)$s['directory_rank'] : null);
+                        $sStateRank = getSchoolStateRank($pdo, (int)$s['id'], (string)($s['state'] ?? ''), !empty($s['state_rank']) ? (int)$s['state_rank'] : null);
                     ?>
                     <div class="col-lg-4 col-md-6">
                         <div class="luxury-card clickable-school-card" style="border: 1.5px solid #F5A020; background: #FFFFFF;" onclick="window.location.href='<?= $schoolUrl ?>'">
@@ -790,7 +795,7 @@ if ($isSearching) {
                                 <?php if (!$cover): ?><div class="cover-placeholder-icon"><i class="fas fa-school"></i></div><?php endif; ?>
                                 
                                 <div style="position: absolute; top: 12px; left: 12px; z-index: 2; display: flex; flex-direction: column; gap: 5px; align-items: flex-end;">
-                                    <span class="badge-directory-rank"><i class="fas fa-award text-warning"></i> الترتيب #<?= $sRank ?></span>
+                                    <span class="badge-directory-rank"><i class="fas fa-award text-warning"></i> الترتيب بالدليل #<?= $sRank ?></span>
                                     <span class="badge-schoplus-smart"><i class="fas fa-microchip"></i> SchoPlus</span>
                                 </div>
 
@@ -804,7 +809,10 @@ if ($isSearching) {
                                     <a href="<?= $schoolUrl ?>" style="font-weight: 700; font-size: 0.88rem; color: var(--brand-navy); text-decoration: none;" onclick="event.stopPropagation();">
                                         <?= e($s['name']) ?>
                                     </a>
-                                    <span class="badge-rank-tag" title="الترتيب في الدليل">#<?= $sRank ?></span>
+                                    <div class="d-flex align-items-center gap-1 flex-shrink-0">
+                                        <span class="badge-rank-tag" title="الترتيب في الدليل">#<?= $sRank ?></span>
+                                        <span class="badge-state-rank-tag" title="الترتيب في ولاية <?= e($s['state']) ?>">#<?= $sStateRank ?></span>
+                                    </div>
                                 </div>
 
                                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-1 mb-2" style="font-size: 0.72rem; color: #64748B;">
@@ -892,6 +900,7 @@ if ($isSearching) {
                         $logo = e(defaultSchoolLogo($s['logo_path'] ?? null));
                         $schoolUrl = '/school/' . urlencode($s['slug']);
                         $sRank = getSchoolDirectoryRank($pdo, (int)$s['id'], !empty($s['directory_rank']) ? (int)$s['directory_rank'] : null);
+                        $sStateRank = getSchoolStateRank($pdo, (int)$s['id'], (string)($s['state'] ?? ''), !empty($s['state_rank']) ? (int)$s['state_rank'] : null);
                     ?>
                     <div class="col-lg-4 col-md-6">
                         <div class="luxury-card p-3 h-100 d-flex flex-column clickable-school-card" onclick="window.location.href='<?= $schoolUrl ?>'">
@@ -899,10 +908,13 @@ if ($isSearching) {
                                 <img src="<?= $logo ?>" alt="" style="width: 50px; height: 50px; border-radius: 12px; object-fit: cover;">
                                 <div class="flex-grow-1 min-w-0">
                                     <div class="d-flex justify-content-between align-items-center gap-1 mb-1">
-                                        <a href="<?= $schoolUrl ?>" class="fw-bold text-dark text-decoration-none d-block text-truncate" style="max-width: 175px; font-size: 0.84rem;" onclick="event.stopPropagation();">
+                                        <a href="<?= $schoolUrl ?>" class="fw-bold text-dark text-decoration-none d-block text-truncate" style="max-width: 150px; font-size: 0.84rem;" onclick="event.stopPropagation();">
                                             <?= e($s['name']) ?>
                                         </a>
-                                        <span class="badge-rank-tag" title="الترتيب في الدليل">#<?= $sRank ?></span>
+                                        <div class="d-flex align-items-center gap-1 flex-shrink-0">
+                                            <span class="badge-rank-tag" title="الترتيب في الدليل">#<?= $sRank ?></span>
+                                            <span class="badge-state-rank-tag" title="الترتيب في ولاية <?= e($s['state']) ?>">#<?= $sStateRank ?></span>
+                                        </div>
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center flex-wrap gap-1 text-muted" style="font-size: 0.7rem;">
                                         <div>
@@ -971,6 +983,7 @@ if ($isSearching) {
                         $logo = e(defaultSchoolLogo($s['logo_path'] ?? null));
                         $schoolUrl = '/school/' . urlencode($s['slug']);
                         $sRank = getSchoolDirectoryRank($pdo, (int)$s['id'], !empty($s['directory_rank']) ? (int)$s['directory_rank'] : null);
+                        $sStateRank = getSchoolStateRank($pdo, (int)$s['id'], (string)($s['state'] ?? ''), !empty($s['state_rank']) ? (int)$s['state_rank'] : null);
                     ?>
                     <div class="col-lg-4 col-md-6">
                         <div class="luxury-card p-3 h-100 d-flex flex-column clickable-school-card" onclick="window.location.href='<?= $schoolUrl ?>'">
@@ -978,10 +991,13 @@ if ($isSearching) {
                                 <img src="<?= $logo ?>" alt="" style="width: 50px; height: 50px; border-radius: 12px; object-fit: cover;">
                                 <div class="flex-grow-1 min-w-0">
                                     <div class="d-flex justify-content-between align-items-center gap-1 mb-1">
-                                        <a href="<?= $schoolUrl ?>" class="fw-bold text-dark text-decoration-none d-block text-truncate" style="max-width: 175px; font-size: 0.84rem;" onclick="event.stopPropagation();">
+                                        <a href="<?= $schoolUrl ?>" class="fw-bold text-dark text-decoration-none d-block text-truncate" style="max-width: 150px; font-size: 0.84rem;" onclick="event.stopPropagation();">
                                             <?= e($s['name']) ?>
                                         </a>
-                                        <span class="badge-rank-tag" title="الترتيب في الدليل">#<?= $sRank ?></span>
+                                        <div class="d-flex align-items-center gap-1 flex-shrink-0">
+                                            <span class="badge-rank-tag" title="الترتيب في الدليل">#<?= $sRank ?></span>
+                                            <span class="badge-state-rank-tag" title="الترتيب في ولاية <?= e($s['state']) ?>">#<?= $sStateRank ?></span>
+                                        </div>
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center flex-wrap gap-1 text-muted" style="font-size: 0.7rem;">
                                         <div>
