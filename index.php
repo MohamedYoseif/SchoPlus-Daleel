@@ -625,7 +625,7 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
             <div class="col-lg-7">
                 <div class="text-start">
                     <h1 class="hero-v2-title">
-                        دليل المدارس الشامل
+                        دليل المدارس السودانية
                         <span class="hero-v2-title-sub">ابحث، قارن، واختر المدرسة الأنسب لأبنائك بكل ثقة واطمئنان</span>
                     </h1>
 
