@@ -602,56 +602,82 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
     color: #0B2A52;
 }
 
-/* Hero Highlights Strip */
-.hero-highlights-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    margin-top: 18px;
-}
-.hero-highlight-card {
+/* Luxury Hero Trust & Value Strip */
+.sp-hero-trust-bar {
     background: #FFFFFF;
     border: 1px solid #DDE4ED;
-    border-right: 3px solid #1E5FA8;
-    border-radius: 12px;
-    padding: 10px 14px;
+    border-radius: 14px;
+    padding: 10px 16px;
+    margin-top: 14px;
     display: flex;
     align-items: center;
-    gap: 10px;
-    text-align: right;
-    box-shadow: 0 2px 8px rgba(11, 42, 82, 0.03);
+    justify-content: space-between;
+    box-shadow: 0 4px 16px rgba(11, 42, 82, 0.04);
 }
-.hero-highlight-card.m-orange {
-    border-right-color: #F5A020;
+.sp-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    flex: 1;
+    min-width: 0;
+    transition: transform 0.2s ease;
 }
-.hero-highlight-card.m-navy {
-    border-right-color: #0B2A52;
+.sp-trust-item:hover {
+    transform: translateY(-1px);
 }
-.hero-highlight-card.m-emerald {
-    border-right-color: #059669;
-}
-.hero-highlight-icon {
-    width: 34px;
-    height: 34px;
-    border-radius: 8px;
+.sp-trust-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 0.88rem;
     flex-shrink: 0;
+    transition: transform 0.2s ease;
 }
-.hero-highlight-val {
-    font-size: 1.05rem;
+.sp-trust-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    line-height: 1.25;
+}
+.sp-trust-title {
+    font-size: 0.76rem;
     font-weight: 800;
     color: #0B2A52;
-    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
-.hero-highlight-lbl {
-    font-size: 0.65rem;
-    color: #64748B;
+.sp-trust-sub {
+    font-size: 0.62rem;
     font-weight: 600;
+    color: #64748B;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 2px;
+}
+.sp-trust-sep {
+    width: 1px;
+    height: 24px;
+    background: #E2E8F0;
+    margin: 0 8px;
+    flex-shrink: 0;
 }
 @media (max-width: 991px) {
+    .sp-hero-trust-bar {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding: 12px;
+    }
+    .sp-trust-sep {
+        display: none;
+    }
     .hero-family-frame {
         margin-top: 16px;
     }
@@ -663,9 +689,10 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
     .daleel-hero-v2 {
         padding: 24px 0 20px;
     }
-    .hero-highlights-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .sp-hero-trust-bar {
+        grid-template-columns: 1fr;
         gap: 8px;
+        padding: 10px 12px;
     }
     .sp-search-card {
         padding: 14px;
@@ -1016,42 +1043,45 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
 
                 </form>
 
-                <!-- Hero Highlights Strip -->
-                <div class="hero-highlights-grid">
-                    <div class="hero-highlight-card">
-                        <div class="hero-highlight-icon" style="background: #EFF6FF; color: var(--brand-blue);">
-                            <i class="fas fa-school"></i>
+                <!-- Luxury Trust & Value Strip -->
+                <div class="sp-hero-trust-bar">
+                    <div class="sp-trust-item">
+                        <div class="sp-trust-icon" style="color: #1E5FA8; background: #EFF6FF; border-color: #DBEAFE;">
+                            <i class="fas fa-shield-alt"></i>
                         </div>
-                        <div>
-                            <div class="hero-highlight-val" data-countup="<?= $statTotal ?>" data-suffix="+"><?= number_format($statTotal) ?>+</div>
-                            <div class="hero-highlight-lbl">مدرسة مسجلة بالدليل</div>
+                        <div class="sp-trust-info">
+                            <span class="sp-trust-title"><?= $statTotal > 5 ? number_format($statTotal) . '+ مدرسة معتمدة' : 'دليل معتمد وموثق' ?></span>
+                            <span class="sp-trust-sub">بيانات وتراخيص رسمية</span>
                         </div>
                     </div>
-                    <div class="hero-highlight-card m-navy">
-                        <div class="hero-highlight-icon" style="background: #F8FAFC; color: #0B2A52;">
+                    <div class="sp-trust-sep"></div>
+                    <div class="sp-trust-item">
+                        <div class="sp-trust-icon" style="color: #0B2A52; background: #F1F5F9; border-color: #E2E8F0;">
                             <i class="fas fa-map-marked-alt"></i>
                         </div>
-                        <div>
-                            <div class="hero-highlight-val" data-countup="<?= $statStates ?>"><?= $statStates ?></div>
-                            <div class="hero-highlight-lbl">ولاية سودانية مغطاة</div>
+                        <div class="sp-trust-info">
+                            <span class="sp-trust-title">18 ولاية سودانية</span>
+                            <span class="sp-trust-sub">تغطية جغرافية شاملة</span>
                         </div>
                     </div>
-                    <div class="hero-highlight-card m-orange">
-                        <div class="hero-highlight-icon" style="background: #FFFBEB; color: #F5A020;">
-                            <i class="fas fa-bolt"></i>
+                    <div class="sp-trust-sep"></div>
+                    <div class="sp-trust-item">
+                        <div class="sp-trust-icon" style="color: #F5A020; background: #FFFBEB; border-color: #FEF3C7;">
+                            <i class="fas fa-balance-scale"></i>
                         </div>
-                        <div>
-                            <div class="hero-highlight-val" data-countup="<?= $statSchoplus ?>"><?= number_format($statSchoplus) ?></div>
-                            <div class="hero-highlight-lbl">مدرسة بنظام SchoPlus الذكي</div>
+                        <div class="sp-trust-info">
+                            <span class="sp-trust-title">مقارنة ذكية للمدارس</span>
+                            <span class="sp-trust-sub">المناهج والرسوم والخدمات</span>
                         </div>
                     </div>
-                    <div class="hero-highlight-card m-emerald">
-                        <div class="hero-highlight-icon" style="background: #F0FDF4; color: #059669;">
-                            <i class="fas fa-star text-warning"></i>
+                    <div class="sp-trust-sep"></div>
+                    <div class="sp-trust-item">
+                        <div class="sp-trust-icon" style="color: #16A34A; background: #F0FDF4; border-color: #DCFCE7;">
+                            <i class="fab fa-whatsapp"></i>
                         </div>
-                        <div>
-                            <div class="hero-highlight-val" data-countup="<?= $statReviews ?>" data-suffix="+"><?= number_format($statReviews) ?>+</div>
-                            <div class="hero-highlight-lbl">تقييم ومشاركة أولياء الأمور</div>
+                        <div class="sp-trust-info">
+                            <span class="sp-trust-title">تواصل مباشر وسريع</span>
+                            <span class="sp-trust-sub">واتساب وقبول فوري</span>
                         </div>
                     </div>
                 </div>
