@@ -100,6 +100,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
             $name = trim($_POST['name'] ?? '');
             $name_en = trim($_POST['name_en'] ?? '');
             $rawSlug = trim($_POST['slug'] ?? '');
+            $country = trim($_POST['country'] ?? '') ?: ($school['country'] ?? 'السودان');
             $state = trim($_POST['state'] ?? '');
             $city = trim($_POST['city'] ?? '');
             $district = trim($_POST['district'] ?? '');
@@ -224,7 +225,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
 
             try {
                 $upStmt = $pdo->prepare("UPDATE daleel_schools SET 
-                    name = :name, name_en = :name_en, slug = :slug, state = :state, city = :city, district = :district,
+                    name = :name, name_en = :name_en, slug = :slug, country = :country, state = :state, city = :city, district = :district,
                     address = :address, google_map_url = :google_map_url, phone = :phone, whatsapp = :whatsapp,
                     email = :email, website = :website, facebook = :facebook,
                     twitter = :twitter, youtube = :youtube, telegram = :telegram, instagram = :instagram, tiktok = :tiktok,
@@ -239,6 +240,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
                     ':name' => $name,
                     ':name_en' => $name_en ?: null,
                     ':slug' => $newSlug,
+                    ':country' => $country,
                     ':state' => $state,
                     ':city' => $city,
                     ':district' => $district ?: null,
@@ -1123,7 +1125,10 @@ if (!is_array($currentAdmissionSteps) || empty($currentAdmissionSteps)) {
 }
 $currentAdmissionNotes = $school['admission_notes'] ?? '';
 
-$statesWithCities = SudanGeography::statesWithCities();
+$schoolCountry = $school['country'] ?? 'السودان';
+$countriesWithStates = SudanGeography::countriesWithStatesAndCities();
+$countriesList = SudanGeography::countries();
+$statesWithCities = SudanGeography::statesWithCities($schoolCountry);
 
 // Calculate completion score
 $completionFields = [
@@ -1829,7 +1834,16 @@ require_once __DIR__ . '/header.php';
                                     </div>
 
                                     <div class="row g-3">
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
+                                            <label class="form-label">الدولة <span class="text-danger">*</span></label>
+                                            <select name="country" id="dashCountry" class="form-select">
+                                                <?php foreach ($countriesList as $cntry): ?>
+                                                    <option value="<?= e($cntry) ?>" <?= ($school['country'] ?? 'السودان') === $cntry ? 'selected' : '' ?>><?= e($cntry) ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3">
                                             <label class="form-label">الولاية <span class="text-danger">*</span></label>
                                             <select name="state" id="dashState" class="form-select">
                                                 <?php foreach ($statesWithCities as $stName => $cities): ?>
@@ -1838,14 +1852,14 @@ require_once __DIR__ . '/header.php';
                                             </select>
                                         </div>
 
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <label class="form-label">المدينة / المحلية <span class="text-danger">*</span></label>
                                             <select name="city" id="dashCity" class="form-select">
                                                 <option value="<?= e($school['city']) ?>" selected><?= e($school['city']) ?></option>
                                             </select>
                                         </div>
 
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <label class="form-label">الحي أو المنطقة</label>
                                             <input type="text" name="district" class="form-control" value="<?= e($school['district'] ?? '') ?>" placeholder="مثال: الرياض، المعمورة، الثورة، الصافية">
                                         </div>
@@ -3500,15 +3514,41 @@ require_once __DIR__ . '/header.php';
 </div>
 
 <script>
-    const geoData = <?= json_encode($statesWithCities, JSON_UNESCAPED_UNICODE) ?>;
+    const allGeo = <?= json_encode($countriesWithStates, JSON_UNESCAPED_UNICODE) ?>;
+    const countrySelect = document.getElementById('dashCountry');
+    const selectedStateVal = <?= json_encode($school['state']) ?>;
     const stateSelect = document.getElementById('dashState');
     const citySelect = document.getElementById('dashCity');
     const selectedCity = <?= json_encode($school['city']) ?>;
 
+    function populateStates(countryName) {
+        if (!stateSelect) return;
+        stateSelect.innerHTML = '<option value="">-- اختر الولاية / المنطقة --</option>';
+        citySelect.innerHTML = '<option value="">-- اختر المدينة --</option>';
+        const statesObj = allGeo[countryName] || {};
+        Object.keys(statesObj).forEach(function(st) {
+            const opt = document.createElement('option');
+            opt.value = st;
+            opt.textContent = st;
+            if (st === selectedStateVal) {
+                opt.selected = true;
+            }
+            stateSelect.appendChild(opt);
+        });
+        if (stateSelect.value) {
+            populateCities(stateSelect.value);
+        }
+    }
+    if (countrySelect) {
+        countrySelect.addEventListener('change', function() {
+            populateStates(this.value);
+        });
+    }
+
     function populateCities(selectedState) {
         citySelect.innerHTML = '<option value="">-- اختر المدينة --</option>';
-        if (selectedState && geoData[selectedState]) {
-            geoData[selectedState].forEach(function(city) {
+        const countryName = (countrySelect && countrySelect.value) ? countrySelect.value : 'السودان'; const statesObj = allGeo[countryName] || {}; if (selectedState && statesObj[selectedState]) {
+            statesObj[selectedState].forEach(function(city) {
                 const opt = document.createElement('option');
                 opt.value = city;
                 opt.textContent = city;

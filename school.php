@@ -961,8 +961,9 @@ $totalRev = max(1, count($reviewsList));
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent p-0 mb-0 d-flex flex-nowrap overflow-x-auto text-nowrap" style="font-size: 0.72rem; scrollbar-width: none;">
                 <li class="breadcrumb-item"><a href="/" class="text-decoration-none" style="color: var(--text-muted);"><i class="fas fa-home me-1"></i> دليل المدارس</a></li>
-                <li class="breadcrumb-item"><a href="/?state=<?= urlencode($school['state']) ?>" class="text-decoration-none" style="color: var(--text-muted);"><?= e($school['state']) ?></a></li>
-                <li class="breadcrumb-item"><a href="/?state=<?= urlencode($school['state']) ?>&city=<?= urlencode($school['city']) ?>" class="text-decoration-none" style="color: var(--text-muted);"><?= e($school['city']) ?></a></li>
+                <li class="breadcrumb-item"><a href="/?country=<?= urlencode($school['country'] ?? 'السودان') ?>" class="text-decoration-none" style="color: var(--text-muted);"><?= e($school['country'] ?? 'السودان') ?></a></li>
+                <li class="breadcrumb-item"><a href="/?country=<?= urlencode($school['country'] ?? 'السودان') ?>&state=<?= urlencode($school['state']) ?>" class="text-decoration-none" style="color: var(--text-muted);"><?= e($school['state']) ?></a></li>
+                <li class="breadcrumb-item"><a href="/?country=<?= urlencode($school['country'] ?? 'السودان') ?>&state=<?= urlencode($school['state']) ?>&city=<?= urlencode($school['city']) ?>" class="text-decoration-none" style="color: var(--text-muted);"><?= e($school['city']) ?></a></li>
                 <li class="breadcrumb-item active fw-bold" style="color: var(--brand-navy);" aria-current="page"><?= e($school['name']) ?></li>
             </ol>
         </nav>
@@ -1024,7 +1025,7 @@ $totalRev = max(1, count($reviewsList));
                         <?php endif; ?>
                         <div class="sp-cover-school-meta">
                             <i class="fas fa-map-marker-alt text-warning"></i>
-                            <span><?= e($school['state']) ?> — <?= e($school['city']) ?><?= !empty($school['district']) ? ' (' . e($school['district']) . ')' : '' ?></span>
+                            <span><?= e($school['country'] ?? 'السودان') ?> — <?= e($school['state']) ?> — <?= e($school['city']) ?><?= !empty($school['district']) ? ' (' . e($school['district']) . ')' : '' ?></span>
                         </div>
                     </div>
                 </div>
@@ -2213,6 +2214,13 @@ $totalRev = max(1, count($reviewsList));
                             <div>
                                 <span class="sp-fact-label">الترتيب في ولاية <?= e($school['state']) ?></span>
                                 <span class="sp-fact-value" style="color: var(--brand-navy);">#<?= $schoolStateRank ?></span>
+                            </div>
+                        </div>
+                        <div class="sp-fact-row">
+                            <div class="sp-fact-icon" style="background: #F0F4F8; color: #1E5FA8;"><i class="fas fa-globe-africa"></i></div>
+                            <div>
+                                <span class="sp-fact-label">الدولة والولاية</span>
+                                <span class="sp-fact-value fw-bold" style="color: var(--brand-navy);"><?= e($school['country'] ?? 'السودان') ?> — <?= e($school['state']) ?></span>
                             </div>
                         </div>
                         <?php if (!empty($school['established_year'])): ?>

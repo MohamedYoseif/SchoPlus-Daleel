@@ -21,6 +21,7 @@ $formData = [];
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (!empty($_GET['name']))        $formData['name'] = trim((string)$_GET['name']);
     if (!empty($_GET['name_en']))     $formData['name_en'] = trim((string)$_GET['name_en']);
+    if (!empty($_GET['country']))     $formData['country'] = trim((string)$_GET['country']);
     if (!empty($_GET['state']))       $formData['state'] = trim((string)$_GET['state']);
     if (!empty($_GET['city']))        $formData['city'] = trim((string)$_GET['city']);
     if (!empty($_GET['district']))    $formData['district'] = trim((string)$_GET['district']);
@@ -38,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $name = trim($_POST['name'] ?? '');
         $name_en = trim($_POST['name_en'] ?? '');
+        $country = trim($_POST['country'] ?? '') ?: 'السودان';
         $state = trim($_POST['state'] ?? '');
         $city = trim($_POST['city'] ?? '');
         $district = trim($_POST['district'] ?? '');
@@ -62,6 +64,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Validation
         if (mb_strlen($name) < 3) {
             $errors[] = 'يرجى إدخال اسم المدرسة بشكل صحيح (3 أحرف على الأقل).';
+        }
+        if (!$country) {
+            $errors[] = 'يرجى اختيار الدولة.';
         }
         if (!$state) {
             $errors[] = 'يرجى اختيار الولاية.';
@@ -126,12 +131,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $facilitiesJson = json_encode([], JSON_UNESCAPED_UNICODE);
 
                 $insStmt = $pdo->prepare("INSERT INTO daleel_schools (
-                    name, name_en, slug, school_type, gender_type, curriculum, established_year, stages,
+                    name, name_en, slug, country, school_type, gender_type, curriculum, established_year, stages,
                     state, city, district, phone, whatsapp, email, facilities,
                     status, owner_name, owner_title, owner_phone, owner_email, password,
                     rating_avg, reviews_count, views_count, is_schoplus_client, is_verified, created_at, updated_at
                 ) VALUES (
-                    :name, :name_en, :slug, :school_type, :gender_type, :curriculum, :established_year, :stages,
+                    :name, :name_en, :slug, :country, :school_type, :gender_type, :curriculum, :established_year, :stages,
                     :state, :city, :district, :phone, :whatsapp, :email, :facilities,
                     'pending', :owner_name, :owner_title, :owner_phone, :owner_email, :password,
                     5.00, 0, 1, 0, 0, NOW(), NOW()
@@ -141,6 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ':name' => $name,
                     ':name_en' => $name_en ?: null,
                     ':slug' => $slug,
+                    ':country' => $country,
                     ':school_type' => $school_type,
                     ':gender_type' => $gender_type,
                     ':curriculum' => $curriculum,
@@ -178,7 +184,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $pageTitle = 'تسجيل مدرسة جديدة';
 require_once __DIR__ . '/header.php';
-$statesWithCities = SudanGeography::statesWithCities();
+$countriesWithStates = SudanGeography::countriesWithStatesAndCities();
+$countriesList = SudanGeography::countries();
+$selectedCountry = $formData['country'] ?? 'السودان';
+$statesWithCities = SudanGeography::statesWithCities($selectedCountry);
 ?>
 
 <div class="register-page py-5">
@@ -190,9 +199,9 @@ $statesWithCities = SudanGeography::statesWithCities();
             <span class="badge bg-warning text-dark px-3 py-1 rounded-pill fw-bold mb-2 shadow-sm" style="font-size: 0.72rem;">
                 <i class="fas fa-plus-circle me-1"></i> تسجيل سريع ومباشر
             </span>
-            <h2 class="fw-bold text-dark mb-2" style="font-size: 1.25rem;">سجّل مدرستك في دليل المدارس السودانية</h2>
+            <h2 class="fw-bold text-dark mb-2" style="font-size: 1.25rem;">سجّل مدرستك في دليل المدارس</h2>
             <p class="text-muted" style="max-width: 620px; margin: auto; font-size: 0.76rem; line-height: 1.65;">
-                عرّف بمدرستك لأولياء الأمور والطلاب في كافة مدن السودان. يمكنك إدخال البيانات الأساسية الآن، وإكمال التفاصيل والصور والأخبار والمرافق لاحقاً عبر لوحة التحكم في أي وقت.
+                عرّف بمدرستك لأولياء الأمور والطلاب. يمكنك إدخال البيانات الأساسية الآن، وإكمال التفاصيل والصور والأخبار والمرافق لاحقاً عبر لوحة التحكم في أي وقت.
             </p>
         </div>
 
@@ -237,9 +246,20 @@ $statesWithCities = SudanGeography::statesWithCities();
                             </div>
                         </div>
 
-                        <!-- State & City -->
-                        <div class="col-md-4">
-                            <label class="form-label small fw-bold text-secondary">الولاية <span class="text-danger">*</span></label>
+                        <!-- Country, State, City & District -->
+                        <div class="col-md-3">
+                            <label class="form-label small fw-bold text-secondary">الدولة <span class="text-danger">*</span></label>
+                            <select name="country" id="regCountry" required class="form-select">
+                                <?php foreach ($countriesList as $cntry): ?>
+                                    <option value="<?= e($cntry) ?>" <?= $selectedCountry === $cntry ? 'selected' : '' ?>>
+                                        <?= e($cntry) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="form-label small fw-bold text-secondary">الولاية / المنطقة <span class="text-danger">*</span></label>
                             <select name="state" id="regState" required class="form-select">
                                 <option value="">-- اختر الولاية --</option>
                                 <?php foreach ($statesWithCities as $stName => $cities): ?>
@@ -250,14 +270,14 @@ $statesWithCities = SudanGeography::statesWithCities();
                             </select>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label class="form-label small fw-bold text-secondary">المدينة / المحلية <span class="text-danger">*</span></label>
                             <select name="city" id="regCity" required class="form-select">
                                 <option value="">-- اختر المدينة --</option>
                             </select>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label class="form-label small fw-bold text-secondary">الحي / المنطقة</label>
                             <input type="text" name="district" class="form-control" value="<?= e($formData['district'] ?? '') ?>" placeholder="مثال: الرياض، المعمورة، الثورة">
                         </div>
@@ -402,15 +422,37 @@ $statesWithCities = SudanGeography::statesWithCities();
 </div>
 
 <script>
-    const geoData = <?= json_encode($statesWithCities, JSON_UNESCAPED_UNICODE) ?>;
+    const allGeo = <?= json_encode($countriesWithStates, JSON_UNESCAPED_UNICODE) ?>;
+    const countrySelect = document.getElementById('regCountry');
     const stateSelect = document.getElementById('regState');
     const citySelect = document.getElementById('regCity');
+    const selectedStateVal = <?= json_encode($formData['state'] ?? '') ?>;
     const selectedCity = <?= json_encode($formData['city'] ?? '') ?>;
+
+    function populateStates(countryName) {
+        stateSelect.innerHTML = '<option value="">-- اختر الولاية / المنطقة --</option>';
+        citySelect.innerHTML = '<option value="">-- اختر المدينة --</option>';
+        const statesObj = allGeo[countryName] || {};
+        Object.keys(statesObj).forEach(function(st) {
+            const opt = document.createElement('option');
+            opt.value = st;
+            opt.textContent = st;
+            if (st === selectedStateVal) {
+                opt.selected = true;
+            }
+            stateSelect.appendChild(opt);
+        });
+        if (stateSelect.value) {
+            populateCities(stateSelect.value);
+        }
+    }
 
     function populateCities(selectedState) {
         citySelect.innerHTML = '<option value="">-- اختر المدينة --</option>';
-        if (selectedState && geoData[selectedState]) {
-            geoData[selectedState].forEach(function(city) {
+        const countryName = countrySelect.value || 'السودان';
+        const statesObj = allGeo[countryName] || {};
+        if (selectedState && statesObj[selectedState]) {
+            statesObj[selectedState].forEach(function(city) {
                 const opt = document.createElement('option');
                 opt.value = city;
                 opt.textContent = city;
@@ -422,9 +464,17 @@ $statesWithCities = SudanGeography::statesWithCities();
         }
     }
 
+    countrySelect.addEventListener('change', function() {
+        populateStates(this.value);
+    });
+
     stateSelect.addEventListener('change', function() {
         populateCities(this.value);
     });
+
+    if (stateSelect.value) {
+        populateCities(stateSelect.value);
+    }
 
     // Live slug preview from English name
     const regNameEn = document.getElementById('regNameEn');

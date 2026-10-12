@@ -6,6 +6,7 @@ $pdo = db();
 
 // Filter Inputs (The 3 dropdowns + Name/keyword)
 $q = trim($_GET['q'] ?? '');
+$country = trim($_GET['country'] ?? '');
 $state = trim($_GET['state'] ?? '');
 $city = trim($_GET['city'] ?? '');
 $stage = trim($_GET['stage'] ?? '');
@@ -14,10 +15,12 @@ $sort = trim($_GET['sort'] ?? 'featured');
 $view = trim($_GET['view'] ?? ''); // 'all', 'schoplus', 'top_rated', 'latest', or ''
 
 // Determine if user is performing a search or requesting a full standalone view
-$isSearching = ($q !== '' || $state !== '' || $city !== '' || $stage !== '' || $schoplusOnly || in_array($view, ['all', 'schoplus', 'top_rated', 'latest']));
+$isSearching = ($q !== '' || $country !== '' || $state !== '' || $city !== '' || $stage !== '' || $schoplusOnly || in_array($view, ['all', 'schoplus', 'top_rated', 'latest']));
 
 // Geography & standard mappings
-$statesWithCities = SudanGeography::statesWithCities();
+$countriesList = SudanGeography::countries();
+$countriesWithStates = SudanGeography::countriesWithStatesAndCities();
+$statesWithCities = !empty($country) ? SudanGeography::statesWithCities($country) : SudanGeography::statesWithCities();
 $schoolStages = SudanGeography::schoolStages();
 $schoolTypes = SudanGeography::schoolTypes();
 
@@ -42,6 +45,11 @@ if ($isSearching) {
         $where[] = "(name LIKE ? OR name_en LIKE ? OR district LIKE ? OR address LIKE ? OR description LIKE ?)";
         $term = "%{$q}%";
         $params[] = $term; $params[] = $term; $params[] = $term; $params[] = $term; $params[] = $term;
+    }
+
+    if ($country !== '') {
+        $where[] = "country = ?";
+        $params[] = $country;
     }
 
     if ($state !== '') {
@@ -454,18 +462,28 @@ if ($isSearching) {
             <form action="/" method="GET" class="filter-bar-card" id="smartFilterForm">
                 <div class="row g-2 align-items-center">
                     
-                    <!-- 1. State Filter (الولاية) -->
-                    <div class="col-lg-3 col-md-6 filter-select-wrap">
-                        <select name="state" class="form-select" id="filterStateSelect">
-                            <option value="">جميع الولايات (الكل)</option>
-                            <?php foreach($statesWithCities as $stName => $cities): ?>
-                                <option value="<?= e($stName) ?>" <?= $state === $stName ? 'selected' : '' ?>>ولاية <?= e($stName) ?></option>
+                    <!-- 1. Country Filter (الدولة) -->
+                    <div class="col-lg-2 col-md-6 filter-select-wrap">
+                        <select name="country" class="form-select" id="filterCountrySelect">
+                            <option value="">جميع الدول</option>
+                            <?php foreach($countriesList as $cntry): ?>
+                                <option value="<?= e($cntry) ?>" <?= $country === $cntry ? 'selected' : '' ?>><?= e($cntry) ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
 
-                    <!-- 2. City Filter (المدينة) -->
-                    <div class="col-lg-3 col-md-6 filter-select-wrap">
+                    <!-- 2. State Filter (الولاية) -->
+                    <div class="col-lg-2 col-md-6 filter-select-wrap">
+                        <select name="state" class="form-select" id="filterStateSelect">
+                            <option value="">جميع الولايات</option>
+                            <?php foreach($statesWithCities as $stName => $cities): ?>
+                                <option value="<?= e($stName) ?>" <?= $state === $stName ? 'selected' : '' ?>><?= e($stName) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
+                    <!-- 3. City Filter (المدينة) -->
+                    <div class="col-lg-2 col-md-6 filter-select-wrap">
                         <select name="city" class="form-select" id="filterCitySelect">
                             <option value="">جميع المدن / المحليات</option>
                             <?php if ($state && isset($statesWithCities[$state])): ?>
@@ -476,7 +494,7 @@ if ($isSearching) {
                         </select>
                     </div>
 
-                    <!-- 3. Stage Filter (المراحل) -->
+                    <!-- 4. Stage Filter (المراحل) -->
                     <div class="col-lg-2 col-md-6 filter-select-wrap">
                         <select name="stage" class="form-select" id="filterStageSelect">
                             <option value="">جميع المراحل الدراسية</option>
@@ -612,7 +630,7 @@ if ($isSearching) {
                             جميع المدارس الأعلى تقييماً في السودان
                         <?php elseif ($view === 'latest' || $sort === 'latest'): ?>
                             أحدث المدارس المنضمة إلى الدليل
-                        <?php elseif ($state !== '' || $city !== '' || $stage !== '' || $q !== ''): ?>
+                        <?php elseif ($country !== '' || $state !== '' || $city !== '' || $stage !== '' || $q !== ''): ?>
                             نتائج البحث المخصص
                         <?php else: ?>
                             جميع مدارس دليل السودان
@@ -688,7 +706,7 @@ if ($isSearching) {
                                     <div class="d-flex justify-content-between align-items-center flex-wrap gap-1 mb-2" style="font-size: 0.72rem; color: #64748B;">
                                         <div>
                                             <i class="fas fa-map-marker-alt text-muted me-1"></i>
-                                            ولاية <?= e($s['state']) ?> — <?= e($s['city']) ?> <?= !empty($s['district']) ? '(' . e($s['district']) . ')' : '' ?>
+                                            <?= e($s['country'] ?? 'السودان') ?> — ولاية <?= e($s['state']) ?> — <?= e($s['city']) ?> <?= !empty($s['district']) ? '(' . e($s['district']) . ')' : '' ?>
                                         </div>
                                         <?php if (!empty($s['established_year'])): ?>
                                             <span class="badge-established" title="سنة التأسيس">
@@ -818,7 +836,7 @@ if ($isSearching) {
                                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-1 mb-2" style="font-size: 0.72rem; color: #64748B;">
                                     <div>
                                         <i class="fas fa-map-marker-alt text-danger me-1"></i>
-                                        <?= e($s['state']) ?> — <?= e($s['city']) ?> <?= !empty($s['district']) ? '(' . e($s['district']) . ')' : '' ?>
+                                        <?= e($s['country'] ?? 'السودان') ?> — <?= e($s['state']) ?> — <?= e($s['city']) ?> <?= !empty($s['district']) ? '(' . e($s['district']) . ')' : '' ?>
                                     </div>
                                     <?php if (!empty($s['established_year'])): ?>
                                         <span class="badge-established" title="سنة التأسيس">
@@ -918,7 +936,7 @@ if ($isSearching) {
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center flex-wrap gap-1 text-muted" style="font-size: 0.7rem;">
                                         <div>
-                                            <i class="fas fa-map-marker-alt text-muted me-1"></i> <?= e($s['state']) ?> — <?= e($s['city']) ?>
+                                            <i class="fas fa-map-marker-alt text-muted me-1"></i> <?= e($s['country'] ?? 'السودان') ?> — <?= e($s['state']) ?> — <?= e($s['city']) ?>
                                         </div>
                                         <?php if (!empty($s['established_year'])): ?>
                                             <span class="badge-established" style="font-size: 0.64rem; padding: 1px 6px;" title="سنة التأسيس">
@@ -1001,7 +1019,7 @@ if ($isSearching) {
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center flex-wrap gap-1 text-muted" style="font-size: 0.7rem;">
                                         <div>
-                                            <i class="fas fa-map-marker-alt text-muted me-1"></i> ولاية <?= e($s['state']) ?> — <?= e($s['city']) ?>
+                                            <i class="fas fa-map-marker-alt text-muted me-1"></i> <?= e($s['country'] ?? 'السودان') ?> — ولاية <?= e($s['state']) ?> — <?= e($s['city']) ?>
                                         </div>
                                         <?php if (!empty($s['established_year'])): ?>
                                             <span class="badge-established" style="font-size: 0.64rem; padding: 1px 6px;" title="سنة التأسيس">
@@ -1078,25 +1096,57 @@ if ($isSearching) {
 </section>
 
 <?php
-$jsonStatesMap = json_encode($statesWithCities, JSON_UNESCAPED_UNICODE);
+$jsonAllGeo = json_encode($countriesWithStates, JSON_UNESCAPED_UNICODE);
 $extraScripts = <<<JS
 <script>
-    const statesMap = {$jsonStatesMap};
+    const allGeoMap = {$jsonAllGeo};
+    const countrySelect = document.getElementById('filterCountrySelect');
     const stateSelect = document.getElementById('filterStateSelect');
     const citySelect = document.getElementById('filterCitySelect');
 
-    if (stateSelect && citySelect) {
-        stateSelect.addEventListener('change', function() {
-            const st = this.value;
+    function updateStates(countryVal) {
+        if (!stateSelect) return;
+        stateSelect.innerHTML = '<option value="">جميع الولايات</option>';
+        if (citySelect) {
             citySelect.innerHTML = '<option value="">جميع المدن / المحليات</option>';
-            if (st && statesMap[st]) {
-                statesMap[st].forEach(city => {
-                    const opt = document.createElement('option');
-                    opt.value = city;
-                    opt.textContent = city;
-                    citySelect.appendChild(opt);
-                });
-            }
+        }
+        let statesObj = {};
+        if (countryVal && allGeoMap[countryVal]) {
+            statesObj = allGeoMap[countryVal];
+        } else {
+            statesObj = allGeoMap['السودان'] || {};
+        }
+        Object.keys(statesObj).forEach(st => {
+            const opt = document.createElement('option');
+            opt.value = st;
+            opt.textContent = st;
+            stateSelect.appendChild(opt);
+        });
+    }
+
+    function updateCities(stateVal) {
+        if (!citySelect) return;
+        citySelect.innerHTML = '<option value="">جميع المدن / المحليات</option>';
+        const countryVal = (countrySelect && countrySelect.value) ? countrySelect.value : 'السودان';
+        const statesObj = allGeoMap[countryVal] || allGeoMap['السودان'] || {};
+        if (stateVal && statesObj[stateVal]) {
+            statesObj[stateVal].forEach(city => {
+                const opt = document.createElement('option');
+                opt.value = city;
+                opt.textContent = city;
+                citySelect.appendChild(opt);
+            });
+        }
+    }
+
+    if (countrySelect) {
+        countrySelect.addEventListener('change', function() {
+            updateStates(this.value);
+        });
+    }
+    if (stateSelect) {
+        stateSelect.addEventListener('change', function() {
+            updateCities(this.value);
         });
     }
 </script>

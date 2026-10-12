@@ -93,14 +93,16 @@ while (true) {
 $tempPassword = 'sp' . (strlen($phone) >= 4 ? substr($phone, -4) : rand(1000, 9999));
 $hashedPassword = password_hash($tempPassword, PASSWORD_BCRYPT);
 
+$country = trim((string)($input['country'] ?? 'السودان')) ?: 'السودان';
+
 try {
     $insStmt = $pdo->prepare("INSERT INTO daleel_schools (
-        name, slug, school_type, gender_type, curriculum, stages,
+        name, slug, country, school_type, gender_type, curriculum, stages,
         state, city, phone, whatsapp,
         status, owner_name, owner_title, owner_phone, password,
         rating_avg, reviews_count, views_count, is_schoplus_client, is_verified, created_at, updated_at
     ) VALUES (
-        :name, :slug, 'private', 'mixed', 'sudanese', '[\"kindergarten\",\"primary\",\"intermediate\",\"secondary\"]',
+        :name, :slug, :country, 'private', 'mixed', 'sudanese', '[\"kindergarten\",\"primary\",\"intermediate\",\"secondary\"]',
         :state, :city, :phone, :whatsapp,
         'pending', :owner_name, :owner_title, :owner_phone, :password,
         5.00, 0, 1, 0, 0, NOW(), NOW()
@@ -109,6 +111,7 @@ try {
     $insStmt->execute([
         ':name' => $name,
         ':slug' => $slug,
+        ':country' => $country,
         ':state' => $state,
         ':city' => $city,
         ':phone' => $phone,
