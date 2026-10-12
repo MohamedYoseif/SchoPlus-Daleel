@@ -140,6 +140,175 @@
             }
         }, { passive: true });
     })();
+
+    // ===== SEARCHABLE SELECT COMPONENT WITH REALTIME SEARCH =====
+    window.initSearchableSelect = function(selectEl) {
+        if (!selectEl || selectEl.dataset.searchableInit === 'true') return;
+        selectEl.dataset.searchableInit = 'true';
+
+        var wrapper = document.createElement('div');
+        wrapper.className = 'sp-searchable-wrapper';
+
+        var trigger = document.createElement('button');
+        trigger.type = 'button';
+        trigger.className = 'sp-searchable-trigger';
+
+        var triggerText = document.createElement('span');
+        triggerText.className = 'sp-searchable-trigger-text';
+        triggerText.textContent = (selectEl.options && selectEl.selectedIndex >= 0 && selectEl.options[selectEl.selectedIndex]) ? selectEl.options[selectEl.selectedIndex].text : '-- اختر --';
+
+        var triggerArrow = document.createElement('i');
+        triggerArrow.className = 'fas fa-chevron-down sp-searchable-trigger-arrow';
+
+        trigger.appendChild(triggerText);
+        trigger.appendChild(triggerArrow);
+        wrapper.appendChild(trigger);
+
+        var dropdown = document.createElement('div');
+        dropdown.className = 'sp-searchable-dropdown';
+
+        var header = document.createElement('div');
+        header.className = 'sp-searchable-header';
+
+        var inputWrap = document.createElement('div');
+        inputWrap.className = 'sp-searchable-input-wrap';
+
+        var searchIcon = document.createElement('i');
+        searchIcon.className = 'fas fa-search';
+
+        var searchInput = document.createElement('input');
+        searchInput.type = 'text';
+        searchInput.className = 'sp-searchable-input';
+        searchInput.placeholder = 'ابحث في القائمة...';
+        searchInput.autocomplete = 'off';
+
+        inputWrap.appendChild(searchIcon);
+        inputWrap.appendChild(searchInput);
+        header.appendChild(inputWrap);
+        dropdown.appendChild(header);
+
+        var optionsList = document.createElement('div');
+        optionsList.className = 'sp-searchable-options';
+        dropdown.appendChild(optionsList);
+
+        var emptyMsg = document.createElement('div');
+        emptyMsg.className = 'sp-searchable-empty';
+        emptyMsg.style.display = 'none';
+        emptyMsg.textContent = 'لا توجد نتائج مطابقة للبحث';
+        dropdown.appendChild(emptyMsg);
+
+        function rebuildOptions() {
+            optionsList.innerHTML = '';
+            var opts = Array.from(selectEl.options || []);
+            triggerText.textContent = (selectEl.options && selectEl.selectedIndex >= 0 && selectEl.options[selectEl.selectedIndex]) ? selectEl.options[selectEl.selectedIndex].text : '-- اختر --';
+
+            opts.forEach(function(opt) {
+                var item = document.createElement('div');
+                item.className = 'sp-searchable-option' + (opt.selected ? ' is-selected' : '');
+                item.dataset.value = opt.value;
+                item.textContent = opt.text;
+
+                item.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    selectEl.value = opt.value;
+                    triggerText.textContent = opt.text;
+                    wrapper.classList.remove('is-open');
+
+                    selectEl.dispatchEvent(new Event('change', { bubbles: true }));
+
+                    optionsList.querySelectorAll('.sp-searchable-option').forEach(function(el) {
+                        el.classList.remove('is-selected');
+                    });
+                    item.classList.add('is-selected');
+                });
+
+                optionsList.appendChild(item);
+            });
+            filterOptions(searchInput.value || '');
+        }
+
+        function filterOptions(query) {
+            var q = query.trim().toLowerCase();
+            var items = optionsList.querySelectorAll('.sp-searchable-option');
+            var visibleCount = 0;
+            items.forEach(function(item) {
+                var text = item.textContent.toLowerCase();
+                if (!q || text.indexOf(q) !== -1) {
+                    item.classList.remove('is-hidden');
+                    visibleCount++;
+                } else {
+                    item.classList.add('is-hidden');
+                }
+            });
+            emptyMsg.style.display = (visibleCount === 0) ? 'block' : 'none';
+        }
+
+        searchInput.addEventListener('input', function() {
+            filterOptions(this.value);
+        });
+
+        trigger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            document.querySelectorAll('.sp-searchable-wrapper.is-open').forEach(function(w) {
+                if (w !== wrapper) w.classList.remove('is-open');
+            });
+            var isOpen = wrapper.classList.toggle('is-open');
+            if (isOpen) {
+                searchInput.value = '';
+                filterOptions('');
+                setTimeout(function() { searchInput.focus(); }, 60);
+            }
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!wrapper.contains(e.target)) {
+                wrapper.classList.remove('is-open');
+            }
+        });
+
+        wrapper.appendChild(dropdown);
+        selectEl.parentNode.insertBefore(wrapper, selectEl);
+        selectEl.style.display = 'none';
+
+        rebuildOptions();
+
+        if (window.MutationObserver) {
+            var observer = new MutationObserver(function() {
+                rebuildOptions();
+            });
+            observer.observe(selectEl, { childList: true });
+        }
+        selectEl._refreshSearchable = rebuildOptions;
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var selectors = [
+            'select#filterCountrySelect',
+            'select#filterStateSelect',
+            'select#filterCitySelect',
+            'select#regCountry',
+            'select#regState',
+            'select#regCity',
+            'select#dashCountry',
+            'select#dashState',
+            'select#dashCity',
+            'select.searchable-select'
+        ];
+        document.querySelectorAll(selectors.join(',')).forEach(function(el) {
+            window.initSearchableSelect(el);
+        });
+
+        // Fast client-side IP country detector fallback
+        if (!document.cookie.includes('detected_country_iso=')) {
+            fetch('https://api.country.is/')
+                .then(function(r) { return r.json(); })
+                .then(function(d) {
+                    if (d && d.country) {
+                        document.cookie = 'detected_country_iso=' + encodeURIComponent(d.country) + '; path=/; max-age=2592000; SameSite=Lax';
+                    }
+                }).catch(function() {});
+        }
+    });
     </script>
 </body>
 </html>

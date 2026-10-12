@@ -721,6 +721,146 @@ $isDaleelMobile = (
             background-color: var(--bg-surface-soft);
             color: var(--brand-blue);
         }
+
+        /* ===== SEARCHABLE SELECT COMPONENT (SchoPlus Style F v2) ===== */
+        .sp-searchable-wrapper {
+            position: relative;
+            width: 100%;
+        }
+        .sp-searchable-trigger {
+            width: 100%;
+            min-height: 38px;
+            padding: 7px 12px;
+            background: #FFFFFF;
+            border: 1px solid #DDE4ED;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            color: var(--brand-navy, #0B2A52);
+            font-weight: 600;
+            text-align: right;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+        .sp-searchable-trigger:hover,
+        .sp-searchable-trigger:focus,
+        .sp-searchable-wrapper.is-open .sp-searchable-trigger {
+            border-color: var(--brand-blue, #1E5FA8);
+            box-shadow: 0 0 0 3px rgba(30, 95, 168, 0.12);
+            outline: none;
+        }
+        .sp-searchable-trigger-arrow {
+            font-size: 0.72rem;
+            color: #64748B;
+            transition: transform 0.2s ease;
+        }
+        .sp-searchable-wrapper.is-open .sp-searchable-trigger-arrow {
+            transform: rotate(180deg);
+        }
+        .sp-searchable-dropdown {
+            position: absolute;
+            top: calc(100% + 4px);
+            right: 0;
+            left: 0;
+            background: #FFFFFF;
+            border: 1px solid #DDE4ED;
+            border-radius: 12px;
+            box-shadow: 0 10px 28px rgba(11, 42, 82, 0.12);
+            z-index: 1060;
+            display: none;
+            overflow: hidden;
+            animation: spDropdownIn 0.15s ease-out;
+        }
+        @keyframes spDropdownIn {
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .sp-searchable-wrapper.is-open .sp-searchable-dropdown {
+            display: block;
+        }
+        .sp-searchable-header {
+            padding: 8px 10px;
+            background: #F8FAFC;
+            border-bottom: 1px solid #E2E8F0;
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+        .sp-searchable-input-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .sp-searchable-input-wrap i {
+            position: absolute;
+            right: 10px;
+            font-size: 0.72rem;
+            color: #94A3B8;
+            pointer-events: none;
+        }
+        .sp-searchable-input {
+            width: 100%;
+            height: 32px;
+            padding: 5px 30px 5px 10px;
+            font-size: 0.78rem;
+            background: #FFFFFF;
+            border: 1px solid #CBD5E1;
+            border-radius: 8px;
+            color: #0F172A;
+            outline: none;
+            transition: border-color 0.15s ease;
+        }
+        .sp-searchable-input:focus {
+            border-color: var(--brand-blue, #1E5FA8);
+            box-shadow: 0 0 0 2px rgba(30, 95, 168, 0.15);
+        }
+        .sp-searchable-options {
+            max-height: 220px;
+            overflow-y: auto;
+            padding: 4px;
+            list-style: none;
+            margin: 0;
+        }
+        .sp-searchable-options::-webkit-scrollbar {
+            width: 5px;
+        }
+        .sp-searchable-options::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 4px;
+        }
+        .sp-searchable-option {
+            padding: 7px 12px;
+            font-size: 0.78rem;
+            color: #334155;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.12s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .sp-searchable-option:hover {
+            background: #F1F5F9;
+            color: var(--brand-navy, #0B2A52);
+        }
+        .sp-searchable-option.is-selected {
+            background: #EFF6FF;
+            color: var(--brand-blue, #1E5FA8);
+            font-weight: 700;
+        }
+        .sp-searchable-option.is-hidden {
+            display: none !important;
+        }
+        .sp-searchable-empty {
+            padding: 16px 12px;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #94A3B8;
+        }
     </style>
 
 </head>
