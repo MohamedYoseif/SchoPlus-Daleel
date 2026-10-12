@@ -24,6 +24,41 @@ $statesWithCities = !empty($country) ? SudanGeography::statesWithCities($country
 $schoolStages = SudanGeography::schoolStages();
 $schoolTypes = SudanGeography::schoolTypes();
 
+// Dynamic region labels based on selected country
+$regionMiniLabel = 'الولاية';
+$regionAllLabel = 'جميع الولايات';
+$regionSearchPlaceholder = 'ابحث عن ولاية...';
+
+if ($country === 'مصر' || $country === 'العراق' || $country === 'الأردن' || $country === 'اليمن' || $country === 'لبنان' || $country === 'سوريا' || $country === 'فلسطين' || $country === 'البحرين' || $country === 'الكويت' || $country === 'سلطنة عمان') {
+    $regionMiniLabel = 'المحافظة';
+    $regionAllLabel = 'جميع المحافظات';
+    $regionSearchPlaceholder = 'ابحث عن محافظة...';
+} elseif ($country === 'المملكة العربية السعودية') {
+    $regionMiniLabel = 'المنطقة';
+    $regionAllLabel = 'جميع المناطق';
+    $regionSearchPlaceholder = 'ابحث عن منطقة...';
+} elseif ($country === 'الإمارات العربية المتحدة') {
+    $regionMiniLabel = 'الإمارة';
+    $regionAllLabel = 'جميع الإمارات';
+    $regionSearchPlaceholder = 'ابحث عن إمارة...';
+} elseif ($country === 'المغرب') {
+    $regionMiniLabel = 'الجهة';
+    $regionAllLabel = 'جميع الجهات';
+    $regionSearchPlaceholder = 'ابحث عن جهة...';
+} elseif ($country === 'ليبيا') {
+    $regionMiniLabel = 'البلدية';
+    $regionAllLabel = 'جميع البلديات';
+    $regionSearchPlaceholder = 'ابحث عن بلدية...';
+} elseif ($country === 'كندا') {
+    $regionMiniLabel = 'المقاطعة';
+    $regionAllLabel = 'جميع المقاطعات';
+    $regionSearchPlaceholder = 'ابحث عن مقاطعة...';
+} elseif (!empty($country) && $country !== 'السودان') {
+    $regionMiniLabel = 'المنطقة / الولاية';
+    $regionAllLabel = 'جميع المناطق';
+    $regionSearchPlaceholder = 'ابحث عن منطقة...';
+}
+
 // Statistics
 $statTotal = (int) $pdo->query("SELECT COUNT(*) FROM daleel_schools WHERE status = 'approved'")->fetchColumn();
 $statSchoplus = (int) $pdo->query("SELECT COUNT(*) FROM daleel_schools WHERE status = 'approved' AND is_schoplus_client = 1")->fetchColumn();
@@ -850,26 +885,26 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
                         <div class="col-md-3 col-6">
                             <div class="sp-hero-dropdown" data-target="filterStateSelect">
                                 <select name="state" class="d-none" id="filterStateSelect">
-                                    <option value="">جميع الولايات</option>
+                                    <option value=""><?= $regionAllLabel ?></option>
                                     <?php foreach($statesWithCities as $stName => $cities): ?>
                                         <option value="<?= e($stName) ?>" <?= $state === $stName ? 'selected' : '' ?>><?= e($stName) ?></option>
                                     <?php endforeach; ?>
                                 </select>
                                 <button type="button" class="sp-hero-dropdown-trigger" id="trigger_filterStateSelect">
                                     <div class="sp-hero-dropdown-trigger-content">
-                                        <span class="sp-hero-dropdown-mini-lbl"><i class="fas fa-map-marker-alt text-danger"></i> الولاية</span>
-                                        <span class="sp-hero-dropdown-selected-val"><?= e(!empty($state) ? $state : 'جميع الولايات') ?></span>
+                                        <span class="sp-hero-dropdown-mini-lbl"><i class="fas fa-map-marker-alt text-danger"></i> <?= $regionMiniLabel ?></span>
+                                        <span class="sp-hero-dropdown-selected-val"><?= e(!empty($state) ? $state : $regionAllLabel) ?></span>
                                     </div>
                                     <i class="fas fa-chevron-down sp-hero-dropdown-chevron"></i>
                                 </button>
                                 <div class="sp-hero-dropdown-panel" id="panel_filterStateSelect">
                                     <div class="sp-hero-dropdown-search-box">
                                         <i class="fas fa-search text-muted"></i>
-                                        <input type="text" class="sp-hero-dropdown-search-input" placeholder="ابحث عن ولاية..." autocomplete="off">
+                                        <input type="text" class="sp-hero-dropdown-search-input" placeholder="<?= $regionSearchPlaceholder ?>" autocomplete="off">
                                     </div>
                                     <div class="sp-hero-dropdown-options-list">
                                         <div class="sp-hero-dropdown-option <?= empty($state) ? 'is-selected' : '' ?>" data-value="">
-                                            <span>جميع الولايات</span>
+                                            <span><?= $regionAllLabel ?></span>
                                             <?php if (empty($state)): ?><i class="fas fa-check text-primary"></i><?php endif; ?>
                                         </div>
                                         <?php foreach($statesWithCities as $stName => $cities): ?>
@@ -1241,9 +1276,72 @@ $jsonAllGeo = json_encode($countriesWithStates, JSON_UNESCAPED_UNICODE);
 $extraScripts = <<<JS
 <script>
     const allGeoMap = {$jsonAllGeo};
-    const countrySelect = document.getElementById('filterCountrySelect');
-    const stateSelect = document.getElementById('filterStateSelect');
-    const citySelect = document.getElementById('filterCitySelect');
+
+    // Region labels resolver per country
+    function getRegionLabels(countryVal) {
+        if (!countryVal || countryVal === 'السودان') {
+            return {
+                mini: 'الولاية',
+                icon: 'fas fa-map-marker-alt text-danger',
+                all: 'جميع الولايات',
+                search: 'ابحث عن ولاية...'
+            };
+        }
+        if (countryVal === 'مصر' || countryVal === 'العراق' || countryVal === 'الأردن' || countryVal === 'اليمن' || countryVal === 'لبنان' || countryVal === 'سوريا' || countryVal === 'فلسطين' || countryVal === 'البحرين' || countryVal === 'الكويت' || countryVal === 'سلطنة عمان') {
+            return {
+                mini: 'المحافظة',
+                icon: 'fas fa-map-marker-alt text-danger',
+                all: 'جميع المحافظات',
+                search: 'ابحث عن محافظة...'
+            };
+        }
+        if (countryVal === 'المملكة العربية السعودية') {
+            return {
+                mini: 'المنطقة',
+                icon: 'fas fa-map-marker-alt text-danger',
+                all: 'جميع المناطق',
+                search: 'ابحث عن منطقة...'
+            };
+        }
+        if (countryVal === 'الإمارات العربية المتحدة') {
+            return {
+                mini: 'الإمارة',
+                icon: 'fas fa-map-marker-alt text-danger',
+                all: 'جميع الإمارات',
+                search: 'ابحث عن إمارة...'
+            };
+        }
+        if (countryVal === 'المغرب') {
+            return {
+                mini: 'الجهة',
+                icon: 'fas fa-map-marker-alt text-danger',
+                all: 'جميع الجهات',
+                search: 'ابحث عن جهة...'
+            };
+        }
+        if (countryVal === 'ليبيا') {
+            return {
+                mini: 'البلدية',
+                icon: 'fas fa-map-marker-alt text-danger',
+                all: 'جميع البلديات',
+                search: 'ابحث عن بلدية...'
+            };
+        }
+        if (countryVal === 'كندا') {
+            return {
+                mini: 'المقاطعة',
+                icon: 'fas fa-map-marker-alt text-danger',
+                all: 'جميع المقاطعات',
+                search: 'ابحث عن مقاطعة...'
+            };
+        }
+        return {
+            mini: 'المنطقة / الولاية',
+            icon: 'fas fa-map-marker-alt text-danger',
+            all: 'جميع المناطق',
+            search: 'ابحث عن منطقة...'
+        };
+    }
 
     // Rebuild options in custom searchable dropdown panel from native select
     function rebuildCustomDropdown(targetSelectId, defaultLabel) {
@@ -1254,6 +1352,7 @@ $extraScripts = <<<JS
         const optionsList = wrapper.querySelector('.sp-hero-dropdown-options-list');
         const displayVal = wrapper.querySelector('.sp-hero-dropdown-selected-val');
         const emptyState = wrapper.querySelector('.sp-hero-dropdown-empty');
+        const searchInput = wrapper.querySelector('.sp-hero-dropdown-search-input');
         if (!optionsList) return;
 
         optionsList.innerHTML = '';
@@ -1262,7 +1361,10 @@ $extraScripts = <<<JS
 
         opts.forEach(o => {
             const item = document.createElement('div');
-            const isSelected = o.selected;
+            const isSelected = (o.value === nativeSelect.value) && (!selectedFound || o.value !== '');
+            if (isSelected) {
+                selectedFound = true;
+            }
             item.className = 'sp-hero-dropdown-option' + (isSelected ? ' is-selected' : '');
             item.dataset.value = o.value;
 
@@ -1271,7 +1373,6 @@ $extraScripts = <<<JS
             item.appendChild(span);
 
             if (isSelected) {
-                selectedFound = true;
                 if (displayVal) displayVal.textContent = o.textContent;
                 const check = document.createElement('i');
                 check.className = 'fas fa-check text-primary';
@@ -1284,36 +1385,80 @@ $extraScripts = <<<JS
         if (!selectedFound && displayVal) {
             displayVal.textContent = defaultLabel || (opts.length > 0 ? opts[0].textContent : '');
         }
-        if (emptyState) emptyState.classList.add('d-none');
+        if (searchInput) {
+            searchInput.value = '';
+        }
+        if (emptyState) {
+            emptyState.classList.add('d-none');
+        }
     }
 
     function updateStates(countryVal) {
+        const stateSelect = document.getElementById('filterStateSelect');
+        const citySelect = document.getElementById('filterCitySelect');
         if (!stateSelect) return;
-        stateSelect.innerHTML = '<option value="">جميع الولايات</option>';
-        if (citySelect) {
-            citySelect.innerHTML = '<option value="">جميع المدن</option>';
+
+        const rLabels = getRegionLabels(countryVal);
+
+        // Update trigger mini-label and search placeholder
+        const stateWrapper = document.querySelector('.sp-hero-dropdown[data-target="filterStateSelect"]');
+        if (stateWrapper) {
+            const miniLbl = stateWrapper.querySelector('.sp-hero-dropdown-mini-lbl');
+            if (miniLbl) {
+                miniLbl.innerHTML = '<i class="' + rLabels.icon + '"></i> ' + rLabels.mini;
+            }
+            const searchInput = stateWrapper.querySelector('.sp-hero-dropdown-search-input');
+            if (searchInput) {
+                searchInput.placeholder = rLabels.search;
+                searchInput.value = '';
+            }
         }
+
+        // Repopulate native state select
+        stateSelect.innerHTML = '<option value="">' + rLabels.all + '</option>';
         let statesObj = {};
         if (countryVal && allGeoMap[countryVal]) {
             statesObj = allGeoMap[countryVal];
+        } else if (countryVal) {
+            statesObj = { 'المركز الرئيسي / العاصمة': ['المركز الرئيسي / العاصمة'] };
         } else {
             statesObj = allGeoMap['السودان'] || {};
         }
+
         Object.keys(statesObj).forEach(st => {
             const opt = document.createElement('option');
             opt.value = st;
             opt.textContent = st;
             stateSelect.appendChild(opt);
         });
-        rebuildCustomDropdown('filterStateSelect', 'جميع الولايات');
+        stateSelect.value = '';
+
+        // Reset native city select
+        if (citySelect) {
+            citySelect.innerHTML = '<option value="">جميع المدن</option>';
+            citySelect.value = '';
+        }
+        const cityWrapper = document.querySelector('.sp-hero-dropdown[data-target="filterCitySelect"]');
+        if (cityWrapper) {
+            const searchInput = cityWrapper.querySelector('.sp-hero-dropdown-search-input');
+            if (searchInput) {
+                searchInput.value = '';
+            }
+        }
+
+        rebuildCustomDropdown('filterStateSelect', rLabels.all);
         rebuildCustomDropdown('filterCitySelect', 'جميع المدن');
     }
 
     function updateCities(stateVal) {
+        const countrySelect = document.getElementById('filterCountrySelect');
+        const citySelect = document.getElementById('filterCitySelect');
         if (!citySelect) return;
+
         citySelect.innerHTML = '<option value="">جميع المدن</option>';
         const countryVal = (countrySelect && countrySelect.value) ? countrySelect.value : 'السودان';
         const statesObj = allGeoMap[countryVal] || allGeoMap['السودان'] || {};
+
         if (stateVal && statesObj[stateVal]) {
             statesObj[stateVal].forEach(city => {
                 const opt = document.createElement('option');
@@ -1322,22 +1467,34 @@ $extraScripts = <<<JS
                 citySelect.appendChild(opt);
             });
         }
-        rebuildCustomDropdown('filterCitySelect', 'جميع المدن');
-    }
+        citySelect.value = '';
 
-    if (countrySelect) {
-        countrySelect.addEventListener('change', function() {
-            updateStates(this.value);
-        });
-    }
-    if (stateSelect) {
-        stateSelect.addEventListener('change', function() {
-            updateCities(this.value);
-        });
+        const cityWrapper = document.querySelector('.sp-hero-dropdown[data-target="filterCitySelect"]');
+        if (cityWrapper) {
+            const searchInput = cityWrapper.querySelector('.sp-hero-dropdown-search-input');
+            if (searchInput) {
+                searchInput.value = '';
+            }
+        }
+
+        rebuildCustomDropdown('filterCitySelect', 'جميع المدن');
     }
 
     // Initialize all Searchable Dropdowns
     document.addEventListener('DOMContentLoaded', function() {
+        const countrySelect = document.getElementById('filterCountrySelect');
+        const stateSelect = document.getElementById('filterStateSelect');
+        if (countrySelect) {
+            countrySelect.addEventListener('change', function() {
+                updateStates(this.value);
+            });
+        }
+        if (stateSelect) {
+            stateSelect.addEventListener('change', function() {
+                updateCities(this.value);
+            });
+        }
+
         const dropdownWrappers = document.querySelectorAll('.sp-hero-dropdown');
 
         dropdownWrappers.forEach(wrapper => {
@@ -1410,12 +1567,19 @@ $extraScripts = <<<JS
                     nativeSelect.dispatchEvent(new Event('change', { bubbles: true }));
                 }
 
-                // 2. Update display text on trigger
+                // 2. Direct cascading updates for instant response
+                if (targetSelectId === 'filterCountrySelect') {
+                    updateStates(val);
+                } else if (targetSelectId === 'filterStateSelect') {
+                    updateCities(val);
+                }
+
+                // 3. Update display text on trigger
                 if (displayVal) {
                     displayVal.textContent = text;
                 }
 
-                // 3. Mark active state
+                // 4. Mark active state
                 optionsList.querySelectorAll('.sp-hero-dropdown-option').forEach(o => {
                     o.classList.remove('is-selected');
                     const check = o.querySelector('i.fa-check');
@@ -1427,7 +1591,7 @@ $extraScripts = <<<JS
                 check.style.fontSize = '0.7rem';
                 opt.appendChild(check);
 
-                // 4. Close panel
+                // 5. Close panel
                 wrapper.classList.remove('is-open');
             });
         });
