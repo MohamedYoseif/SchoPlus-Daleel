@@ -861,6 +861,174 @@ $isDaleelMobile = (
             font-size: 0.75rem;
             color: #94A3B8;
         }
+
+        /* ===== FLOATING COMPARE BAR (SchoPlus Style F v2) ===== */
+        .sp-floating-compare-bar {
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            z-index: 1050;
+            pointer-events: none;
+            animation: spCompareBarSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes spCompareBarSlideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .sp-compare-bar-content {
+            pointer-events: auto;
+            background: #FFFFFF;
+            border: 1.5px solid #0B2A52;
+            border-radius: 16px;
+            box-shadow: 0 12px 36px rgba(11, 42, 82, 0.18);
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .sp-compare-bar-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+        .sp-compare-bar-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #0B2A52;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .sp-compare-bar-title i {
+            color: #F5A020;
+        }
+        .sp-compare-clear-btn {
+            background: none;
+            border: none;
+            color: #64748B;
+            font-size: 0.72rem;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 2px 6px;
+            text-decoration: underline;
+        }
+        .sp-compare-clear-btn:hover {
+            color: #e11d48;
+        }
+        .sp-compare-thumbnails {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-grow: 1;
+            overflow-x: auto;
+            padding: 2px 0;
+        }
+        .sp-compare-thumb-item {
+            position: relative;
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            border: 1.5px solid #DDE4ED;
+            background: #F8FAFC;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .sp-compare-thumb-item img {
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        .sp-compare-thumb-remove {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #0B2A52;
+            color: #FFFFFF;
+            font-size: 10px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+        .sp-compare-thumb-remove:hover {
+            background: #e11d48;
+        }
+        .sp-compare-slot-empty {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            border: 1.5px dashed #CBD5E1;
+            background: #F8FAFC;
+            color: #94A3B8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            flex-shrink: 0;
+        }
+        .sp-compare-actions {
+            flex-shrink: 0;
+        }
+        .sp-compare-go-btn {
+            padding: 8px 18px !important;
+            font-size: 0.8rem !important;
+            border-radius: 10px !important;
+        }
+        .btn-compare-card {
+            background: #FFFFFF;
+            border: 1px solid #DDE4ED;
+            color: #475569;
+            border-radius: 8px;
+            padding: 4px 9px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s ease;
+        }
+        .btn-compare-card:hover {
+            border-color: #1E5FA8;
+            color: #1E5FA8;
+            background: #F0F4F8;
+        }
+        .btn-compare-card.is-active {
+            background: #0B2A52;
+            border-color: #0B2A52;
+            color: #FFFFFF;
+        }
+        .btn-compare-card.is-active i {
+            color: #F5A020;
+        }
+        @media (max-width: 767px) {
+            .sp-compare-bar-content {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+                padding: 10px 12px;
+            }
+            .sp-compare-bar-info {
+                justify-content: space-between;
+            }
+            .sp-compare-actions .sp-compare-go-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
     </style>
 
 </head>
@@ -896,6 +1064,9 @@ $isDaleelMobile = (
                 </a>
                 <a href="/#search-section" class="offcanvas-nav-link">
                     <i class="fas fa-search text-muted" style="width:18px"></i> استكشف المدارس
+                </a>
+                <a href="/compare.php" class="offcanvas-nav-link">
+                    <i class="fas fa-balance-scale text-warning" style="width:18px"></i> مقارنة المدارس
                 </a>
                 <a href="/app.php" class="offcanvas-nav-link">
                     <i class="fab fa-android text-success" style="width:18px"></i> تطبيق أندرويد (APK)
@@ -953,6 +1124,7 @@ $isDaleelMobile = (
                     <a href="/#schoplus-schools" class="nav-link-custom"><i class="fas fa-bolt text-warning"></i> المدارس الذكية</a>
                     <a href="/#top-rated" class="nav-link-custom"><i class="fas fa-award text-primary"></i> الأعلى تقييماً</a>
                     <a href="/#search-section" class="nav-link-custom"><i class="fas fa-search text-muted"></i> استكشف المدارس</a>
+                    <a href="/compare.php" class="nav-link-custom"><i class="fas fa-balance-scale text-warning"></i> مقارنة المدارس</a>
                     <a href="https://schoplus.sd" target="_blank" class="nav-link-custom"><i class="fas fa-globe text-info"></i> عن المنظومة</a>
                 </div>
             </nav>

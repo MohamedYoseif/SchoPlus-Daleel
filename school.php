@@ -1049,6 +1049,9 @@ $totalRev = max(1, count($reviewsList));
                     <a href="#tab-admission" class="btn-luxury-gold sp-btn-action" onclick="switchTab(document.querySelector('[data-target=\'tab-admission\']'), 'tab-admission')">
                         <i class="fas fa-user-graduate"></i> <span>طلب قبول</span>
                     </a>
+                    <button type="button" class="btn-luxury-outline sp-btn-action" data-compare-id="<?= $school['id'] ?>" onclick="toggleSchoolCompare({id: '<?= $school['id'] ?>', name: '<?= addslashes(e($school['name'])) ?>', logo: '<?= addslashes(defaultSchoolLogo($school['logo_path'] ?? null)) ?>', slug: '<?= addslashes($school['slug']) ?>'});" title="إضافة إلى المقارنة">
+                        <i class="fas fa-balance-scale"></i> <span class="compare-lbl">مقارنة</span>
+                    </button>
                     <button type="button" class="btn-luxury-outline sp-btn-action" onclick="openShareModal()" title="مشاركة الرابط والباركود">
                         <i class="fas fa-share-alt text-primary"></i> <span class="d-inline d-md-none">مشاركة</span>
                     </button>

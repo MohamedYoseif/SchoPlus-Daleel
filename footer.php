@@ -28,6 +28,7 @@
                     <a href="/" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">كافة المدارس</a>
                     <a href="/#schoplus-schools" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">مدارس SchoPlus الذكية</a>
                     <a href="/#top-rated" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">المدارس الأعلى تقييماً</a>
+                    <a href="/compare.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">مقارنة المدارس</a>
                     <a href="/app.php" class="d-block d-md-none text-success fw-bold text-decoration-none mb-2" style="font-size: 0.74rem;"><i class="fab fa-android me-1"></i> تطبيق أندرويد (APK)</a>
                     <a href="/register.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">إضافة مدرسة جديدة</a>
                 </div>
@@ -76,6 +77,28 @@
         </div>
     </footer>
     <?php endif; ?>
+
+    <!-- FLOATING COMPARE BAR -->
+    <div id="spFloatingCompareBar" class="sp-floating-compare-bar" style="display: none;">
+        <div class="container">
+            <div class="sp-compare-bar-content">
+                <div class="sp-compare-bar-info">
+                    <div class="sp-compare-bar-title">
+                        <i class="fas fa-balance-scale"></i>
+                        <span>مقارنة المدارس (<span id="compareCount">0</span>/4)</span>
+                    </div>
+                    <button type="button" class="sp-compare-clear-btn" onclick="clearCompare()">مسح الكل</button>
+                </div>
+                <div class="sp-compare-thumbnails" id="compareThumbnails"></div>
+                <div class="sp-compare-actions">
+                    <a href="/compare.php" id="compareSubmitBtn" class="btn-luxury-primary sp-compare-go-btn">
+                        <span>قارن الآن</span>
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -306,9 +329,122 @@
                     if (d && d.country) {
                         document.cookie = 'detected_country_iso=' + encodeURIComponent(d.country) + '; path=/; max-age=2592000; SameSite=Lax';
                     }
-                }).catch(function() {});
+        }
+
+        // Initialize compare UI
+        if (window.renderCompareUI) {
+            window.renderCompareUI();
         }
     });
+
+    // ===== DALEEL SCHOOL COMPARISON ENGINE =====
+    var DALEEL_COMPARE_KEY = 'daleel_compare_schools';
+    var MAX_COMPARE_SCHOOLS = 4;
+
+    window.getCompareSchools = function() {
+        try {
+            var raw = localStorage.getItem(DALEEL_COMPARE_KEY);
+            return raw ? JSON.parse(raw) : [];
+        } catch(e) {
+            return [];
+        }
+    };
+
+    window.saveCompareSchools = function(list) {
+        try {
+            localStorage.setItem(DALEEL_COMPARE_KEY, JSON.stringify(list));
+        } catch(e) {}
+        window.renderCompareUI();
+    };
+
+    window.toggleSchoolCompare = function(school) {
+        if (!school || !school.id) return;
+        var list = window.getCompareSchools();
+        var idx = list.findIndex(function(s) { return String(s.id) === String(school.id); });
+        if (idx > -1) {
+            list.splice(idx, 1);
+            window.saveCompareSchools(list);
+        } else {
+            if (list.length >= MAX_COMPARE_SCHOOLS) {
+                alert('يمكنك مقارنة حتى 4 مدارس كحد أقصى في المرة الواحدة.');
+                return;
+            }
+            list.push({
+                id: String(school.id),
+                name: school.name || 'مدرسة',
+                logo: school.logo || '/assets/images/logo-icon.png',
+                slug: school.slug || ''
+            });
+            window.saveCompareSchools(list);
+        }
+    };
+
+    window.removeCompareSchool = function(id) {
+        var list = window.getCompareSchools();
+        list = list.filter(function(s) { return String(s.id) !== String(id); });
+        window.saveCompareSchools(list);
+    };
+
+    window.clearCompare = function() {
+        window.saveCompareSchools([]);
+    };
+
+    window.renderCompareUI = function() {
+        var list = window.getCompareSchools();
+        var bar = document.getElementById('spFloatingCompareBar');
+        var countEl = document.getElementById('compareCount');
+        var thumbsEl = document.getElementById('compareThumbnails');
+        var submitBtn = document.getElementById('compareSubmitBtn');
+
+        // Update compare buttons across the page
+        document.querySelectorAll('[data-compare-id]').forEach(function(btn) {
+            var id = btn.getAttribute('data-compare-id');
+            var isSelected = list.some(function(s) { return String(s.id) === String(id); });
+            var lbl = btn.querySelector('.compare-lbl');
+            if (isSelected) {
+                btn.classList.add('is-active');
+                if (lbl) lbl.textContent = 'تمت الإضافة';
+            } else {
+                btn.classList.remove('is-active');
+                if (lbl) lbl.textContent = 'مقارنة';
+            }
+        });
+
+        if (!bar) return;
+
+        if (list.length === 0) {
+            bar.style.display = 'none';
+            return;
+        }
+
+        bar.style.display = 'block';
+        if (countEl) countEl.textContent = list.length;
+
+        if (thumbsEl) {
+            thumbsEl.innerHTML = '';
+            list.forEach(function(s) {
+                var item = document.createElement('div');
+                item.className = 'sp-compare-thumb-item';
+                item.title = s.name;
+                item.innerHTML = '<img src="' + s.logo + '" alt="' + s.name + '">' +
+                    '<button type="button" class="sp-compare-thumb-remove" onclick="event.stopPropagation(); removeCompareSchool(\'' + s.id + '\');" title="إزالة">×</button>';
+                thumbsEl.appendChild(item);
+            });
+            for (var i = list.length; i < MAX_COMPARE_SCHOOLS; i++) {
+                var slot = document.createElement('div');
+                slot.className = 'sp-compare-slot-empty';
+                slot.title = 'خانة شاغرة للمقارنة';
+                slot.innerHTML = '<i class="fas fa-plus"></i>';
+                thumbsEl.appendChild(slot);
+            }
+        }
+
+        if (submitBtn) {
+            var ids = list.map(function(s) { return s.id; }).join(',');
+            submitBtn.href = '/compare.php?ids=' + encodeURIComponent(ids);
+            submitBtn.innerHTML = '<span>قارن الآن (' + list.length + ')</span> <i class="fas fa-arrow-left"></i>';
+        }
+    };
     </script>
 </body>
 </html>

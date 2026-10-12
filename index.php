@@ -737,6 +737,10 @@ if ($isSearching) {
                                         </div>
 
                                         <div class="d-flex align-items-center gap-2">
+                                            <button type="button" class="btn-compare-card" data-compare-id="<?= $s['id'] ?>" onclick="event.stopPropagation(); toggleSchoolCompare({id: '<?= $s['id'] ?>', name: '<?= addslashes(e($s['name'])) ?>', logo: '<?= addslashes($logo) ?>', slug: '<?= addslashes($s['slug']) ?>'});" title="إضافة إلى المقارنة">
+                                                <i class="fas fa-balance-scale"></i>
+                                                <span class="compare-lbl">مقارنة</span>
+                                            </button>
                                             <?php if (!empty($s['whatsapp'])): ?>
                                                 <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $s['whatsapp']) ?>" target="_blank" class="btn btn-sm btn-outline-success rounded-circle" style="width: 32px; height: 32px; padding: 0; display: inline-flex; align-items: center; justify-content: center;" title="واتساب" onclick="event.stopPropagation();">
                                                     <i class="fab fa-whatsapp"></i>
@@ -867,6 +871,10 @@ if ($isSearching) {
                                     </div>
 
                                     <div class="d-flex align-items-center gap-1">
+                                        <button type="button" class="btn-compare-card" data-compare-id="<?= $s['id'] ?>" onclick="event.stopPropagation(); toggleSchoolCompare({id: '<?= $s['id'] ?>', name: '<?= addslashes(e($s['name'])) ?>', logo: '<?= addslashes($logo) ?>', slug: '<?= addslashes($s['slug']) ?>'});" title="إضافة إلى المقارنة">
+                                            <i class="fas fa-balance-scale"></i>
+                                            <span class="compare-lbl">مقارنة</span>
+                                        </button>
                                         <?php if (!empty($s['whatsapp'])): ?>
                                             <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $s['whatsapp']) ?>" target="_blank" class="btn btn-sm btn-outline-success rounded-circle" style="width: 32px; height: 32px; padding: 0; display: inline-flex; align-items: center; justify-content: center;" title="واتساب" onclick="event.stopPropagation();">
                                                 <i class="fab fa-whatsapp"></i>
@@ -960,9 +968,15 @@ if ($isSearching) {
                                 </div>
                             </div>
 
-                            <a href="<?= $schoolUrl ?>" class="btn-luxury-outline btn-sm w-100 justify-content-center" onclick="event.stopPropagation();">
-                                عرض التفاصيل
-                            </a>
+                            <div class="d-flex align-items-center gap-1 mt-auto">
+                                <button type="button" class="btn-compare-card flex-shrink-0" data-compare-id="<?= $s['id'] ?>" onclick="event.stopPropagation(); toggleSchoolCompare({id: '<?= $s['id'] ?>', name: '<?= addslashes(e($s['name'])) ?>', logo: '<?= addslashes($logo) ?>', slug: '<?= addslashes($s['slug']) ?>'});" title="إضافة إلى المقارنة">
+                                    <i class="fas fa-balance-scale"></i>
+                                    <span class="compare-lbl">مقارنة</span>
+                                </button>
+                                <a href="<?= $schoolUrl ?>" class="btn-luxury-outline btn-sm flex-grow-1 justify-content-center" onclick="event.stopPropagation();">
+                                    عرض التفاصيل
+                                </a>
+                            </div>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -1043,9 +1057,15 @@ if ($isSearching) {
                                 </div>
                             </div>
 
-                            <a href="<?= $schoolUrl ?>" class="btn-luxury-outline btn-sm w-100 justify-content-center" onclick="event.stopPropagation();">
-                                عرض التفاصيل
-                            </a>
+                            <div class="d-flex align-items-center gap-1 mt-auto">
+                                <button type="button" class="btn-compare-card flex-shrink-0" data-compare-id="<?= $s['id'] ?>" onclick="event.stopPropagation(); toggleSchoolCompare({id: '<?= $s['id'] ?>', name: '<?= addslashes(e($s['name'])) ?>', logo: '<?= addslashes($logo) ?>', slug: '<?= addslashes($s['slug']) ?>'});" title="إضافة إلى المقارنة">
+                                    <i class="fas fa-balance-scale"></i>
+                                    <span class="compare-lbl">مقارنة</span>
+                                </button>
+                                <a href="<?= $schoolUrl ?>" class="btn-luxury-outline btn-sm flex-grow-1 justify-content-center" onclick="event.stopPropagation();">
+                                    عرض التفاصيل
+                                </a>
+                            </div>
                         </div>
                     </div>
                 <?php endforeach; ?>
