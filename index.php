@@ -239,205 +239,194 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
     margin-bottom: 16px;
 }
 
-/* Family Hero Photo Card (Left Column) */
-.hero-family-wrapper {
-    position: relative;
-    padding: 10px;
-}
-.hero-family-card {
-    position: relative;
+/* Pure Family Photo Showcase (Left Column) — No Clutter, No Floating Cards */
+.hero-family-frame {
     border-radius: 20px;
     overflow: hidden;
     background: #FFFFFF;
     border: 1px solid #DDE4ED;
-    box-shadow: 0 16px 36px rgba(11, 42, 82, 0.08);
+    box-shadow: 0 10px 30px rgba(11, 42, 82, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.hero-family-frame:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 36px rgba(11, 42, 82, 0.12);
 }
 .hero-family-img {
     width: 100%;
     height: 100%;
-    max-height: 390px;
+    max-height: 420px;
     object-fit: cover;
     display: block;
-    transition: transform 0.4s ease;
-}
-.hero-family-card:hover .hero-family-img {
-    transform: scale(1.02);
-}
-.hero-family-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 70px;
-    background: linear-gradient(180deg, transparent 0%, rgba(11, 42, 82, 0.85) 100%);
-    pointer-events: none;
-}
-.hero-family-caption {
-    position: absolute;
-    bottom: 12px;
-    right: 16px;
-    left: 16px;
-    color: #FFFFFF;
-    font-size: 0.75rem;
-    font-weight: 700;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 
-/* Floating Trust Chips */
-.floating-family-chip {
-    position: absolute;
+/* Modern Luxury Search Console Card (Right Column) */
+.sp-search-card {
     background: #FFFFFF;
     border: 1px solid #DDE4ED;
-    border-radius: 12px;
-    padding: 8px 12px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    box-shadow: 0 8px 24px rgba(11, 42, 82, 0.12);
-    z-index: 3;
-    transition: transform 0.25s ease;
-}
-.floating-family-chip:hover {
-    transform: translateY(-2px);
-}
-.chip-top-right {
-    top: -6px;
-    right: -10px;
-}
-.chip-bottom-left {
-    bottom: 24px;
-    left: -10px;
-}
-.chip-icon {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.85rem;
-    flex-shrink: 0;
-}
-.chip-icon.bg-blue {
-    background: #EFF6FF;
-    color: #1E5FA8;
-}
-.chip-icon.bg-orange {
-    background: #FFFBEB;
-    color: #F5A020;
-}
-.chip-text {
-    display: flex;
-    flex-direction: column;
-    text-align: right;
-    line-height: 1.25;
-}
-.chip-title {
-    font-size: 0.72rem;
-    font-weight: 800;
-    color: #0B2A52;
-}
-.chip-sub {
-    font-size: 0.62rem;
-    color: #64748B;
-    font-weight: 600;
-}
-
-/* Smart Unified Search Bar Card */
-.filter-bar-card {
-    background: #FFFFFF;
-    border: 1px solid #DDE4ED;
-    border-radius: 16px;
-    padding: 16px;
-    box-shadow: 0 10px 30px rgba(11, 42, 82, 0.08);
+    border-radius: 18px;
+    padding: 18px 20px;
+    box-shadow: 0 10px 30px rgba(11, 42, 82, 0.07);
     position: relative;
-    z-index: 20;
     text-align: right;
 }
-.filter-bar-header {
+
+/* Quick Search View Tabs */
+.sp-search-tabs {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
     gap: 8px;
-    padding-bottom: 10px;
-    margin-bottom: 12px;
-    border-bottom: 1px solid #EDF2F7;
-}
-.filter-bar-title {
-    font-size: 0.74rem;
-    font-weight: 700;
-    color: #0B2A52;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-.filter-quick-links {
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    padding-bottom: 12px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid #F1F5F9;
     flex-wrap: wrap;
 }
-.filter-quick-pill {
-    font-size: 0.68rem;
+.sp-search-tab {
+    font-size: 0.72rem;
     font-weight: 700;
-    padding: 3px 10px;
+    padding: 5px 14px;
     border-radius: 999px;
     text-decoration: none;
-    background: #F1F5F9;
+    background: #F8FAFC;
     color: #475569;
     border: 1px solid #E2E8F0;
     transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
 }
-.filter-quick-pill:hover, .filter-quick-pill.is-active {
+.sp-search-tab:hover {
+    background: #E2E8F0;
+    color: #0B2A52;
+}
+.sp-search-tab.active {
     background: #0B2A52;
     color: #FFFFFF;
     border-color: #0B2A52;
 }
 
-.filter-input-wrap {
+/* Main Keyword Input Bar */
+.sp-search-input-box {
     position: relative;
     display: flex;
     align-items: center;
     background: #F8FAFC;
     border: 1px solid #DDE4ED;
-    border-radius: 8px;
-    padding: 2px 10px;
+    border-radius: 10px;
+    padding: 0 14px;
+    margin-bottom: 12px;
     transition: all 0.2s ease;
 }
-.filter-input-wrap:focus-within {
-    border-color: #1E5FA8;
+.sp-search-input-box:focus-within {
     background: #FFFFFF;
-    box-shadow: 0 0 0 3px rgba(30, 95, 168, 0.12);
+    border-color: #1E5FA8;
+    box-shadow: 0 0 0 3px rgba(30, 95, 168, 0.1);
 }
-.filter-input-wrap input {
+.sp-search-input-box i {
+    font-size: 0.92rem;
+    color: #64748B;
+    margin-left: 10px;
+}
+.sp-search-input-box input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 11px 4px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #0D1B2E;
+}
+.sp-search-input-box input::placeholder {
+    color: #94A3B8;
+    font-weight: 500;
+}
+
+/* Structured Filter Dropdown Items */
+.sp-filter-item {
+    background: #F8FAFC;
+    border: 1px solid #DDE4ED;
+    border-radius: 10px;
+    padding: 6px 12px;
+    transition: all 0.2s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.sp-filter-item:focus-within {
+    background: #FFFFFF;
+    border-color: #1E5FA8;
+    box-shadow: 0 0 0 3px rgba(30, 95, 168, 0.08);
+}
+.sp-filter-label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.63rem;
+    font-weight: 700;
+    color: #64748B;
+    margin-bottom: 2px;
+}
+.sp-filter-select {
+    width: 100%;
     border: none;
     outline: none;
     background: transparent;
     font-size: 0.76rem;
-    font-weight: 600;
-    color: #0D1B2E;
-    width: 100%;
-    padding: 7px 6px;
+    font-weight: 700;
+    color: #0B2A52;
+    padding: 2px 0;
+    cursor: pointer;
 }
-.filter-select-wrap select {
-    background-color: #F8FAFC;
+
+/* Action Search Button */
+.sp-search-action-wrap {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+}
+.sp-btn-search-hero {
+    flex: 1;
+    background: #F5A020;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 10px;
+    padding: 11px 20px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(245, 160, 32, 0.25);
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+.sp-btn-search-hero:hover {
+    background: #E08E15;
+    color: #FFFFFF;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(245, 160, 32, 0.32);
+}
+.sp-btn-reset-hero {
+    background: #F8FAFC;
     border: 1px solid #DDE4ED;
-    border-radius: 8px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #0D1B2E;
-    padding: 8px 12px;
+    color: #64748B;
+    border-radius: 10px;
+    padding: 11px 16px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
     transition: all 0.2s ease;
 }
-.filter-select-wrap select:focus {
-    border-color: #1E5FA8;
-    background-color: #FFFFFF;
-    box-shadow: 0 0 0 3px rgba(30, 95, 168, 0.12);
+.sp-btn-reset-hero:hover {
+    background: #F1F5F9;
+    color: #0B2A52;
 }
 
 /* Hero Highlights Strip */
@@ -490,12 +479,8 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
     font-weight: 600;
 }
 @media (max-width: 991px) {
-    .floating-family-chip {
-        display: none !important;
-    }
-    .hero-family-wrapper {
-        margin-top: 14px;
-        padding: 0;
+    .hero-family-frame {
+        margin-top: 16px;
     }
     .hero-family-img {
         max-height: 290px;
@@ -509,8 +494,8 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
         grid-template-columns: repeat(2, 1fr);
         gap: 8px;
     }
-    .filter-bar-card {
-        padding: 12px;
+    .sp-search-card {
+        padding: 14px;
         border-radius: 14px;
     }
 }
@@ -663,92 +648,102 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
                     </div>
                 </div>
 
-                <!-- SMART UNIFIED FILTER BAR (Organized in 2 clean rows) -->
-                <form action="/" method="GET" class="filter-bar-card" id="smartFilterForm">
-                    <div class="filter-bar-header">
-                        <div class="filter-bar-title">
-                            <i class="fas fa-filter text-primary"></i>
-                            <span>تصفية سريعة ومباشرة</span>
-                        </div>
-                        <div class="filter-quick-links">
-                            <a href="/?view=schoplus" class="filter-quick-pill <?= $view === 'schoplus' || $schoplusOnly ? 'is-active' : '' ?>"><i class="fas fa-bolt text-primary me-1"></i> مدارس SchoPlus</a>
-                            <a href="/?view=top_rated" class="filter-quick-pill <?= $view === 'top_rated' ? 'is-active' : '' ?>"><i class="fas fa-star text-warning me-1"></i> الأعلى تقييماً</a>
-                            <a href="/?stage=primary" class="filter-quick-pill <?= $stage === 'primary' ? 'is-active' : '' ?>">الابتدائي</a>
-                            <a href="/?stage=intermediate" class="filter-quick-pill <?= $stage === 'intermediate' ? 'is-active' : '' ?>">المتوسط</a>
-                            <a href="/?stage=secondary" class="filter-quick-pill <?= $stage === 'secondary' ? 'is-active' : '' ?>">الثانوي</a>
-                        </div>
+                <!-- LUXURY UNIFIED SEARCH CONSOLE CARD -->
+                <form action="/" method="GET" class="sp-search-card" id="smartFilterForm">
+                    
+                    <!-- Quick View Tabs -->
+                    <div class="sp-search-tabs">
+                        <a href="/" class="sp-search-tab <?= (empty($view) || $view === 'all') && empty($stage) && !$schoplusOnly ? 'active' : '' ?>">
+                            <i class="fas fa-layer-group"></i> كافة المدارس
+                        </a>
+                        <a href="/?view=schoplus" class="sp-search-tab <?= $view === 'schoplus' || $schoplusOnly ? 'active' : '' ?>">
+                            <i class="fas fa-bolt text-warning"></i> مدارس SchoPlus الذكية
+                        </a>
+                        <a href="/?view=top_rated" class="sp-search-tab <?= $view === 'top_rated' ? 'active' : '' ?>">
+                            <i class="fas fa-star text-warning"></i> الأعلى تقييماً
+                        </a>
                     </div>
 
-                    <!-- Row 1: Geographic Cascading Dropdowns (Country, State, City) -->
-                    <div class="row g-2 mb-2">
-                        <!-- 1. Country Filter -->
-                        <div class="col-md-4 col-12 filter-select-wrap">
-                            <select name="country" class="form-select form-select-sm" id="filterCountrySelect">
-                                <option value="">جميع الدول</option>
-                                <?php foreach($countriesList as $cntry): ?>
-                                    <option value="<?= e($cntry) ?>" <?= $country === $cntry ? 'selected' : '' ?>><?= e($cntry) ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
+                    <!-- 1. Main Search Bar Input -->
+                    <div class="sp-search-input-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" name="q" value="<?= e($q) ?>" placeholder="ابحث باسم المدرسة، الحي، أو المنطقة..." autocomplete="off">
+                        <?php if ($q !== ''): ?>
+                            <a href="/" class="text-muted small text-decoration-none px-1" title="مسح"><i class="fas fa-times-circle"></i></a>
+                        <?php endif; ?>
+                    </div>
 
-                        <!-- 2. State Filter -->
-                        <div class="col-md-4 col-12 filter-select-wrap">
-                            <select name="state" class="form-select form-select-sm" id="filterStateSelect">
-                                <option value="">جميع الولايات</option>
-                                <?php foreach($statesWithCities as $stName => $cities): ?>
-                                    <option value="<?= e($stName) ?>" <?= $state === $stName ? 'selected' : '' ?>><?= e($stName) ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-
-                        <!-- 3. City Filter -->
-                        <div class="col-md-4 col-12 filter-select-wrap">
-                            <select name="city" class="form-select form-select-sm" id="filterCitySelect">
-                                <option value="">جميع المدن / المحليات</option>
-                                <?php if ($state && isset($statesWithCities[$state])): ?>
-                                    <?php foreach($statesWithCities[$state] as $c): ?>
-                                        <option value="<?= e($c) ?>" <?= $city === $c ? 'selected' : '' ?>><?= e($c) ?></option>
+                    <!-- 2. Structured Filter Grid (Country, State, City, Stage) -->
+                    <div class="row g-2">
+                        <!-- Country -->
+                        <div class="col-md-3 col-6">
+                            <div class="sp-filter-item">
+                                <span class="sp-filter-label"><i class="fas fa-globe text-primary"></i> الدولة</span>
+                                <select name="country" class="sp-filter-select" id="filterCountrySelect">
+                                    <option value="">جميع الدول</option>
+                                    <?php foreach($countriesList as $cntry): ?>
+                                        <option value="<?= e($cntry) ?>" <?= $country === $cntry ? 'selected' : '' ?>><?= e($cntry) ?></option>
                                     <?php endforeach; ?>
-                                <?php endif; ?>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Row 2: Stage Filter, School Name Search, Submit -->
-                    <div class="row g-2 align-items-center">
-                        <!-- 4. Stage Filter -->
-                        <div class="col-md-4 col-12 filter-select-wrap">
-                            <select name="stage" class="form-select form-select-sm" id="filterStageSelect">
-                                <option value="">جميع المراحل الدراسية</option>
-                                <?php foreach($schoolStages as $sKey => $sLbl): ?>
-                                    <option value="<?= e($sKey) ?>" <?= $stage === $sKey ? 'selected' : '' ?>><?= e($sLbl) ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-
-                        <!-- 5. School Name / Keyword Input -->
-                        <div class="col-md-6 col-9">
-                            <div class="filter-input-wrap">
-                                <i class="fas fa-search text-muted me-1"></i>
-                                <input type="text" name="q" value="<?= e($q) ?>" placeholder="ابحث باسم المدرسة، الحي..." autocomplete="off">
-                                <?php if ($q !== ''): ?>
-                                    <a href="/" class="text-muted small text-decoration-none px-1" title="مسح"><i class="fas fa-times-circle"></i></a>
-                                <?php endif; ?>
+                                </select>
                             </div>
                         </div>
 
-                        <!-- Action Buttons -->
-                        <div class="col-md-2 col-3 d-flex gap-1">
-                            <button type="submit" class="btn-luxury-primary w-100 justify-content-center py-2" title="بحث فوري">
-                                <i class="fas fa-search"></i>
-                            </button>
-                            <?php if ($isSearching): ?>
-                                <a href="/" class="btn btn-light border py-2 px-2 rounded-3 text-secondary" title="إعادة ضبط">
-                                    <i class="fas fa-undo"></i>
-                                </a>
-                            <?php endif; ?>
+                        <!-- State -->
+                        <div class="col-md-3 col-6">
+                            <div class="sp-filter-item">
+                                <span class="sp-filter-label"><i class="fas fa-map-marker-alt text-danger"></i> الولاية</span>
+                                <select name="state" class="sp-filter-select" id="filterStateSelect">
+                                    <option value="">جميع الولايات</option>
+                                    <?php foreach($statesWithCities as $stName => $cities): ?>
+                                        <option value="<?= e($stName) ?>" <?= $state === $stName ? 'selected' : '' ?>><?= e($stName) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- City -->
+                        <div class="col-md-3 col-6">
+                            <div class="sp-filter-item">
+                                <span class="sp-filter-label"><i class="fas fa-city text-info"></i> المدينة / المحلية</span>
+                                <select name="city" class="sp-filter-select" id="filterCitySelect">
+                                    <option value="">جميع المدن</option>
+                                    <?php if ($state && isset($statesWithCities[$state])): ?>
+                                        <?php foreach($statesWithCities[$state] as $c): ?>
+                                            <option value="<?= e($c) ?>" <?= $city === $c ? 'selected' : '' ?>><?= e($c) ?></option>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Stage -->
+                        <div class="col-md-3 col-6">
+                            <div class="sp-filter-item">
+                                <span class="sp-filter-label"><i class="fas fa-graduation-cap text-success"></i> المرحلة</span>
+                                <select name="stage" class="sp-filter-select" id="filterStageSelect">
+                                    <option value="">جميع المراحل</option>
+                                    <?php foreach($schoolStages as $sKey => $sLbl): ?>
+                                        <option value="<?= e($sKey) ?>" <?= $stage === $sKey ? 'selected' : '' ?>><?= e($sLbl) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
                         </div>
                     </div>
+
+                    <!-- 3. Primary Action Row -->
+                    <div class="sp-search-action-wrap">
+                        <button type="submit" class="sp-btn-search-hero">
+                            <i class="fas fa-search"></i>
+                            <span>استكشاف المدارس</span>
+                        </button>
+                        <?php if ($isSearching): ?>
+                            <a href="/" class="sp-btn-reset-hero" title="إلغاء الفلاتر">
+                                <i class="fas fa-undo"></i>
+                                <span>إعادة ضبط</span>
+                            </a>
+                        <?php endif; ?>
+                    </div>
+
                 </form>
 
                 <!-- Hero Highlights Strip -->
@@ -792,34 +787,10 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
                 </div>
             </div>
 
-            <!-- Left Column (In RTL): Front-Facing Family Photo Card & Floating Trust Chips -->
+            <!-- Left Column: Pure Family Photo Showcase (No Cards Around It) -->
             <div class="col-lg-5">
-                <div class="hero-family-wrapper">
-                    <div class="hero-family-card">
-                        <img src="/assets/images/family-hero.jpg" alt="أسرة تناقش وتختار المدرسة الأنسب لطفلتهم في دليل المدارس الذكي" class="hero-family-img" loading="eager">
-                        <div class="hero-family-overlay"></div>
-                        <div class="hero-family-caption">
-                            <i class="fas fa-heart text-warning"></i>
-                            <span>اختيار مدرسة طفلتك... قرار أسري يبدأ من هنا</span>
-                        </div>
-                    </div>
-
-                    <!-- Floating Trust Badges -->
-                    <div class="floating-family-chip chip-top-right">
-                        <div class="chip-icon bg-blue"><i class="fas fa-shield-alt"></i></div>
-                        <div class="chip-text">
-                            <span class="chip-title">بيانات ومناهج معتمدة</span>
-                            <span class="chip-sub">تحديث دوري وموثق</span>
-                        </div>
-                    </div>
-
-                    <div class="floating-family-chip chip-bottom-left">
-                        <div class="chip-icon bg-orange"><i class="fas fa-star"></i></div>
-                        <div class="chip-text">
-                            <span class="chip-title">تقييمات أولياء الأمور</span>
-                            <span class="chip-sub">تجارب حقيقية وموثوقة</span>
-                        </div>
-                    </div>
+                <div class="hero-family-frame">
+                    <img src="/assets/images/family-hero.jpg" alt="جلسة أسرية لاختيار المدرسة في دليل المدارس الذكي" class="hero-family-img" loading="eager">
                 </div>
             </div>
 
