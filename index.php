@@ -342,42 +342,161 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
     font-weight: 500;
 }
 
-/* Structured Filter Dropdown Items */
-.sp-filter-item {
+/* ===== LUXURY SEARCHABLE DROPDOWN COMPONENT ===== */
+.sp-searchable-dropdown {
+    position: relative;
+    width: 100%;
+}
+.sp-dropdown-trigger {
+    width: 100%;
     background: #F8FAFC;
     border: 1px solid #DDE4ED;
     border-radius: 10px;
     padding: 6px 12px;
-    transition: all 0.2s ease;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-.sp-filter-item:focus-within {
-    background: #FFFFFF;
-    border-color: #1E5FA8;
-    box-shadow: 0 0 0 3px rgba(30, 95, 168, 0.08);
-}
-.sp-filter-label {
     display: flex;
     align-items: center;
-    gap: 5px;
+    justify-content: space-between;
+    gap: 8px;
+    text-align: right;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    height: 100%;
+    min-height: 48px;
+    outline: none;
+}
+.sp-dropdown-trigger:hover {
+    background: #FFFFFF;
+    border-color: #1E5FA8;
+}
+.sp-searchable-dropdown.is-open .sp-dropdown-trigger {
+    background: #FFFFFF;
+    border-color: #1E5FA8;
+    box-shadow: 0 0 0 3px rgba(30, 95, 168, 0.12);
+}
+.sp-dropdown-trigger-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    overflow: hidden;
+    line-height: 1.25;
+}
+.sp-dropdown-mini-lbl {
     font-size: 0.63rem;
     font-weight: 700;
     color: #64748B;
+    display: flex;
+    align-items: center;
+    gap: 4px;
     margin-bottom: 2px;
 }
-.sp-filter-select {
+.sp-dropdown-selected-val {
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: #0B2A52;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+.sp-dropdown-chevron {
+    font-size: 0.68rem;
+    color: #94A3B8;
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+}
+.sp-searchable-dropdown.is-open .sp-dropdown-chevron {
+    transform: rotate(180deg);
+    color: #1E5FA8;
+}
+
+/* Floating Dropdown Panel */
+.sp-dropdown-panel {
+    position: absolute;
+    top: calc(100% + 5px);
+    right: 0;
+    left: 0;
+    min-width: 220px;
+    background: #FFFFFF;
+    border: 1px solid #DDE4ED;
+    border-radius: 12px;
+    box-shadow: 0 12px 32px rgba(11, 42, 82, 0.14);
+    z-index: 1050;
+    display: none;
+    overflow: hidden;
+    animation: spDropdownFadeIn 0.15s ease-out;
+}
+@keyframes spDropdownFadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.sp-searchable-dropdown.is-open .sp-dropdown-panel {
+    display: block;
+}
+
+/* Dropdown Search Box */
+.sp-dropdown-search-box {
+    padding: 8px 10px;
+    background: #F8FAFC;
+    border-bottom: 1px solid #EDF2F7;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+.sp-dropdown-search-input {
     width: 100%;
     border: none;
     outline: none;
     background: transparent;
-    font-size: 0.76rem;
-    font-weight: 700;
-    color: #0B2A52;
-    padding: 2px 0;
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: #0D1B2E;
+}
+.sp-dropdown-search-input::placeholder {
+    color: #94A3B8;
+}
+
+/* Options List */
+.sp-dropdown-options-list {
+    max-height: 220px;
+    overflow-y: auto;
+    padding: 4px;
+    scrollbar-width: thin;
+    scrollbar-color: #CBD5E1 #F1F5F9;
+}
+.sp-dropdown-option {
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: #334155;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.15s ease;
+}
+.sp-dropdown-option:hover {
+    background: #F0F4F8;
+    color: #1E5FA8;
+}
+.sp-dropdown-option.is-selected {
+    background: #EFF6FF;
+    color: #1E5FA8;
+    font-weight: 700;
+}
+.sp-dropdown-option.is-selected i {
+    font-size: 0.7rem;
+    color: #1E5FA8;
+}
+.sp-dropdown-empty {
+    padding: 14px 10px;
+    text-align: center;
+    color: #94A3B8;
+    font-size: 0.72rem;
+    font-weight: 600;
 }
 
 /* Action Search Button */
@@ -668,39 +787,88 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
                         <?php endif; ?>
                     </div>
 
-                    <!-- 2. Structured Filter Grid (Country, State, City, Stage) -->
+                    <!-- 2. Structured Filter Grid (Country, State, City, Stage with Searchable Dropdowns) -->
                     <div class="row g-2">
                         <!-- Country -->
                         <div class="col-md-3 col-6">
-                            <div class="sp-filter-item">
-                                <span class="sp-filter-label"><i class="fas fa-globe text-primary"></i> الدولة</span>
-                                <select name="country" class="sp-filter-select" id="filterCountrySelect">
+                            <div class="sp-searchable-dropdown" data-target="filterCountrySelect">
+                                <select name="country" class="d-none" id="filterCountrySelect">
                                     <option value="">جميع الدول</option>
                                     <?php foreach($countriesList as $cntry): ?>
                                         <option value="<?= e($cntry) ?>" <?= $country === $cntry ? 'selected' : '' ?>><?= e($cntry) ?></option>
                                     <?php endforeach; ?>
                                 </select>
+                                <button type="button" class="sp-dropdown-trigger" id="trigger_filterCountrySelect">
+                                    <div class="sp-dropdown-trigger-content">
+                                        <span class="sp-dropdown-mini-lbl"><i class="fas fa-globe text-primary"></i> الدولة</span>
+                                        <span class="sp-dropdown-selected-val"><?= e(!empty($country) ? $country : 'جميع الدول') ?></span>
+                                    </div>
+                                    <i class="fas fa-chevron-down sp-dropdown-chevron"></i>
+                                </button>
+                                <div class="sp-dropdown-panel" id="panel_filterCountrySelect">
+                                    <div class="sp-dropdown-search-box">
+                                        <i class="fas fa-search text-muted"></i>
+                                        <input type="text" class="sp-dropdown-search-input" placeholder="ابحث عن دولة..." autocomplete="off">
+                                    </div>
+                                    <div class="sp-dropdown-options-list">
+                                        <div class="sp-dropdown-option <?= empty($country) ? 'is-selected' : '' ?>" data-value="">
+                                            <span>جميع الدول</span>
+                                            <?php if (empty($country)): ?><i class="fas fa-check text-primary"></i><?php endif; ?>
+                                        </div>
+                                        <?php foreach($countriesList as $cntry): ?>
+                                            <div class="sp-dropdown-option <?= $country === $cntry ? 'is-selected' : '' ?>" data-value="<?= e($cntry) ?>">
+                                                <span><?= e($cntry) ?></span>
+                                                <?php if ($country === $cntry): ?><i class="fas fa-check text-primary"></i><?php endif; ?>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </div>
+                                    <div class="sp-dropdown-empty d-none">لا توجد نتائج مطابقة</div>
+                                </div>
                             </div>
                         </div>
 
                         <!-- State -->
                         <div class="col-md-3 col-6">
-                            <div class="sp-filter-item">
-                                <span class="sp-filter-label"><i class="fas fa-map-marker-alt text-danger"></i> الولاية</span>
-                                <select name="state" class="sp-filter-select" id="filterStateSelect">
+                            <div class="sp-searchable-dropdown" data-target="filterStateSelect">
+                                <select name="state" class="d-none" id="filterStateSelect">
                                     <option value="">جميع الولايات</option>
                                     <?php foreach($statesWithCities as $stName => $cities): ?>
                                         <option value="<?= e($stName) ?>" <?= $state === $stName ? 'selected' : '' ?>><?= e($stName) ?></option>
                                     <?php endforeach; ?>
                                 </select>
+                                <button type="button" class="sp-dropdown-trigger" id="trigger_filterStateSelect">
+                                    <div class="sp-dropdown-trigger-content">
+                                        <span class="sp-dropdown-mini-lbl"><i class="fas fa-map-marker-alt text-danger"></i> الولاية</span>
+                                        <span class="sp-dropdown-selected-val"><?= e(!empty($state) ? $state : 'جميع الولايات') ?></span>
+                                    </div>
+                                    <i class="fas fa-chevron-down sp-dropdown-chevron"></i>
+                                </button>
+                                <div class="sp-dropdown-panel" id="panel_filterStateSelect">
+                                    <div class="sp-dropdown-search-box">
+                                        <i class="fas fa-search text-muted"></i>
+                                        <input type="text" class="sp-dropdown-search-input" placeholder="ابحث عن ولاية..." autocomplete="off">
+                                    </div>
+                                    <div class="sp-dropdown-options-list">
+                                        <div class="sp-dropdown-option <?= empty($state) ? 'is-selected' : '' ?>" data-value="">
+                                            <span>جميع الولايات</span>
+                                            <?php if (empty($state)): ?><i class="fas fa-check text-primary"></i><?php endif; ?>
+                                        </div>
+                                        <?php foreach($statesWithCities as $stName => $cities): ?>
+                                            <div class="sp-dropdown-option <?= $state === $stName ? 'is-selected' : '' ?>" data-value="<?= e($stName) ?>">
+                                                <span><?= e($stName) ?></span>
+                                                <?php if ($state === $stName): ?><i class="fas fa-check text-primary"></i><?php endif; ?>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </div>
+                                    <div class="sp-dropdown-empty d-none">لا توجد نتائج مطابقة</div>
+                                </div>
                             </div>
                         </div>
 
                         <!-- City -->
                         <div class="col-md-3 col-6">
-                            <div class="sp-filter-item">
-                                <span class="sp-filter-label"><i class="fas fa-city text-info"></i> المدينة / المحلية</span>
-                                <select name="city" class="sp-filter-select" id="filterCitySelect">
+                            <div class="sp-searchable-dropdown" data-target="filterCitySelect">
+                                <select name="city" class="d-none" id="filterCitySelect">
                                     <option value="">جميع المدن</option>
                                     <?php if ($state && isset($statesWithCities[$state])): ?>
                                         <?php foreach($statesWithCities[$state] as $c): ?>
@@ -708,19 +876,72 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
                                         <?php endforeach; ?>
                                     <?php endif; ?>
                                 </select>
+                                <button type="button" class="sp-dropdown-trigger" id="trigger_filterCitySelect">
+                                    <div class="sp-dropdown-trigger-content">
+                                        <span class="sp-dropdown-mini-lbl"><i class="fas fa-city text-info"></i> المدينة / المحلية</span>
+                                        <span class="sp-dropdown-selected-val"><?= e(!empty($city) ? $city : 'جميع المدن') ?></span>
+                                    </div>
+                                    <i class="fas fa-chevron-down sp-dropdown-chevron"></i>
+                                </button>
+                                <div class="sp-dropdown-panel" id="panel_filterCitySelect">
+                                    <div class="sp-dropdown-search-box">
+                                        <i class="fas fa-search text-muted"></i>
+                                        <input type="text" class="sp-dropdown-search-input" placeholder="ابحث عن مدينة..." autocomplete="off">
+                                    </div>
+                                    <div class="sp-dropdown-options-list">
+                                        <div class="sp-dropdown-option <?= empty($city) ? 'is-selected' : '' ?>" data-value="">
+                                            <span>جميع المدن</span>
+                                            <?php if (empty($city)): ?><i class="fas fa-check text-primary"></i><?php endif; ?>
+                                        </div>
+                                        <?php if ($state && isset($statesWithCities[$state])): ?>
+                                            <?php foreach($statesWithCities[$state] as $c): ?>
+                                                <div class="sp-dropdown-option <?= $city === $c ? 'is-selected' : '' ?>" data-value="<?= e($c) ?>">
+                                                    <span><?= e($c) ?></span>
+                                                    <?php if ($city === $c): ?><i class="fas fa-check text-primary"></i><?php endif; ?>
+                                                </div>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
+                                    </div>
+                                    <div class="sp-dropdown-empty d-none">لا توجد نتائج مطابقة</div>
+                                </div>
                             </div>
                         </div>
 
                         <!-- Stage -->
                         <div class="col-md-3 col-6">
-                            <div class="sp-filter-item">
-                                <span class="sp-filter-label"><i class="fas fa-graduation-cap text-success"></i> المرحلة</span>
-                                <select name="stage" class="sp-filter-select" id="filterStageSelect">
+                            <div class="sp-searchable-dropdown" data-target="filterStageSelect">
+                                <select name="stage" class="d-none" id="filterStageSelect">
                                     <option value="">جميع المراحل</option>
                                     <?php foreach($schoolStages as $sKey => $sLbl): ?>
                                         <option value="<?= e($sKey) ?>" <?= $stage === $sKey ? 'selected' : '' ?>><?= e($sLbl) ?></option>
                                     <?php endforeach; ?>
                                 </select>
+                                <button type="button" class="sp-dropdown-trigger" id="trigger_filterStageSelect">
+                                    <div class="sp-dropdown-trigger-content">
+                                        <span class="sp-dropdown-mini-lbl"><i class="fas fa-graduation-cap text-success"></i> المرحلة</span>
+                                        <span class="sp-dropdown-selected-val"><?= e(!empty($stage) && isset($schoolStages[$stage]) ? $schoolStages[$stage] : 'جميع المراحل') ?></span>
+                                    </div>
+                                    <i class="fas fa-chevron-down sp-dropdown-chevron"></i>
+                                </button>
+                                <div class="sp-dropdown-panel" id="panel_filterStageSelect">
+                                    <div class="sp-dropdown-search-box">
+                                        <i class="fas fa-search text-muted"></i>
+                                        <input type="text" class="sp-dropdown-search-input" placeholder="ابحث عن مرحلة..." autocomplete="off">
+                                    </div>
+                                    <div class="sp-dropdown-options-list">
+                                        <div class="sp-dropdown-option <?= empty($stage) ? 'is-selected' : '' ?>" data-value="">
+                                            <span>جميع المراحل</span>
+                                            <?php if (empty($stage)): ?><i class="fas fa-check text-primary"></i><?php endif; ?>
+                                        </div>
+                                        <?php foreach($schoolStages as $sKey => $sLbl): ?>
+                                            <div class="sp-dropdown-option <?= $stage === $sKey ? 'is-selected' : '' ?>" data-value="<?= e($sKey) ?>">
+                                                <span><?= e($sLbl) ?></span>
+                                                <?php if ($stage === $sKey): ?><i class="fas fa-check text-primary"></i><?php endif; ?>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </div>
+                                    <div class="sp-dropdown-empty d-none">لا توجد نتائج مطابقة</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1005,11 +1226,53 @@ $extraScripts = <<<JS
     const stateSelect = document.getElementById('filterStateSelect');
     const citySelect = document.getElementById('filterCitySelect');
 
+    // Rebuild options in custom searchable dropdown panel from native select
+    function rebuildCustomDropdown(targetSelectId, defaultLabel) {
+        const wrapper = document.querySelector(`.sp-searchable-dropdown[data-target="${targetSelectId}"]`);
+        if (!wrapper) return;
+        const nativeSelect = document.getElementById(targetSelectId);
+        if (!nativeSelect) return;
+        const optionsList = wrapper.querySelector('.sp-dropdown-options-list');
+        const displayVal = wrapper.querySelector('.sp-dropdown-selected-val');
+        const emptyState = wrapper.querySelector('.sp-dropdown-empty');
+        if (!optionsList) return;
+
+        optionsList.innerHTML = '';
+        const opts = nativeSelect.querySelectorAll('option');
+        let selectedFound = false;
+
+        opts.forEach(o => {
+            const item = document.createElement('div');
+            const isSelected = o.selected;
+            item.className = 'sp-dropdown-option' + (isSelected ? ' is-selected' : '');
+            item.dataset.value = o.value;
+
+            const span = document.createElement('span');
+            span.textContent = o.textContent;
+            item.appendChild(span);
+
+            if (isSelected) {
+                selectedFound = true;
+                if (displayVal) displayVal.textContent = o.textContent;
+                const check = document.createElement('i');
+                check.className = 'fas fa-check text-primary';
+                check.style.fontSize = '0.7rem';
+                item.appendChild(check);
+            }
+            optionsList.appendChild(item);
+        });
+
+        if (!selectedFound && displayVal) {
+            displayVal.textContent = defaultLabel || (opts.length > 0 ? opts[0].textContent : '');
+        }
+        if (emptyState) emptyState.classList.add('d-none');
+    }
+
     function updateStates(countryVal) {
         if (!stateSelect) return;
         stateSelect.innerHTML = '<option value="">جميع الولايات</option>';
         if (citySelect) {
-            citySelect.innerHTML = '<option value="">جميع المدن / المحليات</option>';
+            citySelect.innerHTML = '<option value="">جميع المدن</option>';
         }
         let statesObj = {};
         if (countryVal && allGeoMap[countryVal]) {
@@ -1023,11 +1286,13 @@ $extraScripts = <<<JS
             opt.textContent = st;
             stateSelect.appendChild(opt);
         });
+        rebuildCustomDropdown('filterStateSelect', 'جميع الولايات');
+        rebuildCustomDropdown('filterCitySelect', 'جميع المدن');
     }
 
     function updateCities(stateVal) {
         if (!citySelect) return;
-        citySelect.innerHTML = '<option value="">جميع المدن / المحليات</option>';
+        citySelect.innerHTML = '<option value="">جميع المدن</option>';
         const countryVal = (countrySelect && countrySelect.value) ? countrySelect.value : 'السودان';
         const statesObj = allGeoMap[countryVal] || allGeoMap['السودان'] || {};
         if (stateVal && statesObj[stateVal]) {
@@ -1038,6 +1303,7 @@ $extraScripts = <<<JS
                 citySelect.appendChild(opt);
             });
         }
+        rebuildCustomDropdown('filterCitySelect', 'جميع المدن');
     }
 
     if (countrySelect) {
@@ -1050,6 +1316,117 @@ $extraScripts = <<<JS
             updateCities(this.value);
         });
     }
+
+    // Initialize all Searchable Dropdowns
+    document.addEventListener('DOMContentLoaded', function() {
+        const dropdownWrappers = document.querySelectorAll('.sp-searchable-dropdown');
+
+        dropdownWrappers.forEach(wrapper => {
+            const trigger = wrapper.querySelector('.sp-dropdown-trigger');
+            const panel = wrapper.querySelector('.sp-dropdown-panel');
+            const searchInput = wrapper.querySelector('.sp-dropdown-search-input');
+            const targetSelectId = wrapper.dataset.target;
+            const nativeSelect = document.getElementById(targetSelectId);
+            const optionsList = wrapper.querySelector('.sp-dropdown-options-list');
+            const emptyState = wrapper.querySelector('.sp-dropdown-empty');
+            const displayVal = wrapper.querySelector('.sp-dropdown-selected-val');
+
+            if (!trigger || !panel) return;
+
+            // Toggle Open/Close
+            trigger.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const isOpen = wrapper.classList.contains('is-open');
+                
+                // Close all other open dropdowns
+                document.querySelectorAll('.sp-searchable-dropdown.is-open').forEach(w => {
+                    if (w !== wrapper) w.classList.remove('is-open');
+                });
+
+                wrapper.classList.toggle('is-open', !isOpen);
+
+                if (!isOpen && searchInput) {
+                    searchInput.value = '';
+                    filterItems('');
+                    setTimeout(() => searchInput.focus(), 60);
+                }
+            });
+
+            // Search Filter Logic
+            function filterItems(query) {
+                const items = optionsList.querySelectorAll('.sp-dropdown-option');
+                let matchesCount = 0;
+                items.forEach(item => {
+                    const text = item.textContent.trim().toLowerCase();
+                    const isMatch = query === '' || text.includes(query);
+                    item.style.display = isMatch ? 'flex' : 'none';
+                    if (isMatch) matchesCount++;
+                });
+                if (emptyState) {
+                    emptyState.classList.toggle('d-none', matchesCount > 0);
+                }
+            }
+
+            if (searchInput) {
+                searchInput.addEventListener('input', function(e) {
+                    filterItems(e.target.value.trim().toLowerCase());
+                });
+                searchInput.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            }
+
+            // Option Selection via Event Delegation
+            optionsList.addEventListener('click', function(e) {
+                const opt = e.target.closest('.sp-dropdown-option');
+                if (!opt) return;
+
+                const val = opt.dataset.value;
+                const text = opt.querySelector('span') ? opt.querySelector('span').textContent.trim() : opt.textContent.trim();
+
+                // 1. Update native select & trigger change
+                if (nativeSelect) {
+                    nativeSelect.value = val;
+                    nativeSelect.dispatchEvent(new Event('change', { bubbles: true }));
+                }
+
+                // 2. Update display text on trigger
+                if (displayVal) {
+                    displayVal.textContent = text;
+                }
+
+                // 3. Mark active state
+                optionsList.querySelectorAll('.sp-dropdown-option').forEach(o => {
+                    o.classList.remove('is-selected');
+                    const check = o.querySelector('i.fa-check');
+                    if (check) check.remove();
+                });
+                opt.classList.add('is-selected');
+                const check = document.createElement('i');
+                check.className = 'fas fa-check text-primary';
+                check.style.fontSize = '0.7rem';
+                opt.appendChild(check);
+
+                // 4. Close panel
+                wrapper.classList.remove('is-open');
+            });
+        });
+
+        // Close on Outside Click
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.sp-searchable-dropdown')) {
+                document.querySelectorAll('.sp-searchable-dropdown.is-open').forEach(w => w.classList.remove('is-open'));
+            }
+        });
+
+        // Close on Escape Key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.sp-searchable-dropdown.is-open').forEach(w => w.classList.remove('is-open'));
+            }
+        });
+    });
 </script>
 JS;
 require_once __DIR__ . '/footer.php';
