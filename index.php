@@ -624,11 +624,6 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
             <!-- Right Column (In RTL): Headline, Unified Filter Console, and Metrics -->
             <div class="col-lg-7">
                 <div class="text-start">
-                    <div class="hero-v2-eyebrow">
-                        <span class="hero-v2-eyebrow-dot"></span>
-                        <span>المنصة المعتمدة لدليل المدارس السودانية والعربية</span>
-                    </div>
-
                     <h1 class="hero-v2-title">
                         دليل المدارس الشامل
                         <span class="hero-v2-title-sub">ابحث، قارن، واختر المدرسة الأنسب لأبنائك بكل ثقة واطمئنان</span>
