@@ -719,6 +719,8 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
         padding: 14px;
         border-radius: 14px;
     }
+}
+
 /* ===== LUXURY JOIN DALEEL CTA BANNER (STYLE F v2) ===== */
 .sp-join-section {
     padding: 16px 0 8px;
@@ -1157,53 +1159,6 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
 }
 </style>
 
-<!-- SCHOOL OWNERS CTA BANNER (PLACED AT THE VERY TOP OF THE PAGE WITH ALL DETAILS) -->
-<section class="sp-join-section sp-join-top" id="join-daleel-section">
-    <div class="container">
-        <div class="sp-join-card">
-            <div class="row align-items-center g-4">
-                <div class="col-lg-8 col-12">
-                    <div class="sp-join-eyebrow">
-                        <i class="fas fa-school"></i>
-                        <span>انضم إلى دليل المدارس</span>
-                    </div>
-                    <h2 class="sp-join-title">هل تدير مدرسة أو مجمعاً تعليمياً؟</h2>
-                    <p class="sp-join-desc">
-                        خدمة رقمية مقدمة من منظومة ايسكو بلص (SchoPlus). أضف بيانات مدرستك، أنشئ ملفاً تعريفياً متكاملاً، وانشر أخبار ومرافق مدرستك واستقبل استفسارات أولياء الأمور مباشرة.
-                    </p>
-                    <div class="sp-join-actions">
-                        <a href="/register.php" class="sp-join-btn-primary">
-                            <i class="fas fa-school"></i>
-                            <span>سجّل مدرستك الآن</span>
-                        </a>
-                        <a href="/login.php" class="sp-join-btn-secondary">
-                            <i class="fas fa-sign-in-alt"></i>
-                            <span>دخول أصحاب المدارس</span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Side Box: SchoPlus Smart Systems (Detailed & Fully Visible on Mobile & Desktop) -->
-                <div class="col-lg-4 col-12">
-                    <div class="sp-join-side-box">
-                        <div class="sp-join-side-badge">
-                            <i class="fas fa-certificate"></i>
-                        </div>
-                        <h5 class="sp-join-side-title">ارتقِ بمدرستك مع SchoPlus</h5>
-                        <p class="sp-join-side-desc">
-                            حوّل مدرستك إلى مدرسة ذكية مع أنظمة الحسابات، شؤون الطلاب، الجداول الآلية، وبوابة أولياء الأمور عبر الواتساب.
-                        </p>
-                        <a href="https://schoplus.sd" target="_blank" class="sp-join-side-btn">
-                            <i class="fas fa-external-link-alt"></i>
-                            <span>تعرف على نظام SchoPlus</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
 <!-- HERO SECTION WITH INTEGRATED SEARCH -->
 <section class="daleel-hero-v2 mb-4" id="search-section">
     <div class="container hero-v2-container">
@@ -1486,6 +1441,46 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
     </div>
 </section>
 
+<!-- SCHOOL OWNERS CTA BANNER (MOVED TO TOP WITH FULL DETAILS & MOBILE COLOR FIXES) -->
+<section class="sp-join-section" id="join-daleel-section">
+    <div class="container">
+        <div class="sp-join-card" style="background: linear-gradient(135deg, #0B2A52 0%, #163870 100%); border-radius: 16px; border: 1px solid #1E5FA8; border-right: 5px solid #F5A020; color: #FFFFFF;">
+            <div class="row align-items-center g-4">
+                <div class="col-lg-8 col-12">
+                    <div class="sp-join-eyebrow" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(245, 160, 32, 0.2); border: 1px solid #F5A020; color: #F5A020 !important; font-weight: 800; font-size: 0.74rem; padding: 4px 12px; border-radius: 20px; margin-bottom: 12px;">
+                        <i class="fas fa-school" style="color: #F5A020 !important;"></i>
+                        <span style="color: #FFFFFF !important;">انضم إلى دليل المدارس</span>
+                    </div>
+                    <h2 class="sp-join-title fw-bold mb-2" style="font-size: 1.32rem; color: #FFFFFF !important;">هل تدير مدرسة أو مجمعاً تعليمياً؟</h2>
+                    <p class="sp-join-desc mb-3" style="max-width: 650px; font-size: 0.78rem; color: #F1F5F9 !important; line-height: 1.65;">
+                        خدمة رقمية مقدمة من منظومة ايسكو بلص (SchoPlus). أضف بيانات مدرستك، أنشئ ملفاً تعريفياً متكاملاً، وانشر أخبار ومرافق مدرستك واستقبل استفسارات أولياء الأمور مباشرة.
+                    </p>
+                    <div class="sp-join-actions d-flex flex-wrap gap-2">
+                        <a href="/register.php" class="sp-join-btn-primary" style="background: #F5A020 !important; color: #FFFFFF !important; font-weight: 800; font-size: 0.8rem; padding: 9px 20px; border-radius: 9px; display: inline-flex; align-items: center; gap: 8px; text-decoration: none;">
+                            <i class="fas fa-school" style="color: #FFFFFF !important;"></i>
+                            <span style="color: #FFFFFF !important;">سجّل مدرستك الآن</span>
+                        </a>
+                        <a href="/login.php" class="sp-join-btn-secondary" style="background: rgba(255, 255, 255, 0.14) !important; color: #FFFFFF !important; border: 1.5px solid rgba(255, 255, 255, 0.45) !important; font-weight: 700; font-size: 0.8rem; padding: 9px 18px; border-radius: 9px; display: inline-flex; align-items: center; gap: 8px; text-decoration: none;">
+                            <i class="fas fa-sign-in-alt" style="color: #FFFFFF !important;"></i>
+                            <span style="color: #FFFFFF !important;">دخول أصحاب المدارس</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-12 text-center">
+                    <div class="sp-join-side-box" style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 12px; padding: 18px 20px;">
+                        <i class="fas fa-certificate fa-2x mb-2" style="color: #F5A020 !important;"></i>
+                        <h5 class="sp-join-side-title fw-bold mb-2" style="font-size: 0.95rem; color: #FFFFFF !important;">ارتقِ بمدرستك مع SchoPlus</h5>
+                        <p class="sp-join-side-desc mb-3" style="font-size: 0.72rem !important; line-height: 1.6; color: #E2E8F0 !important;">حوّل مدرستك إلى مدرسة ذكية مع أنظمة الحسابات، شؤون الطلاب، الجداول الآلية، وبوابة أولياء الأمور عبر الواتساب.</p>
+                        <a href="https://schoplus.sd" target="_blank" class="sp-join-side-btn" style="background: #FFFFFF !important; color: #0B2A52 !important; font-weight: 800; font-size: 0.76rem; padding: 8px 16px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; width: 100%; text-decoration: none;">
+                            <i class="fas fa-external-link-alt" style="color: #1E5FA8 !important;"></i>
+                            <span style="color: #0B2A52 !important;">تعرف على نظام SchoPlus</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <!-- MAIN DIRECTORY CATALOG WITH STANDARD MAIN TABS -->
 <section class="py-3" id="directory-catalog-section">
