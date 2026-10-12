@@ -69,8 +69,29 @@ $totalTopRatedCount = (int) $pdo->query("SELECT COUNT(*) FROM daleel_schools WHE
 // State school counters for the state cards
 $stateCounts = $pdo->query("SELECT state, COUNT(*) as cnt FROM daleel_schools WHERE status = 'approved' GROUP BY state")->fetchAll(PDO::FETCH_KEY_PAIR) ?: [];
 
-// Distinct states list
+// Distinct states list & regional mapping
 $allStatesList = SudanGeography::states();
+$sudanStatesWithCities = $countriesWithStates['السودان'] ?? SudanGeography::statesWithCities('السودان');
+$sudanRegionMapping = [
+    'الخرطوم' => 'central',
+    'الجزيرة' => 'central',
+    'سنار' => 'central',
+    'النيل الأبيض' => 'central',
+    'النيل الأزرق' => 'central',
+    'البحر الأحمر' => 'east',
+    'كسلا' => 'east',
+    'القضارف' => 'east',
+    'نهر النيل' => 'north',
+    'الشمالية' => 'north',
+    'شمال كردفان' => 'kordofan',
+    'جنوب كردفان' => 'kordofan',
+    'غرب كردفان' => 'kordofan',
+    'شمال دارفور' => 'darfur',
+    'جنوب دارفور' => 'darfur',
+    'غرب دارفور' => 'darfur',
+    'وسط دارفور' => 'darfur',
+    'شرق دارفور' => 'darfur',
+];
 
 // Query for search or view
 if ($isSearching) {
@@ -700,75 +721,186 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
     }
 }
 
-/* States Carousel */
-.states-slider-container {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    padding: 6px 2px 14px;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-    scrollbar-color: #CBD5E1 #F1F5F9;
+/* ===== LUXURY GEOGRAPHICAL DIRECTORY GRID (STYLE F v2) ===== */
+.sp-geo-section {
+    background: #FFFFFF;
+    border-top: 1px solid #DDE4ED;
+    border-bottom: 1px solid #DDE4ED;
+    padding: 38px 0 44px;
+    margin-top: 36px;
 }
-.state-slide-card {
-    flex: 0 0 auto;
-    scroll-snap-align: start;
-    width: 130px;
+.sp-geo-header {
+    margin-bottom: 20px;
+}
+.sp-geo-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #1E5FA8;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+}
+.sp-geo-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #0B2A52;
+    margin-bottom: 4px;
+}
+.sp-geo-sub {
+    font-size: 0.74rem;
+    color: #64748B;
+    margin-bottom: 0;
+}
+
+/* Region Segmented Filter Pills */
+.sp-geo-region-pills {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+.sp-geo-pill {
+    padding: 5px 14px;
+    border-radius: 999px;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.sp-geo-pill:hover {
+    background: #E2E8F0;
+    color: #0B2A52;
+}
+.sp-geo-pill.is-active {
+    background: #0B2A52;
+    color: #FFFFFF;
+    border-color: #0B2A52;
+}
+
+/* State Cards Grid */
+.sp-geo-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+}
+.sp-state-card {
     background: #FFFFFF;
     border: 1px solid #DDE4ED;
     border-radius: 12px;
-    padding: 10px 8px;
-    text-align: center;
+    padding: 13px 12px;
     text-decoration: none;
-    color: #334155;
-    transition: all 0.2s ease;
-    cursor: pointer;
+    color: inherit;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    justify-content: space-between;
+    min-height: 104px;
+    position: relative;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(11, 42, 82, 0.02);
 }
-.state-slide-card:hover, .state-slide-card.active {
+.sp-state-card:hover {
     border-color: #1E5FA8;
-    background: #F0F4F8;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(30, 95, 168, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(30, 95, 168, 0.08);
+    background: #FAFCFE;
 }
-.state-slide-icon {
-    width: 32px;
-    height: 32px;
+.sp-state-card.is-active {
+    border-color: #1E5FA8;
+    background: #EFF6FF;
+    box-shadow: 0 0 0 2px rgba(30, 95, 168, 0.15);
+}
+.sp-state-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+.sp-state-icon {
+    width: 28px;
+    height: 28px;
     border-radius: 8px;
     background: #F1F5F9;
-    color: #0B2A52;
+    color: #1E5FA8;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.85rem;
-    margin-bottom: 4px;
+    font-size: 0.78rem;
+    transition: all 0.2s ease;
 }
-.state-slide-card.active .state-slide-icon {
+.sp-state-card:hover .sp-state-icon {
+    background: #1E5FA8;
+    color: #FFFFFF;
+}
+.sp-state-card.is-active .sp-state-icon {
     background: #0B2A52;
     color: #FFFFFF;
 }
-.state-slide-title {
-    font-size: 0.74rem;
+.sp-state-badge {
+    font-size: 0.62rem;
     font-weight: 700;
-    color: #0B2A52;
-    margin-bottom: 2px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: #F8FAFC;
+    color: #64748B;
+    border: 1px solid #E2E8F0;
 }
-.state-slide-count {
+.sp-state-badge.has-schools {
+    background: #EFF6FF;
+    color: #1E5FA8;
+    border-color: #BFDBFE;
+}
+.sp-state-name {
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: #0B2A52;
+    line-height: 1.3;
+    margin-bottom: 3px;
+}
+.sp-state-cities {
     font-size: 0.64rem;
     color: #64748B;
+    line-height: 1.35;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.sp-state-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+    padding-top: 6px;
+    border-top: 1px dashed #EDF2F7;
+    font-size: 0.65rem;
+    color: #94A3B8;
+}
+.sp-state-card:hover .sp-state-foot {
+    color: #1E5FA8;
 }
 
-@media (max-width: 576px) {
-    .states-slider-container {
-        gap: 6px;
+@media (max-width: 1199px) {
+    .sp-geo-grid {
+        grid-template-columns: repeat(3, 1fr);
     }
-    .state-slide-card {
-        width: calc((100% - 12px) / 3) !important;
-        min-width: calc((100% - 12px) / 3) !important;
-        padding: 8px 4px;
+}
+@media (max-width: 767px) {
+    .sp-geo-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+    .sp-state-card {
+        padding: 10px 10px;
+        min-height: 90px;
     }
 }
 
@@ -1098,40 +1230,6 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
     </div>
 </section>
 
-<!-- STATES CAROUSEL SECTION -->
-<section class="mb-4" id="states-slider-section">
-    <div class="container">
-        <div class="d-flex justify-content-between align-items-center mb-2">
-            <div>
-                <span style="color: #1E5FA8; font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">
-                    <i class="fas fa-map-marked-alt me-1"></i> التوزيع الجغرافي
-                </span>
-                <h3 style="font-size: 0.98rem; font-weight: 700; color: #0B2A52; margin: 0;">تصفح المدارس حسب الولايات</h3>
-            </div>
-            <div class="d-none d-md-block text-muted small" style="font-size: 0.7rem;">
-                اسحب لتصفح كافة ولايات السودان الـ 18 <i class="fas fa-arrows-left-right text-primary ms-1"></i>
-            </div>
-        </div>
-
-        <div class="states-slider-container">
-            <?php foreach($allStatesList as $stName): ?>
-                <?php 
-                    $countInState = $stateCounts[$stName] ?? 0;
-                    $isSelectedState = ($state === $stName);
-                    $stateUrl = $isSelectedState ? '/' : '/?state=' . urlencode($stName);
-                ?>
-                <a href="<?= $stateUrl ?>" class="state-slide-card <?= $isSelectedState ? 'active' : '' ?>" title="مدارس ولاية <?= e($stName) ?>">
-                    <div class="state-slide-icon">
-                        <i class="fas fa-landmark"></i>
-                    </div>
-                    <div class="state-slide-title"><?= e($stName) ?></div>
-                    <div class="state-slide-count"><?= $countInState ?> <?= $countInState == 1 ? 'مدرسة' : 'مدارس' ?></div>
-                </a>
-            <?php endforeach; ?>
-        </div>
-    </div>
-</section>
-
 <!-- MAIN DIRECTORY CATALOG WITH STANDARD MAIN TABS -->
 <section class="py-3" id="directory-catalog-section">
     <div class="container">
@@ -1263,6 +1361,81 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
     </div>
 </section>
 
+<!-- LUXURY GEOGRAPHICAL DIRECTORY SECTION (BOTTOM) -->
+<section class="sp-geo-section" id="geo-directory-section">
+    <div class="container">
+        
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end sp-geo-header">
+            <div>
+                <span class="sp-geo-eyebrow">
+                    <i class="fas fa-map-marked-alt"></i> التوزيع الجغرافي الشامل
+                </span>
+                <h3 class="sp-geo-title">دليل المدارس حسب الولايات والمناطق</h3>
+                <p class="sp-geo-sub">
+                    استكشف المدارس المعتمدة والمجمعات التعليمية موزعة جغرافياً عبر كافة ولايات السودان الـ 18
+                </p>
+            </div>
+            <div class="mt-3 mt-md-0 text-muted" style="font-size: 0.72rem;">
+                <i class="fas fa-check-circle text-primary me-1"></i> تغطية لجميع المحليات والمراكز الأكاديمية
+            </div>
+        </div>
+
+        <!-- Regional Filter Pills -->
+        <div class="sp-geo-region-pills">
+            <button type="button" class="sp-geo-pill is-active" onclick="filterGeoRegion('all', this)">
+                <i class="fas fa-layer-group"></i> كافة الولايات (18)
+            </button>
+            <button type="button" class="sp-geo-pill" onclick="filterGeoRegion('central', this)">
+                <i class="fas fa-city"></i> الوسط والعاصمة
+            </button>
+            <button type="button" class="sp-geo-pill" onclick="filterGeoRegion('east', this)">
+                <i class="fas fa-water"></i> القطاع الشرقي
+            </button>
+            <button type="button" class="sp-geo-pill" onclick="filterGeoRegion('north', this)">
+                <i class="fas fa-compass"></i> القطاع الشمالي
+            </button>
+            <button type="button" class="sp-geo-pill" onclick="filterGeoRegion('kordofan', this)">
+                <i class="fas fa-tree"></i> كردفان الكبرى
+            </button>
+            <button type="button" class="sp-geo-pill" onclick="filterGeoRegion('darfur', this)">
+                <i class="fas fa-mountain"></i> دارفور الكبرى
+            </button>
+        </div>
+
+        <!-- State Cards Grid (3x6) -->
+        <div class="sp-geo-grid" id="spGeoGrid">
+            <?php foreach($allStatesList as $stName): ?>
+                <?php 
+                    $countInState = $stateCounts[$stName] ?? 0;
+                    $isSelectedState = ($state === $stName);
+                    $stateUrl = $isSelectedState ? '/' : '/?state=' . urlencode($stName);
+                    $citiesList = $sudanStatesWithCities[$stName] ?? [];
+                    $regKey = $sudanRegionMapping[$stName] ?? 'all';
+                ?>
+                <a href="<?= $stateUrl ?>" class="sp-state-card <?= $isSelectedState ? 'is-active' : '' ?>" data-region="<?= $regKey ?>" title="مدارس ولاية <?= e($stName) ?>">
+                    <div>
+                        <div class="sp-state-top">
+                            <div class="sp-state-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <span class="sp-state-badge <?= $countInState > 0 ? 'has-schools' : '' ?>">
+                                <?= $countInState > 0 ? $countInState . ($countInState == 1 ? ' مدرسة' : ' مدارس') : 'استكشف' ?>
+                            </span>
+                        </div>
+                        <div class="sp-state-name"><?= e($stName) ?></div>
+                        <div class="sp-state-cities"><?= e(!empty($citiesList) ? implode(' • ', array_slice($citiesList, 0, 2)) : 'المراكز التعليمية') ?></div>
+                    </div>
+                    <div class="sp-state-foot">
+                        <span>تصفح المدارس</span>
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
+                </a>
+            <?php endforeach; ?>
+        </div>
+
+    </div>
+</section>
+
 <!-- SCHOOL OWNERS CTA BANNER -->
 <section class="py-5 mt-4" style="background: #0B2A52; color: #FFFFFF;">
     <div class="container">
@@ -1306,6 +1479,19 @@ $jsonAllGeo = json_encode($countriesWithStates, JSON_UNESCAPED_UNICODE);
 $extraScripts = <<<JS
 <script>
     const allGeoMap = {$jsonAllGeo};
+
+    // Geographic Region Filter (for bottom directory)
+    window.filterGeoRegion = function(regionKey, btn) {
+        document.querySelectorAll('.sp-geo-pill').forEach(p => p.classList.remove('is-active'));
+        if (btn) btn.classList.add('is-active');
+        document.querySelectorAll('.sp-state-card').forEach(card => {
+            if (regionKey === 'all' || card.dataset.region === regionKey) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    };
 
     // Region labels resolver per country
     function getRegionLabels(countryVal) {
