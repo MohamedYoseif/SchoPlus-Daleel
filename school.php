@@ -625,7 +625,7 @@ require_once __DIR__ . '/header.php';
     margin: 10px 0;
     color: #4B5563;
     font-style: italic;
-    background: #FDFBF7;
+    background: #F8FAFC;
     padding: 8px 12px;
     border-radius: 0 8px 8px 0;
 }
@@ -900,8 +900,8 @@ require_once __DIR__ . '/header.php';
         margin-top: 12px !important;
     }
     .sp-stat-item {
-        background: #FAF8F5 !important;
-        border: 1px solid #EAE3D8 !important;
+        background: #F8FAFC !important;
+        border: 1px solid #DDE4ED !important;
         border-radius: 12px !important;
         padding: 8px 10px !important;
         font-size: 0.72rem !important;
@@ -2051,7 +2051,7 @@ $totalRev = max(1, count($reviewsList));
                             <div class="row g-3">
                                 <?php foreach ($branchesList as $br): ?>
                                     <div class="col-md-6">
-                                        <div class="p-3 rounded-4 border h-100 d-flex flex-column justify-content-between" style="background: #FAF8F5; border-color: var(--border-subtle) !important;">
+                                        <div class="p-3 rounded-4 border h-100 d-flex flex-column justify-content-between" style="background: #F8FAFC; border-color: var(--border-subtle) !important;">
                                             <div>
                                                 <div class="d-flex align-items-center gap-2 mb-2">
                                                     <div style="width: 34px; height: 34px; border-radius: 10px; background: #EFF6FF; color: var(--brand-blue); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
@@ -2160,7 +2160,7 @@ $totalRev = max(1, count($reviewsList));
                                     $tchColor = $tchColors[$tIdx++ % count($tchColors)];
                                 ?>
                                     <div class="col-md-6">
-                                        <div class="p-3 rounded-4 border d-flex align-items-center gap-3 h-100" style="background: #FAF8F5; border-color: var(--border-subtle) !important;">
+                                        <div class="p-3 rounded-4 border d-flex align-items-center gap-3 h-100" style="background: #F8FAFC; border-color: var(--border-subtle) !important;">
                                             <div style="width: 44px; height: 44px; border-radius: 12px; background: <?= $tchColor ?>; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1rem; flex-shrink: 0;">
                                                 <?= mb_substr($tch['name'] ?? 'م', 0, 1) ?>
                                             </div>
@@ -2382,7 +2382,7 @@ $totalRev = max(1, count($reviewsList));
                 <?php endif; ?>
 
                 <!-- Data Disclaimer Note -->
-                <div class="p-3 rounded-4 mb-3" style="background: #FAF8F5; border: 1px solid var(--border-subtle); font-size: 0.7rem; color: var(--text-muted); line-height: 1.7;">
+                <div class="p-3 rounded-4 mb-3" style="background: #F8FAFC; border: 1px solid var(--border-subtle); font-size: 0.7rem; color: var(--text-muted); line-height: 1.7;">
                     <i class="fas fa-info-circle text-warning me-1"></i>
                     <strong class="text-dark">تنويه:</strong> البيانات والمعلومات المنشورة في هذه الصفحة تمت إضافتها مباشرة بواسطة إدارة المدرسة وعلى مسؤوليتها. دليل المدارس هو خدمة رقمية مقدمة من منظومة <strong>ايسكو بلص (SchoPlus)</strong>، وليس دليلاً رسمياً حكومياً.
                 </div>

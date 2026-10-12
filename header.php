@@ -165,32 +165,33 @@ $isDaleelMobile = (
 
     <style>
         :root {
-            /* Luxurious Warm Cream & Crisp White Identity */
-            --bg-body: #FAF8F5;
+            /* SchoPlus Ocean Brand Design System (Style F v2) */
+            --bg-body: #F0F4F8;
             --bg-surface: #FFFFFF;
-            --bg-surface-soft: #F5EFE6;
-            --bg-surface-tint: #FDFBF7;
+            --bg-surface-soft: #F8FAFC;
+            --bg-surface-tint: #FFFFFF;
             
-            --border-subtle: #EAE3D8;
-            --border-focus: #D4AF37;
+            --border-subtle: #DDE4ED;
+            --border-focus: #1E5FA8;
             
-            --text-main: #1A202C;
-            --text-body: #4A5568;
-            --text-muted: #7A8699;
-            --text-gold: #92400E;
+            --text-main: #0D1B2E;
+            --text-body: #3D5068;
+            --text-muted: #7A93AD;
             
             --brand-navy: #0B2A52;
             --brand-blue: #1E5FA8;
             --brand-blue-hover: #164985;
-            --brand-gold: #D97706;
+            --brand-orange: #F5A020;
+            --brand-orange-hover: #D97706;
+            --brand-gold: #F5A020;
             --brand-gold-light: #FEF3C7;
             --brand-gold-border: #FCD34D;
             --brand-emerald: #059669;
             
-            --shadow-card: 0 4px 20px -2px rgba(45, 35, 20, 0.05), 0 2px 6px -1px rgba(45, 35, 20, 0.03);
-            --shadow-hover: 0 12px 30px -4px rgba(45, 35, 20, 0.09), 0 4px 10px -2px rgba(45, 35, 20, 0.04);
-            --radius-lg: 20px;
-            --radius-md: 14px;
+            --shadow-card: 0 4px 18px rgba(11, 42, 82, 0.05);
+            --shadow-hover: 0 12px 30px rgba(11, 42, 82, 0.1);
+            --radius-lg: 16px;
+            --radius-md: 12px;
             --radius-sm: 8px;
         }
 
@@ -255,11 +256,6 @@ $isDaleelMobile = (
         .ambient-cream-glow {
             display: none !important;
         }
-        @media (max-width: 767px) {
-            .ambient-cream-glow {
-                display: none !important;
-            }
-        }
 
         /* Pure Mobile App Shell Isolation: Hide Web Nav and Footers */
         body.is-daleel-app .daleel-topbar,
@@ -276,32 +272,28 @@ $isDaleelMobile = (
 
         /* Top Bar & Navbar */
         .daleel-topbar {
-            background-color: #F4ECE1;
-            font-size: 0.8rem;
-            color: #6B7280;
-            border-bottom: 1px solid #EBE3D7;
-            padding: 5px 0;
+            background-color: #0B2A52;
+            font-size: 0.74rem;
+            color: rgba(255, 255, 255, 0.82);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 6px 0;
         }
 
         .daleel-navbar {
-            background-color: rgba(255, 255, 255, 0.96);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border-bottom: 1px solid rgba(226, 215, 200, 0.85);
+            background-color: #FFFFFF;
+            border-bottom: 1px solid #DDE4ED;
             padding: 10px 0;
             position: -webkit-sticky !important;
             position: sticky !important;
             top: 0 !important;
             z-index: 1040 !important;
-            box-shadow: 0 4px 18px rgba(11, 42, 82, 0.05);
+            box-shadow: 0 2px 10px rgba(11, 42, 82, 0.04);
             transition: all 0.25s ease;
         }
 
         .daleel-navbar.scrolled {
-            background-color: rgba(255, 255, 255, 0.98);
-            box-shadow: 0 8px 24px rgba(11, 42, 82, 0.1);
-            padding: 7px 0;
-            border-bottom-color: #DCCFBF;
+            box-shadow: 0 6px 20px rgba(11, 42, 82, 0.08);
+            padding: 8px 0;
         }
 
         .daleel-brand {
@@ -313,7 +305,7 @@ $isDaleelMobile = (
         }
 
         .daleel-logo-img {
-            height: 44px;
+            height: 42px;
             width: auto;
             object-fit: contain;
             display: block;
@@ -333,41 +325,38 @@ $isDaleelMobile = (
         .daleel-nav-island {
             display: inline-flex;
             align-items: center;
-            gap: 3px;
-            background: #F5ECE0;
-            border: 1px solid #E4D8C7;
-            padding: 4px 6px;
+            gap: 4px;
+            background: #F0F4F8;
+            border: 1px solid #DDE4ED;
+            padding: 3px 6px;
             border-radius: 999px;
-            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.04);
         }
 
         .nav-link-custom {
-            color: #4A5568;
+            color: #475569;
             font-weight: 700;
-            font-size: 0.77rem;
+            font-size: 0.75rem;
             padding: 6px 14px;
             border-radius: 999px;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.2s ease;
             border: 1px solid transparent;
         }
 
         .nav-link-custom:hover {
-            color: var(--brand-navy);
+            color: var(--brand-blue);
             background-color: #FFFFFF;
-            border-color: #E2D7C8;
-            box-shadow: 0 2px 8px rgba(11, 42, 82, 0.06);
-            transform: translateY(-1px);
+            border-color: #DDE4ED;
         }
 
         .nav-link-custom.active {
             color: var(--brand-navy);
             background-color: #FFFFFF;
-            border-color: #D9CBB7;
-            box-shadow: 0 2px 8px rgba(11, 42, 82, 0.08);
+            border-color: #DDE4ED;
+            box-shadow: 0 2px 6px rgba(11, 42, 82, 0.06);
         }
 
         /* Rank Badges */
@@ -388,9 +377,9 @@ $isDaleelMobile = (
         }
 
         .badge-rank-tag {
-            background: #F4ECE1;
-            color: var(--brand-navy);
-            border: 1px solid #E2D7C8;
+            background: #0B2A52;
+            color: #F5A020;
+            border: 1px solid #1E5FA8;
             font-size: 0.68rem;
             font-weight: 800;
             padding: 2px 7px;
@@ -405,7 +394,7 @@ $isDaleelMobile = (
             content: "الدليل ";
             font-size: 0.62rem;
             font-weight: 600;
-            color: #6B7280;
+            color: rgba(255, 255, 255, 0.75);
         }
 
         .badge-state-rank-tag {
@@ -430,9 +419,9 @@ $isDaleelMobile = (
         }
 
         .badge-established {
-            background: #FEF3C7;
-            color: #92400E;
-            border: 1px solid #FDE68A;
+            background: #EFF6FF;
+            color: #1E5FA8;
+            border: 1px solid #DBEAFE;
             font-size: 0.68rem;
             font-weight: 700;
             padding: 2px 7px;
@@ -443,49 +432,76 @@ $isDaleelMobile = (
             white-space: nowrap;
         }
 
-        /* Buttons & CTAs */
+        /* Buttons & CTAs (SchoPlus Style F v2) */
         .btn-luxury-primary {
-            background: #1E5FA8;
+            background: #F5A020;
             color: #FFFFFF !important;
             font-weight: 700;
             font-size: 0.78rem;
-            padding: 6px 14px;
-            border-radius: 10px;
+            padding: 7px 16px;
+            border-radius: 8px;
             border: none;
-            box-shadow: 0 3px 10px rgba(30, 95, 168, 0.2);
-            transition: all 0.25s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            text-decoration: none;
-        }
-
-        .btn-luxury-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(30, 95, 168, 0.28);
-            background: #0B2A52;
-        }
-
-        .btn-luxury-outline {
-            background: #FFFFFF;
-            color: var(--brand-navy) !important;
-            font-weight: 700;
-            font-size: 0.78rem;
-            padding: 6px 14px;
-            border-radius: 10px;
-            border: 1.5px solid var(--border-subtle);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+            box-shadow: 0 2px 8px rgba(245, 160, 32, 0.25);
             transition: all 0.2s ease;
             display: inline-flex;
             align-items: center;
             gap: 7px;
             text-decoration: none;
+            cursor: pointer;
+        }
+
+        .btn-luxury-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(245, 160, 32, 0.35);
+            background: #D97706;
+            color: #FFFFFF !important;
+        }
+
+        .btn-luxury-navy {
+            background: #0B2A52;
+            color: #FFFFFF !important;
+            font-weight: 700;
+            font-size: 0.78rem;
+            padding: 7px 16px;
+            border-radius: 8px;
+            border: none;
+            box-shadow: 0 2px 8px rgba(11, 42, 82, 0.2);
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .btn-luxury-navy:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(11, 42, 82, 0.3);
+            background: #163870;
+            color: #FFFFFF !important;
+        }
+
+        .btn-luxury-outline {
+            background: #FFFFFF;
+            color: #0B2A52 !important;
+            font-weight: 700;
+            font-size: 0.78rem;
+            padding: 6px 14px;
+            border-radius: 8px;
+            border: 1px solid #DDE4ED;
+            box-shadow: none;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            text-decoration: none;
+            cursor: pointer;
         }
 
         .btn-luxury-outline:hover {
-            border-color: var(--brand-blue);
-            color: var(--brand-blue) !important;
-            background: var(--bg-surface-tint);
+            border-color: #1E5FA8;
+            color: #1E5FA8 !important;
+            background: #F0F4F8;
             transform: translateY(-1px);
         }
 
@@ -494,52 +510,57 @@ $isDaleelMobile = (
             color: #FFFFFF !important;
             font-weight: 700;
             font-size: 0.78rem;
-            padding: 6px 14px;
-            border-radius: 10px;
+            padding: 7px 16px;
+            border-radius: 8px;
             border: none;
-            box-shadow: 0 3px 10px rgba(245, 160, 32, 0.22);
-            transition: all 0.25s ease;
+            box-shadow: 0 2px 8px rgba(245, 160, 32, 0.25);
+            transition: all 0.2s ease;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 7px;
+            cursor: pointer;
         }
 
         .btn-luxury-gold:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 22px rgba(245, 160, 32, 0.35);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(245, 160, 32, 0.35);
             background: #D97706;
+            color: #FFFFFF !important;
         }
 
         /* Cards & Styling */
         .luxury-card {
-            background-color: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-card);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            background-color: #FFFFFF;
+            border: 1px solid #DDE4ED;
+            border-radius: 16px;
+            box-shadow: 0 4px 18px rgba(11, 42, 82, 0.05);
+            transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
             overflow: hidden;
             position: relative;
         }
 
         .luxury-card:hover {
-            box-shadow: var(--shadow-hover);
+            box-shadow: 0 12px 30px rgba(11, 42, 82, 0.12);
             transform: translateY(-4px);
-            border-color: #DFD5C7;
+            border-color: #CBD5E1;
         }
 
         /* Badges */
         .badge-schoplus-smart {
-            background: #FFFDF5;
+            background: #FFFFFF;
             color: #0B2A52;
-            border: 1px solid #F5A020;
+            border: 1.5px solid #1E5FA8;
             padding: 4px 10px;
             border-radius: 20px;
             font-size: 0.72rem;
-            font-weight: 700;
+            font-weight: 800;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
+        }
+        .badge-schoplus-smart i {
+            color: #1E5FA8;
         }
 
         .badge-verified {
@@ -557,12 +578,12 @@ $isDaleelMobile = (
 
         .badge-stage-pill {
             background: #F1F5F9;
-            color: #475569;
+            color: #334155;
             border: 1px solid #E2E8F0;
             padding: 3px 8px;
             border-radius: 6px;
-            font-size: 0.7rem;
-            font-weight: 600;
+            font-size: 0.69rem;
+            font-weight: 700;
         }
 
         .star-rating {
@@ -573,9 +594,72 @@ $isDaleelMobile = (
             gap: 2px;
         }
 
-        /* ======= DESIGN FIXES & IMPROVEMENTS v3.5.36 ======= */
+        /* Mandatory Specification for Main Tabs (.sp-main-tabs) */
+        .sp-main-tabs-wrap {
+            width: 100%;
+            margin-bottom: 24px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 4px;
+        }
+        .sp-main-tabs {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #E2E8F0;
+            padding: 4px;
+            border-radius: 12px;
+            border: 1px solid #CBD5E1;
+        }
+        .sp-main-tab {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.76rem;
+            font-weight: 700;
+            color: #475569;
+            background: transparent;
+            border: none;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+        .sp-main-tab:hover {
+            color: #0B2A52;
+            background: rgba(255, 255, 255, 0.6);
+        }
+        .sp-main-tab.active {
+            background: #FFFFFF !important;
+            color: #0B2A52 !important;
+            box-shadow: 0 2px 8px rgba(11, 42, 82, 0.08);
+        }
+        .sp-main-tab i {
+            color: #64748B;
+            font-size: 0.8rem;
+        }
+        .sp-main-tab.active i {
+            color: #F5A020 !important;
+        }
+        .tab-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2px 8px;
+            border-radius: 999px;
+            font-size: 0.68rem;
+            font-weight: 800;
+            background: #EDF2F7;
+            color: #475569;
+        }
+        .sp-main-tab.active .tab-badge {
+            background: #0B2A52;
+            color: #FFFFFF;
+        }
 
-        /* Fix 1: badge-schoplus was undefined — now defined */
+        /* Fix 1: badge-schoplus */
         .badge-schoplus {
             background: #0B2A52;
             color: #F5A020;
@@ -668,8 +752,8 @@ $isDaleelMobile = (
         .mobile-nav-toggle {
             display: none;
             background: #ffffff;
-            border: 1.5px solid var(--border-subtle);
-            border-radius: 10px;
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
             padding: 7px 13px;
             color: var(--text-main);
             cursor: pointer;
@@ -690,10 +774,10 @@ $isDaleelMobile = (
         /* Fix 10: Mobile topbar (shown only on small screens) */
         .daleel-topbar-mobile {
             display: none;
-            background-color: #F4ECE1;
-            font-size: 0.78rem;
-            color: #6B7280;
-            border-bottom: 1px solid #EBE3D7;
+            background-color: #F0F4F8;
+            font-size: 0.74rem;
+            color: #475569;
+            border-bottom: 1px solid #DDE4ED;
             padding: 6px 16px;
             gap: 14px;
             align-items: center;
@@ -708,9 +792,9 @@ $isDaleelMobile = (
         .offcanvas-nav-link {
             color: var(--text-body);
             font-weight: 600;
-            font-size: 0.93rem;
-            padding: 10px 14px;
-            border-radius: 10px;
+            font-size: 0.88rem;
+            padding: 9px 14px;
+            border-radius: 8px;
             text-decoration: none;
             display: flex;
             align-items: center;
@@ -1095,17 +1179,22 @@ $isDaleelMobile = (
         </div>
     </div>
 
-    <div class="ambient-cream-glow" style="top: -200px; right: -200px;"></div>
-    <div class="ambient-cream-glow" style="top: 800px; left: -250px;"></div>
-
-
     <!-- Top Announcement Bar -->
     <div class="daleel-topbar d-none d-md-block">
-        <div class="container d-flex justify-content-center align-items-center">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-2">
+                <span style="color: #F5A020; font-weight: 700;"><i class="fas fa-graduation-cap me-1"></i> دليل المدارس</span>
+                <span style="color: rgba(255,255,255,0.7);">•</span>
+                <span>المنصة المعتمدة لاستكشاف ومقارنة المدارس السودانية والعربية</span>
+            </div>
             <div class="d-flex align-items-center gap-3">
-                <span><i class="fas fa-book-reader text-warning me-1"></i> دليل المدارس السودانية — خدمة رقمية من منظومة ايسكو بلص (SchoPlus)</span>
-                <span>•</span>
-                <span class="text-success"><i class="fas fa-check-circle me-1"></i> تصفح المدارس وتواصل مع إداراتها مباشرة</span>
+                <a href="/compare.php" class="text-white text-decoration-none d-flex align-items-center gap-1" style="font-size: 0.72rem;">
+                    <i class="fas fa-balance-scale text-warning"></i> مقارنة المدارس
+                </a>
+                <span style="color: rgba(255,255,255,0.25);">|</span>
+                <a href="https://schoplus.sd" target="_blank" class="text-white text-decoration-none d-flex align-items-center gap-1" style="font-size: 0.72rem;">
+                    <i class="fas fa-globe text-info"></i> منظومة SchoPlus
+                </a>
             </div>
         </div>
     </div>
@@ -1114,15 +1203,15 @@ $isDaleelMobile = (
     <header class="daleel-navbar">
         <div class="container d-flex justify-content-between align-items-center">
             
-            <a href="/" class="daleel-brand" title="دليل المدارس السودانية — SchoPlus">
-                <img src="/assets/images/logo.png" alt="دليل المدارس السودانية" class="daleel-logo-img">
+            <a href="/" class="daleel-brand" title="دليل المدارس — SchoPlus">
+                <img src="/assets/images/logo.png" alt="دليل المدارس" class="daleel-logo-img">
             </a>
 
             <nav class="d-none d-lg-flex align-items-center">
                 <div class="daleel-nav-island">
                     <a href="/" class="nav-link-custom"><i class="fas fa-home text-muted"></i> الرئيسية</a>
-                    <a href="/#schoplus-schools" class="nav-link-custom"><i class="fas fa-bolt text-warning"></i> المدارس الذكية</a>
-                    <a href="/#top-rated" class="nav-link-custom"><i class="fas fa-award text-primary"></i> الأعلى تقييماً</a>
+                    <a href="/?view=schoplus" class="nav-link-custom"><i class="fas fa-bolt text-primary"></i> المدارس الذكية</a>
+                    <a href="/?view=top_rated" class="nav-link-custom"><i class="fas fa-star text-warning"></i> الأعلى تقييماً</a>
                     <a href="/#search-section" class="nav-link-custom"><i class="fas fa-search text-muted"></i> استكشف المدارس</a>
                     <a href="/compare.php" class="nav-link-custom"><i class="fas fa-balance-scale text-warning"></i> مقارنة المدارس</a>
                     <a href="https://schoplus.sd" target="_blank" class="nav-link-custom"><i class="fas fa-globe text-info"></i> عن المنظومة</a>
@@ -1137,7 +1226,7 @@ $isDaleelMobile = (
                 </button>
                 <!-- Desktop CTA buttons -->
                 <?php if ($currSchool): ?>
-                    <a href="/dashboard.php" class="btn-luxury-outline d-none d-lg-inline-flex" style="border-radius: 999px; padding: 7px 16px;">
+                    <a href="/dashboard.php" class="btn-luxury-outline d-none d-lg-inline-flex" style="border-radius: 8px; padding: 7px 16px;">
                         <i class="fas fa-columns text-primary"></i>
                         <span>لوحة إدارة المدرسة</span>
                     </a>
@@ -1145,11 +1234,11 @@ $isDaleelMobile = (
                         <i class="fas fa-sign-out-alt"></i>
                     </a>
                 <?php else: ?>
-                    <a href="/login.php" class="btn-luxury-outline d-none d-lg-inline-flex" style="border-radius: 999px; padding: 7px 16px;">
+                    <a href="/login.php" class="btn-luxury-outline d-none d-lg-inline-flex" style="border-radius: 8px; padding: 7px 16px;">
                         <i class="fas fa-user-tie text-secondary"></i>
                         <span>دخول أصحاب المدارس</span>
                     </a>
-                    <a href="/register.php" class="btn-luxury-primary d-none d-lg-inline-flex" style="border-radius: 999px; padding: 7px 18px;">
+                    <a href="/register.php" class="btn-luxury-primary d-none d-lg-inline-flex" style="border-radius: 8px; padding: 7px 18px;">
                         <i class="fas fa-plus-circle"></i>
                         <span>سجّل مدرستك الآن</span>
                     </a>

@@ -99,13 +99,13 @@ $genderTypes = SudanGeography::genderTypes();
 .compare-criterion-col {
     width: 220px;
     min-width: 200px;
-    background: #FAF8F5;
+    background: #F8FAFC;
     font-weight: 700;
     color: var(--brand-navy, #0B2A52);
     position: sticky;
     right: 0;
     z-index: 2;
-    border-left: 2px solid #E2D7C8 !important;
+    border-left: 2px solid #DDE4ED !important;
 }
 .compare-section-header {
     background: #0B2A52 !important;

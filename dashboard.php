@@ -1171,7 +1171,7 @@ require_once __DIR__ . '/header.php';
     padding: 6px 4px 12px;
     scrollbar-width: thin;
     -webkit-overflow-scrolling: touch;
-    border-bottom: 2px solid #EAE2D5;
+    border-bottom: 2px solid #DDE4ED;
 }
 .dash-tabs-scroll::-webkit-scrollbar {
     height: 5px;
@@ -1253,8 +1253,8 @@ require_once __DIR__ . '/header.php';
     font-size: 0.74rem;
     font-weight: 700;
     color: var(--text-body);
-    background: #FAF8F5;
-    border: 1px solid #EAE2D5;
+    background: #F8FAFC;
+    border: 1px solid #DDE4ED;
     border-radius: 999px;
     padding: 6px 14px;
     text-decoration: none;
@@ -1351,7 +1351,7 @@ require_once __DIR__ . '/header.php';
     align-items: center;
     gap: 8px;
     padding: 8px 16px;
-    background: #FAF8F5;
+    background: #F8FAFC;
     border: 1.5px solid #E2D7C8;
     border-radius: 10px;
     cursor: pointer;
@@ -1376,8 +1376,8 @@ require_once __DIR__ . '/header.php';
     align-items: center;
     gap: 10px;
     padding: 10px 14px;
-    background: #FAF8F5;
-    border: 1px solid #EAE2D5;
+    background: #F8FAFC;
+    border: 1px solid #DDE4ED;
     border-radius: 12px;
     cursor: pointer;
     font-size: 0.76rem;
@@ -4405,3 +4405,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <?php
 require_once __DIR__ . '/footer.php';
+
