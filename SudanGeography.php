@@ -311,15 +311,18 @@ class SudanGeography
             }
         }
 
-        // 1. Cloudflare edge header (present on production servers)
-        if (!empty($_SERVER['HTTP_CF_IPCOUNTRY'])) {
-            $iso = strtoupper(trim($_SERVER['HTTP_CF_IPCOUNTRY']));
-            $map = self::isoToCountryMap();
-            if (isset($map[$iso])) {
-                if (session_status() === PHP_SESSION_ACTIVE) {
-                    $_SESSION['detected_country'] = $map[$iso];
+        // 1. Edge & Proxy headers (Cloudflare, LiteSpeed, Nginx GeoIP)
+        $headers = ['HTTP_CF_IPCOUNTRY', 'HTTP_X_COUNTRY_CODE', 'GEOIP_COUNTRY_CODE', 'HTTP_X_FORWARDED_COUNTRY'];
+        $map = self::isoToCountryMap();
+        foreach ($headers as $hdr) {
+            if (!empty($_SERVER[$hdr])) {
+                $iso = strtoupper(trim($_SERVER[$hdr]));
+                if (isset($map[$iso])) {
+                    if (session_status() === PHP_SESSION_ACTIVE) {
+                        $_SESSION['detected_country'] = $map[$iso];
+                    }
+                    return $map[$iso];
                 }
-                return $map[$iso];
             }
         }
 

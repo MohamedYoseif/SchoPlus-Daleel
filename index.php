@@ -409,21 +409,39 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
     color: #1E5FA8;
 }
 
+.sp-searchable-dropdown.is-open {
+    z-index: 1060;
+}
+
 /* Floating Dropdown Panel */
 .sp-dropdown-panel {
     position: absolute;
     top: calc(100% + 5px);
     right: 0;
-    left: 0;
-    min-width: 220px;
+    min-width: 100%;
+    width: 230px;
+    max-width: min(280px, calc(100vw - 32px));
     background: #FFFFFF;
     border: 1px solid #DDE4ED;
     border-radius: 12px;
-    box-shadow: 0 12px 32px rgba(11, 42, 82, 0.14);
-    z-index: 1050;
+    box-shadow: 0 14px 34px rgba(11, 42, 82, 0.14);
+    z-index: 1070;
     display: none;
     overflow: hidden;
     animation: spDropdownFadeIn 0.15s ease-out;
+}
+@media (min-width: 768px) {
+    .col-md-3:nth-child(3) .sp-dropdown-panel,
+    .col-md-3:nth-child(4) .sp-dropdown-panel {
+        right: auto;
+        left: 0;
+    }
+}
+@media (max-width: 767px) {
+    .col-6:nth-child(even) .sp-dropdown-panel {
+        right: auto;
+        left: 0;
+    }
 }
 @keyframes spDropdownFadeIn {
     from { opacity: 0; transform: translateY(-4px); }
@@ -1228,7 +1246,7 @@ $extraScripts = <<<JS
 
     // Rebuild options in custom searchable dropdown panel from native select
     function rebuildCustomDropdown(targetSelectId, defaultLabel) {
-        const wrapper = document.querySelector(`.sp-searchable-dropdown[data-target="${targetSelectId}"]`);
+        const wrapper = document.querySelector('.sp-searchable-dropdown[data-target="' + targetSelectId + '"]');
         if (!wrapper) return;
         const nativeSelect = document.getElementById(targetSelectId);
         if (!nativeSelect) return;
@@ -1426,6 +1444,47 @@ $extraScripts = <<<JS
                 document.querySelectorAll('.sp-searchable-dropdown.is-open').forEach(w => w.classList.remove('is-open'));
             }
         });
+
+        // Smart Visitor Country Auto-Ordering (Position #2 right after Sudan)
+        try {
+            const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+            const tzMap = {
+                'Africa/Cairo': 'مصر',
+                'Asia/Riyadh': 'المملكة العربية السعودية',
+                'Asia/Dubai': 'الإمارات العربية المتحدة',
+                'Asia/Qatar': 'قطر',
+                'Asia/Kuwait': 'الكويت',
+                'Asia/Muscat': 'سلطنة عمان',
+                'Asia/Bahrain': 'البحرين',
+                'Asia/Amman': 'الأردن',
+                'Asia/Baghdad': 'العراق',
+                'Africa/Tripoli': 'ليبيا',
+                'Europe/London': 'المملكة المتحدة',
+                'America/New_York': 'الولايات المتحدة الأمريكية',
+                'America/Chicago': 'الولايات المتحدة الأمريكية',
+                'America/Los_Angeles': 'الولايات المتحدة الأمريكية',
+                'America/Toronto': 'كندا',
+                'Europe/Berlin': 'ألمانيا',
+                'Europe/Paris': 'فرنسا',
+                'Europe/Istanbul': 'تركيا',
+                'Asia/Istanbul': 'تركيا',
+                'Asia/Kuala_Lumpur': 'ماليزيا'
+            };
+            const detectedFromTz = tzMap[tz];
+            if (detectedFromTz && detectedFromTz !== 'السودان') {
+                if (document.cookie.indexOf('detected_country') === -1) {
+                    document.cookie = 'detected_country=' + encodeURIComponent(detectedFromTz) + '; path=/; max-age=604800';
+                }
+                const cntryList = document.querySelector('.sp-searchable-dropdown[data-target="filterCountrySelect"] .sp-dropdown-options-list');
+                if (cntryList) {
+                    const opt = cntryList.querySelector('.sp-dropdown-option[data-value="' + detectedFromTz + '"]');
+                    const sudanOpt = cntryList.querySelector('.sp-dropdown-option[data-value="السودان"]');
+                    if (opt && sudanOpt && sudanOpt.nextSibling !== opt) {
+                        sudanOpt.after(opt);
+                    }
+                }
+            }
+        } catch(err) {}
     });
 </script>
 JS;
