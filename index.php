@@ -342,12 +342,13 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
     font-weight: 500;
 }
 
-/* ===== LUXURY SEARCHABLE DROPDOWN COMPONENT ===== */
-.sp-searchable-dropdown {
+/* ===== LUXURY SEARCHABLE DROPDOWN COMPONENT (HERO CONSOLE) ===== */
+.sp-hero-dropdown {
     position: relative;
     width: 100%;
+    display: block !important;
 }
-.sp-dropdown-trigger {
+.sp-hero-dropdown-trigger {
     width: 100%;
     background: #F8FAFC;
     border: 1px solid #DDE4ED;
@@ -364,23 +365,23 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
     min-height: 48px;
     outline: none;
 }
-.sp-dropdown-trigger:hover {
+.sp-hero-dropdown-trigger:hover {
     background: #FFFFFF;
     border-color: #1E5FA8;
 }
-.sp-searchable-dropdown.is-open .sp-dropdown-trigger {
+.sp-hero-dropdown.is-open .sp-hero-dropdown-trigger {
     background: #FFFFFF;
     border-color: #1E5FA8;
     box-shadow: 0 0 0 3px rgba(30, 95, 168, 0.12);
 }
-.sp-dropdown-trigger-content {
+.sp-hero-dropdown-trigger-content {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     overflow: hidden;
     line-height: 1.25;
 }
-.sp-dropdown-mini-lbl {
+.sp-hero-dropdown-mini-lbl {
     font-size: 0.63rem;
     font-weight: 700;
     color: #64748B;
@@ -389,7 +390,7 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
     gap: 4px;
     margin-bottom: 2px;
 }
-.sp-dropdown-selected-val {
+.sp-hero-dropdown-selected-val {
     font-size: 0.76rem;
     font-weight: 700;
     color: #0B2A52;
@@ -398,23 +399,23 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
     text-overflow: ellipsis;
     max-width: 100%;
 }
-.sp-dropdown-chevron {
+.sp-hero-dropdown-chevron {
     font-size: 0.68rem;
     color: #94A3B8;
     transition: transform 0.2s ease;
     flex-shrink: 0;
 }
-.sp-searchable-dropdown.is-open .sp-dropdown-chevron {
+.sp-hero-dropdown.is-open .sp-hero-dropdown-chevron {
     transform: rotate(180deg);
     color: #1E5FA8;
 }
 
-.sp-searchable-dropdown.is-open {
+.sp-hero-dropdown.is-open {
     z-index: 1060;
 }
 
 /* Floating Dropdown Panel */
-.sp-dropdown-panel {
+.sp-hero-dropdown-panel {
     position: absolute;
     top: calc(100% + 5px);
     right: 0;
@@ -428,31 +429,31 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
     z-index: 1070;
     display: none;
     overflow: hidden;
-    animation: spDropdownFadeIn 0.15s ease-out;
+    animation: spHeroDropdownFadeIn 0.15s ease-out;
 }
 @media (min-width: 768px) {
-    .col-md-3:nth-child(3) .sp-dropdown-panel,
-    .col-md-3:nth-child(4) .sp-dropdown-panel {
+    .col-md-3:nth-child(3) .sp-hero-dropdown-panel,
+    .col-md-3:nth-child(4) .sp-hero-dropdown-panel {
         right: auto;
         left: 0;
     }
 }
 @media (max-width: 767px) {
-    .col-6:nth-child(even) .sp-dropdown-panel {
+    .col-6:nth-child(even) .sp-hero-dropdown-panel {
         right: auto;
         left: 0;
     }
 }
-@keyframes spDropdownFadeIn {
+@keyframes spHeroDropdownFadeIn {
     from { opacity: 0; transform: translateY(-4px); }
     to { opacity: 1; transform: translateY(0); }
 }
-.sp-searchable-dropdown.is-open .sp-dropdown-panel {
-    display: block;
+.sp-hero-dropdown.is-open .sp-hero-dropdown-panel {
+    display: block !important;
 }
 
 /* Dropdown Search Box */
-.sp-dropdown-search-box {
+.sp-hero-dropdown-search-box {
     padding: 8px 10px;
     background: #F8FAFC;
     border-bottom: 1px solid #EDF2F7;
@@ -463,7 +464,7 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
     top: 0;
     z-index: 2;
 }
-.sp-dropdown-search-input {
+.sp-hero-dropdown-search-input {
     width: 100%;
     border: none;
     outline: none;
@@ -472,19 +473,19 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
     font-weight: 600;
     color: #0D1B2E;
 }
-.sp-dropdown-search-input::placeholder {
+.sp-hero-dropdown-search-input::placeholder {
     color: #94A3B8;
 }
 
 /* Options List */
-.sp-dropdown-options-list {
+.sp-hero-dropdown-options-list {
     max-height: 220px;
     overflow-y: auto;
     padding: 4px;
     scrollbar-width: thin;
     scrollbar-color: #CBD5E1 #F1F5F9;
 }
-.sp-dropdown-option {
+.sp-hero-dropdown-option {
     padding: 8px 12px;
     border-radius: 8px;
     font-size: 0.74rem;
@@ -496,20 +497,20 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
     justify-content: space-between;
     transition: all 0.15s ease;
 }
-.sp-dropdown-option:hover {
+.sp-hero-dropdown-option:hover {
     background: #F0F4F8;
     color: #1E5FA8;
 }
-.sp-dropdown-option.is-selected {
+.sp-hero-dropdown-option.is-selected {
     background: #EFF6FF;
     color: #1E5FA8;
     font-weight: 700;
 }
-.sp-dropdown-option.is-selected i {
+.sp-hero-dropdown-option.is-selected i {
     font-size: 0.7rem;
     color: #1E5FA8;
 }
-.sp-dropdown-empty {
+.sp-hero-dropdown-empty {
     padding: 14px 10px;
     text-align: center;
     color: #94A3B8;
@@ -809,83 +810,83 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
                     <div class="row g-2">
                         <!-- Country -->
                         <div class="col-md-3 col-6">
-                            <div class="sp-searchable-dropdown" data-target="filterCountrySelect">
+                            <div class="sp-hero-dropdown" data-target="filterCountrySelect">
                                 <select name="country" class="d-none" id="filterCountrySelect">
                                     <option value="">جميع الدول</option>
                                     <?php foreach($countriesList as $cntry): ?>
                                         <option value="<?= e($cntry) ?>" <?= $country === $cntry ? 'selected' : '' ?>><?= e($cntry) ?></option>
                                     <?php endforeach; ?>
                                 </select>
-                                <button type="button" class="sp-dropdown-trigger" id="trigger_filterCountrySelect">
-                                    <div class="sp-dropdown-trigger-content">
-                                        <span class="sp-dropdown-mini-lbl"><i class="fas fa-globe text-primary"></i> الدولة</span>
-                                        <span class="sp-dropdown-selected-val"><?= e(!empty($country) ? $country : 'جميع الدول') ?></span>
+                                <button type="button" class="sp-hero-dropdown-trigger" id="trigger_filterCountrySelect">
+                                    <div class="sp-hero-dropdown-trigger-content">
+                                        <span class="sp-hero-dropdown-mini-lbl"><i class="fas fa-globe text-primary"></i> الدولة</span>
+                                        <span class="sp-hero-dropdown-selected-val"><?= e(!empty($country) ? $country : 'جميع الدول') ?></span>
                                     </div>
-                                    <i class="fas fa-chevron-down sp-dropdown-chevron"></i>
+                                    <i class="fas fa-chevron-down sp-hero-dropdown-chevron"></i>
                                 </button>
-                                <div class="sp-dropdown-panel" id="panel_filterCountrySelect">
-                                    <div class="sp-dropdown-search-box">
+                                <div class="sp-hero-dropdown-panel" id="panel_filterCountrySelect">
+                                    <div class="sp-hero-dropdown-search-box">
                                         <i class="fas fa-search text-muted"></i>
-                                        <input type="text" class="sp-dropdown-search-input" placeholder="ابحث عن دولة..." autocomplete="off">
+                                        <input type="text" class="sp-hero-dropdown-search-input" placeholder="ابحث عن دولة..." autocomplete="off">
                                     </div>
-                                    <div class="sp-dropdown-options-list">
-                                        <div class="sp-dropdown-option <?= empty($country) ? 'is-selected' : '' ?>" data-value="">
+                                    <div class="sp-hero-dropdown-options-list">
+                                        <div class="sp-hero-dropdown-option <?= empty($country) ? 'is-selected' : '' ?>" data-value="">
                                             <span>جميع الدول</span>
                                             <?php if (empty($country)): ?><i class="fas fa-check text-primary"></i><?php endif; ?>
                                         </div>
                                         <?php foreach($countriesList as $cntry): ?>
-                                            <div class="sp-dropdown-option <?= $country === $cntry ? 'is-selected' : '' ?>" data-value="<?= e($cntry) ?>">
+                                            <div class="sp-hero-dropdown-option <?= $country === $cntry ? 'is-selected' : '' ?>" data-value="<?= e($cntry) ?>">
                                                 <span><?= e($cntry) ?></span>
                                                 <?php if ($country === $cntry): ?><i class="fas fa-check text-primary"></i><?php endif; ?>
                                             </div>
                                         <?php endforeach; ?>
                                     </div>
-                                    <div class="sp-dropdown-empty d-none">لا توجد نتائج مطابقة</div>
+                                    <div class="sp-hero-dropdown-empty d-none">لا توجد نتائج مطابقة</div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- State -->
                         <div class="col-md-3 col-6">
-                            <div class="sp-searchable-dropdown" data-target="filterStateSelect">
+                            <div class="sp-hero-dropdown" data-target="filterStateSelect">
                                 <select name="state" class="d-none" id="filterStateSelect">
                                     <option value="">جميع الولايات</option>
                                     <?php foreach($statesWithCities as $stName => $cities): ?>
                                         <option value="<?= e($stName) ?>" <?= $state === $stName ? 'selected' : '' ?>><?= e($stName) ?></option>
                                     <?php endforeach; ?>
                                 </select>
-                                <button type="button" class="sp-dropdown-trigger" id="trigger_filterStateSelect">
-                                    <div class="sp-dropdown-trigger-content">
-                                        <span class="sp-dropdown-mini-lbl"><i class="fas fa-map-marker-alt text-danger"></i> الولاية</span>
-                                        <span class="sp-dropdown-selected-val"><?= e(!empty($state) ? $state : 'جميع الولايات') ?></span>
+                                <button type="button" class="sp-hero-dropdown-trigger" id="trigger_filterStateSelect">
+                                    <div class="sp-hero-dropdown-trigger-content">
+                                        <span class="sp-hero-dropdown-mini-lbl"><i class="fas fa-map-marker-alt text-danger"></i> الولاية</span>
+                                        <span class="sp-hero-dropdown-selected-val"><?= e(!empty($state) ? $state : 'جميع الولايات') ?></span>
                                     </div>
-                                    <i class="fas fa-chevron-down sp-dropdown-chevron"></i>
+                                    <i class="fas fa-chevron-down sp-hero-dropdown-chevron"></i>
                                 </button>
-                                <div class="sp-dropdown-panel" id="panel_filterStateSelect">
-                                    <div class="sp-dropdown-search-box">
+                                <div class="sp-hero-dropdown-panel" id="panel_filterStateSelect">
+                                    <div class="sp-hero-dropdown-search-box">
                                         <i class="fas fa-search text-muted"></i>
-                                        <input type="text" class="sp-dropdown-search-input" placeholder="ابحث عن ولاية..." autocomplete="off">
+                                        <input type="text" class="sp-hero-dropdown-search-input" placeholder="ابحث عن ولاية..." autocomplete="off">
                                     </div>
-                                    <div class="sp-dropdown-options-list">
-                                        <div class="sp-dropdown-option <?= empty($state) ? 'is-selected' : '' ?>" data-value="">
+                                    <div class="sp-hero-dropdown-options-list">
+                                        <div class="sp-hero-dropdown-option <?= empty($state) ? 'is-selected' : '' ?>" data-value="">
                                             <span>جميع الولايات</span>
                                             <?php if (empty($state)): ?><i class="fas fa-check text-primary"></i><?php endif; ?>
                                         </div>
                                         <?php foreach($statesWithCities as $stName => $cities): ?>
-                                            <div class="sp-dropdown-option <?= $state === $stName ? 'is-selected' : '' ?>" data-value="<?= e($stName) ?>">
+                                            <div class="sp-hero-dropdown-option <?= $state === $stName ? 'is-selected' : '' ?>" data-value="<?= e($stName) ?>">
                                                 <span><?= e($stName) ?></span>
                                                 <?php if ($state === $stName): ?><i class="fas fa-check text-primary"></i><?php endif; ?>
                                             </div>
                                         <?php endforeach; ?>
                                     </div>
-                                    <div class="sp-dropdown-empty d-none">لا توجد نتائج مطابقة</div>
+                                    <div class="sp-hero-dropdown-empty d-none">لا توجد نتائج مطابقة</div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- City -->
                         <div class="col-md-3 col-6">
-                            <div class="sp-searchable-dropdown" data-target="filterCitySelect">
+                            <div class="sp-hero-dropdown" data-target="filterCitySelect">
                                 <select name="city" class="d-none" id="filterCitySelect">
                                     <option value="">جميع المدن</option>
                                     <?php if ($state && isset($statesWithCities[$state])): ?>
@@ -894,71 +895,71 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
                                         <?php endforeach; ?>
                                     <?php endif; ?>
                                 </select>
-                                <button type="button" class="sp-dropdown-trigger" id="trigger_filterCitySelect">
-                                    <div class="sp-dropdown-trigger-content">
-                                        <span class="sp-dropdown-mini-lbl"><i class="fas fa-city text-info"></i> المدينة / المحلية</span>
-                                        <span class="sp-dropdown-selected-val"><?= e(!empty($city) ? $city : 'جميع المدن') ?></span>
+                                <button type="button" class="sp-hero-dropdown-trigger" id="trigger_filterCitySelect">
+                                    <div class="sp-hero-dropdown-trigger-content">
+                                        <span class="sp-hero-dropdown-mini-lbl"><i class="fas fa-city text-info"></i> المدينة / المحلية</span>
+                                        <span class="sp-hero-dropdown-selected-val"><?= e(!empty($city) ? $city : 'جميع المدن') ?></span>
                                     </div>
-                                    <i class="fas fa-chevron-down sp-dropdown-chevron"></i>
+                                    <i class="fas fa-chevron-down sp-hero-dropdown-chevron"></i>
                                 </button>
-                                <div class="sp-dropdown-panel" id="panel_filterCitySelect">
-                                    <div class="sp-dropdown-search-box">
+                                <div class="sp-hero-dropdown-panel" id="panel_filterCitySelect">
+                                    <div class="sp-hero-dropdown-search-box">
                                         <i class="fas fa-search text-muted"></i>
-                                        <input type="text" class="sp-dropdown-search-input" placeholder="ابحث عن مدينة..." autocomplete="off">
+                                        <input type="text" class="sp-hero-dropdown-search-input" placeholder="ابحث عن مدينة..." autocomplete="off">
                                     </div>
-                                    <div class="sp-dropdown-options-list">
-                                        <div class="sp-dropdown-option <?= empty($city) ? 'is-selected' : '' ?>" data-value="">
+                                    <div class="sp-hero-dropdown-options-list">
+                                        <div class="sp-hero-dropdown-option <?= empty($city) ? 'is-selected' : '' ?>" data-value="">
                                             <span>جميع المدن</span>
                                             <?php if (empty($city)): ?><i class="fas fa-check text-primary"></i><?php endif; ?>
                                         </div>
                                         <?php if ($state && isset($statesWithCities[$state])): ?>
                                             <?php foreach($statesWithCities[$state] as $c): ?>
-                                                <div class="sp-dropdown-option <?= $city === $c ? 'is-selected' : '' ?>" data-value="<?= e($c) ?>">
+                                                <div class="sp-hero-dropdown-option <?= $city === $c ? 'is-selected' : '' ?>" data-value="<?= e($c) ?>">
                                                     <span><?= e($c) ?></span>
                                                     <?php if ($city === $c): ?><i class="fas fa-check text-primary"></i><?php endif; ?>
                                                 </div>
                                             <?php endforeach; ?>
                                         <?php endif; ?>
                                     </div>
-                                    <div class="sp-dropdown-empty d-none">لا توجد نتائج مطابقة</div>
+                                    <div class="sp-hero-dropdown-empty d-none">لا توجد نتائج مطابقة</div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Stage -->
                         <div class="col-md-3 col-6">
-                            <div class="sp-searchable-dropdown" data-target="filterStageSelect">
+                            <div class="sp-hero-dropdown" data-target="filterStageSelect">
                                 <select name="stage" class="d-none" id="filterStageSelect">
                                     <option value="">جميع المراحل</option>
                                     <?php foreach($schoolStages as $sKey => $sLbl): ?>
                                         <option value="<?= e($sKey) ?>" <?= $stage === $sKey ? 'selected' : '' ?>><?= e($sLbl) ?></option>
                                     <?php endforeach; ?>
                                 </select>
-                                <button type="button" class="sp-dropdown-trigger" id="trigger_filterStageSelect">
-                                    <div class="sp-dropdown-trigger-content">
-                                        <span class="sp-dropdown-mini-lbl"><i class="fas fa-graduation-cap text-success"></i> المرحلة</span>
-                                        <span class="sp-dropdown-selected-val"><?= e(!empty($stage) && isset($schoolStages[$stage]) ? $schoolStages[$stage] : 'جميع المراحل') ?></span>
+                                <button type="button" class="sp-hero-dropdown-trigger" id="trigger_filterStageSelect">
+                                    <div class="sp-hero-dropdown-trigger-content">
+                                        <span class="sp-hero-dropdown-mini-lbl"><i class="fas fa-graduation-cap text-success"></i> المرحلة</span>
+                                        <span class="sp-hero-dropdown-selected-val"><?= e(!empty($stage) && isset($schoolStages[$stage]) ? $schoolStages[$stage] : 'جميع المراحل') ?></span>
                                     </div>
-                                    <i class="fas fa-chevron-down sp-dropdown-chevron"></i>
+                                    <i class="fas fa-chevron-down sp-hero-dropdown-chevron"></i>
                                 </button>
-                                <div class="sp-dropdown-panel" id="panel_filterStageSelect">
-                                    <div class="sp-dropdown-search-box">
+                                <div class="sp-hero-dropdown-panel" id="panel_filterStageSelect">
+                                    <div class="sp-hero-dropdown-search-box">
                                         <i class="fas fa-search text-muted"></i>
-                                        <input type="text" class="sp-dropdown-search-input" placeholder="ابحث عن مرحلة..." autocomplete="off">
+                                        <input type="text" class="sp-hero-dropdown-search-input" placeholder="ابحث عن مرحلة..." autocomplete="off">
                                     </div>
-                                    <div class="sp-dropdown-options-list">
-                                        <div class="sp-dropdown-option <?= empty($stage) ? 'is-selected' : '' ?>" data-value="">
+                                    <div class="sp-hero-dropdown-options-list">
+                                        <div class="sp-hero-dropdown-option <?= empty($stage) ? 'is-selected' : '' ?>" data-value="">
                                             <span>جميع المراحل</span>
                                             <?php if (empty($stage)): ?><i class="fas fa-check text-primary"></i><?php endif; ?>
                                         </div>
                                         <?php foreach($schoolStages as $sKey => $sLbl): ?>
-                                            <div class="sp-dropdown-option <?= $stage === $sKey ? 'is-selected' : '' ?>" data-value="<?= e($sKey) ?>">
+                                            <div class="sp-hero-dropdown-option <?= $stage === $sKey ? 'is-selected' : '' ?>" data-value="<?= e($sKey) ?>">
                                                 <span><?= e($sLbl) ?></span>
                                                 <?php if ($stage === $sKey): ?><i class="fas fa-check text-primary"></i><?php endif; ?>
                                             </div>
                                         <?php endforeach; ?>
                                     </div>
-                                    <div class="sp-dropdown-empty d-none">لا توجد نتائج مطابقة</div>
+                                    <div class="sp-hero-dropdown-empty d-none">لا توجد نتائج مطابقة</div>
                                 </div>
                             </div>
                         </div>
@@ -1246,13 +1247,13 @@ $extraScripts = <<<JS
 
     // Rebuild options in custom searchable dropdown panel from native select
     function rebuildCustomDropdown(targetSelectId, defaultLabel) {
-        const wrapper = document.querySelector('.sp-searchable-dropdown[data-target="' + targetSelectId + '"]');
+        const wrapper = document.querySelector('.sp-hero-dropdown[data-target="' + targetSelectId + '"]');
         if (!wrapper) return;
         const nativeSelect = document.getElementById(targetSelectId);
         if (!nativeSelect) return;
-        const optionsList = wrapper.querySelector('.sp-dropdown-options-list');
-        const displayVal = wrapper.querySelector('.sp-dropdown-selected-val');
-        const emptyState = wrapper.querySelector('.sp-dropdown-empty');
+        const optionsList = wrapper.querySelector('.sp-hero-dropdown-options-list');
+        const displayVal = wrapper.querySelector('.sp-hero-dropdown-selected-val');
+        const emptyState = wrapper.querySelector('.sp-hero-dropdown-empty');
         if (!optionsList) return;
 
         optionsList.innerHTML = '';
@@ -1262,7 +1263,7 @@ $extraScripts = <<<JS
         opts.forEach(o => {
             const item = document.createElement('div');
             const isSelected = o.selected;
-            item.className = 'sp-dropdown-option' + (isSelected ? ' is-selected' : '');
+            item.className = 'sp-hero-dropdown-option' + (isSelected ? ' is-selected' : '');
             item.dataset.value = o.value;
 
             const span = document.createElement('span');
@@ -1337,17 +1338,17 @@ $extraScripts = <<<JS
 
     // Initialize all Searchable Dropdowns
     document.addEventListener('DOMContentLoaded', function() {
-        const dropdownWrappers = document.querySelectorAll('.sp-searchable-dropdown');
+        const dropdownWrappers = document.querySelectorAll('.sp-hero-dropdown');
 
         dropdownWrappers.forEach(wrapper => {
-            const trigger = wrapper.querySelector('.sp-dropdown-trigger');
-            const panel = wrapper.querySelector('.sp-dropdown-panel');
-            const searchInput = wrapper.querySelector('.sp-dropdown-search-input');
+            const trigger = wrapper.querySelector('.sp-hero-dropdown-trigger');
+            const panel = wrapper.querySelector('.sp-hero-dropdown-panel');
+            const searchInput = wrapper.querySelector('.sp-hero-dropdown-search-input');
             const targetSelectId = wrapper.dataset.target;
             const nativeSelect = document.getElementById(targetSelectId);
-            const optionsList = wrapper.querySelector('.sp-dropdown-options-list');
-            const emptyState = wrapper.querySelector('.sp-dropdown-empty');
-            const displayVal = wrapper.querySelector('.sp-dropdown-selected-val');
+            const optionsList = wrapper.querySelector('.sp-hero-dropdown-options-list');
+            const emptyState = wrapper.querySelector('.sp-hero-dropdown-empty');
+            const displayVal = wrapper.querySelector('.sp-hero-dropdown-selected-val');
 
             if (!trigger || !panel) return;
 
@@ -1358,7 +1359,7 @@ $extraScripts = <<<JS
                 const isOpen = wrapper.classList.contains('is-open');
                 
                 // Close all other open dropdowns
-                document.querySelectorAll('.sp-searchable-dropdown.is-open').forEach(w => {
+                document.querySelectorAll('.sp-hero-dropdown.is-open').forEach(w => {
                     if (w !== wrapper) w.classList.remove('is-open');
                 });
 
@@ -1373,7 +1374,7 @@ $extraScripts = <<<JS
 
             // Search Filter Logic
             function filterItems(query) {
-                const items = optionsList.querySelectorAll('.sp-dropdown-option');
+                const items = optionsList.querySelectorAll('.sp-hero-dropdown-option');
                 let matchesCount = 0;
                 items.forEach(item => {
                     const text = item.textContent.trim().toLowerCase();
@@ -1397,7 +1398,7 @@ $extraScripts = <<<JS
 
             // Option Selection via Event Delegation
             optionsList.addEventListener('click', function(e) {
-                const opt = e.target.closest('.sp-dropdown-option');
+                const opt = e.target.closest('.sp-hero-dropdown-option');
                 if (!opt) return;
 
                 const val = opt.dataset.value;
@@ -1415,7 +1416,7 @@ $extraScripts = <<<JS
                 }
 
                 // 3. Mark active state
-                optionsList.querySelectorAll('.sp-dropdown-option').forEach(o => {
+                optionsList.querySelectorAll('.sp-hero-dropdown-option').forEach(o => {
                     o.classList.remove('is-selected');
                     const check = o.querySelector('i.fa-check');
                     if (check) check.remove();
@@ -1433,15 +1434,15 @@ $extraScripts = <<<JS
 
         // Close on Outside Click
         document.addEventListener('click', function(e) {
-            if (!e.target.closest('.sp-searchable-dropdown')) {
-                document.querySelectorAll('.sp-searchable-dropdown.is-open').forEach(w => w.classList.remove('is-open'));
+            if (!e.target.closest('.sp-hero-dropdown')) {
+                document.querySelectorAll('.sp-hero-dropdown.is-open').forEach(w => w.classList.remove('is-open'));
             }
         });
 
         // Close on Escape Key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
-                document.querySelectorAll('.sp-searchable-dropdown.is-open').forEach(w => w.classList.remove('is-open'));
+                document.querySelectorAll('.sp-hero-dropdown.is-open').forEach(w => w.classList.remove('is-open'));
             }
         });
 
@@ -1475,10 +1476,10 @@ $extraScripts = <<<JS
                 if (document.cookie.indexOf('detected_country') === -1) {
                     document.cookie = 'detected_country=' + encodeURIComponent(detectedFromTz) + '; path=/; max-age=604800';
                 }
-                const cntryList = document.querySelector('.sp-searchable-dropdown[data-target="filterCountrySelect"] .sp-dropdown-options-list');
+                const cntryList = document.querySelector('.sp-hero-dropdown[data-target="filterCountrySelect"] .sp-hero-dropdown-options-list');
                 if (cntryList) {
-                    const opt = cntryList.querySelector('.sp-dropdown-option[data-value="' + detectedFromTz + '"]');
-                    const sudanOpt = cntryList.querySelector('.sp-dropdown-option[data-value="السودان"]');
+                    const opt = cntryList.querySelector('.sp-hero-dropdown-option[data-value="' + detectedFromTz + '"]');
+                    const sudanOpt = cntryList.querySelector('.sp-hero-dropdown-option[data-value="السودان"]');
                     if (opt && sudanOpt && sudanOpt.nextSibling !== opt) {
                         sudanOpt.after(opt);
                     }

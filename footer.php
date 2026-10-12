@@ -73,7 +73,7 @@
 
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2 text-muted" style="font-size: 0.72rem;">
                 <div>جميع الحقوق محفوظة © <?= date('Y') ?> — دليل المدارس | إحدى مبادرات <strong>SchoPlus</strong></div>
-                <div>النسخة 3.6.37</div>
+                <div>النسخة 3.6.38</div>
             </div>
         </div>
     </footer>
@@ -307,9 +307,6 @@
 
     document.addEventListener('DOMContentLoaded', function() {
         var selectors = [
-            'select#filterCountrySelect',
-            'select#filterStateSelect',
-            'select#filterCitySelect',
             'select#regCountry',
             'select#regState',
             'select#regCity',
@@ -323,13 +320,15 @@
         });
 
         // Fast client-side IP country detector fallback
-        if (!document.cookie.includes('detected_country_iso=')) {
+        if (document.cookie.indexOf('detected_country_iso=') === -1) {
             fetch('https://api.country.is/')
                 .then(function(r) { return r.json(); })
                 .then(function(d) {
                     if (d && d.country) {
                         document.cookie = 'detected_country_iso=' + encodeURIComponent(d.country) + '; path=/; max-age=2592000; SameSite=Lax';
                     }
+                })
+                .catch(function() {});
         }
 
         // Initialize compare UI

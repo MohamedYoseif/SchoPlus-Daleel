@@ -845,7 +845,7 @@ $isDaleelMobile = (
         .sp-searchable-wrapper.is-open .sp-searchable-trigger-arrow {
             transform: rotate(180deg);
         }
-        .sp-searchable-dropdown {
+        .sp-searchable-wrapper .sp-searchable-dropdown {
             position: absolute;
             top: calc(100% + 4px);
             right: 0;
