@@ -774,14 +774,15 @@ $isDaleelMobile = (
         /* Fix 10: Mobile topbar (shown only on small screens) */
         .daleel-topbar-mobile {
             display: none;
-            background-color: #F0F4F8;
+            background-color: #F8FAFC;
             font-size: 0.74rem;
-            color: #475569;
+            color: #1E293B;
             border-bottom: 1px solid #DDE4ED;
-            padding: 6px 16px;
+            padding: 7px 16px;
             gap: 14px;
             align-items: center;
             justify-content: center;
+            font-weight: 600;
         }
         @media (max-width: 767px) {
             .daleel-topbar-mobile { display: flex !important; }
@@ -1185,7 +1186,7 @@ $isDaleelMobile = (
             <div class="d-flex align-items-center gap-2">
                 <span style="color: #F5A020; font-weight: 700;"><i class="fas fa-graduation-cap me-1"></i> دليل المدارس</span>
                 <span style="color: rgba(255,255,255,0.7);">•</span>
-                <span>المنصة المعتمدة لاستكشاف ومقارنة المدارس السودانية والعربية</span>
+                <span>دليل المدارس السودانية — استكشف وقارن المدارس بكل ثقة</span>
             </div>
             <div class="d-flex align-items-center gap-3">
                 <a href="/compare.php" class="text-white text-decoration-none d-flex align-items-center gap-1" style="font-size: 0.72rem;">

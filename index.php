@@ -719,6 +719,230 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
         padding: 14px;
         border-radius: 14px;
     }
+/* ===== LUXURY JOIN DALEEL CTA BANNER (STYLE F v2) ===== */
+.sp-join-section {
+    padding: 6px 0 16px;
+    margin-bottom: 8px;
+}
+.sp-join-card {
+    background: linear-gradient(135deg, #0B2A52 0%, #163870 100%);
+    border-radius: 16px;
+    padding: 24px 28px;
+    box-shadow: 0 8px 24px rgba(11, 42, 82, 0.12);
+    border: 1px solid #1E5FA8;
+    border-right: 5px solid #F5A020;
+    position: relative;
+    overflow: hidden;
+}
+.sp-join-card::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    left: -60px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(245, 160, 32, 0.12) 0%, rgba(245, 160, 32, 0) 70%);
+    pointer-events: none;
+}
+.sp-join-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(245, 160, 32, 0.18);
+    border: 1px solid rgba(245, 160, 32, 0.55);
+    color: #F5A020;
+    font-weight: 800;
+    font-size: 0.72rem;
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+}
+.sp-join-eyebrow i {
+    color: #F5A020;
+}
+.sp-join-title {
+    font-size: 1.28rem;
+    font-weight: 800;
+    color: #FFFFFF !important;
+    margin-bottom: 8px;
+    line-height: 1.35;
+}
+.sp-join-desc {
+    font-size: 0.78rem;
+    color: #F1F5F9 !important;
+    line-height: 1.65;
+    margin-bottom: 16px;
+    max-width: 650px;
+}
+.sp-join-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+.sp-join-btn-primary {
+    background: #F5A020;
+    color: #FFFFFF !important;
+    font-weight: 800;
+    font-size: 0.8rem;
+    padding: 9px 20px;
+    border-radius: 9px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    box-shadow: 0 4px 14px rgba(245, 160, 32, 0.35);
+    transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+.sp-join-btn-primary:hover {
+    background: #E08E15;
+    color: #FFFFFF !important;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(245, 160, 32, 0.45);
+}
+.sp-join-btn-secondary {
+    background: rgba(255, 255, 255, 0.12);
+    color: #FFFFFF !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+    font-weight: 700;
+    font-size: 0.8rem;
+    padding: 9px 18px;
+    border-radius: 9px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.sp-join-btn-secondary:hover, .sp-join-btn-secondary:active, .sp-join-btn-secondary:focus {
+    background: #FFFFFF !important;
+    color: #0B2A52 !important;
+    border-color: #FFFFFF !important;
+}
+
+/* Side Info Box (Desktop) */
+.sp-join-side-box {
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 12px;
+    padding: 16px 18px;
+    text-align: center;
+}
+.sp-join-side-badge {
+    color: #F5A020;
+    font-size: 1.6rem;
+    margin-bottom: 6px;
+}
+.sp-join-side-title {
+    color: #FFFFFF !important;
+    font-weight: 800;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+.sp-join-side-desc {
+    color: #CBD5E1 !important;
+    font-size: 0.7rem;
+    line-height: 1.55;
+    margin-bottom: 12px;
+}
+.sp-join-side-btn {
+    background: #FFFFFF;
+    color: #0B2A52 !important;
+    font-weight: 800;
+    font-size: 0.74rem;
+    padding: 7px 14px;
+    border-radius: 7px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    border: none;
+}
+.sp-join-side-btn:hover {
+    background: #F0F4F8;
+    color: #1E5FA8 !important;
+}
+
+/* Feature Pills Row for Mobile & Quick Glance */
+.sp-join-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+.sp-join-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #F8FAFC !important;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 999px;
+}
+.sp-join-pill i {
+    color: #F5A020;
+    font-size: 0.72rem;
+}
+
+/* Mobile Responsive Optimization (<= 767px) */
+@media (max-width: 767px) {
+    .sp-join-section {
+        padding: 4px 0 12px;
+        margin-bottom: 4px;
+    }
+    .sp-join-card {
+        padding: 16px 14px;
+        border-radius: 14px;
+        border-right-width: 4px;
+    }
+    .sp-join-eyebrow {
+        font-size: 0.68rem;
+        padding: 3px 10px;
+        margin-bottom: 8px;
+    }
+    .sp-join-title {
+        font-size: 1.1rem;
+        margin-bottom: 6px;
+    }
+    .sp-join-desc {
+        font-size: 0.74rem;
+        line-height: 1.6;
+        margin-bottom: 12px;
+    }
+    .sp-join-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+    }
+    .sp-join-btn-primary, .sp-join-btn-secondary {
+        width: 100%;
+        justify-content: center;
+        padding: 10px 14px;
+        font-size: 0.8rem;
+    }
+    .sp-join-pills {
+        gap: 5px;
+        margin-top: 12px;
+        padding-top: 10px;
+    }
+    .sp-join-pill {
+        font-size: 0.65rem;
+        padding: 3px 8px;
+    }
 }
 
 /* ===== LUXURY GEOGRAPHICAL DIRECTORY GRID (STYLE F v2) ===== */
@@ -1230,6 +1454,60 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
     </div>
 </section>
 
+<!-- SCHOOL OWNERS CTA BANNER (MOVED TO TOP WITH LUXURY STYLE F v2 MOBILE OPTIMIZATION) -->
+<section class="sp-join-section" id="join-daleel-section">
+    <div class="container">
+        <div class="sp-join-card">
+            <div class="row align-items-center g-4">
+                <div class="col-lg-8">
+                    <div class="sp-join-eyebrow">
+                        <i class="fas fa-school"></i>
+                        <span>انضم إلى دليل المدارس</span>
+                    </div>
+                    <h2 class="sp-join-title">هل تدير مدرسة أو مجمعاً تعليمياً؟</h2>
+                    <p class="sp-join-desc">
+                        خدمة رقمية معتمدة من منظومة ايسكو بلص (SchoPlus). أضف بيانات مدرستك، أنشئ ملفاً تعريفياً متكاملاً، وانشر أخبار ومرافق مدرستك واستقبل استفسارات أولياء الأمور مباشرة.
+                    </p>
+                    <div class="sp-join-actions">
+                        <a href="/register.php" class="sp-join-btn-primary">
+                            <i class="fas fa-plus-circle"></i>
+                            <span>سجّل مدرستك الآن</span>
+                        </a>
+                        <a href="/login.php" class="sp-join-btn-secondary">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span>دخول أصحاب المدارس</span>
+                        </a>
+                    </div>
+
+                    <!-- Quick Value Pills (Mobile & Tablet) -->
+                    <div class="sp-join-pills">
+                        <span class="sp-join-pill"><i class="fas fa-check-circle"></i> تسجيل معتمد ومجاني</span>
+                        <span class="sp-join-pill"><i class="fas fa-check-circle"></i> ملف تعريفي متكامل</span>
+                        <span class="sp-join-pill"><i class="fas fa-check-circle"></i> تواصل مباشر مع أولياء الأمور</span>
+                    </div>
+                </div>
+
+                <!-- Side Value Box (Desktop) -->
+                <div class="col-lg-4 d-none d-lg-block">
+                    <div class="sp-join-side-box">
+                        <div class="sp-join-side-badge">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <h5 class="sp-join-side-title">ارتقِ بمدرستك مع SchoPlus</h5>
+                        <p class="sp-join-side-desc">
+                            حوّل مدرستك إلى مدرسة ذكية مع أنظمة الحسابات، شؤون الطلاب، الجداول الآلية، وبوابة أولياء الأمور عبر الواتساب.
+                        </p>
+                        <a href="https://schoplus.sd" target="_blank" class="sp-join-side-btn">
+                            <i class="fas fa-external-link-alt"></i>
+                            <span>تعرف على نظام SchoPlus</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- MAIN DIRECTORY CATALOG WITH STANDARD MAIN TABS -->
 <section class="py-3" id="directory-catalog-section">
     <div class="container">
@@ -1436,43 +1714,6 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
     </div>
 </section>
 
-<!-- SCHOOL OWNERS CTA BANNER -->
-<section class="py-5 mt-4" style="background: #0B2A52; color: #FFFFFF;">
-    <div class="container">
-        <div class="row align-items-center g-4">
-            <div class="col-lg-8">
-                <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(245, 160, 32, 0.2); border: 1px solid rgba(245, 160, 32, 0.4); color: #FFFFFF; font-weight: 700; font-size: 0.72rem; padding: 4px 12px; border-radius: 20px; margin-bottom: 12px;">
-                    <i class="fas fa-school" style="color: #F5A020;"></i>
-                    <span>انضم إلى دليل المدارس</span>
-                </div>
-                <h2 class="fw-bold mb-2" style="font-size: 1.35rem; color: #FFFFFF;">هل تدير مدرسة أو مجمعاً تعليمياً؟</h2>
-                <p class="mb-4" style="max-width: 650px; font-size: 0.76rem; color: rgba(255, 255, 255, 0.85); line-height: 1.65;">
-                    خدمة رقمية مقدمة من منظومة ايسكو بلص (SchoPlus). أضف بيانات مدرستك، أنشئ ملفاً تعريفياً متكاملاً، وانشر أخبار ومرافق مدرستك واستقبل استفسارات أولياء الأمور مباشرة.
-                </p>
-                <div class="d-flex flex-wrap gap-2">
-                    <a href="/register.php" class="btn-luxury-primary px-3 py-2" style="font-size: 0.78rem;">
-                        <i class="fas fa-school"></i>
-                        <span>سجّل مدرستك الآن</span>
-                    </a>
-                    <a href="/login.php" class="btn btn-outline-light px-3 py-2 rounded-2 fw-bold" style="font-size: 0.78rem;">
-                        <i class="fas fa-sign-in-alt me-1"></i>
-                        <span>دخول أصحاب المدارس</span>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-4 text-center d-none d-lg-block">
-                <div class="p-4 rounded-3" style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255,255,255,0.12);">
-                    <i class="fas fa-certificate fa-3x text-warning mb-3"></i>
-                    <h5 class="fw-bold text-white" style="font-size: 0.95rem;">ارتقِ بمدرستك مع SchoPlus</h5>
-                    <p class="small mb-3" style="font-size: 0.72rem !important; line-height: 1.6; color: rgba(255,255,255,0.8);">حوّل مدرستك إلى مدرسة ذكية مع أنظمة الحسابات، شؤون الطلاب، الجداول الآلية، وبوابة أولياء الأمور عبر الواتساب.</p>
-                    <a href="https://schoplus.sd" target="_blank" class="btn btn-sm btn-light text-primary fw-bold w-100" style="font-size: 0.76rem;">
-                        تعرف على نظام SchoPlus
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 <?php
 $jsonAllGeo = json_encode($countriesWithStates, JSON_UNESCAPED_UNICODE);
