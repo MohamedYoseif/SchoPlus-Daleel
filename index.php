@@ -190,12 +190,12 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
 /* ===== SCHOPLUS STYLE F v2 HERO & SEARCH BAR ===== */
 .daleel-hero-v2 {
     background: #F0F4F8;
-    padding: 38px 0 32px;
+    padding: 34px 0 30px;
     border-bottom: 1px solid #DDE4ED;
     position: relative;
 }
-.hero-v2-inner {
-    max-width: 960px;
+.hero-v2-container {
+    max-width: 1240px;
     margin: 0 auto;
 }
 .hero-v2-eyebrow {
@@ -209,7 +209,7 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
     font-size: 0.72rem;
     font-weight: 700;
     color: #0B2A52;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 .hero-v2-eyebrow-dot {
     width: 7px;
@@ -219,7 +219,7 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
 }
 .hero-v2-title {
     font-weight: 800;
-    font-size: clamp(1.35rem, 3vw, 1.85rem);
+    font-size: clamp(1.35rem, 2.8vw, 1.9rem);
     color: #0B2A52;
     line-height: 1.35;
     margin-bottom: 8px;
@@ -227,7 +227,7 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
 }
 .hero-v2-title-sub {
     display: block;
-    font-size: clamp(0.9rem, 2vw, 1.15rem);
+    font-size: clamp(0.88rem, 1.8vw, 1.1rem);
     color: #1E5FA8;
     font-weight: 700;
     margin-top: 4px;
@@ -235,9 +235,116 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
 .hero-v2-desc {
     font-size: 0.76rem;
     color: #64748B;
-    line-height: 1.7;
-    max-width: 650px;
-    margin: 0 auto 20px;
+    line-height: 1.65;
+    margin-bottom: 16px;
+}
+
+/* Family Hero Photo Card (Left Column) */
+.hero-family-wrapper {
+    position: relative;
+    padding: 10px;
+}
+.hero-family-card {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #FFFFFF;
+    border: 1px solid #DDE4ED;
+    box-shadow: 0 16px 36px rgba(11, 42, 82, 0.08);
+}
+.hero-family-img {
+    width: 100%;
+    height: 100%;
+    max-height: 390px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+.hero-family-card:hover .hero-family-img {
+    transform: scale(1.02);
+}
+.hero-family-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    background: linear-gradient(180deg, transparent 0%, rgba(11, 42, 82, 0.85) 100%);
+    pointer-events: none;
+}
+.hero-family-caption {
+    position: absolute;
+    bottom: 12px;
+    right: 16px;
+    left: 16px;
+    color: #FFFFFF;
+    font-size: 0.75rem;
+    font-weight: 700;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+/* Floating Trust Chips */
+.floating-family-chip {
+    position: absolute;
+    background: #FFFFFF;
+    border: 1px solid #DDE4ED;
+    border-radius: 12px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 8px 24px rgba(11, 42, 82, 0.12);
+    z-index: 3;
+    transition: transform 0.25s ease;
+}
+.floating-family-chip:hover {
+    transform: translateY(-2px);
+}
+.chip-top-right {
+    top: -6px;
+    right: -10px;
+}
+.chip-bottom-left {
+    bottom: 24px;
+    left: -10px;
+}
+.chip-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+}
+.chip-icon.bg-blue {
+    background: #EFF6FF;
+    color: #1E5FA8;
+}
+.chip-icon.bg-orange {
+    background: #FFFBEB;
+    color: #F5A020;
+}
+.chip-text {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    line-height: 1.25;
+}
+.chip-title {
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: #0B2A52;
+}
+.chip-sub {
+    font-size: 0.62rem;
+    color: #64748B;
+    font-weight: 600;
 }
 
 /* Smart Unified Search Bar Card */
@@ -382,6 +489,18 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
     color: #64748B;
     font-weight: 600;
 }
+@media (max-width: 991px) {
+    .floating-family-chip {
+        display: none !important;
+    }
+    .hero-family-wrapper {
+        margin-top: 14px;
+        padding: 0;
+    }
+    .hero-family-img {
+        max-height: 290px;
+    }
+}
 @media (max-width: 767px) {
     .daleel-hero-v2 {
         padding: 24px 0 20px;
@@ -514,155 +633,192 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
 
 <!-- HERO SECTION WITH INTEGRATED SEARCH -->
 <section class="daleel-hero-v2 mb-4" id="search-section">
-    <div class="container">
-        <div class="hero-v2-inner text-center">
+    <div class="container hero-v2-container">
+        <div class="row align-items-center g-4">
 
-            <div class="hero-v2-eyebrow">
-                <span class="hero-v2-eyebrow-dot"></span>
-                <span>المنصة المعتمدة لدليل المدارس السودانية والعربية</span>
-            </div>
-
-            <h1 class="hero-v2-title">
-                دليل المدارس الشامل
-                <span class="hero-v2-title-sub">ابحث، قارن، واختر المدرسة الأنسب لأبنائك بكل ثقة واطمئنان</span>
-            </h1>
-
-            <p class="hero-v2-desc">
-                تصفح بيانات المدارس المعتمدة، الرسوم الدراسية، المناهج التعليمية، وتقييمات أولياء الأمور الحقيقية في منصة رقمية موحدة.
-            </p>
-
-            <!-- Android App Quick Announcement Banner (Mobile only) -->
-            <div class="mb-3 d-inline-flex d-md-none align-items-center gap-2 px-3 py-1 bg-white border rounded-pill shadow-sm" style="border-color: #E2E8F0 !important;">
-                <span class="badge bg-success text-white rounded-pill px-2 py-1" style="font-size: 0.65rem;"><i class="fab fa-android me-1"></i> جديد</span>
-                <span class="text-dark fw-bold" style="font-size: 0.73rem;">تطبيق دليل المدارس متاح الآن للأندرويد (APK)</span>
-                <a href="/app.php" class="btn btn-sm btn-outline-success rounded-pill px-2 py-0 fw-bold" style="font-size: 0.68rem; line-height: 1.6;">
-                    تحميل <i class="fas fa-arrow-left ms-1"></i>
-                </a>
-            </div>
-
-            <!-- SMART UNIFIED FILTER BAR -->
-            <form action="/" method="GET" class="filter-bar-card" id="smartFilterForm">
-                
-                <div class="filter-bar-header">
-                    <div class="filter-bar-title">
-                        <i class="fas fa-filter text-primary"></i>
-                        <span>تصفية سريعة ومباشرة</span>
+            <!-- Right Column (In RTL): Headline, Unified Filter Console, and Metrics -->
+            <div class="col-lg-7">
+                <div class="text-start">
+                    <div class="hero-v2-eyebrow">
+                        <span class="hero-v2-eyebrow-dot"></span>
+                        <span>المنصة المعتمدة لدليل المدارس السودانية والعربية</span>
                     </div>
-                    <div class="filter-quick-links">
-                        <a href="/?view=schoplus" class="filter-quick-pill <?= $view === 'schoplus' || $schoplusOnly ? 'is-active' : '' ?>"><i class="fas fa-bolt text-primary me-1"></i> مدارس SchoPlus</a>
-                        <a href="/?view=top_rated" class="filter-quick-pill <?= $view === 'top_rated' ? 'is-active' : '' ?>"><i class="fas fa-star text-warning me-1"></i> الأعلى تقييماً</a>
-                        <a href="/?stage=primary" class="filter-quick-pill <?= $stage === 'primary' ? 'is-active' : '' ?>">الابتدائي</a>
-                        <a href="/?stage=intermediate" class="filter-quick-pill <?= $stage === 'intermediate' ? 'is-active' : '' ?>">المتوسط</a>
-                        <a href="/?stage=secondary" class="filter-quick-pill <?= $stage === 'secondary' ? 'is-active' : '' ?>">الثانوي</a>
+
+                    <h1 class="hero-v2-title">
+                        دليل المدارس الشامل
+                        <span class="hero-v2-title-sub">ابحث، قارن، واختر المدرسة الأنسب لأبنائك بكل ثقة واطمئنان</span>
+                    </h1>
+
+                    <p class="hero-v2-desc">
+                        تصفح بيانات المدارس المعتمدة، الرسوم الدراسية، المناهج التعليمية، وتقييمات أولياء الأمور الحقيقية في منصة رقمية موحدة وشاملة.
+                    </p>
+
+                    <!-- Android App Quick Announcement Banner (Mobile only) -->
+                    <div class="mb-3 d-inline-flex d-md-none align-items-center gap-2 px-3 py-1 bg-white border rounded-pill shadow-sm" style="border-color: #E2E8F0 !important;">
+                        <span class="badge bg-success text-white rounded-pill px-2 py-1" style="font-size: 0.65rem;"><i class="fab fa-android me-1"></i> جديد</span>
+                        <span class="text-dark fw-bold" style="font-size: 0.73rem;">تطبيق دليل المدارس متاح الآن للأندرويد (APK)</span>
+                        <a href="/app.php" class="btn btn-sm btn-outline-success rounded-pill px-2 py-0 fw-bold" style="font-size: 0.68rem; line-height: 1.6;">
+                            تحميل <i class="fas fa-arrow-left ms-1"></i>
+                        </a>
                     </div>
                 </div>
 
-                <div class="row g-2 align-items-center">
-                    
-                    <!-- 1. Country Filter -->
-                    <div class="col-lg-2 col-md-6 filter-select-wrap">
-                        <select name="country" class="form-select" id="filterCountrySelect">
-                            <option value="">جميع الدول</option>
-                            <?php foreach($countriesList as $cntry): ?>
-                                <option value="<?= e($cntry) ?>" <?= $country === $cntry ? 'selected' : '' ?>><?= e($cntry) ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-
-                    <!-- 2. State Filter -->
-                    <div class="col-lg-2 col-md-6 filter-select-wrap">
-                        <select name="state" class="form-select" id="filterStateSelect">
-                            <option value="">جميع الولايات</option>
-                            <?php foreach($statesWithCities as $stName => $cities): ?>
-                                <option value="<?= e($stName) ?>" <?= $state === $stName ? 'selected' : '' ?>><?= e($stName) ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-
-                    <!-- 3. City Filter -->
-                    <div class="col-lg-2 col-md-6 filter-select-wrap">
-                        <select name="city" class="form-select" id="filterCitySelect">
-                            <option value="">جميع المدن / المحليات</option>
-                            <?php if ($state && isset($statesWithCities[$state])): ?>
-                                <?php foreach($statesWithCities[$state] as $c): ?>
-                                    <option value="<?= e($c) ?>" <?= $city === $c ? 'selected' : '' ?>><?= e($c) ?></option>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
-                        </select>
-                    </div>
-
-                    <!-- 4. Stage Filter -->
-                    <div class="col-lg-2 col-md-6 filter-select-wrap">
-                        <select name="stage" class="form-select" id="filterStageSelect">
-                            <option value="">جميع المراحل الدراسية</option>
-                            <?php foreach($schoolStages as $sKey => $sLbl): ?>
-                                <option value="<?= e($sKey) ?>" <?= $stage === $sKey ? 'selected' : '' ?>><?= e($sLbl) ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-
-                    <!-- 5. School Name / Keyword Input -->
-                    <div class="col-lg-3 col-md-6">
-                        <div class="filter-input-wrap">
-                            <i class="fas fa-search text-muted me-1"></i>
-                            <input type="text" name="q" value="<?= e($q) ?>" placeholder="ابحث باسم المدرسة، الحي..." autocomplete="off">
-                            <?php if ($q !== ''): ?>
-                                <a href="/" class="text-muted small text-decoration-none px-1" title="مسح"><i class="fas fa-times-circle"></i></a>
-                            <?php endif; ?>
+                <!-- SMART UNIFIED FILTER BAR (Organized in 2 clean rows) -->
+                <form action="/" method="GET" class="filter-bar-card" id="smartFilterForm">
+                    <div class="filter-bar-header">
+                        <div class="filter-bar-title">
+                            <i class="fas fa-filter text-primary"></i>
+                            <span>تصفية سريعة ومباشرة</span>
+                        </div>
+                        <div class="filter-quick-links">
+                            <a href="/?view=schoplus" class="filter-quick-pill <?= $view === 'schoplus' || $schoplusOnly ? 'is-active' : '' ?>"><i class="fas fa-bolt text-primary me-1"></i> مدارس SchoPlus</a>
+                            <a href="/?view=top_rated" class="filter-quick-pill <?= $view === 'top_rated' ? 'is-active' : '' ?>"><i class="fas fa-star text-warning me-1"></i> الأعلى تقييماً</a>
+                            <a href="/?stage=primary" class="filter-quick-pill <?= $stage === 'primary' ? 'is-active' : '' ?>">الابتدائي</a>
+                            <a href="/?stage=intermediate" class="filter-quick-pill <?= $stage === 'intermediate' ? 'is-active' : '' ?>">المتوسط</a>
+                            <a href="/?stage=secondary" class="filter-quick-pill <?= $stage === 'secondary' ? 'is-active' : '' ?>">الثانوي</a>
                         </div>
                     </div>
 
-                    <!-- Action Buttons -->
-                    <div class="col-lg-1 col-md-12 d-flex gap-1">
-                        <button type="submit" class="btn-luxury-primary w-100 justify-content-center py-2" title="بحث فوري">
-                            <i class="fas fa-search"></i>
-                        </button>
-                        <?php if ($isSearching): ?>
-                            <a href="/" class="btn btn-light border py-2 px-2 rounded-3 text-secondary" title="إعادة ضبط">
-                                <i class="fas fa-undo"></i>
-                            </a>
-                        <?php endif; ?>
+                    <!-- Row 1: Geographic Cascading Dropdowns (Country, State, City) -->
+                    <div class="row g-2 mb-2">
+                        <!-- 1. Country Filter -->
+                        <div class="col-md-4 col-12 filter-select-wrap">
+                            <select name="country" class="form-select form-select-sm" id="filterCountrySelect">
+                                <option value="">جميع الدول</option>
+                                <?php foreach($countriesList as $cntry): ?>
+                                    <option value="<?= e($cntry) ?>" <?= $country === $cntry ? 'selected' : '' ?>><?= e($cntry) ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+
+                        <!-- 2. State Filter -->
+                        <div class="col-md-4 col-12 filter-select-wrap">
+                            <select name="state" class="form-select form-select-sm" id="filterStateSelect">
+                                <option value="">جميع الولايات</option>
+                                <?php foreach($statesWithCities as $stName => $cities): ?>
+                                    <option value="<?= e($stName) ?>" <?= $state === $stName ? 'selected' : '' ?>><?= e($stName) ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+
+                        <!-- 3. City Filter -->
+                        <div class="col-md-4 col-12 filter-select-wrap">
+                            <select name="city" class="form-select form-select-sm" id="filterCitySelect">
+                                <option value="">جميع المدن / المحليات</option>
+                                <?php if ($state && isset($statesWithCities[$state])): ?>
+                                    <?php foreach($statesWithCities[$state] as $c): ?>
+                                        <option value="<?= e($c) ?>" <?= $city === $c ? 'selected' : '' ?>><?= e($c) ?></option>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </select>
+                        </div>
                     </div>
 
-                </div>
-            </form>
+                    <!-- Row 2: Stage Filter, School Name Search, Submit -->
+                    <div class="row g-2 align-items-center">
+                        <!-- 4. Stage Filter -->
+                        <div class="col-md-4 col-12 filter-select-wrap">
+                            <select name="stage" class="form-select form-select-sm" id="filterStageSelect">
+                                <option value="">جميع المراحل الدراسية</option>
+                                <?php foreach($schoolStages as $sKey => $sLbl): ?>
+                                    <option value="<?= e($sKey) ?>" <?= $stage === $sKey ? 'selected' : '' ?>><?= e($sLbl) ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
 
-            <!-- Hero Highlights Strip -->
-            <div class="hero-highlights-grid">
-                <div class="hero-highlight-card">
-                    <div class="hero-highlight-icon" style="background: #EFF6FF; color: var(--brand-blue);">
-                        <i class="fas fa-school"></i>
+                        <!-- 5. School Name / Keyword Input -->
+                        <div class="col-md-6 col-9">
+                            <div class="filter-input-wrap">
+                                <i class="fas fa-search text-muted me-1"></i>
+                                <input type="text" name="q" value="<?= e($q) ?>" placeholder="ابحث باسم المدرسة، الحي..." autocomplete="off">
+                                <?php if ($q !== ''): ?>
+                                    <a href="/" class="text-muted small text-decoration-none px-1" title="مسح"><i class="fas fa-times-circle"></i></a>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="col-md-2 col-3 d-flex gap-1">
+                            <button type="submit" class="btn-luxury-primary w-100 justify-content-center py-2" title="بحث فوري">
+                                <i class="fas fa-search"></i>
+                            </button>
+                            <?php if ($isSearching): ?>
+                                <a href="/" class="btn btn-light border py-2 px-2 rounded-3 text-secondary" title="إعادة ضبط">
+                                    <i class="fas fa-undo"></i>
+                                </a>
+                            <?php endif; ?>
+                        </div>
                     </div>
-                    <div>
-                        <div class="hero-highlight-val" data-countup="<?= $statTotal ?>" data-suffix="+"><?= number_format($statTotal) ?>+</div>
-                        <div class="hero-highlight-lbl">مدرسة مسجلة بالدليل</div>
+                </form>
+
+                <!-- Hero Highlights Strip -->
+                <div class="hero-highlights-grid">
+                    <div class="hero-highlight-card">
+                        <div class="hero-highlight-icon" style="background: #EFF6FF; color: var(--brand-blue);">
+                            <i class="fas fa-school"></i>
+                        </div>
+                        <div>
+                            <div class="hero-highlight-val" data-countup="<?= $statTotal ?>" data-suffix="+"><?= number_format($statTotal) ?>+</div>
+                            <div class="hero-highlight-lbl">مدرسة مسجلة بالدليل</div>
+                        </div>
+                    </div>
+                    <div class="hero-highlight-card m-navy">
+                        <div class="hero-highlight-icon" style="background: #F8FAFC; color: #0B2A52;">
+                            <i class="fas fa-map-marked-alt"></i>
+                        </div>
+                        <div>
+                            <div class="hero-highlight-val" data-countup="<?= $statStates ?>"><?= $statStates ?></div>
+                            <div class="hero-highlight-lbl">ولاية سودانية مغطاة</div>
+                        </div>
+                    </div>
+                    <div class="hero-highlight-card m-orange">
+                        <div class="hero-highlight-icon" style="background: #FFFBEB; color: #F5A020;">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div>
+                            <div class="hero-highlight-val" data-countup="<?= $statSchoplus ?>"><?= number_format($statSchoplus) ?></div>
+                            <div class="hero-highlight-lbl">مدرسة بنظام SchoPlus الذكي</div>
+                        </div>
+                    </div>
+                    <div class="hero-highlight-card m-emerald">
+                        <div class="hero-highlight-icon" style="background: #F0FDF4; color: #059669;">
+                            <i class="fas fa-star text-warning"></i>
+                        </div>
+                        <div>
+                            <div class="hero-highlight-val" data-countup="<?= $statReviews ?>" data-suffix="+"><?= number_format($statReviews) ?>+</div>
+                            <div class="hero-highlight-lbl">تقييم ومشاركة أولياء الأمور</div>
+                        </div>
                     </div>
                 </div>
-                <div class="hero-highlight-card m-navy">
-                    <div class="hero-highlight-icon" style="background: #F8FAFC; color: #0B2A52;">
-                        <i class="fas fa-map-marked-alt"></i>
+            </div>
+
+            <!-- Left Column (In RTL): Front-Facing Family Photo Card & Floating Trust Chips -->
+            <div class="col-lg-5">
+                <div class="hero-family-wrapper">
+                    <div class="hero-family-card">
+                        <img src="/assets/images/family-hero.jpg" alt="أسرة تناقش وتختار المدرسة الأنسب لطفلتهم في دليل المدارس الذكي" class="hero-family-img" loading="eager">
+                        <div class="hero-family-overlay"></div>
+                        <div class="hero-family-caption">
+                            <i class="fas fa-heart text-warning"></i>
+                            <span>اختيار مدرسة طفلتك... قرار أسري يبدأ من هنا</span>
+                        </div>
                     </div>
-                    <div>
-                        <div class="hero-highlight-val" data-countup="<?= $statStates ?>"><?= $statStates ?></div>
-                        <div class="hero-highlight-lbl">ولاية سودانية مغطاة</div>
+
+                    <!-- Floating Trust Badges -->
+                    <div class="floating-family-chip chip-top-right">
+                        <div class="chip-icon bg-blue"><i class="fas fa-shield-alt"></i></div>
+                        <div class="chip-text">
+                            <span class="chip-title">بيانات ومناهج معتمدة</span>
+                            <span class="chip-sub">تحديث دوري وموثق</span>
+                        </div>
                     </div>
-                </div>
-                <div class="hero-highlight-card m-orange">
-                    <div class="hero-highlight-icon" style="background: #FFFBEB; color: #F5A020;">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <div>
-                        <div class="hero-highlight-val" data-countup="<?= $statSchoplus ?>"><?= number_format($statSchoplus) ?></div>
-                        <div class="hero-highlight-lbl">مدرسة بنظام SchoPlus الذكي</div>
-                    </div>
-                </div>
-                <div class="hero-highlight-card m-emerald">
-                    <div class="hero-highlight-icon" style="background: #F0FDF4; color: #059669;">
-                        <i class="fas fa-star text-warning"></i>
-                    </div>
-                    <div>
-                        <div class="hero-highlight-val" data-countup="<?= $statReviews ?>" data-suffix="+"><?= number_format($statReviews) ?>+</div>
-                        <div class="hero-highlight-lbl">تقييم ومشاركة أولياء الأمور</div>
+
+                    <div class="floating-family-chip chip-bottom-left">
+                        <div class="chip-icon bg-orange"><i class="fas fa-star"></i></div>
+                        <div class="chip-text">
+                            <span class="chip-title">تقييمات أولياء الأمور</span>
+                            <span class="chip-sub">تجارب حقيقية وموثوقة</span>
+                        </div>
                     </div>
                 </div>
             </div>
