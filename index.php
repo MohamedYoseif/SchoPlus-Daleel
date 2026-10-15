@@ -623,82 +623,32 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
     color: #0B2A52;
 }
 
-/* Luxury Hero Trust & Value Strip */
-.sp-hero-trust-bar {
-    background: #FFFFFF;
-    border: 1px solid #DDE4ED;
-    border-radius: 14px;
-    padding: 10px 16px;
-    margin-top: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 4px 16px rgba(11, 42, 82, 0.04);
-}
-.sp-trust-item {
-    display: flex;
-    align-items: center;
-    gap: 9px;
+.sp-btn-audit-hero {
     flex: 1;
-    min-width: 0;
-    transition: transform 0.2s ease;
-}
-.sp-trust-item:hover {
-    transform: translateY(-1px);
-}
-.sp-trust-icon {
-    width: 32px;
-    height: 32px;
-    border-radius: 9px;
-    background: #F8FAFC;
-    border: 1px solid #E2E8F0;
-    display: flex;
+    background: linear-gradient(135deg, #0B2A52 0%, #163870 100%);
+    color: #FFFFFF !important;
+    border: 1.5px solid #1E5FA8;
+    border-radius: 10px;
+    padding: 11px 18px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.88rem;
-    flex-shrink: 0;
-    transition: transform 0.2s ease;
-}
-.sp-trust-info {
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    line-height: 1.25;
-}
-.sp-trust-title {
-    font-size: 0.76rem;
-    font-weight: 800;
-    color: #0B2A52;
+    gap: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(11, 42, 82, 0.2);
+    transition: all 0.2s ease;
+    text-decoration: none;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
-.sp-trust-sub {
-    font-size: 0.62rem;
-    font-weight: 600;
-    color: #64748B;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-top: 2px;
-}
-.sp-trust-sep {
-    width: 1px;
-    height: 24px;
-    background: #E2E8F0;
-    margin: 0 8px;
-    flex-shrink: 0;
+.sp-btn-audit-hero:hover {
+    background: linear-gradient(135deg, #163870 0%, #1E5FA8 100%);
+    color: #FFFFFF !important;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(11, 42, 82, 0.32);
 }
 @media (max-width: 991px) {
-    .sp-hero-trust-bar {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-        padding: 12px;
-    }
-    .sp-trust-sep {
-        display: none;
-    }
     .hero-family-frame {
         margin-top: 16px;
     }
@@ -710,14 +660,18 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
     .daleel-hero-v2 {
         padding: 24px 0 20px;
     }
-    .sp-hero-trust-bar {
-        grid-template-columns: 1fr;
-        gap: 8px;
-        padding: 10px 12px;
-    }
     .sp-search-card {
         padding: 14px;
         border-radius: 14px;
+    }
+}
+@media (max-width: 575px) {
+    .sp-search-action-wrap {
+        flex-direction: column;
+    }
+    .sp-btn-search-hero,
+    .sp-btn-audit-hero {
+        width: 100%;
     }
 }
 
@@ -1189,19 +1143,6 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
                 <!-- LUXURY UNIFIED SEARCH CONSOLE CARD -->
                 <form action="/" method="GET" class="sp-search-card" id="smartFilterForm">
                     
-                    <!-- Quick View Tabs -->
-                    <div class="sp-search-tabs">
-                        <a href="/" class="sp-search-tab <?= (empty($view) || $view === 'all') && empty($stage) && !$schoplusOnly ? 'active' : '' ?>">
-                            <i class="fas fa-layer-group"></i> كافة المدارس
-                        </a>
-                        <a href="/?view=schoplus" class="sp-search-tab <?= $view === 'schoplus' || $schoplusOnly ? 'active' : '' ?>">
-                            <i class="fas fa-bolt text-warning"></i> مدارس SchoPlus الذكية
-                        </a>
-                        <a href="/?view=top_rated" class="sp-search-tab <?= $view === 'top_rated' ? 'active' : '' ?>">
-                            <i class="fas fa-star text-warning"></i> الأعلى تقييماً
-                        </a>
-                    </div>
-
                     <!-- 1. Main Search Bar Input -->
                     <div class="sp-search-input-box">
                         <i class="fas fa-search"></i>
@@ -1376,6 +1317,10 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
                             <i class="fas fa-search"></i>
                             <span>استكشاف المدارس</span>
                         </button>
+                        <a href="/presence-audit.php" class="sp-btn-audit-hero">
+                            <i class="fas fa-satellite-dish" style="color: #F5A020;"></i>
+                            <span>فحص الوجود الرقمي ⚡</span>
+                        </a>
                         <?php if ($isSearching): ?>
                             <a href="/" class="sp-btn-reset-hero" title="إلغاء الفلاتر">
                                 <i class="fas fa-undo"></i>
@@ -1385,49 +1330,6 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
                     </div>
 
                 </form>
-
-                <!-- Luxury Trust & Value Strip -->
-                <div class="sp-hero-trust-bar">
-                    <div class="sp-trust-item">
-                        <div class="sp-trust-icon" style="color: #1E5FA8; background: #EFF6FF; border-color: #DBEAFE;">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <div class="sp-trust-info">
-                            <span class="sp-trust-title"><?= $statTotal > 5 ? number_format($statTotal) . '+ مدرسة معتمدة' : 'دليل معتمد وموثق' ?></span>
-                            <span class="sp-trust-sub">بيانات وتراخيص رسمية</span>
-                        </div>
-                    </div>
-                    <div class="sp-trust-sep"></div>
-                    <div class="sp-trust-item">
-                        <div class="sp-trust-icon" style="color: #0B2A52; background: #F1F5F9; border-color: #E2E8F0;">
-                            <i class="fas fa-map-marked-alt"></i>
-                        </div>
-                        <div class="sp-trust-info">
-                            <span class="sp-trust-title">18 ولاية سودانية</span>
-                            <span class="sp-trust-sub">تغطية جغرافية شاملة</span>
-                        </div>
-                    </div>
-                    <div class="sp-trust-sep"></div>
-                    <div class="sp-trust-item">
-                        <div class="sp-trust-icon" style="color: #F5A020; background: #FFFBEB; border-color: #FEF3C7;">
-                            <i class="fas fa-balance-scale"></i>
-                        </div>
-                        <div class="sp-trust-info">
-                            <span class="sp-trust-title">مقارنة ذكية للمدارس</span>
-                            <span class="sp-trust-sub">المناهج والرسوم والخدمات</span>
-                        </div>
-                    </div>
-                    <div class="sp-trust-sep"></div>
-                    <div class="sp-trust-item">
-                        <div class="sp-trust-icon" style="color: #16A34A; background: #F0FDF4; border-color: #DCFCE7;">
-                            <i class="fab fa-whatsapp"></i>
-                        </div>
-                        <div class="sp-trust-info">
-                            <span class="sp-trust-title">تواصل مباشر وسريع</span>
-                            <span class="sp-trust-sub">واتساب وقبول فوري</span>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <!-- Left Column: Pure Family Photo Showcase (No Cards Around It) -->
@@ -1463,10 +1365,6 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
                             <i class="fas fa-school" style="color: #FFFFFF !important;"></i>
                             <span style="color: #FFFFFF !important;">سجّل مدرستك الآن</span>
                         </a>
-                        <a href="/presence-audit.php" class="sp-join-btn-secondary" style="background: #1E5FA8 !important; color: #FFFFFF !important; border: 1.5px solid #3B82F6 !important; font-weight: 800; font-size: 0.8rem; padding: 9px 18px; border-radius: 9px; display: inline-flex; align-items: center; gap: 8px; text-decoration: none;">
-                            <i class="fas fa-satellite-dish" style="color: #F5A020 !important;"></i>
-                            <span style="color: #FFFFFF !important;">فحص الوجود الرقمي ⚡</span>
-                        </a>
                         <a href="/login.php" class="sp-join-btn-secondary" style="background: rgba(255, 255, 255, 0.14) !important; color: #FFFFFF !important; border: 1.5px solid rgba(255, 255, 255, 0.45) !important; font-weight: 700; font-size: 0.8rem; padding: 9px 18px; border-radius: 9px; display: inline-flex; align-items: center; gap: 8px; text-decoration: none;">
                             <i class="fas fa-sign-in-alt" style="color: #FFFFFF !important;"></i>
                             <span style="color: #FFFFFF !important;">دخول أصحاب المدارس</span>
@@ -1484,34 +1382,6 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
                         </a>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- DIGITAL PRESENCE AUDIT TEASER CARD (STYLE F v2) -->
-<section class="sp-audit-teaser-section py-2" style="margin-top: -6px; margin-bottom: 18px;">
-    <div class="container">
-        <div class="p-3 rounded-4 bg-white border shadow-sm d-flex flex-column flex-md-row align-items-center justify-content-between gap-3" style="border-color: #DDE4ED !important;">
-            <div class="d-flex align-items-center gap-3">
-                <div class="rounded-circle d-flex align-items-center justify-content-center text-white" style="width: 44px; height: 44px; background: linear-gradient(135deg, #0B2A52, #1E5FA8); flex-shrink: 0; font-size: 1.15rem;">
-                    <i class="fas fa-satellite-dish text-warning"></i>
-                </div>
-                <div>
-                    <div class="d-flex align-items-center gap-2 mb-1">
-                        <span class="badge bg-warning text-dark px-2 py-0.5 rounded-pill fw-bold" style="font-size: 0.64rem;">جديد وحصري ⚡</span>
-                        <h6 class="fw-bold mb-0 text-dark" style="font-size: 0.88rem;">فحص الوجود الرقمي الشامل للمدارس</h6>
-                    </div>
-                    <p class="text-muted mb-0" style="font-size: 0.72rem; line-height: 1.5;">
-                        افحص ظهور مدرستك عبر محركات البحث، فيسبوك، تيك توك، وخرائط جوجل ودليل المدارس من خلال 10 بنود تدقيق مجانية مع إمكانية التحقق والتثبيت المباشر.
-                    </p>
-                </div>
-            </div>
-            <div class="flex-shrink-0 w-100 w-md-auto text-end">
-                <a href="/presence-audit.php" class="btn-luxury-primary w-100 justify-content-center" style="font-size: 0.78rem; padding: 8px 20px;">
-                    <i class="fas fa-bolt"></i>
-                    <span>افحص مدرستك الآن ⚡</span>
-                </a>
             </div>
         </div>
     </div>
