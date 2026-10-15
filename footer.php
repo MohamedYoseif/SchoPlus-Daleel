@@ -29,7 +29,7 @@
                     <a href="/?view=schoplus" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">مدارس SchoPlus الذكية</a>
                     <a href="/?view=top_rated" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">المدارس الأعلى تقييماً</a>
                     <a href="/compare.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">مقارنة المدارس</a>
-                    <a href="/presence-audit.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;"><i class="fas fa-satellite-dish text-primary me-1"></i> فحص الوجود الرقمي ⚡</a>
+                    <a href="/presence-audit.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;"><i class="fas fa-satellite-dish text-primary me-1"></i> فحص الوجود الرقمي</a>
                     <a href="/app.php" class="d-block d-md-none text-success fw-bold text-decoration-none mb-2" style="font-size: 0.74rem;"><i class="fab fa-android me-1"></i> تطبيق أندرويد (APK)</a>
                     <a href="/register.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">إضافة مدرسة جديدة</a>
                 </div>
@@ -75,7 +75,7 @@
 
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2 text-muted" style="font-size: 0.72rem;">
                 <div>جميع الحقوق محفوظة © <?= date('Y') ?> — دليل المدارس | إحدى مبادرات <strong>SchoPlus</strong></div>
-                <div>النسخة 3.6.57</div>
+                <div>النسخة 3.6.59</div>
             </div>
         </div>
     </footer>

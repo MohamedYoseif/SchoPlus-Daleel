@@ -93,6 +93,28 @@ $sudanRegionMapping = [
     'شرق دارفور' => 'darfur',
 ];
 
+/**
+ * Safe filter URL builder preserving existing query parameters
+ */
+function buildFilterUrl(array $overrides = []): string {
+    $params = $_GET;
+    foreach ($overrides as $k => $v) {
+        if ($v === null || $v === '') {
+            unset($params[$k]);
+        } else {
+            $params[$k] = $v;
+        }
+    }
+    $clean = [];
+    foreach ($params as $k => $v) {
+        if ($v !== null && $v !== '') {
+            $clean[$k] = $v;
+        }
+    }
+    if (empty($clean)) return '/';
+    return '/?' . http_build_query($clean);
+}
+
 // Query for search or view
 if ($isSearching) {
     $where = ["status = 'approved'"];
@@ -162,7 +184,7 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
     $sRank = getSchoolDirectoryRank($pdo, (int)$s['id'], !empty($s['directory_rank']) ? (int)$s['directory_rank'] : null);
     $sStateRank = getSchoolStateRank($pdo, (int)$s['id'], (string)($s['state'] ?? ''), !empty($s['state_rank']) ? (int)$s['state_rank'] : null);
 ?>
-<div class="col-lg-4 col-md-6">
+<div class="col-xl-4 col-md-6 col-12">
     <div class="luxury-card clickable-school-card h-100 d-flex flex-column" onclick="window.location.href='<?= $schoolUrl ?>'">
         
         <div class="card-cover-wrap" style="<?= $cover ? "background-image: url('{$cover}');" : '' ?>">
@@ -886,187 +908,236 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
     }
 }
 
-/* ===== LUXURY GEOGRAPHICAL DIRECTORY GRID (STYLE F v2) ===== */
-.sp-geo-section {
-    background: #FFFFFF;
-    border-top: 1px solid #DDE4ED;
-    border-bottom: 1px solid #DDE4ED;
-    padding: 38px 0 44px;
-    margin-top: 36px;
+/* ===== MODERN STATES SIDEBAR FILTER (STYLE F v2) ===== */
+.sp-state-sidebar-wrap {
+    position: sticky;
+    top: 85px;
+    z-index: 10;
 }
-.sp-geo-header {
-    margin-bottom: 20px;
-}
-.sp-geo-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.65rem;
-    font-weight: 700;
-    color: #1E5FA8;
-    text-transform: uppercase;
-    margin-bottom: 6px;
-}
-.sp-geo-title {
-    font-size: 1.25rem;
-    font-weight: 800;
-    color: #0B2A52;
-    margin-bottom: 4px;
-}
-.sp-geo-sub {
-    font-size: 0.74rem;
-    color: #64748B;
-    margin-bottom: 0;
-}
-
-/* Region Segmented Filter Pills */
-.sp-geo-region-pills {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-}
-.sp-geo-pill {
-    padding: 5px 14px;
-    border-radius: 999px;
-    background: #F8FAFC;
-    border: 1px solid #E2E8F0;
-    font-size: 0.72rem;
-    font-weight: 700;
-    color: #475569;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-}
-.sp-geo-pill:hover {
-    background: #E2E8F0;
-    color: #0B2A52;
-}
-.sp-geo-pill.is-active {
-    background: #0B2A52;
-    color: #FFFFFF;
-    border-color: #0B2A52;
-}
-
-/* State Cards Grid */
-.sp-geo-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 12px;
-}
-.sp-state-card {
+.sp-state-sidebar-card {
     background: #FFFFFF;
     border: 1px solid #DDE4ED;
-    border-radius: 12px;
-    padding: 13px 12px;
-    text-decoration: none;
-    color: inherit;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 104px;
-    position: relative;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 6px rgba(11, 42, 82, 0.02);
+    border-radius: 14px;
+    box-shadow: 0 4px 18px rgba(11, 42, 82, 0.04);
+    overflow: hidden;
 }
-.sp-state-card:hover {
-    border-color: #1E5FA8;
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(30, 95, 168, 0.08);
-    background: #FAFCFE;
+.sp-state-sidebar-header {
+    background: linear-gradient(135deg, #0B2A52 0%, #163870 100%);
+    border-bottom: 2px solid #F5A020;
+    padding: 12px 14px;
+    color: #FFFFFF;
 }
-.sp-state-card.is-active {
-    border-color: #1E5FA8;
-    background: #EFF6FF;
-    box-shadow: 0 0 0 2px rgba(30, 95, 168, 0.15);
-}
-.sp-state-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 8px;
-}
-.sp-state-icon {
+.sp-state-sidebar-icon {
     width: 28px;
     height: 28px;
     border-radius: 8px;
-    background: #F1F5F9;
-    color: #1E5FA8;
+    background: rgba(245, 160, 32, 0.2);
+    border: 1px solid rgba(245, 160, 32, 0.4);
+    color: #F5A020;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.78rem;
-    transition: all 0.2s ease;
+    font-size: 0.8rem;
 }
-.sp-state-card:hover .sp-state-icon {
-    background: #1E5FA8;
+.sp-state-sidebar-title {
+    font-size: 0.88rem;
+    font-weight: 800;
     color: #FFFFFF;
+    margin: 0;
+    line-height: 1.2;
 }
-.sp-state-card.is-active .sp-state-icon {
-    background: #0B2A52;
-    color: #FFFFFF;
+.sp-state-sidebar-subtitle {
+    font-size: 0.66rem;
+    color: rgba(255, 255, 255, 0.75);
 }
-.sp-state-badge {
-    font-size: 0.62rem;
+.sp-state-reset-link {
+    color: #F5A020;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.12);
+    padding: 3px 8px;
+    border-radius: 6px;
+    transition: all 0.15s ease;
+}
+.sp-state-reset-link:hover {
+    background: #F5A020;
+    color: #0B2A52;
+}
+.sp-state-sidebar-search {
+    padding: 10px 12px 8px;
+    background: #F8FAFC;
+    border-bottom: 1px solid #EDF2F7;
+}
+.sp-state-sidebar-search input {
+    border-radius: 6px;
+    font-size: 0.74rem;
+}
+.sp-state-sidebar-regions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 10px;
+    background: #F8FAFC;
+    border-bottom: 1px solid #EDF2F7;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none;
+}
+.sp-state-sidebar-regions::-webkit-scrollbar {
+    display: none;
+}
+.sp-sidebar-region-btn {
+    border: 1px solid #E2E8F0;
+    background: #FFFFFF;
+    color: #64748B;
+    font-size: 0.65rem;
     font-weight: 700;
     padding: 2px 8px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.sp-sidebar-region-btn:hover {
+    border-color: #1E5FA8;
+    color: #1E5FA8;
+}
+.sp-sidebar-region-btn.is-active {
+    background: #0B2A52;
+    border-color: #0B2A52;
+    color: #FFFFFF;
+}
+.sp-state-sidebar-list {
+    max-height: 440px;
+    overflow-y: auto;
+    padding: 4px 0;
+}
+.sp-state-sidebar-list::-webkit-scrollbar {
+    width: 4px;
+}
+.sp-state-sidebar-list::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 4px;
+}
+.sp-state-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 14px;
+    text-decoration: none;
+    color: #334155;
+    font-size: 0.76rem;
+    font-weight: 600;
+    transition: all 0.15s ease;
+    border-right: 3px solid transparent;
+}
+.sp-state-item:hover {
+    background: #F0F6FF;
+    color: #1E5FA8;
+    border-right-color: #1E5FA8;
+}
+.sp-state-item.is-active {
+    background: #EFF6FF;
+    color: #0B2A52;
+    font-weight: 800;
+    border-right-color: #F5A020;
+}
+.sp-state-item-name {
+    line-height: 1.3;
+}
+.sp-state-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #CBD5E1;
+    display: inline-block;
+    flex-shrink: 0;
+    transition: all 0.15s ease;
+}
+.sp-state-item:hover .sp-state-dot {
+    background: #1E5FA8;
+    transform: scale(1.3);
+}
+.sp-state-item.is-active .sp-state-dot {
+    background: #F5A020;
+    transform: scale(1.4);
+}
+.sp-state-item-count {
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 2px 7px;
     border-radius: 999px;
-    background: #F8FAFC;
+    background: #F1F5F9;
     color: #64748B;
     border: 1px solid #E2E8F0;
+    min-width: 22px;
+    text-align: center;
 }
-.sp-state-badge.has-schools {
+.sp-state-item-count.has-count {
     background: #EFF6FF;
     color: #1E5FA8;
     border-color: #BFDBFE;
 }
-.sp-state-name {
-    font-size: 0.82rem;
-    font-weight: 800;
-    color: #0B2A52;
-    line-height: 1.3;
-    margin-bottom: 3px;
+.sp-state-item.is-active .sp-state-item-count {
+    background: #0B2A52;
+    color: #FFFFFF;
+    border-color: #0B2A52;
 }
-.sp-state-cities {
-    font-size: 0.64rem;
+.sp-state-sidebar-footer {
+    padding: 9px 12px;
+    background: #F8FAFC;
+    border-top: 1px solid #EDF2F7;
+    font-size: 0.68rem;
     color: #64748B;
-    line-height: 1.35;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-.sp-state-foot {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin-top: 8px;
-    padding-top: 6px;
-    border-top: 1px dashed #EDF2F7;
-    font-size: 0.65rem;
-    color: #94A3B8;
 }
-.sp-state-card:hover .sp-state-foot {
-    color: #1E5FA8;
+.sp-mobile-filter-btn {
+    border-color: #DDE4ED;
+}
+.sp-mobile-filter-btn:hover {
+    background: #F8FAFC;
+    border-color: #1E5FA8;
 }
 
-@media (max-width: 1199px) {
-    .sp-geo-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
+/* Active Filter Chips */
+.sp-active-filter-chips {
+    background: #FFFFFF;
+    border: 1px solid #DDE4ED;
+    border-radius: 10px;
+    padding: 8px 14px;
 }
-@media (max-width: 767px) {
-    .sp-geo-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-    }
-    .sp-state-card {
-        padding: 10px 10px;
-        min-height: 90px;
-    }
+.sp-chip-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    color: #1E5FA8;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.15s ease;
+}
+.sp-chip-tag:hover {
+    background: #DBEAFE;
+    color: #0B2A52;
+    border-color: #93C5FD;
+}
+.sp-chip-tag i {
+    font-size: 0.65rem;
+    opacity: 0.75;
+}
+.sp-chip-tag:hover i {
+    opacity: 1;
+    color: #DC2626;
+}
+.sp-chips-label {
+    font-size: 0.72rem;
+    color: #64748B;
+    font-weight: 700;
 }
 
 /* School Cards (SchoPlus Style F v2) */
@@ -1319,7 +1390,7 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
                         </button>
                         <a href="/presence-audit.php" class="sp-btn-audit-hero">
                             <i class="fas fa-satellite-dish" style="color: #F5A020;"></i>
-                            <span>فحص الوجود الرقمي ⚡</span>
+                            <span>فحص الوجود الرقمي</span>
                         </a>
                         <?php if ($isSearching): ?>
                             <a href="/" class="sp-btn-reset-hero" title="إلغاء الفلاتر">
@@ -1387,212 +1458,305 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
     </div>
 </section>
 
-<!-- MAIN DIRECTORY CATALOG WITH STANDARD MAIN TABS -->
+<!-- MAIN DIRECTORY CATALOG WITH MODERN STATES SIDEBAR FILTER -->
 <section class="py-3" id="directory-catalog-section">
     <div class="container">
         
         <!-- Mandatory Specification for Main Tabs (.sp-main-tabs) -->
         <div class="sp-main-tabs-wrap">
             <div class="sp-main-tabs">
-                <a href="/" class="sp-main-tab <?= (empty($view) || $view === 'all') && empty($stage) && !$schoplusOnly && empty($state) && empty($q) ? 'active' : '' ?>">
+                <a href="<?= buildFilterUrl(['view' => null, 'sort' => null, 'schoplus_only' => null]) ?>" class="sp-main-tab <?= (empty($view) || $view === 'all') && !$schoplusOnly && $sort !== 'rating' && $sort !== 'latest' ? 'active' : '' ?>">
                     <i class="fas fa-layer-group"></i> كافة المدارس
                     <span class="tab-badge"><?= number_format($statTotal) ?></span>
                 </a>
-                <a href="/?view=schoplus" class="sp-main-tab <?= $view === 'schoplus' || $schoplusOnly ? 'active' : '' ?>">
+                <a href="<?= buildFilterUrl(['view' => 'schoplus', 'sort' => null]) ?>" class="sp-main-tab <?= $view === 'schoplus' || $schoplusOnly ? 'active' : '' ?>">
                     <i class="fas fa-bolt"></i> مدارس SchoPlus الذكية
                     <span class="tab-badge"><?= number_format($statSchoplus) ?></span>
                 </a>
-                <a href="/?view=top_rated" class="sp-main-tab <?= $view === 'top_rated' || $sort === 'rating' ? 'active' : '' ?>">
+                <a href="<?= buildFilterUrl(['view' => 'top_rated', 'sort' => 'rating']) ?>" class="sp-main-tab <?= $view === 'top_rated' || $sort === 'rating' ? 'active' : '' ?>">
                     <i class="fas fa-star"></i> الأعلى تقييماً
                     <span class="tab-badge"><?= number_format($totalTopRatedCount) ?></span>
                 </a>
-                <a href="/?view=latest" class="sp-main-tab <?= $view === 'latest' || $sort === 'latest' ? 'active' : '' ?>">
+                <a href="<?= buildFilterUrl(['view' => 'latest', 'sort' => 'latest']) ?>" class="sp-main-tab <?= $view === 'latest' || $sort === 'latest' ? 'active' : '' ?>">
                     <i class="fas fa-clock"></i> المضافة حديثاً
                     <span class="tab-badge"><?= number_format($statTotal) ?></span>
                 </a>
             </div>
         </div>
 
-        <?php if ($isSearching): ?>
-            <!-- SEARCH RESULTS HEADER -->
-            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 pb-2 border-bottom">
-                <div>
-                    <h2 style="font-size: 1.15rem; font-weight: 700; color: #0B2A52; margin: 0;">
-                        <?php if ($view === 'schoplus' || $schoplusOnly): ?>
-                            مدارس معتمدة بنظام SchoPlus الذكي
-                        <?php elseif ($view === 'top_rated' || $sort === 'rating'): ?>
-                            المدارس الأعلى تقييماً في الدليل
-                        <?php elseif ($view === 'latest' || $sort === 'latest'): ?>
-                            أحدث المدارس المنضمة إلى الدليل
-                        <?php elseif ($country !== '' || $state !== '' || $city !== '' || $stage !== '' || $q !== ''): ?>
-                            نتائج البحث المخصص
-                        <?php else: ?>
-                            جميع المدارس المسجلة
-                        <?php endif; ?>
-                    </h2>
-                    <p style="color: #64748B; font-size: 0.74rem; margin-top: 4px; margin-bottom: 0;">
-                        تم العثور على <strong><?= number_format($totalMatching) ?></strong> مدرسة مطابقة لمعايير البحث.
-                    </p>
+        <!-- Mobile Filter Toggle Button -->
+        <div class="d-lg-none mb-3">
+            <button class="btn btn-white border w-100 py-2.5 px-3 d-flex justify-content-between align-items-center rounded-3 shadow-sm sp-mobile-filter-btn" type="button" data-bs-toggle="collapse" data-bs-target="#statesSidebarCollapse" aria-expanded="false" aria-controls="statesSidebarCollapse">
+                <span class="d-flex align-items-center gap-2">
+                    <i class="fas fa-filter text-primary"></i>
+                    <span>تصفية حسب الولاية:</span>
+                    <strong style="color: #0B2A52;"><?= !empty($state) ? 'ولاية ' . e($state) : 'كافة الولايات (18 ولاية)' ?></strong>
+                </span>
+                <span class="badge bg-light text-dark border"><i class="fas fa-sliders-h"></i></span>
+            </button>
+        </div>
+
+        <!-- 2-COLUMN CATALOG LAYOUT: SIDEBAR FILTER (RIGHT) + CATALOG GRID (LEFT) -->
+        <div class="row g-4 align-items-start">
+            
+            <!-- 1. RIGHT SIDEBAR: MODERN STATES FILTER (col-lg-3 col-md-4) -->
+            <div class="col-lg-3 col-md-4">
+                <div class="collapse d-lg-block" id="statesSidebarCollapse">
+                    <aside class="sp-state-sidebar-wrap">
+                        <div class="sp-state-sidebar-card">
+                            
+                            <!-- Header -->
+                            <div class="sp-state-sidebar-header">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="sp-state-sidebar-icon">
+                                            <i class="fas fa-map-marked-alt"></i>
+                                        </div>
+                                        <div>
+                                            <h5 class="sp-state-sidebar-title"><?= !empty($country) && $country !== 'السودان' ? 'تصفية حسب ' . e($regionMiniLabel) : 'تصفية حسب الولاية' ?></h5>
+                                            <span class="sp-state-sidebar-subtitle"><?= !empty($country) && $country !== 'السودان' ? (count($statesWithCities) . ' ' . e($regionAllLabel)) : '18 ولاية سودانية' ?></span>
+                                        </div>
+                                    </div>
+                                    <?php if (!empty($state)): ?>
+                                        <a href="<?= buildFilterUrl(['state' => null, 'city' => null]) ?>" class="sp-state-reset-link" title="إلغاء تصفية الولاية">
+                                            <i class="fas fa-times-circle"></i> مسح
+                                        </a>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+
+                            <!-- Quick Search in States -->
+                            <div class="sp-state-sidebar-search">
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-text bg-white border-end-0 text-muted" style="border-color: #DDE4ED;">
+                                        <i class="fas fa-search" style="font-size: 0.7rem;"></i>
+                                    </span>
+                                    <input type="text" id="sidebarStateSearch" class="form-control border-start-0 ps-1" placeholder="<?= e($regionSearchPlaceholder) ?>" style="border-color: #DDE4ED; font-size: 0.74rem;" oninput="filterSidebarStates(this.value)">
+                                </div>
+                            </div>
+
+                            <?php if (empty($country) || $country === 'السودان'): ?>
+                            <!-- Regional Jump Pills -->
+                            <div class="sp-state-sidebar-regions">
+                                <button type="button" class="sp-sidebar-region-btn is-active" data-region="all" onclick="filterSidebarRegion('all', this)">الكل</button>
+                                <button type="button" class="sp-sidebar-region-btn" data-region="central" onclick="filterSidebarRegion('central', this)">الوسط</button>
+                                <button type="button" class="sp-sidebar-region-btn" data-region="east" onclick="filterSidebarRegion('east', this)">الشرق</button>
+                                <button type="button" class="sp-sidebar-region-btn" data-region="north" onclick="filterSidebarRegion('north', this)">الشمال</button>
+                                <button type="button" class="sp-sidebar-region-btn" data-region="kordofan" onclick="filterSidebarRegion('kordofan', this)">كردفان</button>
+                                <button type="button" class="sp-sidebar-region-btn" data-region="darfur" onclick="filterSidebarRegion('darfur', this)">دارفور</button>
+                            </div>
+                            <?php endif; ?>
+
+                            <!-- States List -->
+                            <div class="sp-state-sidebar-list" id="sidebarStatesList">
+                                
+                                <!-- All States / Country Item -->
+                                <a href="<?= buildFilterUrl(['state' => null, 'city' => null]) ?>" class="sp-state-item <?= empty($state) ? 'is-active' : '' ?>" data-region="all">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <span class="sp-state-dot"></span>
+                                        <span class="sp-state-item-name"><?= !empty($country) && $country !== 'السودان' ? 'كافة مناطق ' . e($country) : 'كافة ولايات السودان' ?></span>
+                                    </div>
+                                    <span class="sp-state-item-count"><?= number_format($statTotal) ?></span>
+                                </a>
+
+                                <?php 
+                                    $statesLoop = (!empty($country) && $country !== 'السودان') ? array_keys($statesWithCities) : $allStatesList;
+                                    foreach($statesLoop as $stName): 
+                                        $countInState = $stateCounts[$stName] ?? 0;
+                                        $isSelected = ($state === $stName);
+                                        $stUrl = $isSelected ? buildFilterUrl(['state' => null, 'city' => null]) : buildFilterUrl(['state' => $stName, 'city' => null]);
+                                        $regKey = $sudanRegionMapping[$stName] ?? 'all';
+                                ?>
+                                <a href="<?= $stUrl ?>" class="sp-state-item <?= $isSelected ? 'is-active' : '' ?>" data-region="<?= $regKey ?>" data-name="<?= e($stName) ?>">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <span class="sp-state-dot"></span>
+                                        <span class="sp-state-item-name">ولاية <?= e($stName) ?></span>
+                                    </div>
+                                    <span class="sp-state-item-count <?= $countInState > 0 ? 'has-count' : '' ?>"><?= number_format($countInState) ?></span>
+                                </a>
+                                <?php endforeach; ?>
+                                
+                                <div id="noMatchingStatesMsg" class="p-3 text-center text-muted d-none" style="font-size: 0.72rem;">
+                                    لا توجد ولاية مطابقة للبحث
+                                </div>
+                            </div>
+
+                            <!-- Footer -->
+                            <div class="sp-state-sidebar-footer">
+                                <i class="fas fa-check-circle text-success me-1"></i>
+                                <span>تحديث لحظي لعدد المدارس</span>
+                            </div>
+
+                        </div>
+                    </aside>
                 </div>
-                <div class="mt-2 mt-md-0 d-flex gap-2 align-items-center">
-                    <a href="/" class="btn-luxury-outline btn-sm">
-                        <i class="fas fa-arrow-right"></i>
-                        <span>عرض كافة المدارس</span>
+            </div>
+
+            <!-- 2. LEFT COLUMN: ACTIVE CHIPS + SCHOOLS GRID (col-lg-9 col-md-8) -->
+            <div class="col-lg-9 col-md-8">
+                
+                <!-- Active Filters Chips -->
+                <?php if ($state !== '' || $city !== '' || $stage !== '' || $q !== '' || $schoplusOnly || ($view !== '' && $view !== 'all')): ?>
+                <div class="sp-active-filter-chips mb-3 d-flex flex-wrap align-items-center gap-2">
+                    <span class="sp-chips-label"><i class="fas fa-filter text-muted me-1"></i> التصفية الحالية:</span>
+                    <?php if ($state !== ''): ?>
+                        <a href="<?= buildFilterUrl(['state' => null, 'city' => null]) ?>" class="sp-chip-tag" title="إزالة تصفية الولاية">
+                            <span>ولاية: <strong><?= e($state) ?></strong></span>
+                            <i class="fas fa-times ms-1"></i>
+                        </a>
+                    <?php endif; ?>
+                    <?php if ($city !== ''): ?>
+                        <a href="<?= buildFilterUrl(['city' => null]) ?>" class="sp-chip-tag" title="إزالة تصفية المدينة">
+                            <span>مدينة: <strong><?= e($city) ?></strong></span>
+                            <i class="fas fa-times ms-1"></i>
+                        </a>
+                    <?php endif; ?>
+                    <?php if ($stage !== ''): ?>
+                        <a href="<?= buildFilterUrl(['stage' => null]) ?>" class="sp-chip-tag" title="إزالة تصفية المرحلة">
+                            <span>مرحلة: <strong><?= e($schoolStages[$stage] ?? $stage) ?></strong></span>
+                            <i class="fas fa-times ms-1"></i>
+                        </a>
+                    <?php endif; ?>
+                    <?php if ($q !== ''): ?>
+                        <a href="<?= buildFilterUrl(['q' => null]) ?>" class="sp-chip-tag" title="إزالة البحث النصي">
+                            <span>بحث: <strong><?= e($q) ?></strong></span>
+                            <i class="fas fa-times ms-1"></i>
+                        </a>
+                    <?php endif; ?>
+                    <?php if ($view === 'schoplus' || $schoplusOnly): ?>
+                        <a href="<?= buildFilterUrl(['view' => null, 'schoplus_only' => null]) ?>" class="sp-chip-tag" title="إزالة تصفية المدارس الذكية">
+                            <span><strong>مدارس SchoPlus الذكية</strong></span>
+                            <i class="fas fa-times ms-1"></i>
+                        </a>
+                    <?php endif; ?>
+                    <?php if ($view === 'top_rated' || $sort === 'rating'): ?>
+                        <a href="<?= buildFilterUrl(['view' => null, 'sort' => null]) ?>" class="sp-chip-tag" title="إزالة تصفية التقييم">
+                            <span><strong>المدارس الأعلى تقييماً</strong></span>
+                            <i class="fas fa-times ms-1"></i>
+                        </a>
+                    <?php endif; ?>
+                    <?php if ($view === 'latest' || $sort === 'latest'): ?>
+                        <a href="<?= buildFilterUrl(['view' => null, 'sort' => null]) ?>" class="sp-chip-tag" title="إزالة تصفية الأحدث">
+                            <span><strong>المضافة حديثاً</strong></span>
+                            <i class="fas fa-times ms-1"></i>
+                        </a>
+                    <?php endif; ?>
+                    <a href="/" class="sp-chips-reset text-danger text-decoration-none ms-auto" style="font-size: 0.72rem; font-weight: 700;">
+                        <i class="fas fa-undo me-1"></i> مسح الكل
                     </a>
                 </div>
-            </div>
-
-            <!-- SEARCH RESULTS GRID -->
-            <div class="row g-4">
-                <?php if (empty($searchResults)): ?>
-                    <div class="col-12 py-5 text-center">
-                        <div class="p-5 bg-white rounded-3 border text-center shadow-sm max-w-md mx-auto" style="max-width: 480px; margin: 0 auto;">
-                            <i class="fas fa-school fa-3x text-muted mb-3 opacity-50"></i>
-                            <h4 class="fw-bold text-dark" style="font-size: 1.05rem;">لا توجد مدارس مطابقة للبحث حالياً</h4>
-                            <p class="text-muted small" style="font-size: 0.74rem;">جرب تغيير شروط الفلترة أو مسح اسم المدرسة لاكتشاف خيارات أوسع.</p>
-                            <a href="/" class="btn-luxury-primary btn-sm mt-2">
-                                <i class="fas fa-undo me-1"></i> إعادة ضبط وعرض كل المدارس
-                            </a>
-                        </div>
-                    </div>
-                <?php else: ?>
-                    <?php foreach($searchResults as $s): ?>
-                        <?php $renderSchoolCard($s); ?>
-                    <?php endforeach; ?>
                 <?php endif; ?>
-            </div>
 
-        <?php else: ?>
-
-            <!-- DEFAULT VIEW: FEATURED SCHOPLUS SHOWCASE -->
-            <?php if (!empty($schoplusShowcase)): ?>
-            <div class="mb-5">
-                <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3">
-                    <div>
-                        <span style="color: #1E5FA8; font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">
-                            <i class="fas fa-award me-1"></i> التميز والرقمنة
-                        </span>
-                        <h2 style="font-size: 1.15rem; font-weight: 700; color: #0B2A52; margin: 0;">مدارس ذكية رائدة تعمل بنظام SchoPlus</h2>
-                    </div>
-                    <?php if ($statSchoplus > 6): ?>
-                        <div class="mt-2 mt-md-0">
-                            <a href="/?view=schoplus" class="btn-luxury-outline btn-sm">
-                                <span>عرض جميع المدارس الذكية (<?= $statSchoplus ?>)</span>
-                                <i class="fas fa-arrow-left"></i>
+                <?php if ($isSearching): ?>
+                    <!-- SEARCH RESULTS HEADER -->
+                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 pb-2 border-bottom">
+                        <div>
+                            <h2 style="font-size: 1.15rem; font-weight: 700; color: #0B2A52; margin: 0;">
+                                <?php if ($view === 'schoplus' || $schoplusOnly): ?>
+                                    مدارس معتمدة بنظام SchoPlus الذكي <?= !empty($state) ? '— ولاية ' . e($state) : '' ?>
+                                <?php elseif ($view === 'top_rated' || $sort === 'rating'): ?>
+                                    المدارس الأعلى تقييماً في الدليل <?= !empty($state) ? '— ولاية ' . e($state) : '' ?>
+                                <?php elseif ($view === 'latest' || $sort === 'latest'): ?>
+                                    أحدث المدارس المنضمة إلى الدليل <?= !empty($state) ? '— ولاية ' . e($state) : '' ?>
+                                <?php elseif ($state !== '' && empty($q) && empty($stage) && empty($city)): ?>
+                                    مدارس ولاية <?= e($state) ?>
+                                <?php elseif ($country !== '' || $state !== '' || $city !== '' || $stage !== '' || $q !== ''): ?>
+                                    نتائج البحث المخصص
+                                <?php else: ?>
+                                    جميع المدارس المسجلة
+                                <?php endif; ?>
+                            </h2>
+                            <p style="color: #64748B; font-size: 0.74rem; margin-top: 4px; margin-bottom: 0;">
+                                تم العثور على <strong><?= number_format($totalMatching) ?></strong> مدرسة مطابقة لمعايير البحث.
+                            </p>
+                        </div>
+                        <div class="mt-2 mt-md-0 d-flex gap-2 align-items-center">
+                            <a href="/" class="btn-luxury-outline btn-sm">
+                                <i class="fas fa-arrow-right"></i>
+                                <span>عرض كافة المدارس</span>
                             </a>
                         </div>
-                    <?php endif; ?>
-                </div>
-
-                <div class="row g-4">
-                    <?php foreach($schoplusShowcase as $s): ?>
-                        <?php $renderSchoolCard($s); ?>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-            <?php endif; ?>
-
-            <!-- DEFAULT VIEW: MAIN CATALOG GRID -->
-            <div>
-                <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3 pb-2 border-bottom">
-                    <div>
-                        <span style="color: #64748B; font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">
-                            <i class="fas fa-list me-1"></i> استكشف المدارس
-                        </span>
-                        <h2 style="font-size: 1.15rem; font-weight: 700; color: #0B2A52; margin: 0;">دليل المدارس المعتمدة في السودان</h2>
                     </div>
-                    <div class="mt-2 mt-md-0 text-muted" style="font-size: 0.72rem;">
-                        عرض <strong><?= count($catalogSchools) ?></strong> من أصل <strong><?= $statTotal ?></strong> مدرسة مسجلة
-                    </div>
-                </div>
 
-                <div class="row g-4">
-                    <?php foreach($catalogSchools as $s): ?>
-                        <?php $renderSchoolCard($s); ?>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-
-        <?php endif; ?>
-
-    </div>
-</section>
-
-<!-- LUXURY GEOGRAPHICAL DIRECTORY SECTION (BOTTOM) -->
-<section class="sp-geo-section" id="geo-directory-section">
-    <div class="container">
-        
-        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end sp-geo-header">
-            <div>
-                <span class="sp-geo-eyebrow">
-                    <i class="fas fa-map-marked-alt"></i> التوزيع الجغرافي الشامل
-                </span>
-                <h3 class="sp-geo-title">دليل المدارس حسب الولايات والمناطق</h3>
-                <p class="sp-geo-sub">
-                    استكشف المدارس المعتمدة والمجمعات التعليمية موزعة جغرافياً عبر كافة ولايات السودان الـ 18
-                </p>
-            </div>
-            <div class="mt-3 mt-md-0 text-muted" style="font-size: 0.72rem;">
-                <i class="fas fa-check-circle text-primary me-1"></i> تغطية لجميع المحليات والمراكز الأكاديمية
-            </div>
-        </div>
-
-        <!-- Regional Filter Pills -->
-        <div class="sp-geo-region-pills">
-            <button type="button" class="sp-geo-pill is-active" onclick="filterGeoRegion('all', this)">
-                <i class="fas fa-layer-group"></i> كافة الولايات (18)
-            </button>
-            <button type="button" class="sp-geo-pill" onclick="filterGeoRegion('central', this)">
-                <i class="fas fa-city"></i> الوسط والعاصمة
-            </button>
-            <button type="button" class="sp-geo-pill" onclick="filterGeoRegion('east', this)">
-                <i class="fas fa-water"></i> القطاع الشرقي
-            </button>
-            <button type="button" class="sp-geo-pill" onclick="filterGeoRegion('north', this)">
-                <i class="fas fa-compass"></i> القطاع الشمالي
-            </button>
-            <button type="button" class="sp-geo-pill" onclick="filterGeoRegion('kordofan', this)">
-                <i class="fas fa-tree"></i> كردفان الكبرى
-            </button>
-            <button type="button" class="sp-geo-pill" onclick="filterGeoRegion('darfur', this)">
-                <i class="fas fa-mountain"></i> دارفور الكبرى
-            </button>
-        </div>
-
-        <!-- State Cards Grid (3x6) -->
-        <div class="sp-geo-grid" id="spGeoGrid">
-            <?php foreach($allStatesList as $stName): ?>
-                <?php 
-                    $countInState = $stateCounts[$stName] ?? 0;
-                    $isSelectedState = ($state === $stName);
-                    $stateUrl = $isSelectedState ? '/' : '/?state=' . urlencode($stName);
-                    $citiesList = $sudanStatesWithCities[$stName] ?? [];
-                    $regKey = $sudanRegionMapping[$stName] ?? 'all';
-                ?>
-                <a href="<?= $stateUrl ?>" class="sp-state-card <?= $isSelectedState ? 'is-active' : '' ?>" data-region="<?= $regKey ?>" title="مدارس ولاية <?= e($stName) ?>">
-                    <div>
-                        <div class="sp-state-top">
-                            <div class="sp-state-icon">
-                                <i class="fas fa-map-marker-alt"></i>
+                    <!-- SEARCH RESULTS GRID -->
+                    <div class="row g-3">
+                        <?php if (empty($searchResults)): ?>
+                            <div class="col-12 py-5 text-center">
+                                <div class="p-5 bg-white rounded-3 border text-center shadow-sm max-w-md mx-auto" style="max-width: 480px; margin: 0 auto;">
+                                    <i class="fas fa-school fa-3x text-muted mb-3 opacity-50"></i>
+                                    <h4 class="fw-bold text-dark" style="font-size: 1.05rem;">لا توجد مدارس مطابقة للبحث حالياً</h4>
+                                    <p class="text-muted small" style="font-size: 0.74rem;">جرب تغيير شروط الفلترة أو تصفح ولاية أخرى لاكتشاف خيارات أوسع.</p>
+                                    <a href="/" class="btn-luxury-primary btn-sm mt-2">
+                                        <i class="fas fa-undo me-1"></i> إعادة ضبط وعرض كل المدارس
+                                    </a>
+                                </div>
                             </div>
-                            <span class="sp-state-badge <?= $countInState > 0 ? 'has-schools' : '' ?>">
-                                <?= $countInState > 0 ? $countInState . ($countInState == 1 ? ' مدرسة' : ' مدارس') : 'استكشف' ?>
-                            </span>
+                        <?php else: ?>
+                            <?php foreach($searchResults as $s): ?>
+                                <?php $renderSchoolCard($s); ?>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>
+
+                <?php else: ?>
+
+                    <!-- DEFAULT VIEW: FEATURED SCHOPLUS SHOWCASE -->
+                    <?php if (!empty($schoplusShowcase)): ?>
+                    <div class="mb-4">
+                        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3">
+                            <div>
+                                <span style="color: #1E5FA8; font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">
+                                    <i class="fas fa-award me-1"></i> التميز والرقمنة
+                                </span>
+                                <h2 style="font-size: 1.15rem; font-weight: 700; color: #0B2A52; margin: 0;">مدارس ذكية رائدة تعمل بنظام SchoPlus</h2>
+                            </div>
+                            <?php if ($statSchoplus > 6): ?>
+                                <div class="mt-2 mt-md-0">
+                                    <a href="<?= buildFilterUrl(['view' => 'schoplus']) ?>" class="btn-luxury-outline btn-sm">
+                                        <span>عرض جميع المدارس الذكية (<?= $statSchoplus ?>)</span>
+                                        <i class="fas fa-arrow-left"></i>
+                                    </a>
+                                </div>
+                            <?php endif; ?>
                         </div>
-                        <div class="sp-state-name"><?= e($stName) ?></div>
-                        <div class="sp-state-cities"><?= e(!empty($citiesList) ? implode(' • ', array_slice($citiesList, 0, 2)) : 'المراكز التعليمية') ?></div>
+
+                        <div class="row g-3">
+                            <?php foreach($schoplusShowcase as $s): ?>
+                                <?php $renderSchoolCard($s); ?>
+                            <?php endforeach; ?>
+                        </div>
                     </div>
-                    <div class="sp-state-foot">
-                        <span>تصفح المدارس</span>
-                        <i class="fas fa-arrow-left"></i>
+                    <?php endif; ?>
+
+                    <!-- DEFAULT VIEW: MAIN CATALOG GRID -->
+                    <div>
+                        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3 pb-2 border-bottom">
+                            <div>
+                                <span style="color: #64748B; font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">
+                                    <i class="fas fa-list me-1"></i> استكشف المدارس
+                                </span>
+                                <h2 style="font-size: 1.15rem; font-weight: 700; color: #0B2A52; margin: 0;">دليل المدارس المعتمدة في السودان</h2>
+                            </div>
+                            <div class="mt-2 mt-md-0 text-muted" style="font-size: 0.72rem;">
+                                عرض <strong><?= count($catalogSchools) ?></strong> من أصل <strong><?= $statTotal ?></strong> مدرسة مسجلة
+                            </div>
+                        </div>
+
+                        <div class="row g-3">
+                            <?php foreach($catalogSchools as $s): ?>
+                                <?php $renderSchoolCard($s); ?>
+                            <?php endforeach; ?>
+                        </div>
                     </div>
-                </a>
-            <?php endforeach; ?>
+
+                <?php endif; ?>
+
+            </div>
+
         </div>
 
     </div>
 </section>
-
 
 <?php
 $jsonAllGeo = json_encode($countriesWithStates, JSON_UNESCAPED_UNICODE);
@@ -1600,15 +1764,40 @@ $extraScripts = <<<JS
 <script>
     const allGeoMap = {$jsonAllGeo};
 
-    // Geographic Region Filter (for bottom directory)
-    window.filterGeoRegion = function(regionKey, btn) {
-        document.querySelectorAll('.sp-geo-pill').forEach(p => p.classList.remove('is-active'));
+    // Sidebar State instant search filter
+    window.filterSidebarStates = function(query) {
+        query = (query || '').trim().toLowerCase();
+        const items = document.querySelectorAll('#sidebarStatesList .sp-state-item[data-name]');
+        let matches = 0;
+        items.forEach(el => {
+            const name = (el.dataset.name || '').toLowerCase();
+            const match = !query || name.includes(query);
+            el.style.display = match ? 'flex' : 'none';
+            if (match) matches++;
+        });
+        const noMsg = document.getElementById('noMatchingStatesMsg');
+        if (noMsg) {
+            noMsg.classList.toggle('d-none', matches > 0 || !query);
+        }
+    };
+
+    // Sidebar Regional Quick Filter
+    window.filterSidebarRegion = function(regionKey, btn) {
+        document.querySelectorAll('.sp-sidebar-region-btn').forEach(b => b.classList.remove('is-active'));
         if (btn) btn.classList.add('is-active');
-        document.querySelectorAll('.sp-state-card').forEach(card => {
-            if (regionKey === 'all' || card.dataset.region === regionKey) {
-                card.style.display = 'flex';
+        
+        // Reset search box
+        const sInput = document.getElementById('sidebarStateSearch');
+        if (sInput) sInput.value = '';
+        const noMsg = document.getElementById('noMatchingStatesMsg');
+        if (noMsg) noMsg.classList.add('d-none');
+
+        document.querySelectorAll('#sidebarStatesList .sp-state-item').forEach(el => {
+            if (regionKey === 'all') {
+                el.style.display = 'flex';
             } else {
-                card.style.display = 'none';
+                const r = el.dataset.region;
+                el.style.display = (r === regionKey || el.getAttribute('href') === '/' || !r) ? 'flex' : 'none';
             }
         });
     };

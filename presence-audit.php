@@ -355,7 +355,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['action']) && $_POST[
             'icon' => 'fas fa-book-reader',
             'status' => $isInDaleel ? 'verified' : 'not_found',
             'value' => $isInDaleel ? $daleelProfileUrl : '',
-            'display_value' => $isInDaleel ? ('مدرجة وموثقة رسمياً في دليل المدارس — رقم التعريف #' . $matchedSchool['id']) : '0 / غير مدرجة في دليل المدارس ✗ (فقدت المدرسة مئات الزيارات الشهرية)',
+            'display_value' => $isInDaleel ? ('مدرجة وموثقة رسمياً في دليل المدارس — رقم التعريف #' . $matchedSchool['id']) : '0 / غير مدرجة في دليل المدارس (فقدت المدرسة مئات الزيارات الشهرية)',
             'verified' => $isInDaleel,
             'points' => 10,
             'is_dynamic_db' => true,
@@ -379,7 +379,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['action']) && $_POST[
             'icon' => 'fas fa-bolt',
             'status' => $isSmartSchool ? 'verified' : 'not_found',
             'value' => $isSmartSchool ? 'معتمدة كمدرسة ذكية' : '',
-            'display_value' => $isSmartSchool ? 'مدرسة ذكية معتمدة رسمياً ✓ (تعمل بنظام SchoPlus Cloud السحابي)' : '0 / غير مسجلة كمدرسة ذكية ✗ (تفتقد نظام الإدارة والتحول الرقمي)',
+            'display_value' => $isSmartSchool ? 'مدرسة ذكية معتمدة رسمياً (تعمل بنظام SchoPlus Cloud السحابي)' : '0 / غير مسجلة كمدرسة ذكية (تفتقد نظام الإدارة والتحول الرقمي)',
             'verified' => $isSmartSchool,
             'points' => 10,
             'is_dynamic_db' => true,
@@ -390,7 +390,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['action']) && $_POST[
                 'url' => $daleelProfileUrl ?: '/?view=schoplus'
             ] : [
                 'type' => 'upgrade_smart',
-                'label' => 'طلب اعتماد مدرسة ذكية والترقية للسحابة ⚡',
+                'label' => 'طلب اعتماد مدرسة ذكية والترقية للسحابة',
                 'url' => 'https://schoplus.sd/demo.html'
             ]
         ],
@@ -402,8 +402,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['action']) && $_POST[
             'category' => 'الثقة المجتمعية والتوصيات',
             'icon' => 'fas fa-star',
             'status' => $hasReviews ? 'verified' : 'not_found',
-            'value' => $hasReviews ? ('⭐ ' . $ratingAvg . ' / 5 (' . $reviewsCount . ' تقييم)') : '',
-            'display_value' => $hasReviews ? ('موثقة بـ ' . $reviewsCount . ' تقييم من أولياء الأمور (متوسط ⭐ ' . $ratingAvg . ' من 5)') : '0 / لا توجد آراء أو تقييمات موثقة من أولياء الأمور ✗',
+            'value' => $hasReviews ? ($ratingAvg . ' / 5 (' . $reviewsCount . ' تقييم)') : '',
+            'display_value' => $hasReviews ? ('موثقة بـ ' . $reviewsCount . ' تقييم من أولياء الأمور (متوسط ' . $ratingAvg . ' من 5)') : '0 / لا توجد آراء أو تقييمات موثقة من أولياء الأمور',
             'verified' => $hasReviews,
             'points' => 10,
             'is_dynamic_db' => true,
@@ -453,7 +453,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['action']) && $_POST[
 // =========================================================================
 
 $pageTitle = 'فحص الوجود الرقمي والأثر الإلكتروني للمدارس';
-$ogTitle = 'فحص الوجود الرقمي للمدارس ⚡ — تدقيق فوري لـ 10 بنود';
+$ogTitle = 'فحص الوجود الرقمي للمدارس — تدقيق فوري وشامل لـ 10 بنود';
 $ogDesc = 'أداة ذكية لفحص الحضور الرقمي لمدرستك عبر محركات البحث، منصات التواصل، ودليل المدارس السودانية في ثوانٍ مع خيارات التحقق والتثبيت.';
 require_once __DIR__ . '/header.php';
 
@@ -936,7 +936,7 @@ $prefillCountry = trim((string)($_GET['country'] ?? $defaultCountry)) ?: $defaul
             <div>
                 <div class="audit-eyebrow">
                     <i class="fas fa-satellite-dish"></i>
-                    <span>فحص الوجود الرقمي ⚡</span>
+                    <span>فحص الوجود الرقمي</span>
                 </div>
                 <h1 class="audit-title">فحص الأثر الرقمي والظهور الإلكتروني للمدارس</h1>
                 <p class="audit-subtitle">
@@ -1008,7 +1008,7 @@ $prefillCountry = trim((string)($_GET['country'] ?? $defaultCountry)) ?: $defaul
                 <div class="col-lg-2 col-md-12">
                     <button type="submit" class="audit-btn-submit w-100" id="auditSubmitBtn">
                         <i class="fas fa-bolt"></i>
-                        <span>بدء الفحص ⚡</span>
+                        <span>بدء الفحص</span>
                     </button>
                 </div>
             </div>
@@ -1093,7 +1093,7 @@ $prefillCountry = trim((string)($_GET['country'] ?? $defaultCountry)) ?: $defaul
                 <div class="col-lg-4 text-lg-end text-center">
                     <a href="#" id="auditRegisterLink" class="btn-luxury-primary justify-content-center w-100 py-2.5" style="font-size: 0.85rem;">
                         <i class="fas fa-shield-alt"></i>
-                        <span>اعتماد وتثبيت الوجود الرقمي 🚀</span>
+                        <span>اعتماد وتثبيت الوجود الرقمي</span>
                     </a>
                     <div class="mt-2 text-center text-light opacity-75" style="font-size: 0.68rem;">
                         <i class="fas fa-check-circle text-success me-1"></i> مجاني 100% ويستغرق دقيقة واحدة
@@ -1336,7 +1336,7 @@ function createItemCard(item) {
         // Regular items (1 to 7)
         actionsHtml = `
             <div class="d-flex align-items-center gap-1">
-                ${!item.verified && item.value ? `<button type="button" class="audit-act-btn btn-confirm" onclick="confirmItem(${item.id})"><i class="fas fa-check"></i> صحيح ✓</button>` : ''}
+                ${!item.verified && item.value ? `<button type="button" class="audit-act-btn btn-confirm" onclick="confirmItem(${item.id})"><i class="fas fa-check"></i> صحيح</button>` : ''}
                 ${item.verified ? `<span class="text-success fw-bold" style="font-size:0.68rem;"><i class="fas fa-shield-alt"></i> معتمد</span>` : ''}
                 <button type="button" class="audit-act-btn btn-edit" onclick="toggleItemEdit(${item.id})">
                     <i class="fas fa-edit"></i> ${item.value ? 'تعديل' : '+ إضافة'}
@@ -1486,15 +1486,15 @@ function updateOverallScore() {
     if (score >= 80) {
         scoreCircle.style.stroke = '#10B981';
         scorePill.className = 'audit-status-pill b-green';
-        scorePill.innerHTML = '<i class="fas fa-trophy"></i> وجود رقمي ممتاز ومكتمل 🌟';
+        scorePill.innerHTML = '<i class="fas fa-trophy"></i> وجود رقمي ممتاز ومكتمل';
     } else if (score >= 50) {
         scoreCircle.style.stroke = '#F5A020';
         scorePill.className = 'audit-status-pill b-orange';
-        scorePill.innerHTML = '<i class="fas fa-bolt"></i> وجود رقمي متوسط يحتاج تعزيز ⚡';
+        scorePill.innerHTML = '<i class="fas fa-bolt"></i> وجود رقمي متوسط يحتاج تعزيز';
     } else {
         scoreCircle.style.stroke = '#EF4444';
         scorePill.className = 'audit-status-pill b-red';
-        scorePill.innerHTML = '<i class="fas fa-exclamation-triangle"></i> وجود رقمي ضعيف أو غير مفعل ⚠️';
+        scorePill.innerHTML = '<i class="fas fa-exclamation-triangle"></i> وجود رقمي ضعيف أو غير مفعل';
     }
 
     verifiedText.innerHTML = `<i class="fas fa-check-circle text-success me-1"></i> ${verifiedCount} من 10 بنود مؤكدة`;
@@ -1528,7 +1528,7 @@ function buildRegistrationBridgeLink() {
         regBtn.innerHTML = '<i class="fas fa-columns"></i> <span>إدارة وتحديث بيانات المدرسة بالدليل</span>';
     } else {
         regBtn.href = '/register.php?' + params.toString();
-        regBtn.innerHTML = '<i class="fas fa-shield-alt"></i> <span>اعتماد وتثبيت الوجود الرقمي بالدليل 🚀</span>';
+        regBtn.innerHTML = '<i class="fas fa-shield-alt"></i> <span>اعتماد وتثبيت الوجود الرقمي بالدليل</span>';
     }
 }
 
