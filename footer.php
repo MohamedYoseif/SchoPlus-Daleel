@@ -29,6 +29,7 @@
                     <a href="/?view=schoplus" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">مدارس SchoPlus الذكية</a>
                     <a href="/?view=top_rated" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">المدارس الأعلى تقييماً</a>
                     <a href="/compare.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">مقارنة المدارس</a>
+                    <a href="/presence-audit.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;"><i class="fas fa-satellite-dish text-primary me-1"></i> فحص الوجود الرقمي ⚡</a>
                     <a href="/app.php" class="d-block d-md-none text-success fw-bold text-decoration-none mb-2" style="font-size: 0.74rem;"><i class="fab fa-android me-1"></i> تطبيق أندرويد (APK)</a>
                     <a href="/register.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">إضافة مدرسة جديدة</a>
                 </div>
@@ -37,6 +38,7 @@
                     <h5 class="fw-bold mb-3" style="font-size: 0.85rem; color: #0B2A52;">لأصحاب المدارس</h5>
                     <a href="/login.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">بوابة مدراء المدارس</a>
                     <a href="/register.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">تسجيل مدرسة جديدة</a>
+                    <a href="/presence-audit.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;"><i class="fas fa-bolt text-warning me-1"></i> فحص الوجود الرقمي للمدرسة</a>
                     <a href="https://schoplus.sd/pricing.html" target="_blank" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">باقات نظام SchoPlus</a>
                     <a href="https://schoplus.sd/demo.html" target="_blank" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">طلب عرض تجريبي للنظام</a>
                 </div>
@@ -73,7 +75,7 @@
 
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2 text-muted" style="font-size: 0.72rem;">
                 <div>جميع الحقوق محفوظة © <?= date('Y') ?> — دليل المدارس | إحدى مبادرات <strong>SchoPlus</strong></div>
-                <div>النسخة 3.6.44</div>
+                <div>النسخة 3.6.55</div>
             </div>
         </div>
     </footer>

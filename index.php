@@ -1433,7 +1433,10 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
             <!-- Left Column: Pure Family Photo Showcase (No Cards Around It) -->
             <div class="col-lg-5">
                 <div class="hero-family-frame">
-                    <img src="/assets/images/family-hero.jpg" alt="جلسة أسرية لاختيار المدرسة في دليل المدارس الذكي" class="hero-family-img" loading="eager">
+                    <picture>
+                        <source srcset="/assets/images/family-hero.webp" type="image/webp">
+                        <img src="/assets/images/family-hero.jpg" alt="جلسة أسرية لاختيار المدرسة في دليل المدارس الذكي" class="hero-family-img" loading="eager" width="900" height="672" fetchpriority="high">
+                    </picture>
                 </div>
             </div>
 
@@ -1460,6 +1463,10 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
                             <i class="fas fa-school" style="color: #FFFFFF !important;"></i>
                             <span style="color: #FFFFFF !important;">سجّل مدرستك الآن</span>
                         </a>
+                        <a href="/presence-audit.php" class="sp-join-btn-secondary" style="background: #1E5FA8 !important; color: #FFFFFF !important; border: 1.5px solid #3B82F6 !important; font-weight: 800; font-size: 0.8rem; padding: 9px 18px; border-radius: 9px; display: inline-flex; align-items: center; gap: 8px; text-decoration: none;">
+                            <i class="fas fa-satellite-dish" style="color: #F5A020 !important;"></i>
+                            <span style="color: #FFFFFF !important;">فحص الوجود الرقمي ⚡</span>
+                        </a>
                         <a href="/login.php" class="sp-join-btn-secondary" style="background: rgba(255, 255, 255, 0.14) !important; color: #FFFFFF !important; border: 1.5px solid rgba(255, 255, 255, 0.45) !important; font-weight: 700; font-size: 0.8rem; padding: 9px 18px; border-radius: 9px; display: inline-flex; align-items: center; gap: 8px; text-decoration: none;">
                             <i class="fas fa-sign-in-alt" style="color: #FFFFFF !important;"></i>
                             <span style="color: #FFFFFF !important;">دخول أصحاب المدارس</span>
@@ -1477,6 +1484,34 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
                         </a>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- DIGITAL PRESENCE AUDIT TEASER CARD (STYLE F v2) -->
+<section class="sp-audit-teaser-section py-2" style="margin-top: -6px; margin-bottom: 18px;">
+    <div class="container">
+        <div class="p-3 rounded-4 bg-white border shadow-sm d-flex flex-column flex-md-row align-items-center justify-content-between gap-3" style="border-color: #DDE4ED !important;">
+            <div class="d-flex align-items-center gap-3">
+                <div class="rounded-circle d-flex align-items-center justify-content-center text-white" style="width: 44px; height: 44px; background: linear-gradient(135deg, #0B2A52, #1E5FA8); flex-shrink: 0; font-size: 1.15rem;">
+                    <i class="fas fa-satellite-dish text-warning"></i>
+                </div>
+                <div>
+                    <div class="d-flex align-items-center gap-2 mb-1">
+                        <span class="badge bg-warning text-dark px-2 py-0.5 rounded-pill fw-bold" style="font-size: 0.64rem;">جديد وحصري ⚡</span>
+                        <h6 class="fw-bold mb-0 text-dark" style="font-size: 0.88rem;">فحص الوجود الرقمي الشامل للمدارس</h6>
+                    </div>
+                    <p class="text-muted mb-0" style="font-size: 0.72rem; line-height: 1.5;">
+                        افحص ظهور مدرستك عبر محركات البحث، فيسبوك، تيك توك، وخرائط جوجل ودليل المدارس من خلال 10 بنود تدقيق مجانية مع إمكانية التحقق والتثبيت المباشر.
+                    </p>
+                </div>
+            </div>
+            <div class="flex-shrink-0 w-100 w-md-auto text-end">
+                <a href="/presence-audit.php" class="btn-luxury-primary w-100 justify-content-center" style="font-size: 0.78rem; padding: 8px 20px;">
+                    <i class="fas fa-bolt"></i>
+                    <span>افحص مدرستك الآن ⚡</span>
+                </a>
             </div>
         </div>
     </div>

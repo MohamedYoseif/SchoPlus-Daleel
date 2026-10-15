@@ -31,6 +31,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (!empty($_GET['owner_phone'])) $formData['owner_phone'] = trim((string)$_GET['owner_phone']);
     if (!empty($_GET['owner_email'])) $formData['owner_email'] = trim((string)$_GET['owner_email']);
     if (!empty($_GET['owner_title'])) $formData['owner_title'] = trim((string)$_GET['owner_title']);
+    // Digital Presence Audit Imports
+    if (!empty($_GET['website']))        $formData['website'] = trim((string)$_GET['website']);
+    if (!empty($_GET['facebook']))       $formData['facebook'] = trim((string)$_GET['facebook']);
+    if (!empty($_GET['tiktok']))         $formData['tiktok'] = trim((string)$_GET['tiktok']);
+    if (!empty($_GET['instagram']))      $formData['instagram'] = trim((string)$_GET['instagram']);
+    if (!empty($_GET['youtube']))        $formData['youtube'] = trim((string)$_GET['youtube']);
+    if (!empty($_GET['google_map_url'])) $formData['google_map_url'] = trim((string)$_GET['google_map_url']);
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -50,6 +57,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stages = isset($_POST['stages']) && is_array($_POST['stages']) ? $_POST['stages'] : [];
         $phone = trim($_POST['phone'] ?? '');
         $whatsapp = trim($_POST['whatsapp'] ?? '');
+        $website = trim($_POST['website'] ?? '');
+        $facebook = trim($_POST['facebook'] ?? '');
+        $tiktok = trim($_POST['tiktok'] ?? '');
+        $instagram = trim($_POST['instagram'] ?? '');
+        $youtube = trim($_POST['youtube'] ?? '');
+        $google_map_url = trim($_POST['google_map_url'] ?? '');
 
         // Owner & Auth Info
         $owner_name = trim($_POST['owner_name'] ?? '');
@@ -132,12 +145,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 $insStmt = $pdo->prepare("INSERT INTO daleel_schools (
                     name, name_en, slug, country, school_type, gender_type, curriculum, established_year, stages,
-                    state, city, district, phone, whatsapp, email, facilities,
+                    state, city, district, phone, whatsapp, email, website, facebook, tiktok, instagram, youtube, google_map_url, facilities,
                     status, owner_name, owner_title, owner_phone, owner_email, password,
                     rating_avg, reviews_count, views_count, is_schoplus_client, is_verified, created_at, updated_at
                 ) VALUES (
                     :name, :name_en, :slug, :country, :school_type, :gender_type, :curriculum, :established_year, :stages,
-                    :state, :city, :district, :phone, :whatsapp, :email, :facilities,
+                    :state, :city, :district, :phone, :whatsapp, :email, :website, :facebook, :tiktok, :instagram, :youtube, :google_map_url, :facilities,
                     'pending', :owner_name, :owner_title, :owner_phone, :owner_email, :password,
                     5.00, 0, 1, 0, 0, NOW(), NOW()
                 )");
@@ -158,6 +171,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ':phone' => $phone,
                     ':whatsapp' => $whatsapp ?: $phone,
                     ':email' => $owner_email ?: null,
+                    ':website' => $website ?: null,
+                    ':facebook' => $facebook ?: null,
+                    ':tiktok' => $tiktok ?: null,
+                    ':instagram' => $instagram ?: null,
+                    ':youtube' => $youtube ?: null,
+                    ':google_map_url' => $google_map_url ?: null,
                     ':facilities' => $facilitiesJson,
                     ':owner_name' => $owner_name,
                     ':owner_title' => $owner_title,
@@ -344,6 +363,35 @@ $statesWithCities = SudanGeography::statesWithCities($selectedCountry);
                         <div class="col-md-6">
                             <label class="form-label small fw-bold text-secondary">رقم واتساب المدرسة (للاستفسارات المباشرة)</label>
                             <input type="tel" name="whatsapp" class="form-control" value="<?= e($formData['whatsapp'] ?? '') ?>" placeholder="09xxxxxxx">
+                        </div>
+
+                        <!-- Digital Presence & Social Links (Imported or Optional) -->
+                        <div class="col-12 mt-3 pt-3 border-top">
+                            <span class="badge bg-warning text-dark px-2.5 py-1 rounded-pill fw-bold mb-2" style="font-size: 0.68rem;">
+                                <i class="fas fa-satellite-dish me-1"></i> الوجود الرقمي وشبكات التواصل (مستورد من الفحص أو اختياري)
+                            </span>
+                            <div class="row g-2">
+                                <div class="col-md-6">
+                                    <label class="form-label small text-muted"><i class="fas fa-globe text-primary me-1"></i> الموقع الإلكتروني للمدرسة</label>
+                                    <input type="url" name="website" class="form-control form-control-sm" value="<?= e($formData['website'] ?? '') ?>" placeholder="https://example.edu.sd">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small text-muted"><i class="fab fa-facebook text-primary me-1"></i> رابط صفحة الفيسبوك</label>
+                                    <input type="url" name="facebook" class="form-control form-control-sm" value="<?= e($formData['facebook'] ?? '') ?>" placeholder="https://facebook.com/SchoolName">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label small text-muted"><i class="fab fa-tiktok text-dark me-1"></i> حساب تيك توك</label>
+                                    <input type="text" name="tiktok" class="form-control form-control-sm" value="<?= e($formData['tiktok'] ?? '') ?>" placeholder="https://tiktok.com/@school">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label small text-muted"><i class="fab fa-instagram text-danger me-1"></i> انستغرام / يوتيوب</label>
+                                    <input type="text" name="instagram" class="form-control form-control-sm" value="<?= e($formData['instagram'] ?? ($formData['youtube'] ?? '')) ?>" placeholder="رابط انستغرام أو يوتيوب">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label small text-muted"><i class="fas fa-map-marked-alt text-danger me-1"></i> رابط خريطة جوجل</label>
+                                    <input type="url" name="google_map_url" class="form-control form-control-sm" value="<?= e($formData['google_map_url'] ?? '') ?>" placeholder="https://maps.google.com/?q=...">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

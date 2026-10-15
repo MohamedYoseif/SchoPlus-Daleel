@@ -1153,6 +1153,10 @@ $isDaleelMobile = (
                 <a href="/compare.php" class="offcanvas-nav-link">
                     <i class="fas fa-balance-scale text-warning" style="width:18px"></i> مقارنة المدارس
                 </a>
+                <a href="/presence-audit.php" class="offcanvas-nav-link">
+                    <i class="fas fa-satellite-dish text-primary" style="width:18px"></i> فحص الوجود الرقمي
+                    <span class="badge bg-warning text-dark ms-auto" style="font-size: 0.62rem; padding: 2px 6px;">جديد ⚡</span>
+                </a>
                 <a href="/app.php" class="offcanvas-nav-link">
                     <i class="fab fa-android text-success" style="width:18px"></i> تطبيق أندرويد (APK)
                 </a>
@@ -1189,6 +1193,10 @@ $isDaleelMobile = (
                 <span>دليل المدارس السودانية — استكشف وقارن المدارس بكل ثقة</span>
             </div>
             <div class="d-flex align-items-center gap-3">
+                <a href="/presence-audit.php" class="text-white text-decoration-none d-flex align-items-center gap-1" style="font-size: 0.72rem;">
+                    <i class="fas fa-satellite-dish text-warning"></i> فحص الوجود الرقمي ⚡
+                </a>
+                <span style="color: rgba(255,255,255,0.25);">|</span>
                 <a href="/compare.php" class="text-white text-decoration-none d-flex align-items-center gap-1" style="font-size: 0.72rem;">
                     <i class="fas fa-balance-scale text-warning"></i> مقارنة المدارس
                 </a>
@@ -1215,6 +1223,7 @@ $isDaleelMobile = (
                     <a href="/?view=top_rated" class="nav-link-custom"><i class="fas fa-star text-warning"></i> الأعلى تقييماً</a>
                     <a href="/#search-section" class="nav-link-custom"><i class="fas fa-search text-muted"></i> استكشف المدارس</a>
                     <a href="/compare.php" class="nav-link-custom"><i class="fas fa-balance-scale text-warning"></i> مقارنة المدارس</a>
+                    <a href="/presence-audit.php" class="nav-link-custom"><i class="fas fa-satellite-dish text-primary"></i> فحص الوجود الرقمي <span class="badge bg-warning text-dark px-1.5 py-0.5 rounded-pill" style="font-size:0.6rem; vertical-align: middle;">⚡</span></a>
                     <a href="https://schoplus.sd" target="_blank" class="nav-link-custom"><i class="fas fa-globe text-info"></i> عن المنظومة</a>
                 </div>
             </nav>
