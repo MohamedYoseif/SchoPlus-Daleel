@@ -1,7 +1,7 @@
 {
-    "version": "3.6.60",
+    "version": "3.6.64",
     "release_date": "2026-10-15",
     "version_type": "enterprise",
     "min_php_version": "8.2",
-    "release_notes": "دليل المدارس (daleel.schoplus.sd) — إزالة الشريط العلوي الإعلاني وقائمة التنقل من الهيدر لتوفير هيدر نقي فائق البساطة يركز على الشعار وأزرار العمليات v3.6.60"
+    "release_notes": "دليل المدارس (daleel.schoplus.sd) — ميزة التحديث والبحث اللحظي بدون إعادة تحميل الصفحة (Instant AJAX Search & Filtering) مع مزامنة الروابط والتاريخ والنموذج v3.6.64"
 }

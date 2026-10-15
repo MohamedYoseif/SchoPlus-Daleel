@@ -1,6 +1,9 @@
 <?php
-$pageTitle = 'دليل المدارس — دليلك الشامل لاختيار أفضل المدارس';
-require_once __DIR__ . '/header.php';
+require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/SudanGeography.php';
+
+$isAjax = (!empty($_GET['ajax']) && $_GET['ajax'] == '1') || 
+          (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest');
 
 $pdo = db();
 
@@ -98,6 +101,7 @@ $sudanRegionMapping = [
  */
 function buildFilterUrl(array $overrides = []): string {
     $params = $_GET;
+    unset($params['ajax']);
     foreach ($overrides as $k => $v) {
         if ($v === null || $v === '') {
             unset($params[$k]);
@@ -262,9 +266,72 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
 </div>
 <?php
 };
+
+// Dynamic Title Resolution
+$dynamicTitle = 'دليل المدارس — دليلك الشامل لاختيار أفضل المدارس';
+if (!empty($state)) {
+    $dynamicTitle = "مدارس ولاية {$state} — دليل المدارس الذكي";
+} elseif ($view === 'schoplus' || $schoplusOnly) {
+    $dynamicTitle = 'مدارس SchoPlus الذكية — دليل المدارس';
+} elseif ($view === 'top_rated' || $sort === 'rating') {
+    $dynamicTitle = 'المدارس الأعلى تقييماً — دليل المدارس';
+} elseif ($view === 'latest' || $sort === 'latest') {
+    $dynamicTitle = 'أحدث المدارس المنضمة — دليل المدارس';
+} elseif (!empty($q)) {
+    $dynamicTitle = "نتائج البحث عن '{$q}' — دليل المدارس";
+}
+
+// Handle AJAX Partial Response
+if ($isAjax) {
+    header('Content-Type: application/json; charset=UTF-8');
+    ob_start();
+    require __DIR__ . '/_catalog_content.php';
+    $catalogHtml = ob_get_clean();
+
+    echo json_encode([
+        'success' => true,
+        'title' => $dynamicTitle,
+        'html' => $catalogHtml,
+        'total' => $isSearching ? $totalMatching : $statTotal,
+        'state' => $state,
+        'city' => $city,
+        'stage' => $stage,
+        'q' => $q,
+        'view' => $view,
+        'sort' => $sort,
+        'schoplus_only' => $schoplusOnly ? 1 : 0
+    ], JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
+// Normal Full Page Request: Render Header
+$pageTitle = $dynamicTitle;
+require_once __DIR__ . '/header.php';
 ?>
 
 <style>
+/* AJAX Dynamic Loader Bar & Transitions */
+#catalog-dynamic-wrap {
+    transition: opacity 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.sp-ajax-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #F5A020 0%, #1E5FA8 50%, #F5A020 100%);
+    background-size: 200% 100%;
+    animation: spAjaxLoaderBar 1s linear infinite;
+    z-index: 50;
+    display: none;
+    border-radius: 3px;
+}
+@keyframes spAjaxLoaderBar {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
 /* ===== SCHOPLUS STYLE F v2 HERO & SEARCH BAR ===== */
 .daleel-hero-v2 {
     background: #F0F4F8;
@@ -1459,302 +1526,10 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
 </section>
 
 <!-- MAIN DIRECTORY CATALOG WITH MODERN STATES SIDEBAR FILTER -->
-<section class="py-3" id="directory-catalog-section">
-    <div class="container">
-        
-        <!-- Mandatory Specification for Main Tabs (.sp-main-tabs) -->
-        <div class="sp-main-tabs-wrap">
-            <div class="sp-main-tabs">
-                <a href="<?= buildFilterUrl(['view' => null, 'sort' => null, 'schoplus_only' => null]) ?>" class="sp-main-tab <?= (empty($view) || $view === 'all') && !$schoplusOnly && $sort !== 'rating' && $sort !== 'latest' ? 'active' : '' ?>">
-                    <i class="fas fa-layer-group"></i> كافة المدارس
-                    <span class="tab-badge"><?= number_format($statTotal) ?></span>
-                </a>
-                <a href="<?= buildFilterUrl(['view' => 'schoplus', 'sort' => null]) ?>" class="sp-main-tab <?= $view === 'schoplus' || $schoplusOnly ? 'active' : '' ?>">
-                    <i class="fas fa-bolt"></i> مدارس SchoPlus الذكية
-                    <span class="tab-badge"><?= number_format($statSchoplus) ?></span>
-                </a>
-                <a href="<?= buildFilterUrl(['view' => 'top_rated', 'sort' => 'rating']) ?>" class="sp-main-tab <?= $view === 'top_rated' || $sort === 'rating' ? 'active' : '' ?>">
-                    <i class="fas fa-star"></i> الأعلى تقييماً
-                    <span class="tab-badge"><?= number_format($totalTopRatedCount) ?></span>
-                </a>
-                <a href="<?= buildFilterUrl(['view' => 'latest', 'sort' => 'latest']) ?>" class="sp-main-tab <?= $view === 'latest' || $sort === 'latest' ? 'active' : '' ?>">
-                    <i class="fas fa-clock"></i> المضافة حديثاً
-                    <span class="tab-badge"><?= number_format($statTotal) ?></span>
-                </a>
-            </div>
-        </div>
-
-        <!-- Mobile Filter Toggle Button -->
-        <div class="d-lg-none mb-3">
-            <button class="btn btn-white border w-100 py-2.5 px-3 d-flex justify-content-between align-items-center rounded-3 shadow-sm sp-mobile-filter-btn" type="button" data-bs-toggle="collapse" data-bs-target="#statesSidebarCollapse" aria-expanded="false" aria-controls="statesSidebarCollapse">
-                <span class="d-flex align-items-center gap-2">
-                    <i class="fas fa-filter text-primary"></i>
-                    <span>تصفية حسب الولاية:</span>
-                    <strong style="color: #0B2A52;"><?= !empty($state) ? 'ولاية ' . e($state) : 'كافة الولايات (18 ولاية)' ?></strong>
-                </span>
-                <span class="badge bg-light text-dark border"><i class="fas fa-sliders-h"></i></span>
-            </button>
-        </div>
-
-        <!-- 2-COLUMN CATALOG LAYOUT: SIDEBAR FILTER (RIGHT) + CATALOG GRID (LEFT) -->
-        <div class="row g-4 align-items-start">
-            
-            <!-- 1. RIGHT SIDEBAR: MODERN STATES FILTER (col-lg-3 col-md-4) -->
-            <div class="col-lg-3 col-md-4">
-                <div class="collapse d-lg-block" id="statesSidebarCollapse">
-                    <aside class="sp-state-sidebar-wrap">
-                        <div class="sp-state-sidebar-card">
-                            
-                            <!-- Header -->
-                            <div class="sp-state-sidebar-header">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <div class="sp-state-sidebar-icon">
-                                            <i class="fas fa-map-marked-alt"></i>
-                                        </div>
-                                        <div>
-                                            <h5 class="sp-state-sidebar-title"><?= !empty($country) && $country !== 'السودان' ? 'تصفية حسب ' . e($regionMiniLabel) : 'تصفية حسب الولاية' ?></h5>
-                                            <span class="sp-state-sidebar-subtitle"><?= !empty($country) && $country !== 'السودان' ? (count($statesWithCities) . ' ' . e($regionAllLabel)) : '18 ولاية سودانية' ?></span>
-                                        </div>
-                                    </div>
-                                    <?php if (!empty($state)): ?>
-                                        <a href="<?= buildFilterUrl(['state' => null, 'city' => null]) ?>" class="sp-state-reset-link" title="إلغاء تصفية الولاية">
-                                            <i class="fas fa-times-circle"></i> مسح
-                                        </a>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-
-                            <!-- Quick Search in States -->
-                            <div class="sp-state-sidebar-search">
-                                <div class="input-group input-group-sm">
-                                    <span class="input-group-text bg-white border-end-0 text-muted" style="border-color: #DDE4ED;">
-                                        <i class="fas fa-search" style="font-size: 0.7rem;"></i>
-                                    </span>
-                                    <input type="text" id="sidebarStateSearch" class="form-control border-start-0 ps-1" placeholder="<?= e($regionSearchPlaceholder) ?>" style="border-color: #DDE4ED; font-size: 0.74rem;" oninput="filterSidebarStates(this.value)">
-                                </div>
-                            </div>
-
-                            <?php if (empty($country) || $country === 'السودان'): ?>
-                            <!-- Regional Jump Pills -->
-                            <div class="sp-state-sidebar-regions">
-                                <button type="button" class="sp-sidebar-region-btn is-active" data-region="all" onclick="filterSidebarRegion('all', this)">الكل</button>
-                                <button type="button" class="sp-sidebar-region-btn" data-region="central" onclick="filterSidebarRegion('central', this)">الوسط</button>
-                                <button type="button" class="sp-sidebar-region-btn" data-region="east" onclick="filterSidebarRegion('east', this)">الشرق</button>
-                                <button type="button" class="sp-sidebar-region-btn" data-region="north" onclick="filterSidebarRegion('north', this)">الشمال</button>
-                                <button type="button" class="sp-sidebar-region-btn" data-region="kordofan" onclick="filterSidebarRegion('kordofan', this)">كردفان</button>
-                                <button type="button" class="sp-sidebar-region-btn" data-region="darfur" onclick="filterSidebarRegion('darfur', this)">دارفور</button>
-                            </div>
-                            <?php endif; ?>
-
-                            <!-- States List -->
-                            <div class="sp-state-sidebar-list" id="sidebarStatesList">
-                                
-                                <!-- All States / Country Item -->
-                                <a href="<?= buildFilterUrl(['state' => null, 'city' => null]) ?>" class="sp-state-item <?= empty($state) ? 'is-active' : '' ?>" data-region="all">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <span class="sp-state-dot"></span>
-                                        <span class="sp-state-item-name"><?= !empty($country) && $country !== 'السودان' ? 'كافة مناطق ' . e($country) : 'كافة ولايات السودان' ?></span>
-                                    </div>
-                                    <span class="sp-state-item-count"><?= number_format($statTotal) ?></span>
-                                </a>
-
-                                <?php 
-                                    $statesLoop = (!empty($country) && $country !== 'السودان') ? array_keys($statesWithCities) : $allStatesList;
-                                    foreach($statesLoop as $stName): 
-                                        $countInState = $stateCounts[$stName] ?? 0;
-                                        $isSelected = ($state === $stName);
-                                        $stUrl = $isSelected ? buildFilterUrl(['state' => null, 'city' => null]) : buildFilterUrl(['state' => $stName, 'city' => null]);
-                                        $regKey = $sudanRegionMapping[$stName] ?? 'all';
-                                ?>
-                                <a href="<?= $stUrl ?>" class="sp-state-item <?= $isSelected ? 'is-active' : '' ?>" data-region="<?= $regKey ?>" data-name="<?= e($stName) ?>">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <span class="sp-state-dot"></span>
-                                        <span class="sp-state-item-name">ولاية <?= e($stName) ?></span>
-                                    </div>
-                                    <span class="sp-state-item-count <?= $countInState > 0 ? 'has-count' : '' ?>"><?= number_format($countInState) ?></span>
-                                </a>
-                                <?php endforeach; ?>
-                                
-                                <div id="noMatchingStatesMsg" class="p-3 text-center text-muted d-none" style="font-size: 0.72rem;">
-                                    لا توجد ولاية مطابقة للبحث
-                                </div>
-                            </div>
-
-                            <!-- Footer -->
-                            <div class="sp-state-sidebar-footer">
-                                <i class="fas fa-check-circle text-success me-1"></i>
-                                <span>تحديث لحظي لعدد المدارس</span>
-                            </div>
-
-                        </div>
-                    </aside>
-                </div>
-            </div>
-
-            <!-- 2. LEFT COLUMN: ACTIVE CHIPS + SCHOOLS GRID (col-lg-9 col-md-8) -->
-            <div class="col-lg-9 col-md-8">
-                
-                <!-- Active Filters Chips -->
-                <?php if ($state !== '' || $city !== '' || $stage !== '' || $q !== '' || $schoplusOnly || ($view !== '' && $view !== 'all')): ?>
-                <div class="sp-active-filter-chips mb-3 d-flex flex-wrap align-items-center gap-2">
-                    <span class="sp-chips-label"><i class="fas fa-filter text-muted me-1"></i> التصفية الحالية:</span>
-                    <?php if ($state !== ''): ?>
-                        <a href="<?= buildFilterUrl(['state' => null, 'city' => null]) ?>" class="sp-chip-tag" title="إزالة تصفية الولاية">
-                            <span>ولاية: <strong><?= e($state) ?></strong></span>
-                            <i class="fas fa-times ms-1"></i>
-                        </a>
-                    <?php endif; ?>
-                    <?php if ($city !== ''): ?>
-                        <a href="<?= buildFilterUrl(['city' => null]) ?>" class="sp-chip-tag" title="إزالة تصفية المدينة">
-                            <span>مدينة: <strong><?= e($city) ?></strong></span>
-                            <i class="fas fa-times ms-1"></i>
-                        </a>
-                    <?php endif; ?>
-                    <?php if ($stage !== ''): ?>
-                        <a href="<?= buildFilterUrl(['stage' => null]) ?>" class="sp-chip-tag" title="إزالة تصفية المرحلة">
-                            <span>مرحلة: <strong><?= e($schoolStages[$stage] ?? $stage) ?></strong></span>
-                            <i class="fas fa-times ms-1"></i>
-                        </a>
-                    <?php endif; ?>
-                    <?php if ($q !== ''): ?>
-                        <a href="<?= buildFilterUrl(['q' => null]) ?>" class="sp-chip-tag" title="إزالة البحث النصي">
-                            <span>بحث: <strong><?= e($q) ?></strong></span>
-                            <i class="fas fa-times ms-1"></i>
-                        </a>
-                    <?php endif; ?>
-                    <?php if ($view === 'schoplus' || $schoplusOnly): ?>
-                        <a href="<?= buildFilterUrl(['view' => null, 'schoplus_only' => null]) ?>" class="sp-chip-tag" title="إزالة تصفية المدارس الذكية">
-                            <span><strong>مدارس SchoPlus الذكية</strong></span>
-                            <i class="fas fa-times ms-1"></i>
-                        </a>
-                    <?php endif; ?>
-                    <?php if ($view === 'top_rated' || $sort === 'rating'): ?>
-                        <a href="<?= buildFilterUrl(['view' => null, 'sort' => null]) ?>" class="sp-chip-tag" title="إزالة تصفية التقييم">
-                            <span><strong>المدارس الأعلى تقييماً</strong></span>
-                            <i class="fas fa-times ms-1"></i>
-                        </a>
-                    <?php endif; ?>
-                    <?php if ($view === 'latest' || $sort === 'latest'): ?>
-                        <a href="<?= buildFilterUrl(['view' => null, 'sort' => null]) ?>" class="sp-chip-tag" title="إزالة تصفية الأحدث">
-                            <span><strong>المضافة حديثاً</strong></span>
-                            <i class="fas fa-times ms-1"></i>
-                        </a>
-                    <?php endif; ?>
-                    <a href="/" class="sp-chips-reset text-danger text-decoration-none ms-auto" style="font-size: 0.72rem; font-weight: 700;">
-                        <i class="fas fa-undo me-1"></i> مسح الكل
-                    </a>
-                </div>
-                <?php endif; ?>
-
-                <?php if ($isSearching): ?>
-                    <!-- SEARCH RESULTS HEADER -->
-                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 pb-2 border-bottom">
-                        <div>
-                            <h2 style="font-size: 1.15rem; font-weight: 700; color: #0B2A52; margin: 0;">
-                                <?php if ($view === 'schoplus' || $schoplusOnly): ?>
-                                    مدارس معتمدة بنظام SchoPlus الذكي <?= !empty($state) ? '— ولاية ' . e($state) : '' ?>
-                                <?php elseif ($view === 'top_rated' || $sort === 'rating'): ?>
-                                    المدارس الأعلى تقييماً في الدليل <?= !empty($state) ? '— ولاية ' . e($state) : '' ?>
-                                <?php elseif ($view === 'latest' || $sort === 'latest'): ?>
-                                    أحدث المدارس المنضمة إلى الدليل <?= !empty($state) ? '— ولاية ' . e($state) : '' ?>
-                                <?php elseif ($state !== '' && empty($q) && empty($stage) && empty($city)): ?>
-                                    مدارس ولاية <?= e($state) ?>
-                                <?php elseif ($country !== '' || $state !== '' || $city !== '' || $stage !== '' || $q !== ''): ?>
-                                    نتائج البحث المخصص
-                                <?php else: ?>
-                                    جميع المدارس المسجلة
-                                <?php endif; ?>
-                            </h2>
-                            <p style="color: #64748B; font-size: 0.74rem; margin-top: 4px; margin-bottom: 0;">
-                                تم العثور على <strong><?= number_format($totalMatching) ?></strong> مدرسة مطابقة لمعايير البحث.
-                            </p>
-                        </div>
-                        <div class="mt-2 mt-md-0 d-flex gap-2 align-items-center">
-                            <a href="/" class="btn-luxury-outline btn-sm">
-                                <i class="fas fa-arrow-right"></i>
-                                <span>عرض كافة المدارس</span>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- SEARCH RESULTS GRID -->
-                    <div class="row g-3">
-                        <?php if (empty($searchResults)): ?>
-                            <div class="col-12 py-5 text-center">
-                                <div class="p-5 bg-white rounded-3 border text-center shadow-sm max-w-md mx-auto" style="max-width: 480px; margin: 0 auto;">
-                                    <i class="fas fa-school fa-3x text-muted mb-3 opacity-50"></i>
-                                    <h4 class="fw-bold text-dark" style="font-size: 1.05rem;">لا توجد مدارس مطابقة للبحث حالياً</h4>
-                                    <p class="text-muted small" style="font-size: 0.74rem;">جرب تغيير شروط الفلترة أو تصفح ولاية أخرى لاكتشاف خيارات أوسع.</p>
-                                    <a href="/" class="btn-luxury-primary btn-sm mt-2">
-                                        <i class="fas fa-undo me-1"></i> إعادة ضبط وعرض كل المدارس
-                                    </a>
-                                </div>
-                            </div>
-                        <?php else: ?>
-                            <?php foreach($searchResults as $s): ?>
-                                <?php $renderSchoolCard($s); ?>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    </div>
-
-                <?php else: ?>
-
-                    <!-- DEFAULT VIEW: FEATURED SCHOPLUS SHOWCASE -->
-                    <?php if (!empty($schoplusShowcase)): ?>
-                    <div class="mb-4">
-                        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3">
-                            <div>
-                                <span style="color: #1E5FA8; font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">
-                                    <i class="fas fa-award me-1"></i> التميز والرقمنة
-                                </span>
-                                <h2 style="font-size: 1.15rem; font-weight: 700; color: #0B2A52; margin: 0;">مدارس ذكية رائدة تعمل بنظام SchoPlus</h2>
-                            </div>
-                            <?php if ($statSchoplus > 6): ?>
-                                <div class="mt-2 mt-md-0">
-                                    <a href="<?= buildFilterUrl(['view' => 'schoplus']) ?>" class="btn-luxury-outline btn-sm">
-                                        <span>عرض جميع المدارس الذكية (<?= $statSchoplus ?>)</span>
-                                        <i class="fas fa-arrow-left"></i>
-                                    </a>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-
-                        <div class="row g-3">
-                            <?php foreach($schoplusShowcase as $s): ?>
-                                <?php $renderSchoolCard($s); ?>
-                            <?php endforeach; ?>
-                        </div>
-                    </div>
-                    <?php endif; ?>
-
-                    <!-- DEFAULT VIEW: MAIN CATALOG GRID -->
-                    <div>
-                        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3 pb-2 border-bottom">
-                            <div>
-                                <span style="color: #64748B; font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">
-                                    <i class="fas fa-list me-1"></i> استكشف المدارس
-                                </span>
-                                <h2 style="font-size: 1.15rem; font-weight: 700; color: #0B2A52; margin: 0;">دليل المدارس المعتمدة في السودان</h2>
-                            </div>
-                            <div class="mt-2 mt-md-0 text-muted" style="font-size: 0.72rem;">
-                                عرض <strong><?= count($catalogSchools) ?></strong> من أصل <strong><?= $statTotal ?></strong> مدرسة مسجلة
-                            </div>
-                        </div>
-
-                        <div class="row g-3">
-                            <?php foreach($catalogSchools as $s): ?>
-                                <?php $renderSchoolCard($s); ?>
-                            <?php endforeach; ?>
-                        </div>
-                    </div>
-
-                <?php endif; ?>
-
-            </div>
-
-        </div>
-
+<section class="py-3" id="directory-catalog-section" style="position: relative;">
+    <div class="sp-ajax-progress" id="spAjaxProgress"></div>
+    <div class="container" id="catalog-dynamic-wrap">
+        <?php require __DIR__ . '/_catalog_content.php'; ?>
     </div>
 </section>
 
@@ -2175,6 +1950,265 @@ $extraScripts = <<<JS
                 }
             }
         } catch(err) {}
+
+        // ========================================================
+        // SCHOPLUS DALEEL — INSTANT AJAX SEARCH & FILTER CONTROLLER
+        // ========================================================
+        const catalogWrap = document.getElementById('catalog-dynamic-wrap');
+        const progressBar = document.getElementById('spAjaxProgress');
+        const smartFilterForm = document.getElementById('smartFilterForm');
+        let isFetchingCatalog = false;
+        let activeAbortCtrl = null;
+
+        function setCatalogLoading(loading) {
+            if (catalogWrap) {
+                catalogWrap.style.transition = 'opacity 0.22s ease';
+                catalogWrap.style.opacity = loading ? '0.45' : '1';
+                catalogWrap.style.pointerEvents = loading ? 'none' : 'auto';
+            }
+            if (progressBar) {
+                progressBar.style.display = loading ? 'block' : 'none';
+            }
+        }
+
+        async function loadCatalogAjax(url, pushToHistory = true, shouldScroll = false) {
+            if (isFetchingCatalog && activeAbortCtrl) {
+                activeAbortCtrl.abort();
+            }
+            activeAbortCtrl = new AbortController();
+            isFetchingCatalog = true;
+            setCatalogLoading(true);
+
+            try {
+                const targetObj = new URL(url, window.location.origin);
+                targetObj.searchParams.set('ajax', '1');
+
+                const response = await fetch(targetObj.toString(), {
+                    signal: activeAbortCtrl.signal,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (!response.ok) throw new Error('HTTP ' + response.status);
+                const data = await response.json();
+
+                if (data && typeof data.html === 'string' && catalogWrap) {
+                    // Update catalog markup
+                    catalogWrap.innerHTML = data.html;
+
+                    // Update document title
+                    if (data.title) {
+                        document.title = data.title;
+                    }
+
+                    // Update browser address bar without reload
+                    if (pushToHistory) {
+                        const cleanUrl = new URL(url, window.location.origin);
+                        cleanUrl.searchParams.delete('ajax');
+                        window.history.pushState({ path: cleanUrl.toString() }, '', cleanUrl.toString());
+                    }
+
+                    // Smooth scroll to catalog section if user submitted hero form or requested
+                    if (shouldScroll) {
+                        const sec = document.getElementById('directory-catalog-section');
+                        if (sec) {
+                            const top = sec.getBoundingClientRect().top + window.pageYOffset - 80;
+                            window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+                        }
+                    }
+
+                    // Close mobile filter collapse if open on small screens
+                    const mobCollapse = document.getElementById('statesSidebarCollapse');
+                    if (mobCollapse && window.innerWidth < 992 && typeof bootstrap !== 'undefined') {
+                        const bsCol = bootstrap.Collapse.getInstance(mobCollapse);
+                        if (bsCol) bsCol.hide();
+                    }
+
+                    // Synchronize Hero form inputs/dropdowns
+                    syncHeroForm(data);
+                }
+            } catch (err) {
+                if (err.name !== 'AbortError') {
+                    console.warn('AJAX load failed, falling back to full navigation:', err);
+                    window.location.href = url;
+                }
+            } finally {
+                isFetchingCatalog = false;
+                setCatalogLoading(false);
+            }
+        }
+
+        // Synchronize Hero Form Dropdowns and Search Input
+        function syncHeroForm(data) {
+            if (!smartFilterForm) return;
+
+            // 1. Search text input
+            const qInput = smartFilterForm.querySelector('input[name="q"]');
+            if (qInput && typeof data.q !== 'undefined') {
+                qInput.value = data.q;
+            }
+
+            // 2. State select & trigger
+            const stateSelect = document.getElementById('filterStateSelect');
+            const stateTrigger = document.querySelector('#trigger_filterStateSelect .sp-hero-dropdown-selected-val');
+            if (stateSelect && stateTrigger && typeof data.state !== 'undefined') {
+                stateSelect.value = data.state;
+                stateTrigger.textContent = data.state || 'جميع الولايات';
+                const panel = document.getElementById('panel_filterStateSelect');
+                if (panel) {
+                    panel.querySelectorAll('.sp-hero-dropdown-option').forEach(opt => {
+                        const isMatch = opt.dataset.value === (data.state || '');
+                        opt.classList.toggle('is-selected', isMatch);
+                        const chk = opt.querySelector('i.fa-check');
+                        if (isMatch && !chk) {
+                            const i = document.createElement('i');
+                            i.className = 'fas fa-check text-primary';
+                            i.style.fontSize = '0.7rem';
+                            opt.appendChild(i);
+                        } else if (!isMatch && chk) {
+                            chk.remove();
+                        }
+                    });
+                }
+            }
+
+            // 3. Stage select & trigger
+            const stageSelect = document.getElementById('filterStageSelect');
+            const stageTrigger = document.querySelector('#trigger_filterStageSelect .sp-hero-dropdown-selected-val');
+            if (stageSelect && stageTrigger && typeof data.stage !== 'undefined') {
+                stageSelect.value = data.stage;
+                const activeOpt = stageSelect.options[stageSelect.selectedIndex];
+                stageTrigger.textContent = activeOpt ? activeOpt.text : 'جميع المراحل';
+                const panel = document.getElementById('panel_filterStageSelect');
+                if (panel) {
+                    panel.querySelectorAll('.sp-hero-dropdown-option').forEach(opt => {
+                        const isMatch = opt.dataset.value === (data.stage || '');
+                        opt.classList.toggle('is-selected', isMatch);
+                        const chk = opt.querySelector('i.fa-check');
+                        if (isMatch && !chk) {
+                            const i = document.createElement('i');
+                            i.className = 'fas fa-check text-primary';
+                            i.style.fontSize = '0.7rem';
+                            opt.appendChild(i);
+                        } else if (!isMatch && chk) {
+                            chk.remove();
+                        }
+                    });
+                }
+            }
+        }
+
+        // 1. Intercept Hero Form Submit
+        if (smartFilterForm) {
+            smartFilterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(smartFilterForm);
+                const params = new URLSearchParams();
+                for (const [k, v] of formData.entries()) {
+                    const val = (v || '').trim();
+                    if (val !== '') {
+                        params.set(k, val);
+                    }
+                }
+                const qs = params.toString();
+                const targetUrl = qs ? '/?' + qs : '/';
+                loadCatalogAjax(targetUrl, true, true);
+            });
+
+            // Live Debounce search while typing in hero search input
+            const qInput = smartFilterForm.querySelector('input[name="q"]');
+            if (qInput) {
+                let debounceTimeout = null;
+                qInput.addEventListener('input', function() {
+                    clearTimeout(debounceTimeout);
+                    debounceTimeout = setTimeout(() => {
+                        const formData = new FormData(smartFilterForm);
+                        const params = new URLSearchParams();
+                        for (const [k, v] of formData.entries()) {
+                            const val = (v || '').trim();
+                            if (val !== '') params.set(k, val);
+                        }
+                        const qs = params.toString();
+                        const targetUrl = qs ? '/?' + qs : '/';
+                        loadCatalogAjax(targetUrl, true, false);
+                    }, 400);
+                });
+            }
+        }
+
+        // 2. Intercept Global Filter Links (Hero Reset, Search Clear Icon)
+        document.addEventListener('click', function(e) {
+            // Hero Form Reset button
+            const resetBtn = e.target.closest('.sp-btn-reset-hero');
+            if (resetBtn) {
+                e.preventDefault();
+                if (smartFilterForm) {
+                    smartFilterForm.reset();
+                    document.querySelectorAll('.sp-hero-dropdown').forEach(dropdown => {
+                        const triggerVal = dropdown.querySelector('.sp-hero-dropdown-selected-val');
+                        const targetId = dropdown.dataset.target;
+                        if (triggerVal) {
+                            if (targetId === 'filterCountrySelect') triggerVal.textContent = 'جميع الدول';
+                            else if (targetId === 'filterStateSelect') triggerVal.textContent = 'جميع الولايات';
+                            else if (targetId === 'filterCitySelect') triggerVal.textContent = 'جميع المدن';
+                            else if (targetId === 'filterStageSelect') triggerVal.textContent = 'جميع المراحل';
+                        }
+                        const sel = document.getElementById(targetId);
+                        if (sel) sel.value = '';
+                    });
+                }
+                loadCatalogAjax('/', true, true);
+                return;
+            }
+
+            // Hero Search Input Clear button (the x icon)
+            const inputClearLink = e.target.closest('.sp-search-input-box a');
+            if (inputClearLink) {
+                e.preventDefault();
+                const qInput = smartFilterForm ? smartFilterForm.querySelector('input[name="q"]') : null;
+                if (qInput) qInput.value = '';
+                const formData = new FormData(smartFilterForm);
+                const params = new URLSearchParams();
+                for (const [k, v] of formData.entries()) {
+                    const val = (v || '').trim();
+                    if (val !== '') params.set(k, val);
+                }
+                const qs = params.toString();
+                const targetUrl = qs ? '/?' + qs : '/';
+                loadCatalogAjax(targetUrl, true, false);
+                return;
+            }
+
+            // 3. Intercept Links inside the Catalog (Main Tabs, Sidebar States, Chips, Reset, Results header)
+            if (catalogWrap && catalogWrap.contains(e.target)) {
+                const link = e.target.closest('a');
+                if (!link) return;
+
+                // Respect modified clicks (Ctrl+Click, Cmd+Click, middle click)
+                if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button === 1) return;
+
+                const href = link.getAttribute('href');
+                if (!href || href === '#' || href.startsWith('javascript:')) return;
+
+                // Don't intercept school page links, telephone, email, whatsapp
+                if (href.startsWith('/school/') || href.startsWith('tel:') || href.startsWith('mailto:') || href.includes('wa.me')) {
+                    return;
+                }
+
+                // Intercept directory catalog navigation
+                if (href === '/' || href.startsWith('/?') || href.startsWith('index.php') || href.startsWith('./')) {
+                    e.preventDefault();
+                    loadCatalogAjax(href, true, false);
+                }
+            }
+        });
+
+        // 4. Handle Browser Back & Forward Buttons (Popstate)
+        window.addEventListener('popstate', function() {
+            loadCatalogAjax(window.location.href, false, false);
+        });
     });
 </script>
 JS;
