@@ -1119,15 +1119,6 @@ $isDaleelMobile = (
 </head>
 <body class="<?= $isDaleelMobile ? 'is-daleel-app' : '' ?>">
     <?php if (!$isDaleelMobile): ?>
-    <!-- Mobile Topbar (visible only on small screens) -->
-    <div class="daleel-topbar-mobile">
-        <span class="text-muted"><i class="fas fa-book-reader text-warning me-1"></i> خدمة رقمية من منظومة ايسكو بلص</span>
-        <span>•</span>
-        <a href="/register.php" class="text-decoration-none fw-bold d-flex align-items-center gap-1" style="color: var(--brand-gold);">
-            <i class="fas fa-plus-circle"></i> سجّل مدرستك
-        </a>
-    </div>
-
     <!-- Mobile Offcanvas Navigation -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileNavOffcanvas" aria-labelledby="mobileNavLabel">
         <div class="offcanvas-header border-bottom" style="background: var(--bg-surface-tint);">
@@ -1184,31 +1175,7 @@ $isDaleelMobile = (
         </div>
     </div>
 
-    <!-- Top Announcement Bar -->
-    <div class="daleel-topbar d-none d-md-block">
-        <div class="container d-flex justify-content-between align-items-center">
-            <div class="d-flex align-items-center gap-2">
-                <span style="color: #F5A020; font-weight: 700;"><i class="fas fa-graduation-cap me-1"></i> دليل المدارس</span>
-                <span style="color: rgba(255,255,255,0.7);">•</span>
-                <span>دليل المدارس السودانية — استكشف وقارن المدارس بكل ثقة</span>
-            </div>
-            <div class="d-flex align-items-center gap-3">
-                <a href="/presence-audit.php" class="text-white text-decoration-none d-flex align-items-center gap-1" style="font-size: 0.72rem;">
-                    <i class="fas fa-satellite-dish text-warning"></i> فحص الوجود الرقمي
-                </a>
-                <span style="color: rgba(255,255,255,0.25);">|</span>
-                <a href="/compare.php" class="text-white text-decoration-none d-flex align-items-center gap-1" style="font-size: 0.72rem;">
-                    <i class="fas fa-balance-scale text-warning"></i> مقارنة المدارس
-                </a>
-                <span style="color: rgba(255,255,255,0.25);">|</span>
-                <a href="https://schoplus.sd" target="_blank" class="text-white text-decoration-none d-flex align-items-center gap-1" style="font-size: 0.72rem;">
-                    <i class="fas fa-globe text-info"></i> منظومة SchoPlus
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Main Navigation Header -->
+    <!-- Main Navigation Header (Clean Minimalist: Brand + Actions) -->
     <header class="daleel-navbar">
         <div class="container d-flex justify-content-between align-items-center">
             
@@ -1216,39 +1183,27 @@ $isDaleelMobile = (
                 <img src="/assets/images/logo.png" alt="دليل المدارس" class="daleel-logo-img">
             </a>
 
-            <nav class="d-none d-lg-flex align-items-center">
-                <div class="daleel-nav-island">
-                    <a href="/" class="nav-link-custom"><i class="fas fa-home text-muted"></i> الرئيسية</a>
-                    <a href="/?view=schoplus" class="nav-link-custom"><i class="fas fa-bolt text-primary"></i> المدارس الذكية</a>
-                    <a href="/?view=top_rated" class="nav-link-custom"><i class="fas fa-star text-warning"></i> الأعلى تقييماً</a>
-                    <a href="/#search-section" class="nav-link-custom"><i class="fas fa-search text-muted"></i> استكشف المدارس</a>
-                    <a href="/compare.php" class="nav-link-custom"><i class="fas fa-balance-scale text-warning"></i> مقارنة المدارس</a>
-                    <a href="/presence-audit.php" class="nav-link-custom"><i class="fas fa-satellite-dish text-primary"></i> فحص الوجود الرقمي <span class="badge bg-warning text-dark px-1.5 py-0.5 rounded-pill" style="font-size:0.6rem; vertical-align: middle;">جديد</span></a>
-                    <a href="https://schoplus.sd" target="_blank" class="nav-link-custom"><i class="fas fa-globe text-info"></i> عن المنظومة</a>
-                </div>
-            </nav>
-
             <div class="d-flex align-items-center gap-2">
                 <!-- Hamburger (mobile only) -->
-                <button class="mobile-nav-toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileNavOffcanvas" aria-controls="mobileNavOffcanvas">
+                <button class="mobile-nav-toggle d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileNavOffcanvas" aria-controls="mobileNavOffcanvas">
                     <i class="fas fa-bars"></i>
                     <span>القائمة</span>
                 </button>
-                <!-- Desktop CTA buttons -->
+                <!-- CTA buttons -->
                 <?php if ($currSchool): ?>
-                    <a href="/dashboard.php" class="btn-luxury-outline d-none d-lg-inline-flex" style="border-radius: 8px; padding: 7px 16px;">
+                    <a href="/dashboard.php" class="btn-luxury-outline" style="border-radius: 8px; padding: 7px 16px;">
                         <i class="fas fa-columns text-primary"></i>
                         <span>لوحة إدارة المدرسة</span>
                     </a>
-                    <a href="/logout.php" class="btn btn-sm btn-light border text-danger d-none d-lg-inline-flex rounded-circle" style="width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center;" title="تسجيل الخروج">
+                    <a href="/logout.php" class="btn btn-sm btn-light border text-danger rounded-circle" style="width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center;" title="تسجيل الخروج">
                         <i class="fas fa-sign-out-alt"></i>
                     </a>
                 <?php else: ?>
-                    <a href="/login.php" class="btn-luxury-outline d-none d-lg-inline-flex" style="border-radius: 8px; padding: 7px 16px;">
+                    <a href="/login.php" class="btn-luxury-outline d-none d-sm-inline-flex" style="border-radius: 8px; padding: 7px 16px;">
                         <i class="fas fa-user-tie text-secondary"></i>
                         <span>دخول أصحاب المدارس</span>
                     </a>
-                    <a href="/register.php" class="btn-luxury-primary d-none d-lg-inline-flex" style="border-radius: 8px; padding: 7px 18px;">
+                    <a href="/register.php" class="btn-luxury-primary" style="border-radius: 8px; padding: 7px 18px;">
                         <i class="fas fa-plus-circle"></i>
                         <span>سجّل مدرستك الآن</span>
                     </a>
