@@ -70,7 +70,7 @@ if ($school['status'] === 'suspended') {
             <div class="display-3 text-danger mb-3"><i class="fas fa-ban"></i></div>
             <h3 class="fw-bold mb-3">تم إيقاف ظهور المدرسة مؤقتاً</h3>
             <p class="text-muted mb-4"><?= e($school['rejection_reason'] ?: 'تم إيقاف ظهور صفحة هذه المدرسة مؤقتاً بقرار إداري. للمراجعة يرجى التواصل مع إدارة دليل المدارس.') ?></p>
-            <a href="/" class="btn-luxury-outline"><i class="fas fa-arrow-right me-2"></i> تصفح المدارس المعتمدة</a>
+            <a href="/" class="btn-luxury-outline"><i class="fas fa-arrow-right me-2"></i> تصفح دليل المدارس</a>
         </div>
     </div>
     <?php
@@ -88,7 +88,7 @@ if ($school['status'] !== 'approved' && !$isOwner) {
             <div class="display-3 text-warning mb-3"><i class="fas fa-hourglass-half"></i></div>
             <h3 class="fw-bold mb-3">ملف المدرسة بانتظار الاعتماد</h3>
             <p class="text-muted mb-4">هذه المدرسة مسجلة لدينا وحالياً قيد المراجعة والتدقيق بواسطة فريق الدليل وسوف تظهر للجمهور فور اكتمال الاعتماد.</p>
-            <a href="/" class="btn-luxury-outline"><i class="fas fa-arrow-right me-2"></i> تصفح المدارس المعتمدة</a>
+            <a href="/" class="btn-luxury-outline"><i class="fas fa-arrow-right me-2"></i> تصفح دليل المدارس</a>
         </div>
     </div>
     <?php

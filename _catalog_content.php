@@ -195,7 +195,7 @@
                 <div>
                     <h2 style="font-size: 1.15rem; font-weight: 700; color: #0B2A52; margin: 0;">
                         <?php if ($view === 'schoplus' || $schoplusOnly): ?>
-                            مدارس معتمدة بنظام SchoPlus الذكي <?= !empty($state) ? '— ولاية ' . e($state) : '' ?>
+                            مدارس تعمل بنظام SchoPlus الذكي <?= !empty($state) ? '— ولاية ' . e($state) : '' ?>
                         <?php elseif ($view === 'top_rated' || $sort === 'rating'): ?>
                             المدارس الأعلى تقييماً في الدليل <?= !empty($state) ? '— ولاية ' . e($state) : '' ?>
                         <?php elseif ($view === 'latest' || $sort === 'latest'): ?>
@@ -277,7 +277,7 @@
                         <span style="color: #64748B; font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">
                             <i class="fas fa-list me-1"></i> استكشف المدارس
                         </span>
-                        <h2 style="font-size: 1.15rem; font-weight: 700; color: #0B2A52; margin: 0;">دليل المدارس المعتمدة في السودان</h2>
+                        <h2 style="font-size: 1.15rem; font-weight: 700; color: #0B2A52; margin: 0;">قائمة المدارس السودانية في الدليل</h2>
                     </div>
                     <div class="mt-2 mt-md-0 text-muted" style="font-size: 0.72rem;">
                         عرض <strong><?= count($catalogSchools) ?></strong> من أصل <strong><?= $statTotal ?></strong> مدرسة مسجلة

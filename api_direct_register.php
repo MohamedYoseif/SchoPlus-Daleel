@@ -59,7 +59,7 @@ if ($existing) {
     echo json_encode([
         'success' => true,
         'already_registered' => true,
-        'message' => 'مدرستكم مسجلة وموثقة مسبقاً في دليل المدارس السودانية المعتمدة!',
+        'message' => 'مدرستكم مسجلة وموثقة مسبقاً في دليل المدارس السودانية!',
         'school' => [
             'id' => (int)$existing['id'],
             'name' => $existing['name'],
