@@ -594,22 +594,30 @@ $isDaleelMobile = (
             gap: 2px;
         }
 
-        /* Mandatory Specification for Main Tabs (.sp-main-tabs) */
+        /* Mandatory Specification for Main Tabs (.sp-main-tabs) - Centered in screen */
         .sp-main-tabs-wrap {
             width: 100%;
             margin-bottom: 24px;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
-            padding-bottom: 4px;
+            padding-bottom: 6px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
         .sp-main-tabs {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 6px;
             background: #E2E8F0;
             padding: 4px;
             border-radius: 12px;
             border: 1px solid #CBD5E1;
+            margin-left: auto;
+            margin-right: auto;
+            flex-shrink: 0;
         }
         .sp-main-tab {
             display: inline-flex;

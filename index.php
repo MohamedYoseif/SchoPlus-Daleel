@@ -310,6 +310,21 @@ require_once __DIR__ . '/header.php';
 ?>
 
 <style>
+/* Center Main Catalog Tabs */
+.sp-main-tabs-wrap {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+    width: 100% !important;
+    margin-bottom: 24px !important;
+}
+.sp-main-tabs {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    justify-content: center !important;
+}
+
 /* AJAX Dynamic Loader Bar & Transitions */
 #catalog-dynamic-wrap {
     transition: opacity 0.22s cubic-bezier(0.4, 0, 0.2, 1);

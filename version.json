@@ -1,7 +1,7 @@
 {
-    "version": "3.6.64",
+    "version": "3.6.65",
     "release_date": "2026-10-15",
     "version_type": "enterprise",
     "min_php_version": "8.2",
-    "release_notes": "دليل المدارس (daleel.schoplus.sd) — ميزة التحديث والبحث اللحظي بدون إعادة تحميل الصفحة (Instant AJAX Search & Filtering) مع مزامنة الروابط والتاريخ والنموذج v3.6.64"
+    "release_notes": "دليل المدارس (daleel.schoplus.sd) — محاذاة وتوسيط تبويبات التصنيف الرئيسية في وسط الشاشة بدقة (Centered Main Tabs .sp-main-tabs) v3.6.65"
 }

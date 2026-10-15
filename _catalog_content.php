@@ -5,8 +5,8 @@
  */
 ?>
 <!-- Mandatory Specification for Main Tabs (.sp-main-tabs) -->
-<div class="sp-main-tabs-wrap">
-    <div class="sp-main-tabs">
+<div class="sp-main-tabs-wrap d-flex justify-content-center text-center">
+    <div class="sp-main-tabs mx-auto">
         <a href="<?= buildFilterUrl(['view' => null, 'sort' => null, 'schoplus_only' => null]) ?>" class="sp-main-tab <?= (empty($view) || $view === 'all') && !$schoplusOnly && $sort !== 'rating' && $sort !== 'latest' ? 'active' : '' ?>">
             <i class="fas fa-layer-group"></i> كافة المدارس
             <span class="tab-badge"><?= number_format($statTotal) ?></span>
