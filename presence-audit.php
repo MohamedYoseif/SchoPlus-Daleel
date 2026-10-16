@@ -1255,6 +1255,287 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
     border: 1px solid #CBD5E1;
     display: none;
 }
+
+/* ========================================================================= */
+/* PRINT VIEW STYLING (SPECIALIZED EXECUTIVE REPORT)                         */
+/* ========================================================================= */
+#auditPrintReport {
+    display: none;
+}
+
+@media print {
+    @page {
+        size: A4 portrait;
+        margin: 10mm 14mm;
+    }
+
+    /* Hide everything on screen */
+    body * {
+        visibility: hidden !important;
+    }
+
+    /* Only show the dedicated executive print report */
+    #auditPrintReport,
+    #auditPrintReport * {
+        visibility: visible !important;
+    }
+
+    #auditPrintReport {
+        display: block !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        background: #FFFFFF !important;
+        color: #0D1B2E !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        font-family: 'Cairo', 'Segoe UI', Tahoma, sans-serif !important;
+        direction: rtl !important;
+        text-align: right !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    .print-report-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 12px;
+        border-bottom: 2.5px solid #0B2A52;
+        margin-bottom: 14px;
+    }
+
+    .print-brand-box {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .print-brand-logo {
+        height: 44px;
+        width: auto;
+        object-fit: contain;
+    }
+
+    .print-doc-title {
+        text-align: center;
+    }
+    .print-doc-title h1 {
+        font-size: 14pt;
+        font-weight: 800;
+        color: #0B2A52;
+        margin: 0;
+    }
+    .print-doc-title p {
+        font-size: 8pt;
+        color: #64748B;
+        margin: 2px 0 0;
+    }
+
+    .print-meta-box {
+        font-size: 7.8pt;
+        color: #475569;
+        text-align: left;
+        line-height: 1.5;
+        direction: rtl;
+    }
+
+    /* Executive Summary Card */
+    .print-summary-card {
+        background: #F8FAFC !important;
+        border: 1px solid #CBD5E1 !important;
+        border-right: 5px solid #1E5FA8 !important;
+        border-radius: 8px;
+        padding: 10px 14px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        page-break-inside: avoid;
+    }
+
+    .print-school-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .print-school-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 8px;
+        border: 1px solid #CBD5E1;
+        object-fit: cover;
+    }
+
+    .print-school-monogram {
+        width: 50px;
+        height: 50px;
+        border-radius: 8px;
+        background: #E2E8F0 !important;
+        color: #0B2A52;
+        font-size: 18pt;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .print-school-name {
+        font-size: 13pt;
+        font-weight: 800;
+        color: #0D1B2E;
+        margin: 0 0 3px;
+    }
+
+    .print-school-meta {
+        font-size: 8pt;
+        color: #64748B;
+    }
+
+    .print-score-box {
+        text-align: center;
+        background: #FFFFFF !important;
+        border: 2px solid #1E5FA8;
+        border-radius: 8px;
+        padding: 6px 16px;
+        min-width: 110px;
+    }
+
+    .print-score-val {
+        font-size: 20pt;
+        font-weight: 900;
+        color: #1E5FA8;
+        line-height: 1;
+    }
+
+    .print-score-label {
+        font-size: 7.2pt;
+        font-weight: 700;
+        color: #475569;
+        margin-top: 3px;
+    }
+
+    .print-kpi-row {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 12px;
+        page-break-inside: avoid;
+    }
+
+    .print-kpi-pill {
+        flex: 1;
+        background: #F1F5F9 !important;
+        border: 1px solid #E2E8F0;
+        border-radius: 6px;
+        padding: 5px 8px;
+        text-align: center;
+        font-size: 7.5pt;
+    }
+    .print-kpi-pill strong {
+        display: block;
+        font-size: 10pt;
+        margin-top: 2px;
+    }
+
+    /* 10 Items Table */
+    .print-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 8pt;
+        margin-bottom: 12px;
+    }
+
+    .print-table th {
+        background: #0B2A52 !important;
+        color: #FFFFFF !important;
+        padding: 6px 7px;
+        font-weight: 700;
+        border: 1px solid #0B2A52;
+        text-align: right;
+    }
+
+    .print-table td {
+        padding: 5px 7px;
+        border: 1px solid #DDE4ED;
+        color: #1E293B;
+        vertical-align: middle;
+    }
+
+    .print-table tr:nth-child(even) td {
+        background: #F8FAFC !important;
+    }
+
+    .print-badge {
+        display: inline-block;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 7pt;
+        font-weight: 700;
+    }
+    .print-badge.b-green {
+        background: #DCFCE7 !important;
+        color: #166534 !important;
+        border: 1px solid #86EFAC;
+    }
+    .print-badge.b-orange {
+        background: #FEF3C7 !important;
+        color: #92400E !important;
+        border: 1px solid #FCD34D;
+    }
+    .print-badge.b-red {
+        background: #FEE2E2 !important;
+        color: #991B1B !important;
+        border: 1px solid #FCA5A5;
+    }
+
+    /* Recommendations & Footer */
+    .print-recommendations {
+        background: #F8FAFC !important;
+        border: 1px solid #E2E8F0;
+        border-radius: 6px;
+        padding: 8px 12px;
+        margin-bottom: 12px;
+        page-break-inside: avoid;
+    }
+    .print-recommendations h3 {
+        font-size: 8.8pt;
+        font-weight: 800;
+        color: #0B2A52;
+        margin: 0 0 5px;
+    }
+    .print-recommendations ul {
+        margin: 0;
+        padding-right: 16px;
+        font-size: 7.6pt;
+        color: #334155;
+        line-height: 1.55;
+    }
+
+    .print-report-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-top: 1px dashed #CBD5E1;
+        padding-top: 8px;
+        font-size: 7.2pt;
+        color: #64748B;
+        page-break-inside: avoid;
+    }
+
+    .print-seal-box {
+        border: 1.5px solid #0B2A52;
+        border-radius: 5px;
+        padding: 3px 8px;
+        text-align: center;
+        font-weight: 800;
+        font-size: 7pt;
+        color: #0B2A52;
+        text-transform: uppercase;
+    }
+}
 </style>
 
 <!-- ======================================================================= -->
@@ -1359,6 +1640,110 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
         </span>
     </div>
 
+    <!-- =================================================================== -->
+    <!-- DEDICATED PRINTABLE AUDIT REPORT (PRINT MEDIA ONLY)                 -->
+    <!-- =================================================================== -->
+    <div id="auditPrintReport">
+        <!-- Print Header -->
+        <div class="print-report-header">
+            <div class="print-brand-box">
+                <img src="/assets/images/logo.png" alt="SchoPlus Daleel" class="print-brand-logo">
+                <div>
+                    <div style="font-weight: 800; font-size: 10pt; color: #0B2A52;">منظومة ايسكو بلص (SchoPlus)</div>
+                    <div style="font-size: 7.5pt; color: #64748B;">دليل المدارس والخدمات التعليمية الذكية</div>
+                </div>
+            </div>
+            <div class="print-doc-title">
+                <h1>تقرير فحص الوجود والأثر الرقمي للمدرسة</h1>
+                <p>وثيقة تقييم وتحليل الأداء والظهور الإلكتروني (10 بنود رقمية معتمدة)</p>
+            </div>
+            <div class="print-meta-box">
+                <div><strong>تاريخ الفحص:</strong> <span id="printAuditDate"><?= date('Y-m-d') ?></span></div>
+                <div><strong>الرقم المرجعي:</strong> <span id="printAuditRef">SP-AUD-<?= date('Ymd') ?>-01</span></div>
+                <div><strong>المصدر:</strong> محرك فحص الوجود الرقمي</div>
+            </div>
+        </div>
+
+        <!-- School Executive Summary -->
+        <div class="print-summary-card">
+            <div class="print-school-info">
+                <div id="printSchoolLogoWrap">
+                    <img id="printSchoolLogoImg" class="print-school-avatar" alt="شعار المدرسة" style="display: none;">
+                    <div id="printSchoolMonogram" class="print-school-monogram">م</div>
+                </div>
+                <div>
+                    <h2 class="print-school-name" id="printSchoolName">اسم المدرسة</h2>
+                    <div class="print-school-meta" id="printSchoolGeo">السودان — ولاية الخرطوم</div>
+                    <div style="font-size: 7.5pt; color: #1E5FA8; font-weight: 700; margin-top: 3px;" id="printSchoolDaleelStatus">
+                        حالة التوثيق: مسجلة وموثقة في دليل المدارس
+                    </div>
+                </div>
+            </div>
+            <div class="print-score-box">
+                <div class="print-score-val" id="printScoreVal">0%</div>
+                <div class="print-score-label" id="printScoreLabel">مؤشر الحضور العام</div>
+            </div>
+        </div>
+
+        <!-- KPI Breakdown Row -->
+        <div class="print-kpi-row">
+            <div class="print-kpi-pill">
+                <span style="color:#64748B;">البنود المؤكدة</span>
+                <strong id="printKpiVerified" style="color: #166534;">0 من 10</strong>
+            </div>
+            <div class="print-kpi-pill">
+                <span style="color:#64748B;">الأثر المكتشف آلياً</span>
+                <strong id="printKpiDetected" style="color: #D97706;">0 بنود</strong>
+            </div>
+            <div class="print-kpi-pill">
+                <span style="color:#64748B;">فرص التحسين</span>
+                <strong id="printKpiMissing" style="color: #DC2626;">0 بنود</strong>
+            </div>
+            <div class="print-kpi-pill">
+                <span style="color:#64748B;">بونص الهوية والشعار</span>
+                <strong id="printKpiLogo" style="color: #1E5FA8;">غير مفعل</strong>
+            </div>
+        </div>
+
+        <!-- Detailed 10-Item Table -->
+        <table class="print-table">
+            <thead>
+                <tr>
+                    <th style="width: 5%;">#</th>
+                    <th style="width: 25%;">البند الرقمي ومجال الفحص</th>
+                    <th style="width: 18%;">حالة الرصد</th>
+                    <th style="width: 40%;">الأثر الرقمي أو الرابط المسجل</th>
+                    <th style="width: 12%; text-align: center;">النقاط</th>
+                </tr>
+            </thead>
+            <tbody id="printTableBody">
+                <!-- Dynamically populated via printAuditReport() -->
+            </tbody>
+        </table>
+
+        <!-- Strategic Recommendations -->
+        <div class="print-recommendations">
+            <h3>توصيات تطوير الأثر الرقمي للمدرسة:</h3>
+            <ul id="printRecommendationsList">
+                <li><strong>توثيق الهوية الرسمية:</strong> استكمال رفع الشعار المعتمد والزي المدرسي بدقة عالية لتعزيز ثقة أولياء الأمور بنسبة 75%.</li>
+                <li><strong>تأكيد قنوات التواصل والخرائط:</strong> تثبيت موقع المدرسة الدقيق على خرائط جوجل وربط رقم الواتساب المباشر لخدمة القبول والتسجيل.</li>
+                <li><strong>التحول الرقمي السحابي:</strong> الاستفادة من منظومة SchoPlus الذكية لإدارة المدارس لأتمتة شؤون الطلاب، الدرجات، ونشر نتائج الامتحانات إلكترونياً.</li>
+            </ul>
+        </div>
+
+        <!-- Official Print Footer -->
+        <div class="print-report-footer">
+            <div>
+                <div>تم استخراج هذا التقرير رسمياً من بوابة <strong>دليل المدارس (daleel.schoplus.sd)</strong> — إحدى مبادرات منظومة SchoPlus.</div>
+                <div>رابط التحقق الرقمي: <span id="printVerifyUrl" style="direction:ltr; display:inline-block;">https://daleel.schoplus.sd/presence-audit.php</span></div>
+            </div>
+            <div class="print-seal-box">
+                <div>SCHOPLUS AUDIT</div>
+                <div>معتمد رقمياً</div>
+            </div>
+        </div>
+    </div>
+
     <!-- AUDIT RESULTS CONTAINER -->
     <div class="audit-results-container" id="auditResults">
 
@@ -1412,7 +1797,7 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
             </div>
 
             <div class="d-flex align-items-center gap-2">
-                <button type="button" class="btn btn-sm btn-light border fw-bold px-3 py-2 rounded-3" style="font-size: 0.74rem;" onclick="window.print()">
+                <button type="button" class="btn btn-sm btn-light border fw-bold px-3 py-2 rounded-3" style="font-size: 0.74rem;" onclick="printAuditReport()">
                     <i class="fas fa-print me-1 text-secondary"></i> طباعة التقرير
                 </button>
                 <button type="button" class="btn btn-sm btn-outline-success fw-bold px-3 py-2 rounded-3" style="font-size: 0.74rem;" onclick="shareAuditWhatsApp()">
@@ -2196,6 +2581,152 @@ function buildRegistrationBridgeLink() {
         regBtn.href = '/register.php?' + params.toString();
         regBtn.innerHTML = '<i class="fas fa-shield-alt"></i> <span>اعتماد وتثبيت الوجود الرقمي بالدليل</span>';
     }
+}
+
+// Specialized Printable Audit Report Generator
+function printAuditReport() {
+    if (!CURRENT_AUDIT_DATA) {
+        alert('يرجى إجراء فحص لمدرسة أولاً قبل الطباعة.');
+        return;
+    }
+
+    // Populate Print Header and Meta
+    const pName = document.getElementById('printSchoolName');
+    const pGeo = document.getElementById('printSchoolGeo');
+    if (pName) pName.textContent = CURRENT_AUDIT_DATA.school_name || 'اسم المدرسة';
+    if (pGeo) pGeo.textContent = (CURRENT_AUDIT_DATA.state ? 'ولاية ' + CURRENT_AUDIT_DATA.state + ' — ' : '') + (CURRENT_AUDIT_DATA.country || 'السودان');
+    
+    // Date & Random Reference Number
+    const today = new Date();
+    const dateStr = today.toISOString().split('T')[0];
+    const pDate = document.getElementById('printAuditDate');
+    const pRef = document.getElementById('printAuditRef');
+    if (pDate) pDate.textContent = dateStr;
+    const randomRef = Math.floor(1000 + Math.random() * 9000);
+    if (pRef) pRef.textContent = `SP-AUD-${dateStr.replace(/-/g, '')}-${randomRef}`;
+
+    // School Logo or Monogram
+    const logoImg = document.getElementById('printSchoolLogoImg');
+    const monogram = document.getElementById('printSchoolMonogram');
+    const schoolLogoUrl = CURRENT_AUDIT_DATA.uploaded_logo || CURRENT_AUDIT_DATA.logo || (CURRENT_AUDIT_DATA.matched_db_school && CURRENT_AUDIT_DATA.matched_db_school.logo) || null;
+    
+    if (schoolLogoUrl) {
+        if (logoImg) {
+            logoImg.src = schoolLogoUrl;
+            logoImg.style.display = 'block';
+        }
+        if (monogram) monogram.style.display = 'none';
+    } else {
+        if (logoImg) logoImg.style.display = 'none';
+        if (monogram) {
+            monogram.style.display = 'flex';
+            monogram.textContent = (CURRENT_AUDIT_DATA.school_name || 'م').trim().charAt(0);
+        }
+    }
+
+    // Daleel Status
+    const isInDaleel = (CURRENT_AUDIT_DATA.matched_db_school !== null && CURRENT_AUDIT_DATA.matched_db_school.id);
+    const daleelStatusEl = document.getElementById('printSchoolDaleelStatus');
+    if (daleelStatusEl) {
+        if (isInDaleel) {
+            daleelStatusEl.innerHTML = '<span style="color: #166534; font-weight:700;">حالة التوثيق: موثقة رسمياً في دليل المدارس</span>';
+        } else {
+            daleelStatusEl.innerHTML = '<span style="color: #991B1B; font-weight:700;">حالة التوثيق: غير مسجلة بالدليل حتى الآن</span>';
+        }
+    }
+
+    // Score & KPI counts
+    let verifiedCount = 0;
+    let detectedCount = 0;
+    let missingCount = 0;
+    let score = 0;
+
+    CURRENT_AUDIT_DATA.items.forEach(it => {
+        if (it.verified) {
+            score += (it.points || 10);
+            verifiedCount++;
+        } else if (it.status === 'detected' || (it.value && it.value.trim().length > 0)) {
+            score += 6;
+            detectedCount++;
+        } else {
+            missingCount++;
+        }
+    });
+
+    const hasLogo = !!(CURRENT_AUDIT_DATA.logo || CURRENT_AUDIT_DATA.uploaded_logo || (CURRENT_AUDIT_DATA.matched_db_school && CURRENT_AUDIT_DATA.matched_db_school.logo));
+    if (hasLogo) {
+        score = Math.min(100, score + 10);
+    }
+
+    const pScoreVal = document.getElementById('printScoreVal');
+    const pScoreLbl = document.getElementById('printScoreLabel');
+    if (pScoreVal) pScoreVal.textContent = score + '%';
+    if (pScoreLbl) {
+        if (score >= 80) pScoreLbl.textContent = 'مؤشر ممتاز ومكتمل';
+        else if (score >= 50) pScoreLbl.textContent = 'مؤشر متوسط يحتاج تعزيز';
+        else pScoreLbl.textContent = 'مؤشر ضعيف أو غير مفعل';
+    }
+
+    const pKpiVer = document.getElementById('printKpiVerified');
+    const pKpiDet = document.getElementById('printKpiDetected');
+    const pKpiMis = document.getElementById('printKpiMissing');
+    const pKpiLogo = document.getElementById('printKpiLogo');
+    if (pKpiVer) pKpiVer.textContent = `${verifiedCount} من 10`;
+    if (pKpiDet) pKpiDet.textContent = `${detectedCount} بنود`;
+    if (pKpiMis) pKpiMis.textContent = `${missingCount} بنود`;
+    if (pKpiLogo) pKpiLogo.textContent = hasLogo ? '+10 نقاط (مفعّل)' : 'غير متوفر (0)';
+
+    // Table rows
+    const tbody = document.getElementById('printTableBody');
+    if (tbody) {
+        tbody.innerHTML = '';
+        CURRENT_AUDIT_DATA.items.forEach((it, idx) => {
+            const isVerified = it.verified;
+            const isDetected = (!isVerified && (it.status === 'detected' || (it.value && it.value.trim().length > 0)));
+            
+            let statusBadge = '';
+            let pointsText = '';
+            if (isVerified) {
+                statusBadge = '<span class="print-badge b-green">مؤكد وموثق</span>';
+                pointsText = '<strong style="color:#166534;">+10 / 10</strong>';
+            } else if (isDetected) {
+                statusBadge = '<span class="print-badge b-orange">أثر مكتشف (60%)</span>';
+                pointsText = '<strong style="color:#D97706;">+6 / 10</strong>';
+            } else {
+                statusBadge = '<span class="print-badge b-red">غير متوفر</span>';
+                pointsText = '<span style="color:#94A3B8;">0 / 10</span>';
+            }
+
+            let valText = it.display_value || it.value || 'لا يوجد أثر رقمي مسجل';
+            if (valText.length > 55) {
+                valText = valText.substring(0, 52) + '...';
+            }
+
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td style="text-align: center; font-weight: 700;">${idx + 1}</td>
+                <td>
+                    <strong>${escapeHtml(it.title)}</strong>
+                    <div style="font-size: 6.8pt; color: #64748B;">${escapeHtml(it.category || '')}</div>
+                </td>
+                <td>${statusBadge}</td>
+                <td style="direction: ltr; text-align: left; font-family: monospace; font-size: 7.2pt; color: #334155;">
+                    ${escapeHtml(valText)}
+                </td>
+                <td style="text-align: center;">${pointsText}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    // Verify URL
+    const verifyUrlEl = document.getElementById('printVerifyUrl');
+    if (verifyUrlEl) {
+        verifyUrlEl.textContent = `https://daleel.schoplus.sd/presence-audit.php?school=${encodeURIComponent(CURRENT_AUDIT_DATA.school_name)}&state=${encodeURIComponent(CURRENT_AUDIT_DATA.state || '')}`;
+    }
+
+    // Trigger Print
+    window.print();
 }
 
 // Share Audit Result via WhatsApp
