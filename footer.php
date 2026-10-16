@@ -19,7 +19,7 @@
                         </a>
                     </div>
                     <p class="text-muted leading-relaxed mb-0" style="font-size: 0.73rem; line-height: 1.75;">
-                        خدمة رقمية مقدمة من منظومة <strong>ايسكو بلص (SchoPlus)</strong>، تهدف إلى مساعدة أولياء الأمور والطلاب في البحث والتعرف على المدارس ومقارنتها، وإتاحة مساحة احترافية لأصحاب المدارس للتعريف بخدماتهم التعليمية.
+                        خدمة رقمية مقدمة من <strong>منظومة SchoPlus الذكية</strong>، تهدف إلى مساعدة أولياء الأمور والطلاب في البحث والتعرف على المدارس ومقارنتها، وإتاحة مساحة احترافية لأصحاب المدارس للتعريف بخدماتهم التعليمية.
                     </p>
                 </div>
 
@@ -44,9 +44,9 @@
                 </div>
 
                 <div class="col-lg-3 col-md-6">
-                    <h5 class="fw-bold mb-3" style="font-size: 0.85rem; color: #0B2A52;">منظومة ايسكو بلص</h5>
+                    <h5 class="fw-bold mb-3" style="font-size: 0.85rem; color: #0B2A52;">منظومة SchoPlus</h5>
                     <a href="https://schoplus.sd" target="_blank" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">
-                        الموقع الإلكتروني لـ ايسكو بلص
+                        الموقع الرسمي لمنظومة SchoPlus
                     </a>
                     <a href="/login.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">
                         تسجيل دخول المدرسة
@@ -66,7 +66,7 @@
                     <i class="fas fa-info-circle text-primary mt-1" style="font-size: 0.85rem; flex-shrink: 0;"></i>
                     <div style="font-size: 0.71rem; color: #64748B; line-height: 1.7;">
                         <strong class="text-dark">سياسة الاستخدام وإخلاء المسؤولية:</strong>
-                        هذا الدليل هو خدمة رقمية مفتوحة مقدمة من منظومة <strong>ايسكو بلص (SchoPlus)</strong> ولا يُعد دليلاً رسمياً معتمداً من وزارة التربية والتعليم أو أي جهة حكومية. كافة البيانات والمعلومات المنشورة تتم إضافتها وإدارتها مباشرة من قِبل أصحاب وإدارات المدارس على مسؤوليتهم.
+                        هذا الدليل هو خدمة رقمية مفتوحة مقدمة من <strong>منظومة SchoPlus الذكية</strong> ولا يُعد دليلاً رسمياً معتمداً من وزارة التربية والتعليم أو أي جهة حكومية. كافة البيانات والمعلومات المنشورة تتم إضافتها وإدارتها مباشرة من قِبل أصحاب وإدارات المدارس على مسؤوليتهم.
                     </div>
                 </div>
             </div>
@@ -75,7 +75,7 @@
 
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2 text-muted" style="font-size: 0.72rem;">
                 <div>جميع الحقوق محفوظة © <?= date('Y') ?> — دليل المدارس | إحدى مبادرات <strong>SchoPlus</strong></div>
-                <div>النسخة 3.6.79</div>
+                <div>النسخة 3.6.80</div>
             </div>
         </div>
     </footer>

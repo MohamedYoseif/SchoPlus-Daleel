@@ -201,6 +201,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+$initialStep = 1;
+if (!empty($errors)) {
+    $errStr = implode(' ', $errors);
+    if (strpos($errStr, 'المسؤول') !== false || strpos($errStr, 'كلمة المرور') !== false || strpos($errStr, 'مسجل مسبقاً') !== false) {
+        $initialStep = 3;
+    } elseif (strpos($errStr, 'هاتف المدرسة') !== false) {
+        $initialStep = 2;
+    } else {
+        $initialStep = 1;
+    }
+}
+
 $pageTitle = 'تسجيل مدرسة جديدة';
 require_once __DIR__ . '/header.php';
 $countriesWithStates = SudanGeography::countriesWithStatesAndCities();
@@ -208,6 +220,175 @@ $countriesList = SudanGeography::countries();
 $selectedCountry = $formData['country'] ?? 'السودان';
 $statesWithCities = SudanGeography::statesWithCities($selectedCountry);
 ?>
+
+<style>
+    /* SchoPlus Ocean Brand Design System - Style F v2 Stepper */
+    .sp-wizard-stepper {
+        position: relative;
+        padding: 10px 0 22px;
+        margin-bottom: 2rem;
+    }
+    .stepper-track-wrap {
+        position: absolute;
+        top: 32px;
+        left: 12%;
+        right: 12%;
+        height: 4px;
+        background: #E2E8F0;
+        border-radius: 4px;
+        z-index: 1;
+    }
+    .stepper-progress {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
+        background: linear-gradient(90deg, #1E5FA8 0%, #F5A020 100%);
+        border-radius: 4px;
+        transition: width 0.35s ease;
+    }
+    .stepper-steps {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        justify-content: space-between;
+    }
+    .stepper-step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer;
+        text-align: center;
+        background: transparent;
+        border: none;
+        padding: 0 8px;
+        transition: transform 0.2s ease;
+        user-select: none;
+    }
+    .stepper-step:hover {
+        transform: translateY(-2px);
+    }
+    .step-circle {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: #FFFFFF;
+        border: 2.5px solid #CBD5E1;
+        color: #64748B;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 0.95rem;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    }
+    .step-check {
+        display: none;
+    }
+    .step-content {
+        margin-top: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .step-eyebrow {
+        font-size: 0.65rem;
+        color: #94A3B8;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+    }
+    .step-title {
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: #475569;
+        transition: color 0.25s ease;
+        white-space: nowrap;
+    }
+    .stepper-step.active .step-circle {
+        background: #0B2A52;
+        border-color: #F5A020;
+        color: #FFFFFF;
+        box-shadow: 0 0 0 5px rgba(245, 160, 32, 0.2);
+    }
+    .stepper-step.active .step-eyebrow {
+        color: #F5A020;
+    }
+    .stepper-step.active .step-title {
+        color: #0B2A52;
+        font-weight: 800;
+    }
+    .stepper-step.completed .step-circle {
+        background: #10B981;
+        border-color: #10B981;
+        color: #FFFFFF;
+        box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
+    }
+    .stepper-step.completed .step-num {
+        display: none;
+    }
+    .stepper-step.completed .step-check {
+        display: inline-block;
+        font-size: 0.9rem;
+    }
+    .stepper-step.completed .step-title {
+        color: #10B981;
+    }
+
+    /* Wizard Panes */
+    .wizard-step-pane {
+        display: none;
+    }
+    .wizard-step-pane.active {
+        display: block;
+        animation: wizardFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes wizardFadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Summary Card */
+    .wizard-summary-card {
+        background: #F8FAFC;
+        border: 1.5px dashed #CBD5E1;
+        border-radius: 14px;
+        padding: 16px 20px;
+    }
+    .summary-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.8rem;
+        color: #334155;
+    }
+    .summary-item i {
+        width: 18px;
+        color: #1E5FA8;
+        text-align: center;
+    }
+
+    /* Form feedback and invalid cues */
+    .form-feedback-msg {
+        font-size: 0.72rem;
+        color: #EF4444;
+        margin-top: 4px;
+        display: none;
+    }
+    .is-invalid + .form-feedback-msg {
+        display: block;
+    }
+    .is-invalid {
+        border-color: #EF4444 !important;
+        background-color: #FEF2F2 !important;
+    }
+</style>
 
 <div class="register-page py-5">
     <div class="container" style="max-width: 900px;">
@@ -220,7 +401,7 @@ $statesWithCities = SudanGeography::statesWithCities($selectedCountry);
             </span>
             <h2 class="fw-bold text-dark mb-2" style="font-size: 1.25rem;">سجّل مدرستك في دليل المدارس</h2>
             <p class="text-muted" style="max-width: 620px; margin: auto; font-size: 0.76rem; line-height: 1.65;">
-                عرّف بمدرستك لأولياء الأمور والطلاب. يمكنك إدخال البيانات الأساسية الآن، وإكمال التفاصيل والصور والأخبار والمرافق لاحقاً عبر لوحة التحكم في أي وقت.
+                عرّف بمدرستك لأولياء الأمور والطلاب في 3 خطوات بسيطة. يمكنك إدخال البيانات الأساسية الآن، وإكمال التفاصيل والصور والأخبار والمرافق لاحقاً عبر لوحة التحكم في أي وقت.
             </p>
         </div>
 
@@ -235,24 +416,67 @@ $statesWithCities = SudanGeography::statesWithCities($selectedCountry);
             </div>
         <?php endif; ?>
 
+        <!-- Wizard Stepper Indicator -->
+        <div class="sp-wizard-stepper">
+            <div class="stepper-track-wrap">
+                <div class="stepper-progress" id="wizardProgressBar" style="width: 0%;"></div>
+            </div>
+            <div class="stepper-steps">
+                <div class="stepper-step active" id="stepIndicator1" onclick="jumpToWizardStep(1)">
+                    <div class="step-circle">
+                        <span class="step-num">1</span>
+                        <i class="fas fa-check step-check"></i>
+                    </div>
+                    <div class="step-content">
+                        <span class="step-eyebrow">الخطوة 1</span>
+                        <span class="step-title">هوية المدرسة</span>
+                    </div>
+                </div>
+                <div class="stepper-step" id="stepIndicator2" onclick="jumpToWizardStep(2)">
+                    <div class="step-circle">
+                        <span class="step-num">2</span>
+                        <i class="fas fa-check step-check"></i>
+                    </div>
+                    <div class="step-content">
+                        <span class="step-eyebrow">الخطوة 2</span>
+                        <span class="step-title">الاتصال والتواجد</span>
+                    </div>
+                </div>
+                <div class="stepper-step" id="stepIndicator3" onclick="jumpToWizardStep(3)">
+                    <div class="step-circle">
+                        <span class="step-num">3</span>
+                        <i class="fas fa-check step-check"></i>
+                    </div>
+                    <div class="step-content">
+                        <span class="step-eyebrow">الخطوة 3</span>
+                        <span class="step-title">حساب الإدارة والتأكيد</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Form Card -->
         <div class="card border-0 rounded-4 shadow-sm bg-white p-4 p-md-5">
-            <form method="POST" action="register.php" id="schoolRegisterForm">
+            <form method="POST" action="register.php" id="schoolRegisterForm" novalidate>
                 <?= csrf_field() ?>
 
-                <!-- SECTION 1: SCHOOL INFO -->
-                <div class="mb-5">
-                    <div class="d-flex align-items-center gap-2 mb-3 pb-2 border-bottom">
+                <!-- STEP 1: IDENTITY & BASIC INFO -->
+                <div class="wizard-step-pane active" id="wizardStep1">
+                    <div class="d-flex align-items-center gap-2 mb-4 pb-2 border-bottom">
                         <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; font-size: 0.9rem;">
                             1
                         </div>
-                        <h5 class="fw-bold text-dark mb-0">بيانات المدرسة الأساسية</h5>
+                        <div>
+                            <h5 class="fw-bold text-dark mb-0">بيانات المدرسة والموقع</h5>
+                            <small class="text-muted">الاسم الرسمي للمدرسة والموقع الجغرافي والبيانات الأكاديمية</small>
+                        </div>
                     </div>
 
                     <div class="row g-3">
                         <div class="col-md-7">
                             <label class="form-label small fw-bold text-secondary">اسم المدرسة باللغة العربية <span class="text-danger">*</span></label>
-                            <input type="text" name="name" required class="form-control" value="<?= e($formData['name'] ?? '') ?>" placeholder="مثال: مدارس المنار النموذجية الخاصة">
+                            <input type="text" name="name" class="form-control" value="<?= e($formData['name'] ?? '') ?>" placeholder="مثال: مدارس المنار النموذجية الخاصة">
+                            <div class="form-feedback-msg" id="err_name">يرجى إدخال اسم المدرسة (3 أحرف على الأقل).</div>
                         </div>
 
                         <div class="col-md-5">
@@ -268,18 +492,19 @@ $statesWithCities = SudanGeography::statesWithCities($selectedCountry);
                         <!-- Country, State, City & District -->
                         <div class="col-md-3">
                             <label class="form-label small fw-bold text-secondary">الدولة <span class="text-danger">*</span></label>
-                            <select name="country" id="regCountry" required class="form-select">
+                            <select name="country" id="regCountry" class="form-select">
                                 <?php foreach ($countriesList as $cntry): ?>
                                     <option value="<?= e($cntry) ?>" <?= $selectedCountry === $cntry ? 'selected' : '' ?>>
                                         <?= e($cntry) ?>
                                     </option>
                                 <?php endforeach; ?>
                             </select>
+                            <div class="form-feedback-msg" id="err_country">يرجى اختيار الدولة.</div>
                         </div>
 
                         <div class="col-md-3">
                             <label class="form-label small fw-bold text-secondary">الولاية / المنطقة <span class="text-danger">*</span></label>
-                            <select name="state" id="regState" required class="form-select">
+                            <select name="state" id="regState" class="form-select">
                                 <option value="">-- اختر الولاية --</option>
                                 <?php foreach ($statesWithCities as $stName => $cities): ?>
                                     <option value="<?= e($stName) ?>" <?= ($formData['state'] ?? '') === $stName ? 'selected' : '' ?>>
@@ -287,13 +512,15 @@ $statesWithCities = SudanGeography::statesWithCities($selectedCountry);
                                     </option>
                                 <?php endforeach; ?>
                             </select>
+                            <div class="form-feedback-msg" id="err_state">يرجى اختيار الولاية.</div>
                         </div>
 
                         <div class="col-md-3">
                             <label class="form-label small fw-bold text-secondary">المدينة / المحلية <span class="text-danger">*</span></label>
-                            <select name="city" id="regCity" required class="form-select">
+                            <select name="city" id="regCity" class="form-select">
                                 <option value="">-- اختر المدينة --</option>
                             </select>
+                            <div class="form-feedback-msg" id="err_city">يرجى اختيار أو تحديد المدينة.</div>
                         </div>
 
                         <div class="col-md-3">
@@ -353,11 +580,38 @@ $statesWithCities = SudanGeography::statesWithCities($selectedCountry);
                                 <?php endforeach; ?>
                             </div>
                         </div>
+                    </div>
 
+                    <!-- Step 1 Nav Actions -->
+                    <div class="d-flex justify-content-between align-items-center mt-5 pt-3 border-top">
+                        <div class="text-muted small">
+                            <i class="fas fa-info-circle text-primary me-1"></i> الحقول المعلمة بـ (<span class="text-danger">*</span>) إلزامية
+                        </div>
+                        <button type="button" class="btn-luxury-primary px-4 py-2" onclick="nextWizardStep(1)">
+                            <span>متابعة: الاتصال والتواجد</span>
+                            <i class="fas fa-arrow-left ms-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- STEP 2: CONTACT & DIGITAL PRESENCE -->
+                <div class="wizard-step-pane" id="wizardStep2">
+                    <div class="d-flex align-items-center gap-2 mb-4 pb-2 border-bottom">
+                        <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; font-size: 0.9rem;">
+                            2
+                        </div>
+                        <div>
+                            <h5 class="fw-bold text-dark mb-0">قنوات الاتصال والوجود الرقمي</h5>
+                            <small class="text-muted">أرقام التواصل مع أولياء الأمور وروابط المنصات الرقمية وموقع المدرسة</small>
+                        </div>
+                    </div>
+
+                    <div class="row g-3">
                         <!-- School Phone & WhatsApp -->
                         <div class="col-md-6">
                             <label class="form-label small fw-bold text-secondary">رقم هاتف المدرسة للتواصل مع أولياء الأمور <span class="text-danger">*</span></label>
-                            <input type="tel" name="phone" required class="form-control" value="<?= e($formData['phone'] ?? '') ?>" placeholder="09xxxxxxx أو 01xxxxxxx">
+                            <input type="tel" name="phone" class="form-control" value="<?= e($formData['phone'] ?? '') ?>" placeholder="09xxxxxxx أو 01xxxxxxx">
+                            <div class="form-feedback-msg" id="err_phone">يرجى إدخال هاتف المدرسة للتواصل.</div>
                         </div>
 
                         <div class="col-md-6">
@@ -365,12 +619,12 @@ $statesWithCities = SudanGeography::statesWithCities($selectedCountry);
                             <input type="tel" name="whatsapp" class="form-control" value="<?= e($formData['whatsapp'] ?? '') ?>" placeholder="09xxxxxxx">
                         </div>
 
-                        <!-- Digital Presence & Social Links (Imported or Optional) -->
+                        <!-- Digital Presence & Social Links -->
                         <div class="col-12 mt-3 pt-3 border-top">
-                            <span class="badge bg-warning text-dark px-2.5 py-1 rounded-pill fw-bold mb-2" style="font-size: 0.68rem;">
-                                <i class="fas fa-satellite-dish me-1"></i> الوجود الرقمي وشبكات التواصل (مستورد من الفحص أو اختياري)
+                            <span class="badge bg-warning text-dark px-2.5 py-1 rounded-pill fw-bold mb-3 d-inline-block" style="font-size: 0.68rem;">
+                                <i class="fas fa-satellite-dish me-1"></i> الوجود الرقمي وشبكات التواصل (مستورد أو اختياري)
                             </span>
-                            <div class="row g-2">
+                            <div class="row g-3">
                                 <div class="col-md-6">
                                     <label class="form-label small text-muted">الموقع الإلكتروني للمدرسة</label>
                                     <input type="url" name="website" class="form-control form-control-sm" value="<?= e($formData['website'] ?? '') ?>" placeholder="https://example.edu.sd">
@@ -394,24 +648,79 @@ $statesWithCities = SudanGeography::statesWithCities($selectedCountry);
                             </div>
                         </div>
                     </div>
+
+                    <!-- Step 2 Nav Actions -->
+                    <div class="d-flex justify-content-between align-items-center mt-5 pt-3 border-top">
+                        <button type="button" class="btn-luxury-outline px-4 py-2" onclick="prevWizardStep(2)">
+                            <i class="fas fa-arrow-right me-2"></i>
+                            <span>السابق: هوية المدرسة</span>
+                        </button>
+                        <button type="button" class="btn-luxury-primary px-4 py-2" onclick="nextWizardStep(2)">
+                            <span>متابعة: حساب الإدارة</span>
+                            <i class="fas fa-arrow-left ms-2"></i>
+                        </button>
+                    </div>
                 </div>
 
-                <!-- SECTION 2: OWNER LOGIN CREDENTIALS -->
-                <div class="mb-4">
-                    <div class="d-flex align-items-center gap-2 mb-3 pb-2 border-bottom">
+                <!-- STEP 3: OWNER CREDENTIALS & CONFIRMATION -->
+                <div class="wizard-step-pane" id="wizardStep3">
+                    <div class="d-flex align-items-center gap-2 mb-4 pb-2 border-bottom">
                         <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; font-size: 0.9rem;">
-                            2
+                            3
                         </div>
                         <div>
                             <h5 class="fw-bold text-dark mb-0">بيانات المسؤول وحساب الدخول</h5>
-                            <small class="text-muted">ستستخدم هذه البيانات لتسجيل الدخول للوحة إدارة المدرسة وتحديث البيانات لاحقاً</small>
+                            <small class="text-muted">ستستخدم هذه البيانات لتسجيل الدخول للوحة إدارة المدرسة وتحديث الملف التعريفي</small>
+                        </div>
+                    </div>
+
+                    <!-- Live Summary Card -->
+                    <div class="wizard-summary-card mb-4">
+                        <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom border-secondary-subtle">
+                            <span class="fw-bold text-dark" style="font-size: 0.85rem;">
+                                <i class="fas fa-clipboard-check text-success me-1"></i> ملخص بيانات التسجيل
+                            </span>
+                            <button type="button" class="btn btn-sm btn-link text-primary p-0 text-decoration-none" onclick="jumpToWizardStep(1)" style="font-size: 0.74rem;">
+                                <i class="fas fa-edit me-1"></i> تعديل بيانات المدرسة
+                            </button>
+                        </div>
+                        <div class="row g-2">
+                            <div class="col-md-6">
+                                <div class="summary-item">
+                                    <i class="fas fa-school"></i>
+                                    <span class="text-muted">المدرسة:</span>
+                                    <strong id="summarySchoolName" class="text-dark">--</strong>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="summary-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span class="text-muted">الموقع:</span>
+                                    <strong id="summaryLocation" class="text-dark">--</strong>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="summary-item">
+                                    <i class="fas fa-phone"></i>
+                                    <span class="text-muted">هاتف المدرسة:</span>
+                                    <strong id="summaryPhone" class="text-dark" dir="ltr">--</strong>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="summary-item">
+                                    <i class="fas fa-user-shield"></i>
+                                    <span class="text-muted">المسؤول:</span>
+                                    <strong id="summaryAdminName" class="text-dark">--</strong>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label class="form-label small fw-bold text-secondary">اسم المسؤول / المدير <span class="text-danger">*</span></label>
-                            <input type="text" name="owner_name" required class="form-control" value="<?= e($formData['owner_name'] ?? '') ?>" placeholder="مثال: أ. عبد الله إبراهيم">
+                            <input type="text" name="owner_name" class="form-control" value="<?= e($formData['owner_name'] ?? '') ?>" placeholder="مثال: أ. عبد الله إبراهيم">
+                            <div class="form-feedback-msg" id="err_owner_name">يرجى إدخال اسم المسؤول / مدير المدرسة.</div>
                         </div>
 
                         <div class="col-md-6">
@@ -421,8 +730,9 @@ $statesWithCities = SudanGeography::statesWithCities($selectedCountry);
 
                         <div class="col-md-6">
                             <label class="form-label small fw-bold text-secondary">رقم هاتف المسؤول (اسم المستخدم للدخول) <span class="text-danger">*</span></label>
-                            <input type="tel" name="owner_phone" required class="form-control" value="<?= e($formData['owner_phone'] ?? '') ?>" placeholder="09xxxxxxx">
+                            <input type="tel" name="owner_phone" class="form-control" value="<?= e($formData['owner_phone'] ?? '') ?>" placeholder="09xxxxxxx">
                             <small class="text-muted" style="font-size: 0.72rem;">سيتم استخدامه كاسم مستخدم عند تسجيل الدخول.</small>
+                            <div class="form-feedback-msg" id="err_owner_phone">يرجى إدخال رقم هاتف المسؤول بشكل صحيح (9 أرقام على الأقل).</div>
                         </div>
 
                         <div class="col-md-6">
@@ -432,35 +742,43 @@ $statesWithCities = SudanGeography::statesWithCities($selectedCountry);
 
                         <div class="col-md-6">
                             <label class="form-label small fw-bold text-secondary">كلمة المرور الجديدة <span class="text-danger">*</span></label>
-                            <input type="password" name="password" required class="form-control" placeholder="6 خانات على الأقل">
+                            <input type="password" name="password" class="form-control" placeholder="6 خانات على الأقل">
+                            <div class="form-feedback-msg" id="err_password">كلمة المرور يجب أن لا تقل عن 6 أحرف أو أرقام.</div>
                         </div>
 
                         <div class="col-md-6">
                             <label class="form-label small fw-bold text-secondary">تأكيد كلمة المرور <span class="text-danger">*</span></label>
-                            <input type="password" name="password_confirmation" required class="form-control" placeholder="أعد إدخال كلمة المرور">
+                            <input type="password" name="password_confirmation" class="form-control" placeholder="أعد إدخال كلمة المرور">
+                            <div class="form-feedback-msg" id="err_password_confirmation">كلمتا المرور غير متطابقتين.</div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Info & Usage Policy Box -->
-                <div class="p-3 rounded-4 bg-light border border-light-subtle mb-4">
-                    <div class="d-flex align-items-start gap-2">
-                        <i class="fas fa-info-circle text-primary mt-1"></i>
-                        <small class="text-secondary lh-base">
-                            <strong>سياسة الاستخدام والتسجيل:</strong> هذا الدليل هو خدمة رقمية مقدمة من منظومة <strong>ايسكو بلص (SchoPlus)</strong>، وليس دليلاً رسمياً تابعاً لوزارة التربية والتعليم. جميع البيانات والصور والرسوم المنشورة تتم إضافتها وإدارتها من قِبل إدارة المدرسة وعلى مسؤوليتها. بمجرد التسجيل يمكنك الدخول مباشرة للوحة التحكم وإكمال ملف مدرستك.
-                        </small>
+                    <!-- Info & Usage Policy Box -->
+                    <div class="p-3 rounded-4 bg-light border border-light-subtle my-4">
+                        <div class="d-flex align-items-start gap-2">
+                            <i class="fas fa-info-circle text-primary mt-1"></i>
+                            <small class="text-secondary lh-base">
+                                <strong>سياسة الاستخدام والتسجيل:</strong> هذا الدليل هو خدمة رقمية مقدمة من <strong>منظومة SchoPlus الذكية</strong>، وليس دليلاً رسمياً تابعاً لوزارة التربية والتعليم. جميع البيانات والصور والرسوم المنشورة تتم إضافتها وإدارتها من قِبل إدارة المدرسة وعلى مسؤوليتها. بمجرد التسجيل يمكنك الدخول مباشرة للوحة التحكم وإكمال ملف مدرستك.
+                            </small>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 Nav Actions -->
+                    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center gap-3 mt-4 pt-3 border-top">
+                        <button type="button" class="btn-luxury-outline px-4 py-2 order-2 order-sm-1" onclick="prevWizardStep(3)">
+                            <i class="fas fa-arrow-right me-2"></i>
+                            <span>السابق: قنوات الاتصال</span>
+                        </button>
+                        <button type="submit" class="btn-luxury-primary px-5 py-3 fs-6 order-1 order-sm-2 w-100 w-sm-auto shadow-sm">
+                            <i class="fas fa-check-circle me-2"></i>
+                            <span>تأكيد التسجيل وإنشاء الحساب</span>
+                        </button>
                     </div>
                 </div>
 
-                <!-- Submit Button -->
-                <div class="text-center pt-2">
-                    <button type="submit" class="btn-luxury-primary px-5 py-3 fs-6 w-100 w-md-auto">
-                        <i class="fas fa-check-circle me-2"></i> تأكيد التسجيل وإنشاء الحساب
-                    </button>
-                    <div class="mt-3">
-                        <span class="text-muted small">لديك حساب مسجل بالفعل؟</span>
-                        <a href="login.php" class="text-primary fw-bold small text-decoration-none">تسجيل الدخول من هنا</a>
-                    </div>
+                <div class="text-center mt-4">
+                    <span class="text-muted small">لديك حساب مسجل بالفعل؟</span>
+                    <a href="login.php" class="text-primary fw-bold small text-decoration-none ms-1">تسجيل الدخول من هنا</a>
                 </div>
 
             </form>
@@ -539,6 +857,224 @@ $statesWithCities = SudanGeography::statesWithCities($selectedCountry);
         regNameEn.addEventListener('input', updateRegSlug);
         updateRegSlug();
     }
+
+    // ==========================================
+    // 3-STEP WIZARD LOGIC
+    // ==========================================
+    let currentWizardStep = <?= (int)$initialStep ?>;
+
+    function setWizardStep(step) {
+        currentWizardStep = step;
+
+        // Update Panes & Stepper
+        for (let i = 1; i <= 3; i++) {
+            const pane = document.getElementById('wizardStep' + i);
+            const ind = document.getElementById('stepIndicator' + i);
+            if (pane) {
+                pane.classList.toggle('active', i === step);
+            }
+            if (ind) {
+                ind.classList.remove('active', 'completed');
+                if (i < step) {
+                    ind.classList.add('completed');
+                } else if (i === step) {
+                    ind.classList.add('active');
+                }
+            }
+        }
+
+        // Update Progress Bar
+        const progress = document.getElementById('wizardProgressBar');
+        if (progress) {
+            if (step === 1) progress.style.width = '0%';
+            else if (step === 2) progress.style.width = '50%';
+            else if (step === 3) progress.style.width = '100%';
+        }
+
+        if (step === 3) {
+            updateSummaryCard();
+        }
+
+        // Scroll smoothly to form top if out of view
+        const formCard = document.getElementById('schoolRegisterForm');
+        if (formCard) {
+            const rect = formCard.getBoundingClientRect();
+            if (rect.top < 60) {
+                window.scrollTo({
+                    top: window.pageYOffset + rect.top - 80,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    }
+
+    function clearValidationErrors(step) {
+        const pane = document.getElementById('wizardStep' + step);
+        if (pane) {
+            pane.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+        }
+    }
+
+    function markInvalid(inputEl) {
+        if (!inputEl) return;
+        inputEl.classList.add('is-invalid');
+        inputEl.addEventListener('input', function onInput() {
+            inputEl.classList.remove('is-invalid');
+            inputEl.removeEventListener('input', onInput);
+        });
+        inputEl.addEventListener('change', function onChange() {
+            inputEl.classList.remove('is-invalid');
+            inputEl.removeEventListener('change', onChange);
+        });
+    }
+
+    function validateStep(step) {
+        clearValidationErrors(step);
+        let isValid = true;
+        let firstInvalid = null;
+
+        if (step === 1) {
+            const nameInput = document.querySelector('input[name="name"]');
+            if (!nameInput || nameInput.value.trim().length < 3) {
+                markInvalid(nameInput);
+                isValid = false;
+                if (!firstInvalid) firstInvalid = nameInput;
+            }
+
+            const countryInput = document.getElementById('regCountry');
+            if (!countryInput || !countryInput.value.trim()) {
+                markInvalid(countryInput);
+                isValid = false;
+                if (!firstInvalid) firstInvalid = countryInput;
+            }
+
+            const stateInput = document.getElementById('regState');
+            if (!stateInput || !stateInput.value.trim()) {
+                markInvalid(stateInput);
+                isValid = false;
+                if (!firstInvalid) firstInvalid = stateInput;
+            }
+
+            const cityInput = document.getElementById('regCity');
+            if (!cityInput || !cityInput.value.trim()) {
+                markInvalid(cityInput);
+                isValid = false;
+                if (!firstInvalid) firstInvalid = cityInput;
+            }
+        } else if (step === 2) {
+            const phoneInput = document.querySelector('input[name="phone"]');
+            if (!phoneInput || phoneInput.value.trim().length < 7) {
+                markInvalid(phoneInput);
+                isValid = false;
+                if (!firstInvalid) firstInvalid = phoneInput;
+            }
+        } else if (step === 3) {
+            const ownerName = document.querySelector('input[name="owner_name"]');
+            if (!ownerName || ownerName.value.trim().length < 3) {
+                markInvalid(ownerName);
+                isValid = false;
+                if (!firstInvalid) firstInvalid = ownerName;
+            }
+
+            const ownerPhone = document.querySelector('input[name="owner_phone"]');
+            if (!ownerPhone || ownerPhone.value.trim().length < 9) {
+                markInvalid(ownerPhone);
+                isValid = false;
+                if (!firstInvalid) firstInvalid = ownerPhone;
+            }
+
+            const pass = document.querySelector('input[name="password"]');
+            if (!pass || pass.value.length < 6) {
+                markInvalid(pass);
+                isValid = false;
+                if (!firstInvalid) firstInvalid = pass;
+            }
+
+            const passConf = document.querySelector('input[name="password_confirmation"]');
+            if (!passConf || passConf.value !== (pass ? pass.value : '')) {
+                markInvalid(passConf);
+                isValid = false;
+                if (!firstInvalid) firstInvalid = passConf;
+            }
+        }
+
+        if (!isValid && firstInvalid) {
+            firstInvalid.focus();
+        }
+
+        return isValid;
+    }
+
+    function nextWizardStep(fromStep) {
+        if (!validateStep(fromStep)) {
+            return false;
+        }
+        setWizardStep(fromStep + 1);
+    }
+
+    function prevWizardStep(fromStep) {
+        setWizardStep(fromStep - 1);
+    }
+
+    function jumpToWizardStep(targetStep) {
+        if (targetStep === currentWizardStep) return;
+        if (targetStep < currentWizardStep) {
+            setWizardStep(targetStep);
+        } else {
+            for (let s = currentWizardStep; s < targetStep; s++) {
+                if (!validateStep(s)) {
+                    return;
+                }
+            }
+            setWizardStep(targetStep);
+        }
+    }
+
+    function updateSummaryCard() {
+        const name = document.querySelector('input[name="name"]')?.value.trim() || '--';
+        const country = document.getElementById('regCountry')?.value.trim() || '';
+        const state = document.getElementById('regState')?.value.trim() || '';
+        const city = document.getElementById('regCity')?.value.trim() || '';
+        const location = [city, state, country].filter(Boolean).join(' - ') || '--';
+        const phone = document.querySelector('input[name="phone"]')?.value.trim() || '--';
+        const ownerName = document.querySelector('input[name="owner_name"]')?.value.trim() || '--';
+        const ownerTitle = document.querySelector('input[name="owner_title"]')?.value.trim();
+
+        const sumName = document.getElementById('summarySchoolName');
+        const sumLoc = document.getElementById('summaryLocation');
+        const sumPhone = document.getElementById('summaryPhone');
+        const sumAdmin = document.getElementById('summaryAdminName');
+
+        if (sumName) sumName.textContent = name;
+        if (sumLoc) sumLoc.textContent = location;
+        if (sumPhone) sumPhone.textContent = phone;
+        if (sumAdmin) sumAdmin.textContent = ownerName + (ownerTitle ? ' (' + ownerTitle + ')' : '');
+    }
+
+    // Attach form submit validation across all steps
+    const regForm = document.getElementById('schoolRegisterForm');
+    if (regForm) {
+        regForm.addEventListener('submit', function(e) {
+            if (!validateStep(1)) {
+                e.preventDefault();
+                setWizardStep(1);
+                return false;
+            }
+            if (!validateStep(2)) {
+                e.preventDefault();
+                setWizardStep(2);
+                return false;
+            }
+            if (!validateStep(3)) {
+                e.preventDefault();
+                setWizardStep(3);
+                return false;
+            }
+        });
+    }
+
+    // Initialize with initial step
+    setWizardStep(currentWizardStep);
 </script>
 
 <?php
