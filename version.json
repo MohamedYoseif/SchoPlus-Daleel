@@ -1,7 +1,7 @@
 {
-    "version": "3.7.9",
+    "version": "3.7.10",
     "release_date": "2026-10-16",
     "version_type": "enterprise",
     "min_php_version": "8.2",
-    "release_notes": "حذف قسم تواصل ودعم من الفوتر وإعادة موازنة الأعمدة v3.7.9"
+    "release_notes": "إضافة علامة ومؤشر Preloader تفاعلي أنيق عند البحث وتصفية المدارس ونتائج البحث v3.7.10"
 }

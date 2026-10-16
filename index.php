@@ -347,6 +347,95 @@ require_once __DIR__ . '/header.php';
     100% { background-position: -200% 0; }
 }
 
+/* ===== SCHOPLUS LUXURY CATALOG PRELOADER OVERLAY ===== */
+.sp-catalog-preloader {
+    position: absolute;
+    inset: 0;
+    z-index: 60;
+    display: none;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 130px;
+    background: rgba(248, 250, 252, 0.82);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 16px;
+    transition: opacity 0.25s ease;
+}
+.sp-preloader-card {
+    background: #FFFFFF;
+    border: 1.5px solid #DDE4ED;
+    border-radius: 20px;
+    padding: 24px 36px;
+    text-align: center;
+    box-shadow: 0 16px 40px rgba(11, 42, 82, 0.12);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    min-width: 240px;
+    animation: spPreloaderPop 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes spPreloaderPop {
+    0% { transform: scale(0.92) translateY(-10px); opacity: 0; }
+    100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+.sp-preloader-spinner {
+    position: relative;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4px;
+}
+.sp-spinner-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 3.5px solid #E2E8F0;
+    border-top-color: #F5A020;
+    border-right-color: #1E5FA8;
+    animation: spSpinRing 0.85s linear infinite;
+}
+@keyframes spSpinRing {
+    to { transform: rotate(360deg); }
+}
+.sp-spinner-icon {
+    font-size: 1.25rem;
+    color: #0B2A52;
+    animation: spIconPulse 1.4s ease-in-out infinite;
+}
+@keyframes spIconPulse {
+    0%, 100% { transform: scale(1); opacity: 0.9; }
+    50% { transform: scale(1.15); opacity: 1; color: #F5A020; }
+}
+.sp-preloader-title {
+    font-size: 0.92rem;
+    font-weight: 800;
+    color: #0B2A52;
+}
+.sp-preloader-sub {
+    font-size: 0.72rem;
+    color: #64748B;
+    font-weight: 600;
+}
+.sp-preloader-bar {
+    width: 140px;
+    height: 3px;
+    background: #E2E8F0;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 4px;
+}
+.sp-preloader-bar-fill {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #F5A020, #1E5FA8);
+    background-size: 200% 100%;
+    animation: spAjaxLoaderBar 1.2s linear infinite;
+}
+
 /* ===== SCHOPLUS STYLE F v2 HERO & SEARCH BAR ===== */
 .daleel-hero-v2 {
     background: #F0F4F8;
@@ -1532,8 +1621,24 @@ require_once __DIR__ . '/header.php';
 </section>
 
 <!-- MAIN DIRECTORY CATALOG WITH MODERN STATES SIDEBAR FILTER -->
-<section class="py-3" id="directory-catalog-section" style="position: relative;">
+<section class="py-3" id="directory-catalog-section" style="position: relative; min-height: 420px;">
     <div class="sp-ajax-progress" id="spAjaxProgress"></div>
+
+    <!-- PRELOADER OVERLAY FOR SCHOOLS & SEARCH RESULTS -->
+    <div id="spCatalogPreloader" class="sp-catalog-preloader" style="display: none;">
+        <div class="sp-preloader-card">
+            <div class="sp-preloader-spinner">
+                <div class="sp-spinner-ring"></div>
+                <div class="sp-spinner-icon"><i class="fas fa-graduation-cap"></i></div>
+            </div>
+            <div class="sp-preloader-title">جاري تحميل وتحديث المدارس...</div>
+            <div class="sp-preloader-sub">يرجى الانتظار، جاري جلب أحدث النتائج</div>
+            <div class="sp-preloader-bar">
+                <div class="sp-preloader-bar-fill"></div>
+            </div>
+        </div>
+    </div>
+
     <div class="container" id="catalog-dynamic-wrap">
         <?php require __DIR__ . '/_catalog_content.php'; ?>
     </div>
@@ -1962,6 +2067,7 @@ $extraScripts = <<<JS
         // ========================================================
         const catalogWrap = document.getElementById('catalog-dynamic-wrap');
         const progressBar = document.getElementById('spAjaxProgress');
+        const catalogPreloader = document.getElementById('spCatalogPreloader');
         const smartFilterForm = document.getElementById('smartFilterForm');
         let isFetchingCatalog = false;
         let activeAbortCtrl = null;
@@ -1969,11 +2075,14 @@ $extraScripts = <<<JS
         function setCatalogLoading(loading) {
             if (catalogWrap) {
                 catalogWrap.style.transition = 'opacity 0.22s ease';
-                catalogWrap.style.opacity = loading ? '0.45' : '1';
+                catalogWrap.style.opacity = loading ? '0.3' : '1';
                 catalogWrap.style.pointerEvents = loading ? 'none' : 'auto';
             }
             if (progressBar) {
                 progressBar.style.display = loading ? 'block' : 'none';
+            }
+            if (catalogPreloader) {
+                catalogPreloader.style.display = loading ? 'flex' : 'none';
             }
         }
 
@@ -2121,6 +2230,41 @@ $extraScripts = <<<JS
                 const qs = params.toString();
                 const targetUrl = qs ? '/?' + qs : '/';
                 loadCatalogAjax(targetUrl, true, true);
+            });
+
+            // Instant live debounced search on typing
+            const searchInput = smartFilterForm.querySelector('input[name="q"]');
+            if (searchInput) {
+                let debounceTimer = null;
+                searchInput.addEventListener('input', function() {
+                    clearTimeout(debounceTimer);
+                    debounceTimer = setTimeout(() => {
+                        const formData = new FormData(smartFilterForm);
+                        const params = new URLSearchParams();
+                        for (const [k, v] of formData.entries()) {
+                            const val = (v || '').trim();
+                            if (val !== '') params.set(k, val);
+                        }
+                        const qs = params.toString();
+                        const targetUrl = qs ? '/?' + qs : '/';
+                        loadCatalogAjax(targetUrl, true, false);
+                    }, 380);
+                });
+            }
+
+            // Auto-trigger filter on native select changes
+            smartFilterForm.addEventListener('change', function(e) {
+                if (e.target && e.target.tagName === 'SELECT') {
+                    const formData = new FormData(smartFilterForm);
+                    const params = new URLSearchParams();
+                    for (const [k, v] of formData.entries()) {
+                        const val = (v || '').trim();
+                        if (val !== '') params.set(k, val);
+                    }
+                    const qs = params.toString();
+                    const targetUrl = qs ? '/?' + qs : '/';
+                    loadCatalogAjax(targetUrl, true, false);
+                }
             });
         }
 
