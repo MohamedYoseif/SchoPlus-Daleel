@@ -5,6 +5,7 @@ import 'smart_schools_screen.dart';
 import 'search_screen.dart';
 import 'news_screen.dart';
 import 'favorites_screen.dart';
+import '../services/update_service.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -16,6 +17,14 @@ class MainNavigationScreen extends StatefulWidget {
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
   int _currentIndex = 0;
   String? _preselectedState;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      UpdateService.checkForUpdates(context, silent: true);
+    });
+  }
 
   void _onTabSelected(int index) {
     setState(() {

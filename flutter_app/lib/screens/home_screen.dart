@@ -6,6 +6,10 @@ import '../widgets/school_card.dart';
 import '../widgets/news_card.dart';
 import '../widgets/state_chip.dart';
 import 'search_screen.dart';
+import '../services/auth_service.dart';
+import '../services/update_service.dart';
+import 'school_portal/school_login_screen.dart';
+import 'school_portal/school_dashboard_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final Function(String stateName)? onStateSelected;
@@ -72,6 +76,26 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         actions: [
+          IconButton(
+            tooltip: 'بوابة مدراء المدارس',
+            icon: const Icon(Icons.business_center_outlined, color: AppTheme.blue),
+            onPressed: () async {
+              final loggedIn = await AuthService.isLoggedIn();
+              if (!context.mounted) return;
+              if (loggedIn) {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => const SchoolDashboardScreen()));
+              } else {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => const SchoolLoginScreen()));
+              }
+            },
+          ),
+          IconButton(
+            tooltip: 'فحص التحديثات',
+            icon: const Icon(Icons.system_update_rounded, color: AppTheme.goldDark),
+            onPressed: () {
+              UpdateService.checkForUpdates(context, silent: false);
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.search, color: AppTheme.navy),
             onPressed: widget.onSearchTap ?? () {
@@ -202,6 +226,60 @@ class _HomeScreenState extends State<HomeScreen> {
                           Colors.white,
                         ),
                       ],
+                    ),
+                  ),
+                ),
+
+                // School Portal Quick Access Banner
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                  child: InkWell(
+                    onTap: () async {
+                      final loggedIn = await AuthService.isLoggedIn();
+                      if (!context.mounted) return;
+                      if (loggedIn) {
+                        Navigator.push(context, MaterialPageRoute(builder: (_) => const SchoolDashboardScreen()));
+                      } else {
+                        Navigator.push(context, MaterialPageRoute(builder: (_) => const SchoolLoginScreen()));
+                      }
+                    },
+                    borderRadius: BorderRadius.circular(14),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFFEF3C7),
+                        borderRadius: BorderRadius.circular(14),
+                        border: Border.all(color: const Color(0xFFFDE68A)),
+                      ),
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: AppTheme.gold,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: const Icon(Icons.business_center_rounded, color: AppTheme.navy, size: 20),
+                          ),
+                          const SizedBox(width: 12),
+                          const Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'بوابة مدراء وأصحاب المدارس',
+                                  style: TextStyle(fontWeight: FontWeight.w800, fontSize: 13, color: AppTheme.navy),
+                                ),
+                                Text(
+                                  'أدر ملف مدرستك واستقبل طلبات القبول والتواصل فوراً',
+                                  style: TextStyle(fontSize: 11, color: Color(0xFF92400E)),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Icon(Icons.arrow_forward_ios_rounded, size: 14, color: AppTheme.navy),
+                        ],
+                      ),
                     ),
                   ),
                 ),

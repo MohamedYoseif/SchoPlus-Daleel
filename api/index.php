@@ -528,4 +528,372 @@ if ($action === 'inquiry') {
     ]);
 }
 
+// ==========================================
+// 8. CHECK FOR IN-APP UPDATES (خاصية التحديثات)
+// ==========================================
+if ($action === 'check_update') {
+    $currentVersion = trim((string)($_GET['version'] ?? '1.0.0'));
+    $currentCode    = (int)($_GET['version_code'] ?? 1);
+
+    // Read system version
+    $sysVerFile = __DIR__ . '/../version.json';
+    $sysVerData = file_exists($sysVerFile) ? json_decode(file_get_contents($sysVerFile), true) : [];
+    $sysVersion = $sysVerData['version'] ?? '3.7.4';
+
+    // App latest version specs
+    $latestAppVersion = '1.1.0';
+    $latestAppCode    = 2;
+    $hasUpdate = ($currentCode < $latestAppCode) || version_compare($currentVersion, $latestAppVersion, '<');
+
+    jsonRes([
+        'success'             => true,
+        'has_update'          => $hasUpdate,
+        'current_version'     => $currentVersion,
+        'latest_version'      => $latestAppVersion,
+        'latest_version_code' => $latestAppCode,
+        'system_version'      => $sysVersion,
+        'release_date'        => '2026-10-16',
+        'file_size'           => '56.5 MB',
+        'download_url'        => 'https://daleel.schoplus.sd/downloads/daleel-schoplus.apk',
+        'release_notes'       => "• إضافة بوابة مدراء المدارس المتكاملة داخل التطبيق.\n• إدارة ملف المدرسة والرسوم والمرافق وتحديثها فوراً.\n• استلام ومتابعة طلبات القبول والاستفسارات مع أزرار تواصل واتساب وهاتف مباشرة.\n• نظام فحص وتثبيت التحديثات التلقائي.\n• تحسينات عامة في الأداء والسرعة.",
+        'is_critical'         => false
+    ]);
+}
+
+// ==========================================
+// 9. SCHOOL OWNER LOGIN (تسجيل دخول مدراء المدارس)
+// ==========================================
+if ($action === 'school_login') {
+    $rawInput = file_get_contents('php://input');
+    $postData = json_decode($rawInput, true);
+    if (!is_array($postData)) {
+        $postData = $_POST;
+    }
+
+    $identifier = trim((string)($postData['identifier'] ?? ''));
+    $password   = (string)($postData['password'] ?? '');
+
+    if ($identifier === '' || $password === '') {
+        jsonRes(['success' => false, 'message' => 'يرجى إدخال رقم الهاتف أو البريد الإلكتروني وكلمة المرور.'], 400);
+    }
+
+    $stmt = $pdo->prepare("SELECT * FROM daleel_schools WHERE (owner_phone = ? OR owner_email = ? OR phone = ? OR email = ?) LIMIT 1");
+    $stmt->execute([$identifier, $identifier, $identifier, $identifier]);
+    $school = $stmt->fetch();
+
+    if (!$school || !password_verify($password, $school['password'])) {
+        jsonRes(['success' => false, 'message' => 'بيانات الدخول غير صحيحة. يرجى التحقق من رقم الهاتف وكلمة المرور.'], 401);
+    }
+
+    // Generate session token (HMAC)
+    $tokenSecret = 'schoplus_daleel_token_sec_2026';
+    $tokenPayload = $school['id'] . '|' . $school['slug'] . '|' . time();
+    $tokenSig = hash_hmac('sha256', $tokenPayload, $tokenSecret);
+    $authToken = base64_encode($tokenPayload . '|' . $tokenSig);
+
+    // Inquiries stats
+    $inqStmt = $pdo->prepare("SELECT COUNT(*) as total, SUM(CASE WHEN status = 'new' THEN 1 ELSE 0 END) as unread FROM daleel_school_inquiries WHERE school_id = ?");
+    $inqStmt->execute([(int)$school['id']]);
+    $inqStats = $inqStmt->fetch() ?: ['total' => 0, 'unread' => 0];
+
+    jsonRes([
+        'success'   => true,
+        'message'   => 'مرحباً بك! تم تسجيل الدخول بنجاح.',
+        'token'     => $authToken,
+        'school'    => formatSchool($school, $pdo),
+        'stats'     => [
+            'total_inquiries' => (int)($inqStats['total'] ?? 0),
+            'new_inquiries'   => (int)($inqStats['unread'] ?? 0),
+            'views_count'     => (int)($school['views_count'] ?? 0),
+            'rating_avg'      => (float)($school['rating_avg'] ?? 0),
+            'reviews_count'   => (int)($school['reviews_count'] ?? 0)
+        ]
+    ]);
+}
+
+// Token helper validator
+function verifySchoolToken(PDO $pdo): array {
+    $authHeader = $_SERVER['HTTP_AUTHORIZATION'] ?? $_REQUEST['token'] ?? '';
+    if (str_starts_with($authHeader, 'Bearer ')) {
+        $authHeader = substr($authHeader, 7);
+    }
+    $authHeader = trim($authHeader);
+    if ($authHeader === '') {
+        jsonRes(['success' => false, 'message' => 'غير مصرح (رمز الدخول مفقود).'], 401);
+    }
+
+    $decoded = base64_decode($authHeader);
+    $parts = explode('|', $decoded);
+    if (count($parts) < 4) {
+        jsonRes(['success' => false, 'message' => 'رمز الجلسة غير صالح.'], 401);
+    }
+
+    $schoolId = (int)$parts[0];
+    $slug = $parts[1];
+    $time = (int)$parts[2];
+    $sig = $parts[3];
+
+    $tokenSecret = 'schoplus_daleel_token_sec_2026';
+    $expected = hash_hmac('sha256', "$schoolId|$slug|$time", $tokenSecret);
+    if (!hash_equals($expected, $sig)) {
+        jsonRes(['success' => false, 'message' => 'جلسة غير صالحة أو تم التلاعب بها.'], 401);
+    }
+
+    $stmt = $pdo->prepare("SELECT * FROM daleel_schools WHERE id = ? LIMIT 1");
+    $stmt->execute([$schoolId]);
+    $school = $stmt->fetch();
+    if (!$school) {
+        jsonRes(['success' => false, 'message' => 'المدرسة غير موجودة.'], 404);
+    }
+
+    return $school;
+}
+
+// ==========================================
+// 10. SCHOOL PORTAL DATA (لوحة إدارة المدرسة)
+// ==========================================
+if ($action === 'school_portal') {
+    $school = verifySchoolToken($pdo);
+    $schoolId = (int)$school['id'];
+
+    // Inquiries
+    $inqStmt = $pdo->prepare("SELECT * FROM daleel_school_inquiries WHERE school_id = ? ORDER BY created_at DESC LIMIT 100");
+    $inqStmt->execute([$schoolId]);
+    $inquiries = $inqStmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // News
+    $newsStmt = $pdo->prepare("SELECT * FROM daleel_news WHERE school_id = ? ORDER BY is_pinned DESC, published_at DESC LIMIT 50");
+    $newsStmt->execute([$schoolId]);
+    $news = $newsStmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Reviews
+    $revStmt = $pdo->prepare("SELECT * FROM daleel_reviews WHERE school_id = ? ORDER BY created_at DESC LIMIT 50");
+    $revStmt->execute([$schoolId]);
+    $reviews = $revStmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Counts
+    $newInqCount = 0;
+    foreach ($inquiries as $iq) {
+        if (($iq['status'] ?? 'new') === 'new') {
+            $newInqCount++;
+        }
+    }
+
+    jsonRes([
+        'success'     => true,
+        'school'      => formatSchool($school, $pdo),
+        'inquiries'   => array_map(function($iq) {
+            return [
+                'id'                   => (int)$iq['id'],
+                'parent_name'          => (string)$iq['parent_name'],
+                'parent_phone'         => (string)$iq['parent_phone'],
+                'parent_email'         => (string)($iq['parent_email'] ?? ''),
+                'student_name'         => (string)($iq['student_name'] ?? ''),
+                'student_gender'       => (string)($iq['student_gender'] ?? ''),
+                'student_stage'        => (string)($iq['student_stage'] ?? ''),
+                'student_grade'        => (string)($iq['student_grade'] ?? ''),
+                'branch_name'          => (string)($iq['branch_name'] ?? ''),
+                'needs_transportation' => (bool)$iq['needs_transportation'],
+                'message'              => (string)($iq['message'] ?? ''),
+                'status'               => (string)($iq['status'] ?? 'new'),
+                'created_at'           => (string)$iq['created_at']
+            ];
+        }, $inquiries),
+        'news'        => array_map(function($n) {
+            return [
+                'id'           => (int)$n['id'],
+                'title'        => (string)$n['title'],
+                'content'      => (string)strip_tags($n['content']),
+                'category'     => (string)($n['category'] ?? 'general'),
+                'is_pinned'    => (bool)($n['is_pinned'] ?? false),
+                'published_at' => (string)($n['published_at'] ?? $n['created_at'])
+            ];
+        }, $news),
+        'reviews'     => array_map(function($r) {
+            return [
+                'id'         => (int)$r['id'],
+                'author'     => (string)($r['reviewer_name'] ?? 'ولي أمر'),
+                'rating'     => (int)($r['rating'] ?? 5),
+                'comment'    => (string)($r['comment'] ?? ''),
+                'created_at' => (string)$r['created_at']
+            ];
+        }, $reviews),
+        'stats'       => [
+            'total_inquiries' => count($inquiries),
+            'new_inquiries'   => $newInqCount,
+            'total_news'      => count($news),
+            'total_reviews'   => count($reviews),
+            'views_count'     => (int)($school['views_count'] ?? 0),
+            'rating_avg'      => (float)($school['rating_avg'] ?? 0)
+        ]
+    ]);
+}
+
+// ==========================================
+// 11. UPDATE SCHOOL PROFILE (تعديل كامل بيانات المدرسة)
+// ==========================================
+if ($action === 'school_update_profile') {
+    $school = verifySchoolToken($pdo);
+    $schoolId = (int)$school['id'];
+
+    $rawInput = file_get_contents('php://input');
+    $data = json_decode($rawInput, true);
+    if (!is_array($data)) {
+        $data = $_POST;
+    }
+
+    $name         = trim((string)($data['name'] ?? $school['name']));
+    $name_en      = trim((string)($data['name_en'] ?? $school['name_en']));
+    $phone        = trim((string)($data['phone'] ?? $school['phone']));
+    $whatsapp     = trim((string)($data['whatsapp'] ?? $school['whatsapp']));
+    $email        = trim((string)($data['email'] ?? $school['email']));
+    $website      = trim((string)($data['website'] ?? $school['website']));
+    $state        = trim((string)($data['state'] ?? $school['state']));
+    $city         = trim((string)($data['city'] ?? $school['city']));
+    $district     = trim((string)($data['district'] ?? $school['district']));
+    $address      = trim((string)($data['address'] ?? $school['address']));
+    $mapUrl       = trim((string)($data['google_map_url'] ?? $school['google_map_url']));
+    $desc         = trim((string)($data['description'] ?? $school['description']));
+    $vision       = trim((string)($data['vision'] ?? $school['vision']));
+    $mission      = trim((string)($data['mission'] ?? $school['mission']));
+    $schoolType   = trim((string)($data['school_type'] ?? $school['school_type']));
+    $genderType   = trim((string)($data['gender_type'] ?? $school['gender_type']));
+    $curriculum   = trim((string)($data['curriculum'] ?? $school['curriculum']));
+    $estYear      = !empty($data['established_year']) ? (int)$data['established_year'] : $school['established_year'];
+    $approxFees   = trim((string)($data['approx_fees'] ?? $school['approx_fees']));
+    $feesType     = trim((string)($data['fees_type'] ?? $school['fees_type']));
+
+    $stages       = isset($data['stages']) && is_array($data['stages']) ? json_encode($data['stages'], JSON_UNESCAPED_UNICODE) : $school['stages'];
+    $facilities   = isset($data['facilities']) && is_array($data['facilities']) ? json_encode($data['facilities'], JSON_UNESCAPED_UNICODE) : $school['facilities'];
+    $stageFees    = isset($data['stage_fees']) && is_array($data['stage_fees']) ? json_encode($data['stage_fees'], JSON_UNESCAPED_UNICODE) : $school['stage_fees'];
+
+    if ($name === '') {
+        jsonRes(['success' => false, 'message' => 'اسم المدرسة لا يمكن أن يكون فارغاً.'], 400);
+    }
+    if ($phone === '') {
+        jsonRes(['success' => false, 'message' => 'رقم هاتف المدرسة مطلوب.'], 400);
+    }
+
+    $upStmt = $pdo->prepare("
+        UPDATE daleel_schools SET
+            name = ?, name_en = ?, phone = ?, whatsapp = ?, email = ?, website = ?,
+            state = ?, city = ?, district = ?, address = ?, google_map_url = ?,
+            description = ?, vision = ?, mission = ?, school_type = ?, gender_type = ?,
+            curriculum = ?, established_year = ?, approx_fees = ?, fees_type = ?,
+            stages = ?, facilities = ?, stage_fees = ?, updated_at = NOW()
+        WHERE id = ?
+    ");
+    $upStmt->execute([
+        $name, $name_en ?: null, $phone, $whatsapp ?: null, $email ?: null, $website ?: null,
+        $state, $city, $district ?: null, $address ?: null, $mapUrl ?: null,
+        $desc ?: null, $vision ?: null, $mission ?: null, $schoolType, $genderType,
+        $curriculum, $estYear ?: null, $approxFees ?: null, $feesType ?: 'average',
+        $stages, $facilities, $stageFees, $schoolId
+    ]);
+
+    // Refetch updated
+    $stmt = $pdo->prepare("SELECT * FROM daleel_schools WHERE id = ?");
+    $stmt->execute([$schoolId]);
+    $updated = $stmt->fetch();
+
+    jsonRes([
+        'success' => true,
+        'message' => 'تم حفظ وتحديث بيانات المدرسة بنجاح!',
+        'school'  => formatSchool($updated, $pdo)
+    ]);
+}
+
+// ==========================================
+// 12. UPDATE INQUIRY STATUS (تحديث حالة طلب القبول)
+// ==========================================
+if ($action === 'school_inquiry_status') {
+    $school = verifySchoolToken($pdo);
+    $schoolId = (int)$school['id'];
+
+    $rawInput = file_get_contents('php://input');
+    $data = json_decode($rawInput, true);
+    if (!is_array($data)) {
+        $data = $_POST;
+    }
+
+    $inquiryId = (int)($data['inquiry_id'] ?? 0);
+    $status    = trim((string)($data['status'] ?? 'contacted'));
+
+    $allowedStatuses = ['new', 'contacted', 'enrolled', 'cancelled'];
+    if (!in_array($status, $allowedStatuses, true)) {
+        jsonRes(['success' => false, 'message' => 'حالة غير صالحة.'], 400);
+    }
+
+    $up = $pdo->prepare("UPDATE daleel_school_inquiries SET status = ? WHERE id = ? AND school_id = ?");
+    $up->execute([$status, $inquiryId, $schoolId]);
+
+    jsonRes([
+        'success' => true,
+        'message' => 'تم تحديث حالة الطلب بنجاح.',
+        'status'  => $status
+    ]);
+}
+
+// ==========================================
+// 13. ADD SCHOOL NEWS (إضافة خبر جديد من الموبايل)
+// ==========================================
+if ($action === 'school_add_news') {
+    $school = verifySchoolToken($pdo);
+    $schoolId = (int)$school['id'];
+
+    $rawInput = file_get_contents('php://input');
+    $data = json_decode($rawInput, true);
+    if (!is_array($data)) {
+        $data = $_POST;
+    }
+
+    $title    = trim((string)($data['title'] ?? ''));
+    $content  = trim((string)($data['content'] ?? ''));
+    $category = trim((string)($data['category'] ?? 'general'));
+    $isPinned = !empty($data['is_pinned']) ? 1 : 0;
+
+    if ($title === '') {
+        jsonRes(['success' => false, 'message' => 'عنوان الخبر مطلوب.'], 400);
+    }
+    if ($content === '') {
+        jsonRes(['success' => false, 'message' => 'محتوى الخبر مطلوب.'], 400);
+    }
+
+    $ins = $pdo->prepare("
+        INSERT INTO daleel_news (school_id, title, content, category, is_pinned, published_at, created_at)
+        VALUES (?, ?, ?, ?, ?, NOW(), NOW())
+    ");
+    $ins->execute([$schoolId, $title, $content, $category, $isPinned]);
+
+    jsonRes([
+        'success' => true,
+        'message' => 'تم نشر الخبر بنجاح!',
+        'news_id' => (int)$pdo->lastInsertId()
+    ]);
+}
+
+// ==========================================
+// 14. DELETE SCHOOL NEWS (حذف خبر)
+// ==========================================
+if ($action === 'school_delete_news') {
+    $school = verifySchoolToken($pdo);
+    $schoolId = (int)$school['id'];
+
+    $rawInput = file_get_contents('php://input');
+    $data = json_decode($rawInput, true);
+    if (!is_array($data)) {
+        $data = $_POST;
+    }
+
+    $newsId = (int)($data['news_id'] ?? 0);
+    $del = $pdo->prepare("DELETE FROM daleel_news WHERE id = ? AND school_id = ?");
+    $del->execute([$newsId, $schoolId]);
+
+    jsonRes([
+        'success' => true,
+        'message' => 'تم حذف الخبر بنجاح.'
+    ]);
+}
+
 jsonRes(['success' => false, 'message' => 'إجراء غير معروف'], 400);
+

@@ -174,4 +174,142 @@ class ApiService {
       throw Exception(json['message'] ?? 'فشل إرسال الطلب، يرجى المحاولة لاحقاً');
     }
   }
+
+  // 6. Check for In-App Updates (خاصية التحديثات)
+  static Future<Map<String, dynamic>> checkUpdate({String currentVersion = '1.0.0', int versionCode = 1}) async {
+    final uri = Uri.parse('$baseUrl?action=check_update&version=$currentVersion&version_code=$versionCode');
+    final response = await _client.get(uri).timeout(const Duration(seconds: 10));
+
+    if (response.statusCode == 200) {
+      final json = jsonDecode(response.body);
+      if (json['success'] == true) {
+        return json;
+      }
+      throw Exception(json['message'] ?? 'فشل فحص التحديثات');
+    } else {
+      throw Exception('خطأ في الاتصال بالخادم');
+    }
+  }
+
+  // 7. School Owner Login (تسجيل دخول مدراء المدارس)
+  static Future<Map<String, dynamic>> schoolLogin(String identifier, String password) async {
+    final uri = Uri.parse('$baseUrl?action=school_login');
+    final response = await _client.post(
+      uri,
+      headers: {'Content-Type': 'application/json; charset=UTF-8'},
+      body: jsonEncode({
+        'identifier': identifier.trim(),
+        'password': password,
+      }),
+    ).timeout(const Duration(seconds: 15));
+
+    final json = jsonDecode(response.body);
+    if (response.statusCode == 200 && json['success'] == true) {
+      return json;
+    } else {
+      throw Exception(json['message'] ?? 'بيانات الدخول غير صحيحة');
+    }
+  }
+
+  // 8. Fetch School Management Portal Data
+  static Future<Map<String, dynamic>> getSchoolPortalData(String token) async {
+    final uri = Uri.parse('$baseUrl?action=school_portal');
+    final response = await _client.get(
+      uri,
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+    ).timeout(const Duration(seconds: 15));
+
+    final json = jsonDecode(response.body);
+    if (response.statusCode == 200 && json['success'] == true) {
+      return json;
+    } else {
+      throw Exception(json['message'] ?? 'فشل تحميل بيانات بوابة المدرسة');
+    }
+  }
+
+  // 9. Update School Profile (تعديل كامل بيانات المدرسة)
+  static Future<Map<String, dynamic>> updateSchoolProfile(String token, Map<String, dynamic> data) async {
+    final uri = Uri.parse('$baseUrl?action=school_update_profile');
+    final response = await _client.post(
+      uri,
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode(data),
+    ).timeout(const Duration(seconds: 15));
+
+    final json = jsonDecode(response.body);
+    if (response.statusCode == 200 && json['success'] == true) {
+      return json;
+    } else {
+      throw Exception(json['message'] ?? 'فشل حفظ وتحديث بيانات المدرسة');
+    }
+  }
+
+  // 10. Update Inquiry Status (تحديث حالة طلب القبول)
+  static Future<void> updateInquiryStatus(String token, int inquiryId, String status) async {
+    final uri = Uri.parse('$baseUrl?action=school_inquiry_status');
+    final response = await _client.post(
+      uri,
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode({
+        'inquiry_id': inquiryId,
+        'status': status,
+      }),
+    ).timeout(const Duration(seconds: 10));
+
+    final json = jsonDecode(response.body);
+    if (response.statusCode != 200 || json['success'] != true) {
+      throw Exception(json['message'] ?? 'فشل تحديث حالة الطلب');
+    }
+  }
+
+  // 11. Add News Item
+  static Future<void> addSchoolNews(String token, String title, String content, String category, bool isPinned) async {
+    final uri = Uri.parse('$baseUrl?action=school_add_news');
+    final response = await _client.post(
+      uri,
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode({
+        'title': title,
+        'content': content,
+        'category': category,
+        'is_pinned': isPinned ? 1 : 0,
+      }),
+    ).timeout(const Duration(seconds: 10));
+
+    final json = jsonDecode(response.body);
+    if (response.statusCode != 200 || json['success'] != true) {
+      throw Exception(json['message'] ?? 'فشل نشر الخبر');
+    }
+  }
+
+  // 12. Delete News Item
+  static Future<void> deleteSchoolNews(String token, int newsId) async {
+    final uri = Uri.parse('$baseUrl?action=school_delete_news');
+    final response = await _client.post(
+      uri,
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode({'news_id': newsId}),
+    ).timeout(const Duration(seconds: 10));
+
+    final json = jsonDecode(response.body);
+    if (response.statusCode != 200 || json['success'] != true) {
+      throw Exception(json['message'] ?? 'فشل حذف الخبر');
+    }
+  }
 }
+
