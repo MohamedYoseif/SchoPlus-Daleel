@@ -420,12 +420,23 @@ if ((isset($_REQUEST['action']) && $_REQUEST['action'] === 'scan')) {
         ],
     ];
 
-    // Compute Overall Score
+    // Compute Overall Score with smart partial credit for detected footprint (6 pts per detected item)
     $earnedScore = 0;
-    foreach ($items as $it) {
+    foreach ($items as &$it) {
         if (!empty($it['verified'])) {
-            $earnedScore += $it['points'];
+            $it['earned_points'] = (int)$it['points'];
+        } elseif ($it['status'] === 'detected') {
+            $it['earned_points'] = 6;
+        } else {
+            $it['earned_points'] = 0;
         }
+        $earnedScore += $it['earned_points'];
+    }
+    unset($it);
+
+    $hasDbLogo = ($matchedSchool && !empty($matchedSchool['logo']));
+    if ($hasDbLogo) {
+        $earnedScore = min(100, $earnedScore + 10);
     }
 
     echo json_encode([
@@ -433,10 +444,13 @@ if ((isset($_REQUEST['action']) && $_REQUEST['action'] === 'scan')) {
         'school_name' => $schoolName,
         'country' => $country,
         'state' => $state,
+        'has_logo' => $hasDbLogo,
+        'logo' => $hasDbLogo ? $matchedSchool['logo'] : null,
         'matched_db_school' => $matchedSchool ? [
             'id' => (int)$matchedSchool['id'],
             'name' => $matchedSchool['name'],
             'slug' => $matchedSchool['slug'],
+            'logo' => !empty($matchedSchool['logo']) ? $matchedSchool['logo'] : null,
             'is_smart' => (int)($matchedSchool['is_schoplus_client'] ?? 0) === 1,
             'reviews_count' => $reviewsCount,
             'rating_avg' => $ratingAvg,
@@ -710,6 +724,76 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
     font-size: 0.72rem;
     font-weight: 700;
     color: #64748B;
+}
+
+/* SCHOOL LOGO AVATAR BOX */
+.audit-school-avatar-box {
+    width: 58px;
+    height: 58px;
+    border-radius: 14px;
+    background: #F8FAFC;
+    border: 1.5px solid #DDE4ED;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(11, 42, 82, 0.05);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.audit-school-avatar-box:hover {
+    border-color: var(--brand-orange, #F5A020);
+    transform: scale(1.03);
+}
+.audit-school-avatar-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 3px;
+}
+.audit-school-avatar-box .avatar-monogram {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--brand-navy, #0B2A52);
+    font-family: inherit;
+}
+
+/* VISUAL SEARCH & LOGO AUDIT CARD */
+.audit-visual-search-card {
+    background: #FFFFFF;
+    border: 1.5px dashed #CBD5E1;
+    border-radius: 16px;
+    padding: 18px 22px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 18px rgba(11, 42, 82, 0.04);
+    position: relative;
+    transition: all 0.2s ease;
+}
+.audit-visual-search-card:hover {
+    border-color: var(--brand-blue, #1E5FA8);
+    box-shadow: 0 6px 22px rgba(11, 42, 82, 0.07);
+}
+.audit-logo-dropzone {
+    width: 72px;
+    height: 72px;
+    border-radius: 14px;
+    background: #F8FAFC;
+    border: 2px dashed #94A3B8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+    overflow: hidden;
+    position: relative;
+}
+.audit-logo-dropzone:hover {
+    border-color: var(--brand-orange, #F5A020);
+    background: #FFFBEB;
+    transform: scale(1.02);
 }
 
 /* ACTIVE AUDIT STATUS BAR (COMPACT EXECUTIVE TOOLBAR) */
@@ -1076,6 +1160,101 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
     margin-bottom: 16px;
     max-width: 680px;
 }
+
+/* SCHOOL AVATAR & LOGO BOX */
+.audit-school-avatar-box {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    background: #F1F5F9;
+    border: 1px solid #CBD5E1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+.audit-school-avatar-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.audit-school-avatar-box .school-monogram {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #1E5FA8;
+}
+.active-bar-logo {
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    object-fit: cover;
+    border: 1px solid #CBD5E1;
+    display: none;
+}
+
+/* VISUAL SEARCH & LOGO AUDIT CARD */
+.audit-visual-search-card {
+    background: #FFFFFF;
+    border: 1px solid #DDE4ED;
+    border-top: 3px solid #1E5FA8;
+    border-radius: 14px;
+    padding: 16px 20px;
+    margin-top: 16px;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+}
+.audit-visual-search-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+.audit-visual-title {
+    font-size: 0.92rem;
+    font-weight: 800;
+    color: #0D1B2E;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.audit-visual-desc {
+    font-size: 0.74rem;
+    color: #64748B;
+    line-height: 1.55;
+    margin: 0;
+}
+.audit-logo-dropzone {
+    border: 2px dashed #CBD5E1;
+    border-radius: 12px;
+    padding: 14px 18px;
+    text-align: center;
+    background: #F8FAFC;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+.audit-logo-dropzone:hover {
+    border-color: #1E5FA8;
+    background: #F0F7FF;
+}
+.audit-logo-dropzone.dragover {
+    border-color: #F5A020;
+    background: #FFFBEB;
+}
+.audit-logo-preview {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 1px solid #CBD5E1;
+    display: none;
+}
 </style>
 
 <!-- ======================================================================= -->
@@ -1189,6 +1368,7 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
                 <span class="badge bg-primary text-white px-2.5 py-1 rounded-pill" style="font-size: 0.68rem;">
                     <i class="fas fa-satellite-dish me-1"></i> فحص رقمي معتمد
                 </span>
+                <img id="activeBarSchoolLogo" class="active-bar-logo" alt="شعار المدرسة">
                 <strong class="text-dark" id="activeSchoolTitle" style="font-size: 0.9rem;">اسم المدرسة</strong>
                 <span class="text-muted" id="activeSchoolGeo" style="font-size: 0.74rem;">— السودان</span>
             </div>
@@ -1216,12 +1396,18 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
                 </div>
             </div>
 
-            <div class="d-flex flex-column gap-1">
-                <h3 class="fw-bold text-dark mb-0" id="resultSchoolName" style="font-size: 1.15rem;">اسم المدرسة</h3>
-                <div class="text-muted d-flex align-items-center gap-2" style="font-size: 0.73rem;">
-                    <span id="resultSchoolLocation"><i class="fas fa-map-marker-alt text-danger me-1"></i> السودان</span>
-                    <span>•</span>
-                    <span id="verifiedItemsCount"><i class="fas fa-check-circle text-success me-1"></i> 0 من 10 بنود مؤكدة</span>
+            <div class="d-flex align-items-center gap-3">
+                <div class="audit-school-avatar-box" id="auditSchoolAvatarBox">
+                    <img src="" id="auditSchoolLogoImg" alt="شعار المدرسة" style="display: none;">
+                    <span class="school-monogram" id="auditSchoolMonogram">م</span>
+                </div>
+                <div class="d-flex flex-column gap-1">
+                    <h3 class="fw-bold text-dark mb-0" id="resultSchoolName" style="font-size: 1.15rem;">اسم المدرسة</h3>
+                    <div class="text-muted d-flex align-items-center gap-2" style="font-size: 0.73rem;">
+                        <span id="resultSchoolLocation"><i class="fas fa-map-marker-alt text-danger me-1"></i> السودان</span>
+                        <span>•</span>
+                        <span id="verifiedItemsCount"><i class="fas fa-check-circle text-success me-1"></i> 0 من 10 بنود مؤكدة</span>
+                    </div>
                 </div>
             </div>
 
@@ -1266,6 +1452,54 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
                 <div class="metric-body">
                     <span class="metric-val" id="metricDaleelVal">غير مدرجة</span>
                     <div class="metric-lbl">التوثيق بدليل المدارس</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VISUAL SEARCH & LOGO AUDIT CARD -->
+        <div class="audit-visual-search-card" id="auditVisualSearchCard">
+            <div class="audit-visual-search-header">
+                <div>
+                    <h4 class="audit-visual-title mb-1">
+                        <i class="fas fa-camera text-primary"></i>
+                        <span>هل التواجد الرقمي لمدرستك أكبر من النتيجة الحالية؟</span>
+                        <span class="badge bg-warning text-dark px-2 py-0.5 rounded-pill" style="font-size:0.65rem;">+10% بونص الشعار والهوية</span>
+                    </h4>
+                    <p class="audit-visual-desc">
+                        تحتفظ المدارس العريقة بحضور بصري قوي عبر شهادات التكريم، نتائج الامتحانات، واحتفالات التخرج. قم برفع شعار المدرسة لتوثيقه فوراً، أو استخدم البحث البصري بالصور للوصول لكافة الأخبار والشهادات المرتبطة باسم المدرسة.
+                    </p>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <a href="#" id="googleImagesSearchBtn" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary fw-bold" style="font-size: 0.72rem;">
+                        <i class="fas fa-images me-1"></i> بحث الصور في Google
+                    </a>
+                    <a href="#" id="googleNewsVisualBtn" target="_blank" rel="noopener" class="btn btn-sm btn-light border fw-bold" style="font-size: 0.72rem;">
+                        <i class="fas fa-newspaper me-1 text-secondary"></i> أرشيف التكريم والشهادات
+                    </a>
+                </div>
+            </div>
+
+            <!-- DRAG & DROP LOGO UPLOADER -->
+            <div class="row g-3 align-items-center mt-1">
+                <div class="col-md-7">
+                    <div class="audit-logo-dropzone" id="auditLogoDropzone" onclick="document.getElementById('auditLogoFileInput').click()">
+                        <input type="file" id="auditLogoFileInput" accept="image/*" style="display: none;" onchange="handleLogoUpload(this)">
+                        <div class="d-flex align-items-center gap-3">
+                            <img id="uploadedLogoPreview" class="audit-logo-preview" alt="معاينة الشعار">
+                            <div id="dropzonePromptText" class="text-start">
+                                <div class="fw-bold text-dark" style="font-size: 0.8rem;">
+                                    <i class="fas fa-cloud-upload-alt text-primary me-1"></i> اضغط هنا لرفع شعار المدرسة أو اسحبه وأفلته
+                                </div>
+                                <div class="text-muted" style="font-size: 0.7rem;">يدعم صيغ PNG, JPG, WebP — يرفع نسبة الوجود الرقمي بمقدار +10 نقاط فورية</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="p-2.5 rounded-3 bg-light border" style="font-size: 0.72rem; color: #475569; line-height: 1.55;">
+                        <strong class="text-dark d-block mb-1"><i class="fas fa-info-circle text-primary me-1"></i> كيف تؤثر الهوية البصرية؟</strong>
+                        ظهور الشعار الرسمي على منصات البحث وشبكات التواصل يرفع ثقة أولياء الأمور بنسبة تفوق 75% ويثبت ملكية المنصات المكتشفة تلقائياً.
+                    </div>
                 </div>
             </div>
         </div>
@@ -1527,6 +1761,39 @@ function renderAuditResults(data) {
     document.getElementById('resultSchoolName').textContent = data.school_name;
     document.getElementById('resultSchoolLocation').innerHTML = `<i class="fas fa-map-marker-alt text-danger me-1"></i> ${escapeHtml(data.state ? 'ولاية ' + data.state + ' — ' : '')}${escapeHtml(data.country || 'السودان')}`;
 
+    // School Logo and Avatar Handling
+    const logoImg = document.getElementById('auditSchoolLogoImg');
+    const monogram = document.getElementById('auditSchoolMonogram');
+    const activeLogo = document.getElementById('activeBarSchoolLogo');
+    const schoolLogoUrl = data.logo || (data.matched_db_school && data.matched_db_school.logo) || null;
+
+    if (schoolLogoUrl) {
+        if (logoImg) {
+            logoImg.src = schoolLogoUrl;
+            logoImg.style.display = 'block';
+        }
+        if (monogram) monogram.style.display = 'none';
+        if (activeLogo) {
+            activeLogo.src = schoolLogoUrl;
+            activeLogo.style.display = 'inline-block';
+        }
+    } else {
+        if (logoImg) logoImg.style.display = 'none';
+        if (monogram) {
+            monogram.style.display = 'block';
+            monogram.textContent = (data.school_name || 'م').trim().charAt(0);
+        }
+        if (activeLogo) activeLogo.style.display = 'none';
+    }
+
+    // Setup Visual Search buttons for Google Images and News Archives
+    const gImgBtn = document.getElementById('googleImagesSearchBtn');
+    const gNewsBtn = document.getElementById('googleNewsVisualBtn');
+    const qName = encodeURIComponent('شعار ' + data.school_name);
+    const qNews = encodeURIComponent('"' + data.school_name + '" تكريم اوائل نتيجة الشهادة');
+    if (gImgBtn) gImgBtn.href = `https://www.google.com/search?tbm=isch&q=${qName}`;
+    if (gNewsBtn) gNewsBtn.href = `https://www.google.com/search?q=${qNews}`;
+
     itemsGrid.innerHTML = '';
     data.items.forEach(item => {
         const card = createItemCard(item);
@@ -1548,17 +1815,18 @@ function renderAuditResults(data) {
 // Create Card for each of the 10 Items
 function createItemCard(item) {
     const card = document.createElement('div');
+    const isDetected = (!item.verified && (item.status === 'detected' || (item.value && item.value.trim().length > 0)));
     card.className = `audit-item-card ${item.verified ? 'is-confirmed' : (item.status === 'not_found' ? 'is-missing' : '')}`;
     card.id = `itemCard_${item.id}`;
     card.dataset.id = item.id;
-    card.dataset.status = item.verified ? 'verified' : (item.status === 'not_found' ? 'missing' : 'detected');
+    card.dataset.status = item.verified ? 'verified' : (isDetected ? 'detected' : 'missing');
     card.dataset.type = (item.id === 2 || item.id === 3 || item.id === 4 || item.id === 7) ? 'social' : ((item.id === 6 || item.id === 8 || item.id === 9) ? 'trust' : 'general');
 
     let statusPillHtml = '';
     if (item.verified) {
         statusPillHtml = `<span class="audit-status-pill b-green"><i class="fas fa-check-circle"></i> مؤكد وموثق</span>`;
-    } else if (item.status === 'detected') {
-        statusPillHtml = `<span class="audit-status-pill b-orange"><i class="fas fa-search"></i> مكتشف (بحاجة لتأكيد)</span>`;
+    } else if (isDetected) {
+        statusPillHtml = `<span class="audit-status-pill b-orange"><i class="fas fa-search"></i> أثر رقمي مكتشف (60%)</span>`;
     } else {
         statusPillHtml = `<span class="audit-status-pill b-red"><i class="fas fa-times-circle"></i> غير متوفر (0%)</span>`;
     }
@@ -1585,10 +1853,10 @@ function createItemCard(item) {
         // Regular items (1 to 7)
         actionsHtml = `
             <div class="d-flex align-items-center gap-1">
-                ${!item.verified && item.value ? `<button type="button" class="audit-act-btn btn-confirm" onclick="confirmItem(${item.id})"><i class="fas fa-check"></i> صحيح</button>` : ''}
+                ${!item.verified && item.value ? `<button type="button" class="audit-act-btn btn-confirm" onclick="confirmItem(${item.id})"><i class="fas fa-check"></i> تأكيد وصحة (+4)</button>` : ''}
                 ${item.verified ? `<span class="text-success fw-bold" style="font-size:0.68rem;"><i class="fas fa-shield-alt"></i> معتمد</span>` : ''}
-                <button type="button" class="audit-act-btn btn-edit" onclick="toggleItemEdit(${item.id})">
-                    <i class="fas fa-edit"></i> ${item.value ? 'تعديل' : '+ إضافة'}
+                <button type="button" class="audit-act-btn ${item.value ? 'btn-edit' : 'btn-add'}" onclick="toggleItemEdit(${item.id})">
+                    <i class="fas ${item.value ? 'fa-edit' : 'fa-plus'}"></i> ${item.value ? 'تعديل' : '+ إضافة الرابط (+10)'}
                 </button>
             </div>
         `;
@@ -1633,7 +1901,7 @@ function createItemCard(item) {
         <div class="audit-item-actions" id="actions_${item.id}">
             ${actionsHtml}
             <span class="text-muted" style="font-size:0.65rem;" id="pointsBadge_${item.id}">
-                ${item.verified ? '<strong class="text-success">+10 نقاط</strong>' : '0 / 10 نقاط'}
+                ${item.verified ? '<strong class="text-success">+10 نقاط (مؤكد)</strong>' : (isDetected ? '<strong class="text-warning">+6 / 10 نقاط (مكتشف)</strong>' : '<span class="text-muted">0 / 10 نقاط</span>')}
             </span>
         </div>
     `;
@@ -1654,20 +1922,29 @@ function confirmItem(itemId) {
 
     // Update UI elements
     const card = document.getElementById(`itemCard_${itemId}`);
-    card.classList.remove('is-missing');
-    card.classList.add('is-confirmed');
+    if (card) {
+        card.classList.remove('is-missing');
+        card.classList.add('is-confirmed');
+        card.dataset.status = 'verified';
+    }
 
-    document.getElementById(`statusPill_${itemId}`).innerHTML = `<span class="audit-status-pill b-green"><i class="fas fa-check-circle"></i> مؤكد وموثق</span>`;
-    document.getElementById(`pointsBadge_${itemId}`).innerHTML = `<strong class="text-success">+10 نقاط</strong>`;
+    const pillEl = document.getElementById(`statusPill_${itemId}`);
+    if (pillEl) pillEl.innerHTML = `<span class="audit-status-pill b-green"><i class="fas fa-check-circle"></i> مؤكد وموثق</span>`;
+    
+    const badgeEl = document.getElementById(`pointsBadge_${itemId}`);
+    if (badgeEl) badgeEl.innerHTML = `<strong class="text-success">+10 نقاط (مؤكد)</strong>`;
     
     // Refresh actions
-    document.getElementById(`actions_${itemId}`).innerHTML = `
-        <div class="d-flex align-items-center gap-1">
-            <span class="text-success fw-bold" style="font-size:0.68rem;"><i class="fas fa-shield-alt"></i> معتمد من المستخدم</span>
-            <button type="button" class="audit-act-btn btn-edit" onclick="toggleItemEdit(${itemId})"><i class="fas fa-edit"></i> تعديل</button>
-        </div>
-        <span class="text-muted" style="font-size:0.65rem;"><strong class="text-success">+10 نقاط</strong></span>
-    `;
+    const actEl = document.getElementById(`actions_${itemId}`);
+    if (actEl) {
+        actEl.innerHTML = `
+            <div class="d-flex align-items-center gap-1">
+                <span class="text-success fw-bold" style="font-size:0.68rem;"><i class="fas fa-shield-alt"></i> معتمد من المستخدم</span>
+                <button type="button" class="audit-act-btn btn-edit" onclick="toggleItemEdit(${itemId})"><i class="fas fa-edit"></i> تعديل</button>
+            </div>
+            <span class="text-muted" style="font-size:0.65rem;"><strong class="text-success">+10 نقاط (مؤكد)</strong></span>
+        `;
+    }
 
     updateOverallScore();
     buildRegistrationBridgeLink();
@@ -1758,16 +2035,25 @@ function updateOverallScore() {
 
     let score = 0;
     let verifiedCount = 0;
+    let detectedCount = 0;
     let missingCount = 0;
 
     CURRENT_AUDIT_DATA.items.forEach(it => {
         if (it.verified) {
-            score += it.points;
+            score += (it.points || 10);
             verifiedCount++;
+        } else if (it.status === 'detected' || (it.value && it.value.trim().length > 0)) {
+            score += 6; // 60% partial credit for detected digital footprint
+            detectedCount++;
         } else {
             missingCount++;
         }
     });
+
+    const hasLogo = !!(CURRENT_AUDIT_DATA.logo || CURRENT_AUDIT_DATA.uploaded_logo || (CURRENT_AUDIT_DATA.matched_db_school && CURRENT_AUDIT_DATA.matched_db_school.logo));
+    if (hasLogo) {
+        score = Math.min(100, score + 10);
+    }
 
     const scoreNumEl = document.getElementById('finalScoreText');
     const scorePill = document.getElementById('finalScorePill');
@@ -1806,7 +2092,7 @@ function updateOverallScore() {
 
     // Update 4 Metric cards
     if (metricScoreVal) metricScoreVal.textContent = score + '%';
-    if (metricVerifiedVal) metricVerifiedVal.textContent = `${verifiedCount} من 10`;
+    if (metricVerifiedVal) metricVerifiedVal.textContent = `${verifiedCount + detectedCount} من 10`;
     if (metricMissingVal) metricMissingVal.textContent = `${missingCount} عناصر`;
 
     const isInDaleel = (CURRENT_AUDIT_DATA.matched_db_school !== null && CURRENT_AUDIT_DATA.matched_db_school.id);
@@ -1829,13 +2115,55 @@ function updateOverallScore() {
     const pillCountVerified = document.getElementById('pillCountVerified');
     const pillCountMissing = document.getElementById('pillCountMissing');
     if (pillCountAll) pillCountAll.textContent = CURRENT_AUDIT_DATA.items.length;
-    if (pillCountVerified) pillCountVerified.textContent = verifiedCount;
+    if (pillCountVerified) pillCountVerified.textContent = verifiedCount + detectedCount;
     if (pillCountMissing) pillCountMissing.textContent = missingCount;
 
-    verifiedText.innerHTML = `<i class="fas fa-check-circle text-success me-1"></i> ${verifiedCount} من 10 بنود مؤكدة`;
+    verifiedText.innerHTML = `<i class="fas fa-check-circle text-success me-1"></i> ${verifiedCount} مؤكدة • ${detectedCount} مكتشفة`;
 
     // Refresh active filter view
     filterAuditItems(CURRENT_FILTER);
+}
+
+// Interactive Logo Upload and Visual Presence Audit
+function handleLogoUpload(input) {
+    if (!input.files || !input.files[0]) return;
+    const file = input.files[0];
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const dataUrl = e.target.result;
+        if (CURRENT_AUDIT_DATA) {
+            CURRENT_AUDIT_DATA.uploaded_logo = dataUrl;
+            CURRENT_AUDIT_DATA.has_logo = true;
+        }
+        const preview = document.getElementById('uploadedLogoPreview');
+        if (preview) {
+            preview.src = dataUrl;
+            preview.style.display = 'block';
+        }
+        const promptText = document.getElementById('dropzonePromptText');
+        if (promptText) {
+            promptText.innerHTML = `
+                <div class="fw-bold text-success" style="font-size: 0.8rem;">
+                    <i class="fas fa-check-circle me-1"></i> تم رفع الشعار بنجاح (+10% بونص أضيف لمؤشرك)
+                </div>
+                <div class="text-muted" style="font-size: 0.7rem;">${escapeHtml(file.name)} (${Math.round(file.size / 1024)} KB)</div>
+            `;
+        }
+        const logoImg = document.getElementById('auditSchoolLogoImg');
+        const monogram = document.getElementById('auditSchoolMonogram');
+        const activeLogo = document.getElementById('activeBarSchoolLogo');
+        if (logoImg) {
+            logoImg.src = dataUrl;
+            logoImg.style.display = 'block';
+        }
+        if (monogram) monogram.style.display = 'none';
+        if (activeLogo) {
+            activeLogo.src = dataUrl;
+            activeLogo.style.display = 'inline-block';
+        }
+        updateOverallScore();
+    };
+    reader.readAsDataURL(file);
 }
 
 // Build pre-filled link to /register.php or /dashboard.php
