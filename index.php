@@ -1470,7 +1470,7 @@ require_once __DIR__ . '/header.php';
                             <i class="fas fa-search"></i>
                             <span>استكشاف المدارس</span>
                         </button>
-                        <a href="/presence-audit.php" class="sp-btn-audit-hero">
+                        <a href="/presence-audit.php" class="sp-btn-audit-hero" id="heroAuditBtn" title="فحص الأثر والوجود الرقمي الشامل لهذه المدرسة">
                             <i class="fas fa-satellite-dish" style="color: #F5A020;"></i>
                             <span>فحص الوجود الرقمي</span>
                         </a>
@@ -2153,8 +2153,39 @@ $extraScripts = <<<JS
             }
         }
 
-        // 2. Intercept Global Filter Links (Hero Reset, Search Clear Icon)
+        // 2. Intercept Global Filter Links (Hero Reset, Search Clear Icon, Digital Presence Audit)
         document.addEventListener('click', function(e) {
+            // Hero Presence Audit Button: Forward current search query, country, state & city directly
+            const auditBtn = e.target.closest('.sp-btn-audit-hero');
+            if (auditBtn) {
+                e.preventDefault();
+                let school = '';
+                let country = '';
+                let state = '';
+                let city = '';
+                if (smartFilterForm) {
+                    const qInput = smartFilterForm.querySelector('input[name="q"]');
+                    const countrySel = smartFilterForm.querySelector('#filterCountrySelect') || smartFilterForm.querySelector('select[name="country"]');
+                    const stateSel = smartFilterForm.querySelector('#filterStateSelect') || smartFilterForm.querySelector('select[name="state"]');
+                    const citySel = smartFilterForm.querySelector('#filterCitySelect') || smartFilterForm.querySelector('select[name="city"]');
+                    if (qInput) school = qInput.value.trim();
+                    if (countrySel) country = countrySel.value.trim();
+                    if (stateSel) state = stateSel.value.trim();
+                    if (citySel) city = citySel.value.trim();
+                }
+                const params = new URLSearchParams();
+                if (school) {
+                    params.set('school', school);
+                    params.set('auto', '1');
+                }
+                if (country) params.set('country', country);
+                if (state) params.set('state', state);
+                if (city) params.set('city', city);
+                const qs = params.toString();
+                window.location.href = '/presence-audit.php' + (qs ? '?' + qs : '');
+                return;
+            }
+
             // Hero Form Reset button
             const resetBtn = e.target.closest('.sp-btn-reset-hero');
             if (resetBtn) {

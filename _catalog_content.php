@@ -224,13 +224,29 @@
             <div class="row g-3">
                 <?php if (empty($searchResults)): ?>
                     <div class="col-12 py-5 text-center">
-                        <div class="p-5 bg-white rounded-3 border text-center shadow-sm max-w-md mx-auto" style="max-width: 480px; margin: 0 auto;">
-                            <i class="fas fa-school fa-3x text-muted mb-3 opacity-50"></i>
-                            <h4 class="fw-bold text-dark" style="font-size: 1.05rem;">لا توجد مدارس مطابقة للبحث حالياً</h4>
-                            <p class="text-muted small" style="font-size: 0.74rem;">جرب تغيير شروط الفلترة أو تصفح ولاية أخرى لاكتشاف خيارات أوسع.</p>
-                            <a href="/" class="btn-luxury-primary btn-sm mt-2">
-                                <i class="fas fa-undo me-1"></i> إعادة ضبط وعرض كل المدارس
-                            </a>
+                        <div class="p-4 p-md-5 bg-white rounded-4 border text-center shadow-sm max-w-md mx-auto" style="max-width: 520px; margin: 0 auto; border-color: #DDE4ED !important;">
+                            <div style="width: 56px; height: 56px; border-radius: 50%; background: #EFF6FF; color: #1E5FA8; display: inline-flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 14px;">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <h4 class="fw-bold text-dark" style="font-size: 1.05rem;">لم نعثر على مدرسة مطابقة للبحث</h4>
+                            <?php if (!empty($q)): ?>
+                                <p class="text-muted small" style="font-size: 0.76rem; line-height: 1.6; margin-bottom: 18px;">
+                                    هل تبحث عن مدرسة <strong class="text-dark">"<?= e($q) ?>"</strong>؟ قد لا تكون مسجلة بعد في الدليل، ولكن يمكنك فحص حضورها الرقمي الشامل على جوجل وخرائط جوجل وشبكات التواصل بنقرة واحدة!
+                                </p>
+                                <div class="d-flex flex-wrap align-items-center justify-content-center gap-2 mb-2">
+                                    <a href="/presence-audit.php?school=<?= urlencode($q) ?>&country=<?= urlencode($country) ?>&state=<?= urlencode($state) ?>&auto=1" class="btn-luxury-primary btn-sm py-2 px-3" style="font-size: 0.78rem;">
+                                        <i class="fas fa-satellite-dish me-1"></i> فحص الوجود الرقمي لـ "<?= e($q) ?>"
+                                    </a>
+                                    <a href="/" class="btn-luxury-outline btn-sm py-2 px-3" style="font-size: 0.78rem;">
+                                        <i class="fas fa-undo me-1"></i> عرض كافة المدارس
+                                    </a>
+                                </div>
+                            <?php else: ?>
+                                <p class="text-muted small" style="font-size: 0.74rem;">جرب تغيير شروط الفلترة أو تصفح ولاية أخرى لاكتشاف خيارات أوسع.</p>
+                                <a href="/" class="btn-luxury-primary btn-sm mt-2">
+                                    <i class="fas fa-undo me-1"></i> إعادة ضبط وعرض كل المدارس
+                                </a>
+                            <?php endif; ?>
                         </div>
                     </div>
                 <?php else: ?>

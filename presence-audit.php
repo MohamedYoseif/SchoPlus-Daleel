@@ -52,11 +52,11 @@ if (isset($_GET['action']) && $_GET['action'] === 'suggest') {
     exit;
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['action']) && $_POST['action'] === 'scan')) {
+if ((isset($_REQUEST['action']) && $_REQUEST['action'] === 'scan')) {
     header('Content-Type: application/json; charset=utf-8');
-    $schoolName = trim((string)($_POST['school_name'] ?? ''));
-    $country = trim((string)($_POST['country'] ?? 'السودان')) ?: 'السودان';
-    $state = trim((string)($_POST['state'] ?? ''));
+    $schoolName = trim((string)($_REQUEST['school_name'] ?? ($_REQUEST['school'] ?? ($_REQUEST['q'] ?? ''))));
+    $country = trim((string)($_REQUEST['country'] ?? 'السودان')) ?: 'السودان';
+    $state = trim((string)($_REQUEST['state'] ?? ''));
 
     if (mb_strlen($schoolName) < 2) {
         echo json_encode([
@@ -460,12 +460,14 @@ require_once __DIR__ . '/header.php';
 $allCountries = SudanGeography::countries();
 $countriesWithStates = SudanGeography::countriesWithStatesAndCities();
 $defaultCountry = SudanGeography::detectVisitorCountry() ?: 'السودان';
-$statesForDefault = SudanGeography::statesWithCities($defaultCountry);
-
-// URL Prefill support (e.g. ?school=...&state=...)
-$prefillSchool = trim((string)($_GET['school'] ?? ''));
-$prefillState = trim((string)($_GET['state'] ?? ''));
 $prefillCountry = trim((string)($_GET['country'] ?? $defaultCountry)) ?: $defaultCountry;
+$statesForDefault = SudanGeography::statesWithCities($prefillCountry);
+
+// URL Prefill support (e.g. ?school=...&q=...&state=...)
+$prefillSchool = trim((string)($_GET['school'] ?? ($_GET['q'] ?? ($_GET['school_name'] ?? ''))));
+$prefillState = trim((string)($_GET['state'] ?? ''));
+$prefillCity = trim((string)($_GET['city'] ?? ''));
+$autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
 ?>
 
 <style>
@@ -708,7 +710,155 @@ $prefillCountry = trim((string)($_GET['country'] ?? $defaultCountry)) ?: $defaul
     font-size: 0.72rem;
     font-weight: 700;
     color: #64748B;
-    margin-top: 3px;
+/* ACTIVE AUDIT STATUS BAR (COMPACT EXECUTIVE TOOLBAR) */
+.audit-active-bar {
+    background: #FFFFFF;
+    border: 1px solid #DDE4ED;
+    border-right: 4px solid var(--brand-orange, #F5A020);
+    border-radius: 12px;
+    padding: 10px 18px;
+    margin-bottom: 20px;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    box-shadow: 0 2px 10px rgba(11, 42, 82, 0.04);
+}
+.audit-active-bar-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* 4 KPI METRICS GRID (STYLE F v2) */
+.metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 22px;
+}
+@media (max-width: 991px) {
+    .metrics {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 575px) {
+    .metrics {
+        grid-template-columns: 1fr;
+    }
+}
+.metric {
+    background: #FFFFFF;
+    border: 1px solid #DDE4ED;
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 2px 8px rgba(11, 42, 82, 0.04);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.2s ease;
+}
+.metric:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(11, 42, 82, 0.08);
+}
+.metric::before {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0; right: 0;
+    width: 3.5px;
+    border-radius: 0 12px 12px 0;
+}
+.metric.m-blue::before { background: var(--brand-blue, #1E5FA8); }
+.metric.m-green::before { background: #10B981; }
+.metric.m-orange::before { background: var(--brand-orange, #F5A020); }
+.metric.m-gray::before { background: #0B2A52; }
+
+.metric-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+.m-blue .metric-icon { background: #EFF6FF; color: var(--brand-blue, #1E5FA8); }
+.m-green .metric-icon { background: #ECFDF5; color: #10B981; }
+.m-orange .metric-icon { background: #FFFBEB; color: var(--brand-orange, #F5A020); }
+.m-gray .metric-icon { background: #F1F5F9; color: #0B2A52; }
+
+.metric-body {
+    flex: 1;
+    min-width: 0;
+    text-align: right;
+}
+.metric-val {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--brand-navy, #0B2A52);
+    line-height: 1.2;
+    display: block;
+}
+.metric-lbl {
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: #64748B;
+    margin-top: 2px;
+}
+
+/* SEGMENTED QUICK PILLS */
+.segmented-pills {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.seg-pill {
+    height: 32px;
+    padding: 0 14px;
+    border-radius: 999px;
+    border: 1px solid #DDE4ED;
+    background: #FFFFFF;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: inherit;
+    user-select: none;
+}
+.seg-pill:hover {
+    border-color: var(--brand-blue, #1E5FA8);
+    color: var(--brand-blue, #1E5FA8);
+    background: #F8FAFC;
+}
+.seg-pill.active {
+    background: #0B2A52;
+    border-color: #0B2A52;
+    color: #FFFFFF;
+}
+.seg-pill.active i {
+    color: #F5A020 !important;
+}
+.seg-pill .pill-count {
+    font-size: 0.65rem;
+    padding: 1px 6px;
+    border-radius: 999px;
+    background: rgba(0,0,0,0.06);
+    font-weight: 800;
+}
+.seg-pill.active .pill-count {
+    background: rgba(255,255,255,0.22);
+    color: #FFFFFF;
 }
 
 /* 10 AUDIT ITEMS GRID */
@@ -1033,6 +1183,22 @@ $prefillCountry = trim((string)($_GET['country'] ?? $defaultCountry)) ?: $defaul
 
     <!-- AUDIT RESULTS CONTAINER -->
     <div class="audit-results-container" id="auditResults">
+
+        <!-- ACTIVE AUDIT STATUS BAR (COMPACT EXECUTIVE TOOLBAR) -->
+        <div class="audit-active-bar" id="auditActiveBar">
+            <div class="audit-active-bar-info">
+                <span class="badge bg-primary text-white px-2.5 py-1 rounded-pill" style="font-size: 0.68rem;">
+                    <i class="fas fa-satellite-dish me-1"></i> فحص رقمي معتمد
+                </span>
+                <strong class="text-dark" id="activeSchoolTitle" style="font-size: 0.9rem;">اسم المدرسة</strong>
+                <span class="text-muted" id="activeSchoolGeo" style="font-size: 0.74rem;">— السودان</span>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <button type="button" class="btn btn-sm btn-light border" style="font-size: 0.72rem;" onclick="toggleAuditSearchForm()">
+                    <i class="fas fa-search me-1 text-primary"></i> فحص مدرسة أخرى
+                </button>
+            </div>
+        </div>
         
         <!-- SCORE HERO CARD -->
         <div class="audit-score-card">
@@ -1052,7 +1218,7 @@ $prefillCountry = trim((string)($_GET['country'] ?? $defaultCountry)) ?: $defaul
             </div>
 
             <div class="d-flex flex-column gap-1">
-                <h3 class="fw-bold text-dark mb-0" id="resultSchoolName" style="font-size: 1.1rem;">اسم المدرسة</h3>
+                <h3 class="fw-bold text-dark mb-0" id="resultSchoolName" style="font-size: 1.15rem;">اسم المدرسة</h3>
                 <div class="text-muted d-flex align-items-center gap-2" style="font-size: 0.73rem;">
                     <span id="resultSchoolLocation"><i class="fas fa-map-marker-alt text-danger me-1"></i> السودان</span>
                     <span>•</span>
@@ -1070,6 +1236,68 @@ $prefillCountry = trim((string)($_GET['country'] ?? $defaultCountry)) ?: $defaul
                 <a href="#auditConversionSection" class="btn-luxury-primary" style="font-size: 0.74rem; padding: 7px 14px;">
                     <i class="fas fa-save"></i> تثبيت الحضور بالدليل
                 </a>
+            </div>
+        </div>
+
+        <!-- 4 KPI METRICS (STYLE F v2) -->
+        <div class="metrics" id="auditMetricsGrid">
+            <div class="metric m-blue" id="metricCardScore">
+                <div class="metric-icon"><i class="fas fa-chart-line"></i></div>
+                <div class="metric-body">
+                    <span class="metric-val" id="metricScoreVal">0%</span>
+                    <div class="metric-lbl">المؤشر الرقمي العام</div>
+                </div>
+            </div>
+            <div class="metric m-green" id="metricCardVerified">
+                <div class="metric-icon"><i class="fas fa-check-double"></i></div>
+                <div class="metric-body">
+                    <span class="metric-val" id="metricVerifiedVal">0 من 10</span>
+                    <div class="metric-lbl">عناصر نشطة وموثقة</div>
+                </div>
+            </div>
+            <div class="metric m-orange" id="metricCardMissing">
+                <div class="metric-icon"><i class="fas fa-exclamation-circle"></i></div>
+                <div class="metric-body">
+                    <span class="metric-val" id="metricMissingVal">0 عناصر</span>
+                    <div class="metric-lbl">فرص تحسين غير مكتملة</div>
+                </div>
+            </div>
+            <div class="metric m-gray" id="metricCardDaleel">
+                <div class="metric-icon"><i class="fas fa-award"></i></div>
+                <div class="metric-body">
+                    <span class="metric-val" id="metricDaleelVal">غير مدرجة</span>
+                    <div class="metric-lbl">التوثيق بدليل المدارس</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORY SEGMENTED PILLS -->
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3 mt-4">
+            <div class="segmented-pills mb-0" id="auditCategoryPills">
+                <button type="button" class="seg-pill active" data-filter="all" onclick="filterAuditItems('all')">
+                    <i class="fas fa-layer-group"></i> كافة البنود
+                    <span class="pill-count" id="pillCountAll">10</span>
+                </button>
+                <button type="button" class="seg-pill" data-filter="verified" onclick="filterAuditItems('verified')">
+                    <i class="fas fa-check-circle text-success"></i> الموثقة والمؤكدة
+                    <span class="pill-count" id="pillCountVerified">0</span>
+                </button>
+                <button type="button" class="seg-pill" data-filter="missing" onclick="filterAuditItems('missing')">
+                    <i class="fas fa-tools text-warning"></i> فرص التحسين والمفقود
+                    <span class="pill-count" id="pillCountMissing">0</span>
+                </button>
+                <button type="button" class="seg-pill" data-filter="social" onclick="filterAuditItems('social')">
+                    <i class="fas fa-share-alt text-primary"></i> قنوات التواصل
+                    <span class="pill-count">4</span>
+                </button>
+                <button type="button" class="seg-pill" data-filter="trust" onclick="filterAuditItems('trust')">
+                    <i class="fas fa-shield-alt text-info"></i> الاعتماد والخرائط
+                    <span class="pill-count">3</span>
+                </button>
+            </div>
+
+            <div class="text-muted small d-none d-md-block" style="font-size: 0.7rem;">
+                <i class="fas fa-info-circle text-primary me-1"></i> يمكنك تأكيد أو تعديل أي بند بنقرة واحدة لتحسين النتيجة
             </div>
         </div>
 
@@ -1282,9 +1510,23 @@ function renderAuditResults(data) {
     CURRENT_AUDIT_DATA = data;
     const container = document.getElementById('auditResults');
     const itemsGrid = document.getElementById('auditItemsGrid');
+    const searchCard = document.getElementById('auditSearchCard');
+    const activeBar = document.getElementById('auditActiveBar');
+
+    // Update active toolbar
+    if (activeBar) {
+        document.getElementById('activeSchoolTitle').textContent = data.school_name;
+        document.getElementById('activeSchoolGeo').textContent = '— ' + (data.state ? 'ولاية ' + data.state + '، ' : '') + (data.country || 'السودان');
+        activeBar.style.display = 'flex';
+    }
+
+    // Collapse search card so executive results are directly visible
+    if (searchCard) {
+        searchCard.style.display = 'none';
+    }
 
     document.getElementById('resultSchoolName').textContent = data.school_name;
-    document.getElementById('resultSchoolLocation').innerHTML = `<i class="fas fa-map-marker-alt text-danger me-1"></i> ${escapeHtml(data.state || data.country)}`;
+    document.getElementById('resultSchoolLocation').innerHTML = `<i class="fas fa-map-marker-alt text-danger me-1"></i> ${escapeHtml(data.state ? 'ولاية ' + data.state + ' — ' : '')}${escapeHtml(data.country || 'السودان')}`;
 
     itemsGrid.innerHTML = '';
     data.items.forEach(item => {
@@ -1304,6 +1546,9 @@ function createItemCard(item) {
     const card = document.createElement('div');
     card.className = `audit-item-card ${item.verified ? 'is-confirmed' : (item.status === 'not_found' ? 'is-missing' : '')}`;
     card.id = `itemCard_${item.id}`;
+    card.dataset.id = item.id;
+    card.dataset.status = item.verified ? 'verified' : (item.status === 'not_found' ? 'missing' : 'detected');
+    card.dataset.type = (item.id === 2 || item.id === 3 || item.id === 4 || item.id === 7) ? 'social' : ((item.id === 6 || item.id === 8 || item.id === 9) ? 'trust' : 'general');
 
     let statusPillHtml = '';
     if (item.verified) {
@@ -1456,16 +1701,67 @@ function saveItemEdit(itemId) {
     confirmItem(itemId);
 }
 
-// Recalculate Live Overall Score & Animate Gauge
+let CURRENT_FILTER = 'all';
+
+function toggleAuditSearchForm() {
+    const card = document.getElementById('auditSearchCard');
+    if (card) {
+        if (card.style.display === 'none') {
+            card.style.display = 'block';
+            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            const input = document.getElementById('auditSchoolName');
+            if (input) {
+                input.focus();
+                input.select();
+            }
+        } else {
+            card.style.display = 'none';
+        }
+    }
+}
+
+function filterAuditItems(filterKey) {
+    CURRENT_FILTER = filterKey;
+    document.querySelectorAll('#auditCategoryPills .seg-pill').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.filter === filterKey);
+    });
+
+    const cards = document.querySelectorAll('.audit-item-card');
+    cards.forEach(card => {
+        const isConfirmed = card.classList.contains('is-confirmed');
+        const isMissing = !isConfirmed;
+        const itemType = card.dataset.type;
+
+        let show = false;
+        if (filterKey === 'all') {
+            show = true;
+        } else if (filterKey === 'verified') {
+            show = isConfirmed;
+        } else if (filterKey === 'missing') {
+            show = isMissing;
+        } else if (filterKey === 'social') {
+            show = (itemType === 'social');
+        } else if (filterKey === 'trust') {
+            show = (itemType === 'trust');
+        }
+        card.style.display = show ? 'flex' : 'none';
+    });
+}
+
+// Recalculate Live Overall Score & Animate Gauge & KPI Metrics
 function updateOverallScore() {
     if (!CURRENT_AUDIT_DATA) return;
 
     let score = 0;
     let verifiedCount = 0;
+    let missingCount = 0;
+
     CURRENT_AUDIT_DATA.items.forEach(it => {
         if (it.verified) {
             score += it.points;
             verifiedCount++;
+        } else {
+            missingCount++;
         }
     });
 
@@ -1473,6 +1769,13 @@ function updateOverallScore() {
     const scorePill = document.getElementById('finalScorePill');
     const scoreCircle = document.getElementById('scoreRadialCircle');
     const verifiedText = document.getElementById('verifiedItemsCount');
+
+    // 4 Metric Card Elements
+    const metricScoreVal = document.getElementById('metricScoreVal');
+    const metricVerifiedVal = document.getElementById('metricVerifiedVal');
+    const metricMissingVal = document.getElementById('metricMissingVal');
+    const metricDaleelVal = document.getElementById('metricDaleelVal');
+    const metricCardDaleel = document.getElementById('metricCardDaleel');
 
     // Count-up animation
     animateCount(scoreNumEl, parseInt(scoreNumEl.textContent) || 0, score, 400);
@@ -1497,7 +1800,38 @@ function updateOverallScore() {
         scorePill.innerHTML = '<i class="fas fa-exclamation-triangle"></i> وجود رقمي ضعيف أو غير مفعل';
     }
 
+    // Update 4 Metric cards
+    if (metricScoreVal) metricScoreVal.textContent = score + '%';
+    if (metricVerifiedVal) metricVerifiedVal.textContent = `${verifiedCount} من 10`;
+    if (metricMissingVal) metricMissingVal.textContent = `${missingCount} عناصر`;
+
+    const isInDaleel = (CURRENT_AUDIT_DATA.matched_db_school !== null && CURRENT_AUDIT_DATA.matched_db_school.id);
+    if (metricDaleelVal) {
+        if (isInDaleel) {
+            metricDaleelVal.innerHTML = '<span class="text-success"><i class="fas fa-check-circle me-1"></i> موثقة بالدليل</span>';
+            if (metricCardDaleel) {
+                metricCardDaleel.className = 'metric m-green';
+            }
+        } else {
+            metricDaleelVal.innerHTML = '<span class="text-danger"><i class="fas fa-times-circle me-1"></i> غير مسجلة</span>';
+            if (metricCardDaleel) {
+                metricCardDaleel.className = 'metric m-orange';
+            }
+        }
+    }
+
+    // Update Pill Counts
+    const pillCountAll = document.getElementById('pillCountAll');
+    const pillCountVerified = document.getElementById('pillCountVerified');
+    const pillCountMissing = document.getElementById('pillCountMissing');
+    if (pillCountAll) pillCountAll.textContent = CURRENT_AUDIT_DATA.items.length;
+    if (pillCountVerified) pillCountVerified.textContent = verifiedCount;
+    if (pillCountMissing) pillCountMissing.textContent = missingCount;
+
     verifiedText.innerHTML = `<i class="fas fa-check-circle text-success me-1"></i> ${verifiedCount} من 10 بنود مؤكدة`;
+
+    // Refresh active filter view
+    filterAuditItems(CURRENT_FILTER);
 }
 
 // Build pre-filled link to /register.php or /dashboard.php
@@ -1567,11 +1901,17 @@ function escapeHtml(str) {
         .replace(/'/g, '&#039;');
 }
 
-// Auto-run if school parameter passed in URL
+// Auto-run if school or q parameter passed in URL
 document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('school')) {
+    const sName = urlParams.get('school') || urlParams.get('q') || urlParams.get('school_name');
+    if (sName && sName.trim().length >= 2) {
+        const input = document.getElementById('auditSchoolName');
+        if (input) input.value = sName.trim();
         runDigitalAudit();
+    } else {
+        const input = document.getElementById('auditSchoolName');
+        if (input) input.focus();
     }
 });
 </script>

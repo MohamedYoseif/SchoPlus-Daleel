@@ -1,7 +1,7 @@
 {
-    "version": "3.6.66",
-    "release_date": "2026-10-15",
+    "version": "3.6.69",
+    "release_date": "2026-10-16",
     "version_type": "enterprise",
     "min_php_version": "8.2",
-    "release_notes": "دليل المدارس (daleel.schoplus.sd) — تعديل عنوان قسم المدارس إلى 'قائمة المدارس السودانية في الدليل' وتنقيح الصياغات v3.6.66"
+    "release_notes": "دليل المدارس (daleel.schoplus.sd) — ربط فحص الوجود الرقمي ببيانات البحث العام تلقائياً وترقية لوحة النتائج ومؤشرات KPI v3.6.69"
 }
