@@ -66,7 +66,7 @@
 
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2 text-muted" style="font-size: 0.72rem;">
                 <div>جميع الحقوق محفوظة © <?= date('Y') ?> — دليل المدارس السودانية | ملتقى المدارس وأولياء الأمور في السودان</div>
-                <div>النسخة 3.6.94</div>
+                <div>خدمة رقمية مجانية مقدمة من فريق <strong>SchoPlus</strong></div>
             </div>
         </div>
     </footer>
