@@ -15,7 +15,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="mb-3">
                         <a href="/" class="d-inline-block text-decoration-none">
-                            <img src="/assets/images/logo.png?v=3.6.93" alt="دليل المدارس السودانية" style="height: 46px; width: auto; object-fit: contain;">
+                            <img src="/assets/images/logo.png?v=3.6.94" alt="دليل المدارس السودانية" style="height: 46px; width: auto; object-fit: contain;">
                         </a>
                     </div>
                     <p class="text-muted leading-relaxed mb-0" style="font-size: 0.73rem; line-height: 1.75;">
@@ -65,8 +65,8 @@
             <hr class="my-3" style="border-color: #DDE4ED;">
 
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2 text-muted" style="font-size: 0.72rem;">
-                <div>جميع الحقوق محفوظة © <?= date('Y') ?> — دليل المدارس السودانية | منصة الاستكشاف والقبول الذكي</div>
-                <div>النسخة 3.6.93</div>
+                <div>جميع الحقوق محفوظة © <?= date('Y') ?> — دليل المدارس السودانية | ملتقى المدارس وأولياء الأمور في السودان</div>
+                <div>النسخة 3.6.94</div>
             </div>
         </div>
     </footer>

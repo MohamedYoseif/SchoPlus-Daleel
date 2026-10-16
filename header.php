@@ -59,8 +59,8 @@ $isDaleelMobile = (
       }, true);
     </script>
 
-    <link rel="icon" type="image/png" href="/assets/images/favicon.png?v=3.6.93">
-    <link rel="apple-touch-icon" href="/assets/images/logo-icon.png?v=3.6.93">
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png?v=3.6.94">
+    <link rel="apple-touch-icon" href="/assets/images/logo-icon.png?v=3.6.94">
     <title><?= isset($pageTitle) ? e($pageTitle) . ' | دليل المدارس السودانية' : 'دليل المدارس السودانية — دليلك الشامل لاختيار أفضل المدارس في السودان' ?></title>
     
     <!-- Open Graph / WhatsApp / Facebook Meta Tags -->
@@ -1188,7 +1188,7 @@ $isDaleelMobile = (
         <div class="container d-flex justify-content-between align-items-center">
             
             <a href="/" class="daleel-brand" title="دليل المدارس السودانية">
-                <img src="/assets/images/logo.png?v=3.6.93" alt="دليل المدارس السودانية" class="daleel-logo-img">
+                <img src="/assets/images/logo.png?v=3.6.94" alt="دليل المدارس السودانية" class="daleel-logo-img">
             </a>
 
             <div class="d-flex align-items-center gap-2">
