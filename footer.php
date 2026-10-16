@@ -57,43 +57,63 @@
     <footer class="daleel-footer" style="background-color: #F8FAFC; border-top: 1px solid #DDE4ED; padding: 40px 0 25px; margin-top: 24px; color: #475569;">
         <div class="container">
             <div class="row g-4">
+                <!-- Col 1: Identity & Description -->
                 <div class="col-lg-4 col-md-6">
                     <div class="mb-3">
                         <a href="/" class="d-inline-block text-decoration-none">
-                            <img src="/assets/images/logo.png?v=3.7.4" alt="دليل المدارس السودانية" style="height: 46px; width: auto; object-fit: contain;">
+                            <img src="/assets/images/logo.png?v=3.7.6" alt="دليل المدارس السودانية" style="height: 46px; width: auto; object-fit: contain;">
                         </a>
                     </div>
                     <p class="text-muted leading-relaxed mb-0" style="font-size: 0.73rem; line-height: 1.75;">
-                        خدمة رقمية وطنية تهدف إلى مساعدة أولياء الأمور والطلاب في البحث والتعرف على المدارس ومقارنتها، وإتاحة مساحة احترافية لإدارات المدارس للتعريف بخدماتهم التعليمية.
+                        المنصة الرقمية الوطنية الموحدة للمدارس السودانية. تمكّن أولياء الأمور والطلاب من البحث والتعرف على كافة المدارس ومقارنتها، وتتيح لإدارات المدارس حضوراً رقمياً احترافياً وتواصلاً مباشراً مع الأسر.
                     </p>
                 </div>
 
-                <div class="col-lg-2 col-md-6 col-6">
-                    <h5 class="fw-bold mb-3" style="font-size: 0.85rem; color: #0B2A52;">تصفح الدليل</h5>
-                    <a href="/" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">كافة المدارس</a>
-                    <a href="/?view=top_rated" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">المدارس الأعلى تقييماً</a>
-                    <a href="/compare.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">مقارنة المدارس</a>
-                    <a href="/presence-audit.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">فحص الوجود الرقمي</a>
-                    <a href="/#app-download" class="d-block text-success fw-bold text-decoration-none mb-2" style="font-size: 0.74rem;">
-                        <i class="fas fa-mobile-alt me-1"></i> تطبيق الهاتف (أندرويد وآيفون)
+                <!-- Col 2: Directory Browsing (Parents/Students) -->
+                <div class="col-lg-3 col-md-6 col-6">
+                    <h5 class="fw-bold mb-3" style="font-size: 0.85rem; color: #0B2A52;">تصفح واستكشاف</h5>
+                    <a href="/" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">
+                        <i class="fas fa-th-large me-1 text-muted" style="font-size: 0.68rem;"></i> كافة المدارس
                     </a>
-                    <a href="/register.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">إضافة مدرسة جديدة</a>
+                    <a href="/#schoplus-schools" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">
+                        <i class="fas fa-star me-1 text-warning" style="font-size: 0.68rem;"></i> المدارس الذكية المعتمدة
+                    </a>
+                    <a href="/?view=top_rated" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">
+                        <i class="fas fa-award me-1 text-primary" style="font-size: 0.68rem;"></i> المدارس الأعلى تقييماً
+                    </a>
+                    <a href="/compare.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">
+                        <i class="fas fa-balance-scale me-1 text-muted" style="font-size: 0.68rem;"></i> مقارنة المدارس
+                    </a>
                 </div>
 
+                <!-- Col 3: School Administration (Management Only) -->
                 <div class="col-lg-3 col-md-6 col-6">
                     <h5 class="fw-bold mb-3" style="font-size: 0.85rem; color: #0B2A52;">لأصحاب المدارس</h5>
-                    <a href="/login.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">بوابة مدراء المدارس</a>
-                    <a href="/register.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">تسجيل مدرسة جديدة</a>
-                    <a href="/presence-audit.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">فحص الوجود الرقمي للمدرسة</a>
+                    <a href="/login.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">
+                        <i class="fas fa-user-shield me-1 text-muted" style="font-size: 0.68rem;"></i> دخول بوابة الإدارة
+                    </a>
+                    <a href="/register.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">
+                        <i class="fas fa-plus-circle me-1 text-success" style="font-size: 0.68rem;"></i> تسجيل واعتماد مدرسة جديدة
+                    </a>
+                    <a href="/presence-audit.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">
+                        <i class="fas fa-satellite-dish me-1 text-muted" style="font-size: 0.68rem;"></i> فحص الوجود الرقمي للمدرسة
+                    </a>
+                    <a href="https://schoplus.sd" target="_blank" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">
+                        <i class="fas fa-cloud me-1 text-primary" style="font-size: 0.68rem;"></i> حلول SchoPlus لإدارة المدارس
+                    </a>
                 </div>
 
-                <div class="col-lg-3 col-md-6">
-                    <h5 class="fw-bold mb-3" style="font-size: 0.85rem; color: #0B2A52;">عن المنصة</h5>
-                    <p class="text-muted mb-3" style="font-size: 0.73rem; line-height: 1.65;">
-                        المنصة الرقمية الموحدة للمدارس السودانية، تمكّن الأسر من استكشاف كافة المدارس ومقارنتها والتواصل المباشر مع إداراتها.
-                    </p>
-                    <a href="/register.php" class="btn-luxury-primary btn-sm w-100 justify-content-center" style="font-size: 0.78rem;">
-                        <i class="fas fa-plus-circle me-1"></i> سجّل مدرستك مجاناً
+                <!-- Col 4: Support & Contact -->
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="fw-bold mb-3" style="font-size: 0.85rem; color: #0B2A52;">تواصل ودعم</h5>
+                    <a href="https://wa.me/249912345678" target="_blank" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">
+                        <i class="fab fa-whatsapp me-1 text-success" style="font-size: 0.78rem;"></i> واتساب الدعم الفني
+                    </a>
+                    <a href="https://schoplus.sd" target="_blank" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">
+                        <i class="fas fa-globe me-1 text-muted" style="font-size: 0.68rem;"></i> موقع المنصة الرسمي
+                    </a>
+                    <a href="/#app-download" class="d-block text-success fw-bold text-decoration-none mb-2" style="font-size: 0.74rem;">
+                        <i class="fas fa-mobile-alt me-1" style="font-size: 0.68rem;"></i> تطبيق الهاتف الذكي
                     </a>
                 </div>
             </div>
