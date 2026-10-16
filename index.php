@@ -2059,9 +2059,9 @@ $extraScripts = <<<JS
         function syncHeroForm(data) {
             if (!smartFilterForm) return;
 
-            // 1. Search text input
+            // 1. Search text input (only sync when input is not active/focused by user)
             const qInput = smartFilterForm.querySelector('input[name="q"]');
-            if (qInput && typeof data.q !== 'undefined') {
+            if (qInput && typeof data.q !== 'undefined' && document.activeElement !== qInput) {
                 qInput.value = data.q;
             }
 
@@ -2131,26 +2131,6 @@ $extraScripts = <<<JS
                 const targetUrl = qs ? '/?' + qs : '/';
                 loadCatalogAjax(targetUrl, true, true);
             });
-
-            // Live Debounce search while typing in hero search input
-            const qInput = smartFilterForm.querySelector('input[name="q"]');
-            if (qInput) {
-                let debounceTimeout = null;
-                qInput.addEventListener('input', function() {
-                    clearTimeout(debounceTimeout);
-                    debounceTimeout = setTimeout(() => {
-                        const formData = new FormData(smartFilterForm);
-                        const params = new URLSearchParams();
-                        for (const [k, v] of formData.entries()) {
-                            const val = (v || '').trim();
-                            if (val !== '') params.set(k, val);
-                        }
-                        const qs = params.toString();
-                        const targetUrl = qs ? '/?' + qs : '/';
-                        loadCatalogAjax(targetUrl, true, false);
-                    }, 400);
-                });
-            }
         }
 
         // 2. Intercept Global Filter Links (Hero Reset, Search Clear Icon, Digital Presence Audit)
