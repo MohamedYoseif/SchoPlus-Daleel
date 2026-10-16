@@ -52,6 +52,177 @@ if (isset($_GET['action']) && $_GET['action'] === 'suggest') {
     exit;
 }
 
+// -------------------------------------------------------------------------
+// Upload School Logo Endpoint (for Visual Search, Reverse Search & Footprint)
+// -------------------------------------------------------------------------
+if (isset($_REQUEST['action']) && $_REQUEST['action'] === 'upload_logo') {
+    header('Content-Type: application/json; charset=utf-8');
+    
+    $uploadDir = __DIR__ . '/uploads/logos/';
+    if (!is_dir($uploadDir)) {
+        @mkdir($uploadDir, 0755, true);
+    }
+
+    $savedRelativePath = null;
+    $width = 0;
+    $height = 0;
+    $fileSize = 0;
+    $mime = '';
+
+    // Handle File Upload
+    if (isset($_FILES['logo_file']) && $_FILES['logo_file']['error'] === UPLOAD_ERR_OK) {
+        $file = $_FILES['logo_file'];
+        $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+        $allowed = ['png', 'jpg', 'jpeg', 'webp', 'svg'];
+        if (!in_array($ext, $allowed)) {
+            echo json_encode(['success' => false, 'message' => 'نوع الملف غير مدعوم. يرجى اختيار صورة PNG أو JPG أو WebP أو SVG.'], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+        if ($file['size'] > 5 * 1024 * 1024) {
+            echo json_encode(['success' => false, 'message' => 'حجم الصورة كبير جداً، الحد الأقصى 5 ميجابايت.'], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+
+        $filename = 'audit_' . time() . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
+        $target = $uploadDir . $filename;
+        if (move_uploaded_file($file['tmp_name'], $target)) {
+            @chmod($target, 0644);
+            $savedRelativePath = '/uploads/logos/' . $filename;
+            $fileSize = filesize($target);
+            if ($ext !== 'svg') {
+                $imgInfo = @getimagesize($target);
+                if ($imgInfo) {
+                    $width = $imgInfo[0];
+                    $height = $imgInfo[1];
+                    $mime = $imgInfo['mime'];
+                }
+            } else {
+                $mime = 'image/svg+xml';
+                $width = 512;
+                $height = 512;
+            }
+        }
+    } 
+    // Handle Base64 Data URL
+    elseif (!empty($_POST['logo_data'])) {
+        $dataStr = (string)$_POST['logo_data'];
+        if (preg_match('#^data:image/(png|jpeg|jpg|webp|svg\+xml);base64,#i', $dataStr, $match)) {
+            $ext = strtolower($match[1]) === 'svg+xml' ? 'svg' : strtolower($match[1]);
+            if ($ext === 'jpeg') $ext = 'jpg';
+            $base64 = substr($dataStr, strpos($dataStr, ',') + 1);
+            $decoded = base64_decode($base64);
+            if ($decoded !== false && strlen($decoded) > 0) {
+                $filename = 'audit_' . time() . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
+                $target = $uploadDir . $filename;
+                if (file_put_contents($target, $decoded)) {
+                    @chmod($target, 0644);
+                    $savedRelativePath = '/uploads/logos/' . $filename;
+                    $fileSize = strlen($decoded);
+                    if ($ext !== 'svg') {
+                        $imgInfo = @getimagesize($target);
+                        if ($imgInfo) {
+                            $width = $imgInfo[0];
+                            $height = $imgInfo[1];
+                            $mime = $imgInfo['mime'];
+                        }
+                    } else {
+                        $mime = 'image/svg+xml';
+                        $width = 512;
+                        $height = 512;
+                    }
+                }
+            }
+        }
+    }
+
+    if ($savedRelativePath) {
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
+        $host = $_SERVER['HTTP_HOST'] ?? 'daleel.schoplus.sd';
+        $fullPublicUrl = $protocol . $host . $savedRelativePath;
+
+        echo json_encode([
+            'success' => true,
+            'logo_url' => $fullPublicUrl,
+            'relative_path' => $savedRelativePath,
+            'width' => $width,
+            'height' => $height,
+            'size_kb' => round($fileSize / 1024, 1),
+            'mime' => $mime,
+        ], JSON_UNESCAPED_UNICODE);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'تعذر رفع وحفظ الشعار، يرجى المحاولة مرة أخرى.'], JSON_UNESCAPED_UNICODE);
+    }
+    exit;
+}
+
+// -------------------------------------------------------------------------
+// Fetch Logo from Direct URL (e.g. from School Website or Social Media)
+// -------------------------------------------------------------------------
+if (isset($_REQUEST['action']) && $_REQUEST['action'] === 'fetch_logo_url') {
+    header('Content-Type: application/json; charset=utf-8');
+    $fetchUrl = trim((string)($_REQUEST['url'] ?? ''));
+
+    if (empty($fetchUrl) || !filter_var($fetchUrl, FILTER_VALIDATE_URL)) {
+        echo json_encode(['success' => false, 'message' => 'يرجى إدخال رابط صورة صالح يبدأ بـ http أو https'], JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
+    try {
+        $ctx = stream_context_create([
+            'http' => [
+                'timeout' => 5,
+                'user_agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 SchoPlusBot/1.0',
+            ]
+        ]);
+        $imgData = @file_get_contents($fetchUrl, false, $ctx);
+        if ($imgData && strlen($imgData) > 100) {
+            $finfo = new finfo(FILEINFO_MIME_TYPE);
+            $mime = $finfo->buffer($imgData);
+            $allowedMimes = [
+                'image/png' => 'png',
+                'image/jpeg' => 'jpg',
+                'image/webp' => 'webp',
+                'image/svg+xml' => 'svg'
+            ];
+
+            if (isset($allowedMimes[$mime])) {
+                $ext = $allowedMimes[$mime];
+                $uploadDir = __DIR__ . '/uploads/logos/';
+                if (!is_dir($uploadDir)) @mkdir($uploadDir, 0755, true);
+                $filename = 'audit_' . time() . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
+                $target = $uploadDir . $filename;
+                file_put_contents($target, $imgData);
+                @chmod($target, 0644);
+
+                $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
+                $host = $_SERVER['HTTP_HOST'] ?? 'daleel.schoplus.sd';
+                $relative = '/uploads/logos/' . $filename;
+                $fullUrl = $protocol . $host . $relative;
+
+                $width = 0; $height = 0;
+                if ($ext !== 'svg') {
+                    $sz = @getimagesize($target);
+                    if ($sz) { $width = $sz[0]; $height = $sz[1]; }
+                }
+
+                echo json_encode([
+                    'success' => true,
+                    'logo_url' => $fullUrl,
+                    'relative_path' => $relative,
+                    'width' => $width,
+                    'height' => $height,
+                    'size_kb' => round(strlen($imgData) / 1024, 1),
+                    'mime' => $mime,
+                ], JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+        }
+    } catch (Throwable $e) {}
+
+    echo json_encode(['success' => false, 'message' => 'تعذر جلب الصورة من الرابط، يرجى التأكد من أن الرابط مباشر لصورة ويسمح بالوصول.'], JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
 if ((isset($_REQUEST['action']) && $_REQUEST['action'] === 'scan')) {
     header('Content-Type: application/json; charset=utf-8');
     $schoolName = trim((string)($_REQUEST['school_name'] ?? ($_REQUEST['school'] ?? ($_REQUEST['q'] ?? ''))));
@@ -434,7 +605,15 @@ if ((isset($_REQUEST['action']) && $_REQUEST['action'] === 'scan')) {
     }
     unset($it);
 
-    $hasDbLogo = ($matchedSchool && !empty($matchedSchool['logo']));
+    $dbLogo = null;
+    if ($matchedSchool) {
+        if (!empty($matchedSchool['logo_path'])) {
+            $dbLogo = $matchedSchool['logo_path'];
+        } elseif (!empty($matchedSchool['logo'])) {
+            $dbLogo = $matchedSchool['logo'];
+        }
+    }
+    $hasDbLogo = !empty($dbLogo);
     if ($hasDbLogo) {
         $earnedScore = min(100, $earnedScore + 10);
     }
@@ -445,12 +624,12 @@ if ((isset($_REQUEST['action']) && $_REQUEST['action'] === 'scan')) {
         'country' => $country,
         'state' => $state,
         'has_logo' => $hasDbLogo,
-        'logo' => $hasDbLogo ? $matchedSchool['logo'] : null,
+        'logo' => $dbLogo,
         'matched_db_school' => $matchedSchool ? [
             'id' => (int)$matchedSchool['id'],
             'name' => $matchedSchool['name'],
             'slug' => $matchedSchool['slug'],
-            'logo' => !empty($matchedSchool['logo']) ? $matchedSchool['logo'] : null,
+            'logo' => $dbLogo,
             'is_smart' => (int)($matchedSchool['is_schoplus_client'] ?? 0) === 1,
             'reviews_count' => $reviewsCount,
             'rating_avg' => $ratingAvg,
@@ -1274,9 +1453,86 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
     gap: 8px;
 }
 
-/* ========================================================================= */
-/* PRINT VIEW STYLING (SPECIALIZED EXECUTIVE REPORT)                         */
-/* ========================================================================= */
+/* VISUAL SEARCH & LOGO AUDIT MODAL STYLES */
+.audit-modal-logo-preview {
+    width: 140px;
+    height: 140px;
+    border-radius: 12px;
+    border: 1px solid #CBD5E1;
+    background-color: #ffffff;
+    background-image: linear-gradient(45deg, #f1f5f9 25%, transparent 25%), 
+                      linear-gradient(-45deg, #f1f5f9 25%, transparent 25%), 
+                      linear-gradient(45deg, transparent 75%, #f1f5f9 75%), 
+                      linear-gradient(-45deg, transparent 75%, #f1f5f9 75%);
+    background-size: 16px 16px;
+    background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin: 0 auto;
+}
+.audit-modal-logo-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+.audit-palette-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.audit-color-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 8px;
+    background: #F1F5F9;
+    border: 1px solid #E2E8F0;
+    border-radius: 20px;
+    font-size: 0.68rem;
+    font-family: monospace;
+    font-weight: 700;
+    color: #334155;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.audit-color-chip:hover {
+    background: #E2E8F0;
+    transform: translateY(-1px);
+}
+.audit-color-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.2);
+    display: inline-block;
+}
+.emblem-card {
+    border: 1px solid #E2E8F0;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    background: #FFFFFF;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.emblem-card:hover {
+    border-color: #1E5FA8;
+    box-shadow: 0 4px 14px rgba(30, 95, 168, 0.12);
+    transform: translateY(-2px);
+}
+.emblem-preview-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+}
+
 /* ========================================================================= */
 /* PRINT VIEW STYLING (SPECIALIZED EXECUTIVE REPORT)                         */
 /* ========================================================================= */
@@ -1819,13 +2075,13 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
                         <span class="badge bg-warning text-dark px-2.5 py-1 rounded-pill fw-bold" style="font-size:0.65rem;">+10% بونص الشعار</span>
                     </h4>
                     <p class="audit-visual-desc">
-                        ارفع شعار المدرسة الرسمي لاحتساب بونص الهوية (+10% فوري)، أو ابحث عن الشعار مباشرة في محركات البحث للتأكد من انتشاره.
+                        ارفع شعار المدرسة الرسمي لاحتساب بونص الهوية (+10% فوري)، أو قم بفحص ومطابقة الشعار بالصور للتحقق من انتشاره الرقمي.
                     </p>
                 </div>
                 <div>
-                    <a href="#" id="googleImagesSearchBtn" target="_blank" rel="noopener" class="btn-luxury-primary fw-bold" style="font-size: 0.74rem; padding: 7px 16px;">
-                        <i class="fas fa-search me-1"></i> بحث في الشعار
-                    </a>
+                    <button type="button" id="auditVisualSearchBtn" class="btn-luxury-primary fw-bold" style="font-size: 0.74rem; padding: 7px 16px;" onclick="openVisualSearchModal()">
+                        <i class="fas fa-camera me-1"></i> فحص ومطابقة الشعار بالصور
+                    </button>
                 </div>
             </div>
 
@@ -2034,6 +2290,182 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
             <div style="font-size: 5.8pt; letter-spacing: 0.5px;">DIGITAL AUDIT</div>
             <div style="font-size: 7.8pt; font-weight: 900; margin: 1px 0;">معتمد رسمياً</div>
             <div style="font-size: 5.5pt; color: #1E5FA8;">VERIFIED</div>
+        </div>
+    </div>
+</div>
+
+<!-- ======================================================================= -->
+<!-- VISUAL PRESENCE & LOGO AUDIT MODAL (STYLE F v2)                         -->
+<!-- ======================================================================= -->
+<div class="modal fade" id="auditVisualSearchModal" tabindex="-1" aria-labelledby="auditVisualSearchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 14px; overflow: hidden;">
+            <!-- Modal Header -->
+            <div class="modal-header text-white" style="background: linear-gradient(135deg, #0B2A52 0%, #163870 100%); border-bottom: 2px solid #F5A020; padding: 14px 20px;">
+                <div class="d-flex align-items-center gap-2">
+                    <div style="width: 32px; height: 32px; background: rgba(245,160,32,0.18); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #F5A020;">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <div>
+                        <h5 class="modal-title fw-bold mb-0 text-white" id="auditVisualSearchModalLabel" style="font-size: 0.95rem;">
+                            فحص ومطابقة الشعار بالصور (Visual Presence Search)
+                        </h5>
+                        <div class="text-light opacity-75" style="font-size: 0.68rem;">تحليل الهوية البصرية • فحص الانتشار الرقمي • المطابقة بالصور</div>
+                    </div>
+                </div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body p-4" style="background: #F8FAFC;">
+
+                <!-- STATE 1: LOGO ACTIVE (PREVIEW & VISUAL ANALYSIS) -->
+                <div id="modalLogoActiveSection" style="display: none;">
+                    <div class="row g-4 align-items-center">
+                        <div class="col-md-4 text-center">
+                            <div class="audit-modal-logo-preview mb-2 shadow-sm">
+                                <img id="modalLogoImg" src="" alt="شعار المدرسة">
+                            </div>
+                            <span class="badge bg-success-subtle text-success border border-success-subtle px-2.5 py-1 rounded-pill fw-bold" style="font-size: 0.65rem;">
+                                <i class="fas fa-check-circle me-1"></i> بونص الشعار (+10%) معتمد ومفعّل
+                            </span>
+                        </div>
+
+                        <div class="col-md-8">
+                            <div class="bg-white p-3 rounded-3 border mb-3 shadow-sm">
+                                <h6 class="fw-bold text-dark mb-2 d-flex align-items-center justify-content-between" style="font-size: 0.82rem;">
+                                    <span><i class="fas fa-fingerprint text-primary me-1"></i> البصمة والتحليل التقني للهوية</span>
+                                    <span class="text-muted" id="modalLogoSchoolTitle" style="font-size: 0.72rem;">اسم المدرسة</span>
+                                </h6>
+                                <div class="row g-2 mb-2 text-muted" style="font-size: 0.73rem;">
+                                    <div class="col-6">
+                                        <i class="fas fa-expand text-secondary me-1"></i> الأبعاد: <strong class="text-dark" id="modalLogoDimensions">512 × 512 px</strong>
+                                    </div>
+                                    <div class="col-6">
+                                        <i class="fas fa-file-image text-secondary me-1"></i> الصيغة: <strong class="text-dark" id="modalLogoFormat">PNG شفاف</strong>
+                                    </div>
+                                    <div class="col-12 mt-1">
+                                        <i class="fas fa-award text-warning me-1"></i> جودة الوضوح: <span class="text-success fw-bold">ممتازة وجاهزة للنشر والطباعة الرسمية</span>
+                                    </div>
+                                </div>
+
+                                <!-- Dominant Palette -->
+                                <div class="pt-2 border-top">
+                                    <div class="d-flex align-items-center justify-content-between mb-1">
+                                        <span class="text-muted" style="font-size: 0.68rem;"><i class="fas fa-palette me-1"></i> ألوان الهوية البصرية المستخلصة:</span>
+                                        <span class="text-muted" style="font-size: 0.65rem;">(اضغط لنسخ كود اللون)</span>
+                                    </div>
+                                    <div class="audit-palette-row" id="modalLogoPalette">
+                                        <!-- Rendered via JS -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- REAL REVERSE IMAGE SEARCH BUTTONS (USING ACTUAL IMAGE URL) -->
+                            <div class="bg-white p-3 rounded-3 border shadow-sm">
+                                <h6 class="fw-bold text-dark mb-1" style="font-size: 0.8rem;">
+                                    <i class="fas fa-search text-primary me-1"></i> فحص ومطابقة الشعار بالصورة عبر محركات البحث
+                                </h6>
+                                <p class="text-muted mb-2.5" style="font-size: 0.7rem; line-height: 1.45;">
+                                    افحص انتشار هذا الشعار الفعلي على الإنترنت باستخدام الصورة المرفوعة مباشرة (البحث العكسي بالصور):
+                                </p>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <a href="#" id="modalGoogleLensBtn" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary fw-bold d-flex align-items-center gap-1.5" style="font-size: 0.72rem;">
+                                        <i class="fab fa-google text-danger"></i>
+                                        <span>البحث بالصورة في Google Lens</span>
+                                    </a>
+                                    <a href="#" id="modalYandexVisualBtn" target="_blank" rel="noopener" class="btn btn-sm btn-outline-secondary fw-bold d-flex align-items-center gap-1.5" style="font-size: 0.72rem;">
+                                        <i class="fas fa-image text-warning"></i>
+                                        <span>فحص التطابق في Yandex</span>
+                                    </a>
+                                    <button type="button" class="btn btn-sm btn-light border fw-bold text-secondary" style="font-size: 0.72rem;" onclick="switchToUploadView()">
+                                        <i class="fas fa-sync-alt me-1"></i> استبدال الشعار
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STATE 2: NO LOGO (UPLOAD, URL IMPORT, PRESET EMBLEMS) -->
+                <div id="modalLogoEmptySection">
+                    <div class="text-center mb-3">
+                        <h6 class="fw-bold text-dark mb-1" style="font-size: 0.88rem;">لم يتم رفع أو رصد شعار رسمي للمدرسة حتى الآن</h6>
+                        <p class="text-muted mb-0" style="font-size: 0.72rem;">
+                            رفع الشعار يمنحك <strong>+10 نقاط بونص</strong> ترفع نتيجة الحضور الرقمي ويثبت ملكية المنصات المكتشفة.
+                        </p>
+                    </div>
+
+                    <!-- TABS: UPLOAD FILE | URL IMPORT | PRESET EMBLEMS -->
+                    <ul class="nav nav-pills nav-fill mb-3 p-1 bg-white rounded-3 border shadow-sm" id="modalVisualTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active py-1.5" id="tabUploadBtn" data-bs-toggle="pill" data-bs-target="#tabUploadPane" type="button" role="tab" style="font-size: 0.75rem;">
+                                <i class="fas fa-cloud-upload-alt me-1"></i> رفع ملف الشعار
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link py-1.5" id="tabUrlBtn" data-bs-toggle="pill" data-bs-target="#tabUrlPane" type="button" role="tab" style="font-size: 0.75rem;">
+                                <i class="fas fa-link me-1"></i> جلب من رابط صورة
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link py-1.5" id="tabPresetBtn" data-bs-toggle="pill" data-bs-target="#tabPresetPane" type="button" role="tab" style="font-size: 0.75rem;">
+                                <i class="fas fa-shield-alt me-1"></i> نماذج هوية مقترحة
+                            </button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content" id="modalVisualTabsContent">
+                        <!-- TAB 1: UPLOAD FILE -->
+                        <div class="tab-pane fade show active" id="tabUploadPane" role="tabpanel">
+                            <div class="audit-logo-dropzone p-4 text-center cursor-pointer" onclick="document.getElementById('auditLogoFileInput').click(); bootstrap.Modal.getInstance(document.getElementById('auditVisualSearchModal')).hide();">
+                                <i class="fas fa-cloud-upload-alt text-primary fs-2 mb-2"></i>
+                                <div class="fw-bold text-dark" style="font-size: 0.85rem;">اضغط هنا لاختيار ملف الشعار من جهازك أو اسحبه وأفلته</div>
+                                <div class="text-muted mt-1" style="font-size: 0.7rem;">يدعم ملفات PNG, JPG, WebP أو SVG الشفافة (الحد الأقصى 5 ميجابايت)</div>
+                                <button type="button" class="btn-luxury-primary mt-3 py-1 px-3" style="font-size: 0.74rem;">
+                                    <i class="fas fa-folder-open me-1"></i> تصفح واختيار ملف
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- TAB 2: IMPORT BY URL -->
+                        <div class="tab-pane fade" id="tabUrlPane" role="tabpanel">
+                            <div class="bg-white p-3 rounded-3 border shadow-sm">
+                                <label class="form-label fw-bold text-dark" style="font-size: 0.75rem;" for="importLogoUrlInput">
+                                    رابط صورة الشعار المباشر (من الفيسبوك أو موقع المدرسة):
+                                </label>
+                                <div class="input-group mb-2">
+                                    <input type="url" id="importLogoUrlInput" class="form-control form-control-sm" placeholder="https://example.com/logo.png" style="font-size: 0.75rem; direction: ltr; text-align: left;">
+                                    <button class="btn btn-primary btn-sm fw-bold px-3" type="button" onclick="fetchLogoFromUrl()" id="fetchLogoBtn" style="font-size: 0.75rem;">
+                                        <i class="fas fa-download me-1"></i> جلب وفحص
+                                    </button>
+                                </div>
+                                <div class="text-muted" style="font-size: 0.68rem;">
+                                    <i class="fas fa-info-circle me-1 text-primary"></i> يمكنك نسخ رابط الشعار مباشرة من صفحة المدرسة على الفيسبوك عبر الضغط بزر الفأرة الأيمن واختيار "نسخ عنوان الصورة".
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TAB 3: PRESET EMBLEMS -->
+                        <div class="tab-pane fade" id="tabPresetPane" role="tabpanel">
+                            <div class="row g-2" id="presetEmblemsGrid">
+                                <!-- Populated dynamically by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer bg-white border-top py-2 px-3 justify-content-between">
+                <div class="text-muted" style="font-size: 0.68rem;">
+                    <i class="fas fa-shield-alt text-success me-1"></i> فحص الهوية البصرية والمطابقة بالصور مدعوم بنظام SchoPlus
+                </div>
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal" style="font-size: 0.75rem;">
+                    إغلاق
+                </button>
+            </div>
         </div>
     </div>
 </div>
@@ -2257,11 +2689,18 @@ function renderAuditResults(data) {
         if (activeLogo) activeLogo.style.display = 'none';
     }
 
-    // Setup Logo Search button
-    const gImgBtn = document.getElementById('googleImagesSearchBtn');
-    if (gImgBtn) {
-        const qLogo = encodeURIComponent('شعار ' + data.school_name);
-        gImgBtn.href = `https://www.google.com/search?tbm=isch&q=${qLogo}`;
+    // Update Visual Search button state
+    const vSearchBtn = document.getElementById('auditVisualSearchBtn');
+    if (vSearchBtn) {
+        if (data.has_logo || (data.matched_db_school && data.matched_db_school.logo)) {
+            vSearchBtn.innerHTML = '<i class="fas fa-camera me-1"></i> فحص ومطابقة الشعار (+10% مفعّل)';
+            vSearchBtn.className = 'btn-luxury-primary fw-bold text-dark';
+            vSearchBtn.style.background = '#F5A020';
+        } else {
+            vSearchBtn.innerHTML = '<i class="fas fa-camera me-1"></i> فحص ومطابقة الشعار بالصور';
+            vSearchBtn.className = 'btn-luxury-primary fw-bold';
+            vSearchBtn.style.background = '';
+        }
     }
 
     itemsGrid.innerHTML = '';
@@ -2605,35 +3044,347 @@ function handleLogoUpload(input) {
             CURRENT_AUDIT_DATA.uploaded_logo = dataUrl;
             CURRENT_AUDIT_DATA.has_logo = true;
         }
-        const preview = document.getElementById('uploadedLogoPreview');
-        if (preview) {
-            preview.src = dataUrl;
-            preview.style.display = 'block';
-        }
-        const promptText = document.getElementById('dropzonePromptText');
-        if (promptText) {
-            promptText.innerHTML = `
-                <div class="fw-bold text-success" style="font-size: 0.8rem;">
-                    <i class="fas fa-check-circle me-1"></i> تم رفع الشعار بنجاح (+10% بونص أضيف لمؤشرك)
-                </div>
-                <div class="text-muted" style="font-size: 0.7rem;">${escapeHtml(file.name)} (${Math.round(file.size / 1024)} KB)</div>
-            `;
-        }
-        const logoImg = document.getElementById('auditSchoolLogoImg');
-        const monogram = document.getElementById('auditSchoolMonogram');
-        const activeLogo = document.getElementById('activeBarSchoolLogo');
-        if (logoImg) {
-            logoImg.src = dataUrl;
-            logoImg.style.display = 'block';
-        }
-        if (monogram) monogram.style.display = 'none';
-        if (activeLogo) {
-            activeLogo.src = dataUrl;
-            activeLogo.style.display = 'inline-block';
-        }
-        updateOverallScore();
+        applyLogoToInterface(dataUrl, file.name, file.size);
+
+        // Upload to server to get permanent public URL for real reverse search (Google Lens, etc.)
+        const fd = new FormData();
+        fd.append('action', 'upload_logo');
+        fd.append('logo_file', file);
+        fetch('/presence-audit.php', {
+            method: 'POST',
+            body: fd
+        })
+        .then(r => r.json())
+        .then(res => {
+            if (res.success && res.logo_url) {
+                if (CURRENT_AUDIT_DATA) {
+                    CURRENT_AUDIT_DATA.public_logo_url = res.logo_url;
+                    CURRENT_AUDIT_DATA.logo_width = res.width;
+                    CURRENT_AUDIT_DATA.logo_height = res.height;
+                    CURRENT_AUDIT_DATA.logo_mime = res.mime;
+                    CURRENT_AUDIT_DATA.logo_size_kb = res.size_kb;
+                }
+            }
+        })
+        .catch(() => {});
     };
     reader.readAsDataURL(file);
+}
+
+// Apply adopted logo to UI elements
+function applyLogoToInterface(logoUrl, name, size) {
+    const preview = document.getElementById('uploadedLogoPreview');
+    if (preview) {
+        preview.src = logoUrl;
+        preview.style.display = 'block';
+    }
+    const promptText = document.getElementById('dropzonePromptText');
+    if (promptText) {
+        promptText.innerHTML = `
+            <div class="fw-bold text-success" style="font-size: 0.8rem;">
+                <i class="fas fa-check-circle me-1"></i> تم اعتماد الشعار بنجاح (+10% بونص أضيف لمؤشرك)
+            </div>
+            <div class="text-muted" style="font-size: 0.7rem;">${name ? escapeHtml(name) : 'شعار المدرسة'} ${size ? '(' + Math.round(size / 1024) + ' KB)' : ''}</div>
+        `;
+    }
+    const logoImg = document.getElementById('auditSchoolLogoImg');
+    const monogram = document.getElementById('auditSchoolMonogram');
+    const activeLogo = document.getElementById('activeBarSchoolLogo');
+    if (logoImg) {
+        logoImg.src = logoUrl;
+        logoImg.style.display = 'block';
+    }
+    if (monogram) monogram.style.display = 'none';
+    if (activeLogo) {
+        activeLogo.src = logoUrl;
+        activeLogo.style.display = 'inline-block';
+    }
+
+    const vSearchBtn = document.getElementById('auditVisualSearchBtn');
+    if (vSearchBtn) {
+        vSearchBtn.innerHTML = '<i class="fas fa-camera me-1"></i> فحص ومطابقة الشعار (+10% مفعّل)';
+        vSearchBtn.className = 'btn-luxury-primary fw-bold text-dark';
+        vSearchBtn.style.background = '#F5A020';
+    }
+
+    updateOverallScore();
+    buildRegistrationBridgeLink();
+}
+
+// =========================================================================
+// VISUAL PRESENCE & LOGO AUDIT MODAL LOGIC (IN-PAGE SEARCH & REVERSE SEARCH)
+// =========================================================================
+
+function openVisualSearchModal() {
+    if (!CURRENT_AUDIT_DATA) {
+        alert('يرجى كتابة اسم المدرسة وبدء الفحص أولاً.');
+        return;
+    }
+
+    const modalEl = document.getElementById('auditVisualSearchModal');
+    if (!modalEl) return;
+    const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+
+    const activeSec = document.getElementById('modalLogoActiveSection');
+    const emptySec = document.getElementById('modalLogoEmptySection');
+    const titleEl = document.getElementById('modalLogoSchoolTitle');
+    if (titleEl) titleEl.textContent = CURRENT_AUDIT_DATA.school_name || 'اسم المدرسة';
+
+    const activeLogoUrl = CURRENT_AUDIT_DATA.uploaded_logo || CURRENT_AUDIT_DATA.logo || (CURRENT_AUDIT_DATA.matched_db_school && CURRENT_AUDIT_DATA.matched_db_school.logo) || null;
+
+    if (activeLogoUrl) {
+        activeSec.style.display = 'block';
+        emptySec.style.display = 'none';
+
+        const mImg = document.getElementById('modalLogoImg');
+        if (mImg) mImg.src = activeLogoUrl;
+
+        // Image Specs
+        const dimsEl = document.getElementById('modalLogoDimensions');
+        const fmtEl = document.getElementById('modalLogoFormat');
+        if (dimsEl) {
+            dimsEl.textContent = CURRENT_AUDIT_DATA.logo_width ? `${CURRENT_AUDIT_DATA.logo_width} × ${CURRENT_AUDIT_DATA.logo_height} px` : 'دقة عالية (Vector / HD)';
+        }
+        if (fmtEl) {
+            fmtEl.textContent = CURRENT_AUDIT_DATA.logo_mime ? CURRENT_AUDIT_DATA.logo_mime.replace('image/', '').toUpperCase() : 'PNG / SVG';
+        }
+
+        // Setup Real Reverse Search Links (using actual image URL)
+        const publicUrl = CURRENT_AUDIT_DATA.public_logo_url || (activeLogoUrl.startsWith('http') ? activeLogoUrl : (window.location.origin + activeLogoUrl));
+        const gLensBtn = document.getElementById('modalGoogleLensBtn');
+        const yandexBtn = document.getElementById('modalYandexVisualBtn');
+        
+        if (gLensBtn) {
+            gLensBtn.href = `https://lens.google.com/uploadbyurl?url=${encodeURIComponent(publicUrl)}`;
+        }
+        if (yandexBtn) {
+            yandexBtn.href = `https://yandex.com/images/search?rpt=imageview&url=${encodeURIComponent(publicUrl)}`;
+        }
+
+        // Color Palette Extraction
+        extractDominantColors(activeLogoUrl);
+    } else {
+        activeSec.style.display = 'none';
+        emptySec.style.display = 'block';
+        renderPresetEmblems();
+    }
+
+    modal.show();
+}
+
+function switchToUploadView() {
+    const activeSec = document.getElementById('modalLogoActiveSection');
+    const emptySec = document.getElementById('modalLogoEmptySection');
+    if (activeSec) activeSec.style.display = 'none';
+    if (emptySec) emptySec.style.display = 'block';
+    renderPresetEmblems();
+}
+
+// Fetch Logo from Direct URL (e.g. from Facebook or School Website)
+function fetchLogoFromUrl() {
+    const input = document.getElementById('importLogoUrlInput');
+    const btn = document.getElementById('fetchLogoBtn');
+    const url = input.value.trim();
+
+    if (!url || !url.startsWith('http')) {
+        alert('يرجى إدخال رابط صورة يبدأ بـ http:// أو https://');
+        return;
+    }
+
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> جاري الجلب...';
+
+    const fd = new FormData();
+    fd.append('action', 'fetch_logo_url');
+    fd.append('url', url);
+
+    fetch('/presence-audit.php', {
+        method: 'POST',
+        body: fd
+    })
+    .then(r => r.json())
+    .then(res => {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-download me-1"></i> جلب وفحص';
+
+        if (res.success && res.logo_url) {
+            if (CURRENT_AUDIT_DATA) {
+                CURRENT_AUDIT_DATA.uploaded_logo = res.logo_url;
+                CURRENT_AUDIT_DATA.public_logo_url = res.logo_url;
+                CURRENT_AUDIT_DATA.has_logo = true;
+                CURRENT_AUDIT_DATA.logo_width = res.width;
+                CURRENT_AUDIT_DATA.logo_height = res.height;
+                CURRENT_AUDIT_DATA.logo_mime = res.mime;
+            }
+            applyLogoToInterface(res.logo_url, 'شعار مجلوب من الرابط', (res.size_kb || 50) * 1024);
+            openVisualSearchModal(); // switch to active view
+        } else {
+            alert(res.message || 'تعذر جلب الشعار من هذا الرابط.');
+        }
+    })
+    .catch(() => {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-download me-1"></i> جلب وفحص';
+        alert('حدث خطأ أثناء محاولة جلب الصورة، يرجى التأكد من الرابط.');
+    });
+}
+
+// Extract dominant colors from logo using Canvas
+function extractDominantColors(imgUrl) {
+    const paletteBox = document.getElementById('modalLogoPalette');
+    if (!paletteBox) return;
+    paletteBox.innerHTML = '<span class="text-muted small">جاري استخراج لوحة الألوان...</span>';
+
+    const img = new Image();
+    img.crossOrigin = 'Anonymous';
+    img.onload = function() {
+        try {
+            const canvas = document.createElement('canvas');
+            canvas.width = 64;
+            canvas.height = 64;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, 64, 64);
+            const data = ctx.getImageData(0, 0, 64, 64).data;
+
+            const colorCounts = {};
+            for (let i = 0; i < data.length; i += 16) {
+                const r = data[i];
+                const g = data[i+1];
+                const b = data[i+2];
+                const a = data[i+3];
+                // ignore transparent or near-white pixels
+                if (a < 128) continue;
+                if (r > 240 && g > 240 && b > 240) continue;
+
+                // quantize
+                const qr = Math.round(r / 32) * 32;
+                const qg = Math.round(g / 32) * 32;
+                const qb = Math.round(b / 32) * 32;
+                const hex = '#' + ((1 << 24) + (qr << 16) + (qg << 8) + qb).toString(16).slice(1).toUpperCase();
+                colorCounts[hex] = (colorCounts[hex] || 0) + 1;
+            }
+
+            const sorted = Object.keys(colorCounts).sort((a,b) => colorCounts[b] - colorCounts[a]);
+            const topColors = sorted.slice(0, 4);
+
+            if (!topColors.length) {
+                topColors.push('#0B2A52', '#1E5FA8', '#F5A020');
+            }
+
+            paletteBox.innerHTML = '';
+            topColors.forEach(hex => {
+                const chip = document.createElement('div');
+                chip.className = 'audit-color-chip';
+                chip.title = 'اضغط لنسخ كود اللون ' + hex;
+                chip.innerHTML = `<span class="audit-color-dot" style="background:${hex};"></span><span>${hex}</span>`;
+                chip.onclick = function() {
+                    navigator.clipboard.writeText(hex);
+                    chip.style.borderColor = '#10B981';
+                    setTimeout(() => { chip.style.borderColor = '#E2E8F0'; }, 800);
+                };
+                paletteBox.appendChild(chip);
+            });
+        } catch(e) {
+            paletteBox.innerHTML = `
+                <div class="audit-color-chip"><span class="audit-color-dot" style="background:#0B2A52;"></span><span>#0B2A52</span></div>
+                <div class="audit-color-chip"><span class="audit-color-dot" style="background:#1E5FA8;"></span><span>#1E5FA8</span></div>
+                <div class="audit-color-chip"><span class="audit-color-dot" style="background:#F5A020;"></span><span>#F5A020</span></div>
+            `;
+        }
+    };
+    img.onerror = function() {
+        paletteBox.innerHTML = `
+            <div class="audit-color-chip"><span class="audit-color-dot" style="background:#0B2A52;"></span><span>#0B2A52</span></div>
+            <div class="audit-color-chip"><span class="audit-color-dot" style="background:#1E5FA8;"></span><span>#1E5FA8</span></div>
+            <div class="audit-color-chip"><span class="audit-color-dot" style="background:#F5A020;"></span><span>#F5A020</span></div>
+        `;
+    };
+    img.src = imgUrl;
+}
+
+// Render 4 Curated Preset Educational Emblems
+function renderPresetEmblems() {
+    const grid = document.getElementById('presetEmblemsGrid');
+    if (!grid || grid.children.length > 0) return;
+
+    const presets = [
+        {
+            title: 'درع المعرفة والتميز',
+            color: '#0B2A52',
+            icon: 'fa-shield-halved',
+            svg: `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="%230B2A52"/><circle cx="50" cy="50" r="42" fill="none" stroke="%23F5A020" stroke-width="2.5"/><path d="M50 22 L75 32 V52 C75 68 50 80 50 80 C50 80 25 68 25 52 V32 Z" fill="%231E5FA8"/><path d="M50 34 L62 40 V52 C62 61 50 68 50 68 C50 68 38 61 38 52 V40 Z" fill="%23F5A020"/></svg>`
+        },
+        {
+            title: 'منارة العلم والأمل',
+            color: '#1E5FA8',
+            icon: 'fa-graduation-cap',
+            svg: `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="%231E5FA8"/><circle cx="50" cy="50" r="42" fill="none" stroke="%23FFFFFF" stroke-width="2"/><path d="M50 26 L80 40 L50 54 L20 40 Z" fill="%23F5A020"/><path d="M30 46 V62 C30 68 50 74 50 74 C50 74 70 68 70 62 V46" fill="none" stroke="%23FFFFFF" stroke-width="4"/></svg>`
+        },
+        {
+            title: 'كتاب النور والمستقبل',
+            color: '#047857',
+            icon: 'fa-book-open',
+            svg: `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="%23047857"/><circle cx="50" cy="50" r="42" fill="none" stroke="%23FCD34D" stroke-width="2.5"/><path d="M50 36 C42 30 28 32 24 34 V70 C28 68 42 66 50 72 C58 66 72 68 76 70 V34 C72 32 58 30 50 36 Z" fill="%23FFFFFF"/><path d="M50 36 V72" stroke="%23047857" stroke-width="3"/></svg>`
+        },
+        {
+            title: 'شعلة التفوق الأكاديمي',
+            color: '#B45309',
+            icon: 'fa-fire',
+            svg: `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="%231E293B"/><circle cx="50" cy="50" r="42" fill="none" stroke="%23F5A020" stroke-width="2.5"/><circle cx="50" cy="50" r="28" fill="%23B45309"/><path d="M50 28 C55 36 62 42 60 52 C58 62 42 62 40 52 C38 42 45 36 50 28 Z" fill="%23F5A020"/></svg>`
+        }
+    ];
+
+    grid.innerHTML = '';
+    presets.forEach(p => {
+        const col = document.createElement('div');
+        col.className = 'col-6 col-md-3';
+        col.innerHTML = `
+            <div class="emblem-card h-100 d-flex flex-column justify-content-between" onclick="adoptPresetEmblem('${encodeURIComponent(p.svg)}', '${escapeHtml(p.title)}')">
+                <div class="emblem-preview-icon" style="background:${p.color}; color:#fff;">
+                    <i class="fas ${p.icon} fs-4"></i>
+                </div>
+                <div class="fw-bold text-dark mb-2" style="font-size:0.73rem;">${escapeHtml(p.title)}</div>
+                <button type="button" class="btn btn-sm btn-outline-primary w-100 py-1" style="font-size:0.68rem; font-weight:700;">
+                    <i class="fas fa-check me-1"></i> اعتماد هذا الشعار
+                </button>
+            </div>
+        `;
+        grid.appendChild(col);
+    });
+}
+
+// Adopt Preset Emblem as School Logo
+function adoptPresetEmblem(svgUriEncoded, title) {
+    const svgUri = decodeURIComponent(svgUriEncoded);
+    if (CURRENT_AUDIT_DATA) {
+        CURRENT_AUDIT_DATA.uploaded_logo = svgUri;
+        CURRENT_AUDIT_DATA.has_logo = true;
+        CURRENT_AUDIT_DATA.logo_mime = 'image/svg+xml';
+        CURRENT_AUDIT_DATA.logo_width = 512;
+        CURRENT_AUDIT_DATA.logo_height = 512;
+    }
+
+    applyLogoToInterface(svgUri, title, 4096);
+
+    // Save SVG to backend
+    const fd = new FormData();
+    fd.append('action', 'upload_logo');
+    fd.append('logo_data', svgUri);
+    fetch('/presence-audit.php', { method: 'POST', body: fd })
+        .then(r => r.json())
+        .then(res => {
+            if (res.success && res.logo_url) {
+                if (CURRENT_AUDIT_DATA) CURRENT_AUDIT_DATA.public_logo_url = res.logo_url;
+            }
+        })
+        .catch(() => {});
+
+    // Close modal
+    const modalEl = document.getElementById('auditVisualSearchModal');
+    if (modalEl) {
+        const modal = bootstrap.Modal.getInstance(modalEl);
+        if (modal) modal.hide();
+    }
 }
 
 // Build pre-filled link to /register.php or /dashboard.php
