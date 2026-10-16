@@ -15,7 +15,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="mb-3">
                         <a href="/" class="d-inline-block text-decoration-none">
-                            <img src="/assets/images/logo.png?v=3.6.94" alt="دليل المدارس السودانية" style="height: 46px; width: auto; object-fit: contain;">
+                            <img src="/assets/images/logo.png?v=3.6.97" alt="دليل المدارس السودانية" style="height: 46px; width: auto; object-fit: contain;">
                         </a>
                     </div>
                     <p class="text-muted leading-relaxed mb-0" style="font-size: 0.73rem; line-height: 1.75;">

@@ -2194,7 +2194,7 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
     <!-- Print Header -->
     <div class="print-report-header">
         <div class="print-brand-box">
-            <img src="/assets/images/logo.png" alt="دليل المدارس" class="print-brand-logo">
+            <img src="/assets/images/logo.png?v=3.6.97" alt="دليل المدارس" class="print-brand-logo">
             <div>
                 <div style="font-size: 11.5pt; font-weight: 800; color: #0B2A52; line-height: 1.2;">دليل المدارس</div>
                 <div style="font-size: 7.2pt; color: #64748B;">تقرير فحص الوجود والأثر الرقمي للمؤسسات التعليمية</div>

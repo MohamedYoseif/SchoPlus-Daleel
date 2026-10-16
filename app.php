@@ -86,7 +86,7 @@ $apkVersion = '1.0.0';
 
                         <!-- Screen Content Card -->
                         <div class="rounded-4 overflow-hidden border p-3 text-center" style="background: #0B2A52; color: #FFFFFF;">
-                            <img src="/assets/images/logo.png" alt="شعار الدليل" style="max-height: 52px; width: auto;" class="my-3">
+                            <img src="/assets/images/logo.png?v=3.6.97" alt="شعار الدليل" style="max-height: 52px; width: auto;" class="my-3">
                             <h5 class="fw-bold mb-1" style="font-size: 1.05rem;">دليل المدارس السودانية</h5>
                             <p class="text-white-50 small mb-3" style="font-size: 0.72rem;">منظومة البحث والتعليم الذكي في السودان</p>
                             

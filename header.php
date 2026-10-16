@@ -59,15 +59,15 @@ $isDaleelMobile = (
       }, true);
     </script>
 
-    <link rel="icon" type="image/png" href="/assets/images/favicon.png?v=3.6.94">
-    <link rel="apple-touch-icon" href="/assets/images/logo-icon.png?v=3.6.94">
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png?v=3.6.97">
+    <link rel="apple-touch-icon" href="/assets/images/logo-icon.png?v=3.6.97">
     <title><?= isset($pageTitle) ? e($pageTitle) . ' | دليل المدارس السودانية' : 'دليل المدارس السودانية — دليلك الشامل لاختيار أفضل المدارس في السودان' ?></title>
     
     <!-- Open Graph / WhatsApp / Facebook Meta Tags -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="<?= isset($ogTitle) ? e($ogTitle) : (isset($pageTitle) ? e($pageTitle) . ' | دليل المدارس السودانية' : 'دليل المدارس السودانية — منصة الاستكشاف والقبول الذكي') ?>">
     <meta property="og:description" content="<?= isset($ogDesc) ? e($ogDesc) : 'دليلك الشامل لاختيار أفضل المدارس في السودان — تصفح الرسوم والمرافق وتواصل مباشرة.' ?>">
-    <meta property="og:image" content="<?= isset($ogImage) ? e($ogImage) : 'https://daleel.schoplus.sd/assets/images/logo.png' ?>">
+    <meta property="og:image" content="<?= isset($ogImage) ? e($ogImage) : 'https://daleel.schoplus.sd/assets/images/logo.png?v=3.6.97' ?>">
     <meta property="og:url" content="<?= isset($ogUrl) ? e($ogUrl) : 'https://daleel.schoplus.sd' ?>">
     <meta property="og:site_name" content="دليل المدارس السودانية">
 
@@ -75,7 +75,7 @@ $isDaleelMobile = (
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="<?= isset($ogTitle) ? e($ogTitle) : (isset($pageTitle) ? e($pageTitle) : 'دليل المدارس السودانية — منصة الاستكشاف والقبول الذكي') ?>">
     <meta name="twitter:description" content="<?= isset($ogDesc) ? e($ogDesc) : 'دليلك الشامل لاختيار أفضل المدارس في السودان' ?>">
-    <meta name="twitter:image" content="<?= isset($ogImage) ? e($ogImage) : 'https://daleel.schoplus.sd/assets/images/logo.png' ?>">
+    <meta name="twitter:image" content="<?= isset($ogImage) ? e($ogImage) : 'https://daleel.schoplus.sd/assets/images/logo.png?v=3.6.97' ?>">
 
     <!-- Geo Local SEO Targeting (Sudan) -->
     <meta name="geo.region" content="SD">
@@ -157,7 +157,7 @@ $isDaleelMobile = (
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="دليل المدارس">
-    <link rel="apple-touch-icon" href="/assets/images/logo.png">
+    <link rel="apple-touch-icon" href="/assets/images/logo-icon.png?v=3.6.97">
 
     <!-- Quill Rich Text Editor (Word-like WYSIWYG) -->
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
@@ -1130,9 +1130,9 @@ $isDaleelMobile = (
     <!-- Mobile Offcanvas Navigation -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileNavOffcanvas" aria-labelledby="mobileNavLabel">
         <div class="offcanvas-header border-bottom" style="background: var(--bg-surface-tint);">
-            <div class="d-flex align-items-center gap-2" id="mobileNavLabel">
-                <img src="/assets/images/logo.png" alt="دليل المدارس السودانية" style="height: 36px; width: auto; object-fit: contain;">
-            </div>
+            <a href="/" class="d-flex align-items-center text-decoration-none" id="mobileNavLabel" title="دليل المدارس السودانية">
+                <img src="/assets/images/logo.png?v=3.6.97" alt="دليل المدارس السودانية" style="height: 38px; width: auto; max-width: 220px; object-fit: contain;">
+            </a>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body p-3">
@@ -1188,7 +1188,7 @@ $isDaleelMobile = (
         <div class="container d-flex justify-content-between align-items-center">
             
             <a href="/" class="daleel-brand" title="دليل المدارس السودانية">
-                <img src="/assets/images/logo.png?v=3.6.94" alt="دليل المدارس السودانية" class="daleel-logo-img">
+                <img src="/assets/images/logo.png?v=3.6.97" alt="دليل المدارس السودانية" class="daleel-logo-img">
             </a>
 
             <div class="d-flex align-items-center gap-2">
