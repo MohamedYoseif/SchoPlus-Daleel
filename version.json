@@ -1,7 +1,7 @@
 {
-    "version": "3.7.18",
+    "version": "3.7.19",
     "release_date": "2026-10-16",
     "version_type": "enterprise",
     "min_php_version": "8.2",
-    "release_notes": "إصلاح توقيع حزمة أندرويد واعتماد توقيع V1 و V2 و V3 النظيف وحل مشكلة App not installed as package appears to be invalid نهائياً v3.7.18"
+    "release_notes": "إعادة بناء وتجميع تطبيق أندرويد بالكامل من المصدر بإصدار v1.1.1 وحل مشكلة الحزمة وتوافق أجهزة شاومي وأندرويد 14 v3.7.19"
 }
