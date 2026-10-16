@@ -1158,11 +1158,9 @@ $totalRev = max(1, count($reviewsList));
                 <!-- Tab Navigation (Smooth horizontal scroll on mobile) -->
                 <div class="sp-tabs-nav mb-4">
                     <button class="sp-tab-btn active" data-target="tab-overview" onclick="switchTab(this, 'tab-overview')">
-                        <i class="fas fa-info-circle"></i>
                         <span>نبذة ومعلومات</span>
                     </button>
                     <button class="sp-tab-btn" data-target="tab-fees" id="tabBtnFees" onclick="switchTab(this, 'tab-fees')">
-                        <i class="fas fa-coins" style="color: #F59E0B;"></i>
                         <span>الرسوم الدراسية</span>
                         <?php if (!empty($feeDiscountsList)): ?>
                             <span class="tab-count" style="background: #F5A020; color: #fff;">عروض (<?= count($feeDiscountsList) ?>)</span>
@@ -1173,43 +1171,36 @@ $totalRev = max(1, count($reviewsList));
                         <?php endif; ?>
                     </button>
                     <button class="sp-tab-btn" data-target="tab-admission" id="tabBtnAdmission" onclick="switchTab(this, 'tab-admission')">
-                        <i class="fas fa-user-graduate"></i>
                         <span>القبول والتسجيل</span>
                         <span class="tab-count" style="background: <?= $currAdmCfg['color'] ?>; color: #fff;"><?= $currAdmCfg['label'] ?></span>
                     </button>
                     <?php if ($showBranchesTab): ?>
                     <button class="sp-tab-btn" data-target="tab-branches" onclick="switchTab(this, 'tab-branches')">
-                        <i class="fas fa-code-branch"></i>
                         <span>الفروع</span>
                         <span class="tab-count"><?= count($branchesList) ?></span>
                     </button>
                     <?php endif; ?>
                     <?php if ($showActivitiesTab): ?>
                     <button class="sp-tab-btn" data-target="tab-activities" onclick="switchTab(this, 'tab-activities')">
-                        <i class="fas fa-trophy"></i>
                         <span>المناشط</span>
                         <span class="tab-count"><?= count($activitiesList) ?></span>
                     </button>
                     <?php endif; ?>
                     <?php if ($showTeachersTab): ?>
                     <button class="sp-tab-btn" data-target="tab-teachers" onclick="switchTab(this, 'tab-teachers')">
-                        <i class="fas fa-chalkboard-teacher"></i>
                         <span>المعلمون</span>
                         <span class="tab-count"><?= count($teachersList) ?></span>
                     </button>
                     <?php endif; ?>
                     <button class="sp-tab-btn" data-target="tab-gallery" onclick="switchTab(this, 'tab-gallery')">
-                        <i class="fas fa-images"></i>
                         <span>معرض الصور</span>
                         <?php if (count($galleryList)): ?><span class="tab-count"><?= count($galleryList) ?></span><?php endif; ?>
                     </button>
                     <button class="sp-tab-btn" data-target="tab-news" onclick="switchTab(this, 'tab-news')">
-                        <i class="fas fa-bullhorn"></i>
                         <span>الأخبار</span>
                         <?php if (count($newsList)): ?><span class="tab-count"><?= count($newsList) ?></span><?php endif; ?>
                     </button>
                     <button class="sp-tab-btn" data-target="tab-reviews" onclick="switchTab(this, 'tab-reviews')">
-                        <i class="fas fa-star"></i>
                         <span>التقييمات</span>
                         <?php if (count($reviewsList)): ?><span class="tab-count"><?= count($reviewsList) ?></span><?php endif; ?>
                     </button>

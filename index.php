@@ -1318,7 +1318,7 @@ require_once __DIR__ . '/header.php';
                                 </select>
                                 <button type="button" class="sp-hero-dropdown-trigger" id="trigger_filterCountrySelect">
                                     <div class="sp-hero-dropdown-trigger-content">
-                                        <span class="sp-hero-dropdown-mini-lbl"><i class="fas fa-globe text-primary"></i> الدولة</span>
+                                        <span class="sp-hero-dropdown-mini-lbl">الدولة</span>
                                         <span class="sp-hero-dropdown-selected-val"><?= e(!empty($country) ? $country : 'جميع الدول') ?></span>
                                     </div>
                                     <i class="fas fa-chevron-down sp-hero-dropdown-chevron"></i>
@@ -1356,7 +1356,7 @@ require_once __DIR__ . '/header.php';
                                 </select>
                                 <button type="button" class="sp-hero-dropdown-trigger" id="trigger_filterStateSelect">
                                     <div class="sp-hero-dropdown-trigger-content">
-                                        <span class="sp-hero-dropdown-mini-lbl"><i class="fas fa-map-marker-alt text-danger"></i> <?= $regionMiniLabel ?></span>
+                                        <span class="sp-hero-dropdown-mini-lbl"><?= $regionMiniLabel ?></span>
                                         <span class="sp-hero-dropdown-selected-val"><?= e(!empty($state) ? $state : $regionAllLabel) ?></span>
                                     </div>
                                     <i class="fas fa-chevron-down sp-hero-dropdown-chevron"></i>
@@ -1396,7 +1396,7 @@ require_once __DIR__ . '/header.php';
                                 </select>
                                 <button type="button" class="sp-hero-dropdown-trigger" id="trigger_filterCitySelect">
                                     <div class="sp-hero-dropdown-trigger-content">
-                                        <span class="sp-hero-dropdown-mini-lbl"><i class="fas fa-city text-info"></i> المدينة / المحلية</span>
+                                        <span class="sp-hero-dropdown-mini-lbl">المدينة / المحلية</span>
                                         <span class="sp-hero-dropdown-selected-val"><?= e(!empty($city) ? $city : 'جميع المدن') ?></span>
                                     </div>
                                     <i class="fas fa-chevron-down sp-hero-dropdown-chevron"></i>
@@ -1436,7 +1436,7 @@ require_once __DIR__ . '/header.php';
                                 </select>
                                 <button type="button" class="sp-hero-dropdown-trigger" id="trigger_filterStageSelect">
                                     <div class="sp-hero-dropdown-trigger-content">
-                                        <span class="sp-hero-dropdown-mini-lbl"><i class="fas fa-graduation-cap text-success"></i> المرحلة</span>
+                                        <span class="sp-hero-dropdown-mini-lbl">المرحلة</span>
                                         <span class="sp-hero-dropdown-selected-val"><?= e(!empty($stage) && isset($schoolStages[$stage]) ? $schoolStages[$stage] : 'جميع المراحل') ?></span>
                                     </div>
                                     <i class="fas fa-chevron-down sp-hero-dropdown-chevron"></i>
@@ -1720,7 +1720,7 @@ $extraScripts = <<<JS
         if (stateWrapper) {
             const miniLbl = stateWrapper.querySelector('.sp-hero-dropdown-mini-lbl');
             if (miniLbl) {
-                miniLbl.innerHTML = '<i class="' + rLabels.icon + '"></i> ' + rLabels.mini;
+                miniLbl.textContent = rLabels.mini;
             }
             const searchInput = stateWrapper.querySelector('.sp-hero-dropdown-search-input');
             if (searchInput) {

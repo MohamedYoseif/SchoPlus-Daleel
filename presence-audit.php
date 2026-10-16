@@ -1113,7 +1113,6 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
             <div class="row g-3 align-items-end">
                 <div class="col-lg-5 col-md-6 position-relative">
                     <label class="audit-form-label" for="auditSchoolName">
-                        <i class="fas fa-school text-primary"></i>
                         <span>اسم المدرسة الكامل <span class="text-danger">*</span></span>
                     </label>
                     <input type="text" 
@@ -1130,7 +1129,6 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
 
                 <div class="col-lg-3 col-md-3 col-6">
                     <label class="audit-form-label" for="auditCountry">
-                        <i class="fas fa-globe-africa text-secondary"></i>
                         <span>الدولة</span>
                     </label>
                     <select id="auditCountry" name="country" class="form-select audit-input" onchange="updateAuditStates()">
@@ -1144,7 +1142,6 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
 
                 <div class="col-lg-2 col-md-3 col-6">
                     <label class="audit-form-label" for="auditState">
-                        <i class="fas fa-map-marker-alt text-danger"></i>
                         <span>الولاية / المنطقة</span>
                     </label>
                     <select id="auditState" name="state" class="form-select audit-input">
@@ -1277,23 +1274,23 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
         <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3 mt-4">
             <div class="segmented-pills mb-0" id="auditCategoryPills">
                 <button type="button" class="seg-pill active" data-filter="all" onclick="filterAuditItems('all')">
-                    <i class="fas fa-layer-group"></i> كافة البنود
+                    كافة البنود
                     <span class="pill-count" id="pillCountAll">10</span>
                 </button>
                 <button type="button" class="seg-pill" data-filter="verified" onclick="filterAuditItems('verified')">
-                    <i class="fas fa-check-circle text-success"></i> الموثقة والمؤكدة
+                    الموثقة والمؤكدة
                     <span class="pill-count" id="pillCountVerified">0</span>
                 </button>
                 <button type="button" class="seg-pill" data-filter="missing" onclick="filterAuditItems('missing')">
-                    <i class="fas fa-tools text-warning"></i> فرص التحسين والمفقود
+                    فرص التحسين والمفقود
                     <span class="pill-count" id="pillCountMissing">0</span>
                 </button>
                 <button type="button" class="seg-pill" data-filter="social" onclick="filterAuditItems('social')">
-                    <i class="fas fa-share-alt text-primary"></i> قنوات التواصل
+                    قنوات التواصل
                     <span class="pill-count">4</span>
                 </button>
                 <button type="button" class="seg-pill" data-filter="trust" onclick="filterAuditItems('trust')">
-                    <i class="fas fa-shield-alt text-info"></i> الاعتماد والخرائط
+                    الاعتماد والخرائط
                     <span class="pill-count">3</span>
                 </button>
             </div>

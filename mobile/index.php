@@ -1772,7 +1772,7 @@ if (!empty($_SESSION['daleel_school_id'])) {
                                     <div class="m-card-name-row">
                                         <div class="m-card-name"><?= e($sc['name']) ?></div>
                                         <?php if ($sc['is_schoplus_client']): ?>
-                                            <span class="m-card-schoplus-tag">⚡ SchoPlus</span>
+                                            <span class="m-card-schoplus-tag">SchoPlus</span>
                                         <?php endif; ?>
                                     </div>
                                     <div class="m-card-meta">
@@ -1867,7 +1867,7 @@ if (!empty($_SESSION['daleel_school_id'])) {
                             <div class="m-card-info">
                                 <div class="m-card-name-row">
                                     <div class="m-card-name"><?= e($sc['name']) ?></div>
-                                    <span class="m-card-schoplus-tag">⚡ SchoPlus</span>
+                                    <span class="m-card-schoplus-tag">SchoPlus</span>
                                 </div>
                                 <div class="m-card-meta">
                                     <span><i class="fas fa-map-marker-alt text-muted me-1"></i><?= e($sc['state']) ?> — <?= e($sc['city']) ?></span>
@@ -2378,7 +2378,7 @@ if (!empty($_SESSION['daleel_school_id'])) {
                             <div class="m-card-name-row">
                                 <div class="m-card-name"><?= e($sc['name']) ?></div>
                                 <?php if ($sc['is_schoplus_client']): ?>
-                                    <span class="m-card-schoplus-tag">⚡ SchoPlus</span>
+                                    <span class="m-card-schoplus-tag">SchoPlus</span>
                                 <?php endif; ?>
                             </div>
                             <div class="m-card-meta">

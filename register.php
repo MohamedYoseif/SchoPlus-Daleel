@@ -372,23 +372,23 @@ $statesWithCities = SudanGeography::statesWithCities($selectedCountry);
                             </span>
                             <div class="row g-2">
                                 <div class="col-md-6">
-                                    <label class="form-label small text-muted"><i class="fas fa-globe text-primary me-1"></i> الموقع الإلكتروني للمدرسة</label>
+                                    <label class="form-label small text-muted">الموقع الإلكتروني للمدرسة</label>
                                     <input type="url" name="website" class="form-control form-control-sm" value="<?= e($formData['website'] ?? '') ?>" placeholder="https://example.edu.sd">
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label small text-muted"><i class="fab fa-facebook text-primary me-1"></i> رابط صفحة الفيسبوك</label>
+                                    <label class="form-label small text-muted">رابط صفحة الفيسبوك</label>
                                     <input type="url" name="facebook" class="form-control form-control-sm" value="<?= e($formData['facebook'] ?? '') ?>" placeholder="https://facebook.com/SchoolName">
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="form-label small text-muted"><i class="fab fa-tiktok text-dark me-1"></i> حساب تيك توك</label>
+                                    <label class="form-label small text-muted">حساب تيك توك</label>
                                     <input type="text" name="tiktok" class="form-control form-control-sm" value="<?= e($formData['tiktok'] ?? '') ?>" placeholder="https://tiktok.com/@school">
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="form-label small text-muted"><i class="fab fa-instagram text-danger me-1"></i> انستغرام / يوتيوب</label>
+                                    <label class="form-label small text-muted">انستغرام / يوتيوب</label>
                                     <input type="text" name="instagram" class="form-control form-control-sm" value="<?= e($formData['instagram'] ?? ($formData['youtube'] ?? '')) ?>" placeholder="رابط انستغرام أو يوتيوب">
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="form-label small text-muted"><i class="fas fa-map-marked-alt text-danger me-1"></i> رابط خريطة جوجل</label>
+                                    <label class="form-label small text-muted">رابط خريطة جوجل</label>
                                     <input type="url" name="google_map_url" class="form-control form-control-sm" value="<?= e($formData['google_map_url'] ?? '') ?>" placeholder="https://maps.google.com/?q=...">
                                 </div>
                             </div>

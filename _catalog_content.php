@@ -8,19 +8,19 @@
 <div class="sp-main-tabs-wrap d-flex justify-content-center text-center">
     <div class="sp-main-tabs mx-auto">
         <a href="<?= buildFilterUrl(['view' => null, 'sort' => null, 'schoplus_only' => null]) ?>" class="sp-main-tab <?= (empty($view) || $view === 'all') && !$schoplusOnly && $sort !== 'rating' && $sort !== 'latest' ? 'active' : '' ?>">
-            <i class="fas fa-layer-group"></i> كافة المدارس
+            كافة المدارس
             <span class="tab-badge"><?= number_format($statTotal) ?></span>
         </a>
         <a href="<?= buildFilterUrl(['view' => 'schoplus', 'sort' => null]) ?>" class="sp-main-tab <?= $view === 'schoplus' || $schoplusOnly ? 'active' : '' ?>">
-            <i class="fas fa-bolt"></i> مدارس SchoPlus الذكية
+            مدارس SchoPlus الذكية
             <span class="tab-badge"><?= number_format($statSchoplus) ?></span>
         </a>
         <a href="<?= buildFilterUrl(['view' => 'top_rated', 'sort' => 'rating']) ?>" class="sp-main-tab <?= $view === 'top_rated' || $sort === 'rating' ? 'active' : '' ?>">
-            <i class="fas fa-star"></i> الأعلى تقييماً
+            الأعلى تقييماً
             <span class="tab-badge"><?= number_format($totalTopRatedCount) ?></span>
         </a>
         <a href="<?= buildFilterUrl(['view' => 'latest', 'sort' => 'latest']) ?>" class="sp-main-tab <?= $view === 'latest' || $sort === 'latest' ? 'active' : '' ?>">
-            <i class="fas fa-clock"></i> المضافة حديثاً
+            المضافة حديثاً
             <span class="tab-badge"><?= number_format($statTotal) ?></span>
         </a>
     </div>
