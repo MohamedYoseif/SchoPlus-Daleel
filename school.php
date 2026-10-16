@@ -57,10 +57,12 @@ if (!$school) {
     exit;
 }
 
-// Check permission if pending/rejected: only owner can view
+// Check permission if pending/rejected: only owner or CP admin preview can view
 $currSchool = currentSchool();
 $isOwner = $currSchool && ($currSchool['id'] === $school['id']);
-if ($school['status'] === 'suspended') {
+$isAdminPreview = (isset($_GET['admin_preview']) && in_array($_GET['admin_preview'], ['schoplus_cp_secret', '1'], true));
+
+if ($school['status'] === 'suspended' && !$isAdminPreview) {
     http_response_code(403);
     $pageTitle = 'المدرسة موقوفة مؤقتاً';
     require_once __DIR__ . '/header.php';
@@ -78,7 +80,7 @@ if ($school['status'] === 'suspended') {
     exit;
 }
 
-if ($school['status'] !== 'approved' && !$isOwner) {
+if ($school['status'] !== 'approved' && !$isOwner && !$isAdminPreview) {
     http_response_code(403);
     $pageTitle = 'المدرسة بانتظار التأكيد';
     require_once __DIR__ . '/header.php';
@@ -978,6 +980,28 @@ $totalRev = max(1, count($reviewsList));
                 <span class="text-muted small d-none d-sm-inline ms-2">سيظهر للجمهور فور اكتمال التدقيق والموافقة</span>
             </div>
             <a href="/dashboard.php" class="btn-luxury-primary btn-sm py-1 px-3 text-nowrap"><i class="fas fa-edit me-1"></i> لوحة الإدارة</a>
+        </div>
+    </div>
+    <?php endif; ?>
+
+    <?php if ($isAdminPreview): ?>
+    <div class="container px-3 mb-3">
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 p-3 rounded-4 border shadow-sm" style="background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%); border-color: #93C5FD !important;">
+            <div class="d-flex align-items-center gap-3">
+                <div style="width:36px;height:36px;border-radius:10px;background:#1E5FA8;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:16px">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <div>
+                    <span class="fw-bold text-dark small">معاينة إدارية مباشرة من لوحة التحكم (SchoPlus CP)</span>
+                    <span class="badge bg-<?= $school['status'] === 'approved' ? 'success' : ($school['status'] === 'pending' ? 'warning text-dark' : 'danger') ?> ms-2 small">
+                        <?= $school['status'] === 'approved' ? 'معتمدة' : ($school['status'] === 'pending' ? 'قيد المراجعة والاعتماد' : 'موقوفة / مرفوضة') ?>
+                    </span>
+                    <span class="text-muted small d-none d-md-inline ms-2">هذه المعاينة خاصة بفريق الإدارة للمطابقة والتدقيق</span>
+                </div>
+            </div>
+            <a href="https://cp.schoplus.sd/daleel_schools.php" class="btn btn-sm btn-primary py-1 px-3 fw-bold rounded-3" style="background:var(--brand-navy);border-color:var(--brand-navy)">
+                <i class="fas fa-arrow-left me-1"></i> العودة للوحة التحكم
+            </a>
         </div>
     </div>
     <?php endif; ?>
