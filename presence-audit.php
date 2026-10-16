@@ -1207,12 +1207,28 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
+/* VISUAL SEARCH & LOGO AUDIT CARD (STYLE F v2) */
+.audit-visual-search-card {
+    background: #FFFFFF;
+    border: 1px solid #DDE4ED;
+    border-right: 4px solid #F5A020;
+    border-radius: 14px;
+    padding: 18px 22px;
+    margin-top: 18px;
+    box-shadow: 0 4px 18px rgba(11, 42, 82, 0.04);
+}
+.audit-visual-search-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
     flex-wrap: wrap;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #F1F5F9;
 }
 .audit-visual-title {
-    font-size: 0.92rem;
+    font-size: 0.96rem;
     font-weight: 800;
     color: #0D1B2E;
     display: flex;
@@ -1220,24 +1236,22 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
     gap: 8px;
 }
 .audit-visual-desc {
-    font-size: 0.74rem;
+    font-size: 0.73rem;
     color: #64748B;
-    line-height: 1.55;
-    margin: 0;
+    line-height: 1.6;
+    margin: 4px 0 0;
 }
 .audit-logo-dropzone {
     border: 2px dashed #CBD5E1;
     border-radius: 12px;
     padding: 14px 18px;
-    text-align: center;
     background: #F8FAFC;
     cursor: pointer;
     transition: all 0.2s ease;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 6px;
+    justify-content: space-between;
+    gap: 12px;
 }
 .audit-logo-dropzone:hover {
     border-color: #1E5FA8;
@@ -1248,12 +1262,30 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
     background: #FFFBEB;
 }
 .audit-logo-preview {
-    width: 50px;
-    height: 50px;
-    border-radius: 10px;
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
     object-fit: cover;
     border: 1px solid #CBD5E1;
     display: none;
+}
+.audit-visual-features {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    font-size: 0.72rem;
+    color: #475569;
+    padding: 12px 14px;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 10px;
+    height: 100%;
+    justify-content: center;
+}
+.audit-visual-features .feature-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 /* ========================================================================= */
@@ -1302,42 +1334,27 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
         align-items: center;
         justify-content: space-between;
         padding-bottom: 12px;
-        border-bottom: 2.5px solid #0B2A52;
+        border-bottom: 2px solid #0B2A52;
         margin-bottom: 14px;
     }
 
     .print-brand-box {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
     }
 
     .print-brand-logo {
-        height: 44px;
+        height: 42px;
         width: auto;
         object-fit: contain;
     }
 
-    .print-doc-title {
-        text-align: center;
-    }
-    .print-doc-title h1 {
-        font-size: 14pt;
-        font-weight: 800;
-        color: #0B2A52;
-        margin: 0;
-    }
-    .print-doc-title p {
-        font-size: 8pt;
-        color: #64748B;
-        margin: 2px 0 0;
-    }
-
     .print-meta-box {
-        font-size: 7.8pt;
+        font-size: 8pt;
         color: #475569;
         text-align: left;
-        line-height: 1.5;
+        line-height: 1.55;
         direction: rtl;
     }
 
@@ -1647,20 +1664,16 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
         <!-- Print Header -->
         <div class="print-report-header">
             <div class="print-brand-box">
-                <img src="/assets/images/logo.png" alt="SchoPlus Daleel" class="print-brand-logo">
+                <img src="/assets/images/logo.png" alt="دليل المدارس" class="print-brand-logo">
                 <div>
-                    <div style="font-weight: 800; font-size: 10pt; color: #0B2A52;">منظومة ايسكو بلص (SchoPlus)</div>
-                    <div style="font-size: 7.5pt; color: #64748B;">دليل المدارس والخدمات التعليمية الذكية</div>
+                    <div style="font-size: 13pt; font-weight: 800; color: #0B2A52; line-height: 1.2;">دليل المدارس</div>
+                    <div style="font-size: 8pt; color: #64748B;">تقرير فحص الوجود والأثر الرقمي</div>
                 </div>
-            </div>
-            <div class="print-doc-title">
-                <h1>تقرير فحص الوجود والأثر الرقمي للمدرسة</h1>
-                <p>وثيقة تقييم وتحليل الأداء والظهور الإلكتروني (10 بنود رقمية معتمدة)</p>
             </div>
             <div class="print-meta-box">
                 <div><strong>تاريخ الفحص:</strong> <span id="printAuditDate"><?= date('Y-m-d') ?></span></div>
                 <div><strong>الرقم المرجعي:</strong> <span id="printAuditRef">SP-AUD-<?= date('Ymd') ?>-01</span></div>
-                <div><strong>المصدر:</strong> محرك فحص الوجود الرقمي</div>
+                <div><strong>الحالة:</strong> وثيقة إلكترونية معتمدة</div>
             </div>
         </div>
 
@@ -1734,11 +1747,11 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
         <!-- Official Print Footer -->
         <div class="print-report-footer">
             <div>
-                <div>تم استخراج هذا التقرير رسمياً من بوابة <strong>دليل المدارس (daleel.schoplus.sd)</strong> — إحدى مبادرات منظومة SchoPlus.</div>
+                <div>تم استخراج هذا التقرير رسمياً عبر بوابة <strong>دليل المدارس (daleel.schoplus.sd)</strong>.</div>
                 <div>رابط التحقق الرقمي: <span id="printVerifyUrl" style="direction:ltr; display:inline-block;">https://daleel.schoplus.sd/presence-audit.php</span></div>
             </div>
             <div class="print-seal-box">
-                <div>SCHOPLUS AUDIT</div>
+                <div>AUDIT REPORT</div>
                 <div>معتمد رقمياً</div>
             </div>
         </div>
@@ -1841,49 +1854,59 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
             </div>
         </div>
 
-        <!-- VISUAL SEARCH & LOGO AUDIT CARD -->
+        <!-- VISUAL SEARCH & LOGO AUDIT CARD (STYLE F v2) -->
         <div class="audit-visual-search-card" id="auditVisualSearchCard">
             <div class="audit-visual-search-header">
                 <div>
                     <h4 class="audit-visual-title mb-1">
                         <i class="fas fa-camera text-primary"></i>
                         <span>هل التواجد الرقمي لمدرستك أكبر من النتيجة الحالية؟</span>
-                        <span class="badge bg-warning text-dark px-2 py-0.5 rounded-pill" style="font-size:0.65rem;">+10% بونص الشعار والهوية</span>
+                        <span class="badge bg-warning text-dark px-2.5 py-1 rounded-pill fw-bold" style="font-size:0.65rem;">+10% بونص الشعار</span>
                     </h4>
                     <p class="audit-visual-desc">
-                        تحتفظ المدارس العريقة بحضور بصري قوي عبر شهادات التكريم، نتائج الامتحانات، واحتفالات التخرج. قم برفع شعار المدرسة لتوثيقه فوراً، أو استخدم البحث البصري بالصور للوصول لكافة الأخبار والشهادات المرتبطة باسم المدرسة.
+                        ارفع شعار المدرسة الرسمي لاحتساب بونص الهوية (+10% فوري)، أو ابحث عن الشعار مباشرة في محركات البحث للتأكد من انتشاره.
                     </p>
                 </div>
-                <div class="d-flex align-items-center gap-2">
-                    <a href="#" id="googleImagesSearchBtn" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary fw-bold" style="font-size: 0.72rem;">
-                        <i class="fas fa-images me-1"></i> بحث الصور في Google
-                    </a>
-                    <a href="#" id="googleNewsVisualBtn" target="_blank" rel="noopener" class="btn btn-sm btn-light border fw-bold" style="font-size: 0.72rem;">
-                        <i class="fas fa-newspaper me-1 text-secondary"></i> أرشيف التكريم والشهادات
+                <div>
+                    <a href="#" id="googleImagesSearchBtn" target="_blank" rel="noopener" class="btn-luxury-primary fw-bold" style="font-size: 0.74rem; padding: 7px 16px;">
+                        <i class="fas fa-search me-1"></i> بحث في الشعار
                     </a>
                 </div>
             </div>
 
-            <!-- DRAG & DROP LOGO UPLOADER -->
-            <div class="row g-3 align-items-center mt-1">
+            <!-- DRAG & DROP LOGO UPLOADER & BENEFIT HIGHLIGHTS -->
+            <div class="row g-3 align-items-stretch">
                 <div class="col-md-7">
                     <div class="audit-logo-dropzone" id="auditLogoDropzone" onclick="document.getElementById('auditLogoFileInput').click()">
                         <input type="file" id="auditLogoFileInput" accept="image/*" style="display: none;" onchange="handleLogoUpload(this)">
                         <div class="d-flex align-items-center gap-3">
                             <img id="uploadedLogoPreview" class="audit-logo-preview" alt="معاينة الشعار">
                             <div id="dropzonePromptText" class="text-start">
-                                <div class="fw-bold text-dark" style="font-size: 0.8rem;">
+                                <div class="fw-bold text-dark mb-0.5" style="font-size: 0.8rem;">
                                     <i class="fas fa-cloud-upload-alt text-primary me-1"></i> اضغط هنا لرفع شعار المدرسة أو اسحبه وأفلته
                                 </div>
-                                <div class="text-muted" style="font-size: 0.7rem;">يدعم صيغ PNG, JPG, WebP — يرفع نسبة الوجود الرقمي بمقدار +10 نقاط فورية</div>
+                                <div class="text-muted" style="font-size: 0.69rem;">يدعم ملفات PNG, JPG, WebP — يضيف +10 نقاط فورية للنتيجة الإجمالية</div>
                             </div>
                         </div>
+                        <button type="button" class="btn btn-sm btn-light border fw-bold text-primary" style="font-size:0.7rem; flex-shrink: 0;">
+                            اختيار ملف
+                        </button>
                     </div>
                 </div>
                 <div class="col-md-5">
-                    <div class="p-2.5 rounded-3 bg-light border" style="font-size: 0.72rem; color: #475569; line-height: 1.55;">
-                        <strong class="text-dark d-block mb-1"><i class="fas fa-info-circle text-primary me-1"></i> كيف تؤثر الهوية البصرية؟</strong>
-                        ظهور الشعار الرسمي على منصات البحث وشبكات التواصل يرفع ثقة أولياء الأمور بنسبة تفوق 75% ويثبت ملكية المنصات المكتشفة تلقائياً.
+                    <div class="audit-visual-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle text-success" style="font-size: 0.75rem;"></i>
+                            <span>يمنح المدرسة <strong>+10 نقاط بونص</strong> ترفع نسبة الوجود الرقمي فوراً</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle text-success" style="font-size: 0.75rem;"></i>
+                            <span>يثبت ملكية المنصات وشبكات التواصل المكتشفة تلقائياً</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle text-success" style="font-size: 0.75rem;"></i>
+                            <span>يظهر الشعار في بطاقة المدرسة وتقرير الطباعة التنفيذي المعتمد</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2171,13 +2194,12 @@ function renderAuditResults(data) {
         if (activeLogo) activeLogo.style.display = 'none';
     }
 
-    // Setup Visual Search buttons for Google Images and News Archives
+    // Setup Logo Search button
     const gImgBtn = document.getElementById('googleImagesSearchBtn');
-    const gNewsBtn = document.getElementById('googleNewsVisualBtn');
-    const qName = encodeURIComponent('شعار ' + data.school_name);
-    const qNews = encodeURIComponent('"' + data.school_name + '" تكريم اوائل نتيجة الشهادة');
-    if (gImgBtn) gImgBtn.href = `https://www.google.com/search?tbm=isch&q=${qName}`;
-    if (gNewsBtn) gNewsBtn.href = `https://www.google.com/search?q=${qNews}`;
+    if (gImgBtn) {
+        const qLogo = encodeURIComponent('شعار ' + data.school_name);
+        gImgBtn.href = `https://www.google.com/search?tbm=isch&q=${qLogo}`;
+    }
 
     itemsGrid.innerHTML = '';
     data.items.forEach(item => {
