@@ -61,21 +61,21 @@ $isDaleelMobile = (
 
     <link rel="icon" type="image/png" href="/assets/images/favicon.png">
     <link rel="apple-touch-icon" href="/assets/images/logo-icon.png">
-    <title><?= isset($pageTitle) ? e($pageTitle) . ' | دليل المدارس السودانية — SchoPlus' : 'دليل المدارس السودانية — دليلك الشامل لاختيار أفضل المدارس في السودان' ?></title>
+    <title><?= isset($pageTitle) ? e($pageTitle) . ' | دليل المدارس السودانية' : 'دليل المدارس السودانية — دليلك الشامل لاختيار أفضل المدارس في السودان' ?></title>
     
     <!-- Open Graph / WhatsApp / Facebook Meta Tags -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="<?= isset($ogTitle) ? e($ogTitle) : (isset($pageTitle) ? e($pageTitle) . ' | دليل المدارس الذكي' : 'دليل المدارس الذكي — SchoPlus') ?>">
+    <meta property="og:title" content="<?= isset($ogTitle) ? e($ogTitle) : (isset($pageTitle) ? e($pageTitle) . ' | دليل المدارس السودانية' : 'دليل المدارس السودانية — منصة الاستكشاف والقبول الذكي') ?>">
     <meta property="og:description" content="<?= isset($ogDesc) ? e($ogDesc) : 'دليلك الشامل لاختيار أفضل المدارس في السودان — تصفح الرسوم والمرافق وتواصل مباشرة.' ?>">
-    <meta property="og:image" content="<?= isset($ogImage) ? e($ogImage) : 'https://daleel.schoplus.sd/logo.png' ?>">
+    <meta property="og:image" content="<?= isset($ogImage) ? e($ogImage) : 'https://daleel.schoplus.sd/assets/images/logo.png' ?>">
     <meta property="og:url" content="<?= isset($ogUrl) ? e($ogUrl) : 'https://daleel.schoplus.sd' ?>">
-    <meta property="og:site_name" content="دليل المدارس الذكي — SchoPlus">
+    <meta property="og:site_name" content="دليل المدارس السودانية">
 
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="<?= isset($ogTitle) ? e($ogTitle) : (isset($pageTitle) ? e($pageTitle) : 'دليل المدارس الذكي — SchoPlus') ?>">
+    <meta name="twitter:title" content="<?= isset($ogTitle) ? e($ogTitle) : (isset($pageTitle) ? e($pageTitle) : 'دليل المدارس السودانية — منصة الاستكشاف والقبول الذكي') ?>">
     <meta name="twitter:description" content="<?= isset($ogDesc) ? e($ogDesc) : 'دليلك الشامل لاختيار أفضل المدارس في السودان' ?>">
-    <meta name="twitter:image" content="<?= isset($ogImage) ? e($ogImage) : 'https://daleel.schoplus.sd/logo.png' ?>">
+    <meta name="twitter:image" content="<?= isset($ogImage) ? e($ogImage) : 'https://daleel.schoplus.sd/assets/images/logo.png' ?>">
 
     <!-- Geo Local SEO Targeting (Sudan) -->
     <meta name="geo.region" content="SD">
@@ -142,7 +142,7 @@ $isDaleelMobile = (
     <!-- Cairo Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@700;800;900&display=swap" rel="stylesheet">
 
     <!-- FontAwesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -1187,8 +1187,8 @@ $isDaleelMobile = (
     <header class="daleel-navbar">
         <div class="container d-flex justify-content-between align-items-center">
             
-            <a href="/" class="daleel-brand" title="دليل المدارس — SchoPlus">
-                <img src="/assets/images/logo.png" alt="دليل المدارس" class="daleel-logo-img">
+            <a href="/" class="daleel-brand" title="دليل المدارس السودانية">
+                <img src="/assets/images/logo.png" alt="دليل المدارس السودانية" class="daleel-logo-img">
             </a>
 
             <div class="d-flex align-items-center gap-2">

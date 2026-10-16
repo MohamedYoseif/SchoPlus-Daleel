@@ -1,0 +1,14 @@
+<svg width="512" height="512" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Left River Stream (Blue Nile - Deep Navy to Royal Blue) -->
+  <path d="M22 84C24 64 34 50 44 42C44 54 40 66 32 84H22Z" fill="#0B2A52"/>
+  <path d="M22 84C22 62 38 46 48 38C40 48 36 64 32 84H22Z" fill="#1E5FA8"/>
+  <!-- Right River Stream (White Nile - Royal Blue to Navy) -->
+  <path d="M78 84C78 62 62 46 52 38C60 48 64 64 68 84H78Z" fill="#1E5FA8"/>
+  <path d="M78 84C76 64 66 50 56 42C56 54 60 66 68 84H78Z" fill="#0B2A52"/>
+  <!-- Center Location Pin Core -->
+  <path d="M50 32C42 32 36 38 36 46C36 57 50 72 50 72C50 72 64 57 64 46C64 38 58 32 50 32ZM50 51C47.2386 51 45 48.7614 45 46C45 43.2386 47.2386 41 50 41C52.7614 41 55 43.2386 55 46C55 48.7614 52.7614 51 50 51Z" fill="#0B2A52"/>
+  <circle cx="50" cy="46" r="3.5" fill="#F5A020"/>
+  <!-- Academic Mortarboard Cap at Top -->
+  <path d="M50 14L74 24L50 34L26 24L50 14Z" fill="#F5A020"/>
+  <path d="M70 26V36L68 38" stroke="#F5A020" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

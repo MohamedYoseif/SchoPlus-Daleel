@@ -19,14 +19,13 @@
                         </a>
                     </div>
                     <p class="text-muted leading-relaxed mb-0" style="font-size: 0.73rem; line-height: 1.75;">
-                        خدمة رقمية مقدمة من <strong>منظومة SchoPlus الذكية</strong>، تهدف إلى مساعدة أولياء الأمور والطلاب في البحث والتعرف على المدارس ومقارنتها، وإتاحة مساحة احترافية لأصحاب المدارس للتعريف بخدماتهم التعليمية.
+                        خدمة رقمية وطنية تهدف إلى مساعدة أولياء الأمور والطلاب في البحث والتعرف على المدارس ومقارنتها، وإتاحة مساحة احترافية لإدارات المدارس للتعريف بخدماتهم التعليمية.
                     </p>
                 </div>
 
                 <div class="col-lg-2 col-md-6 col-6">
                     <h5 class="fw-bold mb-3" style="font-size: 0.85rem; color: #0B2A52;">تصفح الدليل</h5>
                     <a href="/" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">كافة المدارس</a>
-                    <a href="/?view=schoplus" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">مدارس SchoPlus الذكية</a>
                     <a href="/?view=top_rated" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">المدارس الأعلى تقييماً</a>
                     <a href="/compare.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">مقارنة المدارس</a>
                     <a href="/presence-audit.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">فحص الوجود الرقمي</a>
@@ -39,23 +38,15 @@
                     <a href="/login.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">بوابة مدراء المدارس</a>
                     <a href="/register.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">تسجيل مدرسة جديدة</a>
                     <a href="/presence-audit.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">فحص الوجود الرقمي للمدرسة</a>
-                    <a href="https://schoplus.sd/pricing.html" target="_blank" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">باقات نظام SchoPlus</a>
-                    <a href="https://schoplus.sd/demo.html" target="_blank" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">طلب عرض تجريبي للنظام</a>
                 </div>
 
                 <div class="col-lg-3 col-md-6">
-                    <h5 class="fw-bold mb-3" style="font-size: 0.85rem; color: #0B2A52;">منظومة SchoPlus</h5>
-                    <a href="https://schoplus.sd" target="_blank" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">
-                        الموقع الرسمي لمنظومة SchoPlus
-                    </a>
-                    <a href="/login.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">
-                        تسجيل دخول المدرسة
-                    </a>
-                    <a href="/register.php" class="d-block text-secondary text-decoration-none mb-3" style="font-size: 0.74rem;">
-                        تسجيل مدرسة جديدة
-                    </a>
+                    <h5 class="fw-bold mb-3" style="font-size: 0.85rem; color: #0B2A52;">عن المنصة</h5>
+                    <p class="text-muted mb-3" style="font-size: 0.73rem; line-height: 1.65;">
+                        المنصة الرقمية الموحدة للمدارس السودانية، تمكّن الأسر من استكشاف كافة المدارس ومقارنتها والتواصل المباشر مع إداراتها.
+                    </p>
                     <a href="/register.php" class="btn-luxury-primary btn-sm w-100 justify-content-center" style="font-size: 0.78rem;">
-                        سجّل مدرستك الآن
+                        <i class="fas fa-plus-circle me-1"></i> سجّل مدرستك مجاناً
                     </a>
                 </div>
             </div>
@@ -66,7 +57,7 @@
                     <i class="fas fa-info-circle text-primary mt-1" style="font-size: 0.85rem; flex-shrink: 0;"></i>
                     <div style="font-size: 0.71rem; color: #64748B; line-height: 1.7;">
                         <strong class="text-dark">سياسة الاستخدام وإخلاء المسؤولية:</strong>
-                        هذا الدليل هو خدمة رقمية مفتوحة مقدمة من <strong>منظومة SchoPlus الذكية</strong> ولا يُعد دليلاً رسمياً معتمداً من وزارة التربية والتعليم أو أي جهة حكومية. كافة البيانات والمعلومات المنشورة تتم إضافتها وإدارتها مباشرة من قِبل أصحاب وإدارات المدارس على مسؤوليتهم.
+                        هذا الدليل هو منصة رقمية وطنية مفتوحة ومستقلة، ولا يُعد دليلاً رسمياً معتمداً من وزارة التربية والتعليم أو أي جهة حكومية. كافة البيانات والمعلومات المنشورة تتم إضافتها وإدارتها مباشرة من قِبل إدارات المدارس على مسؤوليتهم.
                     </div>
                 </div>
             </div>
@@ -74,8 +65,8 @@
             <hr class="my-3" style="border-color: #DDE4ED;">
 
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2 text-muted" style="font-size: 0.72rem;">
-                <div>جميع الحقوق محفوظة © <?= date('Y') ?> — دليل المدارس | إحدى مبادرات <strong>SchoPlus</strong></div>
-                <div>النسخة 3.6.91</div>
+                <div>جميع الحقوق محفوظة © <?= date('Y') ?> — دليل المدارس السودانية | منصة الاستكشاف والقبول الذكي</div>
+                <div>النسخة 3.6.92</div>
             </div>
         </div>
     </footer>
