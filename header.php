@@ -1218,7 +1218,7 @@ $isDaleelMobile = (
                         <i class="fas fa-user-tie text-secondary"></i>
                         <span>دخول أصحاب المدارس</span>
                     </a>
-                    <a href="/register.php" class="btn-luxury-primary" style="border-radius: 8px; padding: 7px 18px;">
+                    <a href="/register.php" class="btn-luxury-primary d-none d-md-inline-flex" style="border-radius: 8px; padding: 7px 18px;">
                         <i class="fas fa-plus-circle"></i>
                         <span>سجّل مدرستك الآن</span>
                     </a>
