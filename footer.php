@@ -34,7 +34,7 @@
                                     <i class="fab fa-android fa-lg text-warning"></i>
                                     <div class="text-start">
                                         <span class="d-block text-warning opacity-75" style="font-size: 0.62rem; line-height: 1;">أندرويد مباشر</span>
-                                        <span class="d-block fw-bold" style="font-size: 0.82rem; line-height: 1.2;">تنزيل ملف APK (56.5MB)</span>
+                                        <span class="d-block fw-bold" style="font-size: 0.82rem; line-height: 1.2;">تنزيل تطبيق أندرويد APK (مباشر)</span>
                                     </div>
                                 </a>
 

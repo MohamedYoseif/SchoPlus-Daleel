@@ -39,6 +39,7 @@ android {
 
     packaging {
         jniLibs {
+            useLegacyPackaging = true
             keepDebugSymbols += "**/*.so"
         }
     }
@@ -59,4 +60,3 @@ tasks.whenTaskAdded {
         enabled = false
     }
 }
-

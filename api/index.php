@@ -545,6 +545,9 @@ if ($action === 'check_update') {
     $latestAppCode    = 2;
     $hasUpdate = ($currentCode < $latestAppCode) || version_compare($currentVersion, $latestAppVersion, '<');
 
+    $apkPath = __DIR__ . '/../downloads/daleel-schoplus.apk';
+    $fileSizeStr = file_exists($apkPath) ? round(filesize($apkPath) / (1024 * 1024), 1) . ' MB' : '136.8 MB';
+
     jsonRes([
         'success'             => true,
         'has_update'          => $hasUpdate,
@@ -553,7 +556,7 @@ if ($action === 'check_update') {
         'latest_version_code' => $latestAppCode,
         'system_version'      => $sysVersion,
         'release_date'        => '2026-10-16',
-        'file_size'           => '56.5 MB',
+        'file_size'           => $fileSizeStr,
         'download_url'        => 'https://daleel.schoplus.sd/downloads/daleel-schoplus.apk',
         'release_notes'       => "• إضافة بوابة مدراء المدارس المتكاملة داخل التطبيق.\n• إدارة ملف المدرسة والرسوم والمرافق وتحديثها فوراً.\n• استلام ومتابعة طلبات القبول والاستفسارات مع أزرار تواصل واتساب وهاتف مباشرة.\n• نظام فحص وتثبيت التحديثات التلقائي.\n• تحسينات عامة في الأداء والسرعة.",
         'is_critical'         => false
