@@ -23,7 +23,8 @@ $apkVersion = '1.0.0';
                 
                 <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill mb-3" style="background: #FEF3C7; border: 1px solid #FDE68A; color: #92400E; font-size: 0.8rem; font-weight: 700;">
                     <i class="fab fa-android text-success"></i>
-                    <span>التطبيق الرسمي المعتمد لهواتف الأندرويد</span>
+                    <i class="fab fa-apple text-dark"></i>
+                    <span>التطبيق الرسمي المعتمد للهواتف الذكية (Android & iOS)</span>
                 </div>
 
                 <h1 class="fw-bold mb-3" style="color: var(--brand-navy); font-size: 2.3rem; line-height: 1.3;">
@@ -34,35 +35,46 @@ $apkVersion = '1.0.0';
                     اكتشف أفضل المدارس في كافة الولايات والمدن السودانية، استكشف الرسوم والمناهج، وتواصل مباشرة عبر واتساب ومكالمات الهاتف بإدارات المدارس بضغطة زر واحدة من هاتفك.
                 </p>
 
-                <!-- Download Actions -->
+                <!-- Download Actions (Android & iOS) -->
                 <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start mb-4">
-                    <a href="<?= $apkDownloadUrl ?>" download class="btn px-4 py-3 fw-bold text-white shadow-sm d-inline-flex align-items-center gap-3 rounded-4" style="background: #0B2A52; font-size: 1.02rem; border: 2px solid #F5A020;">
+                    <!-- Android APK -->
+                    <a href="<?= $apkDownloadUrl ?>" download class="btn px-4 py-3 fw-bold text-white shadow-sm d-inline-flex align-items-center gap-3 rounded-4" style="background: #0B2A52; font-size: 1rem; border: 2px solid #F5A020;">
                         <i class="fab fa-android fa-2x text-warning"></i>
                         <div class="text-start">
-                            <span class="d-block small text-warning opacity-75" style="font-size: 0.72rem;">تنزيل مباشر وسريع</span>
-                            <span class="d-block fw-bold" style="font-size: 1rem;">تحميل تطبيق أندرويد (APK)</span>
+                            <span class="d-block small text-warning opacity-75" style="font-size: 0.7rem;">تحميل مباشر للأندرويد</span>
+                            <span class="d-block fw-bold" style="font-size: 0.95rem;">تنزيل ملف APK (<?= $apkSize ?>)</span>
                         </div>
                     </a>
 
-                    <a href="/#search-section" class="btn btn-outline-secondary px-4 py-3 fw-bold rounded-4 d-inline-flex align-items-center gap-2" style="font-size: 0.95rem;">
+                    <!-- Apple iPhone / iOS -->
+                    <button type="button" class="btn px-4 py-3 fw-bold text-dark shadow-sm d-inline-flex align-items-center gap-3 rounded-4" style="background: #FFFFFF; font-size: 1rem; border: 2px solid #0B2A52;" onclick="openIosInstallModal()">
+                        <i class="fab fa-apple fa-2x text-dark"></i>
+                        <div class="text-start">
+                            <span class="d-block small text-muted" style="font-size: 0.7rem;">تثبيت فوري ومباشر</span>
+                            <span class="d-block fw-bold text-navy" style="font-size: 0.95rem; color: #0B2A52;">تثبيت على الآيفون (iOS)</span>
+                        </div>
+                    </button>
+
+                    <!-- Web Browse -->
+                    <a href="/#search-section" class="btn btn-outline-secondary px-3 py-3 fw-bold rounded-4 d-inline-flex align-items-center gap-2" style="font-size: 0.9rem;">
                         <i class="fas fa-search text-primary"></i>
-                        <span>تصفح الدليل أونلاين</span>
+                        <span>تصفح أونلاين</span>
                     </a>
                 </div>
 
                 <!-- Info Badges -->
                 <div class="d-flex flex-wrap gap-2 justify-content-center justify-content-lg-start">
                     <span class="badge bg-white text-secondary border px-3 py-2 rounded-pill small">
-                        <i class="fas fa-file-archive text-warning me-1"></i> الحجم: <?= $apkSize ?>
+                        <i class="fab fa-android text-success me-1"></i> أندرويد 7.0 فما فوق
+                    </span>
+                    <span class="badge bg-white text-secondary border px-3 py-2 rounded-pill small">
+                        <i class="fab fa-apple text-dark me-1"></i> كافة أجهزة iPhone & iPad
                     </span>
                     <span class="badge bg-white text-secondary border px-3 py-2 rounded-pill small">
                         <i class="fas fa-code-branch text-primary me-1"></i> الإصدار: <?= $apkVersion ?>
                     </span>
                     <span class="badge bg-white text-secondary border px-3 py-2 rounded-pill small">
-                        <i class="fas fa-mobile-alt text-success me-1"></i> أندرويد 7.0 فما فوق
-                    </span>
-                    <span class="badge bg-white text-secondary border px-3 py-2 rounded-pill small">
-                        <i class="fas fa-sync-alt text-info me-1"></i> تحديث تلقائي فوري
+                        <i class="fas fa-bolt text-warning me-1"></i> تشغيل فوري وسريع
                     </span>
                 </div>
 
@@ -206,47 +218,54 @@ $apkVersion = '1.0.0';
             </div>
         </div>
 
-        <!-- INSTALLATION STEPS -->
+        <!-- INSTALLATION STEPS (ANDROID & IPHONE) -->
         <div class="py-4 my-3">
             <div class="card border-0 rounded-4 shadow-sm p-4 p-md-5" style="background: #FFFFFF;">
-                <h4 class="fw-bold text-dark mb-4 text-center">خطوات تثبيت التطبيق على هاتفك (3 خطوات بسيطة)</h4>
+                <h4 class="fw-bold text-dark mb-4 text-center">طريقة تثبيت التطبيق على هاتفك (أندرويد وآيفون)</h4>
                 
-                <div class="row g-4 text-center">
-                    <div class="col-md-4">
-                        <div class="p-3">
-                            <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-primary text-white fw-bold mb-3" style="width: 44px; height: 44px; font-size: 1.2rem;">
-                                1
+                <div class="row g-4">
+                    <!-- Android Column -->
+                    <div class="col-lg-6">
+                        <div class="p-4 rounded-4 border h-100" style="background: #F8FAFC;">
+                            <div class="d-flex align-items-center gap-2 mb-3">
+                                <i class="fab fa-android text-success fa-lg"></i>
+                                <h5 class="fw-bold mb-0 text-dark fs-6">هواتف الأندرويد (تنزيل ملف APK مباشر)</h5>
                             </div>
-                            <h6 class="fw-bold text-dark mb-2">تنزيل ملف التطبيق</h6>
-                            <p class="text-muted small mb-0">اضغط على زر "تحميل ملف APK" وسيبدأ تحميل الملف الصغير (5MB) على هاتفك فوراً.</p>
+                            <ol class="text-secondary small mb-4 ps-3 lh-lg" style="font-size: 0.8rem;">
+                                <li class="mb-2">اضغط على زر <strong>«تنزيل ملف APK»</strong> وسيبدأ التحميل فوراً على جهازك.</li>
+                                <li class="mb-2">افتح الملف المحمل واضغط <strong>«تثبيت» (Install)</strong>، وإذا طُلب منك، اختر «السماح من هذا المصدر».</li>
+                                <li>ستظهر أيقونة التطبيق على شاشتك فوراً، افتحه واستمتع بكافة الميزات.</li>
+                            </ol>
+                            <a href="<?= $apkDownloadUrl ?>" download class="btn btn-luxury-primary w-100 justify-content-center py-2 rounded-3 fw-bold" style="font-size: 0.85rem;">
+                                <i class="fab fa-android me-2"></i> تحميل ملف APK للأندرويد (<?= $apkSize ?>)
+                            </a>
                         </div>
                     </div>
 
-                    <div class="col-md-4">
-                        <div class="p-3">
-                            <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-warning text-dark fw-bold mb-3" style="width: 44px; height: 44px; font-size: 1.2rem;">
-                                2
+                    <!-- iPhone / iOS Column -->
+                    <div class="col-lg-6">
+                        <div class="p-4 rounded-4 border h-100" style="background: #F8FAFC;">
+                            <div class="d-flex align-items-center gap-2 mb-3">
+                                <i class="fab fa-apple text-dark fa-lg"></i>
+                                <h5 class="fw-bold mb-0 text-dark fs-6">هواتف الآيفون (تثبيت فوري Web App)</h5>
                             </div>
-                            <h6 class="fw-bold text-dark mb-2">السماح بالتثبيت</h6>
-                            <p class="text-muted small mb-0">افتح الملف المحمل واضغط "تثبيت" (Install). إذا طُلب منك السماح، اختر "السماح من هذا المصدر".</p>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="p-3">
-                            <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-success text-white fw-bold mb-3" style="width: 44px; height: 44px; font-size: 1.2rem;">
-                                3
-                            </div>
-                            <h6 class="fw-bold text-dark mb-2">فتح واستخدام التطبيق</h6>
-                            <p class="text-muted small mb-0">ستظهر أيقونة التطبيق في شاشة هاتفك الرئيسية، افتحه واستمتع بتصفح دليل المدارس مباشرة!</p>
+                            <ol class="text-secondary small mb-4 ps-3 lh-lg" style="font-size: 0.8rem;">
+                                <li class="mb-2">افتح رابط الدليل <code>daleel.schoplus.sd</code> في متصفح <strong>Safari</strong>.</li>
+                                <li class="mb-2">اضغط على زر <strong>المشاركة 📤</strong> (مربع بسهم لأعلى) في الشريط السفلي.</li>
+                                <li>اختر <strong>«إضافة إلى الشاشة الرئيسية» (Add to Home Screen ➕)</strong>، ثم اضغط «إضافة».</li>
+                            </ol>
+                            <button type="button" class="btn btn-outline-dark w-100 py-2 rounded-3 fw-bold d-inline-flex align-items-center justify-content-center gap-2" style="font-size: 0.85rem;" onclick="openIosInstallModal()">
+                                <i class="fab fa-apple"></i>
+                                <span>عرض خطوات التثبيت المصورة للآيفون</span>
+                            </button>
                         </div>
                     </div>
                 </div>
 
                 <div class="text-center mt-4 pt-3 border-top">
-                    <a href="<?= $apkDownloadUrl ?>" download class="btn btn-luxury-primary px-5 py-3 fw-bold rounded-pill shadow-sm" style="font-size: 1rem;">
-                        <i class="fab fa-android me-2"></i> تحميل ملف APK الآن (<?= $apkSize ?>)
-                    </a>
+                    <span class="text-muted small" style="font-size: 0.78rem;">
+                        <i class="fas fa-shield-alt text-success me-1"></i> كلا الخيارين مجانيان 100% وآمنان تماماً، ويمنحانك نفس الواجهة السريعة والمحدثة لحظياً.
+                    </span>
                 </div>
             </div>
         </div>

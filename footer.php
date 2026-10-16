@@ -15,7 +15,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="mb-3">
                         <a href="/" class="d-inline-block text-decoration-none">
-                            <img src="/assets/images/logo.png?v=3.7.2" alt="دليل المدارس السودانية" style="height: 46px; width: auto; object-fit: contain;">
+                            <img src="/assets/images/logo.png?v=3.7.3" alt="دليل المدارس السودانية" style="height: 46px; width: auto; object-fit: contain;">
                         </a>
                     </div>
                     <p class="text-muted leading-relaxed mb-0" style="font-size: 0.73rem; line-height: 1.75;">
@@ -440,6 +440,132 @@
             submitBtn.innerHTML = '<span>قارن الآن (' + list.length + ')</span> <i class="fas fa-arrow-left"></i>';
         }
     };
+    </script>
+
+    <!-- iOS PWA Install Modal (Apple Web App Guide) -->
+    <div class="modal fade" id="iosInstallModal" tabindex="-1" aria-labelledby="iosInstallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border-0 shadow-lg overflow-hidden">
+                <div class="modal-header border-0 px-4 pt-4 pb-2 text-white" style="background: linear-gradient(135deg, #0B2A52 0%, #1E5FA8 100%);">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="bg-white rounded-3 p-2 d-flex align-items-center justify-content-center shadow-sm" style="width: 46px; height: 46px;">
+                            <img src="/assets/images/logo-icon.png?v=3.7.3" alt="دليل المدارس" style="width: 32px; height: 32px; object-fit: contain;">
+                        </div>
+                        <div>
+                            <h5 class="modal-title fw-bold fs-6 mb-0 text-white" id="iosInstallModalLabel">تثبيت التطبيق على الآيفون (iOS)</h5>
+                            <span class="small opacity-75" style="font-size: 0.72rem;">تطبيق مباشر وسريع بدون متجر App Store</span>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4" style="background: #F8FAFC;">
+                    <p class="text-secondary small mb-3 leading-relaxed" style="font-size: 0.78rem;">
+                        يمكنك إضافة تطبيق <strong>دليل المدارس السودانية</strong> مباشرة إلى شاشتك الرئيسية ليعمل كتطبيق أصلي سريع وفوري بـ 3 خطوات فقط من متصفح Safari:
+                    </p>
+
+                    <!-- Steps -->
+                    <div class="d-flex flex-column gap-3">
+                        <div class="p-3 bg-white rounded-3 border d-flex align-items-start gap-3 shadow-2xs">
+                            <span class="badge rounded-pill d-flex align-items-center justify-content-center fw-bold" style="background: #0B2A52; color: #F5A020; width: 26px; height: 26px; font-size: 0.8rem; flex-shrink: 0;">1</span>
+                            <div>
+                                <strong class="d-block text-dark mb-1" style="font-size: 0.8rem;">اضغط على زر المشاركة في Safari</strong>
+                                <span class="text-muted d-block small" style="font-size: 0.72rem;">ابحث عن أيقونة المربع ذو السهم للأعلى <span class="badge bg-light text-primary border px-2 py-1"><i class="fas fa-arrow-up-from-bracket"></i> مشاركة</span> في الشريط السفلي للمتصفح.</span>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-white rounded-3 border d-flex align-items-start gap-3 shadow-2xs">
+                            <span class="badge rounded-pill d-flex align-items-center justify-content-center fw-bold" style="background: #0B2A52; color: #F5A020; width: 26px; height: 26px; font-size: 0.8rem; flex-shrink: 0;">2</span>
+                            <div>
+                                <strong class="d-block text-dark mb-1" style="font-size: 0.8rem;">اختر «إضافة إلى الشاشة الرئيسية»</strong>
+                                <span class="text-muted d-block small" style="font-size: 0.72rem;">اسحب قائمة الخيارات لأسفل واضغط على <span class="badge bg-light text-success border px-2 py-1"><i class="fas fa-plus-square"></i> Add to Home Screen</span>.</span>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-white rounded-3 border d-flex align-items-start gap-3 shadow-2xs">
+                            <span class="badge rounded-pill d-flex align-items-center justify-content-center fw-bold" style="background: #0B2A52; color: #F5A020; width: 26px; height: 26px; font-size: 0.8rem; flex-shrink: 0;">3</span>
+                            <div>
+                                <strong class="d-block text-dark mb-1" style="font-size: 0.8rem;">اضغط على «إضافة» (Add) في الزاوية العلوية</strong>
+                                <span class="text-muted d-block small" style="font-size: 0.72rem;">سيظهر التطبيق فوراً على شاشة هاتفك بأيقونة وشعار الدليل الرسمي كأي تطبيق تم تحميله.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 pt-3 border-top d-flex align-items-center justify-content-between">
+                        <span class="small text-muted" style="font-size: 0.7rem;"><i class="fab fa-apple text-dark me-1"></i> متوافق مع كافة أجهزة iPhone و iPad</span>
+                        <button type="button" class="btn btn-sm btn-primary fw-bold px-4 py-2 rounded-3" style="background: #0B2A52; border-color: #0B2A52;" data-bs-dismiss="modal">فهمت ذلك</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Smart iOS Safari Floating Banner (Auto-detected on iPhone / iPad) -->
+    <div id="spIosInstallBanner" class="position-fixed bottom-0 start-50 translate-middle-x p-3 w-100" style="max-width: 480px; z-index: 1080; display: none;">
+        <div class="rounded-4 p-3 shadow-lg d-flex align-items-center justify-content-between gap-3 text-white border" style="background: linear-gradient(135deg, #0B2A52 0%, #163870 100%); border-color: #F5A020 !important;">
+            <div class="d-flex align-items-center gap-2">
+                <div class="bg-white rounded-3 p-1 d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; flex-shrink: 0;">
+                    <img src="/assets/images/logo-icon.png?v=3.7.3" alt="دليل المدارس" style="width: 28px; height: 28px;">
+                </div>
+                <div>
+                    <div class="fw-bold text-white small" style="font-size: 0.76rem;">ثبّت التطبيق على الآيفون 📱</div>
+                    <div class="text-white-50 small" style="font-size: 0.68rem;">أضف الدليل لشاشتك الرئيسية بضغطة زر</div>
+                </div>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <button type="button" class="btn btn-sm text-dark fw-bold px-3 py-1 rounded-pill" style="background: #F5A020; font-size: 0.72rem; border: none;" onclick="openIosInstallModal()">
+                    طريقة التثبيت
+                </button>
+                <button type="button" class="btn-close btn-close-white" style="font-size: 0.65rem;" onclick="dismissIosBanner()" aria-label="إغلاق"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PWA Service Worker & iOS Banner Script -->
+    <script>
+    // Open iOS Install Modal
+    window.openIosInstallModal = function() {
+        var modalEl = document.getElementById('iosInstallModal');
+        if (modalEl && typeof bootstrap !== 'undefined') {
+            var modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+            modal.show();
+        }
+    };
+
+    // Dismiss iOS banner for 7 days
+    window.dismissIosBanner = function() {
+        var b = document.getElementById('spIosInstallBanner');
+        if (b) b.style.display = 'none';
+        try { localStorage.setItem('daleel_hide_ios_banner', Date.now()); } catch(e){}
+    };
+
+    // Auto-detect iOS and Safari (non-standalone)
+    (function() {
+        var isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        var isStandalone = window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
+        
+        if (isIos && !isStandalone) {
+            try {
+                var lastDismissed = localStorage.getItem('daleel_hide_ios_banner');
+                if (!lastDismissed || (Date.now() - parseInt(lastDismissed)) > 7 * 24 * 3600 * 1000) {
+                    setTimeout(function() {
+                        var banner = document.getElementById('spIosInstallBanner');
+                        if (banner) banner.style.display = 'block';
+                    }, 2500);
+                }
+            } catch(e){}
+        }
+
+        // Register Service Worker for PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js?v=3.7.3').then(function(reg) {
+                    console.log('[PWA] ServiceWorker registered with scope:', reg.scope);
+                }).catch(function(err) {
+                    console.warn('[PWA] ServiceWorker registration failed:', err);
+                });
+            });
+        }
+    })();
     </script>
 </body>
 </html>

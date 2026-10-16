@@ -157,7 +157,10 @@ $isDaleelMobile = (
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="دليل المدارس">
-    <link rel="apple-touch-icon" href="/assets/images/logo-icon.png?v=3.7.2">
+    <link rel="apple-touch-icon" href="/assets/images/logo-icon.png?v=3.7.3">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/logo-icon.png?v=3.7.3">
+    <link rel="apple-touch-icon" sizes="152x152" href="/assets/images/logo-icon.png?v=3.7.3">
+    <link rel="apple-touch-icon" sizes="167x167" href="/assets/images/logo-icon.png?v=3.7.3">
 
     <!-- Quill Rich Text Editor (Word-like WYSIWYG) -->
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
@@ -1131,7 +1134,7 @@ $isDaleelMobile = (
     <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileNavOffcanvas" aria-labelledby="mobileNavLabel">
         <div class="offcanvas-header border-bottom" style="background: var(--bg-surface-tint);">
             <a href="/" class="d-flex align-items-center text-decoration-none" id="mobileNavLabel" title="دليل المدارس السودانية">
-                <img src="/assets/images/logo.png?v=3.7.2" alt="دليل المدارس السودانية" style="height: 38px; width: auto; max-width: 220px; object-fit: contain;">
+                <img src="/assets/images/logo.png?v=3.7.3" alt="دليل المدارس السودانية" style="height: 38px; width: auto; max-width: 220px; object-fit: contain;">
             </a>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
@@ -1188,7 +1191,7 @@ $isDaleelMobile = (
         <div class="container d-flex justify-content-between align-items-center">
             
             <a href="/" class="daleel-brand" title="دليل المدارس السودانية">
-                <img src="/assets/images/logo.png?v=3.7.2" alt="دليل المدارس السودانية" class="daleel-logo-img">
+                <img src="/assets/images/logo.png?v=3.7.3" alt="دليل المدارس السودانية" class="daleel-logo-img">
             </a>
 
             <div class="d-flex align-items-center gap-2">

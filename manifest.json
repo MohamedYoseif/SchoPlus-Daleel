@@ -1,8 +1,9 @@
 {
   "name": "دليل المدارس السودانية",
   "short_name": "دليل المدارس",
-  "description": "الدليل الشامل للبحث عن أفضل المدارس في السودان واستكشاف الرسوم والمراحل وميزات التعليم الذكي",
-  "start_url": "/",
+  "description": "المنصة الوطنية الشاملة للبحث عن أفضل المدارس في السودان واستكشاف الرسوم والمراحل وميزات التعليم الذكي",
+  "start_url": "/?source=pwa",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#0B2A52",
   "theme_color": "#0B2A52",
@@ -11,13 +12,13 @@
   "dir": "rtl",
   "icons": [
     {
-      "src": "/assets/images/logo.png",
+      "src": "/assets/images/logo-icon.png?v=3.7.3",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/assets/images/logo.png",
+      "src": "/assets/images/logo-icon.png?v=3.7.3",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
