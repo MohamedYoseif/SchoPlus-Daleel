@@ -710,6 +710,8 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
     font-size: 0.72rem;
     font-weight: 700;
     color: #64748B;
+}
+
 /* ACTIVE AUDIT STATUS BAR (COMPACT EXECUTIVE TOOLBAR) */
 .audit-active-bar {
     background: #FFFFFF;
@@ -864,11 +866,11 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
 /* 10 AUDIT ITEMS GRID */
 .audit-items-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 16px;
     margin-bottom: 28px;
 }
-@media (max-width: 767px) {
+@media (max-width: 860px) {
     .audit-items-grid {
         grid-template-columns: 1fr;
     }
@@ -1538,7 +1540,12 @@ function renderAuditResults(data) {
     buildRegistrationBridgeLink();
 
     container.style.display = 'block';
-    container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const navbarHeight = 85;
+    const topPos = container.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+    window.scrollTo({
+        top: Math.max(0, topPos),
+        behavior: 'smooth'
+    });
 }
 
 // Create Card for each of the 10 Items

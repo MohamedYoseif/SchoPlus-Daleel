@@ -1,7 +1,7 @@
 {
-    "version": "3.6.71",
+    "version": "3.6.72",
     "release_date": "2026-10-16",
     "version_type": "enterprise",
     "min_php_version": "8.2",
-    "release_notes": "دليل المدارس (daleel.schoplus.sd) — إزالة آلية الـ debounce من شريط البحث لمنع تداخل الاستعلامات مع الكتابة v3.6.71"
+    "release_notes": "دليل المدارس (daleel.schoplus.sd) — إصلاح تنسيقات صفحة فحص الوجود الرقمي وضبط شبكة البطاقات وموضع التمرير v3.6.72"
 }
