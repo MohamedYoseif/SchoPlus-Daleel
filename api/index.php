@@ -458,4 +458,74 @@ if ($action === 'check_slug') {
     ]);
 }
 
+// -------------------------------------------------------------
+// ACTION: SUBMIT INQUIRY / ADMISSION REQUEST
+// -------------------------------------------------------------
+if ($action === 'inquiry') {
+    $rawInput = file_get_contents('php://input');
+    $postData = json_decode($rawInput, true);
+    if (!is_array($postData)) {
+        $postData = $_POST;
+    }
+
+    $schoolId     = (int)($postData['school_id'] ?? 0);
+    $parentName   = trim((string)($postData['parent_name'] ?? ''));
+    $parentPhone  = trim((string)($postData['parent_phone'] ?? ''));
+    $parentEmail  = trim((string)($postData['parent_email'] ?? ''));
+    $studentName  = trim((string)($postData['student_name'] ?? ''));
+    $studentGender= trim((string)($postData['student_gender'] ?? ''));
+    $studentStage = trim((string)($postData['student_stage'] ?? ''));
+    $studentGrade = trim((string)($postData['student_grade'] ?? ''));
+    $branchName   = trim((string)($postData['branch_name'] ?? ''));
+    $needsTrans   = !empty($postData['needs_transportation']) ? 1 : 0;
+    $message      = trim((string)($postData['message'] ?? ''));
+
+    if ($schoolId <= 0) {
+        jsonRes(['success' => false, 'message' => 'يرجى تحديد المدرسة المطلوبة.'], 400);
+    }
+    if ($parentName === '') {
+        jsonRes(['success' => false, 'message' => 'يرجى كتابة اسم ولي الأمر.'], 400);
+    }
+    if ($parentPhone === '') {
+        jsonRes(['success' => false, 'message' => 'يرجى إدخال رقم الهاتف أو الواتساب للتواصل.'], 400);
+    }
+
+    // Verify school exists
+    $schCheck = $pdo->prepare("SELECT id, name, phone, whatsapp FROM daleel_schools WHERE id = ? AND status = 'approved' LIMIT 1");
+    $schCheck->execute([$schoolId]);
+    $school = $schCheck->fetch();
+
+    if (!$school) {
+        jsonRes(['success' => false, 'message' => 'المدرسة المطلوبة غير موجودة أو غير معتمدة.'], 404);
+    }
+
+    $ins = $pdo->prepare("
+        INSERT INTO daleel_school_inquiries (
+            school_id, parent_name, parent_phone, parent_email,
+            student_name, student_gender, student_stage, student_grade,
+            branch_name, needs_transportation, message, status, created_at
+        ) VALUES (
+            ?, ?, ?, ?,
+            ?, ?, ?, ?,
+            ?, ?, ?, 'new', NOW()
+        )
+    ");
+    $ins->execute([
+        $schoolId, $parentName, $parentPhone, $parentEmail ?: null,
+        $studentName ?: null, $studentGender ?: null, $studentStage ?: null, $studentGrade ?: null,
+        $branchName ?: null, $needsTrans, $message ?: null
+    ]);
+
+    jsonRes([
+        'success' => true,
+        'message' => 'تم إرسال طلبكم لإدارة مدرسة ' . $school['name'] . ' بنجاح! سيتم التواصل معكم قريباً.',
+        'data'    => [
+            'inquiry_id'     => (int)$pdo->lastInsertId(),
+            'school_name'    => $school['name'],
+            'school_phone'   => $school['phone'],
+            'school_whatsapp'=> $school['whatsapp']
+        ]
+    ]);
+}
+
 jsonRes(['success' => false, 'message' => 'إجراء غير معروف'], 400);

@@ -15,7 +15,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="mb-3">
                         <a href="/" class="d-inline-block text-decoration-none">
-                            <img src="/assets/images/logo.png?v=3.6.97" alt="دليل المدارس السودانية" style="height: 46px; width: auto; object-fit: contain;">
+                            <img src="/assets/images/logo.png?v=3.7.2" alt="دليل المدارس السودانية" style="height: 46px; width: auto; object-fit: contain;">
                         </a>
                     </div>
                     <p class="text-muted leading-relaxed mb-0" style="font-size: 0.73rem; line-height: 1.75;">
@@ -29,7 +29,9 @@
                     <a href="/?view=top_rated" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">المدارس الأعلى تقييماً</a>
                     <a href="/compare.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">مقارنة المدارس</a>
                     <a href="/presence-audit.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">فحص الوجود الرقمي</a>
-                    <a href="/app.php" class="d-block d-md-none text-success fw-bold text-decoration-none mb-2" style="font-size: 0.74rem;">تطبيق أندرويد (APK)</a>
+                    <a href="/app.php" class="d-block text-success fw-bold text-decoration-none mb-2" style="font-size: 0.74rem;">
+                        <i class="fab fa-android me-1"></i> تحميل تطبيق أندرويد (APK)
+                    </a>
                     <a href="/register.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">إضافة مدرسة جديدة</a>
                 </div>
 

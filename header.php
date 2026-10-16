@@ -157,7 +157,7 @@ $isDaleelMobile = (
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="دليل المدارس">
-    <link rel="apple-touch-icon" href="/assets/images/logo-icon.png?v=3.6.97">
+    <link rel="apple-touch-icon" href="/assets/images/logo-icon.png?v=3.7.2">
 
     <!-- Quill Rich Text Editor (Word-like WYSIWYG) -->
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
@@ -1131,7 +1131,7 @@ $isDaleelMobile = (
     <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileNavOffcanvas" aria-labelledby="mobileNavLabel">
         <div class="offcanvas-header border-bottom" style="background: var(--bg-surface-tint);">
             <a href="/" class="d-flex align-items-center text-decoration-none" id="mobileNavLabel" title="دليل المدارس السودانية">
-                <img src="/assets/images/logo.png?v=3.6.97" alt="دليل المدارس السودانية" style="height: 38px; width: auto; max-width: 220px; object-fit: contain;">
+                <img src="/assets/images/logo.png?v=3.7.2" alt="دليل المدارس السودانية" style="height: 38px; width: auto; max-width: 220px; object-fit: contain;">
             </a>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
@@ -1188,7 +1188,7 @@ $isDaleelMobile = (
         <div class="container d-flex justify-content-between align-items-center">
             
             <a href="/" class="daleel-brand" title="دليل المدارس السودانية">
-                <img src="/assets/images/logo.png?v=3.6.97" alt="دليل المدارس السودانية" class="daleel-logo-img">
+                <img src="/assets/images/logo.png?v=3.7.2" alt="دليل المدارس السودانية" class="daleel-logo-img">
             </a>
 
             <div class="d-flex align-items-center gap-2">
@@ -1207,6 +1207,10 @@ $isDaleelMobile = (
                         <i class="fas fa-sign-out-alt"></i>
                     </a>
                 <?php else: ?>
+                    <a href="/app.php" class="btn-luxury-outline d-none d-md-inline-flex" style="border-radius: 8px; padding: 7px 14px; gap: 6px;">
+                        <i class="fab fa-android text-success"></i>
+                        <span>تطبيق الهاتف</span>
+                    </a>
                     <a href="/login.php" class="btn-luxury-outline d-none d-sm-inline-flex" style="border-radius: 8px; padding: 7px 16px;">
                         <i class="fas fa-user-tie text-secondary"></i>
                         <span>دخول أصحاب المدارس</span>

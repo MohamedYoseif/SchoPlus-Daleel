@@ -1,7 +1,7 @@
 {
-    "version": "3.6.97",
+    "version": "3.7.2",
     "release_date": "2026-10-16",
     "version_type": "enterprise",
     "min_php_version": "8.2",
-    "release_notes": "تحديث شعار القائمة الجانبية على الموبايل وكسر الكاش لكافة أيقونات وشعارات الدليل v3.6.97"
+    "release_notes": "إطلاق تطبيق دليل المدارس السودانية الرسمي للأندرويد Flutter Native Cross-Platform وتوفير حزمة التحميل المباشر daleel-schoplus.apk v3.7.2"
 }
