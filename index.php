@@ -1511,7 +1511,7 @@ require_once __DIR__ . '/header.php';
                     </div>
                     <h2 class="sp-join-title fw-bold mb-2" style="font-size: 1.25rem; color: #FFFFFF !important;">هل تدير مدرسة أو مجمعاً تعليمياً؟</h2>
                     <p class="sp-join-desc mb-3" style="max-width: 650px; font-size: 0.76rem; color: #F1F5F9 !important; line-height: 1.6; margin-bottom: 12px !important;">
-                        خدمة رقمية مقدمة من منظومة ايسكو بلص (SchoPlus). أضف بيانات مدرستك، أنشئ ملفاً تعريفياً متكاملاً، وانشر أخبار ومرافق مدرستك واستقبل استفسارات أولياء الأمور مباشرة.
+                        خدمة رقمية مقدمة من منظومة SchoPlus الذكية. أضف بيانات مدرستك، أنشئ ملفاً تعريفياً متكاملاً، وانشر أخبار ومرافق مدرستك واستقبل استفسارات أولياء الأمور مباشرة.
                     </p>
                     <div class="sp-join-actions d-flex flex-wrap gap-2">
                         <a href="/register.php" class="sp-join-btn-primary" style="background: #F5A020 !important; color: #FFFFFF !important; font-weight: 800; font-size: 0.78rem; padding: 8px 18px; border-radius: 8px; display: inline-flex; align-items: center; gap: 7px; text-decoration: none;">
