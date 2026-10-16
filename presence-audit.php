@@ -1193,20 +1193,6 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
     display: none;
 }
 
-/* VISUAL SEARCH & LOGO AUDIT CARD */
-.audit-visual-search-card {
-    background: #FFFFFF;
-    border: 1px solid #DDE4ED;
-    border-top: 3px solid #1E5FA8;
-    border-radius: 14px;
-    padding: 16px 20px;
-    margin-top: 16px;
-    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
-}
-.audit-visual-search-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
 /* VISUAL SEARCH & LOGO AUDIT CARD (STYLE F v2) */
 .audit-visual-search-card {
     background: #FFFFFF;
@@ -1660,11 +1646,11 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
     <!-- =================================================================== -->
     <!-- DEDICATED PRINTABLE AUDIT REPORT (PRINT MEDIA ONLY)                 -->
     <!-- =================================================================== -->
-    <div id="auditPrintReport">
+    <div id="auditPrintReport" style="display: none;">
         <!-- Print Header -->
         <div class="print-report-header">
             <div class="print-brand-box">
-                <img src="/assets/images/logo.png" alt="دليل المدارس" class="print-brand-logo">
+                <img src="/assets/images/logo.png" alt="دليل المدارس" class="print-brand-logo" style="height: 42px; width: auto; object-fit: contain;">
                 <div>
                     <div style="font-size: 13pt; font-weight: 800; color: #0B2A52; line-height: 1.2;">دليل المدارس</div>
                     <div style="font-size: 8pt; color: #64748B;">تقرير فحص الوجود والأثر الرقمي</div>
