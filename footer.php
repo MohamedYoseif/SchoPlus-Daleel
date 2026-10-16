@@ -58,13 +58,13 @@
         <div class="container">
             <div class="row g-4">
                 <!-- Col 1: Identity & Description -->
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-5 col-md-12">
                     <div class="mb-3">
                         <a href="/" class="d-inline-block text-decoration-none">
-                            <img src="/assets/images/logo.png?v=3.7.6" alt="دليل المدارس السودانية" style="height: 46px; width: auto; object-fit: contain;">
+                            <img src="/assets/images/logo.png?v=3.7.8" alt="دليل المدارس السودانية" style="height: 46px; width: auto; object-fit: contain;">
                         </a>
                     </div>
-                    <p class="text-muted leading-relaxed mb-0" style="font-size: 0.73rem; line-height: 1.75;">
+                    <p class="text-muted leading-relaxed mb-0" style="font-size: 0.73rem; line-height: 1.75; max-width: 440px;">
                         المنصة الرقمية الوطنية الموحدة للمدارس السودانية. تمكّن أولياء الأمور والطلاب من البحث والتعرف على كافة المدارس ومقارنتها، وتتيح لإدارات المدارس حضوراً رقمياً احترافياً وتواصلاً مباشراً مع الأسر.
                     </p>
                 </div>
@@ -87,7 +87,7 @@
                 </div>
 
                 <!-- Col 3: School Administration (Management Only) -->
-                <div class="col-lg-3 col-md-6 col-6">
+                <div class="col-lg-4 col-md-6 col-6">
                     <h5 class="fw-bold mb-3" style="font-size: 0.85rem; color: #0B2A52;">لأصحاب المدارس</h5>
                     <a href="/login.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">
                         <i class="fas fa-user-shield me-1 text-muted" style="font-size: 0.68rem;"></i> دخول بوابة الإدارة
@@ -100,20 +100,6 @@
                     </a>
                     <a href="https://schoplus.sd" target="_blank" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">
                         <i class="fas fa-cloud me-1 text-primary" style="font-size: 0.68rem;"></i> حلول SchoPlus لإدارة المدارس
-                    </a>
-                </div>
-
-                <!-- Col 4: Support & Contact -->
-                <div class="col-lg-2 col-md-6">
-                    <h5 class="fw-bold mb-3" style="font-size: 0.85rem; color: #0B2A52;">تواصل ودعم</h5>
-                    <a href="https://wa.me/249912345678" target="_blank" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">
-                        <i class="fab fa-whatsapp me-1 text-success" style="font-size: 0.78rem;"></i> واتساب الدعم الفني
-                    </a>
-                    <a href="https://schoplus.sd" target="_blank" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">
-                        <i class="fas fa-globe me-1 text-muted" style="font-size: 0.68rem;"></i> موقع المنصة الرسمي
-                    </a>
-                    <a href="/#app-download" class="d-block text-success fw-bold text-decoration-none mb-2" style="font-size: 0.74rem;">
-                        <i class="fas fa-mobile-alt me-1" style="font-size: 0.68rem;"></i> تطبيق الهاتف الذكي
                     </a>
                 </div>
             </div>
