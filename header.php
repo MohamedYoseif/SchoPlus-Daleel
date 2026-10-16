@@ -305,7 +305,7 @@ $isDaleelMobile = (
         }
 
         .daleel-logo-img {
-            height: 42px;
+            height: 44px;
             width: auto;
             object-fit: contain;
             display: block;
@@ -318,7 +318,7 @@ $isDaleelMobile = (
 
         @media (max-width: 767px) {
             .daleel-logo-img {
-                height: 36px;
+                height: 38px;
             }
         }
 
