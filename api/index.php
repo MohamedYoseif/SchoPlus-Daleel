@@ -541,8 +541,8 @@ if ($action === 'check_update') {
     $sysVersion = $sysVerData['version'] ?? '3.7.4';
 
     // App latest version specs
-    $latestAppVersion = '1.1.0';
-    $latestAppCode    = 2;
+    $latestAppVersion = '1.1.1';
+    $latestAppCode    = 3;
     $hasUpdate = ($currentCode < $latestAppCode) || version_compare($currentVersion, $latestAppVersion, '<');
 
     $apkPath = __DIR__ . '/../downloads/daleel-schoplus.apk';

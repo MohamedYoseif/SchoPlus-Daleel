@@ -1,7 +1,7 @@
 {
-    "version": "3.7.17",
+    "version": "3.7.18",
     "release_date": "2026-10-16",
     "version_type": "enterprise",
     "min_php_version": "8.2",
-    "release_notes": "تحديث حزمة أندرويد الرسمية لتشمل معمارية ARM64 بحجم خفيف 48.5 ميجابايت وسرعة تحميل فائقة v3.7.17"
+    "release_notes": "إصلاح توقيع حزمة أندرويد واعتماد توقيع V1 و V2 و V3 النظيف وحل مشكلة App not installed as package appears to be invalid نهائياً v3.7.18"
 }

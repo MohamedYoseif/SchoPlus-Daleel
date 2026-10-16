@@ -4,8 +4,8 @@ import '../theme/app_theme.dart';
 import 'api_service.dart';
 
 class UpdateService {
-  static const String currentAppVersion = '1.1.0';
-  static const int currentAppVersionCode = 2;
+  static const String currentAppVersion = '1.1.1';
+  static const int currentAppVersionCode = 3;
 
   // Check for updates
   static Future<void> checkForUpdates(BuildContext context, {bool silent = false}) async {

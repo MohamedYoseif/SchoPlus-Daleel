@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "sd.schoplus.daleel"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 34
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -15,7 +15,7 @@ android {
     defaultConfig {
         applicationId = "sd.schoplus.daleel"
         minSdk = 24
-        targetSdk = flutter.targetSdkVersion
+        targetSdk = 34
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
