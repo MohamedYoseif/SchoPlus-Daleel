@@ -1277,37 +1277,53 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
 /* ========================================================================= */
 /* PRINT VIEW STYLING (SPECIALIZED EXECUTIVE REPORT)                         */
 /* ========================================================================= */
+/* ========================================================================= */
+/* PRINT VIEW STYLING (SPECIALIZED EXECUTIVE REPORT)                         */
+/* ========================================================================= */
 #auditPrintReport {
-    display: none;
+    display: none !important;
 }
 
 @media print {
     @page {
         size: A4 portrait;
-        margin: 10mm 14mm;
+        margin: 8mm 10mm;
     }
 
-    /* Hide everything on screen */
-    body * {
+    /* 1. Completely remove all screen containers from document flow */
+    header, footer, nav, aside,
+    .daleel-topbar, .daleel-topbar-mobile, .daleel-navbar,
+    .ambient-cream-glow, .ambient-gold-glow,
+    .audit-screen-view,
+    .audit-page-header,
+    .audit-search-card,
+    .audit-hud-container,
+    .audit-results-container,
+    .daleel-footer,
+    #spFloatingCompareBar,
+    .offcanvas,
+    .modal,
+    .modal-backdrop {
+        display: none !important;
         visibility: hidden !important;
+        height: 0 !important;
+        max-height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        overflow: hidden !important;
     }
 
-    /* Only show the dedicated executive print report */
-    #auditPrintReport,
-    #auditPrintReport * {
-        visibility: visible !important;
-    }
-
-    #auditPrintReport {
-        display: block !important;
-        position: absolute !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100% !important;
+    /* 2. Reset html & body to clean printable page */
+    html, body {
         background: #FFFFFF !important;
         color: #0D1B2E !important;
-        padding: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 0 !important;
         margin: 0 !important;
+        padding: 0 !important;
+        overflow: visible !important;
         font-family: 'Cairo', 'Segoe UI', Tahoma, sans-serif !important;
         direction: rtl !important;
         text-align: right !important;
@@ -1315,32 +1331,50 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
         print-color-adjust: exact !important;
     }
 
+    /* 3. Dedicated Executive Print Report (fits strictly on 1 single A4 page) */
+    #auditPrintReport {
+        display: block !important;
+        visibility: visible !important;
+        position: static !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        page-break-after: avoid !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+    }
+
+    #auditPrintReport * {
+        visibility: visible !important;
+    }
+
     .print-report-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding-bottom: 12px;
+        padding-bottom: 8px;
         border-bottom: 2px solid #0B2A52;
-        margin-bottom: 14px;
+        margin-bottom: 8px;
     }
 
     .print-brand-box {
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 10px;
     }
 
     .print-brand-logo {
-        height: 42px;
+        height: 38px;
         width: auto;
         object-fit: contain;
     }
 
     .print-meta-box {
-        font-size: 8pt;
+        font-size: 7.2pt;
         color: #475569;
         text-align: left;
-        line-height: 1.55;
+        line-height: 1.45;
         direction: rtl;
     }
 
@@ -1348,38 +1382,38 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
     .print-summary-card {
         background: #F8FAFC !important;
         border: 1px solid #CBD5E1 !important;
-        border-right: 5px solid #1E5FA8 !important;
-        border-radius: 8px;
-        padding: 10px 14px;
-        margin-bottom: 12px;
+        border-right: 4px solid #1E5FA8 !important;
+        border-radius: 6px;
+        padding: 7px 12px;
+        margin-bottom: 8px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 14px;
+        gap: 12px;
         page-break-inside: avoid;
     }
 
     .print-school-info {
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 10px;
     }
 
     .print-school-avatar {
-        width: 50px;
-        height: 50px;
-        border-radius: 8px;
+        width: 44px;
+        height: 44px;
+        border-radius: 6px;
         border: 1px solid #CBD5E1;
         object-fit: cover;
     }
 
     .print-school-monogram {
-        width: 50px;
-        height: 50px;
-        border-radius: 8px;
+        width: 44px;
+        height: 44px;
+        border-radius: 6px;
         background: #E2E8F0 !important;
         color: #0B2A52;
-        font-size: 18pt;
+        font-size: 16pt;
         font-weight: 800;
         display: flex;
         align-items: center;
@@ -1387,14 +1421,15 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
     }
 
     .print-school-name {
-        font-size: 13pt;
+        font-size: 11.5pt;
         font-weight: 800;
         color: #0D1B2E;
-        margin: 0 0 3px;
+        margin: 0 0 2px;
+        line-height: 1.25;
     }
 
     .print-school-meta {
-        font-size: 8pt;
+        font-size: 7.2pt;
         color: #64748B;
     }
 
@@ -1402,29 +1437,29 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
         text-align: center;
         background: #FFFFFF !important;
         border: 2px solid #1E5FA8;
-        border-radius: 8px;
-        padding: 6px 16px;
-        min-width: 110px;
+        border-radius: 6px;
+        padding: 4px 12px;
+        min-width: 95px;
     }
 
     .print-score-val {
-        font-size: 20pt;
+        font-size: 17pt;
         font-weight: 900;
         color: #1E5FA8;
         line-height: 1;
     }
 
     .print-score-label {
-        font-size: 7.2pt;
+        font-size: 6.8pt;
         font-weight: 700;
         color: #475569;
-        margin-top: 3px;
+        margin-top: 2px;
     }
 
     .print-kpi-row {
         display: flex;
-        gap: 8px;
-        margin-bottom: 12px;
+        gap: 6px;
+        margin-bottom: 8px;
         page-break-inside: avoid;
     }
 
@@ -1432,36 +1467,36 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
         flex: 1;
         background: #F1F5F9 !important;
         border: 1px solid #E2E8F0;
-        border-radius: 6px;
-        padding: 5px 8px;
+        border-radius: 5px;
+        padding: 4px 6px;
         text-align: center;
-        font-size: 7.5pt;
+        font-size: 6.8pt;
     }
     .print-kpi-pill strong {
         display: block;
-        font-size: 10pt;
-        margin-top: 2px;
+        font-size: 9pt;
+        margin-top: 1px;
     }
 
     /* 10 Items Table */
     .print-table {
         width: 100%;
         border-collapse: collapse;
-        font-size: 8pt;
-        margin-bottom: 12px;
+        font-size: 7.2pt;
+        margin-bottom: 8px;
     }
 
     .print-table th {
         background: #0B2A52 !important;
         color: #FFFFFF !important;
-        padding: 6px 7px;
+        padding: 4px 6px;
         font-weight: 700;
         border: 1px solid #0B2A52;
         text-align: right;
     }
 
     .print-table td {
-        padding: 5px 7px;
+        padding: 3.5px 6px;
         border: 1px solid #DDE4ED;
         color: #1E293B;
         vertical-align: middle;
@@ -1473,9 +1508,9 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
 
     .print-badge {
         display: inline-block;
-        padding: 2px 6px;
-        border-radius: 4px;
-        font-size: 7pt;
+        padding: 1.5px 5px;
+        border-radius: 3px;
+        font-size: 6.5pt;
         font-weight: 700;
     }
     .print-badge.b-green {
@@ -1498,23 +1533,26 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
     .print-recommendations {
         background: #F8FAFC !important;
         border: 1px solid #E2E8F0;
-        border-radius: 6px;
-        padding: 8px 12px;
-        margin-bottom: 12px;
+        border-radius: 5px;
+        padding: 6px 10px;
+        margin-bottom: 8px;
         page-break-inside: avoid;
     }
     .print-recommendations h3 {
-        font-size: 8.8pt;
+        font-size: 7.8pt;
         font-weight: 800;
         color: #0B2A52;
-        margin: 0 0 5px;
+        margin: 0 0 3px;
     }
     .print-recommendations ul {
         margin: 0;
-        padding-right: 16px;
-        font-size: 7.6pt;
+        padding-right: 14px;
+        font-size: 6.8pt;
         color: #334155;
-        line-height: 1.55;
+        line-height: 1.45;
+    }
+    .print-recommendations li {
+        margin-bottom: 2px;
     }
 
     .print-report-footer {
@@ -1522,10 +1560,40 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
         align-items: center;
         justify-content: space-between;
         border-top: 1px dashed #CBD5E1;
-        padding-top: 8px;
-        font-size: 7.2pt;
+        padding-top: 6px;
+        font-size: 6.8pt;
         color: #64748B;
         page-break-inside: avoid;
+    }
+
+    .print-verify-wrap {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .print-qr-box {
+        width: 48px;
+        height: 48px;
+        background: #FFFFFF !important;
+        border: 1px solid #CBD5E1;
+        border-radius: 5px;
+        padding: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .print-qr-img {
+        width: 44px;
+        height: 44px;
+        object-fit: contain;
+        display: block;
+    }
+
+    .print-verify-text {
+        text-align: right;
     }
 
     .print-seal-box {
@@ -1534,16 +1602,17 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
         padding: 3px 8px;
         text-align: center;
         font-weight: 800;
-        font-size: 7pt;
+        font-size: 6.5pt;
         color: #0B2A52;
         text-transform: uppercase;
+        min-width: 75px;
     }
 }
 </style>
 
 <!-- ======================================================================= -->
-<!-- PAGE CONTENT -->
-<!-- ======================================================================= -->
+<!-- SCREEN-ONLY VIEW CONTAINER -->
+<div class="audit-screen-view">
 
 <section class="audit-page-header">
     <div class="container">
@@ -1641,106 +1710,6 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
         <span class="badge bg-warning text-dark px-3 py-1 rounded-pill fw-bold" style="font-size: 0.7rem;" id="hudStepBadge">
             الخطوة 1 من 4: مسح الهوية الرقمية
         </span>
-    </div>
-
-    <!-- =================================================================== -->
-    <!-- DEDICATED PRINTABLE AUDIT REPORT (PRINT MEDIA ONLY)                 -->
-    <!-- =================================================================== -->
-    <div id="auditPrintReport" style="display: none;">
-        <!-- Print Header -->
-        <div class="print-report-header">
-            <div class="print-brand-box">
-                <img src="/assets/images/logo.png" alt="دليل المدارس" class="print-brand-logo" style="height: 42px; width: auto; object-fit: contain;">
-                <div>
-                    <div style="font-size: 13pt; font-weight: 800; color: #0B2A52; line-height: 1.2;">دليل المدارس</div>
-                    <div style="font-size: 8pt; color: #64748B;">تقرير فحص الوجود والأثر الرقمي</div>
-                </div>
-            </div>
-            <div class="print-meta-box">
-                <div><strong>تاريخ الفحص:</strong> <span id="printAuditDate"><?= date('Y-m-d') ?></span></div>
-                <div><strong>الرقم المرجعي:</strong> <span id="printAuditRef">SP-AUD-<?= date('Ymd') ?>-01</span></div>
-                <div><strong>الحالة:</strong> وثيقة إلكترونية معتمدة</div>
-            </div>
-        </div>
-
-        <!-- School Executive Summary -->
-        <div class="print-summary-card">
-            <div class="print-school-info">
-                <div id="printSchoolLogoWrap">
-                    <img id="printSchoolLogoImg" class="print-school-avatar" alt="شعار المدرسة" style="display: none;">
-                    <div id="printSchoolMonogram" class="print-school-monogram">م</div>
-                </div>
-                <div>
-                    <h2 class="print-school-name" id="printSchoolName">اسم المدرسة</h2>
-                    <div class="print-school-meta" id="printSchoolGeo">السودان — ولاية الخرطوم</div>
-                    <div style="font-size: 7.5pt; color: #1E5FA8; font-weight: 700; margin-top: 3px;" id="printSchoolDaleelStatus">
-                        حالة التوثيق: مسجلة وموثقة في دليل المدارس
-                    </div>
-                </div>
-            </div>
-            <div class="print-score-box">
-                <div class="print-score-val" id="printScoreVal">0%</div>
-                <div class="print-score-label" id="printScoreLabel">مؤشر الحضور العام</div>
-            </div>
-        </div>
-
-        <!-- KPI Breakdown Row -->
-        <div class="print-kpi-row">
-            <div class="print-kpi-pill">
-                <span style="color:#64748B;">البنود المؤكدة</span>
-                <strong id="printKpiVerified" style="color: #166534;">0 من 10</strong>
-            </div>
-            <div class="print-kpi-pill">
-                <span style="color:#64748B;">الأثر المكتشف آلياً</span>
-                <strong id="printKpiDetected" style="color: #D97706;">0 بنود</strong>
-            </div>
-            <div class="print-kpi-pill">
-                <span style="color:#64748B;">فرص التحسين</span>
-                <strong id="printKpiMissing" style="color: #DC2626;">0 بنود</strong>
-            </div>
-            <div class="print-kpi-pill">
-                <span style="color:#64748B;">بونص الهوية والشعار</span>
-                <strong id="printKpiLogo" style="color: #1E5FA8;">غير مفعل</strong>
-            </div>
-        </div>
-
-        <!-- Detailed 10-Item Table -->
-        <table class="print-table">
-            <thead>
-                <tr>
-                    <th style="width: 5%;">#</th>
-                    <th style="width: 25%;">البند الرقمي ومجال الفحص</th>
-                    <th style="width: 18%;">حالة الرصد</th>
-                    <th style="width: 40%;">الأثر الرقمي أو الرابط المسجل</th>
-                    <th style="width: 12%; text-align: center;">النقاط</th>
-                </tr>
-            </thead>
-            <tbody id="printTableBody">
-                <!-- Dynamically populated via printAuditReport() -->
-            </tbody>
-        </table>
-
-        <!-- Strategic Recommendations -->
-        <div class="print-recommendations">
-            <h3>توصيات تطوير الأثر الرقمي للمدرسة:</h3>
-            <ul id="printRecommendationsList">
-                <li><strong>توثيق الهوية الرسمية:</strong> استكمال رفع الشعار المعتمد والزي المدرسي بدقة عالية لتعزيز ثقة أولياء الأمور بنسبة 75%.</li>
-                <li><strong>تأكيد قنوات التواصل والخرائط:</strong> تثبيت موقع المدرسة الدقيق على خرائط جوجل وربط رقم الواتساب المباشر لخدمة القبول والتسجيل.</li>
-                <li><strong>التحول الرقمي السحابي:</strong> الاستفادة من منظومة SchoPlus الذكية لإدارة المدارس لأتمتة شؤون الطلاب، الدرجات، ونشر نتائج الامتحانات إلكترونياً.</li>
-            </ul>
-        </div>
-
-        <!-- Official Print Footer -->
-        <div class="print-report-footer">
-            <div>
-                <div>تم استخراج هذا التقرير رسمياً عبر بوابة <strong>دليل المدارس (daleel.schoplus.sd)</strong>.</div>
-                <div>رابط التحقق الرقمي: <span id="printVerifyUrl" style="direction:ltr; display:inline-block;">https://daleel.schoplus.sd/presence-audit.php</span></div>
-            </div>
-            <div class="print-seal-box">
-                <div>AUDIT REPORT</div>
-                <div>معتمد رقمياً</div>
-            </div>
-        </div>
     </div>
 
     <!-- AUDIT RESULTS CONTAINER -->
@@ -1959,6 +1928,114 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
 
     </div>
 
+</div>
+</div><!-- /.audit-screen-view -->
+
+<!-- ======================================================================= -->
+<!-- DEDICATED PRINTABLE AUDIT REPORT (PRINT MEDIA ONLY)                     -->
+<!-- ======================================================================= -->
+<div id="auditPrintReport" style="display: none;">
+    <!-- Print Header -->
+    <div class="print-report-header">
+        <div class="print-brand-box">
+            <img src="/assets/images/logo.png" alt="دليل المدارس" class="print-brand-logo">
+            <div>
+                <div style="font-size: 11.5pt; font-weight: 800; color: #0B2A52; line-height: 1.2;">دليل المدارس</div>
+                <div style="font-size: 7.2pt; color: #64748B;">تقرير فحص الوجود والأثر الرقمي للمؤسسات التعليمية</div>
+            </div>
+        </div>
+        <div class="print-meta-box">
+            <div><strong>تاريخ الفحص:</strong> <span id="printAuditDate"><?= date('Y-m-d') ?></span></div>
+            <div><strong>الرقم المرجعي:</strong> <span id="printAuditRef">SP-AUD-<?= date('Ymd') ?>-01</span></div>
+            <div><strong>الحالة:</strong> وثيقة إلكترونية رسمية</div>
+        </div>
+    </div>
+
+    <!-- School Executive Summary -->
+    <div class="print-summary-card">
+        <div class="print-school-info">
+            <div id="printSchoolLogoWrap">
+                <img id="printSchoolLogoImg" class="print-school-avatar" alt="شعار المدرسة" style="display: none;">
+                <div id="printSchoolMonogram" class="print-school-monogram">م</div>
+            </div>
+            <div>
+                <h2 class="print-school-name" id="printSchoolName">اسم المدرسة</h2>
+                <div class="print-school-meta" id="printSchoolGeo">السودان — ولاية الخرطوم</div>
+                <div style="font-size: 7pt; color: #1E5FA8; font-weight: 700; margin-top: 2px;" id="printSchoolDaleelStatus">
+                    حالة التوثيق: مسجلة وموثقة في دليل المدارس
+                </div>
+            </div>
+        </div>
+        <div class="print-score-box">
+            <div class="print-score-val" id="printScoreVal">0%</div>
+            <div class="print-score-label" id="printScoreLabel">مؤشر الحضور العام</div>
+        </div>
+    </div>
+
+    <!-- KPI Breakdown Row -->
+    <div class="print-kpi-row">
+        <div class="print-kpi-pill">
+            <span style="color:#64748B;">البنود المؤكدة</span>
+            <strong id="printKpiVerified" style="color: #166534;">0 من 10</strong>
+        </div>
+        <div class="print-kpi-pill">
+            <span style="color:#64748B;">الأثر المكتشف آلياً</span>
+            <strong id="printKpiDetected" style="color: #D97706;">0 بنود</strong>
+        </div>
+        <div class="print-kpi-pill">
+            <span style="color:#64748B;">فرص التحسين</span>
+            <strong id="printKpiMissing" style="color: #DC2626;">0 بنود</strong>
+        </div>
+        <div class="print-kpi-pill">
+            <span style="color:#64748B;">بونص الهوية والشعار</span>
+            <strong id="printKpiLogo" style="color: #1E5FA8;">غير مفعل</strong>
+        </div>
+    </div>
+
+    <!-- Detailed 10-Item Table -->
+    <table class="print-table">
+        <thead>
+            <tr>
+                <th style="width: 5%;">#</th>
+                <th style="width: 25%;">البند الرقمي ومجال الفحص</th>
+                <th style="width: 18%;">حالة الرصد</th>
+                <th style="width: 40%;">الأثر الرقمي أو الرابط المسجل</th>
+                <th style="width: 12%; text-align: center;">النقاط</th>
+            </tr>
+        </thead>
+        <tbody id="printTableBody">
+            <!-- Dynamically populated via printAuditReport() -->
+        </tbody>
+    </table>
+
+    <!-- Strategic Recommendations -->
+    <div class="print-recommendations">
+        <h3>توصيات تطوير الأثر الرقمي للمدرسة:</h3>
+        <ul id="printRecommendationsList">
+            <li><strong>توثيق الهوية الرسمية:</strong> استكمال رفع الشعار المعتمد والزي المدرسي بدقة عالية لتعزيز ثقة أولياء الأمور بنسبة 75%.</li>
+            <li><strong>تأكيد قنوات التواصل والخرائط:</strong> تثبيت موقع المدرسة الدقيق على خرائط جوجل وربط رقم الواتساب المباشر لخدمة القبول والتسجيل.</li>
+            <li><strong>التحول الرقمي السحابي:</strong> الاستفادة من منظومة SchoPlus الذكية لإدارة المدارس لأتمتة شؤون الطلاب، الدرجات، ونشر نتائج الامتحانات إلكترونياً.</li>
+        </ul>
+    </div>
+
+    <!-- Official Print Footer (with QR Code replacing the long link) -->
+    <div class="print-report-footer">
+        <div class="print-verify-wrap">
+            <div class="print-qr-box">
+                <img id="printQrCodeImg" src="" alt="QR Code" class="print-qr-img">
+            </div>
+            <div class="print-verify-text">
+                <strong style="color: #0B2A52; display: block; font-size: 7.6pt; margin-bottom: 2px;">التحقق والاعتماد الرقمي</strong>
+                <div style="font-size: 6.8pt; color: #475569;">امسح رمز الاستجابة السريعة (QR) للتحقق المباشر من بيانات المدرسة وسجل الفحص بالدليل.</div>
+                <div style="font-size: 6.5pt; color: #64748B; margin-top: 2px;">دليل المدارس — وثيقة تدقيق رقمية معتمدة</div>
+            </div>
+        </div>
+        <div class="print-seal-box">
+            <div style="font-size: 5.8pt; letter-spacing: 0.5px;">DIGITAL AUDIT</div>
+            <div style="font-size: 7.8pt; font-weight: 900; margin: 1px 0;">معتمد رسمياً</div>
+            <div style="font-size: 5.5pt; color: #1E5FA8;">VERIFIED</div>
+        </div>
+    </div>
 </div>
 
 <!-- COUNTRIES & STATES DATA FOR JAVASCRIPT -->
@@ -2727,14 +2804,34 @@ function printAuditReport() {
         });
     }
 
-    // Verify URL
-    const verifyUrlEl = document.getElementById('printVerifyUrl');
-    if (verifyUrlEl) {
-        verifyUrlEl.textContent = `https://daleel.schoplus.sd/presence-audit.php?school=${encodeURIComponent(CURRENT_AUDIT_DATA.school_name)}&state=${encodeURIComponent(CURRENT_AUDIT_DATA.state || '')}`;
-    }
+    // Direct Verification QR Code
+    const verifyUrl = `https://daleel.schoplus.sd/presence-audit.php?school=${encodeURIComponent(CURRENT_AUDIT_DATA.school_name)}&state=${encodeURIComponent(CURRENT_AUDIT_DATA.state || '')}`;
+    const qrImg = document.getElementById('printQrCodeImg');
+    
+    if (qrImg) {
+        const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&margin=0&data=${encodeURIComponent(verifyUrl)}`;
+        
+        let printed = false;
+        const doPrint = function() {
+            if (!printed) {
+                printed = true;
+                setTimeout(() => { window.print(); }, 120);
+            }
+        };
 
-    // Trigger Print
-    window.print();
+        if (qrImg.getAttribute('data-url') === verifyUrl && qrImg.complete) {
+            doPrint();
+        } else {
+            qrImg.onload = doPrint;
+            qrImg.onerror = doPrint;
+            qrImg.setAttribute('data-url', verifyUrl);
+            qrImg.src = qrApiUrl;
+            // Fallback timeout in case image load event delays or is cached
+            setTimeout(doPrint, 800);
+        }
+    } else {
+        window.print();
+    }
 }
 
 // Share Audit Result via WhatsApp

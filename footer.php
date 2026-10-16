@@ -75,7 +75,7 @@
 
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2 text-muted" style="font-size: 0.72rem;">
                 <div>جميع الحقوق محفوظة © <?= date('Y') ?> — دليل المدارس | إحدى مبادرات <strong>SchoPlus</strong></div>
-                <div>النسخة 3.6.77</div>
+                <div>النسخة 3.6.78</div>
             </div>
         </div>
     </footer>

@@ -1,7 +1,7 @@
 {
-    "version": "3.6.77",
+    "version": "3.6.78",
     "release_date": "2026-10-16",
     "version_type": "enterprise",
     "min_php_version": "8.2",
-    "release_notes": "دليل المدارس (daleel.schoplus.sd) — إصلاح القوس المفتوح في CSS وإخفاء حاوية تقرير الطباعة تماماً عن شاشة العرض v3.6.77"
+    "release_notes": "دليل المدارس (daleel.schoplus.sd) — إلغاء الصفحات الفارغة في طباعة التقرير وجعله في صفحة واحدة A4 بدقة مع استبدال الرابط الطويل برمز QR للتحقق المباشر v3.6.78"
 }
