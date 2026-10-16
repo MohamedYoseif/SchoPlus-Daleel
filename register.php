@@ -222,186 +222,456 @@ $statesWithCities = SudanGeography::statesWithCities($selectedCountry);
 ?>
 
 <style>
-    /* SchoPlus Ocean Brand Design System - Style F v2 Stepper */
-    .sp-wizard-stepper {
-        position: relative;
-        padding: 10px 0 22px;
-        margin-bottom: 2rem;
+    /* ========================================================
+       SchoPlus Ocean Brand Design System — Style F v2 Wizard
+       ======================================================== */
+    .sp-register-wrap {
+        max-width: 840px;
+        margin: 0 auto;
     }
-    .stepper-track-wrap {
-        position: absolute;
-        top: 32px;
-        left: 12%;
-        right: 12%;
-        height: 4px;
-        background: #E2E8F0;
-        border-radius: 4px;
-        z-index: 1;
+
+    /* Main Card */
+    .sp-wizard-card {
+        background: #FFFFFF;
+        border: 1px solid #DDE4ED;
+        border-radius: 20px;
+        box-shadow: 0 12px 36px rgba(11, 42, 82, 0.05);
+        overflow: hidden;
     }
-    .stepper-progress {
-        position: absolute;
-        top: 0;
-        right: 0;
-        height: 100%;
-        background: linear-gradient(90deg, #1E5FA8 0%, #F5A020 100%);
-        border-radius: 4px;
-        transition: width 0.35s ease;
+
+    /* Stepper Header */
+    .sp-wizard-header {
+        background: linear-gradient(180deg, #F8FAFC 0%, #FFFFFF 100%);
+        border-bottom: 1px solid #E2E8F0;
+        padding: 24px 28px 18px;
     }
-    .stepper-steps {
-        position: relative;
-        z-index: 2;
+    .sp-stepper-nav {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+    }
+    .sp-step-tab {
         display: flex;
-        justify-content: space-between;
-    }
-    .stepper-step {
-        display: flex;
-        flex-direction: column;
         align-items: center;
+        gap: 12px;
+        padding: 12px 14px;
+        background: #FFFFFF;
+        border: 1.5px solid #E2E8F0;
+        border-radius: 12px;
         cursor: pointer;
-        text-align: center;
-        background: transparent;
-        border: none;
-        padding: 0 8px;
-        transition: transform 0.2s ease;
+        transition: all 0.25s ease;
         user-select: none;
     }
-    .stepper-step:hover {
-        transform: translateY(-2px);
-    }
-    .step-circle {
-        width: 44px;
-        height: 44px;
-        border-radius: 50%;
-        background: #FFFFFF;
-        border: 2.5px solid #CBD5E1;
+    .sp-step-tab .step-badge {
+        width: 32px;
+        height: 32px;
+        border-radius: 9px;
+        background: #F1F5F9;
         color: #64748B;
         display: flex;
         align-items: center;
         justify-content: center;
         font-weight: 800;
-        font-size: 0.95rem;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+        font-size: 0.85rem;
+        flex-shrink: 0;
+        transition: all 0.25s ease;
     }
-    .step-check {
-        display: none;
-    }
-    .step-content {
-        margin-top: 8px;
+    .sp-step-tab .step-info {
         display: flex;
         flex-direction: column;
-        align-items: center;
+        min-width: 0;
     }
-    .step-eyebrow {
-        font-size: 0.65rem;
+    .sp-step-tab .step-eyebrow {
+        font-size: 0.64rem;
         color: #94A3B8;
         font-weight: 700;
-        letter-spacing: 0.5px;
+        letter-spacing: 0.3px;
     }
-    .step-title {
+    .sp-step-tab .step-title {
         font-size: 0.82rem;
-        font-weight: 700;
-        color: #475569;
-        transition: color 0.25s ease;
-        white-space: nowrap;
-    }
-    .stepper-step.active .step-circle {
-        background: #0B2A52;
-        border-color: #F5A020;
-        color: #FFFFFF;
-        box-shadow: 0 0 0 5px rgba(245, 160, 32, 0.2);
-    }
-    .stepper-step.active .step-eyebrow {
-        color: #F5A020;
-    }
-    .stepper-step.active .step-title {
-        color: #0B2A52;
         font-weight: 800;
-    }
-    .stepper-step.completed .step-circle {
-        background: #10B981;
-        border-color: #10B981;
-        color: #FFFFFF;
-        box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
-    }
-    .stepper-step.completed .step-num {
-        display: none;
-    }
-    .stepper-step.completed .step-check {
-        display: inline-block;
-        font-size: 0.9rem;
-    }
-    .stepper-step.completed .step-title {
-        color: #10B981;
+        color: #475569;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        transition: color 0.25s ease;
     }
 
-    /* Wizard Panes */
+    /* Active & Completed States */
+    .sp-step-tab.active {
+        background: #FFFFFF;
+        border-color: #1E5FA8;
+        box-shadow: 0 4px 14px rgba(30, 95, 168, 0.1);
+    }
+    .sp-step-tab.active .step-badge {
+        background: #0B2A52;
+        color: #F5A020;
+    }
+    .sp-step-tab.active .step-eyebrow {
+        color: #1E5FA8;
+    }
+    .sp-step-tab.active .step-title {
+        color: #0B2A52;
+    }
+
+    .sp-step-tab.completed {
+        border-color: #10B981;
+        background: #F0FDF4;
+    }
+    .sp-step-tab.completed .step-badge {
+        background: #10B981;
+        color: #FFFFFF;
+    }
+    .sp-step-tab.completed .step-title {
+        color: #15803D;
+    }
+
+    /* Progress Track */
+    .sp-progress-track {
+        height: 4px;
+        background: #E2E8F0;
+        width: 100%;
+        position: relative;
+    }
+    .sp-progress-bar {
+        height: 100%;
+        background: linear-gradient(90deg, #1E5FA8 0%, #F5A020 100%);
+        transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Form Body & Panes */
+    .sp-wizard-body {
+        padding: 32px 32px 36px;
+    }
+    @media (max-width: 768px) {
+        .sp-wizard-header { padding: 16px; }
+        .sp-wizard-body { padding: 20px 16px; }
+        .sp-stepper-nav { grid-template-columns: 1fr; gap: 8px; }
+    }
+
     .wizard-step-pane {
         display: none;
     }
     .wizard-step-pane.active {
         display: block;
-        animation: wizardFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        animation: spFadeUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
-    @keyframes wizardFadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(10px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    @keyframes spFadeUp {
+        from { opacity: 0; transform: translateY(12px); }
+        to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Summary Card */
-    .wizard-summary-card {
-        background: #F8FAFC;
-        border: 1.5px dashed #CBD5E1;
+    /* Clean Form Sub-Sections */
+    .sp-form-section {
+        background: #FBFDFF;
+        border: 1px solid #E8EEF5;
         border-radius: 14px;
-        padding: 16px 20px;
+        padding: 20px 22px;
+        margin-bottom: 22px;
     }
-    .summary-item {
+    .sp-form-section-head {
         display: flex;
         align-items: center;
-        gap: 8px;
-        font-size: 0.8rem;
-        color: #334155;
+        gap: 10px;
+        margin-bottom: 16px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #EEF3F8;
     }
-    .summary-item i {
-        width: 18px;
+    .sp-section-icon {
+        width: 30px;
+        height: 30px;
+        border-radius: 8px;
+        background: #EFF6FF;
         color: #1E5FA8;
-        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.88rem;
+        flex-shrink: 0;
+    }
+    .sp-section-title {
+        font-size: 0.88rem;
+        font-weight: 800;
+        color: #0B2A52;
+        margin: 0;
+    }
+    .sp-section-desc {
+        font-size: 0.72rem;
+        color: #64748B;
+        margin: 0;
     }
 
-    /* Form feedback and invalid cues */
-    .form-feedback-msg {
+    /* Input Controls */
+    .sp-field {
+        margin-bottom: 14px;
+    }
+    .sp-field:last-child {
+        margin-bottom: 0;
+    }
+    .sp-label {
+        display: block;
+        font-size: 0.78rem;
+        font-weight: 700;
+        color: #334155;
+        margin-bottom: 6px;
+    }
+    .sp-label .req {
+        color: #EF4444;
+        margin-right: 2px;
+    }
+    .sp-input-wrap {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+    .sp-input-icon {
+        position: absolute;
+        right: 14px;
+        color: #94A3B8;
+        font-size: 0.92rem;
+        pointer-events: none;
+        z-index: 2;
+        transition: color 0.2s ease;
+    }
+    .sp-control {
+        width: 100%;
+        height: 46px;
+        background: #FFFFFF;
+        border: 1.5px solid #DDE4ED;
+        border-radius: 10px;
+        padding: 0 42px 0 14px;
+        font-size: 0.88rem;
+        color: #1E293B;
+        transition: all 0.2s ease;
+    }
+    .sp-control:focus {
+        border-color: #1E5FA8;
+        background: #FFFFFF;
+        box-shadow: 0 0 0 4px rgba(30, 95, 168, 0.1);
+        outline: none;
+    }
+    .sp-input-wrap:focus-within .sp-input-icon {
+        color: #1E5FA8;
+    }
+    .sp-control.is-invalid {
+        border-color: #EF4444 !important;
+        background-color: #FEF2F2 !important;
+    }
+    .sp-feedback-error {
         font-size: 0.72rem;
         color: #EF4444;
         margin-top: 4px;
         display: none;
+        font-weight: 600;
     }
-    .is-invalid + .form-feedback-msg {
+    .sp-control.is-invalid ~ .sp-feedback-error,
+    .is-invalid + .sp-feedback-error {
         display: block;
     }
-    .is-invalid {
-        border-color: #EF4444 !important;
-        background-color: #FEF2F2 !important;
+
+    /* Eye toggle button inside password */
+    .sp-pwd-toggle {
+        position: absolute;
+        left: 10px;
+        background: none;
+        border: none;
+        color: #94A3B8;
+        cursor: pointer;
+        padding: 6px;
+        font-size: 0.88rem;
+        z-index: 3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .sp-pwd-toggle:hover {
+        color: #1E5FA8;
+    }
+
+    /* Slug preview box */
+    .sp-slug-preview-box {
+        margin-top: 6px;
+        background: #F1F5F9;
+        border: 1px solid #E2E8F0;
+        border-radius: 8px;
+        padding: 6px 12px;
+        font-size: 0.73rem;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: #475569;
+        overflow-x: auto;
+    }
+
+    /* Stage Selection Chips */
+    .sp-stage-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 10px;
+    }
+    .sp-stage-chip-label {
+        display: block;
+        cursor: pointer;
+        margin: 0;
+    }
+    .sp-stage-chip-label input {
+        display: none;
+    }
+    .sp-stage-chip {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 14px;
+        background: #FFFFFF;
+        border: 1.5px solid #DDE4ED;
+        border-radius: 10px;
+        transition: all 0.2s ease;
+    }
+    .sp-stage-chip-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        background: #F8FAFC;
+        color: #64748B;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+        transition: all 0.2s ease;
+        flex-shrink: 0;
+    }
+    .sp-stage-chip-name {
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: #334155;
+        flex: 1;
+    }
+    .sp-stage-chip-check {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #F1F5F9;
+        color: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.65rem;
+        transition: all 0.2s ease;
+        flex-shrink: 0;
+    }
+    .sp-stage-chip-label:hover .sp-stage-chip {
+        border-color: #CBD5E1;
+        background: #F8FAFC;
+    }
+    .sp-stage-chip-label input:checked + .sp-stage-chip {
+        border-color: #1E5FA8;
+        background: #EFF6FF;
+        box-shadow: 0 4px 12px rgba(30, 95, 168, 0.08);
+    }
+    .sp-stage-chip-label input:checked + .sp-stage-chip .sp-stage-chip-icon {
+        background: #1E5FA8;
+        color: #FFFFFF;
+    }
+    .sp-stage-chip-label input:checked + .sp-stage-chip .sp-stage-chip-name {
+        color: #1E5FA8;
+    }
+    .sp-stage-chip-label input:checked + .sp-stage-chip .sp-stage-chip-check {
+        background: #1E5FA8;
+        color: #FFFFFF;
+    }
+
+    /* Executive Preview Card (Step 3) */
+    .sp-executive-preview {
+        background: linear-gradient(135deg, #0B2A52 0%, #163870 100%);
+        border-radius: 14px;
+        padding: 22px 24px;
+        color: #FFFFFF;
+        margin-bottom: 24px;
+        position: relative;
+        overflow: hidden;
+    }
+    .sp-executive-preview::after {
+        content: '';
+        position: absolute;
+        top: -30px;
+        left: -30px;
+        width: 130px;
+        height: 130px;
+        background: radial-gradient(circle, rgba(245, 160, 32, 0.28) 0%, transparent 70%);
+        border-radius: 50%;
+    }
+    .sp-exec-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+    }
+    .sp-exec-title {
+        font-size: 1.15rem;
+        font-weight: 800;
+        color: #FFFFFF;
+        margin: 0;
+    }
+    .sp-exec-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .sp-exec-badge {
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        backdrop-filter: blur(4px);
+        border-radius: 20px;
+        padding: 4px 12px;
+        font-size: 0.74rem;
+        color: #F8FAFC;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .sp-exec-badge i {
+        color: #F5A020;
+    }
+    .sp-exec-edit-btn {
+        background: rgba(255, 255, 255, 0.16);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        color: #FFFFFF;
+        font-size: 0.75rem;
+        font-weight: 700;
+        padding: 6px 14px;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .sp-exec-edit-btn:hover {
+        background: rgba(255, 255, 255, 0.28);
+        color: #FFFFFF;
+    }
+
+    /* Navigation Action Buttons */
+    .sp-wizard-actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        padding-top: 24px;
+        border-top: 1px solid #E2E8F0;
+        margin-top: 24px;
     }
 </style>
 
 <div class="register-page py-5">
-    <div class="container" style="max-width: 900px;">
+    <div class="container sp-register-wrap">
         
-        <!-- Header Banner -->
+        <!-- Header Title Banner -->
         <div class="text-center mb-4">
-            <img src="/assets/images/logo-icon.png" alt="دليل المدارس السودانية" class="mx-auto mb-3 d-block" style="width: 64px; height: 64px; object-fit: contain;">
-            <span class="badge bg-warning text-dark px-3 py-1 rounded-pill fw-bold mb-2 shadow-sm" style="font-size: 0.72rem;">
-                <i class="fas fa-plus-circle me-1"></i> تسجيل سريع ومباشر
-            </span>
-            <h2 class="fw-bold text-dark mb-2" style="font-size: 1.25rem;">سجّل مدرستك في دليل المدارس</h2>
-            <p class="text-muted" style="max-width: 620px; margin: auto; font-size: 0.76rem; line-height: 1.65;">
-                عرّف بمدرستك لأولياء الأمور والطلاب في 3 خطوات بسيطة. يمكنك إدخال البيانات الأساسية الآن، وإكمال التفاصيل والصور والأخبار والمرافق لاحقاً عبر لوحة التحكم في أي وقت.
+            <img src="/assets/images/logo-icon.png" alt="دليل المدارس" class="mx-auto mb-2 d-block" style="width: 56px; height: 56px; object-fit: contain;">
+            <h2 class="fw-bold text-dark mb-1" style="font-size: 1.35rem;">تسجيل مدرسة جديدة في الدليل</h2>
+            <p class="text-muted" style="max-width: 580px; margin: auto; font-size: 0.8rem; line-height: 1.6;">
+                أدخل بيانات مدرستك عبر 3 خطوات ميسرة، لإنشاء الملف التعريفي والوصول المباشر للوحة التحكم.
             </p>
         </div>
 
@@ -416,372 +686,553 @@ $statesWithCities = SudanGeography::statesWithCities($selectedCountry);
             </div>
         <?php endif; ?>
 
-        <!-- Wizard Stepper Indicator -->
-        <div class="sp-wizard-stepper">
-            <div class="stepper-track-wrap">
-                <div class="stepper-progress" id="wizardProgressBar" style="width: 0%;"></div>
-            </div>
-            <div class="stepper-steps">
-                <div class="stepper-step active" id="stepIndicator1" onclick="jumpToWizardStep(1)">
-                    <div class="step-circle">
-                        <span class="step-num">1</span>
-                        <i class="fas fa-check step-check"></i>
+        <!-- Wizard Card -->
+        <div class="sp-wizard-card">
+            
+            <!-- Stepper Header -->
+            <div class="sp-wizard-header">
+                <div class="sp-stepper-nav">
+                    <div class="sp-step-tab active" id="stepIndicator1" onclick="jumpToWizardStep(1)">
+                        <div class="step-badge">1</div>
+                        <div class="step-info">
+                            <span class="step-eyebrow">الخطوة الأولى</span>
+                            <span class="step-title">هوية المدرسة والموقع</span>
+                        </div>
                     </div>
-                    <div class="step-content">
-                        <span class="step-eyebrow">الخطوة 1</span>
-                        <span class="step-title">هوية المدرسة</span>
+                    <div class="sp-step-tab" id="stepIndicator2" onclick="jumpToWizardStep(2)">
+                        <div class="step-badge">2</div>
+                        <div class="step-info">
+                            <span class="step-eyebrow">الخطوة الثانية</span>
+                            <span class="step-title">الاتصال والتواجد الرقمي</span>
+                        </div>
                     </div>
-                </div>
-                <div class="stepper-step" id="stepIndicator2" onclick="jumpToWizardStep(2)">
-                    <div class="step-circle">
-                        <span class="step-num">2</span>
-                        <i class="fas fa-check step-check"></i>
-                    </div>
-                    <div class="step-content">
-                        <span class="step-eyebrow">الخطوة 2</span>
-                        <span class="step-title">الاتصال والتواجد</span>
-                    </div>
-                </div>
-                <div class="stepper-step" id="stepIndicator3" onclick="jumpToWizardStep(3)">
-                    <div class="step-circle">
-                        <span class="step-num">3</span>
-                        <i class="fas fa-check step-check"></i>
-                    </div>
-                    <div class="step-content">
-                        <span class="step-eyebrow">الخطوة 3</span>
-                        <span class="step-title">حساب الإدارة والتأكيد</span>
+                    <div class="sp-step-tab" id="stepIndicator3" onclick="jumpToWizardStep(3)">
+                        <div class="step-badge">3</div>
+                        <div class="step-info">
+                            <span class="step-eyebrow">الخطوة الثالثة</span>
+                            <span class="step-title">حساب الإدارة والأمان</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Form Card -->
-        <div class="card border-0 rounded-4 shadow-sm bg-white p-4 p-md-5">
+            <!-- Progress Bar -->
+            <div class="sp-progress-track">
+                <div class="sp-progress-bar" id="wizardProgressBar" style="width: 33.33%;"></div>
+            </div>
+
+            <!-- Wizard Form -->
             <form method="POST" action="register.php" id="schoolRegisterForm" novalidate>
                 <?= csrf_field() ?>
 
-                <!-- STEP 1: IDENTITY & BASIC INFO -->
-                <div class="wizard-step-pane active" id="wizardStep1">
-                    <div class="d-flex align-items-center gap-2 mb-4 pb-2 border-bottom">
-                        <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; font-size: 0.9rem;">
-                            1
-                        </div>
-                        <div>
-                            <h5 class="fw-bold text-dark mb-0">بيانات المدرسة والموقع</h5>
-                            <small class="text-muted">الاسم الرسمي للمدرسة والموقع الجغرافي والبيانات الأكاديمية</small>
-                        </div>
-                    </div>
+                <div class="sp-wizard-body">
 
-                    <div class="row g-3">
-                        <div class="col-md-7">
-                            <label class="form-label small fw-bold text-secondary">اسم المدرسة باللغة العربية <span class="text-danger">*</span></label>
-                            <input type="text" name="name" class="form-control" value="<?= e($formData['name'] ?? '') ?>" placeholder="مثال: مدارس المنار النموذجية الخاصة">
-                            <div class="form-feedback-msg" id="err_name">يرجى إدخال اسم المدرسة (3 أحرف على الأقل).</div>
-                        </div>
-
-                        <div class="col-md-5">
-                            <label class="form-label small fw-bold text-secondary">اسم المدرسة باللغة الإنجليزية (اختياري)</label>
-                            <input type="text" name="name_en" id="regNameEn" dir="ltr" class="form-control" value="<?= e($formData['name_en'] ?? '') ?>" placeholder="e.g. Al-Manar Model Schools">
-                            <div class="form-text mt-1 d-flex align-items-center gap-1" style="font-size: 0.74rem;">
-                                <i class="fas fa-link text-primary"></i>
-                                <span>الرابط العام المخصص:</span>
-                                <code id="regSlugPreview" class="text-primary fw-bold dir-ltr">daleel.schoplus.sd/school.php?slug=...</code>
+                    <!-- ==============================================
+                         STEP 1: IDENTITY & BASIC INFO
+                         ============================================== -->
+                    <div class="wizard-step-pane active" id="wizardStep1">
+                        
+                        <!-- 1. School Identity Section -->
+                        <div class="sp-form-section">
+                            <div class="sp-form-section-head">
+                                <div class="sp-section-icon"><i class="fas fa-school"></i></div>
+                                <div>
+                                    <h6 class="sp-section-title">اسم وهوية المدرسة</h6>
+                                    <p class="sp-section-desc">الاسم الرسمي المعتمد والرابط العام المخصص في الدليل</p>
+                                </div>
                             </div>
-                        </div>
 
-                        <!-- Country, State, City & District -->
-                        <div class="col-md-3">
-                            <label class="form-label small fw-bold text-secondary">الدولة <span class="text-danger">*</span></label>
-                            <select name="country" id="regCountry" class="form-select">
-                                <?php foreach ($countriesList as $cntry): ?>
-                                    <option value="<?= e($cntry) ?>" <?= $selectedCountry === $cntry ? 'selected' : '' ?>>
-                                        <?= e($cntry) ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                            <div class="form-feedback-msg" id="err_country">يرجى اختيار الدولة.</div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label class="form-label small fw-bold text-secondary">الولاية / المنطقة <span class="text-danger">*</span></label>
-                            <select name="state" id="regState" class="form-select">
-                                <option value="">-- اختر الولاية --</option>
-                                <?php foreach ($statesWithCities as $stName => $cities): ?>
-                                    <option value="<?= e($stName) ?>" <?= ($formData['state'] ?? '') === $stName ? 'selected' : '' ?>>
-                                        <?= e($stName) ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                            <div class="form-feedback-msg" id="err_state">يرجى اختيار الولاية.</div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label class="form-label small fw-bold text-secondary">المدينة / المحلية <span class="text-danger">*</span></label>
-                            <select name="city" id="regCity" class="form-select">
-                                <option value="">-- اختر المدينة --</option>
-                            </select>
-                            <div class="form-feedback-msg" id="err_city">يرجى اختيار أو تحديد المدينة.</div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label class="form-label small fw-bold text-secondary">الحي / المنطقة</label>
-                            <input type="text" name="district" class="form-control" value="<?= e($formData['district'] ?? '') ?>" placeholder="مثال: الرياض، المعمورة، الثورة">
-                        </div>
-
-                        <!-- Type, Gender, Curriculum & Foundation -->
-                        <div class="col-md-3">
-                            <label class="form-label small fw-bold text-secondary">نوع المدرسة</label>
-                            <select name="school_type" class="form-select">
-                                <?php foreach (SudanGeography::schoolTypes() as $k => $lbl): ?>
-                                    <option value="<?= $k ?>" <?= ($formData['school_type'] ?? 'private') === $k ? 'selected' : '' ?>><?= $lbl ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label class="form-label small fw-bold text-secondary">نوع الطلاب</label>
-                            <select name="gender_type" class="form-select">
-                                <?php foreach (SudanGeography::genderTypes() as $k => $lbl): ?>
-                                    <option value="<?= $k ?>" <?= ($formData['gender_type'] ?? 'mixed') === $k ? 'selected' : '' ?>><?= $lbl ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label class="form-label small fw-bold text-secondary">المنهج الدراسي</label>
-                            <select name="curriculum" class="form-select">
-                                <?php foreach (SudanGeography::curricula() as $k => $lbl): ?>
-                                    <option value="<?= $k ?>" <?= ($formData['curriculum'] ?? 'sudanese') === $k ? 'selected' : '' ?>><?= $lbl ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-
-                        <div class="col-md-3">
-                            <label class="form-label small fw-bold text-secondary">
-                                <i class="fas fa-landmark text-muted me-1"></i> سنة / تاريخ التأسيس
-                            </label>
-                            <input type="text" name="established_year" class="form-control" value="<?= e($formData['established_year'] ?? '') ?>" placeholder="مثال: 2012 أو عام 1998">
-                        </div>
-
-                        <!-- Stages -->
-                        <div class="col-12">
-                            <label class="form-label small fw-bold text-secondary d-block">المراحل التعليمية المتوفرة بالمدرسة</label>
-                            <div class="d-flex flex-wrap gap-3">
-                                <?php 
-                                $selectedStages = $formData['stages'] ?? ['primary', 'intermediate', 'secondary'];
-                                foreach (SudanGeography::stages() as $stgKey => $stgLabel): 
-                                ?>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" name="stages[]" value="<?= $stgKey ?>" id="stg_<?= $stgKey ?>" <?= in_array($stgKey, $selectedStages) ? 'checked' : '' ?>>
-                                        <label class="form-check-label small fw-bold text-dark" for="stg_<?= $stgKey ?>">
-                                            <?= $stgLabel ?>
-                                        </label>
+                            <div class="row g-3">
+                                <div class="col-md-7">
+                                    <div class="sp-field">
+                                        <label class="sp-label">اسم المدرسة باللغة العربية <span class="req">*</span></label>
+                                        <div class="sp-input-wrap">
+                                            <i class="fas fa-building sp-input-icon"></i>
+                                            <input type="text" name="name" class="sp-control" value="<?= e($formData['name'] ?? '') ?>" placeholder="مثال: مدارس المنار النموذجية الخاصة">
+                                        </div>
+                                        <div class="sp-feedback-error" id="err_name">يرجى إدخال اسم المدرسة بشكل صحيح (3 أحرف على الأقل).</div>
                                     </div>
-                                <?php endforeach; ?>
+                                </div>
+
+                                <div class="col-md-5">
+                                    <div class="sp-field">
+                                        <label class="sp-label">اسم المدرسة بالإنجليزية (اختياري)</label>
+                                        <div class="sp-input-wrap">
+                                            <i class="fas fa-globe sp-input-icon"></i>
+                                            <input type="text" name="name_en" id="regNameEn" dir="ltr" class="sp-control" value="<?= e($formData['name_en'] ?? '') ?>" placeholder="e.g. Al-Manar Model Schools">
+                                        </div>
+                                        <div class="sp-slug-preview-box">
+                                            <i class="fas fa-link text-primary"></i>
+                                            <span>الرابط المخصص:</span>
+                                            <strong id="regSlugPreview" class="text-primary dir-ltr">daleel.schoplus.sd/school.php?slug=...</strong>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Step 1 Nav Actions -->
-                    <div class="d-flex justify-content-between align-items-center mt-5 pt-3 border-top">
-                        <div class="text-muted small">
-                            <i class="fas fa-info-circle text-primary me-1"></i> الحقول المعلمة بـ (<span class="text-danger">*</span>) إلزامية
-                        </div>
-                        <button type="button" class="btn-luxury-primary px-4 py-2" onclick="nextWizardStep(1)">
-                            <span>متابعة: الاتصال والتواجد</span>
-                            <i class="fas fa-arrow-left ms-2"></i>
-                        </button>
-                    </div>
-                </div>
+                        <!-- 2. Geographic Location Section -->
+                        <div class="sp-form-section">
+                            <div class="sp-form-section-head">
+                                <div class="sp-section-icon"><i class="fas fa-map-marked-alt"></i></div>
+                                <div>
+                                    <h6 class="sp-section-title">الموقع والتوزيع الجغرافي</h6>
+                                    <p class="sp-section-desc">مكان تواجد المدرسة لتسهيل عثور أولياء الأمور عليها</p>
+                                </div>
+                            </div>
 
-                <!-- STEP 2: CONTACT & DIGITAL PRESENCE -->
-                <div class="wizard-step-pane" id="wizardStep2">
-                    <div class="d-flex align-items-center gap-2 mb-4 pb-2 border-bottom">
-                        <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; font-size: 0.9rem;">
-                            2
-                        </div>
-                        <div>
-                            <h5 class="fw-bold text-dark mb-0">قنوات الاتصال والوجود الرقمي</h5>
-                            <small class="text-muted">أرقام التواصل مع أولياء الأمور وروابط المنصات الرقمية وموقع المدرسة</small>
-                        </div>
-                    </div>
-
-                    <div class="row g-3">
-                        <!-- School Phone & WhatsApp -->
-                        <div class="col-md-6">
-                            <label class="form-label small fw-bold text-secondary">رقم هاتف المدرسة للتواصل مع أولياء الأمور <span class="text-danger">*</span></label>
-                            <input type="tel" name="phone" class="form-control" value="<?= e($formData['phone'] ?? '') ?>" placeholder="09xxxxxxx أو 01xxxxxxx">
-                            <div class="form-feedback-msg" id="err_phone">يرجى إدخال هاتف المدرسة للتواصل.</div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="form-label small fw-bold text-secondary">رقم واتساب المدرسة (للاستفسارات المباشرة)</label>
-                            <input type="tel" name="whatsapp" class="form-control" value="<?= e($formData['whatsapp'] ?? '') ?>" placeholder="09xxxxxxx">
-                        </div>
-
-                        <!-- Digital Presence & Social Links -->
-                        <div class="col-12 mt-3 pt-3 border-top">
-                            <span class="badge bg-warning text-dark px-2.5 py-1 rounded-pill fw-bold mb-3 d-inline-block" style="font-size: 0.68rem;">
-                                <i class="fas fa-satellite-dish me-1"></i> الوجود الرقمي وشبكات التواصل (مستورد أو اختياري)
-                            </span>
                             <div class="row g-3">
                                 <div class="col-md-6">
-                                    <label class="form-label small text-muted">الموقع الإلكتروني للمدرسة</label>
-                                    <input type="url" name="website" class="form-control form-control-sm" value="<?= e($formData['website'] ?? '') ?>" placeholder="https://example.edu.sd">
+                                    <div class="sp-field">
+                                        <label class="sp-label">الدولة <span class="req">*</span></label>
+                                        <div class="sp-input-wrap">
+                                            <i class="fas fa-flag sp-input-icon"></i>
+                                            <select name="country" id="regCountry" class="sp-control">
+                                                <?php foreach ($countriesList as $cntry): ?>
+                                                    <option value="<?= e($cntry) ?>" <?= $selectedCountry === $cntry ? 'selected' : '' ?>>
+                                                        <?= e($cntry) ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                        <div class="sp-feedback-error" id="err_country">يرجى تحديد الدولة.</div>
+                                    </div>
                                 </div>
+
                                 <div class="col-md-6">
-                                    <label class="form-label small text-muted">رابط صفحة الفيسبوك</label>
-                                    <input type="url" name="facebook" class="form-control form-control-sm" value="<?= e($formData['facebook'] ?? '') ?>" placeholder="https://facebook.com/SchoolName">
+                                    <div class="sp-field">
+                                        <label class="sp-label">الولاية / المنطقة <span class="req">*</span></label>
+                                        <div class="sp-input-wrap">
+                                            <i class="fas fa-map sp-input-icon"></i>
+                                            <select name="state" id="regState" class="sp-control">
+                                                <option value="">-- اختر الولاية --</option>
+                                                <?php foreach ($statesWithCities as $stName => $cities): ?>
+                                                    <option value="<?= e($stName) ?>" <?= ($formData['state'] ?? '') === $stName ? 'selected' : '' ?>>
+                                                        <?= e($stName) ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                        <div class="sp-feedback-error" id="err_state">يرجى اختيار الولاية.</div>
+                                    </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <label class="form-label small text-muted">حساب تيك توك</label>
-                                    <input type="text" name="tiktok" class="form-control form-control-sm" value="<?= e($formData['tiktok'] ?? '') ?>" placeholder="https://tiktok.com/@school">
+
+                                <div class="col-md-6">
+                                    <div class="sp-field">
+                                        <label class="sp-label">المدينة / المحلية <span class="req">*</span></label>
+                                        <div class="sp-input-wrap">
+                                            <i class="fas fa-city sp-input-icon"></i>
+                                            <select name="city" id="regCity" class="sp-control">
+                                                <option value="">-- اختر المدينة --</option>
+                                            </select>
+                                        </div>
+                                        <div class="sp-feedback-error" id="err_city">يرجى تحديد المدينة أو المحلية.</div>
+                                    </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <label class="form-label small text-muted">انستغرام / يوتيوب</label>
-                                    <input type="text" name="instagram" class="form-control form-control-sm" value="<?= e($formData['instagram'] ?? ($formData['youtube'] ?? '')) ?>" placeholder="رابط انستغرام أو يوتيوب">
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label small text-muted">رابط خريطة جوجل</label>
-                                    <input type="url" name="google_map_url" class="form-control form-control-sm" value="<?= e($formData['google_map_url'] ?? '') ?>" placeholder="https://maps.google.com/?q=...">
+
+                                <div class="col-md-6">
+                                    <div class="sp-field">
+                                        <label class="sp-label">الحي / المنطقة أو الشارع</label>
+                                        <div class="sp-input-wrap">
+                                            <i class="fas fa-map-pin sp-input-icon"></i>
+                                            <input type="text" name="district" class="sp-control" value="<?= e($formData['district'] ?? '') ?>" placeholder="مثال: الرياض، المعمورة، الثورة، شارع الستين">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Step 2 Nav Actions -->
-                    <div class="d-flex justify-content-between align-items-center mt-5 pt-3 border-top">
-                        <button type="button" class="btn-luxury-outline px-4 py-2" onclick="prevWizardStep(2)">
-                            <i class="fas fa-arrow-right me-2"></i>
-                            <span>السابق: هوية المدرسة</span>
-                        </button>
-                        <button type="button" class="btn-luxury-primary px-4 py-2" onclick="nextWizardStep(2)">
-                            <span>متابعة: حساب الإدارة</span>
-                            <i class="fas fa-arrow-left ms-2"></i>
-                        </button>
-                    </div>
-                </div>
+                        <!-- 3. Classification & Curriculum Section -->
+                        <div class="sp-form-section">
+                            <div class="sp-form-section-head">
+                                <div class="sp-section-icon"><i class="fas fa-book-open"></i></div>
+                                <div>
+                                    <h6 class="sp-section-title">التصنيف الأكاديمي وسنة التأسيس</h6>
+                                    <p class="sp-section-desc">نوع المؤسسة والمنهج الدراسي المعتمد وتصنيف الطلاب</p>
+                                </div>
+                            </div>
 
-                <!-- STEP 3: OWNER CREDENTIALS & CONFIRMATION -->
-                <div class="wizard-step-pane" id="wizardStep3">
-                    <div class="d-flex align-items-center gap-2 mb-4 pb-2 border-bottom">
-                        <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; font-size: 0.9rem;">
-                            3
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="sp-field">
+                                        <label class="sp-label">نوع المدرسة</label>
+                                        <div class="sp-input-wrap">
+                                            <i class="fas fa-layer-group sp-input-icon"></i>
+                                            <select name="school_type" class="sp-control">
+                                                <?php foreach (SudanGeography::schoolTypes() as $k => $lbl): ?>
+                                                    <option value="<?= $k ?>" <?= ($formData['school_type'] ?? 'private') === $k ? 'selected' : '' ?>><?= $lbl ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="sp-field">
+                                        <label class="sp-label">المنهج الدراسي</label>
+                                        <div class="sp-input-wrap">
+                                            <i class="fas fa-scroll sp-input-icon"></i>
+                                            <select name="curriculum" class="sp-control">
+                                                <?php foreach (SudanGeography::curricula() as $k => $lbl): ?>
+                                                    <option value="<?= $k ?>" <?= ($formData['curriculum'] ?? 'sudanese') === $k ? 'selected' : '' ?>><?= $lbl ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="sp-field">
+                                        <label class="sp-label">نوع الطلاب</label>
+                                        <div class="sp-input-wrap">
+                                            <i class="fas fa-users sp-input-icon"></i>
+                                            <select name="gender_type" class="sp-control">
+                                                <?php foreach (SudanGeography::genderTypes() as $k => $lbl): ?>
+                                                    <option value="<?= $k ?>" <?= ($formData['gender_type'] ?? 'mixed') === $k ? 'selected' : '' ?>><?= $lbl ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="sp-field">
+                                        <label class="sp-label">سنة التأسيس</label>
+                                        <div class="sp-input-wrap">
+                                            <i class="fas fa-calendar-alt sp-input-icon"></i>
+                                            <input type="text" name="established_year" class="sp-control" value="<?= e($formData['established_year'] ?? '') ?>" placeholder="مثال: 2012 أو عام 1998">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <h5 class="fw-bold text-dark mb-0">بيانات المسؤول وحساب الدخول</h5>
-                            <small class="text-muted">ستستخدم هذه البيانات لتسجيل الدخول للوحة إدارة المدرسة وتحديث الملف التعريفي</small>
-                        </div>
-                    </div>
 
-                    <!-- Live Summary Card -->
-                    <div class="wizard-summary-card mb-4">
-                        <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom border-secondary-subtle">
-                            <span class="fw-bold text-dark" style="font-size: 0.85rem;">
-                                <i class="fas fa-clipboard-check text-success me-1"></i> ملخص بيانات التسجيل
-                            </span>
-                            <button type="button" class="btn btn-sm btn-link text-primary p-0 text-decoration-none" onclick="jumpToWizardStep(1)" style="font-size: 0.74rem;">
-                                <i class="fas fa-edit me-1"></i> تعديل بيانات المدرسة
+                        <!-- 4. Educational Stages Section -->
+                        <div class="sp-form-section">
+                            <div class="sp-form-section-head">
+                                <div class="sp-section-icon"><i class="fas fa-graduation-cap"></i></div>
+                                <div>
+                                    <h6 class="sp-section-title">المراحل التعليمية المتاحة</h6>
+                                    <p class="sp-section-desc">حدد المراحل المتوفرة بالمدرسة بالنقر المباشر عليها</p>
+                                </div>
+                            </div>
+
+                            <div class="sp-stage-grid">
+                                <?php 
+                                $selectedStages = $formData['stages'] ?? ['primary', 'intermediate', 'secondary'];
+                                $stageIcons = [
+                                    'kindergarten' => 'fa-shapes',
+                                    'primary' => 'fa-book-reader',
+                                    'intermediate' => 'fa-graduation-cap',
+                                    'secondary' => 'fa-user-graduate',
+                                ];
+                                foreach (SudanGeography::stages() as $stgKey => $stgLabel): 
+                                    $icon = $stageIcons[$stgKey] ?? 'fa-school';
+                                ?>
+                                    <label class="sp-stage-chip-label">
+                                        <input type="checkbox" name="stages[]" value="<?= $stgKey ?>" id="stg_<?= $stgKey ?>" <?= in_array($stgKey, $selectedStages) ? 'checked' : '' ?>>
+                                        <div class="sp-stage-chip">
+                                            <div class="sp-stage-chip-icon"><i class="fas <?= $icon ?>"></i></div>
+                                            <span class="sp-stage-chip-name"><?= $stgLabel ?></span>
+                                            <span class="sp-stage-chip-check"><i class="fas fa-check"></i></span>
+                                        </div>
+                                    </label>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+
+                        <!-- Step 1 Actions -->
+                        <div class="sp-wizard-actions">
+                            <div class="text-muted small">
+                                <i class="fas fa-shield-alt text-primary me-1"></i> الخطوة 1 من 3
+                            </div>
+                            <button type="button" class="btn-luxury-primary px-4 py-2.5 fs-6" onclick="nextWizardStep(1)">
+                                <span>متابعة: الاتصال والتواجد</span>
+                                <i class="fas fa-arrow-left ms-2"></i>
                             </button>
                         </div>
-                        <div class="row g-2">
-                            <div class="col-md-6">
-                                <div class="summary-item">
-                                    <i class="fas fa-school"></i>
-                                    <span class="text-muted">المدرسة:</span>
-                                    <strong id="summarySchoolName" class="text-dark">--</strong>
+
+                    </div>
+
+                    <!-- ==============================================
+                         STEP 2: CONTACT & DIGITAL PRESENCE
+                         ============================================== -->
+                    <div class="wizard-step-pane" id="wizardStep2">
+                        
+                        <!-- 1. Direct Contact Phone & WhatsApp -->
+                        <div class="sp-form-section">
+                            <div class="sp-form-section-head">
+                                <div class="sp-section-icon"><i class="fas fa-headset"></i></div>
+                                <div>
+                                    <h6 class="sp-section-title">أرقام التواصل المباشر</h6>
+                                    <p class="sp-section-desc">أرقام التواصل الرسمية التي تظهر لأولياء الأمور في صفحة مدرستك</p>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="summary-item">
+
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="sp-field">
+                                        <label class="sp-label">رقم هاتف المدرسة الرسمي <span class="req">*</span></label>
+                                        <div class="sp-input-wrap">
+                                            <i class="fas fa-phone-alt text-primary sp-input-icon"></i>
+                                            <input type="tel" name="phone" class="sp-control" value="<?= e($formData['phone'] ?? '') ?>" placeholder="09xxxxxxx أو 01xxxxxxx">
+                                        </div>
+                                        <div class="sp-feedback-error" id="err_phone">يرجى إدخال هاتف المدرسة للتواصل مع أولياء الأمور.</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="sp-field">
+                                        <label class="sp-label">رقم واتساب المدرسة (للاستفسارات الفورية)</label>
+                                        <div class="sp-input-wrap">
+                                            <i class="fab fa-whatsapp text-success sp-input-icon"></i>
+                                            <input type="tel" name="whatsapp" class="sp-control" value="<?= e($formData['whatsapp'] ?? '') ?>" placeholder="09xxxxxxx">
+                                        </div>
+                                        <small class="text-muted" style="font-size: 0.72rem;">يظهر كزر محادثة واتساب مباشر وسريع في بطاقة المدرسة.</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2. Digital Platforms & Social Media -->
+                        <div class="sp-form-section">
+                            <div class="sp-form-section-head">
+                                <div class="sp-section-icon"><i class="fas fa-satellite-dish"></i></div>
+                                <div>
+                                    <h6 class="sp-section-title">المنصات الرقمية وموقع الخريطة</h6>
+                                    <p class="sp-section-desc">روابط المواقع وشبكات التواصل وخريطة الوصول للمدرسة (اختيارية)</p>
+                                </div>
+                            </div>
+
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="sp-field">
+                                        <label class="sp-label">الموقع الإلكتروني الرسمي</label>
+                                        <div class="sp-input-wrap">
+                                            <i class="fas fa-globe text-primary sp-input-icon"></i>
+                                            <input type="url" name="website" class="sp-control" value="<?= e($formData['website'] ?? '') ?>" placeholder="https://school-name.edu.sd">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="sp-field">
+                                        <label class="sp-label">رابط صفحة الفيسبوك</label>
+                                        <div class="sp-input-wrap">
+                                            <i class="fab fa-facebook text-primary sp-input-icon"></i>
+                                            <input type="url" name="facebook" class="sp-control" value="<?= e($formData['facebook'] ?? '') ?>" placeholder="https://facebook.com/SchoolName">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="sp-field">
+                                        <label class="sp-label">حساب تيك توك</label>
+                                        <div class="sp-input-wrap">
+                                            <i class="fab fa-tiktok text-dark sp-input-icon"></i>
+                                            <input type="text" name="tiktok" class="sp-control" value="<?= e($formData['tiktok'] ?? '') ?>" placeholder="https://tiktok.com/@school">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="sp-field">
+                                        <label class="sp-label">انستغرام أو يوتيوب</label>
+                                        <div class="sp-input-wrap">
+                                            <i class="fab fa-instagram text-danger sp-input-icon"></i>
+                                            <input type="text" name="instagram" class="sp-control" value="<?= e($formData['instagram'] ?? ($formData['youtube'] ?? '')) ?>" placeholder="رابط حساب انستغرام أو يوتيوب">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="sp-field">
+                                        <label class="sp-label">رابط موقع المدرسة على خرائط جوجل (Google Maps)</label>
+                                        <div class="sp-input-wrap">
+                                            <i class="fas fa-map-location-dot text-warning sp-input-icon"></i>
+                                            <input type="url" name="google_map_url" class="sp-control" value="<?= e($formData['google_map_url'] ?? '') ?>" placeholder="https://maps.google.com/?q=...">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 Actions -->
+                        <div class="sp-wizard-actions">
+                            <button type="button" class="btn-luxury-outline px-4 py-2.5 fs-6" onclick="prevWizardStep(2)">
+                                <i class="fas fa-arrow-right me-2"></i>
+                                <span>السابق: هوية المدرسة</span>
+                            </button>
+                            <button type="button" class="btn-luxury-primary px-4 py-2.5 fs-6" onclick="nextWizardStep(2)">
+                                <span>متابعة: حساب الإدارة</span>
+                                <i class="fas fa-arrow-left ms-2"></i>
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <!-- ==============================================
+                         STEP 3: OWNER CREDENTIALS & CONFIRMATION
+                         ============================================== -->
+                    <div class="wizard-step-pane" id="wizardStep3">
+                        
+                        <!-- 1. Executive Summary Preview Card -->
+                        <div class="sp-executive-preview">
+                            <div class="sp-exec-head">
+                                <div>
+                                    <span class="d-block text-white-50 small mb-1">ملخص بيانات المدرسة</span>
+                                    <h4 class="sp-exec-title" id="summarySchoolName">--</h4>
+                                </div>
+                                <button type="button" class="sp-exec-edit-btn" onclick="jumpToWizardStep(1)">
+                                    <i class="fas fa-edit"></i>
+                                    <span>تعديل البيانات</span>
+                                </button>
+                            </div>
+                            <div class="sp-exec-badges">
+                                <div class="sp-exec-badge">
                                     <i class="fas fa-map-marker-alt"></i>
-                                    <span class="text-muted">الموقع:</span>
-                                    <strong id="summaryLocation" class="text-dark">--</strong>
+                                    <span id="summaryLocation">--</span>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="summary-item">
-                                    <i class="fas fa-phone"></i>
-                                    <span class="text-muted">هاتف المدرسة:</span>
-                                    <strong id="summaryPhone" class="text-dark" dir="ltr">--</strong>
+                                <div class="sp-exec-badge">
+                                    <i class="fas fa-phone-alt"></i>
+                                    <span id="summaryPhone" dir="ltr">--</span>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="summary-item">
+                                <div class="sp-exec-badge">
                                     <i class="fas fa-user-shield"></i>
-                                    <span class="text-muted">المسؤول:</span>
-                                    <strong id="summaryAdminName" class="text-dark">--</strong>
+                                    <span id="summaryAdminName">--</span>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- 2. Account Administrator Profile -->
+                        <div class="sp-form-section">
+                            <div class="sp-form-section-head">
+                                <div class="sp-section-icon"><i class="fas fa-user-tie"></i></div>
+                                <div>
+                                    <h6 class="sp-section-title">بيانات المسؤول ومدير الحساب</h6>
+                                    <p class="sp-section-desc">المسؤول المخول بإدارة المدرسة والرد على طلبات أولياء الأمور</p>
+                                </div>
+                            </div>
+
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="sp-field">
+                                        <label class="sp-label">اسم المسؤول / مدير المدرسة <span class="req">*</span></label>
+                                        <div class="sp-input-wrap">
+                                            <i class="fas fa-user-check sp-input-icon"></i>
+                                            <input type="text" name="owner_name" class="sp-control" value="<?= e($formData['owner_name'] ?? '') ?>" placeholder="مثال: أ. عبد الله إبراهيم">
+                                        </div>
+                                        <div class="sp-feedback-error" id="err_owner_name">يرجى إدخال اسم المسؤول بشكل صحيح.</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="sp-field">
+                                        <label class="sp-label">الصفة أو المسمى الوظيفي</label>
+                                        <div class="sp-input-wrap">
+                                            <i class="fas fa-id-badge sp-input-icon"></i>
+                                            <input type="text" name="owner_title" class="sp-control" value="<?= e($formData['owner_title'] ?? 'مدير المدرسة') ?>" placeholder="مثال: المدير العام / مدير المرحلة">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. Security & Login Credentials -->
+                        <div class="sp-form-section">
+                            <div class="sp-form-section-head">
+                                <div class="sp-section-icon"><i class="fas fa-shield-alt"></i></div>
+                                <div>
+                                    <h6 class="sp-section-title">بيانات تسجيل الدخول والأمان</h6>
+                                    <p class="sp-section-desc">رقم هاتف الدخول وكلمة المرور الخاصة بلوحة التحكم</p>
+                                </div>
+                            </div>
+
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="sp-field">
+                                        <label class="sp-label">رقم هاتف المسؤول (اسم المستخدم للدخول) <span class="req">*</span></label>
+                                        <div class="sp-input-wrap">
+                                            <i class="fas fa-mobile-screen sp-input-icon"></i>
+                                            <input type="tel" name="owner_phone" class="sp-control" value="<?= e($formData['owner_phone'] ?? '') ?>" placeholder="09xxxxxxx">
+                                        </div>
+                                        <div class="sp-feedback-error" id="err_owner_phone">يرجى إدخال رقم هاتف المسؤول بشكل صحيح (9 أرقام على الأقل).</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="sp-field">
+                                        <label class="sp-label">البريد الإلكتروني للمسؤول (اختياري)</label>
+                                        <div class="sp-input-wrap">
+                                            <i class="fas fa-envelope sp-input-icon"></i>
+                                            <input type="email" name="owner_email" class="sp-control" value="<?= e($formData['owner_email'] ?? '') ?>" placeholder="admin@school.com">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="sp-field">
+                                        <label class="sp-label">كلمة المرور الجديدة <span class="req">*</span></label>
+                                        <div class="sp-input-wrap">
+                                            <i class="fas fa-lock sp-input-icon"></i>
+                                            <input type="password" name="password" id="regPassword" class="sp-control" placeholder="6 خانات على الأقل">
+                                            <button type="button" class="sp-pwd-toggle" onclick="togglePasswordVisibility('regPassword', this)" title="إظهار / إخفاء">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </div>
+                                        <div class="sp-feedback-error" id="err_password">كلمة المرور يجب أن لا تقل عن 6 أحرف أو أرقام.</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="sp-field">
+                                        <label class="sp-label">تأكيد كلمة المرور <span class="req">*</span></label>
+                                        <div class="sp-input-wrap">
+                                            <i class="fas fa-lock-open sp-input-icon"></i>
+                                            <input type="password" name="password_confirmation" id="regPasswordConf" class="sp-control" placeholder="أعد إدخال كلمة المرور">
+                                            <button type="button" class="sp-pwd-toggle" onclick="togglePasswordVisibility('regPasswordConf', this)" title="إظهار / إخفاء">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </div>
+                                        <div class="sp-feedback-error" id="err_password_confirmation">كلمتا المرور غير متطابقتين.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Info & Policy Note -->
+                        <div class="p-3 rounded-3 bg-light border border-light-subtle my-3">
+                            <div class="d-flex align-items-start gap-2">
+                                <i class="fas fa-info-circle text-primary mt-1"></i>
+                                <small class="text-secondary" style="font-size: 0.73rem; line-height: 1.65;">
+                                    <strong>سياسة الاستخدام:</strong> هذا الدليل خدمة رقمية متطورة مقدمة من <strong>منظومة SchoPlus الذكية</strong>. البيانات المدخلة تقع تحت إدارة ومسؤولية المدرسة، ويمكنكم تحديث الصور والتفاصيل وتفعيل مزايا النظام الذكي في أي وقت.
+                                </small>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 Actions -->
+                        <div class="sp-wizard-actions">
+                            <button type="button" class="btn-luxury-outline px-4 py-2.5 fs-6" onclick="prevWizardStep(3)">
+                                <i class="fas fa-arrow-right me-2"></i>
+                                <span>السابق: قنوات الاتصال</span>
+                            </button>
+                            <button type="submit" class="btn-luxury-primary px-5 py-3 fs-6 shadow-sm">
+                                <i class="fas fa-check-circle me-2"></i>
+                                <span>تأكيد تسجيل المدرسة وإنشاء الحساب</span>
+                            </button>
+                        </div>
+
                     </div>
 
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label class="form-label small fw-bold text-secondary">اسم المسؤول / المدير <span class="text-danger">*</span></label>
-                            <input type="text" name="owner_name" class="form-control" value="<?= e($formData['owner_name'] ?? '') ?>" placeholder="مثال: أ. عبد الله إبراهيم">
-                            <div class="form-feedback-msg" id="err_owner_name">يرجى إدخال اسم المسؤول / مدير المدرسة.</div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="form-label small fw-bold text-secondary">الصفة أو المسمى الوظيفي</label>
-                            <input type="text" name="owner_title" class="form-control" value="<?= e($formData['owner_title'] ?? 'مدير المدرسة') ?>" placeholder="مثال: المدير العام / مدير المرحلة">
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="form-label small fw-bold text-secondary">رقم هاتف المسؤول (اسم المستخدم للدخول) <span class="text-danger">*</span></label>
-                            <input type="tel" name="owner_phone" class="form-control" value="<?= e($formData['owner_phone'] ?? '') ?>" placeholder="09xxxxxxx">
-                            <small class="text-muted" style="font-size: 0.72rem;">سيتم استخدامه كاسم مستخدم عند تسجيل الدخول.</small>
-                            <div class="form-feedback-msg" id="err_owner_phone">يرجى إدخال رقم هاتف المسؤول بشكل صحيح (9 أرقام على الأقل).</div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="form-label small fw-bold text-secondary">البريد الإلكتروني للمسؤول (اختياري)</label>
-                            <input type="email" name="owner_email" class="form-control" value="<?= e($formData['owner_email'] ?? '') ?>" placeholder="admin@school.com">
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="form-label small fw-bold text-secondary">كلمة المرور الجديدة <span class="text-danger">*</span></label>
-                            <input type="password" name="password" class="form-control" placeholder="6 خانات على الأقل">
-                            <div class="form-feedback-msg" id="err_password">كلمة المرور يجب أن لا تقل عن 6 أحرف أو أرقام.</div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="form-label small fw-bold text-secondary">تأكيد كلمة المرور <span class="text-danger">*</span></label>
-                            <input type="password" name="password_confirmation" class="form-control" placeholder="أعد إدخال كلمة المرور">
-                            <div class="form-feedback-msg" id="err_password_confirmation">كلمتا المرور غير متطابقتين.</div>
-                        </div>
-                    </div>
-
-                    <!-- Info & Usage Policy Box -->
-                    <div class="p-3 rounded-4 bg-light border border-light-subtle my-4">
-                        <div class="d-flex align-items-start gap-2">
-                            <i class="fas fa-info-circle text-primary mt-1"></i>
-                            <small class="text-secondary lh-base">
-                                <strong>سياسة الاستخدام والتسجيل:</strong> هذا الدليل هو خدمة رقمية مقدمة من <strong>منظومة SchoPlus الذكية</strong>، وليس دليلاً رسمياً تابعاً لوزارة التربية والتعليم. جميع البيانات والصور والرسوم المنشورة تتم إضافتها وإدارتها من قِبل إدارة المدرسة وعلى مسؤوليتها. بمجرد التسجيل يمكنك الدخول مباشرة للوحة التحكم وإكمال ملف مدرستك.
-                            </small>
-                        </div>
-                    </div>
-
-                    <!-- Step 3 Nav Actions -->
-                    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center gap-3 mt-4 pt-3 border-top">
-                        <button type="button" class="btn-luxury-outline px-4 py-2 order-2 order-sm-1" onclick="prevWizardStep(3)">
-                            <i class="fas fa-arrow-right me-2"></i>
-                            <span>السابق: قنوات الاتصال</span>
-                        </button>
-                        <button type="submit" class="btn-luxury-primary px-5 py-3 fs-6 order-1 order-sm-2 w-100 w-sm-auto shadow-sm">
-                            <i class="fas fa-check-circle me-2"></i>
-                            <span>تأكيد التسجيل وإنشاء الحساب</span>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="text-center mt-4">
-                    <span class="text-muted small">لديك حساب مسجل بالفعل؟</span>
-                    <a href="login.php" class="text-primary fw-bold small text-decoration-none ms-1">تسجيل الدخول من هنا</a>
                 </div>
 
             </form>
+
+            <div class="text-center py-3 bg-light border-top">
+                <span class="text-muted small">لديك حساب مسجل بالفعل؟</span>
+                <a href="login.php" class="text-primary fw-bold small text-decoration-none ms-1">تسجيل الدخول من هنا</a>
+            </div>
+
         </div>
 
     </div>
@@ -858,6 +1309,26 @@ $statesWithCities = SudanGeography::statesWithCities($selectedCountry);
         updateRegSlug();
     }
 
+    // Password visibility toggle
+    function togglePasswordVisibility(inputId, btn) {
+        const input = document.getElementById(inputId);
+        if (!input) return;
+        const icon = btn.querySelector('i');
+        if (input.type === 'password') {
+            input.type = 'text';
+            if (icon) {
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            }
+        } else {
+            input.type = 'password';
+            if (icon) {
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+    }
+
     // ==========================================
     // 3-STEP WIZARD LOGIC
     // ==========================================
@@ -886,8 +1357,8 @@ $statesWithCities = SudanGeography::statesWithCities($selectedCountry);
         // Update Progress Bar
         const progress = document.getElementById('wizardProgressBar');
         if (progress) {
-            if (step === 1) progress.style.width = '0%';
-            else if (step === 2) progress.style.width = '50%';
+            if (step === 1) progress.style.width = '33.33%';
+            else if (step === 2) progress.style.width = '66.66%';
             else if (step === 3) progress.style.width = '100%';
         }
 
@@ -895,13 +1366,13 @@ $statesWithCities = SudanGeography::statesWithCities($selectedCountry);
             updateSummaryCard();
         }
 
-        // Scroll smoothly to form top if out of view
-        const formCard = document.getElementById('schoolRegisterForm');
-        if (formCard) {
-            const rect = formCard.getBoundingClientRect();
-            if (rect.top < 60) {
+        // Smooth scroll to card top if needed
+        const wizardCard = document.querySelector('.sp-wizard-card');
+        if (wizardCard) {
+            const rect = wizardCard.getBoundingClientRect();
+            if (rect.top < 40) {
                 window.scrollTo({
-                    top: window.pageYOffset + rect.top - 80,
+                    top: window.pageYOffset + rect.top - 60,
                     behavior: 'smooth'
                 });
             }
@@ -983,14 +1454,14 @@ $statesWithCities = SudanGeography::statesWithCities($selectedCountry);
                 if (!firstInvalid) firstInvalid = ownerPhone;
             }
 
-            const pass = document.querySelector('input[name="password"]');
+            const pass = document.getElementById('regPassword');
             if (!pass || pass.value.length < 6) {
                 markInvalid(pass);
                 isValid = false;
                 if (!firstInvalid) firstInvalid = pass;
             }
 
-            const passConf = document.querySelector('input[name="password_confirmation"]');
+            const passConf = document.getElementById('regPasswordConf');
             if (!passConf || passConf.value !== (pass ? pass.value : '')) {
                 markInvalid(passConf);
                 isValid = false;
@@ -1031,13 +1502,13 @@ $statesWithCities = SudanGeography::statesWithCities($selectedCountry);
     }
 
     function updateSummaryCard() {
-        const name = document.querySelector('input[name="name"]')?.value.trim() || '--';
+        const name = document.querySelector('input[name="name"]')?.value.trim() || 'اسم المدرسة غير محدد';
         const country = document.getElementById('regCountry')?.value.trim() || '';
         const state = document.getElementById('regState')?.value.trim() || '';
         const city = document.getElementById('regCity')?.value.trim() || '';
-        const location = [city, state, country].filter(Boolean).join(' - ') || '--';
-        const phone = document.querySelector('input[name="phone"]')?.value.trim() || '--';
-        const ownerName = document.querySelector('input[name="owner_name"]')?.value.trim() || '--';
+        const location = [city, state, country].filter(Boolean).join(' - ') || 'الموقع غير محدد';
+        const phone = document.querySelector('input[name="phone"]')?.value.trim() || 'هاتف المدرسة غير محدد';
+        const ownerName = document.querySelector('input[name="owner_name"]')?.value.trim() || 'اسم المسؤول غير محدد';
         const ownerTitle = document.querySelector('input[name="owner_title"]')?.value.trim();
 
         const sumName = document.getElementById('summarySchoolName');
