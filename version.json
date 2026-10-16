@@ -1,7 +1,7 @@
 {
-    "version": "3.7.3",
+    "version": "3.7.4",
     "release_date": "2026-10-16",
     "version_type": "enterprise",
     "min_php_version": "8.2",
-    "release_notes": "إطلاق دعم تطبيق الآيفون PWA الكامل مع Service Worker ونافذة التثبيت التفاعلية وSmart Banner في Safari v3.7.3"
+    "release_notes": "دمج قسم تحميل وتثبيت تطبيق الهاتف فوق الفوتر مباشرة بدعم الأندرويد والآيفون وحذف صفحة app.php المستقلة وتوجيهها بسلاسة v3.7.4"
 }

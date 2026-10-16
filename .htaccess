@@ -19,6 +19,9 @@ RewriteRule ^(?:school|s)/assets/(.*)$ /assets/$1 [L,NC]
 # Sitemap dynamic XML routing
 RewriteRule ^sitemap\.xml$ sitemap.php [L]
 
+# Redirect /app or /app.php to /#app-download
+RewriteRule ^app(\.php)?/?$ /#app-download [R=301,L,NE]
+
 # Allow direct access to real files and directories
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d

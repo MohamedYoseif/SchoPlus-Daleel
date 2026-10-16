@@ -9,13 +9,58 @@
     );
     if (!$isDaleelMobile):
     ?>
-    <footer class="daleel-footer" style="background-color: #F8FAFC; border-top: 1px solid #DDE4ED; padding: 50px 0 25px; margin-top: 60px; color: #475569;">
+    <!-- APP DOWNLOAD SECTION (Above Footer) -->
+    <section id="app-download" class="daleel-app-download-section" style="padding: 24px 0 0; margin-top: 45px;">
+        <div class="container">
+            <div class="card border-0 rounded-4 overflow-hidden shadow-sm" style="background: linear-gradient(135deg, #0B2A52 0%, #163870 100%); border-right: 4px solid #F5A020 !important;">
+                <div class="card-body p-4">
+                    <div class="row align-items-center g-3">
+                        <div class="col-lg-6 col-md-5 text-center text-md-start">
+                            <div class="d-flex align-items-center justify-content-center justify-content-md-start gap-3">
+                                <div class="bg-white rounded-3 p-2 d-flex align-items-center justify-content-center shadow-sm" style="width: 50px; height: 50px; flex-shrink: 0;">
+                                    <img src="/assets/images/logo-icon.png?v=3.7.4" alt="دليل المدارس" style="width: 36px; height: 36px; object-fit: contain;">
+                                </div>
+                                <div>
+                                    <h4 class="fw-bold text-white mb-1" style="font-size: 1.15rem;">حمّل تطبيق دليل المدارس على هاتفك</h4>
+                                    <p class="text-white-50 mb-0" style="font-size: 0.74rem;">تصفح أسرع، وصول فوري لكافة المدارس، وتواصل مباشر بنقرة واحدة.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-7">
+                            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-end gap-2">
+                                <!-- Android Button -->
+                                <a href="/downloads/daleel-schoplus.apk" download class="btn px-3 py-2 fw-bold text-white d-inline-flex align-items-center gap-2 rounded-3 shadow-xs" style="background: #1E5FA8; border: 1.5px solid #F5A020; font-size: 0.82rem;">
+                                    <i class="fab fa-android fa-lg text-warning"></i>
+                                    <div class="text-start">
+                                        <span class="d-block text-warning opacity-75" style="font-size: 0.62rem; line-height: 1;">أندرويد مباشر</span>
+                                        <span class="d-block fw-bold" style="font-size: 0.82rem; line-height: 1.2;">تنزيل ملف APK (55.9MB)</span>
+                                    </div>
+                                </a>
+
+                                <!-- iOS Button -->
+                                <button type="button" class="btn px-3 py-2 fw-bold text-dark d-inline-flex align-items-center gap-2 rounded-3 shadow-xs" style="background: #FFFFFF; border: 1.5px solid #DDE4ED; font-size: 0.82rem;" onclick="openIosInstallModal()">
+                                    <i class="fab fa-apple fa-lg text-dark"></i>
+                                    <div class="text-start">
+                                        <span class="d-block text-muted" style="font-size: 0.62rem; line-height: 1;">آيفون (iOS)</span>
+                                        <span class="d-block fw-bold" style="font-size: 0.82rem; line-height: 1.2; color: #0B2A52;">تثبيت فوري للشاشة</span>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="daleel-footer" style="background-color: #F8FAFC; border-top: 1px solid #DDE4ED; padding: 40px 0 25px; margin-top: 24px; color: #475569;">
         <div class="container">
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6">
                     <div class="mb-3">
                         <a href="/" class="d-inline-block text-decoration-none">
-                            <img src="/assets/images/logo.png?v=3.7.3" alt="دليل المدارس السودانية" style="height: 46px; width: auto; object-fit: contain;">
+                            <img src="/assets/images/logo.png?v=3.7.4" alt="دليل المدارس السودانية" style="height: 46px; width: auto; object-fit: contain;">
                         </a>
                     </div>
                     <p class="text-muted leading-relaxed mb-0" style="font-size: 0.73rem; line-height: 1.75;">
@@ -29,8 +74,8 @@
                     <a href="/?view=top_rated" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">المدارس الأعلى تقييماً</a>
                     <a href="/compare.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">مقارنة المدارس</a>
                     <a href="/presence-audit.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">فحص الوجود الرقمي</a>
-                    <a href="/app.php" class="d-block text-success fw-bold text-decoration-none mb-2" style="font-size: 0.74rem;">
-                        <i class="fab fa-android me-1"></i> تحميل تطبيق أندرويد (APK)
+                    <a href="/#app-download" class="d-block text-success fw-bold text-decoration-none mb-2" style="font-size: 0.74rem;">
+                        <i class="fas fa-mobile-alt me-1"></i> تطبيق الهاتف (أندرويد وآيفون)
                     </a>
                     <a href="/register.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">إضافة مدرسة جديدة</a>
                 </div>
