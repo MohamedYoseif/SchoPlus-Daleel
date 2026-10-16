@@ -350,7 +350,7 @@ require_once __DIR__ . '/header.php';
 /* ===== SCHOPLUS STYLE F v2 HERO & SEARCH BAR ===== */
 .daleel-hero-v2 {
     background: #F0F4F8;
-    padding: 34px 0 30px;
+    padding: 22px 0 14px;
     border-bottom: 1px solid #DDE4ED;
     position: relative;
 }
@@ -369,7 +369,7 @@ require_once __DIR__ . '/header.php';
     font-size: 0.72rem;
     font-weight: 700;
     color: #0B2A52;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 .hero-v2-eyebrow-dot {
     width: 7px;
@@ -379,24 +379,24 @@ require_once __DIR__ . '/header.php';
 }
 .hero-v2-title {
     font-weight: 800;
-    font-size: clamp(1.35rem, 2.8vw, 1.9rem);
+    font-size: clamp(1.3rem, 2.6vw, 1.8rem);
     color: #0B2A52;
     line-height: 1.35;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     letter-spacing: -0.3px;
 }
 .hero-v2-title-sub {
     display: block;
-    font-size: clamp(0.88rem, 1.8vw, 1.1rem);
+    font-size: clamp(0.85rem, 1.7vw, 1.05rem);
     color: #1E5FA8;
     font-weight: 700;
-    margin-top: 4px;
+    margin-top: 3px;
 }
 .hero-v2-desc {
     font-size: 0.76rem;
     color: #64748B;
-    line-height: 1.65;
-    margin-bottom: 16px;
+    line-height: 1.6;
+    margin-bottom: 12px;
 }
 
 /* Pure Family Photo Showcase (Left Column) — No Clutter, No Floating Cards */
@@ -415,7 +415,7 @@ require_once __DIR__ . '/header.php';
 .hero-family-img {
     width: 100%;
     height: 100%;
-    max-height: 420px;
+    max-height: 350px;
     object-fit: cover;
     display: block;
 }
@@ -781,18 +781,18 @@ require_once __DIR__ . '/header.php';
 
 /* ===== LUXURY JOIN DALEEL CTA BANNER (STYLE F v2) ===== */
 .sp-join-section {
-    padding: 16px 0 8px;
-    margin-bottom: 4px;
+    padding: 6px 0 6px;
+    margin-bottom: 2px;
 }
 .sp-join-section.sp-join-top {
-    padding-top: 18px;
-    padding-bottom: 8px;
+    padding-top: 6px;
+    padding-bottom: 6px;
     margin-bottom: 0;
 }
 .sp-join-card {
     background: linear-gradient(135deg, #0B2A52 0%, #163870 100%);
     border-radius: 16px;
-    padding: 24px 28px;
+    padding: 18px 24px;
     box-shadow: 0 8px 24px rgba(11, 42, 82, 0.14);
     border: 1px solid #1E5FA8;
     border-right: 5px solid #F5A020;
@@ -819,25 +819,25 @@ require_once __DIR__ . '/header.php';
     color: #F5A020 !important;
     font-weight: 800;
     font-size: 0.74rem;
-    padding: 4px 12px;
+    padding: 3px 10px;
     border-radius: 999px;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 .sp-join-eyebrow i {
     color: #F5A020 !important;
 }
 .sp-join-title {
-    font-size: 1.32rem;
+    font-size: 1.25rem;
     font-weight: 800;
     color: #FFFFFF !important;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     line-height: 1.35;
 }
 .sp-join-desc {
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     color: #F1F5F9 !important;
-    line-height: 1.65;
-    margin-bottom: 18px;
+    line-height: 1.6;
+    margin-bottom: 14px;
     max-width: 650px;
 }
 .sp-join-actions {
@@ -1267,7 +1267,7 @@ require_once __DIR__ . '/header.php';
 </style>
 
 <!-- HERO SECTION WITH INTEGRATED SEARCH -->
-<section class="daleel-hero-v2 mb-4" id="search-section">
+<section class="daleel-hero-v2" id="search-section">
     <div class="container hero-v2-container">
         <div class="row align-items-center g-4">
 
@@ -1500,36 +1500,36 @@ require_once __DIR__ . '/header.php';
 </section>
 
 <!-- SCHOOL OWNERS CTA BANNER (MOVED TO TOP WITH FULL DETAILS & MOBILE COLOR FIXES) -->
-<section class="sp-join-section" id="join-daleel-section">
+<section class="sp-join-section sp-join-top" id="join-daleel-section">
     <div class="container">
-        <div class="sp-join-card" style="background: linear-gradient(135deg, #0B2A52 0%, #163870 100%); border-radius: 16px; border: 1px solid #1E5FA8; border-right: 5px solid #F5A020; color: #FFFFFF;">
-            <div class="row align-items-center g-4">
+        <div class="sp-join-card" style="background: linear-gradient(135deg, #0B2A52 0%, #163870 100%); border-radius: 16px; border: 1px solid #1E5FA8; border-right: 5px solid #F5A020; color: #FFFFFF; padding: 18px 24px;">
+            <div class="row align-items-center g-3">
                 <div class="col-lg-8 col-12">
-                    <div class="sp-join-eyebrow" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(245, 160, 32, 0.2); border: 1px solid #F5A020; color: #F5A020 !important; font-weight: 800; font-size: 0.74rem; padding: 4px 12px; border-radius: 20px; margin-bottom: 12px;">
+                    <div class="sp-join-eyebrow" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(245, 160, 32, 0.2); border: 1px solid #F5A020; color: #F5A020 !important; font-weight: 800; font-size: 0.72rem; padding: 3px 10px; border-radius: 20px; margin-bottom: 8px;">
                         <i class="fas fa-school" style="color: #F5A020 !important;"></i>
                         <span style="color: #FFFFFF !important;">انضم إلى دليل المدارس</span>
                     </div>
-                    <h2 class="sp-join-title fw-bold mb-2" style="font-size: 1.32rem; color: #FFFFFF !important;">هل تدير مدرسة أو مجمعاً تعليمياً؟</h2>
-                    <p class="sp-join-desc mb-3" style="max-width: 650px; font-size: 0.78rem; color: #F1F5F9 !important; line-height: 1.65;">
+                    <h2 class="sp-join-title fw-bold mb-2" style="font-size: 1.25rem; color: #FFFFFF !important;">هل تدير مدرسة أو مجمعاً تعليمياً؟</h2>
+                    <p class="sp-join-desc mb-3" style="max-width: 650px; font-size: 0.76rem; color: #F1F5F9 !important; line-height: 1.6; margin-bottom: 12px !important;">
                         خدمة رقمية مقدمة من منظومة ايسكو بلص (SchoPlus). أضف بيانات مدرستك، أنشئ ملفاً تعريفياً متكاملاً، وانشر أخبار ومرافق مدرستك واستقبل استفسارات أولياء الأمور مباشرة.
                     </p>
                     <div class="sp-join-actions d-flex flex-wrap gap-2">
-                        <a href="/register.php" class="sp-join-btn-primary" style="background: #F5A020 !important; color: #FFFFFF !important; font-weight: 800; font-size: 0.8rem; padding: 9px 20px; border-radius: 9px; display: inline-flex; align-items: center; gap: 8px; text-decoration: none;">
+                        <a href="/register.php" class="sp-join-btn-primary" style="background: #F5A020 !important; color: #FFFFFF !important; font-weight: 800; font-size: 0.78rem; padding: 8px 18px; border-radius: 8px; display: inline-flex; align-items: center; gap: 7px; text-decoration: none;">
                             <i class="fas fa-school" style="color: #FFFFFF !important;"></i>
                             <span style="color: #FFFFFF !important;">سجّل مدرستك الآن</span>
                         </a>
-                        <a href="/login.php" class="sp-join-btn-secondary" style="background: rgba(255, 255, 255, 0.14) !important; color: #FFFFFF !important; border: 1.5px solid rgba(255, 255, 255, 0.45) !important; font-weight: 700; font-size: 0.8rem; padding: 9px 18px; border-radius: 9px; display: inline-flex; align-items: center; gap: 8px; text-decoration: none;">
+                        <a href="/login.php" class="sp-join-btn-secondary" style="background: rgba(255, 255, 255, 0.14) !important; color: #FFFFFF !important; border: 1.5px solid rgba(255, 255, 255, 0.45) !important; font-weight: 700; font-size: 0.78rem; padding: 8px 16px; border-radius: 8px; display: inline-flex; align-items: center; gap: 7px; text-decoration: none;">
                             <i class="fas fa-sign-in-alt" style="color: #FFFFFF !important;"></i>
                             <span style="color: #FFFFFF !important;">دخول أصحاب المدارس</span>
                         </a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-12 text-center">
-                    <div class="sp-join-side-box" style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 12px; padding: 18px 20px;">
+                    <div class="sp-join-side-box" style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 12px; padding: 14px 18px;">
                         <i class="fas fa-certificate fa-2x mb-2" style="color: #F5A020 !important;"></i>
-                        <h5 class="sp-join-side-title fw-bold mb-2" style="font-size: 0.95rem; color: #FFFFFF !important;">ارتقِ بمدرستك مع SchoPlus</h5>
-                        <p class="sp-join-side-desc mb-3" style="font-size: 0.72rem !important; line-height: 1.6; color: #E2E8F0 !important;">حوّل مدرستك إلى مدرسة ذكية مع أنظمة الحسابات، شؤون الطلاب، الجداول الآلية، وبوابة أولياء الأمور عبر الواتساب.</p>
-                        <a href="https://schoplus.sd" target="_blank" class="sp-join-side-btn" style="background: #FFFFFF !important; color: #0B2A52 !important; font-weight: 800; font-size: 0.76rem; padding: 8px 16px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; width: 100%; text-decoration: none;">
+                        <h5 class="sp-join-side-title fw-bold mb-1" style="font-size: 0.9rem; color: #FFFFFF !important;">ارتقِ بمدرستك مع SchoPlus</h5>
+                        <p class="sp-join-side-desc mb-2" style="font-size: 0.71rem !important; line-height: 1.55; color: #E2E8F0 !important;">حوّل مدرستك إلى مدرسة ذكية مع أنظمة الحسابات، شؤون الطلاب، الجداول الآلية، وبوابة أولياء الأمور عبر الواتساب.</p>
+                        <a href="https://schoplus.sd" target="_blank" class="sp-join-side-btn" style="background: #FFFFFF !important; color: #0B2A52 !important; font-weight: 800; font-size: 0.74rem; padding: 7px 14px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; width: 100%; text-decoration: none;">
                             <i class="fas fa-external-link-alt" style="color: #1E5FA8 !important;"></i>
                             <span style="color: #0B2A52 !important;">تعرف على نظام SchoPlus</span>
                         </a>

@@ -1,7 +1,7 @@
 {
-    "version": "3.6.69",
+    "version": "3.6.70",
     "release_date": "2026-10-16",
     "version_type": "enterprise",
     "min_php_version": "8.2",
-    "release_notes": "دليل المدارس (daleel.schoplus.sd) — ربط فحص الوجود الرقمي ببيانات البحث العام تلقائياً وترقية لوحة النتائج ومؤشرات KPI v3.6.69"
+    "release_notes": "دليل المدارس (daleel.schoplus.sd) — رفع وضبط محاذاة بنر الانضمام للدليل وقسم البحث لتناسب الشاشات الرأسية v3.6.70"
 }
