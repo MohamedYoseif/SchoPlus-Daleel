@@ -1727,7 +1727,7 @@ require_once __DIR__ . '/header.php';
                                     <div class="row g-3">
                                         <div class="col-md-6">
                                             <label class="form-label">اسم المدرسة باللغة العربية <span class="text-danger">*</span></label>
-                                            <input type="text" name="name" required class="form-control" value="<?= e($school['name']) ?>" placeholder="مثال: مدارس المنار النموذجية الخاصة">
+                                            <input type="text" name="name" required class="form-control" value="<?= e($school['name']) ?>" placeholder="اكتب اسم المدرسة كاملاً">
                                         </div>
 
                                         <div class="col-md-6">
@@ -1735,7 +1735,7 @@ require_once __DIR__ . '/header.php';
                                                 <label class="form-label mb-0">اسم المدرسة باللغة الإنجليزية (اختياري)</label>
                                                 <small class="text-muted" style="font-size: 0.68rem;"><i class="fas fa-magic text-warning me-1"></i> يُولّد الرابط تلقائياً</small>
                                             </div>
-                                            <input type="text" name="name_en" id="schoolNameEn" dir="ltr" class="form-control" value="<?= e($school['name_en'] ?? '') ?>" placeholder="e.g. Al-Manar Model Schools">
+                                            <input type="text" name="name_en" id="schoolNameEn" dir="ltr" class="form-control" value="<?= e($school['name_en'] ?? '') ?>" placeholder="Official school name in English">
                                         </div>
 
                                         <div class="col-12">
@@ -1751,7 +1751,7 @@ require_once __DIR__ . '/header.php';
                                             </div>
                                             <div class="input-group" dir="ltr">
                                                 <span class="input-group-text bg-light text-muted font-monospace" style="font-size: 0.74rem;">https://daleel.schoplus.sd/school/</span>
-                                                <input type="text" name="slug" id="schoolSlugInput" required pattern="[a-zA-Z0-9\-]{3,100}" class="form-control font-monospace fw-bold text-primary" value="<?= e($school['slug']) ?>" placeholder="al-manar-school" autocomplete="off">
+                                                <input type="text" name="slug" id="schoolSlugInput" required pattern="[a-zA-Z0-9\-]{3,100}" class="form-control font-monospace fw-bold text-primary" value="<?= e($school['slug']) ?>" placeholder="school-slug-name" autocomplete="off">
                                                 <span class="input-group-text bg-white" id="slugStatusIcon" style="min-width: 44px; text-align: center;">
                                                     <i class="fas fa-check-circle text-success" title="الرابط متاح"></i>
                                                 </span>

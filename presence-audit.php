@@ -1907,7 +1907,7 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
                            id="auditSchoolName" 
                            name="school_name" 
                            class="form-control audit-input" 
-                           placeholder="مثال: مدارس المنار النموذجية الخاصة" 
+                           placeholder="اكتب اسم المدرسة للفحص والتحليل" 
                            value="<?= e($prefillSchool) ?>" 
                            autocomplete="off" 
                            required>

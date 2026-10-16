@@ -748,7 +748,7 @@ $statesWithCities = SudanGeography::statesWithCities($selectedCountry);
                                         <label class="sp-label">اسم المدرسة باللغة العربية <span class="req">*</span></label>
                                         <div class="sp-input-wrap">
                                             <i class="fas fa-building sp-input-icon"></i>
-                                            <input type="text" name="name" class="sp-control" value="<?= e($formData['name'] ?? '') ?>" placeholder="مثال: مدارس المنار النموذجية الخاصة">
+                                            <input type="text" name="name" class="sp-control" value="<?= e($formData['name'] ?? '') ?>" placeholder="اكتب اسم المدرسة كاملاً">
                                         </div>
                                         <div class="sp-feedback-error" id="err_name">يرجى إدخال اسم المدرسة بشكل صحيح (3 أحرف على الأقل).</div>
                                     </div>
@@ -759,7 +759,7 @@ $statesWithCities = SudanGeography::statesWithCities($selectedCountry);
                                         <label class="sp-label">اسم المدرسة بالإنجليزية (اختياري)</label>
                                         <div class="sp-input-wrap">
                                             <i class="fas fa-globe sp-input-icon"></i>
-                                            <input type="text" name="name_en" id="regNameEn" dir="ltr" class="sp-control" value="<?= e($formData['name_en'] ?? '') ?>" placeholder="e.g. Al-Manar Model Schools">
+                                            <input type="text" name="name_en" id="regNameEn" dir="ltr" class="sp-control" value="<?= e($formData['name_en'] ?? '') ?>" placeholder="Official school name in English">
                                         </div>
                                         <div class="sp-slug-preview-box">
                                             <i class="fas fa-link text-primary"></i>
@@ -835,7 +835,7 @@ $statesWithCities = SudanGeography::statesWithCities($selectedCountry);
                                         <label class="sp-label">الحي / المنطقة أو الشارع</label>
                                         <div class="sp-input-wrap">
                                             <i class="fas fa-map-pin sp-input-icon"></i>
-                                            <input type="text" name="district" class="sp-control" value="<?= e($formData['district'] ?? '') ?>" placeholder="مثال: الرياض، المعمورة، الثورة، شارع الستين">
+                                            <input type="text" name="district" class="sp-control" value="<?= e($formData['district'] ?? '') ?>" placeholder="الحي أو المنطقة السكنية">
                                         </div>
                                     </div>
                                 </div>
@@ -1020,7 +1020,7 @@ $statesWithCities = SudanGeography::statesWithCities($selectedCountry);
                                         <label class="sp-label">رابط صفحة الفيسبوك</label>
                                         <div class="sp-input-wrap">
                                             <i class="fab fa-facebook text-primary sp-input-icon"></i>
-                                            <input type="url" name="facebook" class="sp-control" value="<?= e($formData['facebook'] ?? '') ?>" placeholder="https://facebook.com/SchoolName">
+                                            <input type="url" name="facebook" class="sp-control" value="<?= e($formData['facebook'] ?? '') ?>" placeholder="https://facebook.com/your-school">
                                         </div>
                                     </div>
                                 </div>
@@ -1120,7 +1120,7 @@ $statesWithCities = SudanGeography::statesWithCities($selectedCountry);
                                         <label class="sp-label">اسم المسؤول / مدير المدرسة <span class="req">*</span></label>
                                         <div class="sp-input-wrap">
                                             <i class="fas fa-user-check sp-input-icon"></i>
-                                            <input type="text" name="owner_name" class="sp-control" value="<?= e($formData['owner_name'] ?? '') ?>" placeholder="مثال: أ. عبد الله إبراهيم">
+                                            <input type="text" name="owner_name" class="sp-control" value="<?= e($formData['owner_name'] ?? '') ?>" placeholder="الاسم الثلاثي أو الرباعي للمسؤول">
                                         </div>
                                         <div class="sp-feedback-error" id="err_owner_name">يرجى إدخال اسم المسؤول بشكل صحيح.</div>
                                     </div>
@@ -1131,7 +1131,7 @@ $statesWithCities = SudanGeography::statesWithCities($selectedCountry);
                                         <label class="sp-label">الصفة أو المسمى الوظيفي</label>
                                         <div class="sp-input-wrap">
                                             <i class="fas fa-id-badge sp-input-icon"></i>
-                                            <input type="text" name="owner_title" class="sp-control" value="<?= e($formData['owner_title'] ?? 'مدير المدرسة') ?>" placeholder="مثال: المدير العام / مدير المرحلة">
+                                            <input type="text" name="owner_title" class="sp-control" value="<?= e($formData['owner_title'] ?? 'مدير المدرسة') ?>" placeholder="الصفة أو المسمى الوظيفي الإداري">
                                         </div>
                                     </div>
                                 </div>
