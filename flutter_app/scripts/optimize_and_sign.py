@@ -52,8 +52,8 @@ def main():
     so_count = 0
     with zipfile.ZipFile(src_apk, 'r') as zin, zipfile.ZipFile(unaligned_apk, 'w', compression=zipfile.ZIP_DEFLATED, compresslevel=9) as zout:
         for item in zin.infolist():
-            # Exclude x86_64 PC emulator binaries (never needed on smartphones)
-            if item.filename.startswith('lib/x86_64/'):
+            # Keep only arm64-v8a (modern smartphones ~48MB, 98%+ coverage)
+            if item.filename.startswith('lib/') and not item.filename.startswith('lib/arm64-v8a/'):
                 continue
                 
             # Skip old signatures so apksigner signs cleanly
@@ -72,7 +72,7 @@ def main():
                 
             zout.writestr(item, data, compress_type=zipfile.ZIP_DEFLATED)
             
-    print(f"Verified {so_count} native mobile .so libraries (arm64-v8a & armeabi-v7a) — 100% valid ELF headers.")
+    print(f"Verified {so_count} native mobile .so libraries (arm64-v8a) — 100% valid ELF headers.")
     print(f"Unaligned compressed APK: {os.path.getsize(unaligned_apk)/(1024*1024):.2f} MB")
                 
     zipalign = r'C:\Users\MohamedYoseif\AppData\Local\Android\Sdk\build-tools\34.0.0\zipalign.exe'
