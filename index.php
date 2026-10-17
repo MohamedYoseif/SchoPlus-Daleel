@@ -13,12 +13,13 @@ $country = trim($_GET['country'] ?? '');
 $state = trim($_GET['state'] ?? '');
 $city = trim($_GET['city'] ?? '');
 $stage = trim($_GET['stage'] ?? '');
+$schoolType = trim($_GET['type'] ?? $_GET['school_type'] ?? '');
 $schoplusOnly = !empty($_GET['schoplus_only']);
 $sort = trim($_GET['sort'] ?? 'featured');
 $view = trim($_GET['view'] ?? ''); // 'all', 'schoplus', 'top_rated', 'latest', or ''
 
 // Determine if user is performing a specific search or filter
-$isSearching = ($q !== '' || $country !== '' || $state !== '' || $city !== '' || $stage !== '' || $schoplusOnly || in_array($view, ['all', 'schoplus', 'top_rated', 'latest']));
+$isSearching = ($q !== '' || $country !== '' || $state !== '' || $city !== '' || $stage !== '' || $schoolType !== '' || $schoplusOnly || in_array($view, ['all', 'schoplus', 'top_rated', 'latest']));
 
 // Geography & standard mappings
 $countriesList = SudanGeography::countries();
@@ -69,8 +70,33 @@ $statStates = (int) $pdo->query("SELECT COUNT(DISTINCT state) FROM daleel_school
 $statReviews = (int) $pdo->query("SELECT COUNT(*) FROM daleel_school_reviews WHERE is_approved = 1")->fetchColumn();
 $totalTopRatedCount = (int) $pdo->query("SELECT COUNT(*) FROM daleel_schools WHERE status = 'approved' AND rating_avg >= 4.0")->fetchColumn();
 
+// School types global counters
+$statGovernment = (int) $pdo->query("SELECT COUNT(*) FROM daleel_schools WHERE status = 'approved' AND school_type = 'government'")->fetchColumn();
+$statPrivate = (int) $pdo->query("SELECT COUNT(*) FROM daleel_schools WHERE status = 'approved' AND school_type IN ('private', 'international', 'community', 'language')")->fetchColumn();
+
 // State school counters for the state cards
 $stateCounts = $pdo->query("SELECT state, COUNT(*) as cnt FROM daleel_schools WHERE status = 'approved' GROUP BY state")->fetchAll(PDO::FETCH_KEY_PAIR) ?: [];
+
+// Dynamic Tab Counters (taking selected state into account if state is filtered)
+if ($state !== '') {
+    $stCountsStmt = $pdo->prepare("SELECT 
+        COUNT(*) as total,
+        SUM(CASE WHEN school_type = 'government' THEN 1 ELSE 0 END) as gov,
+        SUM(CASE WHEN school_type IN ('private', 'international', 'community', 'language') THEN 1 ELSE 0 END) as priv,
+        SUM(CASE WHEN is_schoplus_client = 1 THEN 1 ELSE 0 END) as schoplus
+        FROM daleel_schools WHERE status = 'approved' AND state = ?");
+    $stCountsStmt->execute([$state]);
+    $stRow = $stCountsStmt->fetch(PDO::FETCH_ASSOC);
+    $tabCountTotal = (int) ($stRow['total'] ?? 0);
+    $tabCountGov = (int) ($stRow['gov'] ?? 0);
+    $tabCountPriv = (int) ($stRow['priv'] ?? 0);
+    $tabCountSchoplus = (int) ($stRow['schoplus'] ?? 0);
+} else {
+    $tabCountTotal = $statTotal;
+    $tabCountGov = $statGovernment;
+    $tabCountPriv = $statPrivate;
+    $tabCountSchoplus = $statSchoplus;
+}
 
 // Distinct states list & regional mapping
 $allStatesList = SudanGeography::states();
@@ -99,24 +125,26 @@ $sudanRegionMapping = [
 /**
  * Safe filter URL builder preserving existing query parameters
  */
-function buildFilterUrl(array $overrides = []): string {
-    $params = $_GET;
-    unset($params['ajax']);
-    foreach ($overrides as $k => $v) {
-        if ($v === null || $v === '') {
-            unset($params[$k]);
-        } else {
-            $params[$k] = $v;
+if (!function_exists('buildFilterUrl')) {
+    function buildFilterUrl(array $overrides = []): string {
+        $params = $_GET;
+        unset($params['ajax']);
+        foreach ($overrides as $k => $v) {
+            if ($v === null || $v === '') {
+                unset($params[$k]);
+            } else {
+                $params[$k] = $v;
+            }
         }
-    }
-    $clean = [];
-    foreach ($params as $k => $v) {
-        if ($v !== null && $v !== '') {
-            $clean[$k] = $v;
+        $clean = [];
+        foreach ($params as $k => $v) {
+            if ($v !== null && $v !== '') {
+                $clean[$k] = $v;
+            }
         }
+        if (empty($clean)) return '/';
+        return '/?' . http_build_query($clean);
     }
-    if (empty($clean)) return '/';
-    return '/?' . http_build_query($clean);
 }
 
 // Query for search or view
@@ -148,6 +176,15 @@ if ($isSearching) {
     if ($stage !== '') {
         $where[] = "stages LIKE ?";
         $params[] = "%\"{$stage}\"%";
+    }
+
+    if ($schoolType === 'government') {
+        $where[] = "school_type = 'government'";
+    } elseif ($schoolType === 'private') {
+        $where[] = "school_type IN ('private', 'international', 'community', 'language')";
+    } elseif ($schoolType !== '') {
+        $where[] = "school_type = ?";
+        $params[] = $schoolType;
     }
 
     if ($schoplusOnly || $view === 'schoplus') {
@@ -274,7 +311,11 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
 
 // Dynamic Title Resolution
 $dynamicTitle = 'دليل المدارس — دليلك الشامل لاختيار أفضل المدارس';
-if (!empty($state)) {
+if ($schoolType === 'government') {
+    $dynamicTitle = !empty($state) ? "المدارس الحكومية في ولاية {$state} — دليل المدارس" : "المدارس الحكومية في السودان — دليل المدارس";
+} elseif ($schoolType === 'private') {
+    $dynamicTitle = !empty($state) ? "المدارس الخاصة والدولية في ولاية {$state} — دليل المدارس" : "المدارس الخاصة والدولية في السودان — دليل المدارس";
+} elseif (!empty($state)) {
     $dynamicTitle = "مدارس ولاية {$state} — دليل المدارس الذكي";
 } elseif ($view === 'schoplus' || $schoplusOnly) {
     $dynamicTitle = 'مدارس SchoPlus الذكية — دليل المدارس';
@@ -301,6 +342,8 @@ if ($isAjax) {
         'state' => $state,
         'city' => $city,
         'stage' => $stage,
+        'school_type' => $schoolType,
+        'type' => $schoolType,
         'q' => $q,
         'view' => $view,
         'sort' => $sort,
@@ -1380,6 +1423,7 @@ require_once __DIR__ . '/header.php';
 
                 <!-- LUXURY UNIFIED SEARCH CONSOLE CARD -->
                 <form action="/" method="GET" class="sp-search-card" id="smartFilterForm">
+                    <input type="hidden" name="type" id="filterTypeHidden" value="<?= e($schoolType) ?>">
                     
                     <!-- 1. Main Search Bar Input -->
                     <div class="sp-search-input-box">
@@ -2141,9 +2185,14 @@ $extraScripts = <<<JS
 
                     // Close mobile filter collapse if open on small screens
                     const mobCollapse = document.getElementById('statesSidebarCollapse');
-                    if (mobCollapse && window.innerWidth < 992 && typeof bootstrap !== 'undefined') {
-                        const bsCol = bootstrap.Collapse.getInstance(mobCollapse);
-                        if (bsCol) bsCol.hide();
+                    if (mobCollapse && window.innerWidth < 992) {
+                        if (typeof bootstrap !== 'undefined' && bootstrap.Collapse) {
+                            try {
+                                const bsCol = bootstrap.Collapse.getOrCreateInstance(mobCollapse, { toggle: false });
+                                if (bsCol) bsCol.hide();
+                            } catch(e) {}
+                        }
+                        mobCollapse.classList.remove('show');
                     }
 
                     // Synchronize Hero form inputs/dropdowns
@@ -2170,7 +2219,13 @@ $extraScripts = <<<JS
                 qInput.value = data.q;
             }
 
-            // 2. State select & trigger
+            // 2. School type hidden input
+            const typeHidden = smartFilterForm.querySelector('#filterTypeHidden');
+            if (typeHidden && typeof data.school_type !== 'undefined') {
+                typeHidden.value = data.school_type;
+            }
+
+            // 3. State select & trigger
             const stateSelect = document.getElementById('filterStateSelect');
             const stateTrigger = document.querySelector('#trigger_filterStateSelect .sp-hero-dropdown-selected-val');
             if (stateSelect && stateTrigger && typeof data.state !== 'undefined') {
@@ -2194,7 +2249,7 @@ $extraScripts = <<<JS
                 }
             }
 
-            // 3. Stage select & trigger
+            // 4. Stage select & trigger
             const stageSelect = document.getElementById('filterStageSelect');
             const stageTrigger = document.querySelector('#trigger_filterStageSelect .sp-hero-dropdown-selected-val');
             if (stageSelect && stageTrigger && typeof data.stage !== 'undefined') {
@@ -2257,7 +2312,7 @@ $extraScripts = <<<JS
                 });
             }
 
-            // Auto-trigger filter on native select changes
+            // Auto-trigger filter on native select changes (with smooth auto-scroll to results)
             smartFilterForm.addEventListener('change', function(e) {
                 if (e.target && e.target.tagName === 'SELECT') {
                     const formData = new FormData(smartFilterForm);
@@ -2268,7 +2323,7 @@ $extraScripts = <<<JS
                     }
                     const qs = params.toString();
                     const targetUrl = qs ? '/?' + qs : '/';
-                    loadCatalogAjax(targetUrl, true, false);
+                    loadCatalogAjax(targetUrl, true, true);
                 }
             });
         }
@@ -2366,7 +2421,9 @@ $extraScripts = <<<JS
                 // Intercept directory catalog navigation
                 if (href === '/' || href.startsWith('/?') || href.startsWith('index.php') || href.startsWith('./')) {
                     e.preventDefault();
-                    loadCatalogAjax(href, true, false);
+                    const sec = document.getElementById('directory-catalog-section');
+                    const shouldScrollCatalog = sec && (window.pageYOffset < (sec.offsetTop - 120));
+                    loadCatalogAjax(href, true, shouldScrollCatalog);
                 }
             }
         });
