@@ -23,13 +23,17 @@ if (isset($_GET['action']) && $_GET['action'] === 'suggest') {
     }
 
     try {
+        list($searchClause, $searchParams) = buildUniversalSchoolSearchClause($q);
+        if ($searchClause === '') {
+            $searchClause = "name LIKE ? OR name_en LIKE ?";
+            $searchParams = ['%' . $q . '%', '%' . $q . '%'];
+        }
         $stmt = $pdo->prepare("SELECT id, name, name_en, slug, country, state, city, is_schoplus_client, rating_avg 
                                FROM daleel_schools 
-                               WHERE name LIKE ? OR name_en LIKE ? 
+                               WHERE {$searchClause} 
                                ORDER BY is_schoplus_client DESC, rating_avg DESC, id ASC 
                                LIMIT 8");
-        $like = '%' . $q . '%';
-        $stmt->execute([$like, $like]);
+        $stmt->execute($searchParams);
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         $results = [];

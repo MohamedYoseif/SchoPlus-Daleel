@@ -163,9 +163,13 @@ if ($isSearching) {
     $params = [];
 
     if ($q !== '') {
-        $where[] = "(name LIKE ? OR name_en LIKE ? OR district LIKE ? OR address LIKE ? OR description LIKE ?)";
-        $term = "%{$q}%";
-        $params[] = $term; $params[] = $term; $params[] = $term; $params[] = $term; $params[] = $term;
+        list($searchClause, $searchParams) = buildUniversalSchoolSearchClause($q);
+        if ($searchClause !== '') {
+            $where[] = $searchClause;
+            foreach ($searchParams as $p) {
+                $params[] = $p;
+            }
+        }
     }
 
     if ($country !== '') {

@@ -93,6 +93,84 @@ if (!function_exists('defaultNewsImage')) {
     }
 }
 
+if (!function_exists('normalizeArabicForSearch')) {
+    function normalizeArabicForSearch(?string $str): string {
+        if ($str === null || $str === '') return '';
+        $s = mb_strtolower(trim($str), 'UTF-8');
+        // Remove diacritics / tashkeel
+        $s = preg_replace('/[\x{064B}-\x{065F}\x{0670}]/u', '', $s);
+        // Normalize Alefs (أ, إ, آ, ٱ -> ا)
+        $s = preg_replace('/[أإآٱ]/u', 'ا', $s);
+        // Normalize Taa Marbuta (ة -> ه)
+        $s = preg_replace('/ة/u', 'ه', $s);
+        // Normalize Yaa / Alef Maksura (ي, ى -> ي)
+        $s = preg_replace('/[يى]/u', 'ي', $s);
+        // Normalize Hamzas (ؤ -> و, ئ -> ي)
+        $s = preg_replace('/ؤ/u', 'و', $s);
+        $s = preg_replace('/ئ/u', 'ي', $s);
+        // Remove excessive punctuation and multiple spaces
+        $s = preg_replace('/[^\p{L}\p{N}\s]+/u', ' ', $s);
+        $s = preg_replace('/\s+/u', ' ', $s);
+        return trim($s);
+    }
+}
+
+if (!function_exists('buildUniversalSchoolSearchClause')) {
+    function buildUniversalSchoolSearchClause(string $query): array {
+        $rawNorm = normalizeArabicForSearch($query);
+        if ($rawNorm === '') {
+            return ['', []];
+        }
+
+        // MySQL expression that normalizes Arabic characters on the fly across all search fields
+        $normSql = "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(%s, 'أ', 'ا'), 'إ', 'ا'), 'آ', 'ا'), 'ة', 'ه'), 'ى', 'ي'), 'ئ', 'ي')";
+        
+        // Comprehensive search fields:
+        // Name (AR & EN), City, State, District, Address, Description, Curriculum, School Type,
+        // Phone numbers (phone, whatsapp, owner_phone), School Management (owner_name, owner_title)
+        $fields = [
+            'name',
+            'name_en',
+            'city',
+            'state',
+            'district',
+            'address',
+            'description',
+            'curriculum',
+            'owner_name',
+            'owner_title',
+            'phone',
+            'whatsapp',
+            'owner_phone'
+        ];
+
+        // Tokenize search query to support multi-keyword partial matches (e.g. "الاخلاء بانت")
+        $tokens = array_values(array_filter(explode(' ', $rawNorm), function($t) {
+            return mb_strlen(trim($t), 'UTF-8') >= 2;
+        }));
+
+        if (empty($tokens)) {
+            $tokens = [$rawNorm];
+        }
+
+        $tokenClauses = [];
+        $params = [];
+
+        foreach ($tokens as $token) {
+            $fieldClauses = [];
+            $term = "%{$token}%";
+            foreach ($fields as $f) {
+                $fieldClauses[] = sprintf("COALESCE({$normSql}, '') LIKE ?", $f);
+                $params[] = $term;
+            }
+            $tokenClauses[] = '(' . implode(' OR ', $fieldClauses) . ')';
+        }
+
+        $sql = '(' . implode(' AND ', $tokenClauses) . ')';
+        return [$sql, $params];
+    }
+}
+
 if (!function_exists('getSchoolDirectoryRank')) {
     function getSchoolDirectoryRank(PDO $pdo, int $schoolId, ?int $customRank = null): int {
         static $cachedRanks = null;
