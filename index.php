@@ -209,8 +209,9 @@ if ($isSearching) {
 
     $whereClause = implode(' AND ', $where);
 
-    // Default sorting order: Historic schools FIRST, then newest additions (id DESC)
-    $orderBy = "{$historicWhereSql} DESC, id DESC";
+    // Default sorting order: Historic schools FIRST (ordered by established year oldest first), then newest additions (id DESC)
+    $historicYearOrder = "(CASE WHEN CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950 THEN CAST(established_year AS UNSIGNED) ELSE 9999 END) ASC";
+    $orderBy = "{$historicWhereSql} DESC, {$historicYearOrder}, id DESC";
     if ($view === 'historic') $orderBy = "is_historic DESC, historic_votes DESC, (CAST(established_year AS UNSIGNED) > 0) DESC, CAST(established_year AS UNSIGNED) ASC, rating_avg DESC, id DESC";
     if ($sort === 'rating' || $view === 'top_rated') $orderBy = "rating_avg DESC, reviews_count DESC, id DESC";
     if ($sort === 'reviews') $orderBy = "reviews_count DESC, id DESC";
@@ -230,7 +231,7 @@ if ($isSearching) {
     $searchResults = $searchStmt->fetchAll();
 } else {
     // Default home view (تبويب كافة المدارس):
-    // Orders historic schools FIRST, then by newest addition (id DESC), paginated 12 schools per page
+    // Orders historic schools FIRST (oldest established year first), then newest additions (id DESC), paginated 12 per page
     $totalMatching = $statTotal;
     $totalPages = max(1, (int) ceil($totalMatching / $perPage));
     if ($page > $totalPages) $page = $totalPages;
@@ -242,7 +243,8 @@ if ($isSearching) {
         $schoplusShowcase = $pdo->query("SELECT * FROM daleel_schools WHERE status = 'approved' AND is_schoplus_client = 1 ORDER BY is_featured DESC, rating_avg DESC, id DESC LIMIT 6")->fetchAll();
     }
 
-    $defaultOrder = "{$historicWhereSql} DESC, id DESC";
+    $historicYearOrder = "(CASE WHEN CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950 THEN CAST(established_year AS UNSIGNED) ELSE 9999 END) ASC";
+    $defaultOrder = "{$historicWhereSql} DESC, {$historicYearOrder}, id DESC";
     $catalogSchools = $pdo->query("SELECT * FROM daleel_schools WHERE status = 'approved' ORDER BY {$defaultOrder} LIMIT {$perPage} OFFSET {$offset}")->fetchAll();
     $searchResults = $catalogSchools;
 }

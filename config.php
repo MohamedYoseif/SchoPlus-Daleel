@@ -96,8 +96,11 @@ if (!function_exists('getSchoolDirectoryRank')) {
         static $cachedRanks = null;
         if ($cachedRanks === null) {
             try {
-                // الترتيب حصراً للمدارس المعتمدة فقط (status = 'approved') وفق أسبقية الاعتماد
-                $stmt = $pdo->query("SELECT id FROM daleel_schools WHERE status = 'approved' ORDER BY id ASC");
+                // ترتيب الدليل: الصروح والمدارس العريقة أولاً (حسب سنة التأسيس الأقدم)، ثم بقية المدارس المعتمدة
+                $historicSql = "(is_historic = 1 OR (established_year IS NOT NULL AND CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950) OR historic_votes >= 500 OR name LIKE '%خور طقت%' OR name LIKE '%وادي سيدنا%' OR name LIKE '%حنتوب%' OR name LIKE '%بخت الرضا%' OR name LIKE '%الأهلية%أم درمان%' OR name LIKE '%كمبوني%')";
+                $orderClause = "({$historicSql}) DESC, (CASE WHEN CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950 THEN CAST(established_year AS UNSIGNED) ELSE 9999 END) ASC, id ASC";
+
+                $stmt = $pdo->query("SELECT id FROM daleel_schools WHERE status = 'approved' ORDER BY {$orderClause}");
                 $cachedRanks = [];
                 $seq = 1;
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -129,8 +132,11 @@ if (!function_exists('getSchoolStateRank')) {
         static $cachedStateCounts = null;
         if ($cachedStateRanks === null) {
             try {
-                // الترتيب داخل الولاية حصراً للمدارس المعتمدة فقط وفق أسبقية الاعتماد في كل ولاية ودولة
-                $stmt = $pdo->query("SELECT id, country, state FROM daleel_schools WHERE status = 'approved' ORDER BY id ASC");
+                // الترتيب داخل الولاية: الصروح العريقة أولاً، ثم حسب أسبقية التسجيل والاعتماد
+                $historicSql = "(is_historic = 1 OR (established_year IS NOT NULL AND CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950) OR historic_votes >= 500 OR name LIKE '%خور طقت%' OR name LIKE '%وادي سيدنا%' OR name LIKE '%حنتوب%' OR name LIKE '%بخت الرضا%' OR name LIKE '%الأهلية%أم درمان%' OR name LIKE '%كمبوني%')";
+                $orderClause = "({$historicSql}) DESC, (CASE WHEN CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950 THEN CAST(established_year AS UNSIGNED) ELSE 9999 END) ASC, id ASC";
+
+                $stmt = $pdo->query("SELECT id, country, state FROM daleel_schools WHERE status = 'approved' ORDER BY {$orderClause}");
                 $cachedStateRanks = [];
                 $cachedStateCounts = [];
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
