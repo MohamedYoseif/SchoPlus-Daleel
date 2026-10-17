@@ -74,7 +74,7 @@ class SchoolBatchImporter
             return ['status' => 'error', 'message' => 'اسم غير صالح للمؤسسة التعليمية (عنوان تقرير)'];
         }
 
-        $country = trim($data['country'] ?? 'السودان') ?: 'السودان';
+        $country = SudanGeography::normalizeCountry($data['country'] ?? 'السودان');
         $state = trim($data['state'] ?? 'الخرطوم') ?: 'الخرطوم';
         $city = trim($data['city'] ?? 'الخرطوم') ?: 'الخرطوم';
         $district = trim($data['district'] ?? '');

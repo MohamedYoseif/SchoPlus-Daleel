@@ -814,12 +814,26 @@ function ensureTablesExist(PDO $pdo): void {
         try {
             $currCount = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE status = 'approved'")->fetchColumn();
             $seedFile = __DIR__ . '/seed_schools_data.php';
-            if ($currCount < 1600 && file_exists($seedFile)) {
+            if ($currCount < 1700 && file_exists($seedFile)) {
                 require_once __DIR__ . '/SchoolBatchImporter.php';
                 $seedImporter = new SchoolBatchImporter($pdo);
                 $seedSchools = require $seedFile;
                 if (is_array($seedSchools) && count($seedSchools) > 0) {
                     $seedImporter->importBatch($seedSchools);
+                }
+            }
+        } catch (Throwable $e) {}
+
+        // Dedicated Diaspora Seed Check: Ensure international diaspora schools parity
+        try {
+            $diasporaCount = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE country != 'السودان'")->fetchColumn();
+            $diasporaSeedFile = __DIR__ . '/seed_diaspora_schools_data.php';
+            if ($diasporaCount < 90 && file_exists($diasporaSeedFile)) {
+                require_once __DIR__ . '/SchoolBatchImporter.php';
+                $diasporaImporter = new SchoolBatchImporter($pdo);
+                $diasporaSchools = require $diasporaSeedFile;
+                if (is_array($diasporaSchools) && count($diasporaSchools) > 0) {
+                    $diasporaImporter->importBatch($diasporaSchools);
                 }
             }
         } catch (Throwable $e) {}
