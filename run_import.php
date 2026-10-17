@@ -40,6 +40,12 @@ echo "Connecting to database...\n";
 
 $importer = new SchoolBatchImporter(db());
 
+if (!empty($_GET['purge_synthetic']) || (isset($argv) && in_array('--purge-synthetic', $argv))) {
+    echo "Purging synthetic records (id > 110)...\n";
+    $deleted = db()->exec("DELETE FROM daleel_schools WHERE id > 110");
+    echo "Deleted {$deleted} synthetic records from database.\n";
+}
+
 echo "Starting import...\n";
 $start = microtime(true);
 $results = $importer->importBatch($schools);
