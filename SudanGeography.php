@@ -642,7 +642,68 @@ class SudanGeography
     public static function schoolTypeLabel(?string $key): string
     {
         $types = self::schoolTypes();
-        return $types[$key ?? ''] ?? 'مدرسة خاصة';
+        if ($key && isset($types[$key])) {
+            return $types[$key];
+        }
+        return !empty($key) ? $key : 'مدرسة حكومية / عامة';
+    }
+
+    public static function schoolTypeBadge(?string $key): array
+    {
+        $type = $key ?? '';
+        switch ($type) {
+            case 'government':
+                return [
+                    'label' => 'مدرسة حكومية',
+                    'icon' => 'fas fa-university',
+                    'style' => 'background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0;',
+                ];
+            case 'international':
+                return [
+                    'label' => 'مدرسة دولية / عالمية',
+                    'icon' => 'fas fa-globe',
+                    'style' => 'background: #F5F3FF; color: #5B21B6; border: 1px solid #DDD6FE;',
+                ];
+            case 'community':
+                return [
+                    'label' => 'مدرسة مجتمعية',
+                    'icon' => 'fas fa-users',
+                    'style' => 'background: #FFFBEB; color: #92400E; border: 1px solid #FDE68A;',
+                ];
+            case 'language':
+                return [
+                    'label' => 'مدرسة لغات',
+                    'icon' => 'fas fa-language',
+                    'style' => 'background: #F0FDFA; color: #0F766E; border: 1px solid #99F6E4;',
+                ];
+            case 'private':
+            default:
+                return [
+                    'label' => 'مدرسة خاصة',
+                    'icon' => 'fas fa-graduation-cap',
+                    'style' => 'background: #EFF6FF; color: #1E40AF; border: 1px solid #BFDBFE;',
+                ];
+        }
+    }
+
+    public static function deduceSchoolType(string $name, ?string $currentType = null): string
+    {
+        if (preg_match('/(حكومية|حكومي|وزارية|بخت الرضا|خور طقت|وادي سيدنا|حنتوب|المؤتمر الثانوية|بربر الثانوية|الأميرية|القومية|النموذجية الحكومية)/u', $name)) {
+            return 'government';
+        }
+        if (preg_match('/(عالمية|دولية|international|british|american|cambridge)/ui', $name)) {
+            return 'international';
+        }
+        if (preg_match('/(لغات|language)/ui', $name)) {
+            return 'language';
+        }
+        if (preg_match('/(كمبوني|القبطية|الإنجيلية|اليونانية|الأرمنية|الهندية|الإثيوبية)/u', $name)) {
+            return 'community';
+        }
+        if (preg_match('/(خاصة|الخاصة|الخاص)/u', $name)) {
+            return 'private';
+        }
+        return $currentType ?: 'private';
     }
 
     public static function schoolStages(): array

@@ -312,7 +312,10 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
                 <?php foreach(array_slice($stagesArr, 0, 3) as $st): ?>
                     <span class="badge-stage-pill"><?= e($schoolStages[$st] ?? $st) ?></span>
                 <?php endforeach; ?>
-                <span class="badge" style="background: #F1F5F9; color: #475569; border: 1px solid #E2E8F0; font-size: 0.68rem; font-weight: 700;"><?= e($schoolTypes[$s['school_type']] ?? $s['school_type']) ?></span>
+                <?php $tBadge = SudanGeography::schoolTypeBadge($s['school_type'] ?? ''); ?>
+                <span class="badge" style="<?= $tBadge['style'] ?> font-size: 0.68rem; font-weight: 700;">
+                    <i class="<?= $tBadge['icon'] ?> me-1"></i> <?= e($tBadge['label']) ?>
+                </span>
                 <?php if (isSchoolHistoric($s)): ?>
                     <?php $hInfo = getSchoolHistoricBadge($s); ?>
                     <span class="badge" style="background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; font-size: 0.68rem; font-weight: 800;">

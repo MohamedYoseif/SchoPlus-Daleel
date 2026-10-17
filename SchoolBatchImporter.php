@@ -90,7 +90,7 @@ class SchoolBatchImporter
         }
 
         $slug = $this->generateSlug($name, $state);
-        $schoolType = $data['school_type'] ?? 'private';
+        $schoolType = SudanGeography::deduceSchoolType($name, $data['school_type'] ?? null);
         $genderType = $data['gender_type'] ?? 'mixed';
         $curriculum = $data['curriculum'] ?? 'sudanese';
         

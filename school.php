@@ -1297,9 +1297,10 @@ $totalRev = max(1, count($reviewsList));
                         <i class="fas fa-star" style="color: #F5A020;"></i>
                         <span><strong><?= number_format($school['rating_avg'], 1) ?></strong> (<?= $school['reviews_count'] ?> تقييم)</span>
                     </div>
+                    <?php $sTypeBadge = SudanGeography::schoolTypeBadge($school['school_type'] ?? ''); ?>
                     <div class="sp-stat-item">
-                        <i class="fas fa-building" style="color: var(--brand-blue);"></i>
-                        <span><?= SudanGeography::schoolTypeLabel($school['school_type']) ?></span>
+                        <i class="<?= $sTypeBadge['icon'] ?>" style="color: var(--brand-blue);"></i>
+                        <span><?= $sTypeBadge['label'] ?></span>
                     </div>
                     <?php if ($feesType === 'detailed' && !empty($stageFeesList)): ?>
                     <div class="sp-stat-item">
@@ -1529,7 +1530,9 @@ $totalRev = max(1, count($reviewsList));
                                 <div class="col-6">
                                     <div class="p-2 rounded-3 bg-light border">
                                         <small class="text-muted d-block" style="font-size: 0.72rem;">نوع المدرسة</small>
-                                        <span class="fw-bold text-dark small"><?= SudanGeography::schoolTypeLabel($school['school_type']) ?></span>
+                                        <span class="fw-bold small" style="color: <?= (($school['school_type'] ?? '') === 'government') ? '#059669' : '#1E40AF'; ?>;">
+                                            <i class="<?= $sTypeBadge['icon'] ?> me-1"></i> <?= $sTypeBadge['label'] ?>
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="col-6">
@@ -2440,7 +2443,7 @@ $totalRev = max(1, count($reviewsList));
                             <div class="sp-fact-icon" style="background: #EFF6FF; color: var(--brand-blue);"><i class="fas fa-building"></i></div>
                             <div>
                                 <span class="sp-fact-label">نوع المدرسة</span>
-                                <span class="sp-fact-value"><?= SudanGeography::schoolTypeLabel($school['school_type']) ?></span>
+                                <span class="sp-fact-value fw-bold" style="color: <?= (($school['school_type'] ?? '') === 'government') ? '#059669' : '#1E40AF'; ?>;"><?= SudanGeography::schoolTypeLabel($school['school_type']) ?></span>
                             </div>
                         </div>
                         <div class="sp-fact-row">

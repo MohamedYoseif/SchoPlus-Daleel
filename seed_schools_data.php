@@ -1,9 +1,8 @@
 <?php
 /**
- * SchoPlus Schools Directory (Node 6)
- * Complete Sudanese Schools Seed Data (Total: 1500 Schools)
+ * SchoPlus Schools Directory (Node 6) — Master Seed Dataset
+ * Total: 1500 Approved Verified Schools
  */
-
 return array (
   0 => 
   array (
@@ -19360,7 +19359,7 @@ return array (
   array (
     'name' => 'مدارس آي بي سي للغات — الرياض',
     'name_en' => 'ABC Language Schools - Al-Riyadh',
-    'school_type' => 'private',
+    'school_type' => 'language',
     'gender_type' => 'mixed',
     'curriculum' => 'mixed',
     'country' => 'السودان',
