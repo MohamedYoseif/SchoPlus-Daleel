@@ -109,56 +109,6 @@ if (!function_exists('renderCatalogPagination')) {
     </div>
 </div>
 
-<!-- Top Quick Filter Toolbar (Instant State & Type Navigation) -->
-<div class="sp-top-catalog-toolbar mb-4 p-2.5 bg-white rounded-3 border d-flex flex-wrap align-items-center justify-content-between gap-2 shadow-xs" style="border-color: #DDE4ED !important;">
-    <div class="d-flex align-items-center gap-2 flex-wrap">
-        <!-- Quick State Filter Dropdown -->
-        <div class="d-flex align-items-center gap-2">
-            <span class="text-muted small fw-bold" style="font-size: 0.72rem;"><i class="fas fa-map-marker-alt text-danger me-1"></i> الولاية:</span>
-            <select class="form-select form-select-sm sp-top-filter-select" onchange="loadCatalogAjax(this.value, true, true)" style="font-size: 0.76rem; font-weight: 700; color: #0B2A52; border-color: #DDE4ED; border-radius: 8px; width: auto; min-width: 175px; cursor: pointer;">
-                <option value="<?= buildFilterUrl(['state' => null, 'city' => null, 'page' => null]) ?>" <?= empty($state) ? 'selected' : '' ?>>كافة الولايات (18 ولاية)</option>
-                <?php foreach($allStatesList as $st): ?>
-                    <option value="<?= buildFilterUrl(['state' => $st, 'city' => null, 'page' => null]) ?>" <?= $state === $st ? 'selected' : '' ?>>
-                        ولاية <?= e($st) ?> (<?= $stateCounts[$st] ?? 0 ?>)
-                    </option>
-                <?php endforeach; ?>
-            </select>
-        </div>
-
-        <div class="vr mx-1 text-muted opacity-25 d-none d-sm-block" style="height: 24px;"></div>
-
-        <!-- Quick Type Selector Pills -->
-        <div class="d-flex align-items-center gap-1">
-            <a href="<?= buildFilterUrl(['type' => null, 'view' => ($view === 'historic' ? 'historic' : null), 'page' => null]) ?>" class="btn btn-sm <?= empty($schoolType) ? 'btn-dark' : 'btn-light border' ?>" style="font-size: 0.72rem; font-weight: 700; padding: 4px 12px; border-radius: 6px; <?= empty($schoolType) ? 'background: #0B2A52; border-color: #0B2A52; color: #fff;' : 'color: #475569;' ?>">
-                الكل
-            </a>
-            <a href="<?= buildFilterUrl(['type' => 'government', 'page' => null]) ?>" class="btn btn-sm <?= $schoolType === 'government' ? 'btn-primary' : 'btn-light border' ?>" style="font-size: 0.72rem; font-weight: 700; padding: 4px 12px; border-radius: 6px; <?= $schoolType === 'government' ? 'background: #1E5FA8; border-color: #1E5FA8; color: #fff;' : 'color: #475569;' ?>">
-                <i class="fas fa-landmark me-1"></i> حكومي
-            </a>
-            <a href="<?= buildFilterUrl(['type' => 'private', 'page' => null]) ?>" class="btn btn-sm <?= $schoolType === 'private' ? 'btn-warning' : 'btn-light border' ?>" style="font-size: 0.72rem; font-weight: 700; padding: 4px 12px; border-radius: 6px; <?= $schoolType === 'private' ? 'background: #F5A020; border-color: #F5A020; color: #0D1B2E;' : 'color: #475569;' ?>">
-                <i class="fas fa-graduation-cap me-1"></i> خاص
-            </a>
-            <a href="<?= buildFilterUrl(['view' => 'historic', 'type' => null, 'page' => null]) ?>" class="btn btn-sm <?= $view === 'historic' ? 'btn-warning text-dark' : 'btn-light border' ?>" style="font-size: 0.72rem; font-weight: 700; padding: 4px 12px; border-radius: 6px; <?= $view === 'historic' ? 'background: linear-gradient(135deg, #FDE68A 0%, #F59E0B 100%); border-color: #FCD34D; color: #78350F !important;' : 'color: #78350F;' ?>">
-                <i class="fas fa-landmark me-1"></i> صروح عريقة
-            </a>
-        </div>
-    </div>
-
-    <!-- Active State & Total Indicator -->
-    <div class="d-flex align-items-center gap-2 text-muted" style="font-size: 0.73rem;">
-        <?php if (!empty($state)): ?>
-            <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-2 py-1" style="font-size: 0.7rem; font-weight: 700;">
-                <i class="fas fa-map-marker-alt me-1"></i> ولاية <?= e($state) ?>
-            </span>
-        <?php endif; ?>
-        <?php if (!empty($schoolType)): ?>
-            <span class="badge <?= $schoolType === 'government' ? 'bg-info-subtle text-info-emphasis' : 'bg-warning-subtle text-warning-emphasis' ?> border px-2 py-1" style="font-size: 0.7rem; font-weight: 700;">
-                <?= $schoolType === 'government' ? 'مدارس حكومية' : 'مدارس خاصة ودولية' ?>
-            </span>
-        <?php endif; ?>
-        <span>إجمالي المدارس: <strong class="text-dark"><?= number_format($totalMatching ?? $statTotal) ?></strong></span>
-    </div>
-</div>
 
 <!-- Mobile Filter Toggle Button -->
 <div class="d-lg-none mb-3">
