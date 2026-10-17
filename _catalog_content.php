@@ -216,6 +216,43 @@ if (!function_exists('renderCatalogPagination')) {
                     </div>
 
                 </div>
+
+                <!-- ADVERTISING SPACE (مساحة إعلانية أسفل تصفية حسب الولاية) -->
+                <div class="sp-sidebar-ad-card mt-3">
+                    <div class="sp-sidebar-ad-header">
+                        <span class="sp-sidebar-ad-badge">
+                            <i class="fas fa-ad"></i> مساحة إعلانية
+                        </span>
+                        <span class="sp-sidebar-ad-status">
+                            <span class="sp-ad-pulse-dot"></span> متاحة الآن
+                        </span>
+                    </div>
+                    
+                    <div class="sp-sidebar-ad-body">
+                        <div class="sp-sidebar-ad-icon">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <h6 class="sp-sidebar-ad-title">أعلن هنا لمدرستك أو خدماتك</h6>
+                        <p class="sp-sidebar-ad-desc">
+                            فرصة مميزة للوصول المباشر إلى آلاف أولياء الأمور والطلاب في كافة ولايات السودان يومياً.
+                        </p>
+                        
+                        <div class="sp-sidebar-ad-perks">
+                            <div class="sp-ad-perk"><i class="fas fa-check-circle text-warning"></i> استهداف مباشر لأولياء الأمور</div>
+                            <div class="sp-ad-perk"><i class="fas fa-check-circle text-warning"></i> ظهور دائم بجانب دليل المدارس</div>
+                        </div>
+
+                        <a href="https://wa.me/249912345678?text=<?= urlencode('مرحباً إدارة دليل SchoPlus، أود الاستفسار عن تفاصيل وحجز المساحة الإعلانية أسفل تصفية الولايات.') ?>" target="_blank" class="sp-sidebar-ad-btn">
+                            <i class="fab fa-whatsapp"></i>
+                            <span>احجز مساحتك الإعلانية</span>
+                        </a>
+
+                        <div class="sp-sidebar-ad-footer-text">
+                            <span>خدمة إعلانية وتسويقية من <strong>SchoPlus</strong></span>
+                        </div>
+                    </div>
+                </div>
+
             </aside>
         </div>
     </div>

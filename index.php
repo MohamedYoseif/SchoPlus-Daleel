@@ -1478,6 +1478,140 @@ require_once __DIR__ . '/header.php';
     border-color: #1E5FA8;
 }
 
+/* ===== LUXURY SIDEBAR ADVERTISING SPACE (STYLE F v2) ===== */
+.sp-sidebar-ad-card {
+    background: #FFFFFF;
+    border: 1px solid #DDE4ED;
+    border-radius: 14px;
+    box-shadow: 0 4px 18px rgba(11, 42, 82, 0.04);
+    overflow: hidden;
+    position: relative;
+    border-top: 3px solid #F5A020;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.sp-sidebar-ad-card:hover {
+    box-shadow: 0 8px 24px rgba(11, 42, 82, 0.08);
+}
+.sp-sidebar-ad-header {
+    background: #F8FAFC;
+    border-bottom: 1px solid #EDF2F7;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.sp-sidebar-ad-badge {
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: #0B2A52;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #EFF6FF;
+    border: 1px solid #DBEAFE;
+    padding: 2px 8px;
+    border-radius: 999px;
+}
+.sp-sidebar-ad-status {
+    font-size: 0.64rem;
+    color: #059669;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+.sp-ad-pulse-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #10B981;
+    display: inline-block;
+    box-shadow: 0 0 0 rgba(16, 185, 129, 0.4);
+    animation: spAdPulse 1.6s infinite;
+}
+@keyframes spAdPulse {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+.sp-sidebar-ad-body {
+    padding: 16px 14px 14px;
+    text-align: center;
+}
+.sp-sidebar-ad-icon {
+    width: 44px;
+    height: 44px;
+    margin: 0 auto 10px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(245, 160, 32, 0.15) 0%, rgba(30, 95, 168, 0.1) 100%);
+    border: 1.5px dashed #F5A020;
+    color: #F5A020;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+}
+.sp-sidebar-ad-title {
+    font-size: 0.84rem;
+    font-weight: 800;
+    color: #0B2A52;
+    margin-bottom: 5px;
+    line-height: 1.3;
+}
+.sp-sidebar-ad-desc {
+    font-size: 0.71rem;
+    color: #64748B;
+    line-height: 1.55;
+    margin-bottom: 12px;
+}
+.sp-sidebar-ad-perks {
+    background: #F8FAFC;
+    border: 1px solid #EDF2F7;
+    border-radius: 8px;
+    padding: 8px 10px;
+    margin-bottom: 12px;
+    text-align: right;
+}
+.sp-ad-perk {
+    font-size: 0.67rem;
+    color: #334155;
+    font-weight: 600;
+    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.sp-ad-perk:last-child {
+    margin-bottom: 0;
+}
+.sp-sidebar-ad-btn {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: #FFFFFF !important;
+    font-weight: 800;
+    font-size: 0.76rem;
+    padding: 8px 12px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    width: 100%;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
+    transition: all 0.18s ease;
+}
+.sp-sidebar-ad-btn:hover {
+    background: linear-gradient(135deg, #20BA5A 0%, #0F7569 100%);
+    color: #FFFFFF !important;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(37, 211, 102, 0.35);
+}
+.sp-sidebar-ad-footer-text {
+    margin-top: 8px;
+    font-size: 0.63rem;
+    color: #94A3B8;
+}
+
 /* Active Filter Chips */
 .sp-active-filter-chips {
     background: #FFFFFF;
