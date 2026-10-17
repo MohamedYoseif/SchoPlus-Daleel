@@ -3,6 +3,77 @@
  * SchoPlus Daleel — Dynamic Catalog Partial
  * Used for both initial server-side render and instant AJAX updates
  */
+
+if (!function_exists('renderCatalogPagination')) {
+    function renderCatalogPagination(int $currentPage, int $totalPages, int $totalItems, int $perPage = 12): void {
+        if ($totalPages <= 1) return;
+
+        $prevPage = max(1, $currentPage - 1);
+        $nextPage = min($totalPages, $currentPage + 1);
+        $hasPrev = $currentPage > 1;
+        $hasNext = $currentPage < $totalPages;
+
+        $startItem = (($currentPage - 1) * $perPage) + 1;
+        $endItem = min($totalItems, $currentPage * $perPage);
+?>
+        <div class="sp-catalog-pagination-wrap my-3">
+            <div class="sp-pagination-info">
+                <span>عرض <strong><?= $startItem ?>-<?= $endItem ?></strong> من أصل <strong><?= number_format($totalItems) ?></strong> مدرسة</span>
+                <span class="mx-1 text-muted">•</span>
+                <span>الصفحة <strong><?= $currentPage ?></strong> من <strong><?= $totalPages ?></strong></span>
+            </div>
+
+            <nav class="sp-pagination-nav" aria-label="تنقل صفحات الدليل">
+                <!-- زر الصفحة السابقة -->
+                <a href="<?= $hasPrev ? buildFilterUrl(['page' => $prevPage]) : '#' ?>" 
+                   class="sp-pg-btn <?= !$hasPrev ? 'disabled' : '' ?>" 
+                   title="الصفحة السابقة"
+                   aria-disabled="<?= !$hasPrev ? 'true' : 'false' ?>">
+                    <i class="fas fa-chevron-right"></i>
+                    <span>السابقة</span>
+                </a>
+
+                <?php
+                // Windowed Pagination: Show pages around current
+                $range = 2;
+                $startRange = max(1, $currentPage - $range);
+                $endRange = min($totalPages, $currentPage + $range);
+
+                if ($startRange > 1): ?>
+                    <a href="<?= buildFilterUrl(['page' => 1]) ?>" class="sp-pg-btn <?= $currentPage === 1 ? 'active' : '' ?>">1</a>
+                    <?php if ($startRange > 2): ?>
+                        <span class="sp-pg-ellipsis">...</span>
+                    <?php endif; ?>
+                <?php endif; ?>
+
+                <?php for ($p = $startRange; $p <= $endRange; $p++): ?>
+                    <a href="<?= buildFilterUrl(['page' => $p]) ?>" class="sp-pg-btn <?= $p === $currentPage ? 'active' : '' ?>">
+                        <?= $p ?>
+                    </a>
+                <?php endfor; ?>
+
+                <?php if ($endRange < $totalPages): ?>
+                    <?php if ($endRange < $totalPages - 1): ?>
+                        <span class="sp-pg-ellipsis">...</span>
+                    <?php endif; ?>
+                    <a href="<?= buildFilterUrl(['page' => $totalPages]) ?>" class="sp-pg-btn <?= $currentPage === $totalPages ? 'active' : '' ?>">
+                        <?= $totalPages ?>
+                    </a>
+                <?php endif; ?>
+
+                <!-- زر الصفحة التالية -->
+                <a href="<?= $hasNext ? buildFilterUrl(['page' => $nextPage]) : '#' ?>" 
+                   class="sp-pg-btn <?= !$hasNext ? 'disabled' : '' ?>" 
+                   title="الصفحة التالية"
+                   aria-disabled="<?= !$hasNext ? 'true' : 'false' ?>">
+                    <span>التالية</span>
+                    <i class="fas fa-chevron-left"></i>
+                </a>
+            </nav>
+        </div>
+<?php
+    }
+}
 ?>
 <!-- Mandatory Specification for Main Tabs (.sp-main-tabs) -->
 <div class="sp-main-tabs-wrap d-flex justify-content-center text-center">
@@ -298,6 +369,9 @@
                 </div>
             </div>
 
+            <!-- TOP PAGINATION BAR -->
+            <?php renderCatalogPagination($page ?? 1, $totalPages ?? 1, $totalMatching ?? 0, $perPage ?? 12); ?>
+
             <!-- SEARCH RESULTS GRID -->
             <div class="row g-3">
                 <?php if (empty($searchResults)): ?>
@@ -334,9 +408,12 @@
                 <?php endif; ?>
             </div>
 
+            <!-- BOTTOM PAGINATION BAR -->
+            <?php renderCatalogPagination($page ?? 1, $totalPages ?? 1, $totalMatching ?? 0, $perPage ?? 12); ?>
+
         <?php else: ?>
 
-            <!-- DEFAULT VIEW: FEATURED SCHOPLUS SHOWCASE -->
+            <!-- DEFAULT VIEW: FEATURED SCHOPLUS SHOWCASE (Shown on Page 1) -->
             <?php if (!empty($schoplusShowcase)): ?>
             <div class="mb-4">
                 <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3">
@@ -378,11 +455,17 @@
                     </div>
                 </div>
 
+                <!-- TOP PAGINATION BAR -->
+                <?php renderCatalogPagination($page ?? 1, $totalPages ?? 1, $statTotal ?? 0, $perPage ?? 12); ?>
+
                 <div class="row g-3">
                     <?php foreach($catalogSchools as $s): ?>
                         <?php $renderSchoolCard($s); ?>
                     <?php endforeach; ?>
                 </div>
+
+                <!-- BOTTOM PAGINATION BAR -->
+                <?php renderCatalogPagination($page ?? 1, $totalPages ?? 1, $statTotal ?? 0, $perPage ?? 12); ?>
             </div>
 
         <?php endif; ?>

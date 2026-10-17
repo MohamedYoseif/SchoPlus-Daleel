@@ -15,11 +15,14 @@ $city = trim($_GET['city'] ?? '');
 $stage = trim($_GET['stage'] ?? '');
 $schoolType = trim($_GET['type'] ?? $_GET['school_type'] ?? '');
 $schoplusOnly = !empty($_GET['schoplus_only']);
-$sort = trim($_GET['sort'] ?? 'featured');
+$sort = trim($_GET['sort'] ?? '');
 $view = trim($_GET['view'] ?? ''); // 'all', 'schoplus', 'top_rated', 'historic', 'latest', or ''
+$page = max(1, (int)($_GET['page'] ?? 1));
+$perPage = 12;
 
 // Determine if user is performing a specific search or filter
-$isSearching = ($q !== '' || $country !== '' || $state !== '' || $city !== '' || $stage !== '' || $schoolType !== '' || $schoplusOnly || in_array($view, ['all', 'schoplus', 'top_rated', 'historic', 'latest']));
+$isSearching = ($q !== '' || $country !== '' || $state !== '' || $city !== '' || $stage !== '' || $schoolType !== '' || $schoplusOnly || in_array($view, ['all', 'schoplus', 'top_rated', 'historic', 'latest']) || $sort !== '');
+$isDefaultCatalog = !$isSearching;
 
 // Geography & standard mappings
 $countriesList = SudanGeography::countries();
@@ -204,26 +207,44 @@ if ($isSearching) {
 
     $whereClause = implode(' AND ', $where);
 
-    $orderBy = "is_featured DESC, is_schoplus_client DESC, rating_avg DESC";
-    if ($view === 'historic') $orderBy = "is_historic DESC, historic_votes DESC, (CAST(established_year AS UNSIGNED) > 0) DESC, CAST(established_year AS UNSIGNED) ASC, rating_avg DESC";
-    if ($sort === 'rating' || $view === 'top_rated') $orderBy = "rating_avg DESC, reviews_count DESC";
-    if ($sort === 'reviews') $orderBy = "reviews_count DESC";
-    if ($sort === 'views') $orderBy = "views_count DESC";
-    if ($sort === 'latest' || $view === 'latest') $orderBy = "created_at DESC";
+    $whereClause = implode(' AND ', $where);
+
+    // Default sorting order: Historic schools FIRST, then newest additions (id DESC)
+    $orderBy = "{$historicWhereSql} DESC, id DESC";
+    if ($view === 'historic') $orderBy = "is_historic DESC, historic_votes DESC, (CAST(established_year AS UNSIGNED) > 0) DESC, CAST(established_year AS UNSIGNED) ASC, rating_avg DESC, id DESC";
+    if ($sort === 'rating' || $view === 'top_rated') $orderBy = "rating_avg DESC, reviews_count DESC, id DESC";
+    if ($sort === 'reviews') $orderBy = "reviews_count DESC, id DESC";
+    if ($sort === 'views') $orderBy = "views_count DESC, id DESC";
+    if ($sort === 'latest' || $view === 'latest') $orderBy = "created_at DESC, id DESC";
 
     $countStmt = $pdo->prepare("SELECT COUNT(*) FROM daleel_schools WHERE {$whereClause}");
     $countStmt->execute($params);
     $totalMatching = (int) $countStmt->fetchColumn();
 
-    $searchStmt = $pdo->prepare("SELECT * FROM daleel_schools WHERE {$whereClause} ORDER BY {$orderBy}");
+    $totalPages = max(1, (int) ceil($totalMatching / $perPage));
+    if ($page > $totalPages) $page = $totalPages;
+    $offset = ($page - 1) * $perPage;
+
+    $searchStmt = $pdo->prepare("SELECT * FROM daleel_schools WHERE {$whereClause} ORDER BY {$orderBy} LIMIT {$perPage} OFFSET {$offset}");
     $searchStmt->execute($params);
     $searchResults = $searchStmt->fetchAll();
 } else {
-    // Default home view:
-    // 1. Featured / SchoPlus Showcase: max 6 schools
-    $schoplusShowcase = $pdo->query("SELECT * FROM daleel_schools WHERE status = 'approved' AND is_schoplus_client = 1 ORDER BY is_featured DESC, rating_avg DESC LIMIT 6")->fetchAll();
-    // 2. Default catalog:
-    $catalogSchools = $pdo->query("SELECT * FROM daleel_schools WHERE status = 'approved' ORDER BY is_featured DESC, is_schoplus_client DESC, rating_avg DESC LIMIT 15")->fetchAll();
+    // Default home view (تبويب كافة المدارس):
+    // Orders historic schools FIRST, then by newest addition (id DESC), paginated 12 schools per page
+    $totalMatching = $statTotal;
+    $totalPages = max(1, (int) ceil($totalMatching / $perPage));
+    if ($page > $totalPages) $page = $totalPages;
+    $offset = ($page - 1) * $perPage;
+
+    // Featured / SchoPlus Showcase only on page 1 of default view
+    $schoplusShowcase = [];
+    if ($page === 1) {
+        $schoplusShowcase = $pdo->query("SELECT * FROM daleel_schools WHERE status = 'approved' AND is_schoplus_client = 1 ORDER BY is_featured DESC, rating_avg DESC, id DESC LIMIT 6")->fetchAll();
+    }
+
+    $defaultOrder = "{$historicWhereSql} DESC, id DESC";
+    $catalogSchools = $pdo->query("SELECT * FROM daleel_schools WHERE status = 'approved' ORDER BY {$defaultOrder} LIMIT {$perPage} OFFSET {$offset}")->fetchAll();
+    $searchResults = $catalogSchools;
 }
 
 /**
@@ -370,7 +391,9 @@ if ($isAjax) {
         'q' => $q,
         'view' => $view,
         'sort' => $sort,
-        'schoplus_only' => $schoplusOnly ? 1 : 0
+        'schoplus_only' => $schoplusOnly ? 1 : 0,
+        'page' => $page,
+        'total_pages' => $totalPages
     ], JSON_UNESCAPED_UNICODE);
     exit;
 }
@@ -399,6 +422,78 @@ require_once __DIR__ . '/header.php';
 /* AJAX Dynamic Loader Bar & Transitions */
 #catalog-dynamic-wrap {
     transition: opacity 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== SchoPlus Style F v2 Luxury Pagination Bar ===== */
+.sp-catalog-pagination-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: #FFFFFF;
+    border: 1px solid #DDE4ED;
+    border-radius: 12px;
+    padding: 8px 16px;
+    box-shadow: 0 2px 8px rgba(11, 42, 82, 0.04);
+}
+.sp-pagination-nav {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+.sp-pg-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-width: 32px;
+    height: 32px;
+    padding: 0 10px;
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: #0B2A52;
+    background: #FFFFFF;
+    border: 1px solid #DDE4ED;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.16s ease;
+    user-select: none;
+}
+.sp-pg-btn:hover {
+    background: #F4F8FC;
+    border-color: #1E5FA8;
+    color: #1E5FA8;
+}
+.sp-pg-btn.active {
+    background: #F5A020 !important;
+    border-color: #F5A020 !important;
+    color: #0D1B2E !important;
+    font-weight: 900;
+    box-shadow: 0 2px 6px rgba(245, 160, 32, 0.35);
+}
+.sp-pg-btn.disabled {
+    opacity: 0.45;
+    pointer-events: none;
+    background: #F8FAFC;
+    border-color: #E2E8F0;
+    color: #94A3B8;
+}
+.sp-pg-ellipsis {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+    height: 32px;
+    color: #94A3B8;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+.sp-pagination-info {
+    font-size: 0.73rem;
+    color: #64748B;
+    font-weight: 600;
 }
 .sp-ajax-progress {
     position: absolute;
@@ -2444,8 +2539,9 @@ $extraScripts = <<<JS
                 // Intercept directory catalog navigation
                 if (href === '/' || href.startsWith('/?') || href.startsWith('index.php') || href.startsWith('./')) {
                     e.preventDefault();
+                    const isPgClick = link.classList.contains('sp-pg-btn');
                     const sec = document.getElementById('directory-catalog-section');
-                    const shouldScrollCatalog = sec && (window.pageYOffset < (sec.offsetTop - 120));
+                    const shouldScrollCatalog = isPgClick || (sec && (window.pageYOffset < (sec.offsetTop - 120)));
                     loadCatalogAjax(href, true, shouldScrollCatalog);
                 }
             }
