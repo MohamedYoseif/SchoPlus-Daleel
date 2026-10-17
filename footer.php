@@ -75,9 +75,11 @@
                     <a href="/" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">
                         <i class="fas fa-th-large me-1 text-muted" style="font-size: 0.68rem;"></i> كافة المدارس
                     </a>
+                    <?php /* رابط المدارس الذكية (مخفي حالياً)
                     <a href="/#schoplus-schools" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">
                         <i class="fas fa-star me-1 text-warning" style="font-size: 0.68rem;"></i> المدارس الذكية المعتمدة
                     </a>
+                    */ ?>
                     <a href="/?view=top_rated" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">
                         <i class="fas fa-award me-1 text-primary" style="font-size: 0.68rem;"></i> المدارس الأعلى تقييماً
                     </a>

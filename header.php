@@ -1267,9 +1267,11 @@ $isDaleelMobile = (
                 <a href="/" class="offcanvas-nav-link">
                     <i class="fas fa-home text-muted" style="width:18px"></i> الرئيسية
                 </a>
+                <?php /* رابط المدارس الذكية (مخفي حالياً)
                 <a href="/#schoplus-schools" class="offcanvas-nav-link">
                     <i class="fas fa-star text-warning" style="width:18px"></i> المدارس الذكية
                 </a>
+                */ ?>
                 <a href="/#top-rated" class="offcanvas-nav-link">
                     <i class="fas fa-award text-primary" style="width:18px"></i> الأعلى تقييماً
                 </a>

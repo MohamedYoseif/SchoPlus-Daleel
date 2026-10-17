@@ -98,10 +98,12 @@ if (!function_exists('renderCatalogPagination')) {
             <i class="fas fa-landmark text-warning"></i> مدارس وصروح عريقة
             <span class="tab-badge" style="<?= ($tabCountHistoric ?? 0) > 0 ? 'background:#FEF3C7;color:#92400E;font-weight:900;' : '' ?>"><?= number_format($tabCountHistoric ?? 0) ?></span>
         </a>
+        <?php /* تبويب مدارس SchoPlus الذكية (مخفي حالياً)
         <a href="<?= buildFilterUrl(['view' => 'schoplus', 'type' => null, 'sort' => null, 'page' => null]) ?>" class="sp-main-tab <?= $view === 'schoplus' || $schoplusOnly ? 'active' : '' ?>">
             <i class="fas fa-bolt text-warning"></i> مدارس SchoPlus الذكية
             <span class="tab-badge"><?= number_format($tabCountSchoplus) ?></span>
         </a>
+        */ ?>
         <a href="<?= buildFilterUrl(['view' => 'top_rated', 'sort' => 'rating', 'type' => null, 'page' => null]) ?>" class="sp-main-tab <?= $view === 'top_rated' || $sort === 'rating' ? 'active' : '' ?>">
             <i class="fas fa-star text-warning"></i> الأعلى تقييماً
             <span class="tab-badge"><?= number_format($totalTopRatedCount) ?></span>
