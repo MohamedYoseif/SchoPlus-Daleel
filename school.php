@@ -6,6 +6,7 @@
 
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/SudanGeography.php';
+require_once __DIR__ . '/SudanHistoricSchools.php';
 
 $pdo = db();
 $slug = trim($_GET['slug'] ?? '');
@@ -108,6 +109,10 @@ if ($school['status'] !== 'approved' && !$isOwner && !$isAdminPreview) {
 
 // Increment view count
 $pdo->prepare("UPDATE daleel_schools SET views_count = views_count + 1 WHERE id = ?")->execute([$school['id']]);
+
+// Check Historic Heritage Status & Dossier
+$isHistoricSchool = SudanHistoricSchools::isHistoric($school);
+$historicDossier = $isHistoricSchool ? SudanHistoricSchools::getDossier($school) : null;
 
 // Handle Add Review
 $reviewSuccess = false;
@@ -388,7 +393,8 @@ if (!empty(trim($school['tiktok'] ?? ''))) {
 
 $pageTitle = $school['name'];
 $ogTitle = $school['name'] . ' | دليل المدارس الذكي';
-$ogDesc = mb_substr(strip_tags(($school['description'] ?? '') ?: ($school['name'] . ' — ' . $school['state'] . '، ' . $school['city'] . '. تصفح الرسوم، المرافق، وتواصل مباشرة.')), 0, 160);
+$descSource = (!empty($school['description'])) ? $school['description'] : (!empty($historicDossier['summary']) ? $historicDossier['summary'] : ($school['name'] . ' — ' . $school['state'] . '، ' . $school['city'] . '. تصفح الرسوم، المرافق، وتواصل مباشرة.'));
+$ogDesc = mb_substr(strip_tags($descSource), 0, 160);
 $ogImage = !empty($school['logo_path']) ? (str_starts_with($school['logo_path'], 'http') ? $school['logo_path'] : 'https://daleel.schoplus.sd/' . ltrim($school['logo_path'], '/')) : (!empty($school['cover_path']) ? (str_starts_with($school['cover_path'], 'http') ? $school['cover_path'] : 'https://daleel.schoplus.sd/' . ltrim($school['cover_path'], '/')) : 'https://daleel.schoplus.sd/logo.png');
 $ogUrl = 'https://daleel.schoplus.sd/school/' . urlencode($school['slug']);
 require_once __DIR__ . '/header.php';
@@ -1418,6 +1424,130 @@ $totalRev = max(1, count($reviewsList));
 
                 <!-- TAB: OVERVIEW -->
                 <div id="tab-overview" class="sp-tab-pane">
+
+                    <?php if (!empty($historicDossier)): ?>
+                    <!-- Heritage Historic Dossier Card (السجل التاريخي والوثائقي للصرح) -->
+                    <div class="sp-section sp-historic-dossier-card mb-4" style="background: linear-gradient(180deg, #FFFDF5 0%, #FFFFFF 100%); border: 1.5px solid #FCD34D; border-radius: 18px; box-shadow: 0 4px 20px rgba(180, 83, 9, 0.08); overflow: hidden;">
+                        <!-- Header -->
+                        <div style="background: linear-gradient(135deg, #0B2A52 0%, #163870 100%); padding: 18px 24px; color: #FFFFFF; border-bottom: 2px solid #F5A020;">
+                            <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+                                <div class="d-flex align-items-center gap-2.5">
+                                    <span style="display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; background: rgba(245, 160, 32, 0.2); border: 1.5px solid #F5A020; border-radius: 10px; color: #F5A020; font-size: 1.2rem;">
+                                        <i class="fas fa-landmark"></i>
+                                    </span>
+                                    <div>
+                                        <h5 class="mb-0 fw-bold" style="font-size: 0.98rem; color: #FFFFFF;">
+                                            السجل التاريخي والأكاديمي للصرح
+                                        </h5>
+                                        <span style="font-size: 0.72rem; color: #FDE68A; font-weight: 600;">
+                                            <?= e($historicDossier['era_tag'] ?? 'صرح تعليمي وتاريخي وطني') ?>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center gap-1.5 flex-wrap">
+                                    <?php if (!empty($historicDossier['legacy_years'])): ?>
+                                        <span class="badge" style="background: linear-gradient(135deg, #F5A020 0%, #D97706 100%); color: #0B2A52; font-weight: 800; font-size: 0.74rem; padding: 6px 14px; border-radius: 999px; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
+                                            <i class="fas fa-history me-1"></i> <?= $historicDossier['legacy_years'] ?> عاماً من العطاء والريادة
+                                        </span>
+                                    <?php endif; ?>
+                                    <span class="badge" style="background: rgba(255,255,255,0.15); color: #FFFFFF; font-size: 0.72rem; padding: 6px 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.25);">
+                                        <i class="fas fa-award text-warning me-1"></i> صرح وطني معتمد
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Body Content -->
+                        <div class="p-3.5 p-md-4">
+                            <!-- Quick Tiles -->
+                            <div class="row g-2 mb-3.5">
+                                <div class="col-6 col-md-3">
+                                    <div class="p-2.5 rounded-3 text-center" style="background: #FFFBEB; border: 1px solid #FEF3C7;">
+                                        <div style="font-size: 0.65rem; color: #92400E; font-weight: 700;">سنة التأسيس</div>
+                                        <div class="fw-bold" style="color: #78350F; font-size: 0.95rem;"><?= e($historicDossier['established_year'] ?: 'عهد الرواد') ?>م</div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <div class="p-2.5 rounded-3 text-center" style="background: #EFF6FF; border: 1px solid #DBEAFE;">
+                                        <div style="font-size: 0.65rem; color: #1E40AF; font-weight: 700;">الموقع والحاضرة</div>
+                                        <div class="fw-bold" style="color: #1E3A8A; font-size: 0.82rem;"><?= e($historicDossier['city'] ? $historicDossier['city'] . ' — ' . $historicDossier['state'] : $historicDossier['state']) ?></div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <div class="p-2.5 rounded-3 text-center" style="background: #F0FDF4; border: 1px solid #DCFCE7;">
+                                        <div style="font-size: 0.65rem; color: #166534; font-weight: 700;">التصنيف الوطني</div>
+                                        <div class="fw-bold" style="color: #14532D; font-size: 0.82rem;">صرح قومي عريق</div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <div class="p-2.5 rounded-3 text-center" style="background: #FAF5FF; border: 1px solid #F3E8FF;">
+                                        <div style="font-size: 0.65rem; color: #6B21A8; font-weight: 700;">مسيرة التخريج</div>
+                                        <div class="fw-bold" style="color: #581C87; font-size: 0.82rem;">أجيال وقادة الوطن</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Summary Lead -->
+                            <div class="p-3 rounded-3 mb-3" style="background: rgba(245, 160, 32, 0.07); border-right: 3px solid #F5A020;">
+                                <p class="mb-0 fw-semibold" style="font-size: 0.78rem; line-height: 1.75; color: #1F2937;">
+                                    <?= e($historicDossier['summary']) ?>
+                                </p>
+                            </div>
+
+                            <!-- Section 1: النشأة والتأسيس والبيئة التاريخية -->
+                            <div class="mb-3">
+                                <h6 class="fw-bold d-flex align-items-center gap-2 mb-2" style="font-size: 0.84rem; color: var(--brand-navy);">
+                                    <i class="fas fa-feather-alt text-warning"></i> النشأة والتأسيس والبيئة التاريخية
+                                </h6>
+                                <p style="font-size: 0.76rem; line-height: 1.8; color: var(--text-body); margin-bottom: 0; text-align: justify;">
+                                    <?= e($historicDossier['founding_narrative']) ?>
+                                </p>
+                            </div>
+
+                            <!-- Section 2: الطراز المعماري ومرافق الحرم المدرسي -->
+                            <div class="mb-3">
+                                <h6 class="fw-bold d-flex align-items-center gap-2 mb-2" style="font-size: 0.84rem; color: var(--brand-navy);">
+                                    <i class="fas fa-university" style="color: var(--brand-blue);"></i> الطراز المعماري ومرافق الحرم المدرسي
+                                </h6>
+                                <p style="font-size: 0.76rem; line-height: 1.8; color: var(--text-body); margin-bottom: 0; text-align: justify;">
+                                    <?= e($historicDossier['campus_and_architecture']) ?>
+                                </p>
+                            </div>
+
+                            <!-- Section 3: المساهمة الوطنية وتخريج الرواد والقادة -->
+                            <div class="mb-3">
+                                <h6 class="fw-bold d-flex align-items-center gap-2 mb-2" style="font-size: 0.84rem; color: var(--brand-navy);">
+                                    <i class="fas fa-user-graduate" style="color: #059669;"></i> المساهمة الوطنية وتخريج الرواد والقادة
+                                </h6>
+                                <p style="font-size: 0.76rem; line-height: 1.8; color: var(--text-body); margin-bottom: 0; text-align: justify;">
+                                    <?= e($historicDossier['national_legacy']) ?>
+                                </p>
+                            </div>
+
+                            <?php if (!empty($historicDossier['alumni_highlights'])): ?>
+                            <div class="p-2.5 px-3 rounded-3 mt-3" style="background: #F8FAFC; border: 1px solid #E2E8F0;">
+                                <div style="font-size: 0.72rem; color: #475569; font-weight: 700; margin-bottom: 2px;">
+                                    <i class="fas fa-star text-warning me-1"></i> من أعلام وخريجي الصرح:
+                                </div>
+                                <div style="font-size: 0.75rem; color: var(--brand-navy); font-weight: 600; line-height: 1.6;">
+                                    <?= e($historicDossier['alumni_highlights']) ?>
+                                </div>
+                            </div>
+                            <?php endif; ?>
+
+                            <?php if (!empty($historicDossier['key_badges'])): ?>
+                            <div class="d-flex align-items-center gap-2 flex-wrap mt-3 pt-2.5 border-top">
+                                <span style="font-size: 0.68rem; color: #64748B; font-weight: 700;">الوسوم التاريخية:</span>
+                                <?php foreach ($historicDossier['key_badges'] as $b): ?>
+                                    <span class="badge" style="background: #FFFBEB; color: #92400E; border: 1px solid #FCD34D; font-size: 0.68rem; padding: 5px 12px; border-radius: 999px;">
+                                        <i class="fas fa-tag me-1" style="font-size: 0.6rem; opacity: 0.7;"></i> <?= e($b) ?>
+                                    </span>
+                                <?php endforeach; ?>
+                            </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <?php endif; ?>
 
                     <!-- About -->
                     <div class="sp-section">
