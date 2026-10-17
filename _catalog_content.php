@@ -19,6 +19,10 @@
             <i class="fas fa-graduation-cap"></i> مدارس خاصة ودولية
             <span class="tab-badge"><?= number_format($tabCountPriv) ?></span>
         </a>
+        <a href="<?= buildFilterUrl(['view' => 'historic', 'type' => null, 'sort' => null]) ?>" class="sp-main-tab <?= $view === 'historic' ? 'active' : '' ?>">
+            <i class="fas fa-landmark text-warning"></i> مدارس وصروح عريقة
+            <span class="tab-badge" style="<?= ($tabCountHistoric ?? 0) > 0 ? 'background:#FEF3C7;color:#92400E;font-weight:900;' : '' ?>"><?= number_format($tabCountHistoric ?? 0) ?></span>
+        </a>
         <a href="<?= buildFilterUrl(['view' => 'schoplus', 'type' => null, 'sort' => null]) ?>" class="sp-main-tab <?= $view === 'schoplus' || $schoplusOnly ? 'active' : '' ?>">
             <i class="fas fa-bolt text-warning"></i> مدارس SchoPlus الذكية
             <span class="tab-badge"><?= number_format($tabCountSchoplus) ?></span>
@@ -50,7 +54,7 @@
 
         <!-- Quick Type Selector Pills -->
         <div class="d-flex align-items-center gap-1">
-            <a href="<?= buildFilterUrl(['type' => null]) ?>" class="btn btn-sm <?= empty($schoolType) ? 'btn-dark' : 'btn-light border' ?>" style="font-size: 0.72rem; font-weight: 700; padding: 4px 12px; border-radius: 6px; <?= empty($schoolType) ? 'background: #0B2A52; border-color: #0B2A52; color: #fff;' : 'color: #475569;' ?>">
+            <a href="<?= buildFilterUrl(['type' => null, 'view' => ($view === 'historic' ? 'historic' : null)]) ?>" class="btn btn-sm <?= empty($schoolType) ? 'btn-dark' : 'btn-light border' ?>" style="font-size: 0.72rem; font-weight: 700; padding: 4px 12px; border-radius: 6px; <?= empty($schoolType) ? 'background: #0B2A52; border-color: #0B2A52; color: #fff;' : 'color: #475569;' ?>">
                 الكل
             </a>
             <a href="<?= buildFilterUrl(['type' => 'government']) ?>" class="btn btn-sm <?= $schoolType === 'government' ? 'btn-primary' : 'btn-light border' ?>" style="font-size: 0.72rem; font-weight: 700; padding: 4px 12px; border-radius: 6px; <?= $schoolType === 'government' ? 'background: #1E5FA8; border-color: #1E5FA8; color: #fff;' : 'color: #475569;' ?>">
@@ -58,6 +62,9 @@
             </a>
             <a href="<?= buildFilterUrl(['type' => 'private']) ?>" class="btn btn-sm <?= $schoolType === 'private' ? 'btn-warning' : 'btn-light border' ?>" style="font-size: 0.72rem; font-weight: 700; padding: 4px 12px; border-radius: 6px; <?= $schoolType === 'private' ? 'background: #F5A020; border-color: #F5A020; color: #0D1B2E;' : 'color: #475569;' ?>">
                 <i class="fas fa-graduation-cap me-1"></i> خاص
+            </a>
+            <a href="<?= buildFilterUrl(['view' => 'historic', 'type' => null]) ?>" class="btn btn-sm <?= $view === 'historic' ? 'btn-warning text-dark' : 'btn-light border' ?>" style="font-size: 0.72rem; font-weight: 700; padding: 4px 12px; border-radius: 6px; <?= $view === 'historic' ? 'background: linear-gradient(135deg, #FDE68A 0%, #F59E0B 100%); border-color: #FCD34D; color: #78350F !important;' : 'color: #78350F;' ?>">
+                <i class="fas fa-landmark me-1"></i> صروح عريقة
             </a>
         </div>
     </div>
@@ -229,6 +236,13 @@
                     <i class="fas fa-times ms-1"></i>
                 </a>
             <?php endif; ?>
+            <?php if ($view === 'historic'): ?>
+                <a href="<?= buildFilterUrl(['view' => null]) ?>" class="sp-chip-tag" title="إزالة تصفية الصروح العريقة" style="background:#FEF3C7;color:#92400E;border-color:#FDE68A;">
+                    <i class="fas fa-landmark text-warning me-1"></i>
+                    <span><strong>صروح ومدارس عريقة</strong></span>
+                    <i class="fas fa-times ms-1"></i>
+                </a>
+            <?php endif; ?>
             <?php if ($view === 'top_rated' || $sort === 'rating'): ?>
                 <a href="<?= buildFilterUrl(['view' => null, 'sort' => null]) ?>" class="sp-chip-tag" title="إزالة تصفية التقييم">
                     <span><strong>المدارس الأعلى تقييماً</strong></span>
@@ -252,7 +266,9 @@
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 pb-2 border-bottom">
                 <div>
                     <h2 style="font-size: 1.15rem; font-weight: 700; color: #0B2A52; margin: 0;">
-                        <?php if ($schoolType === 'government'): ?>
+                        <?php if ($view === 'historic'): ?>
+                            المدارس والصروح العريقة والتاريخية <?= !empty($state) ? '— ولاية ' . e($state) : 'في السودان' ?>
+                        <?php elseif ($schoolType === 'government'): ?>
                             المدارس الحكومية <?= !empty($state) ? '— ولاية ' . e($state) : 'في السودان' ?>
                         <?php elseif ($schoolType === 'private'): ?>
                             المدارس الخاصة والدولية <?= !empty($state) ? '— ولاية ' . e($state) : 'في السودان' ?>

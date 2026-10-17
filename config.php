@@ -228,6 +228,68 @@ if (!function_exists('sanitizeHtml')) {
     }
 }
 
+if (!function_exists('isSchoolHistoric')) {
+    function isSchoolHistoric(array $school): bool {
+        // 1. Explicitly flagged
+        if (!empty($school['is_historic'])) {
+            return true;
+        }
+        // 2. Founded in or before 1950
+        $year = (int)($school['established_year'] ?? 0);
+        if ($year > 1800 && $year <= 1950) {
+            return true;
+        }
+        // 3. More than 500 community votes
+        $votes = (int)($school['historic_votes'] ?? 0);
+        if ($votes >= 500) {
+            return true;
+        }
+        // 4. Iconic national historic schools in Sudan
+        $name = $school['name'] ?? '';
+        $iconicNames = [
+            'وادي سيدنا', 'خور طقت', 'حنتوب', 'رفاعة', 'بخت الرضا',
+            'الأهلية أم درمان', 'أم درمان الأهلية', 'المؤتمر الثانوية',
+            'الشيخ مصطفى الأمين', 'بربر الثانوية', 'الخرطوم الإنجيلية للبنات',
+            'كمبوني الخرطوم', 'كلية كمبوني', 'السنية'
+        ];
+        foreach ($iconicNames as $ic) {
+            if (mb_stripos($name, $ic) !== false) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
+if (!function_exists('getSchoolHistoricBadge')) {
+    function getSchoolHistoricBadge(array $school): ?array {
+        if (!isSchoolHistoric($school)) {
+            return null;
+        }
+        $year = (int)($school['established_year'] ?? 0);
+        $votes = (int)($school['historic_votes'] ?? 0);
+
+        $label = 'صرح عريق';
+        $sub = '';
+        if ($year > 1800 && $year <= 1950) {
+            $sub = "تأسست {$year}م";
+        } elseif ($votes >= 500) {
+            $sub = "تصويت مجتمعي (+{$votes})";
+        } elseif (!empty($school['historic_badge_reason'])) {
+            $sub = $school['historic_badge_reason'];
+        } else {
+            $sub = "إرث تاريخي وطني";
+        }
+
+        return [
+            'label' => $label,
+            'sub'   => $sub,
+            'year'  => $year ?: null,
+            'votes' => $votes,
+        ];
+    }
+}
+
 /**
  * Singleton Database Connection
  */
@@ -460,12 +522,34 @@ function ensureTablesExist(PDO $pdo): void {
             'admission_requirements' => "ALTER TABLE daleel_schools ADD COLUMN admission_requirements LONGTEXT NULL AFTER admission_status",
             'admission_steps'        => "ALTER TABLE daleel_schools ADD COLUMN admission_steps LONGTEXT NULL AFTER admission_requirements",
             'admission_notes'        => "ALTER TABLE daleel_schools ADD COLUMN admission_notes TEXT NULL AFTER admission_steps",
+            'is_historic'            => "ALTER TABLE daleel_schools ADD COLUMN is_historic TINYINT(1) NOT NULL DEFAULT 0 AFTER is_verified",
+            'historic_votes'         => "ALTER TABLE daleel_schools ADD COLUMN historic_votes INT UNSIGNED NOT NULL DEFAULT 0 AFTER is_historic",
+            'historic_badge_reason'  => "ALTER TABLE daleel_schools ADD COLUMN historic_badge_reason VARCHAR(255) NULL AFTER historic_votes",
         ];
         foreach ($alterStatements as $colName => $sql) {
             if (!isset($existingCols[$colName])) {
                 $pdo->exec($sql);
             }
         }
+
+        // Create historic votes table
+        $pdo->exec("CREATE TABLE IF NOT EXISTS daleel_school_historic_votes (
+            id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            school_id BIGINT UNSIGNED NOT NULL,
+            ip_address VARCHAR(64) NULL,
+            user_agent VARCHAR(255) NULL,
+            session_id VARCHAR(100) NULL,
+            created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+            INDEX idx_school_vote (school_id),
+            INDEX idx_school_ip (school_id, ip_address),
+            INDEX idx_school_session (school_id, session_id)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
+
+        // Pre-flag heritage schools founded <= 1950 or iconic national schools
+        try {
+            $pdo->exec("UPDATE daleel_schools SET is_historic = 1, historic_badge_reason = 'تأسست قبل عام 1950' WHERE established_year IS NOT NULL AND CAST(established_year AS UNSIGNED) <= 1950 AND CAST(established_year AS UNSIGNED) >= 1800");
+            $pdo->exec("UPDATE daleel_schools SET is_historic = 1, historic_badge_reason = 'صرح قومي تاريخي' WHERE name LIKE '%خور طقت%' OR name LIKE '%وادي سيدنا%' OR name LIKE '%حنتوب%' OR name LIKE '%بخت الرضا%' OR name LIKE '%رفاعة%بابكر بدري%' OR name LIKE '%بربر الثانوية%' OR name LIKE '%الأهلية%أم درمان%'");
+        } catch (Throwable $e) {}
 
         // Zero-Skip Schema Migration: Make phone fields nullable and clean dummy placeholders
         try {

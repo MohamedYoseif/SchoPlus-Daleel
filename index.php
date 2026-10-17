@@ -16,10 +16,10 @@ $stage = trim($_GET['stage'] ?? '');
 $schoolType = trim($_GET['type'] ?? $_GET['school_type'] ?? '');
 $schoplusOnly = !empty($_GET['schoplus_only']);
 $sort = trim($_GET['sort'] ?? 'featured');
-$view = trim($_GET['view'] ?? ''); // 'all', 'schoplus', 'top_rated', 'latest', or ''
+$view = trim($_GET['view'] ?? ''); // 'all', 'schoplus', 'top_rated', 'historic', 'latest', or ''
 
 // Determine if user is performing a specific search or filter
-$isSearching = ($q !== '' || $country !== '' || $state !== '' || $city !== '' || $stage !== '' || $schoolType !== '' || $schoplusOnly || in_array($view, ['all', 'schoplus', 'top_rated', 'latest']));
+$isSearching = ($q !== '' || $country !== '' || $state !== '' || $city !== '' || $stage !== '' || $schoolType !== '' || $schoplusOnly || in_array($view, ['all', 'schoplus', 'top_rated', 'historic', 'latest']));
 
 // Geography & standard mappings
 $countriesList = SudanGeography::countries();
@@ -74,6 +74,10 @@ $totalTopRatedCount = (int) $pdo->query("SELECT COUNT(*) FROM daleel_schools WHE
 $statGovernment = (int) $pdo->query("SELECT COUNT(*) FROM daleel_schools WHERE status = 'approved' AND school_type = 'government'")->fetchColumn();
 $statPrivate = (int) $pdo->query("SELECT COUNT(*) FROM daleel_schools WHERE status = 'approved' AND school_type IN ('private', 'international', 'community', 'language')")->fetchColumn();
 
+// Historic schools global counter (is_historic = 1 OR established_year <= 1950 OR historic_votes >= 500 OR iconic names)
+$historicWhereSql = "(is_historic = 1 OR (established_year IS NOT NULL AND CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950) OR historic_votes >= 500 OR name LIKE '%خور طقت%' OR name LIKE '%وادي سيدنا%' OR name LIKE '%حنتوب%' OR name LIKE '%بخت الرضا%' OR name LIKE '%الأهلية%أم درمان%' OR name LIKE '%كمبوني%')";
+$statHistoric = (int) $pdo->query("SELECT COUNT(*) FROM daleel_schools WHERE status = 'approved' AND {$historicWhereSql}")->fetchColumn();
+
 // State school counters for the state cards
 $stateCounts = $pdo->query("SELECT state, COUNT(*) as cnt FROM daleel_schools WHERE status = 'approved' GROUP BY state")->fetchAll(PDO::FETCH_KEY_PAIR) ?: [];
 
@@ -83,7 +87,8 @@ if ($state !== '') {
         COUNT(*) as total,
         SUM(CASE WHEN school_type = 'government' THEN 1 ELSE 0 END) as gov,
         SUM(CASE WHEN school_type IN ('private', 'international', 'community', 'language') THEN 1 ELSE 0 END) as priv,
-        SUM(CASE WHEN is_schoplus_client = 1 THEN 1 ELSE 0 END) as schoplus
+        SUM(CASE WHEN is_schoplus_client = 1 THEN 1 ELSE 0 END) as schoplus,
+        SUM(CASE WHEN {$historicWhereSql} THEN 1 ELSE 0 END) as historic
         FROM daleel_schools WHERE status = 'approved' AND state = ?");
     $stCountsStmt->execute([$state]);
     $stRow = $stCountsStmt->fetch(PDO::FETCH_ASSOC);
@@ -91,11 +96,13 @@ if ($state !== '') {
     $tabCountGov = (int) ($stRow['gov'] ?? 0);
     $tabCountPriv = (int) ($stRow['priv'] ?? 0);
     $tabCountSchoplus = (int) ($stRow['schoplus'] ?? 0);
+    $tabCountHistoric = (int) ($stRow['historic'] ?? 0);
 } else {
     $tabCountTotal = $statTotal;
     $tabCountGov = $statGovernment;
     $tabCountPriv = $statPrivate;
     $tabCountSchoplus = $statSchoplus;
+    $tabCountHistoric = $statHistoric;
 }
 
 // Distinct states list & regional mapping
@@ -191,9 +198,14 @@ if ($isSearching) {
         $where[] = "is_schoplus_client = 1";
     }
 
+    if ($view === 'historic') {
+        $where[] = $historicWhereSql;
+    }
+
     $whereClause = implode(' AND ', $where);
 
     $orderBy = "is_featured DESC, is_schoplus_client DESC, rating_avg DESC";
+    if ($view === 'historic') $orderBy = "is_historic DESC, historic_votes DESC, (CAST(established_year AS UNSIGNED) > 0) DESC, CAST(established_year AS UNSIGNED) ASC, rating_avg DESC";
     if ($sort === 'rating' || $view === 'top_rated') $orderBy = "rating_avg DESC, reviews_count DESC";
     if ($sort === 'reviews') $orderBy = "reviews_count DESC";
     if ($sort === 'views') $orderBy = "views_count DESC";
@@ -236,6 +248,12 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
 
             <div style="position: absolute; top: 10px; left: 10px; z-index: 2; display: flex; flex-direction: column; gap: 4px; align-items: flex-end;">
                 <span class="badge-directory-rank"><i class="fas fa-award"></i> الترتيب #<?= $sRank ?></span>
+                <?php if (isSchoolHistoric($s)): ?>
+                    <?php $hB = getSchoolHistoricBadge($s); ?>
+                    <span class="badge" style="background: linear-gradient(135deg, #78350F 0%, #B45309 100%); color: #FEF3C7; border: 1px solid #FCD34D; font-size: 0.65rem; padding: 2.5px 8px; border-radius: 999px; font-weight: 800; box-shadow: 0 2px 8px rgba(180, 83, 9, 0.35);">
+                        <i class="fas fa-landmark text-warning"></i> <?= e($hB['label']) ?>
+                    </span>
+                <?php endif; ?>
                 <?php if (!empty($s['is_schoplus_client'])): ?>
                     <span class="badge-schoplus-smart"><i class="fas fa-bolt"></i> SchoPlus الذكي</span>
                 <?php endif; ?>
@@ -274,7 +292,12 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
                     <span class="badge-stage-pill"><?= e($schoolStages[$st] ?? $st) ?></span>
                 <?php endforeach; ?>
                 <span class="badge" style="background: #F1F5F9; color: #475569; border: 1px solid #E2E8F0; font-size: 0.68rem; font-weight: 700;"><?= e($schoolTypes[$s['school_type']] ?? $s['school_type']) ?></span>
-                <?php if (!empty($s['established_year'])): ?>
+                <?php if (isSchoolHistoric($s)): ?>
+                    <?php $hInfo = getSchoolHistoricBadge($s); ?>
+                    <span class="badge" style="background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; font-size: 0.68rem; font-weight: 800;">
+                        <i class="fas fa-landmark text-warning me-1"></i> صرح عريق (<?= e($hInfo['sub']) ?>)
+                    </span>
+                <?php elseif (!empty($s['established_year'])): ?>
                     <span class="badge-established"><i class="fas fa-calendar-alt me-1"></i> تأسست <?= e($s['established_year']) ?></span>
                 <?php endif; ?>
             </div>

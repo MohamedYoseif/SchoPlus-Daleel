@@ -176,6 +176,71 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']) 
     }
 }
 
+// Handle Historic School Community Vote (تصويت الأهالي والمجتمع لترقية المدرسة لصرح عريق)
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']) && $_POST['action'] === 'vote_historic') {
+    header('Content-Type: application/json; charset=utf-8');
+    if (!csrf_verify()) {
+        echo json_encode(['success' => false, 'message' => 'انتهت صلاحية الجلسة، يرجى تحديث الصفحة والمحاولة مجدداً.']);
+        exit;
+    }
+
+    $clientIp = $_SERVER['REMOTE_ADDR'] ?? null;
+    $userAgent = substr($_SERVER['HTTP_USER_AGENT'] ?? '', 0, 250);
+    $sessionId = session_id();
+
+    // Check if voted in the last 24 hours from same IP or Session
+    $checkVote = $pdo->prepare("SELECT id FROM daleel_school_historic_votes 
+        WHERE school_id = ? AND (session_id = ? OR (ip_address IS NOT NULL AND ip_address = ?))
+        AND created_at >= DATE_SUB(NOW(), INTERVAL 24 HOUR) LIMIT 1");
+    $checkVote->execute([$school['id'], $sessionId, $clientIp]);
+
+    if ($checkVote->fetch()) {
+        echo json_encode([
+            'success' => false,
+            'message' => 'لقد قمت بالتصويت بالفعل لهذه المدرسة مؤخراً. شكراً لمشاركتك!',
+            'already_voted' => true,
+            'votes_count' => (int)($school['historic_votes'] ?? 0),
+            'is_historic' => isSchoolHistoric($school)
+        ]);
+        exit;
+    }
+
+    // Insert vote
+    $insVote = $pdo->prepare("INSERT INTO daleel_school_historic_votes (school_id, ip_address, user_agent, session_id, created_at) VALUES (?, ?, ?, ?, NOW())");
+    $insVote->execute([$school['id'], $clientIp, $userAgent, $sessionId]);
+
+    // Update school votes count
+    $updSchool = $pdo->prepare("UPDATE daleel_schools SET historic_votes = historic_votes + 1 WHERE id = ?");
+    $updSchool->execute([$school['id']]);
+
+    // Re-fetch updated votes and check threshold (500)
+    $vStmt = $pdo->prepare("SELECT historic_votes, is_historic, established_year FROM daleel_schools WHERE id = ?");
+    $vStmt->execute([$school['id']]);
+    $updatedRow = $vStmt->fetch();
+    $newVotes = (int)($updatedRow['historic_votes'] ?? 0);
+
+    // If votes hit 500+, automatically award historic tag
+    if ($newVotes >= 500 && empty($updatedRow['is_historic'])) {
+        $pdo->prepare("UPDATE daleel_schools SET is_historic = 1, historic_badge_reason = 'تصويت مجتمعي تجاوز 500 صوت' WHERE id = ?")
+            ->execute([$school['id']]);
+        $updatedRow['is_historic'] = 1;
+    }
+
+    // Update current $school in-memory for this request
+    $school['historic_votes'] = $newVotes;
+    if (!empty($updatedRow['is_historic'])) {
+        $school['is_historic'] = 1;
+    }
+
+    echo json_encode([
+        'success' => true,
+        'message' => 'تم تسجيل تصويتك بنجاح كصرح تعليمي عريق! شكراً لمساهمتك في توثيق التاريخ التعليمي.',
+        'votes_count' => $newVotes,
+        'is_historic' => isSchoolHistoric($school)
+    ]);
+    exit;
+}
+
 // Handle Claim School (طلب توثيق ملكية المدرسة المضافة مسبقاً)
 $claimSuccess = false;
 $claimError = '';
@@ -1090,6 +1155,12 @@ $totalRev = max(1, count($reviewsList));
             <!-- Top Header Badges Container -->
             <div class="sp-cover-badges-bar">
                 <div class="d-flex align-items-center gap-2 flex-wrap">
+                    <?php if (isSchoolHistoric($school)): ?>
+                        <?php $hBadge = getSchoolHistoricBadge($school); ?>
+                        <span class="badge" style="background: linear-gradient(135deg, #78350F 0%, #B45309 100%); color: #FEF3C7; border: 1.5px solid #FCD34D; font-size: 0.72rem; padding: 5px 12px; border-radius: 999px; font-weight: 800; box-shadow: 0 4px 12px rgba(180, 83, 9, 0.45); display: inline-flex; align-items: center; gap: 5px;">
+                            <i class="fas fa-landmark text-warning"></i> <?= e($hBadge['label']) ?> <span class="d-none d-sm-inline" style="opacity: 0.88; font-weight: 600;">(<?= e($hBadge['sub']) ?>)</span>
+                        </span>
+                    <?php endif; ?>
                     <?php if ($school['is_schoplus_client']): ?>
                         <span class="badge-schoplus"><i class="fas fa-bolt"></i> <span class="d-none d-sm-inline">مدرسة</span> SchoPlus الذكية</span>
                     <?php endif; ?>
@@ -1187,6 +1258,18 @@ $totalRev = max(1, count($reviewsList));
                         <i class="fas fa-landmark" style="color: var(--brand-gold);"></i>
                         <span>تأسست: <strong><?= e($school['established_year']) ?></strong></span>
                     </div>
+                    <?php endif; ?>
+                    <?php if (isSchoolHistoric($school)): ?>
+                        <?php $hBadgeQuick = getSchoolHistoricBadge($school); ?>
+                        <div class="sp-stat-item">
+                            <i class="fas fa-crown text-warning"></i>
+                            <span style="color: #B45309;">صرح عريق: <strong><?= e($hBadgeQuick['sub']) ?></strong></span>
+                        </div>
+                    <?php elseif ((int)($school['historic_votes'] ?? 0) > 0): ?>
+                        <div class="sp-stat-item">
+                            <i class="fas fa-vote-yea text-primary"></i>
+                            <span>أصوات الصرح العريق: <strong id="quickHistoricVotesCount"><?= number_format((int)$school['historic_votes']) ?> / 500</strong></span>
+                        </div>
                     <?php endif; ?>
                     <?php if (!empty($school['created_at'])): ?>
                     <div class="sp-stat-item">
@@ -2405,6 +2488,82 @@ $totalRev = max(1, count($reviewsList));
                     </div>
                 </div>
 
+                <!-- Historic School Status & Community Voting Card -->
+                <?php 
+                $isHistoricSchool = isSchoolHistoric($school);
+                $historicVotes = (int)($school['historic_votes'] ?? 0);
+                $historicBadgeInfo = getSchoolHistoricBadge($school);
+                $estYear = (int)($school['established_year'] ?? 0);
+                ?>
+                <div class="sp-info-card mb-3" id="historicSchoolCard" style="border: 1.5px solid <?= $isHistoricSchool ? '#FCD34D' : '#E2E8F0' ?>; background: <?= $isHistoricSchool ? 'linear-gradient(180deg, #FFFBEB 0%, #FFFFFF 100%)' : '#FFFFFF' ?>;">
+                    <div class="sp-info-card-head d-flex align-items-center justify-content-between" style="background: <?= $isHistoricSchool ? 'linear-gradient(135deg, #78350F 0%, #B45309 100%)' : '#0B2A52' ?>; color: #FFFFFF;">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="fas fa-landmark text-warning"></i>
+                            <span class="fw-bold" style="font-size: 0.82rem;"><?= $isHistoricSchool ? 'صرح تعليمي عريق معتمد' : 'مبادرة توثيق المدارس العريقة' ?></span>
+                        </div>
+                        <?php if ($isHistoricSchool): ?>
+                            <span class="badge bg-warning text-dark fw-bold" style="font-size: 0.65rem; border-radius: 999px;">
+                                <i class="fas fa-check-circle me-1"></i> معتمدة
+                            </span>
+                        <?php endif; ?>
+                    </div>
+                    <div class="sp-info-card-body p-3">
+                        <?php if ($isHistoricSchool): ?>
+                            <div class="d-flex align-items-start gap-3 mb-3">
+                                <div style="width: 44px; height: 44px; border-radius: 12px; background: #FEF3C7; color: #B45309; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; border: 1px solid #FDE68A;">
+                                    <i class="fas fa-award"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold mb-1" style="color: #78350F; font-size: 0.86rem;"><?= e($school['name']) ?></h6>
+                                    <p class="text-muted small mb-0" style="font-size: 0.72rem; line-height: 1.5;">
+                                        تم تصنيف هذه المدرسة كـ <strong>صرح عريق</strong> في السودان بناءً على:
+                                        <span class="text-dark fw-bold d-block mt-0.5"><?= e($historicBadgeInfo['sub'] ?? 'الإرث التاريخي والتعليمي') ?></span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="p-2.5 rounded-3 mb-2" style="background: #FFFBEB; border: 1px dashed #FCD34D; font-size: 0.72rem; color: #92400E;">
+                                <div class="d-flex align-items-center justify-content-between mb-1">
+                                    <span><i class="fas fa-users text-warning me-1"></i> أصوات المجتمع الداعمة:</span>
+                                    <strong class="fs-6" id="historicVotesTotalBadge"><?= number_format($historicVotes) ?> صوت</strong>
+                                </div>
+                                <div class="progress" style="height: 6px; background: #FDE68A; border-radius: 999px;">
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: <?= min(100, max(15, ($historicVotes / 500) * 100)) ?>%;"></div>
+                                </div>
+                            </div>
+
+                            <button type="button" class="btn btn-sm w-100 rounded-pill py-2 fw-bold text-dark shadow-xs" id="btnVoteHistoric" onclick="submitHistoricVote()" style="background: linear-gradient(135deg, #FDE68A 0%, #F59E0B 100%); border: 1px solid #FCD34D; font-size: 0.75rem;">
+                                <i class="fas fa-heart text-danger me-1"></i> دعم وتأكيد عراقة المدرسة (+1)
+                            </button>
+                        <?php else: ?>
+                            <div class="mb-3">
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <span class="badge bg-light text-dark border px-2 py-1" style="font-size: 0.68rem; font-weight: 700;">
+                                        <i class="fas fa-landmark text-warning me-1"></i> المعيار: تأسست قبل 1950 أو 500+ صوت
+                                    </span>
+                                </div>
+                                <p class="text-muted small mb-2" style="font-size: 0.73rem; line-height: 1.55;">
+                                    هل تُعد <strong><?= e($school['name']) ?></strong> من المدارس القديمة والتاريخية في منطقتكم؟ صوّت لها الآن! عند وصول الأصوات إلى <strong>500 صوت</strong> تُمنح المدرسة وسام <strong>"صرح عريق"</strong> رسمياً.
+                                </p>
+                                <div class="p-2.5 rounded-3 bg-light border mb-3">
+                                    <div class="d-flex align-items-center justify-content-between mb-1" style="font-size: 0.73rem;">
+                                        <span class="text-muted">التقدم نحو الوسام:</span>
+                                        <strong style="color: #0B2A52;"><span id="historicVotesCurrentCount"><?= number_format($historicVotes) ?></span> / 500 صوت</strong>
+                                    </div>
+                                    <div class="progress" style="height: 7px; border-radius: 999px; background: #E2E8F0;">
+                                        <div class="progress-bar" id="historicProgressBar" role="progressbar" style="width: <?= min(100, ($historicVotes / 500) * 100) ?>%; background: linear-gradient(90deg, #1E5FA8, #F5A020);"></div>
+                                    </div>
+                                </div>
+
+                                <button type="button" class="btn btn-primary w-100 rounded-pill py-2 fw-bold shadow-sm" id="btnVoteHistoric" onclick="submitHistoricVote()" style="background: linear-gradient(135deg, #1E5FA8 0%, #0B2A52 100%); border: none; font-size: 0.76rem;">
+                                    <i class="fas fa-vote-yea text-warning me-1"></i> صوّت لاعتمادها كـ "صرح عريق"
+                                </button>
+                            </div>
+                        <?php endif; ?>
+                        <div id="historicVoteMsg" class="mt-2 text-center" style="display: none; font-size: 0.72rem; font-weight: 700;"></div>
+                    </div>
+                </div>
+
                 <!-- Contact Box -->
                 <div class="sp-info-card">
                     <div class="sp-info-card-head">
@@ -2864,9 +3023,70 @@ function spLightboxClose() {
     document.getElementById('spLightboxImg').src = '';
     document.body.style.overflow = '';
 }
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') spLightboxClose();
-});
+// Historic School Community Voting Handler
+function submitHistoricVote() {
+    const btn = document.getElementById('btnVoteHistoric');
+    const msgEl = document.getElementById('historicVoteMsg');
+    if (!btn) return;
+
+    btn.disabled = true;
+    const oldHtml = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> جاري تسجيل التصويت...';
+
+    const formData = new FormData();
+    formData.append('action', 'vote_historic');
+    formData.append('_csrf_token', '<?= csrf_token() ?>');
+
+    fetch(window.location.pathname, {
+        method: 'POST',
+        headers: { 'X-Requested-With': 'XMLHttpRequest' },
+        body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+        msgEl.style.display = 'block';
+        if (data.success) {
+            msgEl.style.color = '#047857';
+            msgEl.innerHTML = '<i class="fas fa-check-circle me-1"></i> ' + data.message;
+            btn.innerHTML = '<i class="fas fa-check-circle me-1"></i> تم تسجيل تصويتك!';
+            btn.style.background = '#10B981';
+            btn.style.color = '#ffffff';
+
+            // Update UI Counters
+            const totalBadge = document.getElementById('historicVotesTotalBadge');
+            if (totalBadge) totalBadge.innerText = (data.votes_count || 0) + ' صوت';
+
+            const curCount = document.getElementById('historicVotesCurrentCount');
+            if (curCount) curCount.innerText = data.votes_count || 0;
+
+            const progBar = document.getElementById('historicProgressBar');
+            if (progBar) {
+                const pct = Math.min(100, ((data.votes_count || 0) / 500) * 100);
+                progBar.style.width = pct + '%';
+            }
+
+            const qCount = document.getElementById('quickHistoricVotesCount');
+            if (qCount) qCount.innerText = (data.votes_count || 0) + ' / 500';
+
+            // If became historic after this vote, reload page to refresh badges
+            if (data.is_historic) {
+                setTimeout(() => { window.location.reload(); }, 1800);
+            }
+        } else {
+            msgEl.style.color = data.already_voted ? '#B45309' : '#DC2626';
+            msgEl.innerHTML = (data.already_voted ? '<i class="fas fa-info-circle me-1"></i> ' : '<i class="fas fa-exclamation-circle me-1"></i> ') + data.message;
+            btn.innerHTML = oldHtml;
+            btn.disabled = false;
+        }
+    })
+    .catch(err => {
+        msgEl.style.display = 'block';
+        msgEl.style.color = '#DC2626';
+        msgEl.innerHTML = '<i class="fas fa-exclamation-triangle me-1"></i> تعذر الاتصال بالخادم، يرجى المحاولة لاحقاً.';
+        btn.innerHTML = oldHtml;
+        btn.disabled = false;
+    });
+}
 </script>
 
 <?php require_once __DIR__ . '/footer.php';
