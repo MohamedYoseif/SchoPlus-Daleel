@@ -808,7 +808,7 @@ function ensureTablesExist(PDO $pdo): void {
         try {
             $currCount = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE status = 'approved'")->fetchColumn();
             $seedFile = __DIR__ . '/seed_schools_data.php';
-            if ($currCount < 850 && file_exists($seedFile)) {
+            if ($currCount < 1600 && file_exists($seedFile)) {
                 require_once __DIR__ . '/SchoolBatchImporter.php';
                 $seedImporter = new SchoolBatchImporter($pdo);
                 $seedSchools = require $seedFile;

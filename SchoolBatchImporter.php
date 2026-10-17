@@ -145,8 +145,8 @@ class SchoolBatchImporter
         $description = trim($data['description'] ?? "مؤسسة تعليمية وتربوية تقدم خدماتها في {$city} — ولاية {$state}.");
 
         $status = $data['status'] ?? 'approved';
-        $isVerified = isset($data['is_verified']) ? (int)$data['is_verified'] : 0;
-        $isSchoplus = isset($data['is_schoplus_client']) ? (int)$data['is_schoplus_client'] : 0;
+        $isVerified = !empty($data['force_verified']) ? 1 : 0;
+        $isSchoplus = !empty($data['force_schoplus']) ? 1 : 0;
         $ratingAvg = isset($data['rating_avg']) ? (float)$data['rating_avg'] : 5.00;
 
         $ownerName = trim($data['owner_name'] ?? ('إدارة ' . $name));
