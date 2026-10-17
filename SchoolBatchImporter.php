@@ -90,8 +90,7 @@ class SchoolBatchImporter
                 phone = COALESCE(phone, :phone),
                 whatsapp = COALESCE(whatsapp, :whatsapp),
                 stages = COALESCE(:stages, stages),
-                description = CASE WHEN description IS NULL OR description = '' THEN :desc ELSE description END,
-                is_verified = 1
+                description = CASE WHEN description IS NULL OR description = '' THEN :desc ELSE description END
                 WHERE id = :id");
             $upStmt->execute([
                 ':phone' => $upPhone,

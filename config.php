@@ -739,6 +739,20 @@ function ensureTablesExist(PDO $pdo): void {
                 $pdo->exec($sql);
             }
         }
+        // Zero-Skip Production Auto-Seed: Ensure 100% data parity across cloud nodes
+        try {
+            $currCount = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE status = 'approved'")->fetchColumn();
+            $seedFile = __DIR__ . '/seed_schools_data.php';
+            if ($currCount < 850 && file_exists($seedFile)) {
+                require_once __DIR__ . '/SchoolBatchImporter.php';
+                $seedImporter = new SchoolBatchImporter($pdo);
+                $seedSchools = require $seedFile;
+                if (is_array($seedSchools) && count($seedSchools) > 0) {
+                    $seedImporter->importBatch($seedSchools);
+                }
+            }
+        } catch (Throwable $e) {}
+
         // Sync default country and sequential directory_rank and state_rank for approved schools
         try {
             $pdo->exec("UPDATE daleel_schools SET country = 'السودان' WHERE country IS NULL OR country = ''");
