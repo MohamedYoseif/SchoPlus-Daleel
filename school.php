@@ -2470,23 +2470,46 @@ $totalRev = max(1, count($reviewsList));
                 </div>
                 <?php endif; ?>
 
-                <!-- Data Disclaimer Note -->
-                <div class="p-3 rounded-4 mb-3" style="background: #F8FAFC; border: 1px solid var(--border-subtle); font-size: 0.7rem; color: var(--text-muted); line-height: 1.7;">
-                    <i class="fas fa-info-circle text-warning me-1"></i>
-                    <strong class="text-dark">تنويه:</strong> البيانات والمعلومات المنشورة في هذه الصفحة تمت إضافتها مباشرة بواسطة إدارة المدرسة وعلى مسؤوليتها. دليل المدارس هو خدمة رقمية مقدمة من <strong>منظومة SchoPlus الذكية</strong>، وليس دليلاً رسمياً حكومياً.
-                </div>
+                <!-- Data Disclaimer Note (Conditional: AI-Sourced vs Officially Verified) -->
+                <?php if ($school['is_verified']): ?>
+                    <div class="p-3 rounded-4 mb-3" style="background: #F0FDF4; border: 1px solid #BBF7D0; font-size: 0.72rem; color: #166534; line-height: 1.7;">
+                        <div class="d-flex align-items-center gap-2 mb-1">
+                            <i class="fas fa-check-circle text-success" style="font-size: 0.95rem;"></i>
+                            <strong style="color: #14532D; font-weight: 800;">بيانات موثقة ومعتمدة رسمياً:</strong>
+                        </div>
+                        تم توثيق وتدقيق هذه الصفحة رسمياً وتحديث بياناتها مباشرة بواسطة إدارة المدرسة وعلى مسؤوليتها. دليل المدارس هو منصة رقمية مستقلة مقدمة من <strong>منظومة SchoPlus الذكية</strong>.
+                    </div>
+                <?php else: ?>
+                    <div class="p-3 rounded-4 mb-3" style="background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%); border: 1.5px dashed #93C5FD; font-size: 0.72rem; color: #1E3A8A; line-height: 1.7; position: relative;">
+                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-1">
+                            <div class="d-flex align-items-center gap-2">
+                                <span style="width: 22px; height: 22px; border-radius: 6px; background: #DBEAFE; color: #1E5FA8; display: inline-flex; align-items: center; justify-content: center; font-size: 0.75rem;">
+                                    <i class="fas fa-robot"></i>
+                                </span>
+                                <strong style="color: #0B2A52; font-weight: 800;">فهرسة آلية بالذكاء الاصطناعي:</strong>
+                            </div>
+                            <span class="badge" style="background: #FEF3C7; color: #92400E; font-size: 0.65rem; font-weight: 700; border: 1px solid #FCD34D;">بانتظار إثبات الملكية</span>
+                        </div>
+                        تم إدراج وفهرسة بيانات هذه المدرسة تلقائياً عبر <strong>خوارزميات الذكاء الاصطناعي والمصادر والمؤشرات العامة</strong> لتسهيل وصول أولياء الأمور والطلاب. إذا كنت ممثلاً رسمياً للمدرسة يمكنك <a href="#claimSchoolModal" data-bs-toggle="modal" class="fw-bold text-decoration-underline" style="color: #F5A020;">إثبات الملكية وتوثيق الصفحة الآن مجاناً</a> للتحكم بكافة البيانات واستقبال طلبات القبول.
+                    </div>
+                <?php endif; ?>
 
                 <!-- SchoPlus Upgrade CTA (for non-clients) -->
                 <?php if (!$school['is_schoplus_client']): ?>
-                <div class="sp-upgrade-cta">
+                <div class="sp-upgrade-cta" style="background: linear-gradient(145deg, #0B2A52 0%, #163870 55%, #1E5FA8 100%); border: 1.5px solid rgba(245,160,32,0.3); box-shadow: 0 12px 32px rgba(11,42,82,0.22);">
                     <div style="position: relative; z-index: 1;">
-                        <div style="width: 52px; height: 52px; border-radius: 16px; background: rgba(245,160,32,0.22); border: 1.5px solid rgba(245,160,32,0.35); display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; font-size: 1.4rem;">
-                            <i class="fas fa-rocket text-warning"></i>
+                        <div style="width: 56px; height: 56px; border-radius: 18px; background: linear-gradient(135deg, rgba(245,160,32,0.25) 0%, rgba(245,160,32,0.1) 100%); border: 1.5px solid rgba(245,160,32,0.45); display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; font-size: 1.5rem; box-shadow: 0 4px 16px rgba(245,160,32,0.2);">
+                            <i class="fas fa-rocket" style="color: #F5A020;"></i>
                         </div>
-                        <h6 class="fw-bold mb-2" style="font-size: 0.95rem;">حوّل مدرستك لمدرسة ذكية!</h6>
-                        <p style="font-size: 0.74rem; opacity: 0.85; line-height: 1.6; margin-bottom: 16px;">انضم لمنظومة SchoPlus السحابية — إدارة أكاديمية ومالية متكاملة، تطبيق أولياء الأمور، وإشعارات واتساب فورية.</p>
-                        <a href="https://schoplus.sd" target="_blank" class="btn-luxury-gold justify-content-center w-100" style="font-size: 0.78rem;">
-                            <i class="fas fa-arrow-left"></i> تعرف على SchoPlus
+                        <span style="display: inline-block; background: rgba(245,160,32,0.18); color: #FCD34D; border: 1px solid rgba(245,160,32,0.35); padding: 3px 12px; border-radius: 999px; font-size: 0.65rem; font-weight: 800; letter-spacing: 0.3px; margin-bottom: 8px;">
+                            نظام مدرسي سحابي ذكي
+                        </span>
+                        <h6 class="fw-bold mb-2 text-white" style="font-size: 1rem; line-height: 1.35;">حوّل مدرستك إلى مدرسة ذكية متكاملة!</h6>
+                        <p style="font-size: 0.76rem; color: rgba(255,255,255,0.85); line-height: 1.65; margin-bottom: 18px;">
+                            انضم لمنظومة <strong>SchoPlus</strong> السحابية — إدارة أكاديمية ومالية شاملة، تطبيق أولياء الأمور والطلاب، وإشعارات واتساب فورية مؤتمتة.
+                        </p>
+                        <a href="https://schoplus.sd" target="_blank" class="btn-luxury-gold justify-content-center w-100 shadow-sm" style="font-size: 0.8rem; font-weight: 800; padding: 10px 16px; background: linear-gradient(135deg, #F5A020 0%, #E68A00 100%); color: #0B2A52; border: none; border-radius: 12px;">
+                            <span>تعرف على منظومة SchoPlus</span> <i class="fas fa-arrow-left ms-1"></i>
                         </a>
                     </div>
                 </div>
