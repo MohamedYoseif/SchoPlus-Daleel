@@ -24,6 +24,51 @@ if (isset($_GET['logout'])) {
     exit;
 }
 
+// Helper for mobile file upload
+function handleMobileUpload(array $file, string $subfolder): ?string {
+    if (($file['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK || empty($file['tmp_name'])) {
+        return null;
+    }
+    $allowedMimes = [
+        'image/jpeg', 'image/png', 'image/webp', 'image/jpg',
+        'image/svg+xml', 'image/gif', 'image/bmp', 'image/avif'
+    ];
+    $allowedExts = ['jpg', 'jpeg', 'png', 'webp', 'svg', 'gif', 'bmp', 'avif'];
+    $ext = strtolower(pathinfo($file['name'] ?? '', PATHINFO_EXTENSION) ?: 'jpg');
+    if ($ext === 'jfif') $ext = 'jpg';
+
+    $mime = '';
+    if (function_exists('finfo_open')) {
+        $finfo = @finfo_open(FILEINFO_MIME_TYPE);
+        if ($finfo) {
+            $mime = (string)@finfo_file($finfo, $file['tmp_name']);
+            @finfo_close($finfo);
+        }
+    }
+    if (!$mime && function_exists('getimagesize')) {
+        $imgInfo = @getimagesize($file['tmp_name']);
+        if (!empty($imgInfo['mime'])) $mime = $imgInfo['mime'];
+    }
+
+    $isValidMime = in_array($mime, $allowedMimes, true) || str_starts_with($mime, 'image/');
+    $isValidExt = in_array($ext, $allowedExts, true);
+    if (!$isValidMime && !$isValidExt) return null;
+    if (!in_array($ext, $allowedExts, true)) $ext = 'jpg';
+
+    $filename = time() . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
+    $cleanSubfolder = trim($subfolder, '/');
+    $targetDir = __DIR__ . '/../uploads/' . $cleanSubfolder . '/';
+    if (!is_dir($targetDir)) {
+        @mkdir($targetDir, 0755, true);
+    }
+    $targetPath = $targetDir . $filename;
+    if (@move_uploaded_file($file['tmp_name'], $targetPath)) {
+        @chmod($targetPath, 0644);
+        return '/uploads/' . $cleanSubfolder . '/' . $filename;
+    }
+    return null;
+}
+
 // ══════════════════════════════════════════════════════════════
 // POST HANDLERS (Native Database Forms)
 // ══════════════════════════════════════════════════════════════
@@ -327,6 +372,89 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $noticeSuccess = 'تم تحديث حالة طلب القبول بنجاح.';
         }
     }
+
+    // 8. Upload School Logo / Cover from Mobile
+    elseif ($action === 'update_media' && !empty($_SESSION['daleel_school_id'])) {
+        $myId = (int)$_SESSION['daleel_school_id'];
+        $updated = false;
+
+        // Logo
+        if (!empty($_FILES['logo']['tmp_name'])) {
+            $upLogo = handleMobileUpload($_FILES['logo'], 'logos');
+            if ($upLogo) {
+                $pdo->prepare("UPDATE daleel_schools SET logo_path = ?, updated_at = NOW() WHERE id = ?")->execute([$upLogo, $myId]);
+                $updated = true;
+            }
+        }
+
+        // Cover
+        if (!empty($_FILES['cover']['tmp_name'])) {
+            $upCover = handleMobileUpload($_FILES['cover'], 'covers');
+            if ($upCover) {
+                $pdo->prepare("UPDATE daleel_schools SET cover_path = ?, updated_at = NOW() WHERE id = ?")->execute([$upCover, $myId]);
+                $updated = true;
+            }
+        }
+
+        if ($updated) {
+            $noticeSuccess = 'تم تحديث ورفع صور المدرسة والشعار بنجاح.';
+        } else {
+            $noticeError = 'يرجى اختيار صورة صحيحة بصيغة JPG أو PNG.';
+        }
+    }
+
+    // 9. Add Photo to Gallery from Mobile
+    elseif ($action === 'add_gallery_photo' && !empty($_SESSION['daleel_school_id'])) {
+        $myId = (int)$_SESSION['daleel_school_id'];
+        $sStmt = $pdo->prepare("SELECT gallery FROM daleel_schools WHERE id = ?");
+        $sStmt->execute([$myId]);
+        $sData = $sStmt->fetch();
+        $currGallery = json_decode($sData['gallery'] ?? '[]', true) ?: [];
+
+        if (count($currGallery) >= 8) {
+            $noticeError = 'تم بلوغ الحد الأقصى للصور في المعرض (8 صور). يرجى حذف صورة قديمة لإضافة جديدة.';
+        } elseif (!empty($_FILES['gallery_photo']['tmp_name'])) {
+            $upPhoto = handleMobileUpload($_FILES['gallery_photo'], 'gallery');
+            if ($upPhoto) {
+                $caption = trim($_POST['caption'] ?? '');
+                $currGallery[] = [
+                    'id' => time() . '_' . rand(100, 999),
+                    'path' => $upPhoto,
+                    'caption' => $caption,
+                    'created_at' => date('Y-m-d H:i:s'),
+                ];
+                $pdo->prepare("UPDATE daleel_schools SET gallery = ?, updated_at = NOW() WHERE id = ?")->execute([
+                    json_encode($currGallery, JSON_UNESCAPED_UNICODE),
+                    $myId
+                ]);
+                $noticeSuccess = 'تمت إضافة الصورة بنجاح إلى معرض صور المدرسة.';
+            } else {
+                $noticeError = 'تعذر رفع الصورة، يرجى التأكد من الحجم والصيغة.';
+            }
+        }
+    }
+
+    // 10. Delete Photo from Gallery
+    elseif ($action === 'delete_gallery_photo' && !empty($_SESSION['daleel_school_id'])) {
+        $myId = (int)$_SESSION['daleel_school_id'];
+        $photoId = trim($_POST['photo_id'] ?? '');
+        $sStmt = $pdo->prepare("SELECT gallery FROM daleel_schools WHERE id = ?");
+        $sStmt->execute([$myId]);
+        $sData = $sStmt->fetch();
+        $currGallery = json_decode($sData['gallery'] ?? '[]', true) ?: [];
+
+        $newGallery = [];
+        foreach ($currGallery as $item) {
+            if (($item['id'] ?? '') !== $photoId) {
+                $newGallery[] = $item;
+            }
+        }
+        $pdo->prepare("UPDATE daleel_schools SET gallery = ?, updated_at = NOW() WHERE id = ?")->execute([
+            json_encode($newGallery, JSON_UNESCAPED_UNICODE),
+            $myId
+        ]);
+        $noticeSuccess = 'تم حذف الصورة من المعرض بنجاح.';
+    }
 }
 
 // Filter inputs
@@ -437,12 +565,14 @@ if ($selectedSchool) {
 $mySchool = null;
 $myInquiries = [];
 $myNewsList = [];
+$myGallery = [];
 if (!empty($_SESSION['daleel_school_id'])) {
     $myStmt = $pdo->prepare("SELECT * FROM daleel_schools WHERE id = ?");
     $myStmt->execute([(int)$_SESSION['daleel_school_id']]);
     $mySchool = $myStmt->fetch();
 
     if ($mySchool) {
+        $myGallery = json_decode($mySchool['gallery'] ?? '[]', true) ?: [];
         $inqStmt = $pdo->prepare("SELECT * FROM daleel_school_inquiries WHERE school_id = ? ORDER BY created_at DESC LIMIT 30");
         $inqStmt->execute([(int)$mySchool['id']]);
         $myInquiries = $inqStmt->fetchAll();
@@ -1998,9 +2128,12 @@ if (!empty($_SESSION['daleel_school_id'])) {
                         </div>
                     </div>
 
-                    <div class="d-flex justify-content-between align-items-center mt-3 pt-2 border-top border-white border-opacity-10">
+                    <div class="d-flex justify-content-between align-items-center mt-3 pt-2 border-top border-white border-opacity-10 gap-1 flex-wrap">
                         <a href="/mobile/?school_id=<?= (int)$mySchool['id'] ?>" class="btn btn-sm rounded-pill fw-bold px-3" style="background:#FFFFFF; color:#0B2A52; font-size:0.72rem;">
                             <i class="fas fa-eye me-1"></i> عرض ملف المدرسة
+                        </a>
+                        <a href="/dashboard.php" class="btn btn-sm rounded-pill fw-bold px-3" style="background:#F5A020; color:#0B2A52; font-size:0.72rem;">
+                            <i class="fas fa-sliders-h me-1"></i> لوحة التحكم الشاملة
                         </a>
                         <a href="/mobile/?logout=1" class="btn btn-sm btn-outline-light rounded-pill fw-bold px-3" style="font-size:0.72rem;">
                             <i class="fas fa-sign-out-alt me-1"></i> خروج
@@ -2065,6 +2198,80 @@ if (!empty($_SESSION['daleel_school_id'])) {
                                             رفض
                                         </button>
                                     </form>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+
+                <!-- Section 1.5: School Photos & Media Management (الشعار، الغلاف، ومعرض الصور) -->
+                <div class="m-info-block mb-3">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <div class="m-info-title mb-0" style="color:var(--m-brand-navy);">
+                            <i class="fas fa-images text-success"></i> إدارة الشعار وصور المدرسة
+                        </div>
+                        <span class="badge bg-light text-dark border small" style="font-size:0.68rem;">المعرض: <?= count($myGallery) ?> / 8 صور</span>
+                    </div>
+
+                    <!-- Upload Logo & Cover -->
+                    <form action="/mobile/?tab=manage" method="POST" enctype="multipart/form-data" class="p-2 mb-3 rounded-3 border bg-light">
+                        <input type="hidden" name="action" value="update_media">
+                        <div class="row g-2">
+                            <div class="col-6">
+                                <label class="form-label small fw-bold text-dark mb-1" style="font-size:0.70rem;">
+                                    <i class="fas fa-camera text-primary me-1"></i> تغيير الشعار
+                                </label>
+                                <input type="file" name="logo" accept="image/*" class="form-control form-control-sm rounded-3" style="font-size:0.72rem;">
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label small fw-bold text-dark mb-1" style="font-size:0.70rem;">
+                                    <i class="fas fa-panorama text-warning me-1"></i> تغيير صورة الغلاف
+                                </label>
+                                <input type="file" name="cover" accept="image/*" class="form-control form-control-sm rounded-3" style="font-size:0.72rem;">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-sm btn-outline-primary w-100 fw-bold mt-2 py-1" style="font-size:0.72rem;">
+                            <i class="fas fa-upload me-1"></i> رفع وحفظ الشعار / الغلاف
+                        </button>
+                    </form>
+
+                    <!-- Add Gallery Photo -->
+                    <?php if (count($myGallery) < 8): ?>
+                        <form action="/mobile/?tab=manage" method="POST" enctype="multipart/form-data" class="p-2 rounded-3 border bg-light mb-2">
+                            <input type="hidden" name="action" value="add_gallery_photo">
+                            <label class="form-label small fw-bold text-dark mb-1" style="font-size:0.70rem;">
+                                <i class="fas fa-plus-circle text-success me-1"></i> إضافة صورة جديدة لمعرض المدرسة
+                            </label>
+                            <div class="d-flex gap-1 mb-2">
+                                <input type="file" name="gallery_photo" accept="image/*" required class="form-control form-control-sm rounded-3" style="font-size:0.72rem;">
+                            </div>
+                            <div class="d-flex gap-1">
+                                <input type="text" name="caption" class="form-control form-control-sm rounded-3 flex-grow-1" placeholder="وصف الصورة (مثال: المختبر العلمي، الفناء...)" style="font-size:0.72rem;">
+                                <button type="submit" class="btn btn-sm btn-success rounded-3 fw-bold px-3 text-nowrap" style="font-size:0.72rem;">
+                                    <i class="fas fa-plus me-1"></i> إضافة
+                                </button>
+                            </div>
+                        </form>
+                    <?php endif; ?>
+
+                    <!-- Current Gallery Photos Grid -->
+                    <?php if (!empty($myGallery)): ?>
+                        <div class="row g-2 mt-1">
+                            <?php foreach ($myGallery as $photo): ?>
+                                <div class="col-4 position-relative">
+                                    <div class="rounded-3 overflow-hidden border shadow-xs" style="height:76px; background:#f1f5f9;">
+                                        <img src="<?= e($photo['path']) ?>" alt="" style="width:100%; height:100%; object-fit:cover;">
+                                    </div>
+                                    <form action="/mobile/?tab=manage" method="POST" onsubmit="return confirm('هل تريد بالتأكيد حذف هذه الصورة؟');" style="position:absolute; top:4px; left:8px;">
+                                        <input type="hidden" name="action" value="delete_gallery_photo">
+                                        <input type="hidden" name="photo_id" value="<?= e($photo['id']) ?>">
+                                        <button type="submit" class="btn btn-danger btn-sm p-0 rounded-circle shadow-sm" style="width:22px; height:22px; font-size:10px; display:flex; align-items:center; justify-content:center;">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </form>
+                                    <?php if (!empty($photo['caption'])): ?>
+                                        <div class="text-truncate text-muted mt-1 small" style="font-size:0.62rem;"><?= e($photo['caption']) ?></div>
+                                    <?php endif; ?>
                                 </div>
                             <?php endforeach; ?>
                         </div>

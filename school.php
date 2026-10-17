@@ -176,6 +176,49 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']) 
     }
 }
 
+// Handle Claim School (طلب توثيق ملكية المدرسة المضافة مسبقاً)
+$claimSuccess = false;
+$claimError = '';
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']) && $_POST['action'] === 'claim_school') {
+    if (!csrf_verify()) {
+        $claimError = 'انتهت صلاحية الجلسة، يرجى إعادة المحاولة.';
+    } else {
+        $claimantName = trim($_POST['claimant_name'] ?? '');
+        $claimantTitle = trim($_POST['claimant_title'] ?? '');
+        $claimantPhone = trim($_POST['claimant_phone'] ?? '');
+        $claimantEmail = trim($_POST['claimant_email'] ?? '');
+        $claimNotes = trim($_POST['notes'] ?? '');
+
+        if (!$claimantName || !$claimantTitle || !$claimantPhone) {
+            $claimError = 'يرجى إكمال اسم المسؤول، المسمى الوظيفي، ورقم الهاتف للتواصل.';
+        } else {
+            $claimDocPath = null;
+            if (!empty($_FILES['verification_doc']['name']) && $_FILES['verification_doc']['error'] === UPLOAD_ERR_OK) {
+                $ext = strtolower(pathinfo($_FILES['verification_doc']['name'], PATHINFO_EXTENSION));
+                $allowed = ['pdf', 'jpg', 'jpeg', 'png'];
+                if (in_array($ext, $allowed, true)) {
+                    $upDir = __DIR__ . '/uploads/claims';
+                    if (!is_dir($upDir)) { @mkdir($upDir, 0755, true); }
+                    $fileName = 'claim_' . $school['id'] . '_' . time() . '.' . $ext;
+                    $dest = $upDir . '/' . $fileName;
+                    if (move_uploaded_file($_FILES['verification_doc']['tmp_name'], $dest)) {
+                        $claimDocPath = 'uploads/claims/' . $fileName;
+                    }
+                }
+            }
+
+            $claimStmt = $pdo->prepare("INSERT INTO daleel_school_claims 
+                (school_id, claimant_name, claimant_title, claimant_phone, claimant_email, verification_doc_path, notes, status, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, 'pending', NOW())");
+            $claimStmt->execute([
+                $school['id'], $claimantName, $claimantTitle, $claimantPhone,
+                $claimantEmail ?: null, $claimDocPath, $claimNotes ?: null
+            ]);
+            $claimSuccess = true;
+        }
+    }
+}
+
 // Fetch News
 $newsStmt = $pdo->prepare("SELECT * FROM daleel_school_news WHERE school_id = ? AND is_active = 1 ORDER BY published_at DESC, id DESC");
 $newsStmt->execute([$school['id']]);
@@ -971,6 +1014,28 @@ $totalRev = max(1, count($reviewsList));
         </nav>
     </div>
 
+    <?php if ($claimSuccess): ?>
+    <div class="container px-3 mb-3">
+        <div class="d-flex align-items-center gap-3 p-3 rounded-4 border shadow-sm" style="background: #ECFDF5; border-color: #A7F3D0 !important;">
+            <i class="fas fa-check-circle text-success fs-3"></i>
+            <div>
+                <h6 class="fw-bold text-success mb-1" style="font-size: 0.85rem;">تم استلام طلب توثيق ملكية المدرسة بنجاح!</h6>
+                <p class="text-muted mb-0" style="font-size: 0.75rem;">سيتواصل معك فريق التحقق عبر الهاتف أو واتساب للتحقق ونقل لوحة التحكم لحسابك المعتمد.</p>
+            </div>
+        </div>
+    </div>
+    <?php elseif ($claimError): ?>
+    <div class="container px-3 mb-3">
+        <div class="d-flex align-items-center gap-3 p-3 rounded-4 border shadow-sm" style="background: #FEF2F2; border-color: #FECACA !important;">
+            <i class="fas fa-exclamation-triangle text-danger fs-3"></i>
+            <div>
+                <h6 class="fw-bold text-danger mb-1" style="font-size: 0.85rem;">خطأ أثناء إرسال طلب التوثيق</h6>
+                <p class="text-muted mb-0" style="font-size: 0.75rem;"><?= e($claimError) ?></p>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
+
     <?php if ($isOwner && $school['status'] === 'pending'): ?>
     <div class="container px-3 mb-3">
         <div class="d-flex align-items-center gap-3 p-3 rounded-4 border" style="background: #FFFBEB; border-color: #FCD34D !important;">
@@ -1021,7 +1086,11 @@ $totalRev = max(1, count($reviewsList));
                         <span class="badge-schoplus"><i class="fas fa-bolt"></i> <span class="d-none d-sm-inline">مدرسة</span> SchoPlus الذكية</span>
                     <?php endif; ?>
                     <?php if ($school['is_verified']): ?>
-                        <span class="badge-verified"><i class="fas fa-school"></i> مسجلة بالدليل</span>
+                        <span class="badge-verified"><i class="fas fa-check-circle text-white"></i> موثقة بالدليل</span>
+                    <?php else: ?>
+                        <span class="badge bg-secondary text-white border border-light" style="font-size: 0.72rem; padding: 5px 10px; border-radius: 999px; backdrop-filter: blur(8px); background: rgba(100, 116, 139, 0.85) !important;">
+                            <i class="fas fa-info-circle me-1"></i> بيانات عامة (غير موثقة)
+                        </span>
                     <?php endif; ?>
                 </div>
 
@@ -1060,6 +1129,11 @@ $totalRev = max(1, count($reviewsList));
             <div class="d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-3 py-2">
                 <!-- Action Buttons (Left side in RTL) -->
                 <div class="sp-action-btns-wrap order-lg-2">
+                    <?php if (!$school['is_verified']): ?>
+                        <button type="button" class="btn btn-warning fw-bold sp-btn-action text-dark shadow-sm" data-bs-toggle="modal" data-bs-target="#claimSchoolModal" style="background: linear-gradient(135deg, #F5A020 0%, #D97706 100%); color: #FFFFFF !important; border: none;">
+                            <i class="fas fa-id-badge"></i> <span>وثّق مدرستك</span>
+                        </button>
+                    <?php endif; ?>
                     <?php if (!empty($school['whatsapp'])): ?>
                         <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $school['whatsapp']) ?>?text=<?= urlencode('مرحباً، رأيت مدرستكم على دليل SchoPlus وأود الاستفسار.') ?>" target="_blank" class="btn-luxury-primary sp-btn-action" style="background: #0B2A52; color: #FFFFFF;">
                             <i class="fab fa-whatsapp"></i> <span>واتساب</span>
@@ -2479,6 +2553,71 @@ $totalRev = max(1, count($reviewsList));
                     </a>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- CLAIM SCHOOL MODAL (المطالبة بملكية المدرسة وتوثيقها) -->
+<div class="modal fade" id="claimSchoolModal" tabindex="-1" aria-labelledby="claimSchoolModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0 shadow-lg overflow-hidden">
+            <div class="modal-header px-4 py-3" style="background: linear-gradient(135deg, #0B2A52 0%, #163870 100%); color: #FFFFFF; border-bottom: 2px solid #F5A020;">
+                <div>
+                    <h5 class="modal-title fw-bold fs-6 mb-1 text-white" id="claimSchoolModalTitle">
+                        <i class="fas fa-id-badge text-warning me-2"></i> طلب توثيق ملكية المدرسة
+                    </h5>
+                    <span class="small" style="color: rgba(255,255,255,0.85); font-size: 0.72rem;">هل أنت مفوض رسمي لإدارة <?= e($school['name']) ?>؟ وثّق صفحتك الآن لتتحكم بالبيانات.</span>
+                </div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+            </div>
+            <form method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
+                <input type="hidden" name="action" value="claim_school">
+                <div class="modal-body p-4">
+                    <div class="p-3 rounded-3 mb-3" style="background: #FFFBEB; border: 1px solid #FCD34D; font-size: 0.74rem; color: #92400E; line-height: 1.6;">
+                        <i class="fas fa-shield-alt text-warning me-1"></i>
+                        هذه المدرسة مدرجة كبيانات عامة لتسهيل وصول أولياء الأمور. لتوثيق ملكيتها ونقل صلاحيات التعديل لحسابك، يرجى تزويدنا ببيانات المسؤول.
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-dark">اسم المسؤول الكامل <span class="text-danger">*</span></label>
+                        <input type="text" name="claimant_name" class="form-control form-control-sm rounded-3" placeholder="مثال: د. محمد أحمد يوسف" required>
+                    </div>
+
+                    <div class="row g-2 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-dark">المسمى الوظيفي <span class="text-danger">*</span></label>
+                            <input type="text" name="claimant_title" class="form-control form-control-sm rounded-3" placeholder="مثال: المدير العام / مدير المرحلة" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-dark">رقم الهاتف / واتساب <span class="text-danger">*</span></label>
+                            <input type="tel" name="claimant_phone" class="form-control form-control-sm rounded-3" placeholder="01xxxxxxx" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-dark">البريد الإلكتروني الرسمي</label>
+                        <input type="email" name="claimant_email" class="form-control form-control-sm rounded-3" placeholder="admin@school.com">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-dark">مستند إثبات وتفويض (اختياري)</label>
+                        <input type="file" name="verification_doc" class="form-control form-control-sm rounded-3" accept=".pdf,.jpg,.jpeg,.png">
+                        <div class="form-text" style="font-size: 0.68rem;">يمكنك إرفاق تفويض رسمي أو ترخيص المدرسة لتسريع اعتماد التوثيق.</div>
+                    </div>
+
+                    <div class="mb-2">
+                        <label class="form-label small fw-bold text-dark">ملاحظات إضافية</label>
+                        <textarea name="notes" class="form-control form-control-sm rounded-3" rows="2" placeholder="أي بيانات أو روابط تساعدنا في سرعة التحقق"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light px-4 py-2.5 border-top d-flex justify-content-between">
+                    <button type="button" class="btn btn-sm btn-outline-secondary rounded-3" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="submit" class="btn btn-sm btn-primary rounded-3 px-4 fw-bold" style="background: #0B2A52; border-color: #0B2A52;">
+                        <i class="fas fa-check-circle me-1"></i> إرسال طلب التوثيق
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

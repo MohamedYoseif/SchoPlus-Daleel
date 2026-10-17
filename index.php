@@ -202,6 +202,11 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
                 <?php if (!empty($s['is_schoplus_client'])): ?>
                     <span class="badge-schoplus-smart"><i class="fas fa-bolt"></i> SchoPlus الذكي</span>
                 <?php endif; ?>
+                <?php if (!empty($s['is_verified'])): ?>
+                    <span class="badge bg-success text-white border border-light" style="font-size: 0.65rem; padding: 2px 8px; border-radius: 999px;"><i class="fas fa-check-circle me-1"></i> موثقة</span>
+                <?php else: ?>
+                    <span class="badge bg-secondary text-white border border-light" style="font-size: 0.65rem; padding: 2px 8px; border-radius: 999px; opacity: 0.9;"><i class="fas fa-info-circle me-1"></i> عامة</span>
+                <?php endif; ?>
             </div>
 
             <div class="card-logo-badge">

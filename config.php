@@ -409,6 +409,26 @@ function ensureTablesExist(PDO $pdo): void {
         INDEX idx_school (school_id)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
 
+    // 5. daleel_school_claims (طلبات توثيق ملكية المدارس المضافة تلقائياً)
+    $pdo->exec("CREATE TABLE IF NOT EXISTS daleel_school_claims (
+        id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        school_id BIGINT UNSIGNED NOT NULL,
+        claimant_name VARCHAR(150) NOT NULL,
+        claimant_title VARCHAR(100) NOT NULL,
+        claimant_phone VARCHAR(50) NOT NULL,
+        claimant_email VARCHAR(150) NULL,
+        verification_doc_path VARCHAR(255) NULL,
+        notes TEXT NULL,
+        status VARCHAR(50) NOT NULL DEFAULT 'pending',
+        reviewed_by VARCHAR(100) NULL,
+        reviewed_at DATETIME NULL,
+        rejection_reason TEXT NULL,
+        created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        INDEX idx_school_claim (school_id),
+        INDEX idx_status (status)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
+
     // Zero-Skip Schema Migration: Ensure all new columns exist in daleel_schools
     try {
         $existingCols = [];
