@@ -6,7 +6,7 @@
 
 if (!function_exists('renderCatalogPagination')) {
     function renderCatalogPagination(int $currentPage, int $totalPages, int $totalItems, int $perPage = 12): void {
-        if ($totalPages <= 1) return;
+        if ($totalItems <= 0) return;
 
         $prevPage = max(1, $currentPage - 1);
         $nextPage = min($totalPages, $currentPage + 1);
@@ -34,31 +34,35 @@ if (!function_exists('renderCatalogPagination')) {
                 </a>
 
                 <?php
-                // Windowed Pagination: Show pages around current
-                $range = 2;
-                $startRange = max(1, $currentPage - $range);
-                $endRange = min($totalPages, $currentPage + $range);
+                if ($totalPages <= 1): ?>
+                    <a href="<?= buildFilterUrl(['page' => 1]) ?>" class="sp-pg-btn active">1</a>
+                <?php else:
+                    // Windowed Pagination: Show pages around current
+                    $range = 2;
+                    $startRange = max(1, $currentPage - $range);
+                    $endRange = min($totalPages, $currentPage + $range);
 
-                if ($startRange > 1): ?>
-                    <a href="<?= buildFilterUrl(['page' => 1]) ?>" class="sp-pg-btn <?= $currentPage === 1 ? 'active' : '' ?>">1</a>
-                    <?php if ($startRange > 2): ?>
-                        <span class="sp-pg-ellipsis">...</span>
+                    if ($startRange > 1): ?>
+                        <a href="<?= buildFilterUrl(['page' => 1]) ?>" class="sp-pg-btn <?= $currentPage === 1 ? 'active' : '' ?>">1</a>
+                        <?php if ($startRange > 2): ?>
+                            <span class="sp-pg-ellipsis">...</span>
+                        <?php endif; ?>
                     <?php endif; ?>
-                <?php endif; ?>
 
-                <?php for ($p = $startRange; $p <= $endRange; $p++): ?>
-                    <a href="<?= buildFilterUrl(['page' => $p]) ?>" class="sp-pg-btn <?= $p === $currentPage ? 'active' : '' ?>">
-                        <?= $p ?>
-                    </a>
-                <?php endfor; ?>
+                    <?php for ($p = $startRange; $p <= $endRange; $p++): ?>
+                        <a href="<?= buildFilterUrl(['page' => $p]) ?>" class="sp-pg-btn <?= $p === $currentPage ? 'active' : '' ?>">
+                            <?= $p ?>
+                        </a>
+                    <?php endfor; ?>
 
-                <?php if ($endRange < $totalPages): ?>
-                    <?php if ($endRange < $totalPages - 1): ?>
-                        <span class="sp-pg-ellipsis">...</span>
+                    <?php if ($endRange < $totalPages): ?>
+                        <?php if ($endRange < $totalPages - 1): ?>
+                            <span class="sp-pg-ellipsis">...</span>
+                        <?php endif; ?>
+                        <a href="<?= buildFilterUrl(['page' => $totalPages]) ?>" class="sp-pg-btn <?= $currentPage === $totalPages ? 'active' : '' ?>">
+                            <?= $totalPages ?>
+                        </a>
                     <?php endif; ?>
-                    <a href="<?= buildFilterUrl(['page' => $totalPages]) ?>" class="sp-pg-btn <?= $currentPage === $totalPages ? 'active' : '' ?>">
-                        <?= $totalPages ?>
-                    </a>
                 <?php endif; ?>
 
                 <!-- زر الصفحة التالية -->
@@ -78,27 +82,27 @@ if (!function_exists('renderCatalogPagination')) {
 <!-- Mandatory Specification for Main Tabs (.sp-main-tabs) -->
 <div class="sp-main-tabs-wrap d-flex justify-content-center text-center">
     <div class="sp-main-tabs mx-auto">
-        <a href="<?= buildFilterUrl(['type' => null, 'view' => null, 'sort' => null, 'schoplus_only' => null]) ?>" class="sp-main-tab <?= empty($schoolType) && (empty($view) || $view === 'all') && !$schoplusOnly && $sort !== 'rating' && $sort !== 'latest' ? 'active' : '' ?>">
+        <a href="<?= buildFilterUrl(['type' => null, 'view' => null, 'sort' => null, 'schoplus_only' => null, 'page' => null]) ?>" class="sp-main-tab <?= empty($schoolType) && (empty($view) || $view === 'all') && !$schoplusOnly && $sort !== 'rating' && $sort !== 'latest' ? 'active' : '' ?>">
             <i class="fas fa-layer-group"></i> كافة المدارس
             <span class="tab-badge"><?= number_format($tabCountTotal) ?></span>
         </a>
-        <a href="<?= buildFilterUrl(['type' => 'government', 'view' => null]) ?>" class="sp-main-tab <?= $schoolType === 'government' ? 'active' : '' ?>">
+        <a href="<?= buildFilterUrl(['type' => 'government', 'view' => null, 'page' => null]) ?>" class="sp-main-tab <?= $schoolType === 'government' ? 'active' : '' ?>">
             <i class="fas fa-landmark"></i> مدارس حكومية
             <span class="tab-badge"><?= number_format($tabCountGov) ?></span>
         </a>
-        <a href="<?= buildFilterUrl(['type' => 'private', 'view' => null]) ?>" class="sp-main-tab <?= $schoolType === 'private' ? 'active' : '' ?>">
+        <a href="<?= buildFilterUrl(['type' => 'private', 'view' => null, 'page' => null]) ?>" class="sp-main-tab <?= $schoolType === 'private' ? 'active' : '' ?>">
             <i class="fas fa-graduation-cap"></i> مدارس خاصة ودولية
             <span class="tab-badge"><?= number_format($tabCountPriv) ?></span>
         </a>
-        <a href="<?= buildFilterUrl(['view' => 'historic', 'type' => null, 'sort' => null]) ?>" class="sp-main-tab <?= $view === 'historic' ? 'active' : '' ?>">
+        <a href="<?= buildFilterUrl(['view' => 'historic', 'type' => null, 'sort' => null, 'page' => null]) ?>" class="sp-main-tab <?= $view === 'historic' ? 'active' : '' ?>">
             <i class="fas fa-landmark text-warning"></i> مدارس وصروح عريقة
             <span class="tab-badge" style="<?= ($tabCountHistoric ?? 0) > 0 ? 'background:#FEF3C7;color:#92400E;font-weight:900;' : '' ?>"><?= number_format($tabCountHistoric ?? 0) ?></span>
         </a>
-        <a href="<?= buildFilterUrl(['view' => 'schoplus', 'type' => null, 'sort' => null]) ?>" class="sp-main-tab <?= $view === 'schoplus' || $schoplusOnly ? 'active' : '' ?>">
+        <a href="<?= buildFilterUrl(['view' => 'schoplus', 'type' => null, 'sort' => null, 'page' => null]) ?>" class="sp-main-tab <?= $view === 'schoplus' || $schoplusOnly ? 'active' : '' ?>">
             <i class="fas fa-bolt text-warning"></i> مدارس SchoPlus الذكية
             <span class="tab-badge"><?= number_format($tabCountSchoplus) ?></span>
         </a>
-        <a href="<?= buildFilterUrl(['view' => 'top_rated', 'sort' => 'rating', 'type' => null]) ?>" class="sp-main-tab <?= $view === 'top_rated' || $sort === 'rating' ? 'active' : '' ?>">
+        <a href="<?= buildFilterUrl(['view' => 'top_rated', 'sort' => 'rating', 'type' => null, 'page' => null]) ?>" class="sp-main-tab <?= $view === 'top_rated' || $sort === 'rating' ? 'active' : '' ?>">
             <i class="fas fa-star text-warning"></i> الأعلى تقييماً
             <span class="tab-badge"><?= number_format($totalTopRatedCount) ?></span>
         </a>
@@ -112,9 +116,9 @@ if (!function_exists('renderCatalogPagination')) {
         <div class="d-flex align-items-center gap-2">
             <span class="text-muted small fw-bold" style="font-size: 0.72rem;"><i class="fas fa-map-marker-alt text-danger me-1"></i> الولاية:</span>
             <select class="form-select form-select-sm sp-top-filter-select" onchange="loadCatalogAjax(this.value, true, true)" style="font-size: 0.76rem; font-weight: 700; color: #0B2A52; border-color: #DDE4ED; border-radius: 8px; width: auto; min-width: 175px; cursor: pointer;">
-                <option value="<?= buildFilterUrl(['state' => null, 'city' => null]) ?>" <?= empty($state) ? 'selected' : '' ?>>كافة الولايات (18 ولاية)</option>
+                <option value="<?= buildFilterUrl(['state' => null, 'city' => null, 'page' => null]) ?>" <?= empty($state) ? 'selected' : '' ?>>كافة الولايات (18 ولاية)</option>
                 <?php foreach($allStatesList as $st): ?>
-                    <option value="<?= buildFilterUrl(['state' => $st, 'city' => null]) ?>" <?= $state === $st ? 'selected' : '' ?>>
+                    <option value="<?= buildFilterUrl(['state' => $st, 'city' => null, 'page' => null]) ?>" <?= $state === $st ? 'selected' : '' ?>>
                         ولاية <?= e($st) ?> (<?= $stateCounts[$st] ?? 0 ?>)
                     </option>
                 <?php endforeach; ?>
@@ -125,16 +129,16 @@ if (!function_exists('renderCatalogPagination')) {
 
         <!-- Quick Type Selector Pills -->
         <div class="d-flex align-items-center gap-1">
-            <a href="<?= buildFilterUrl(['type' => null, 'view' => ($view === 'historic' ? 'historic' : null)]) ?>" class="btn btn-sm <?= empty($schoolType) ? 'btn-dark' : 'btn-light border' ?>" style="font-size: 0.72rem; font-weight: 700; padding: 4px 12px; border-radius: 6px; <?= empty($schoolType) ? 'background: #0B2A52; border-color: #0B2A52; color: #fff;' : 'color: #475569;' ?>">
+            <a href="<?= buildFilterUrl(['type' => null, 'view' => ($view === 'historic' ? 'historic' : null), 'page' => null]) ?>" class="btn btn-sm <?= empty($schoolType) ? 'btn-dark' : 'btn-light border' ?>" style="font-size: 0.72rem; font-weight: 700; padding: 4px 12px; border-radius: 6px; <?= empty($schoolType) ? 'background: #0B2A52; border-color: #0B2A52; color: #fff;' : 'color: #475569;' ?>">
                 الكل
             </a>
-            <a href="<?= buildFilterUrl(['type' => 'government']) ?>" class="btn btn-sm <?= $schoolType === 'government' ? 'btn-primary' : 'btn-light border' ?>" style="font-size: 0.72rem; font-weight: 700; padding: 4px 12px; border-radius: 6px; <?= $schoolType === 'government' ? 'background: #1E5FA8; border-color: #1E5FA8; color: #fff;' : 'color: #475569;' ?>">
+            <a href="<?= buildFilterUrl(['type' => 'government', 'page' => null]) ?>" class="btn btn-sm <?= $schoolType === 'government' ? 'btn-primary' : 'btn-light border' ?>" style="font-size: 0.72rem; font-weight: 700; padding: 4px 12px; border-radius: 6px; <?= $schoolType === 'government' ? 'background: #1E5FA8; border-color: #1E5FA8; color: #fff;' : 'color: #475569;' ?>">
                 <i class="fas fa-landmark me-1"></i> حكومي
             </a>
-            <a href="<?= buildFilterUrl(['type' => 'private']) ?>" class="btn btn-sm <?= $schoolType === 'private' ? 'btn-warning' : 'btn-light border' ?>" style="font-size: 0.72rem; font-weight: 700; padding: 4px 12px; border-radius: 6px; <?= $schoolType === 'private' ? 'background: #F5A020; border-color: #F5A020; color: #0D1B2E;' : 'color: #475569;' ?>">
+            <a href="<?= buildFilterUrl(['type' => 'private', 'page' => null]) ?>" class="btn btn-sm <?= $schoolType === 'private' ? 'btn-warning' : 'btn-light border' ?>" style="font-size: 0.72rem; font-weight: 700; padding: 4px 12px; border-radius: 6px; <?= $schoolType === 'private' ? 'background: #F5A020; border-color: #F5A020; color: #0D1B2E;' : 'color: #475569;' ?>">
                 <i class="fas fa-graduation-cap me-1"></i> خاص
             </a>
-            <a href="<?= buildFilterUrl(['view' => 'historic', 'type' => null]) ?>" class="btn btn-sm <?= $view === 'historic' ? 'btn-warning text-dark' : 'btn-light border' ?>" style="font-size: 0.72rem; font-weight: 700; padding: 4px 12px; border-radius: 6px; <?= $view === 'historic' ? 'background: linear-gradient(135deg, #FDE68A 0%, #F59E0B 100%); border-color: #FCD34D; color: #78350F !important;' : 'color: #78350F;' ?>">
+            <a href="<?= buildFilterUrl(['view' => 'historic', 'type' => null, 'page' => null]) ?>" class="btn btn-sm <?= $view === 'historic' ? 'btn-warning text-dark' : 'btn-light border' ?>" style="font-size: 0.72rem; font-weight: 700; padding: 4px 12px; border-radius: 6px; <?= $view === 'historic' ? 'background: linear-gradient(135deg, #FDE68A 0%, #F59E0B 100%); border-color: #FCD34D; color: #78350F !important;' : 'color: #78350F;' ?>">
                 <i class="fas fa-landmark me-1"></i> صروح عريقة
             </a>
         </div>
@@ -223,7 +227,7 @@ if (!function_exists('renderCatalogPagination')) {
                     <div class="sp-state-sidebar-list" id="sidebarStatesList">
                         
                         <!-- All States / Country Item -->
-                        <a href="<?= buildFilterUrl(['state' => null, 'city' => null]) ?>" class="sp-state-item <?= empty($state) ? 'is-active' : '' ?>" data-region="all">
+                        <a href="<?= buildFilterUrl(['state' => null, 'city' => null, 'page' => null]) ?>" class="sp-state-item <?= empty($state) ? 'is-active' : '' ?>" data-region="all">
                             <div class="d-flex align-items-center gap-2">
                                 <span class="sp-state-dot"></span>
                                 <span class="sp-state-item-name"><?= !empty($country) && $country !== 'السودان' ? 'كافة مناطق ' . e($country) : 'كافة ولايات السودان' ?></span>
@@ -236,7 +240,7 @@ if (!function_exists('renderCatalogPagination')) {
                             foreach($statesLoop as $stName): 
                                 $countInState = $stateCounts[$stName] ?? 0;
                                 $isSelected = ($state === $stName);
-                                $stUrl = $isSelected ? buildFilterUrl(['state' => null, 'city' => null]) : buildFilterUrl(['state' => $stName, 'city' => null]);
+                                $stUrl = $isSelected ? buildFilterUrl(['state' => null, 'city' => null, 'page' => null]) : buildFilterUrl(['state' => $stName, 'city' => null, 'page' => null]);
                                 $regKey = $sudanRegionMapping[$stName] ?? 'all';
                         ?>
                         <a href="<?= $stUrl ?>" class="sp-state-item <?= $isSelected ? 'is-active' : '' ?>" data-region="<?= $regKey ?>" data-name="<?= e($stName) ?>">
@@ -272,56 +276,56 @@ if (!function_exists('renderCatalogPagination')) {
         <div class="sp-active-filter-chips mb-3 d-flex flex-wrap align-items-center gap-2">
             <span class="sp-chips-label"><i class="fas fa-filter text-muted me-1"></i> التصفية الحالية:</span>
             <?php if ($state !== ''): ?>
-                <a href="<?= buildFilterUrl(['state' => null, 'city' => null]) ?>" class="sp-chip-tag" title="إزالة تصفية الولاية">
+                <a href="<?= buildFilterUrl(['state' => null, 'city' => null, 'page' => null]) ?>" class="sp-chip-tag" title="إزالة تصفية الولاية">
                     <span>ولاية: <strong><?= e($state) ?></strong></span>
                     <i class="fas fa-times ms-1"></i>
                 </a>
             <?php endif; ?>
             <?php if ($schoolType !== ''): ?>
-                <a href="<?= buildFilterUrl(['type' => null]) ?>" class="sp-chip-tag" title="إزالة تصفية نوع المدرسة">
+                <a href="<?= buildFilterUrl(['type' => null, 'page' => null]) ?>" class="sp-chip-tag" title="إزالة تصفية نوع المدرسة">
                     <span>النوع: <strong><?= $schoolType === 'government' ? 'مدارس حكومية' : 'مدارس خاصة ودولية' ?></strong></span>
                     <i class="fas fa-times ms-1"></i>
                 </a>
             <?php endif; ?>
             <?php if ($city !== ''): ?>
-                <a href="<?= buildFilterUrl(['city' => null]) ?>" class="sp-chip-tag" title="إزالة تصفية المدينة">
+                <a href="<?= buildFilterUrl(['city' => null, 'page' => null]) ?>" class="sp-chip-tag" title="إزالة تصفية المدينة">
                     <span>مدينة: <strong><?= e($city) ?></strong></span>
                     <i class="fas fa-times ms-1"></i>
                 </a>
             <?php endif; ?>
             <?php if ($stage !== ''): ?>
-                <a href="<?= buildFilterUrl(['stage' => null]) ?>" class="sp-chip-tag" title="إزالة تصفية المرحلة">
+                <a href="<?= buildFilterUrl(['stage' => null, 'page' => null]) ?>" class="sp-chip-tag" title="إزالة تصفية المرحلة">
                     <span>مرحلة: <strong><?= e($schoolStages[$stage] ?? $stage) ?></strong></span>
                     <i class="fas fa-times ms-1"></i>
                 </a>
             <?php endif; ?>
             <?php if ($q !== ''): ?>
-                <a href="<?= buildFilterUrl(['q' => null]) ?>" class="sp-chip-tag" title="إزالة البحث النصي">
+                <a href="<?= buildFilterUrl(['q' => null, 'page' => null]) ?>" class="sp-chip-tag" title="إزالة البحث النصي">
                     <span>بحث: <strong><?= e($q) ?></strong></span>
                     <i class="fas fa-times ms-1"></i>
                 </a>
             <?php endif; ?>
             <?php if ($view === 'schoplus' || $schoplusOnly): ?>
-                <a href="<?= buildFilterUrl(['view' => null, 'schoplus_only' => null]) ?>" class="sp-chip-tag" title="إزالة تصفية المدارس الذكية">
+                <a href="<?= buildFilterUrl(['view' => null, 'schoplus_only' => null, 'page' => null]) ?>" class="sp-chip-tag" title="إزالة تصفية المدارس الذكية">
                     <span><strong>مدارس SchoPlus الذكية</strong></span>
                     <i class="fas fa-times ms-1"></i>
                 </a>
             <?php endif; ?>
             <?php if ($view === 'historic'): ?>
-                <a href="<?= buildFilterUrl(['view' => null]) ?>" class="sp-chip-tag" title="إزالة تصفية الصروح العريقة" style="background:#FEF3C7;color:#92400E;border-color:#FDE68A;">
+                <a href="<?= buildFilterUrl(['view' => null, 'page' => null]) ?>" class="sp-chip-tag" title="إزالة تصفية الصروح العريقة" style="background:#FEF3C7;color:#92400E;border-color:#FDE68A;">
                     <i class="fas fa-landmark text-warning me-1"></i>
                     <span><strong>صروح ومدارس عريقة</strong></span>
                     <i class="fas fa-times ms-1"></i>
                 </a>
             <?php endif; ?>
             <?php if ($view === 'top_rated' || $sort === 'rating'): ?>
-                <a href="<?= buildFilterUrl(['view' => null, 'sort' => null]) ?>" class="sp-chip-tag" title="إزالة تصفية التقييم">
+                <a href="<?= buildFilterUrl(['view' => null, 'sort' => null, 'page' => null]) ?>" class="sp-chip-tag" title="إزالة تصفية التقييم">
                     <span><strong>المدارس الأعلى تقييماً</strong></span>
                     <i class="fas fa-times ms-1"></i>
                 </a>
             <?php endif; ?>
             <?php if ($view === 'latest' || $sort === 'latest'): ?>
-                <a href="<?= buildFilterUrl(['view' => null, 'sort' => null]) ?>" class="sp-chip-tag" title="إزالة تصفية الأحدث">
+                <a href="<?= buildFilterUrl(['view' => null, 'sort' => null, 'page' => null]) ?>" class="sp-chip-tag" title="إزالة تصفية الأحدث">
                     <span><strong>المضافة حديثاً</strong></span>
                     <i class="fas fa-times ms-1"></i>
                 </a>

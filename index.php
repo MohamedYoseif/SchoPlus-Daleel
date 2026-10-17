@@ -207,15 +207,13 @@ if ($isSearching) {
 
     $whereClause = implode(' AND ', $where);
 
-    $whereClause = implode(' AND ', $where);
-
-    // Default sorting order: Historic schools FIRST (ordered by established year oldest first), then newest additions (id DESC)
+    // Default sorting order: Historic schools FIRST (ordered by established year oldest first), then sequential directory order (id ASC)
     $historicYearOrder = "(CASE WHEN CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950 THEN CAST(established_year AS UNSIGNED) ELSE 9999 END) ASC";
-    $orderBy = "{$historicWhereSql} DESC, {$historicYearOrder}, id DESC";
-    if ($view === 'historic') $orderBy = "is_historic DESC, historic_votes DESC, (CAST(established_year AS UNSIGNED) > 0) DESC, CAST(established_year AS UNSIGNED) ASC, rating_avg DESC, id DESC";
-    if ($sort === 'rating' || $view === 'top_rated') $orderBy = "rating_avg DESC, reviews_count DESC, id DESC";
-    if ($sort === 'reviews') $orderBy = "reviews_count DESC, id DESC";
-    if ($sort === 'views') $orderBy = "views_count DESC, id DESC";
+    $orderBy = "{$historicWhereSql} DESC, {$historicYearOrder}, id ASC";
+    if ($view === 'historic') $orderBy = "{$historicWhereSql} DESC, {$historicYearOrder}, id ASC";
+    if ($sort === 'rating' || $view === 'top_rated') $orderBy = "rating_avg DESC, reviews_count DESC, id ASC";
+    if ($sort === 'reviews') $orderBy = "reviews_count DESC, id ASC";
+    if ($sort === 'views') $orderBy = "views_count DESC, id ASC";
     if ($sort === 'latest' || $view === 'latest') $orderBy = "created_at DESC, id DESC";
 
     $countStmt = $pdo->prepare("SELECT COUNT(*) FROM daleel_schools WHERE {$whereClause}");
@@ -231,7 +229,7 @@ if ($isSearching) {
     $searchResults = $searchStmt->fetchAll();
 } else {
     // Default home view (تبويب كافة المدارس):
-    // Orders historic schools FIRST (oldest established year first), then newest additions (id DESC), paginated 12 per page
+    // Orders historic schools FIRST (oldest established year first), then sequential directory order (id ASC), paginated 12 per page
     $totalMatching = $statTotal;
     $totalPages = max(1, (int) ceil($totalMatching / $perPage));
     if ($page > $totalPages) $page = $totalPages;
@@ -240,11 +238,11 @@ if ($isSearching) {
     // Featured / SchoPlus Showcase only on page 1 of default view
     $schoplusShowcase = [];
     if ($page === 1) {
-        $schoplusShowcase = $pdo->query("SELECT * FROM daleel_schools WHERE status = 'approved' AND is_schoplus_client = 1 ORDER BY is_featured DESC, rating_avg DESC, id DESC LIMIT 6")->fetchAll();
+        $schoplusShowcase = $pdo->query("SELECT * FROM daleel_schools WHERE status = 'approved' AND is_schoplus_client = 1 ORDER BY is_featured DESC, rating_avg DESC, id ASC LIMIT 6")->fetchAll();
     }
 
     $historicYearOrder = "(CASE WHEN CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950 THEN CAST(established_year AS UNSIGNED) ELSE 9999 END) ASC";
-    $defaultOrder = "{$historicWhereSql} DESC, {$historicYearOrder}, id DESC";
+    $defaultOrder = "{$historicWhereSql} DESC, {$historicYearOrder}, id ASC";
     $catalogSchools = $pdo->query("SELECT * FROM daleel_schools WHERE status = 'approved' ORDER BY {$defaultOrder} LIMIT {$perPage} OFFSET {$offset}")->fetchAll();
     $searchResults = $catalogSchools;
 }
