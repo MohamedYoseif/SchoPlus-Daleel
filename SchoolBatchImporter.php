@@ -96,10 +96,27 @@ class SchoolBatchImporter
         $stages = isset($data['stages']) ? (is_array($data['stages']) ? json_encode($data['stages'], JSON_UNESCAPED_UNICODE) : $data['stages']) : '["kindergarten","primary","intermediate","secondary"]';
         
         $phone = trim($data['phone'] ?? '');
-        $whatsapp = trim($data['whatsapp'] ?? $phone);
+        // Guard against fabricated or placeholder phone numbers
+        if ($phone === '' || $phone === '0100000000' || preg_match('/0{4,}/', $phone)) {
+            $phone = null;
+        }
+
+        $whatsapp = trim($data['whatsapp'] ?? '');
+        if ($whatsapp === '' && $phone) {
+            $whatsapp = $phone;
+        }
+        if ($whatsapp === '0100000000' || preg_match('/0{4,}/', (string)$whatsapp)) {
+            $whatsapp = null;
+        }
+
         $email = trim($data['email'] ?? '');
         $website = trim($data['website'] ?? '');
         $establishedYear = trim((string)($data['established_year'] ?? ''));
+        // Guard against invalid or placeholder years
+        if ($establishedYear === '' || (int)$establishedYear < 1850 || (int)$establishedYear > (int)date('Y')) {
+            $establishedYear = null;
+        }
+
         $description = trim($data['description'] ?? "مؤسسة تعليمية وتربوية تقدم خدماتها في {$city} — ولاية {$state}.");
 
         $status = $data['status'] ?? 'approved';
@@ -109,7 +126,7 @@ class SchoolBatchImporter
 
         $ownerName = trim($data['owner_name'] ?? ('إدارة ' . $name));
         $ownerTitle = trim($data['owner_title'] ?? 'مدير المدرسة / المفوض');
-        $ownerPhone = trim($data['owner_phone'] ?? ($phone ?: '0100000000'));
+        $ownerPhone = $phone ?: null;
         $password = password_hash(bin2hex(random_bytes(6)), PASSWORD_BCRYPT);
 
         $insertSql = "INSERT INTO daleel_schools (
@@ -139,7 +156,7 @@ class SchoolBatchImporter
             ':city' => $city,
             ':district' => $district ?: null,
             ':address' => trim($data['address'] ?? ($state . ' — ' . $city . ($district ? ' — ' . $district : ''))),
-            ':phone' => $phone ?: ($ownerPhone ?: '0100000000'),
+            ':phone' => $phone ?: null,
             ':whatsapp' => $whatsapp ?: null,
             ':email' => $email ?: null,
             ':website' => $website ?: null,

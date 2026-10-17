@@ -467,6 +467,16 @@ function ensureTablesExist(PDO $pdo): void {
             }
         }
 
+        // Zero-Skip Schema Migration: Make phone fields nullable and clean dummy placeholders
+        try {
+            $pdo->exec("ALTER TABLE daleel_schools MODIFY COLUMN phone VARCHAR(50) NULL DEFAULT NULL");
+            $pdo->exec("ALTER TABLE daleel_schools MODIFY COLUMN owner_phone VARCHAR(50) NULL DEFAULT NULL");
+            $pdo->exec("ALTER TABLE daleel_schools MODIFY COLUMN whatsapp VARCHAR(50) NULL DEFAULT NULL");
+            $pdo->exec("UPDATE daleel_schools SET phone = NULL WHERE phone = '0100000000' OR phone LIKE '%00000%' OR phone LIKE '%00001' OR phone LIKE '%00002' OR phone LIKE '%00003'");
+            $pdo->exec("UPDATE daleel_schools SET owner_phone = NULL WHERE owner_phone = '0100000000' OR owner_phone LIKE '%00000%' OR owner_phone LIKE '%00001' OR owner_phone LIKE '%00002' OR owner_phone LIKE '%00003'");
+            $pdo->exec("UPDATE daleel_schools SET whatsapp = NULL WHERE whatsapp = '0100000000' OR whatsapp LIKE '%00000%' OR whatsapp LIKE '%00001' OR whatsapp LIKE '%00002' OR whatsapp LIKE '%00003'");
+        } catch (Throwable $e) {}
+
         // News table schema update: branch_name
         $newsCols = [];
         $nColsQuery = $pdo->query("SHOW COLUMNS FROM daleel_school_news");
