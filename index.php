@@ -1073,13 +1073,15 @@ require_once __DIR__ . '/header.php';
 
 /* ===== LUXURY JOIN DALEEL CTA BANNER (STYLE F v2) ===== */
 .sp-join-section {
-    padding: 6px 0 6px;
-    margin-bottom: 2px;
+    padding: 16px 0 20px;
+    margin-top: 16px;
+    margin-bottom: 12px;
 }
-.sp-join-section.sp-join-top {
-    padding-top: 6px;
-    padding-bottom: 6px;
-    margin-bottom: 0;
+.sp-join-section.sp-join-bottom {
+    padding-top: 18px;
+    padding-bottom: 22px;
+    margin-top: 18px;
+    margin-bottom: 16px;
 }
 .sp-join-card {
     background: linear-gradient(135deg, #0B2A52 0%, #163870 100%);
@@ -1230,9 +1232,11 @@ require_once __DIR__ . '/header.php';
 
 /* Mobile Responsive Optimization (<= 767px) */
 @media (max-width: 767px) {
-    .sp-join-section.sp-join-top {
-        padding-top: 12px;
-        padding-bottom: 6px;
+    .sp-join-section.sp-join-bottom {
+        padding-top: 14px;
+        padding-bottom: 16px;
+        margin-top: 12px;
+        margin-bottom: 8px;
     }
     .sp-join-card {
         padding: 16px 14px;
@@ -1892,10 +1896,34 @@ require_once __DIR__ . '/header.php';
     </div>
 </section>
 
-<!-- SCHOOL OWNERS CTA BANNER (MOVED TO TOP WITH FULL DETAILS & MOBILE COLOR FIXES) -->
-<section class="sp-join-section sp-join-top" id="join-daleel-section">
+<!-- MAIN DIRECTORY CATALOG WITH MODERN STATES SIDEBAR FILTER -->
+<section class="py-3" id="directory-catalog-section" style="position: relative; min-height: 420px;">
+    <div class="sp-ajax-progress" id="spAjaxProgress"></div>
+
+    <!-- PRELOADER OVERLAY FOR SCHOOLS & SEARCH RESULTS -->
+    <div id="spCatalogPreloader" class="sp-catalog-preloader" style="display: none;">
+        <div class="sp-preloader-card">
+            <div class="sp-preloader-spinner">
+                <div class="sp-spinner-ring"></div>
+                <div class="sp-spinner-icon"><i class="fas fa-graduation-cap"></i></div>
+            </div>
+            <div class="sp-preloader-title">جاري تحميل وتحديث المدارس...</div>
+            <div class="sp-preloader-sub">يرجى الانتظار، جاري جلب أحدث النتائج</div>
+            <div class="sp-preloader-bar">
+                <div class="sp-preloader-bar-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="catalog-dynamic-wrap">
+        <?php require __DIR__ . '/_catalog_content.php'; ?>
+    </div>
+</section>
+
+<!-- SCHOOL OWNERS CTA BANNER (PLACED ABOVE FOOTER) -->
+<section class="sp-join-section sp-join-bottom" id="join-daleel-section">
     <div class="container">
-        <div class="sp-join-card" style="background: linear-gradient(135deg, #0B2A52 0%, #163870 100%); border-radius: 16px; border: 1px solid #1E5FA8; border-right: 5px solid #F5A020; color: #FFFFFF; padding: 18px 24px;">
+        <div class="sp-join-card" style="background: linear-gradient(135deg, #0B2A52 0%, #163870 100%); border-radius: 16px; border: 1px solid #1E5FA8; border-right: 5px solid #F5A020; color: #FFFFFF; padding: 22px 28px; box-shadow: 0 10px 30px rgba(11, 42, 82, 0.12);">
             <div class="row align-items-center g-3">
                 <div class="col-lg-8 col-12">
                     <div class="sp-join-eyebrow" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(245, 160, 32, 0.2); border: 1px solid #F5A020; color: #F5A020 !important; font-weight: 800; font-size: 0.72rem; padding: 3px 10px; border-radius: 20px; margin-bottom: 8px;">
@@ -1930,30 +1958,6 @@ require_once __DIR__ . '/header.php';
                 </div>
             </div>
         </div>
-    </div>
-</section>
-
-<!-- MAIN DIRECTORY CATALOG WITH MODERN STATES SIDEBAR FILTER -->
-<section class="py-3" id="directory-catalog-section" style="position: relative; min-height: 420px;">
-    <div class="sp-ajax-progress" id="spAjaxProgress"></div>
-
-    <!-- PRELOADER OVERLAY FOR SCHOOLS & SEARCH RESULTS -->
-    <div id="spCatalogPreloader" class="sp-catalog-preloader" style="display: none;">
-        <div class="sp-preloader-card">
-            <div class="sp-preloader-spinner">
-                <div class="sp-spinner-ring"></div>
-                <div class="sp-spinner-icon"><i class="fas fa-graduation-cap"></i></div>
-            </div>
-            <div class="sp-preloader-title">جاري تحميل وتحديث المدارس...</div>
-            <div class="sp-preloader-sub">يرجى الانتظار، جاري جلب أحدث النتائج</div>
-            <div class="sp-preloader-bar">
-                <div class="sp-preloader-bar-fill"></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container" id="catalog-dynamic-wrap">
-        <?php require __DIR__ . '/_catalog_content.php'; ?>
     </div>
 </section>
 
