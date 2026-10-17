@@ -561,6 +561,26 @@ function ensureTablesExist(PDO $pdo): void {
             $pdo->exec("UPDATE daleel_schools SET whatsapp = NULL WHERE whatsapp = '0100000000' OR whatsapp LIKE '%00000%' OR whatsapp LIKE '%00001' OR whatsapp LIKE '%00002' OR whatsapp LIKE '%00003'");
         } catch (Throwable $e) {}
 
+        // Strict Stages Audit: Government schools NEVER have kindergarten in Sudan + Deduce stages by name
+        try {
+            require_once __DIR__ . '/SudanGeography.php';
+            $allSchoolsToAudit = $pdo->query("SELECT id, name, school_type, stages FROM daleel_schools")->fetchAll(PDO::FETCH_ASSOC);
+            if (!empty($allSchoolsToAudit)) {
+                $updStageStmt = $pdo->prepare("UPDATE daleel_schools SET stages = ? WHERE id = ?");
+                foreach ($allSchoolsToAudit as $schItem) {
+                    $sId = (int)$schItem['id'];
+                    $sName = $schItem['name'] ?? '';
+                    $sType = $schItem['school_type'] ?? 'private';
+                    $curStages = json_decode($schItem['stages'] ?? '[]', true) ?: [];
+
+                    $newStages = SudanGeography::deduceStages($sType, $sName, $curStages);
+                    if ($newStages !== $curStages) {
+                        $updStageStmt->execute([json_encode($newStages, JSON_UNESCAPED_UNICODE), $sId]);
+                    }
+                }
+            }
+        } catch (Throwable $e) {}
+
         // News table schema update: branch_name
         $newsCols = [];
         $nColsQuery = $pdo->query("SHOW COLUMNS FROM daleel_school_news");

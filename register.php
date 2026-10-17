@@ -140,7 +140,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Insert Record
             try {
                 $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-                $stagesJson = json_encode($stages, JSON_UNESCAPED_UNICODE);
+                $finalStages = SudanGeography::deduceStages($school_type, $name, $stages);
+                $stagesJson = json_encode($finalStages, JSON_UNESCAPED_UNICODE);
                 $facilitiesJson = json_encode([], JSON_UNESCAPED_UNICODE);
 
                 $insStmt = $pdo->prepare("INSERT INTO daleel_schools (

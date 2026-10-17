@@ -93,7 +93,11 @@ class SchoolBatchImporter
         $schoolType = $data['school_type'] ?? 'private';
         $genderType = $data['gender_type'] ?? 'mixed';
         $curriculum = $data['curriculum'] ?? 'sudanese';
-        $stages = isset($data['stages']) ? (is_array($data['stages']) ? json_encode($data['stages'], JSON_UNESCAPED_UNICODE) : $data['stages']) : '["kindergarten","primary","intermediate","secondary"]';
+        
+        // Accurate stage deduction: Government schools NEVER have kindergarten in Sudan
+        $rawStages = $data['stages'] ?? null;
+        $deducedStages = SudanGeography::deduceStages($schoolType, $name, $rawStages);
+        $stages = json_encode($deducedStages, JSON_UNESCAPED_UNICODE);
         
         $phone = trim($data['phone'] ?? '');
         // Guard against fabricated or placeholder phone numbers

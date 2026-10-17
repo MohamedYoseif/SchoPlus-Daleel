@@ -95,6 +95,10 @@ $hashedPassword = password_hash($tempPassword, PASSWORD_BCRYPT);
 
 $country = trim((string)($input['country'] ?? 'السودان')) ?: 'السودان';
 
+    $schoolType = trim((string)($input['school_type'] ?? 'private')) ?: 'private';
+    $apiStages = SudanGeography::deduceStages($schoolType, $name, $input['stages'] ?? null);
+    $stagesJson = json_encode($apiStages, JSON_UNESCAPED_UNICODE);
+
 try {
     $insStmt = $pdo->prepare("INSERT INTO daleel_schools (
         name, slug, country, school_type, gender_type, curriculum, stages,
@@ -102,7 +106,7 @@ try {
         status, owner_name, owner_title, owner_phone, password,
         rating_avg, reviews_count, views_count, is_schoplus_client, is_verified, created_at, updated_at
     ) VALUES (
-        :name, :slug, :country, 'private', 'mixed', 'sudanese', '[\"kindergarten\",\"primary\",\"intermediate\",\"secondary\"]',
+        :name, :slug, :country, :school_type, 'mixed', 'sudanese', :stages,
         :state, :city, :phone, :whatsapp,
         'pending', :owner_name, :owner_title, :owner_phone, :password,
         5.00, 0, 1, 0, 0, NOW(), NOW()
@@ -112,6 +116,8 @@ try {
         ':name' => $name,
         ':slug' => $slug,
         ':country' => $country,
+        ':school_type' => $schoolType,
+        ':stages' => $stagesJson,
         ':state' => $state,
         ':city' => $city,
         ':phone' => $phone,

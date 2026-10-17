@@ -58,6 +58,15 @@ $unverified = (int)db()->query("SELECT COUNT(*) FROM daleel_schools WHERE is_ver
 echo "- Total Approved Schools: {$approved}\n";
 echo "- Verified Official     : {$verified}\n";
 echo "- Public Claimable      : {$unverified}\n";
+
+$govWithKg = (int)db()->query("SELECT COUNT(*) FROM daleel_schools WHERE school_type = 'government' AND stages LIKE '%kindergarten%'")->fetchColumn();
+echo "- Gov schools with KG   : {$govWithKg} (MUST BE 0)\n";
+
+$samples = db()->query("SELECT name, school_type, stages FROM daleel_schools WHERE school_type = 'government' LIMIT 4")->fetchAll(PDO::FETCH_ASSOC);
+foreach ($samples as $sm) {
+    echo "  * " . $sm['name'] . " => " . $sm['stages'] . "\n";
+}
+
 echo "\nImport completed successfully!\n";
 
 if (!$isCli) {
