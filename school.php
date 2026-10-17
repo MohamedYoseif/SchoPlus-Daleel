@@ -2406,7 +2406,6 @@ $totalRev = max(1, count($reviewsList));
                 </div>
 
                 <!-- Contact Box -->
-                <?php if (!empty($school['phone']) || !empty($school['whatsapp']) || !empty($school['email']) || !empty($school['address'])): ?>
                 <div class="sp-info-card">
                     <div class="sp-info-card-head">
                         <i class="fas fa-phone-alt" style="color: var(--brand-blue);"></i>
@@ -2421,6 +2420,16 @@ $totalRev = max(1, count($reviewsList));
                                     <span class="fw-bold" style="color: var(--text-main); font-size: 0.82rem;"><?= e($school['phone']) ?></span>
                                 </div>
                             </a>
+                        <?php else: ?>
+                            <div class="sp-contact-row" style="background: #FFFBEB; border: 1px dashed #FCD34D;">
+                                <div class="sp-contact-icon" style="background: #FEF3C7; color: #D97706;"><i class="fas fa-phone-slash"></i></div>
+                                <div>
+                                    <span style="font-size: 0.68rem; color: #92400E; display: block; font-weight: 700;">هاتف المدرسة</span>
+                                    <div style="font-size: 0.74rem; color: #78350F; line-height: 1.4;">
+                                        غير مدرج — <a href="#claimSchoolModal" data-bs-toggle="modal" class="fw-bold text-decoration-underline" style="color: #D97706;">أضف الهاتف ووثّق مدرستك</a>
+                                    </div>
+                                </div>
+                            </div>
                         <?php endif; ?>
                         <?php if (!empty($school['whatsapp'])): ?>
                             <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $school['whatsapp']) ?>" target="_blank" class="sp-contact-row text-decoration-none">
@@ -2458,7 +2467,6 @@ $totalRev = max(1, count($reviewsList));
                         </div>
                     <?php endif; ?>
                 </div>
-                <?php endif; ?>
 
                 <!-- Social Links (Only non-empty links appear) -->
                 <?php if (!empty($socialLinks)): ?>
@@ -2540,6 +2548,10 @@ $totalRev = max(1, count($reviewsList));
         <?php if (!empty($school['phone'])): ?>
             <a href="tel:<?= e($school['phone']) ?>" class="sp-mob-bottom-btn sp-mob-call">
                 <i class="fas fa-phone-alt"></i> <span>اتصال</span>
+            </a>
+        <?php elseif (empty($school['whatsapp']) && !$school['is_verified']): ?>
+            <a href="#claimSchoolModal" data-bs-toggle="modal" class="sp-mob-bottom-btn" style="background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%); color: #B45309; border: 1px solid #FCD34D;">
+                <i class="fas fa-id-badge"></i> <span>وثّق وأضف هاتف</span>
             </a>
         <?php endif; ?>
         <a href="#tab-admission" class="sp-mob-bottom-btn sp-mob-inquiry" onclick="switchTab(document.querySelector('[data-target=\'tab-admission\']'), 'tab-admission')">
