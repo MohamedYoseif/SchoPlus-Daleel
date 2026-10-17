@@ -30,7 +30,7 @@ android {
 
     defaultConfig {
         applicationId "sd.schoplus.daleel"
-        minSdk 24
+        minSdk 21
         targetSdk 35
         versionCode appVersionInfo.versionCode
         versionName appVersionInfo.versionName
@@ -45,6 +45,17 @@ android {
             keyPassword 'schoplus2026'
             v1SigningEnabled true
             v2SigningEnabled true
+            enableV3Signing = true
+            enableV4Signing = false
+        }
+    }
+
+    packaging {
+        resources {
+            excludes += [
+                'META-INF/*.version',
+                'META-INF/version-control-info.textproto'
+            ]
         }
     }
 
