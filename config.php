@@ -888,11 +888,13 @@ function ensureTablesExist(PDO $pdo): void {
             $pdo->exec("DELETE FROM daleel_schools WHERE slug = 'قائمة-المدارس-التي-تم-فحصها-واستبعادها' OR name LIKE '%فحصها واستبعادها%' OR name LIKE 'قائمة المدارس%'");
         } catch (Throwable $e) {}
 
-        // Ensure Al-Akhillaa is repositioned to ID 25 as unverified with Banat branch
+        // Ensure Al-Akhillaa exists and is positioned at ID 25 as unverified with Banat branch
         try {
             $akhilla = $pdo->query("SELECT id, is_schoplus_client, address FROM daleel_schools WHERE name = 'مدارس الأخلاء الخاصة'")->fetch(PDO::FETCH_ASSOC);
-            if ($akhilla && ((int)$akhilla['id'] !== 25 || (int)$akhilla['is_schoplus_client'] !== 0 || strpos($akhilla['address'], 'بانت') === false)) {
-                $pdo->exec("DELETE FROM daleel_schools WHERE name = 'مدارس الأخلاء الخاصة'");
+            if (!$akhilla || (int)$akhilla['id'] !== 25 || (int)$akhilla['is_schoplus_client'] !== 0 || strpos((string)$akhilla['address'], 'بانت') === false) {
+                if ($akhilla) {
+                    $pdo->exec("DELETE FROM daleel_schools WHERE name = 'مدارس الأخلاء الخاصة'");
+                }
                 $has25 = (int)$pdo->query("SELECT COUNT(*) FROM daleel_schools WHERE id = 25 AND name != 'مدارس الأخلاء الخاصة'")->fetchColumn();
                 if ($has25 > 0) {
                     $pdo->exec("UPDATE daleel_schools SET id = id + 1 WHERE id >= 25 ORDER BY id DESC");
@@ -900,11 +902,45 @@ function ensureTablesExist(PDO $pdo): void {
                 $seedFile = __DIR__ . '/seed_schools_data.php';
                 if (file_exists($seedFile)) {
                     $seeds = require $seedFile;
-                    if (isset($seeds[24]) && $seeds[24]['name'] === 'مدارس الأخلاء الخاصة') {
-                        require_once __DIR__ . '/SchoolBatchImporter.php';
-                        $imp = new SchoolBatchImporter($pdo);
-                        $imp->importSchool($seeds[24]);
-                        $pdo->exec("UPDATE daleel_schools SET id = 25, is_verified = 0, is_schoplus_client = 0 WHERE name = 'مدارس الأخلاء الخاصة'");
+                    $foundSeed = null;
+                    if (is_array($seeds)) {
+                        foreach ($seeds as $sd) {
+                            if (isset($sd['name']) && $sd['name'] === 'مدارس الأخلاء الخاصة') {
+                                $foundSeed = $sd;
+                                break;
+                            }
+                        }
+                    }
+                    if ($foundSeed) {
+                        $stagesJson = json_encode($foundSeed['stages'] ?? ['primary', 'intermediate', 'secondary'], JSON_UNESCAPED_UNICODE);
+                        $pwdHash = password_hash(bin2hex(random_bytes(6)), PASSWORD_BCRYPT);
+                        $insStmt = $pdo->prepare("INSERT INTO daleel_schools (
+                            id, name, name_en, slug, school_type, gender_type, curriculum, country, established_year,
+                            stages, state, city, district, address, phone, whatsapp, email, website,
+                            description, status, is_verified, is_schoplus_client, rating_avg, reviews_count, views_count,
+                            owner_name, owner_title, owner_phone, password, created_at, updated_at
+                        ) VALUES (
+                            25,
+                            :name, :name_en, :slug, :school_type, :gender_type, :curriculum, 'السودان', NULL,
+                            :stages, 'الخرطوم', 'أم درمان', :district, :address, NULL, NULL, NULL, NULL,
+                            :description, 'approved', 0, 0, 5.00, 0, 1,
+                            'إدارة مدارس الأخلاء الخاصة', 'مدير المدرسة / المفوض', NULL, :password, NOW(), NOW()
+                        ) ON DUPLICATE KEY UPDATE 
+                            name = VALUES(name), address = VALUES(address), district = VALUES(district), description = VALUES(description),
+                            is_verified = 0, is_schoplus_client = 0");
+                        $insStmt->execute([
+                            ':name' => $foundSeed['name'],
+                            ':name_en' => $foundSeed['name_en'] ?? 'Al-Akhillaa Private Schools',
+                            ':slug' => $foundSeed['slug'] ?? 'مدارس-الأخلاء-الخاصة',
+                            ':school_type' => $foundSeed['school_type'] ?? 'private',
+                            ':gender_type' => $foundSeed['gender_type'] ?? 'mixed',
+                            ':curriculum' => $foundSeed['curriculum'] ?? 'sudanese',
+                            ':stages' => $stagesJson,
+                            ':district' => $foundSeed['district'] ?? 'حي بانت شرق / أمبدة السبيل',
+                            ':address' => $foundSeed['address'] ?? 'ولاية الخرطوم — أم درمان — فرع بانت شرق (جوار مدرسة أم درمان الأهلية) & فرع أمبدة السبيل (الحارة 8 جوار مسجد كرار)',
+                            ':description' => $foundSeed['description'] ?? 'مؤسسة تعليمية وتربوية رائدة في أم درمان تقدم خدماتها لكافة المراحل الدراسية...',
+                            ':password' => $pwdHash
+                        ]);
                     }
                 }
             }
@@ -914,7 +950,7 @@ function ensureTablesExist(PDO $pdo): void {
         try {
             $currCount = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE status = 'approved'")->fetchColumn();
             $seedFile = __DIR__ . '/seed_schools_data.php';
-            if ($currCount < 1700 && file_exists($seedFile)) {
+            if ($currCount < 1720 && file_exists($seedFile)) {
                 require_once __DIR__ . '/SchoolBatchImporter.php';
                 $seedImporter = new SchoolBatchImporter($pdo);
                 $seedSchools = require $seedFile;
