@@ -804,6 +804,12 @@ function ensureTablesExist(PDO $pdo): void {
                 $pdo->exec($sql);
             }
         }
+
+        // Purge accidental markdown report header artifacts if present
+        try {
+            $pdo->exec("DELETE FROM daleel_schools WHERE slug = 'قائمة-المدارس-التي-تم-فحصها-واستبعادها' OR name LIKE '%فحصها واستبعادها%' OR name LIKE 'قائمة المدارس%'");
+        } catch (Throwable $e) {}
+
         // Zero-Skip Production Auto-Seed: Ensure 100% data parity across cloud nodes
         try {
             $currCount = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE status = 'approved'")->fetchColumn();

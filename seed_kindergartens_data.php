@@ -373,7 +373,7 @@ array (
     'name_en' => 'Baron International School and Kindergarten',
     'school_type' => 'private',
     'gender_type' => 'mixed',
-    'curriculum' => 'international',
+    'curriculum' => 'british',
     'country' => 'السودان',
     'state' => 'الخرطوم',
     'city' => 'الخرطوم',
@@ -465,7 +465,7 @@ array (
   ),
   19 => 
 array (
-    'name' => 'رياض القبس الخرطوم',
+    'name' => 'روضة ورياض القبس الخرطوم',
     'name_en' => 'Al-Qabas Kindergarten Khartoum',
     'school_type' => 'private',
     'gender_type' => 'mixed',
@@ -489,7 +489,7 @@ array (
   ),
   20 => 
 array (
-    'name' => 'مدارس ورياض السندس الدولية',
+    'name' => 'روضة ومدارس السندس الدولية',
     'name_en' => 'Al-Sundus International Kindergarten',
     'school_type' => 'private',
     'gender_type' => 'mixed',
@@ -585,7 +585,7 @@ array (
   ),
   24 => 
 array (
-    'name' => 'رياض سويتي كيدز النموذجية',
+    'name' => 'روضة سويتي كيدز النموذجية',
     'name_en' => 'Sweety Kids Preschool',
     'school_type' => 'private',
     'gender_type' => 'mixed',
@@ -602,7 +602,7 @@ array (
     'stages' => array (
       0 => 'kindergarten',
     ),
-    'description' => 'تجمع بين التعليم المدرسي الحديث والقاعدة النورانية والأنشطة الترفيهية وحصص التربية البدنية لتنمية عضلات الطفل الدقيقة والكبيرة.',
+    'description' => 'روضة أطفال نموذجية تجمع بين التعليم المدرسي الحديث والقاعدة النورانية والأنشطة الترفيهية وحصص التربية البدنية لتنمية عضلات الطفل الدقيقة والكبيرة.',
     'rating_avg' => 4.8,
     'is_verified' => 0,
     'is_schoplus_client' => 0,
@@ -2529,7 +2529,7 @@ array (
   ),
   105 => 
 array (
-    'name' => 'رياض مؤسسة د. أبوذر الكودة التعليمية — فرع الكلاكلة',
+    'name' => 'روضة مؤسسة د. أبوذر الكودة التعليمية — فرع الكلاكلة',
     'name_en' => 'Dr. Abuzar Al-Koda Kindergarten Kalakla',
     'school_type' => 'private',
     'gender_type' => 'mixed',
@@ -2601,7 +2601,7 @@ array (
   ),
   108 => 
 array (
-    'name' => 'مدارس الأبرار التعليمية الخاصة — فرع الكلاكلة القبة',
+    'name' => 'روضة ومدارس الأبرار الخاصة — فرع الكلاكلة القبة',
     'name_en' => 'Al-Abrar Educational Kindergarten Kalakla',
     'school_type' => 'private',
     'gender_type' => 'mixed',
@@ -2618,7 +2618,7 @@ array (
     'stages' => array (
       0 => 'kindergarten',
     ),
-    'description' => 'قسم تمهيدي متكامل يضم فصولاً مجهزة بوسائل العرض الحديثة وألعاب التركيب والمنطق وحصص التربية البدنية.',
+    'description' => 'روضة وقسم تمهيدي متكامل يضم فصولاً مجهزة بوسائل العرض الحديثة وألعاب التركيب والمنطق وحصص التربية البدنية.',
     'rating_avg' => 4.85,
     'is_verified' => 0,
     'is_schoplus_client' => 0,

@@ -69,6 +69,11 @@ class SchoolBatchImporter
             return ['status' => 'error', 'message' => 'اسم المدرسة مطلوب'];
         }
 
+        // Guard against accidental report/markdown headings
+        if (preg_match('/(قائمة\s+المدارس|فحصها\s+واستبعادها|تقرير|منهجية\s+البحث|ملخص\s+تنفيذي)/u', $name)) {
+            return ['status' => 'error', 'message' => 'اسم غير صالح للمؤسسة التعليمية (عنوان تقرير)'];
+        }
+
         $country = trim($data['country'] ?? 'السودان') ?: 'السودان';
         $state = trim($data['state'] ?? 'الخرطوم') ?: 'الخرطوم';
         $city = trim($data['city'] ?? 'الخرطوم') ?: 'الخرطوم';

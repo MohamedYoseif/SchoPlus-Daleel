@@ -2,9 +2,9 @@
 
 /**
  * SchoPlus Daleel - Comprehensive Schools and Kindergartens Dataset
- * Total Institutions: 1608
+ * Total Institutions: 1612
  * Coverage: All 18 States of Sudan (Private Schools, Historic Institutions, Kindergartens)
- * Updated: 2026-10-17 21:57:31
+ * Updated: 2026-10-17 22:03:30
  */
 
 return array (
@@ -16842,38 +16842,6 @@ return array (
   ),
   527 => 
   array (
-    'name' => 'قائمة المدارس التي تم فحصها واستبعادها',
-    'name_en' => '',
-    'slug' => 'قائمة-المدارس-التي-تم-فحصها-واستبعادها',
-    'school_type' => 'private',
-    'gender_type' => 'mixed',
-    'curriculum' => 'sudanese',
-    'country' => 'السودان',
-    'established_year' => NULL,
-    'stages' => 
-    array (
-      0 => 'primary',
-      1 => 'secondary',
-    ),
-    'state' => 'غرب دارفور',
-    'city' => 'الجنينة',
-    'district' => NULL,
-    'address' => 'غرب دارفور — الجنينة',
-    'phone' => NULL,
-    'whatsapp' => NULL,
-    'email' => NULL,
-    'website' => NULL,
-    'description' => 'مؤسسة تعليمية خاصة معتمدة بغرب دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
-    'status' => 'approved',
-    'is_verified' => 0,
-    'is_schoplus_client' => 0,
-    'rating_avg' => '4.90',
-    'is_historic' => 0,
-    'historic_badge_reason' => NULL,
-    'historic_votes' => 0,
-  ),
-  528 => 
-  array (
     'name' => 'مدارس القبس الدولية — فرع الرياض',
     'name_en' => 'Al-Qabas International School - Riyadh',
     'slug' => 'مدارس-القبس-الدولية-فرع-الرياض',
@@ -16905,7 +16873,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  529 => 
+  528 => 
   array (
     'name' => 'مدرسة أكسفورد أكاديمي — الخرطوم',
     'name_en' => 'Oxford Academy Khartoum',
@@ -16938,7 +16906,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  530 => 
+  529 => 
   array (
     'name' => 'مدرسة ليدرز العالمية بالخرطوم',
     'name_en' => 'Leaders International Schools Khartoum',
@@ -16971,7 +16939,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  531 => 
+  530 => 
   array (
     'name' => 'مدرسة وادي النيل العالمية — الخرطوم',
     'name_en' => 'Nile Valley International School',
@@ -17004,7 +16972,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  532 => 
+  531 => 
   array (
     'name' => 'مدرسة ذا بيربل كرايون العالمية',
     'name_en' => 'The Purple Crayon Primary and Infant School',
@@ -17037,7 +17005,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  533 => 
+  532 => 
   array (
     'name' => 'أكاديمية أفيناش الدولية — الخرطوم',
     'name_en' => 'Avinash Academy Khartoum',
@@ -17070,7 +17038,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  534 => 
+  533 => 
   array (
     'name' => 'مدرسة إي بي سي للغات (ABC Language School)',
     'name_en' => 'ABC Language School Khartoum',
@@ -17103,7 +17071,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  535 => 
+  534 => 
   array (
     'name' => 'مدرسة المنال الخاصة — الخرطوم 2',
     'name_en' => 'Almanal School Khartoum 2',
@@ -17136,7 +17104,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  536 => 
+  535 => 
   array (
     'name' => 'مدرسة هولم الإنجليزية الخاصة (HOLM English Medium School)',
     'name_en' => 'HOLM English Medium School Khartoum',
@@ -17169,7 +17137,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  537 => 
+  536 => 
   array (
     'name' => 'مدارس جيمس الدولية بالخرطوم (Khartoum GEMS)',
     'name_en' => 'Khartoum GEMS International School',
@@ -17202,7 +17170,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  538 => 
+  537 => 
   array (
     'name' => 'مدارس القبس الخاصة — فرع العمارات',
     'name_en' => 'Al-Qabas Private Schools - Alamarat',
@@ -17235,7 +17203,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  539 => 
+  538 => 
   array (
     'name' => 'مدارس القبس الخاصة — فرع المعمورة',
     'name_en' => 'Al-Qabas Private Schools - Al-Mamoura',
@@ -17268,7 +17236,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  540 => 
+  539 => 
   array (
     'name' => 'مدارس دار الأرقم القرآنية النموذجية — جبرة',
     'name_en' => 'Dar Al-Arqam Model Quranic Schools - Jabra',
@@ -17301,7 +17269,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  541 => 
+  540 => 
   array (
     'name' => 'مدارس المملكة الخاصة — جبرة',
     'name_en' => 'Al-Mamlaka Private Schools - Jabra',
@@ -17334,7 +17302,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  542 => 
+  541 => 
   array (
     'name' => 'مدارس الفلاح النموذجية الخاصة — الصحافة',
     'name_en' => 'Al-Falah Model Private Schools - Al-Sahafa',
@@ -17367,7 +17335,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  543 => 
+  542 => 
   array (
     'name' => 'مدارس الإيمان النموذجية الخاصة — الصحافة غرب',
     'name_en' => 'Al-Eiman Model Private Schools - Al-Sahafa',
@@ -17400,7 +17368,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  544 => 
+  543 => 
   array (
     'name' => 'مدارس الرائد النموذجية الخاصة — العمارات',
     'name_en' => 'Al-Raid Model Private Schools - Alamarat',
@@ -17433,7 +17401,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  545 => 
+  544 => 
   array (
     'name' => 'مدارس الوسيلة الخاصة — جبرة',
     'name_en' => 'Al-Waseela Private Schools - Jabra',
@@ -17466,7 +17434,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  546 => 
+  545 => 
   array (
     'name' => 'مدارس ابن خلدون النموذجية — أركويت',
     'name_en' => 'Ibn Khaldoun Model Schools - Arkaweet',
@@ -17499,7 +17467,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  547 => 
+  546 => 
   array (
     'name' => 'مدارس المستقبل الحديثة الخاصة — المعمورة',
     'name_en' => 'Al-Mustaqbal Modern Schools - Al-Mamoura',
@@ -17532,7 +17500,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  548 => 
+  547 => 
   array (
     'name' => 'مدارس البيان النموذجية الخاصة — الرياض',
     'name_en' => 'Al-Bayan Model Schools - Riyadh',
@@ -17565,7 +17533,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  549 => 
+  548 => 
   array (
     'name' => 'مدارس الصفا النموذجية الخاصة — الطائف',
     'name_en' => 'Al-Safa Model Schools - Al-Taif',
@@ -17598,7 +17566,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  550 => 
+  549 => 
   array (
     'name' => 'مدارس الروابي النموذجية الخاصة — أركويت',
     'name_en' => 'Al-Rawabi Model Schools - Arkaweet',
@@ -17631,7 +17599,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  551 => 
+  550 => 
   array (
     'name' => 'مدارس بدر الكبرى النموذجية — جبرة',
     'name_en' => 'Badr Al-Kubra Model Schools - Jabra',
@@ -17664,7 +17632,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  552 => 
+  551 => 
   array (
     'name' => 'مدارس الرضوان النموذجية — الصحافة جنوب',
     'name_en' => 'Al-Radwan Model Schools - Al-Sahafa',
@@ -17697,7 +17665,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  553 => 
+  552 => 
   array (
     'name' => 'مدارس الريان الخاصة — المعمورة',
     'name_en' => 'Al-Rayan Private Schools - Al-Mamoura',
@@ -17730,7 +17698,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  554 => 
+  553 => 
   array (
     'name' => 'مدارس الهدى النموذجية الخاصة — الطائف',
     'name_en' => 'Al-Huda Model Schools - Al-Taif',
@@ -17763,7 +17731,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  555 => 
+  554 => 
   array (
     'name' => 'مدارس الأمانة الخاصة — العمارات',
     'name_en' => 'Al-Amana Private Schools - Alamarat',
@@ -17796,7 +17764,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  556 => 
+  555 => 
   array (
     'name' => 'مدارس الصداقة الخاصة — حي النزهة',
     'name_en' => 'Al-Sadaqa Private Schools - Al-Nuzha',
@@ -17829,7 +17797,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  557 => 
+  556 => 
   array (
     'name' => 'مدارس الأوائل الخاصة — الصحافة وسط',
     'name_en' => 'Al-Awael Private Schools - Al-Sahafa',
@@ -17862,7 +17830,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  558 => 
+  557 => 
   array (
     'name' => 'مدارس المجد النموذجية الخاصة — جبرة',
     'name_en' => 'Al-Majd Model Schools - Jabra',
@@ -17895,7 +17863,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  559 => 
+  558 => 
   array (
     'name' => 'مدارس الجريف غرب النموذجية الخاصة',
     'name_en' => 'Al-Jereif West Model Schools',
@@ -17928,7 +17896,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  560 => 
+  559 => 
   array (
     'name' => 'مدارس النيلين الخاصة — بري الدرايسة',
     'name_en' => 'Al-Neelain Private Schools - Burri',
@@ -17961,7 +17929,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  561 => 
+  560 => 
   array (
     'name' => 'مدارس بري الخاصة — اللاماب ناصر',
     'name_en' => 'Burri Private Schools - Lamab Nasser',
@@ -17994,7 +17962,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  562 => 
+  561 => 
   array (
     'name' => 'مدارس الديم النموذجية الخاصة — الديوم الشرقية',
     'name_en' => 'Al-Deim Model Schools - Eastern Deims',
@@ -18027,7 +17995,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  563 => 
+  562 => 
   array (
     'name' => 'مدارس المجاهدين النموذجية الخاصة',
     'name_en' => 'Al-Mujahideen Model Schools',
@@ -18060,7 +18028,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  564 => 
+  563 => 
   array (
     'name' => 'مدارس الفردوس النموذجية الخاصة — الخرطوم',
     'name_en' => 'Al-Ferdous Model Schools - Khartoum',
@@ -18093,7 +18061,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  565 => 
+  564 => 
   array (
     'name' => 'مدارس الشجرة النموذجية الخاصة',
     'name_en' => 'Al-Shajara Model Schools',
@@ -18126,7 +18094,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  566 => 
+  565 => 
   array (
     'name' => 'مدارس اللاماب بحر أبيض النموذجية',
     'name_en' => 'Al-Lamab Bahr Abyad Model Schools',
@@ -18159,7 +18127,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  567 => 
+  566 => 
   array (
     'name' => 'مدارس المقرن النموذجية الخاصة',
     'name_en' => 'Al-Muqran Model Private Schools',
@@ -18192,7 +18160,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  568 => 
+  567 => 
   array (
     'name' => 'مدارس السجانة النموذجية الخاصة',
     'name_en' => 'Al-Sajjana Model Private Schools',
@@ -18225,7 +18193,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  569 => 
+  568 => 
   array (
     'name' => 'مدارس القوز النموذجية الخاصة',
     'name_en' => 'Al-Gooz Model Private Schools',
@@ -18258,7 +18226,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  570 => 
+  569 => 
   array (
     'name' => 'مدارس الرميلة النموذجية الخاصة',
     'name_en' => 'Al-Rumaila Model Private Schools',
@@ -18291,7 +18259,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  571 => 
+  570 => 
   array (
     'name' => 'مدارس سوبا غرب النموذجية الخاصة',
     'name_en' => 'Soba West Model Private Schools',
@@ -18324,7 +18292,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  572 => 
+  571 => 
   array (
     'name' => 'مدارس الدوحة النموذجية الخاصة — الخرطوم',
     'name_en' => 'Al-Doha Model Schools - Khartoum',
@@ -18357,7 +18325,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  573 => 
+  572 => 
   array (
     'name' => 'مدارس الحلة الجديدة الخاصة — الخرطوم',
     'name_en' => 'Al-Hilla Al-Jadeeda Private Schools',
@@ -18390,7 +18358,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  574 => 
+  573 => 
   array (
     'name' => 'مدارس نمرة 3 النموذجية الخاصة',
     'name_en' => 'Khartoum 3 Model Private Schools',
@@ -18423,7 +18391,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  575 => 
+  574 => 
   array (
     'name' => 'مدارس الإشراق التعليمية الخاصة — المعمورة',
     'name_en' => 'Al-Ishraq Educational Schools - Al-Mamoura',
@@ -18456,7 +18424,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  576 => 
+  575 => 
   array (
     'name' => 'مدارس رواد النهضة الخاصة — الرياض',
     'name_en' => 'Ruwad Al-Nahda Private Schools - Riyadh',
@@ -18489,7 +18457,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  577 => 
+  576 => 
   array (
     'name' => 'مدارس النور القرآنية الخاصة — جبرة',
     'name_en' => 'Al-Noor Quranic Private Schools - Jabra',
@@ -18522,7 +18490,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  578 => 
+  577 => 
   array (
     'name' => 'مدارس الفتح النموذجية الخاصة — الصحافة',
     'name_en' => 'Al-Fateh Model Schools - Al-Sahafa',
@@ -18555,7 +18523,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  579 => 
+  578 => 
   array (
     'name' => 'مدارس النجوم الخاصة — أركويت',
     'name_en' => 'Al-Nojoom Private Schools - Arkaweet',
@@ -18588,7 +18556,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  580 => 
+  579 => 
   array (
     'name' => 'مدارس الأندلس النموذجية الخاصة — النزهة',
     'name_en' => 'Al-Andalus Model Schools - Al-Nuzha',
@@ -18621,7 +18589,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  581 => 
+  580 => 
   array (
     'name' => 'مدارس المناهل الخاصة — الطائف',
     'name_en' => 'Al-Manahil Private Schools - Al-Taif',
@@ -18654,7 +18622,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  582 => 
+  581 => 
   array (
     'name' => 'مدارس العاصمة للغات — العمارات',
     'name_en' => 'Capital Language Schools - Alamarat',
@@ -18687,7 +18655,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  583 => 
+  582 => 
   array (
     'name' => 'مدارس القمة الخاصة — أركويت',
     'name_en' => 'Al-Qimma Private Schools - Arkaweet',
@@ -18720,7 +18688,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  584 => 
+  583 => 
   array (
     'name' => 'مدارس الفرسان النموذجية — المعمورة',
     'name_en' => 'Al-Fursan Model Schools - Al-Mamoura',
@@ -18753,7 +18721,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  585 => 
+  584 => 
   array (
     'name' => 'مدارس اليرموك الخاصة — جبرة',
     'name_en' => 'Al-Yarmouk Private Schools - Jabra',
@@ -18786,7 +18754,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  586 => 
+  585 => 
   array (
     'name' => 'مدارس النماء الخاصة — الصحافة',
     'name_en' => 'Al-Namaa Private Schools - Al-Sahafa',
@@ -18819,7 +18787,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  587 => 
+  586 => 
   array (
     'name' => 'مدارس العباقرة الخاصة — الرياض',
     'name_en' => 'Al-Abaqira Private Schools - Riyadh',
@@ -18852,7 +18820,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  588 => 
+  587 => 
   array (
     'name' => 'مدارس الآفاق العالمية — العمارات',
     'name_en' => 'Al-Afaq International Schools - Alamarat',
@@ -18885,7 +18853,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  589 => 
+  588 => 
   array (
     'name' => 'مدارس دار السلام الخاصة — الجريف غرب',
     'name_en' => 'Dar Al-Salam Private Schools - Jereif',
@@ -18918,7 +18886,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  590 => 
+  589 => 
   array (
     'name' => 'مدارس الضياء التعليمية — بري المحس',
     'name_en' => 'Al-Diyaa Educational Schools - Burri',
@@ -18951,7 +18919,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  591 => 
+  590 => 
   array (
     'name' => 'مدارس أركويت النموذجية الخاصة',
     'name_en' => 'Arkaweet Model Private Schools',
@@ -18984,7 +18952,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  592 => 
+  591 => 
   array (
     'name' => 'مدرسة النصر القبطية الخاصة — الخرطوم',
     'name_en' => 'Al-Nasr Coptic Private School - Khartoum',
@@ -19017,7 +18985,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  593 => 
+  592 => 
   array (
     'name' => 'مدارس جلوبال العالمية — المهندسين',
     'name_en' => 'Global International Schools - Al-Mohandiseen',
@@ -19050,7 +19018,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  594 => 
+  593 => 
   array (
     'name' => 'مدارس ماكميلان الدولية — أم درمان',
     'name_en' => 'Macmillan International School (MIS)',
@@ -19084,7 +19052,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  595 => 
+  594 => 
   array (
     'name' => 'مدارس إدريس الإنجليزية ورياض الأطفال — أم درمان',
     'name_en' => 'Idris English Schools and Kindergarten',
@@ -19117,7 +19085,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  596 => 
+  595 => 
   array (
     'name' => 'مدارس إكسلانس جونيور الدولية — أم درمان',
     'name_en' => 'Excellence Junior School Omdurman',
@@ -19149,7 +19117,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  597 => 
+  596 => 
   array (
     'name' => 'مدارس كبييدة الدولية — فرع أم درمان',
     'name_en' => 'Kibeida International Schools - Omdurman',
@@ -19182,7 +19150,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  598 => 
+  597 => 
   array (
     'name' => 'مدارس القبس الخاصة — فرع المهندسين',
     'name_en' => 'Al-Qabas Private Schools - Al-Mohandiseen',
@@ -19215,7 +19183,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  599 => 
+  598 => 
   array (
     'name' => 'مدارس القبس الخاصة — فرع بانت',
     'name_en' => 'Al-Qabas Private Schools - Bant',
@@ -19248,7 +19216,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  600 => 
+  599 => 
   array (
     'name' => 'مدارس المعالي الحديثة الخاصة بنين — الفتيحاب',
     'name_en' => 'Al-Maali Modern Private Schools (Boys) - Fityhab',
@@ -19281,7 +19249,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  601 => 
+  600 => 
   array (
     'name' => 'مدارس المعالي الحديثة الخاصة بنات — الفتيحاب',
     'name_en' => 'Al-Maali Modern Private Schools (Girls) - Fityhab',
@@ -19314,7 +19282,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  602 => 
+  601 => 
   array (
     'name' => 'مدارس دار الأرقم الخاصة — أم درمان المهندسين',
     'name_en' => 'Dar Al-Arqam Private Schools - Al-Mohandiseen',
@@ -19347,7 +19315,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  603 => 
+  602 => 
   array (
     'name' => 'مدارس الملازمين القرآنية النموذجية',
     'name_en' => 'Al-Mulazmeen Quranic Model Schools',
@@ -19380,7 +19348,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  604 => 
+  603 => 
   array (
     'name' => 'مدارس بيت المال النموذجية الخاصة',
     'name_en' => 'Beit Al-Mal Model Private Schools',
@@ -19413,7 +19381,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  605 => 
+  604 => 
   array (
     'name' => 'مدارس العباسية النموذجية الخاصة',
     'name_en' => 'Al-Abbassiya Model Private Schools',
@@ -19446,7 +19414,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  606 => 
+  605 => 
   array (
     'name' => 'مدارس الموردة الخاصة بنين وبنات',
     'name_en' => 'Al-Mourada Private Schools',
@@ -19479,7 +19447,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  607 => 
+  606 => 
   array (
     'name' => 'مدارس بانت النموذجية الخاصة',
     'name_en' => 'Bant Model Private Schools',
@@ -19512,7 +19480,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  608 => 
+  607 => 
   array (
     'name' => 'مدارس الشهداء الخاصة — أم درمان',
     'name_en' => 'Al-Shuhada Private Schools - Omdurman',
@@ -19545,7 +19513,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  609 => 
+  608 => 
   array (
     'name' => 'مدارس العمدة النموذجية الخاصة',
     'name_en' => 'Al-Omda Model Private Schools',
@@ -19578,7 +19546,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  610 => 
+  609 => 
   array (
     'name' => 'مدارس المسالمة الأهلية الخاصة',
     'name_en' => 'Al-Musallama Private Community Schools',
@@ -19611,7 +19579,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  611 => 
+  610 => 
   array (
     'name' => 'مدارس الهاشماب الخاصة — أم درمان',
     'name_en' => 'Al-Hashmab Private Schools',
@@ -19644,7 +19612,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  612 => 
+  611 => 
   array (
     'name' => 'مدارس الركابية النموذجية الخاصة',
     'name_en' => 'Al-Rikabiya Model Private Schools',
@@ -19677,7 +19645,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  613 => 
+  612 => 
   array (
     'name' => 'مدارس حي الدوحة النموذجية — أم درمان',
     'name_en' => 'Al-Doha Model Schools - Omdurman',
@@ -19710,7 +19678,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  614 => 
+  613 => 
   array (
     'name' => 'مدارس أبو سعد النموذجية الخاصة بنين',
     'name_en' => 'Abu Saad Model Private Schools (Boys)',
@@ -19743,7 +19711,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  615 => 
+  614 => 
   array (
     'name' => 'مدارس أبو سعد النموذجية الخاصة بنات',
     'name_en' => 'Abu Saad Model Private Schools (Girls)',
@@ -19776,7 +19744,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  616 => 
+  615 => 
   array (
     'name' => 'مدارس حوش الجبل الخاصة — أم درمان',
     'name_en' => 'Hosh Al-Jabal Private Schools',
@@ -19809,7 +19777,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  617 => 
+  616 => 
   array (
     'name' => 'مدارس ود نوباوي النموذجية الخاصة',
     'name_en' => 'Wad Nubawi Model Private Schools',
@@ -19842,7 +19810,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  618 => 
+  617 => 
   array (
     'name' => 'مدارس الهجرة الخاصة — أم درمان',
     'name_en' => 'Al-Hijra Private Schools - Omdurman',
@@ -19875,7 +19843,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  619 => 
+  618 => 
   array (
     'name' => 'مدارس ود أرو الخاصة — أم درمان',
     'name_en' => 'Wad Oru Private Schools - Omdurman',
@@ -19908,7 +19876,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  620 => 
+  619 => 
   array (
     'name' => 'مدارس أبوروف النموذجية الخاصة',
     'name_en' => 'Abu Rouf Model Private Schools',
@@ -19941,7 +19909,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  621 => 
+  620 => 
   array (
     'name' => 'مدارس القماير النموذجية الخاصة',
     'name_en' => 'Al-Gamayer Model Private Schools',
@@ -19974,7 +19942,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  622 => 
+  621 => 
   array (
     'name' => 'مدارس السراج المنير الخاصة — المهندسين',
     'name_en' => 'Al-Siraj Al-Muneer Private Schools',
@@ -20007,7 +19975,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  623 => 
+  622 => 
   array (
     'name' => 'مدارس الأندلس النموذجية — أم درمان الفتيحاب',
     'name_en' => 'Al-Andalus Model Schools - Fityhab',
@@ -20040,7 +20008,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  624 => 
+  623 => 
   array (
     'name' => 'مدارس الفجر الجديد الخاصة — المهندسين',
     'name_en' => 'Al-Fajr Al-Jadeed Private Schools',
@@ -20073,7 +20041,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  625 => 
+  624 => 
   array (
     'name' => 'مدارس البيان الحديثة — أم درمان أبو سعد',
     'name_en' => 'Al-Bayan Modern Schools - Abu Saad',
@@ -20106,7 +20074,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  626 => 
+  625 => 
   array (
     'name' => 'مدارس المنار القرآنية — بانت غرب',
     'name_en' => 'Al-Manar Quranic Schools - Bant',
@@ -20139,7 +20107,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  627 => 
+  626 => 
   array (
     'name' => 'مدارس التوفيق النموذجية الخاصة — الشهداء',
     'name_en' => 'Al-Tawfeeq Model Schools - Al-Shuhada',
@@ -20172,7 +20140,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  628 => 
+  627 => 
   array (
     'name' => 'مدارس الوفاق الخاصة — الموردة',
     'name_en' => 'Al-Wifaq Private Schools - Al-Mourada',
@@ -20205,7 +20173,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  629 => 
+  628 => 
   array (
     'name' => 'مدارس النبراس الخاصة — المهندسين',
     'name_en' => 'Al-Nebras Private Schools - Al-Mohandiseen',
@@ -20238,7 +20206,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  630 => 
+  629 => 
   array (
     'name' => 'مدارس الفاروق النموذجية — الفتيحاب',
     'name_en' => 'Al-Farouq Model Schools - Fityhab',
@@ -20271,7 +20239,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  631 => 
+  630 => 
   array (
     'name' => 'مؤسسة اكسلانت التعليمية — مدارس الامتياز بنين (شارع الوادي)',
     'name_en' => 'Excellent Educational Institution - Al-Imtiaz Boys',
@@ -20304,7 +20272,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  632 => 
+  631 => 
   array (
     'name' => 'مؤسسة اكسلانت التعليمية — مدارس الامتياز بنات (الواحة)',
     'name_en' => 'Excellent Educational Institution - Al-Imtiaz Girls',
@@ -20337,7 +20305,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  633 => 
+  632 => 
   array (
     'name' => 'مجموعة المنهل التعليمية الخاصة — فرع الحارة الثالثة',
     'name_en' => 'Al-Manhal Educational Group - 3rd District',
@@ -20371,7 +20339,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  634 => 
+  633 => 
   array (
     'name' => 'مجموعة المنهل التعليمية الخاصة — فرع الحارة العاشرة',
     'name_en' => 'Al-Manhal Educational Group - 10th District',
@@ -20404,7 +20372,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  635 => 
+  634 => 
   array (
     'name' => 'مجموعة المنهل التعليمية الخاصة — فرع الحارة العشرين',
     'name_en' => 'Al-Manhal Educational Group - 20th District',
@@ -20437,7 +20405,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  636 => 
+  635 => 
   array (
     'name' => 'مدارس د. أبوذر الكودة الخاصة — فرع الثورة بنين',
     'name_en' => 'Dr. Abu Dhar Al-Kouda Schools (Boys) - Al-Thawra',
@@ -20470,7 +20438,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  637 => 
+  636 => 
   array (
     'name' => 'مدارس د. أبوذر الكودة الخاصة — فرع الثورة بنات',
     'name_en' => 'Dr. Abu Dhar Al-Kouda Schools (Girls) - Al-Thawra',
@@ -20503,7 +20471,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  638 => 
+  637 => 
   array (
     'name' => 'مدارس تساهيل الثانوية الخاصة — المنارة',
     'name_en' => 'Tasaheel Secondary Private Schools - Al-Manara',
@@ -20535,7 +20503,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  639 => 
+  638 => 
   array (
     'name' => 'مؤسسة مهاجر التعليمية الخاصة — فرع الرومي',
     'name_en' => 'Muhajir Educational Institution - Al-Roumi',
@@ -20568,7 +20536,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  640 => 
+  639 => 
   array (
     'name' => 'مدارس المشارق الحديثة الخاصة — الثورة',
     'name_en' => 'Al-Mashariq Modern Private Schools - Al-Thawra',
@@ -20601,7 +20569,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  641 => 
+  640 => 
   array (
     'name' => 'مدارس رواد المعرفة الخاصة — الثورة الحارة 1',
     'name_en' => 'Ruwad Al-Maarifa Schools - 1st District',
@@ -20634,7 +20602,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  642 => 
+  641 => 
   array (
     'name' => 'مدارس الفلاح النموذجية — الثورة الحارة 2',
     'name_en' => 'Al-Falah Model Schools - 2nd District',
@@ -20667,7 +20635,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  643 => 
+  642 => 
   array (
     'name' => 'مدارس الإيمان الخاصة — كرري الحارة 4',
     'name_en' => 'Al-Eiman Private Schools - 4th District',
@@ -20700,7 +20668,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  644 => 
+  643 => 
   array (
     'name' => 'مدارس الأمل النموذجية — الثورة الحارة 5',
     'name_en' => 'Al-Amal Model Schools - 5th District',
@@ -20733,7 +20701,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  645 => 
+  644 => 
   array (
     'name' => 'مدارس النور القرآنية — الثورة الحارة 6',
     'name_en' => 'Al-Noor Quranic Schools - 6th District',
@@ -20766,7 +20734,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  646 => 
+  645 => 
   array (
     'name' => 'مدارس النوابغ النموذجية — كرري الحارة 9',
     'name_en' => 'Al-Nawabigh Model Schools - 9th District',
@@ -20799,7 +20767,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  647 => 
+  646 => 
   array (
     'name' => 'مدارس الأوائل الخاصة — كرري الحارة 11',
     'name_en' => 'Al-Awael Private Schools - 11th District',
@@ -20832,7 +20800,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  648 => 
+  647 => 
   array (
     'name' => 'مدارس المجد النموذجية — الثورة الحارة 12',
     'name_en' => 'Al-Majd Model Schools - 12th District',
@@ -20865,7 +20833,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  649 => 
+  648 => 
   array (
     'name' => 'مدارس الهدى القرآنية — كرري الحارة 14',
     'name_en' => 'Al-Huda Quranic Schools - 14th District',
@@ -20898,7 +20866,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  650 => 
+  649 => 
   array (
     'name' => 'مدارس البيان الخاصة — الثورة الحارة 15',
     'name_en' => 'Al-Bayan Private Schools - 15th District',
@@ -20931,7 +20899,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  651 => 
+  650 => 
   array (
     'name' => 'مدارس الواحة النموذجية بنين — كرري',
     'name_en' => 'Al-Waha Model Schools (Boys) - Karari',
@@ -20964,7 +20932,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  652 => 
+  651 => 
   array (
     'name' => 'مدارس الواحة النموذجية بنات — كرري',
     'name_en' => 'Al-Waha Model Schools (Girls) - Karari',
@@ -20997,7 +20965,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  653 => 
+  652 => 
   array (
     'name' => 'مدارس المنارة النموذجية الخاصة بنين',
     'name_en' => 'Al-Manara Model Schools (Boys) - Karari',
@@ -21030,7 +20998,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  654 => 
+  653 => 
   array (
     'name' => 'مدارس المنارة النموذجية الخاصة بنات',
     'name_en' => 'Al-Manara Model Schools (Girls) - Karari',
@@ -21063,7 +21031,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  655 => 
+  654 => 
   array (
     'name' => 'مدارس مدينة النيل النموذجية الخاصة — كرري',
     'name_en' => 'Madinat Al-Neel Model Private Schools',
@@ -21096,7 +21064,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  656 => 
+  655 => 
   array (
     'name' => 'الأكاديمية الدولية السودانية (SIA) — كافوري',
     'name_en' => 'Sudanese International Academy (SIA) - Kafouri',
@@ -21129,7 +21097,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  657 => 
+  656 => 
   array (
     'name' => 'مدارس سمارت العالمية — بحري',
     'name_en' => 'Smart International Schools Bahri',
@@ -21162,7 +21130,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  658 => 
+  657 => 
   array (
     'name' => 'مدارس لندن العالمية — فرع الصافية',
     'name_en' => 'London International Schools - Al-Safia',
@@ -21195,7 +21163,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  659 => 
+  658 => 
   array (
     'name' => 'مدارس جالنج الدولية — فرع بحري',
     'name_en' => 'Challenge International Schools Bahri',
@@ -21228,7 +21196,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  660 => 
+  659 => 
   array (
     'name' => 'مدارس المثاني العالمية — شمبات',
     'name_en' => 'Al-Mathani International Schools - Shambat',
@@ -21260,7 +21228,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  661 => 
+  660 => 
   array (
     'name' => 'مجموعة مدارس حامد السوراوي الخاصة — الكدرو',
     'name_en' => 'Hamed Al-Surawi Private Schools - Al-Kadaro',
@@ -21293,7 +21261,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  662 => 
+  661 => 
   array (
     'name' => 'مدارس الشاذلي الخاصة — الحلفايا',
     'name_en' => 'Al-Shazali Private Schools - Al-Halfaya',
@@ -21326,7 +21294,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  663 => 
+  662 => 
   array (
     'name' => 'مدارس د. أبوذر الكودة الخاصة — فرع الدروشاب',
     'name_en' => 'Dr. Abu Dhar Al-Kouda Schools - Al-Droushab',
@@ -21359,7 +21327,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  664 => 
+  663 => 
   array (
     'name' => 'مدارس القبس الخاصة — فرع كافوري',
     'name_en' => 'Al-Qabas Private Schools - Kafouri',
@@ -21392,7 +21360,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  665 => 
+  664 => 
   array (
     'name' => 'مدارس القبس الخاصة — فرع الصافية',
     'name_en' => 'Al-Qabas Private Schools - Al-Safia',
@@ -21425,7 +21393,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  666 => 
+  665 => 
   array (
     'name' => 'مدارس الصافية النموذجية الخاصة',
     'name_en' => 'Al-Safia Model Private Schools',
@@ -21458,7 +21426,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  667 => 
+  666 => 
   array (
     'name' => 'مدارس الشعبية شمال النموذجية الخاصة',
     'name_en' => 'Al-Shaabiya North Model Schools',
@@ -21491,7 +21459,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  668 => 
+  667 => 
   array (
     'name' => 'مدارس الشعبية جنوب النموذجية الخاصة',
     'name_en' => 'Al-Shaabiya South Model Schools',
@@ -21524,7 +21492,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  669 => 
+  668 => 
   array (
     'name' => 'مدارس المزاد النموذجية الخاصة — بحري',
     'name_en' => 'Al-Mazad Model Private Schools - Bahri',
@@ -21557,7 +21525,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  670 => 
+  669 => 
   array (
     'name' => 'مدارس الأملاك النموذجية الخاصة — بحري',
     'name_en' => 'Al-Amlak Model Private Schools',
@@ -21590,7 +21558,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  671 => 
+  670 => 
   array (
     'name' => 'مدارس كوبر النموذجية الخاصة',
     'name_en' => 'Kober Model Private Schools',
@@ -21623,7 +21591,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  672 => 
+  671 => 
   array (
     'name' => 'مدارس حلة خوجلي الخاصة — بحري',
     'name_en' => 'Hilla Khogali Private Schools',
@@ -21656,7 +21624,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  673 => 
+  672 => 
   array (
     'name' => 'مدارس الدناقلة النموذجية — بحري',
     'name_en' => 'Al-Danagla Model Schools - Bahri',
@@ -21689,7 +21657,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  674 => 
+  673 => 
   array (
     'name' => 'مدارس شمبات الحلة النموذجية الخاصة',
     'name_en' => 'Shambat Al-Hilla Model Private Schools',
@@ -21722,7 +21690,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  675 => 
+  674 => 
   array (
     'name' => 'مدارس شمبات الأراضي النموذجية الخاصة',
     'name_en' => 'Shambat Al-Aradi Model Private Schools',
@@ -21755,7 +21723,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  676 => 
+  675 => 
   array (
     'name' => 'مدارس السامراب النموذجية الخاصة',
     'name_en' => 'Al-Samrab Model Private Schools',
@@ -21788,7 +21756,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  677 => 
+  676 => 
   array (
     'name' => 'مدارس طيبة الأحامدة النموذجية الخاصة',
     'name_en' => 'Taiba Al-Ahamda Model Schools',
@@ -21821,7 +21789,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  678 => 
+  677 => 
   array (
     'name' => 'مدارس الجيلي النموذجية الخاصة — بحري',
     'name_en' => 'Al-Jaili Model Private Schools',
@@ -21854,7 +21822,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  679 => 
+  678 => 
   array (
     'name' => 'مدارس كافوري النموذجية — مربع 3',
     'name_en' => 'Kafouri Model Schools - Block 3',
@@ -21887,7 +21855,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  680 => 
+  679 => 
   array (
     'name' => 'مجموعة مدارس الإبداع التعليمية — فرع الفيحاء تمهيدي ورياض',
     'name_en' => 'Al-Ebdaa Educational Group (Kindergarten) - Al-Fayhaa',
@@ -21918,7 +21886,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  681 => 
+  680 => 
   array (
     'name' => 'مجموعة مدارس الإبداع التعليمية — فرع الفيحاء ابتدائي',
     'name_en' => 'Al-Ebdaa Educational Group (Primary) - Al-Fayhaa',
@@ -21949,7 +21917,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  682 => 
+  681 => 
   array (
     'name' => 'مجموعة مدارس الإبداع التعليمية — فرع الفيحاء متوسط',
     'name_en' => 'Al-Ebdaa Educational Group (Intermediate) - Al-Fayhaa',
@@ -21980,7 +21948,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  683 => 
+  682 => 
   array (
     'name' => 'مجموعة مدارس الإبداع التعليمية — فرع حي الهدى ثانوي',
     'name_en' => 'Al-Ebdaa Educational Group (Secondary) - Hay Al-Huda',
@@ -22011,7 +21979,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  684 => 
+  683 => 
   array (
     'name' => 'مدرسة الفيحاء الخاصة بنات — شرق النيل',
     'name_en' => 'Al-Fayhaa Private School for Girls',
@@ -22044,7 +22012,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  685 => 
+  684 => 
   array (
     'name' => 'مدارس الخرطوم بحري العالمية — فرع شرق النيل',
     'name_en' => 'Khartoum Bahri International Schools - East Nile',
@@ -22077,7 +22045,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  686 => 
+  685 => 
   array (
     'name' => 'مدارس د. إدريس جلال الخاصة — شرق النيل',
     'name_en' => 'Dr. Idris Galal Private Schools - East Nile',
@@ -22110,7 +22078,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  687 => 
+  686 => 
   array (
     'name' => 'مدارس التاج الخاصة — الحاج يوسف',
     'name_en' => 'Al-Taj Private Schools - Haj Yousif',
@@ -22143,7 +22111,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  688 => 
+  687 => 
   array (
     'name' => 'مدرسة العميد الخاصة — الحاج يوسف',
     'name_en' => 'Al-Ameed Private School - Haj Yousif',
@@ -22176,7 +22144,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  689 => 
+  688 => 
   array (
     'name' => 'مدارس منهاج النبوة القرآنية — شرق النيل',
     'name_en' => 'Minhaj Al-Nubuwwa Quranic Schools',
@@ -22208,7 +22176,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  690 => 
+  689 => 
   array (
     'name' => 'مدارس حي النصر النموذجية بنين — شرق النيل',
     'name_en' => 'Hay Al-Nasr Model Schools (Boys) - East Nile',
@@ -22241,7 +22209,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  691 => 
+  690 => 
   array (
     'name' => 'مدارس حي النصر النموذجية بنات — شرق النيل',
     'name_en' => 'Hay Al-Nasr Model Schools (Girls) - East Nile',
@@ -22274,7 +22242,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  692 => 
+  691 => 
   array (
     'name' => 'مدارس حلة كوكو النموذجية الخاصة',
     'name_en' => 'Hilla Kuku Model Private Schools',
@@ -22307,7 +22275,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  693 => 
+  692 => 
   array (
     'name' => 'مدارس حي الجامعة الخاصة — شرق النيل',
     'name_en' => 'Hay Al-Jameaa Private Schools - East Nile',
@@ -22340,7 +22308,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  694 => 
+  693 => 
   array (
     'name' => 'مدارس القادسية الخاصة — شرق النيل',
     'name_en' => 'Al-Qadisiya Private Schools - East Nile',
@@ -22373,7 +22341,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  695 => 
+  694 => 
   array (
     'name' => 'مدارس الوادي الأخضر النموذجية الخاصة',
     'name_en' => 'Al-Wadi Al-Akhdar Model Schools',
@@ -22406,7 +22374,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  696 => 
+  695 => 
   array (
     'name' => 'مدارس سوبا شرق النموذجية الخاصة',
     'name_en' => 'Soba East Model Private Schools',
@@ -22439,7 +22407,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  697 => 
+  696 => 
   array (
     'name' => 'مدارس العيلفون النموذجية الأهلية الخاصة',
     'name_en' => 'Al-Eilafoun Model Community Schools',
@@ -22472,7 +22440,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  698 => 
+  697 => 
   array (
     'name' => 'مؤسسة د. أبوذر الكودة التعليمية — فرع الكلاكلة اللفة',
     'name_en' => 'Dr. Abu Dhar Al-Kouda Schools - Al-Kalaqla',
@@ -22505,7 +22473,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  699 => 
+  698 => 
   array (
     'name' => 'مؤسسة د. أبوذر الكودة التعليمية — فرع أبو آدم',
     'name_en' => 'Dr. Abu Dhar Al-Kouda Schools - Abu Adam',
@@ -22538,7 +22506,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  700 => 
+  699 => 
   array (
     'name' => 'مدارس الأبرار التعليمية الخاصة — فرع الكلاكلة القبة',
     'name_en' => 'Al-Abrar Educational Schools - Al-Kalaqla Al-Gubba',
@@ -22569,7 +22537,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  701 => 
+  700 => 
   array (
     'name' => 'مدارس الأبرار التعليمية الخاصة — فرع الكلاكلة صنقعت',
     'name_en' => 'Al-Abrar Educational Schools - Sanqaat',
@@ -22602,7 +22570,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  702 => 
+  701 => 
   array (
     'name' => 'مدارس الزهراء القرآنية الخاصة — الكلاكلة الوحدة',
     'name_en' => 'Al-Zahraa Quranic Schools - Al-Kalaqla',
@@ -22635,7 +22603,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  703 => 
+  702 => 
   array (
     'name' => 'مدارس مجمع المجلس الإفريقي — فرع الأزهري بنين',
     'name_en' => 'African Council Schools (Boys) - Al-Azhari',
@@ -22668,7 +22636,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  704 => 
+  703 => 
   array (
     'name' => 'مدارس مجمع المجلس الإفريقي — فرع الأزهري بنات',
     'name_en' => 'African Council Schools (Girls) - Al-Azhari',
@@ -22701,7 +22669,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  705 => 
+  704 => 
   array (
     'name' => 'مدارس السلمة النموذجية الحديثة الخاصة',
     'name_en' => 'Al-Salama Modern Model Private Schools',
@@ -22734,7 +22702,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  706 => 
+  705 => 
   array (
     'name' => 'مدارس الكلاكلة القطعية الخاصة',
     'name_en' => 'Al-Kalaqla Al-Qat’iyya Private Schools',
@@ -22767,7 +22735,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  707 => 
+  706 => 
   array (
     'name' => 'مدارس الكلاكلة منور النموذجية الخاصة',
     'name_en' => 'Al-Kalaqla Munawar Model Private Schools',
@@ -22800,7 +22768,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  708 => 
+  707 => 
   array (
     'name' => 'مدارس جبل أولياء المدينة النموذجية الخاصة',
     'name_en' => 'Jabal Awliya City Model Private Schools',
@@ -22833,7 +22801,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  709 => 
+  708 => 
   array (
     'name' => 'مدارس طيبة الحسناب النموذجية الخاصة',
     'name_en' => 'Taiba Al-Hasnab Model Schools',
@@ -22866,7 +22834,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  710 => 
+  709 => 
   array (
     'name' => 'مدارس تريعة البجا النموذجية الخاصة',
     'name_en' => 'Tareea Al-Beja Model Private Schools',
@@ -22899,7 +22867,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  711 => 
+  710 => 
   array (
     'name' => 'مؤسسة الأستاذ موسى التعليمية الخاصة — أمبدة',
     'name_en' => 'Teacher Mousa Educational Institution - Ombada',
@@ -22932,7 +22900,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  712 => 
+  711 => 
   array (
     'name' => 'مدارس ملوك السلام النموذجية الخاصة — أمبدة دار السلام',
     'name_en' => 'Mulook Al-Salam Model Private Schools - Dar Al-Salam',
@@ -22965,7 +22933,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  713 => 
+  712 => 
   array (
     'name' => 'مدارس البيان الخاصة — أمبدة السلام',
     'name_en' => 'Al-Bayan Private Schools - Ombada Al-Salam',
@@ -22997,7 +22965,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  714 => 
+  713 => 
   array (
     'name' => 'ثانوية أمبدة التأهيلية الخاصة',
     'name_en' => 'Ombada Qualifying Private Secondary School',
@@ -23028,7 +22996,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  715 => 
+  714 => 
   array (
     'name' => 'مدارس التفوق العالمية — فرع أمبدة',
     'name_en' => 'Al-Tafawwoq International Schools - Ombada',
@@ -23061,7 +23029,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  716 => 
+  715 => 
   array (
     'name' => 'مدارس دار المنهل والعين — فرع أمبدة',
     'name_en' => 'Dar Al-Manhal & Al-Ein Schools - Ombada',
@@ -23093,7 +23061,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  717 => 
+  716 => 
   array (
     'name' => 'مدارس السبيل النموذجية الخاصة — أمبدة',
     'name_en' => 'Al-Sabeel Model Private Schools - Ombada',
@@ -23126,7 +23094,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  718 => 
+  717 => 
   array (
     'name' => 'مدارس ود البشير النموذجية الخاصة — أمبدة',
     'name_en' => 'Wad Al-Basheer Model Schools - Ombada',
@@ -23158,7 +23126,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  719 => 
+  718 => 
   array (
     'name' => 'مدارس الراشدين الخاصة — أمبدة',
     'name_en' => 'Al-Rashideen Private Schools - Ombada',
@@ -23191,7 +23159,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  720 => 
+  719 => 
   array (
     'name' => 'مدارس العامرية الخاصة — أمبدة',
     'name_en' => 'Al-Aamiriya Private Schools - Ombada',
@@ -23224,7 +23192,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  721 => 
+  720 => 
   array (
     'name' => 'مدارس النخبة النموذجية الخاصة — الخرطوم (الرياض)',
     'name_en' => 'مدارس النخبة النموذجية الخاصة - الرياض',
@@ -23257,7 +23225,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  722 => 
+  721 => 
   array (
     'name' => 'مدارس الأوائل الحديثة الخاصة — الخرطوم (المعمورة)',
     'name_en' => 'مدارس الأوائل الحديثة الخاصة - المعمورة',
@@ -23290,7 +23258,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  723 => 
+  722 => 
   array (
     'name' => 'مدارس دار العلوم النموذجية الخاصة — الخرطوم (العمارات)',
     'name_en' => 'مدارس دار العلوم النموذجية الخاصة - العمارات',
@@ -23323,7 +23291,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  724 => 
+  723 => 
   array (
     'name' => 'مدارس المجد الأكاديمية الخاصة — الخرطوم (الطائف)',
     'name_en' => 'مدارس المجد الأكاديمية الخاصة - الطائف',
@@ -23356,7 +23324,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  725 => 
+  724 => 
   array (
     'name' => 'مدارس الإبداع والتميز الخاصة — الخرطوم (أركويت)',
     'name_en' => 'مدارس الإبداع والتميز الخاصة - أركويت',
@@ -23389,7 +23357,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  726 => 
+  725 => 
   array (
     'name' => 'مدارس النخبة النموذجية الخاصة — أم درمان (المهندسين)',
     'name_en' => 'مدارس النخبة النموذجية الخاصة - المهندسين',
@@ -23422,7 +23390,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  727 => 
+  726 => 
   array (
     'name' => 'مدارس الأوائل الحديثة الخاصة — أم درمان (الملازمين)',
     'name_en' => 'مدارس الأوائل الحديثة الخاصة - الملازمين',
@@ -23455,7 +23423,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  728 => 
+  727 => 
   array (
     'name' => 'مدارس دار العلوم النموذجية الخاصة — أم درمان (بيت المال)',
     'name_en' => 'مدارس دار العلوم النموذجية الخاصة - بيت المال',
@@ -23488,7 +23456,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  729 => 
+  728 => 
   array (
     'name' => 'مدارس المجد الأكاديمية الخاصة — أم درمان (العباسية)',
     'name_en' => 'مدارس المجد الأكاديمية الخاصة - العباسية',
@@ -23521,7 +23489,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  730 => 
+  729 => 
   array (
     'name' => 'مدارس الإبداع والتميز الخاصة — أم درمان (الفتيحاب)',
     'name_en' => 'مدارس الإبداع والتميز الخاصة - الفتيحاب',
@@ -23554,7 +23522,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  731 => 
+  730 => 
   array (
     'name' => 'مدارس الفجر الصادق الخاصة — أم درمان (الموردة)',
     'name_en' => 'مدارس الفجر الصادق الخاصة - الموردة',
@@ -23587,7 +23555,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  732 => 
+  731 => 
   array (
     'name' => 'مدارس نور الإيمان الخاصة — أم درمان (بانت)',
     'name_en' => 'مدارس نور الإيمان الخاصة - بانت',
@@ -23620,7 +23588,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  733 => 
+  732 => 
   array (
     'name' => 'مدارس شمس المعرفة النموذجية — أم درمان (الشهداء)',
     'name_en' => 'مدارس شمس المعرفة النموذجية - الشهداء',
@@ -23653,7 +23621,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  734 => 
+  733 => 
   array (
     'name' => 'مدارس رواد الغد الخاصة — أم درمان (حي الدوحة)',
     'name_en' => 'مدارس رواد الغد الخاصة - حي الدوحة',
@@ -23686,7 +23654,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  735 => 
+  734 => 
   array (
     'name' => 'مدارس صروح المجد النموذجية — أم درمان (أبو سعد)',
     'name_en' => 'مدارس صروح المجد النموذجية - أبو سعد',
@@ -23719,7 +23687,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  736 => 
+  735 => 
   array (
     'name' => 'مدارس قناديل العلم الخاصة — أم درمان (ود نوباوي)',
     'name_en' => 'مدارس قناديل العلم الخاصة - ود نوباوي',
@@ -23752,7 +23720,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  737 => 
+  736 => 
   array (
     'name' => 'مدارس مناهل المعرفة الخاصة — أم درمان (أبوروف)',
     'name_en' => 'مدارس مناهل المعرفة الخاصة - أبوروف',
@@ -23785,7 +23753,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  738 => 
+  737 => 
   array (
     'name' => 'مدارس الأجيال الصاعدة الخاصة — أم درمان (القماير)',
     'name_en' => 'مدارس الأجيال الصاعدة الخاصة - القماير',
@@ -23818,7 +23786,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  739 => 
+  738 => 
   array (
     'name' => 'مدارس المعرفة الشاملة الخاصة — أم درمان (حي العمدة)',
     'name_en' => 'مدارس المعرفة الشاملة الخاصة - حي العمدة',
@@ -23851,7 +23819,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  740 => 
+  739 => 
   array (
     'name' => 'مدارس بشائر الخير النموذجية — أم درمان (المهندسين)',
     'name_en' => 'مدارس بشائر الخير النموذجية - المهندسين',
@@ -23884,7 +23852,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  741 => 
+  740 => 
   array (
     'name' => 'مدارس براعم المستقبل الخاصة — أم درمان (الملازمين)',
     'name_en' => 'مدارس براعم المستقبل الخاصة - الملازمين',
@@ -23917,7 +23885,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  742 => 
+  741 => 
   array (
     'name' => 'مدارس التميز العلمي النموذجية — أم درمان (بيت المال)',
     'name_en' => 'مدارس التميز العلمي النموذجية - بيت المال',
@@ -23950,7 +23918,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  743 => 
+  742 => 
   array (
     'name' => 'مدارس منارة الشرق الخاصة — أم درمان (العباسية)',
     'name_en' => 'مدارس منارة الشرق الخاصة - العباسية',
@@ -23983,7 +23951,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  744 => 
+  743 => 
   array (
     'name' => 'مدارس رياض الصالحين الخاصة — أم درمان (الفتيحاب)',
     'name_en' => 'مدارس رياض الصالحين الخاصة - الفتيحاب',
@@ -24016,7 +23984,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  745 => 
+  744 => 
   array (
     'name' => 'مدارس سنابل العلم النموذجية — أم درمان (الموردة)',
     'name_en' => 'مدارس سنابل العلم النموذجية - الموردة',
@@ -24049,7 +24017,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  746 => 
+  745 => 
   array (
     'name' => 'مدارس ينابيع المعرفة الخاصة — أم درمان (بانت)',
     'name_en' => 'مدارس ينابيع المعرفة الخاصة - بانت',
@@ -24082,7 +24050,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  747 => 
+  746 => 
   array (
     'name' => 'مدارس آفاق المستقبل النموذجية — أم درمان (الشهداء)',
     'name_en' => 'مدارس آفاق المستقبل النموذجية - الشهداء',
@@ -24115,7 +24083,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  748 => 
+  747 => 
   array (
     'name' => 'مدارس النخبة النموذجية الخاصة — كرري (الثورة)',
     'name_en' => 'مدارس النخبة النموذجية الخاصة - الثورة',
@@ -24148,7 +24116,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  749 => 
+  748 => 
   array (
     'name' => 'مدارس الأوائل الحديثة الخاصة — كرري (الواحة)',
     'name_en' => 'مدارس الأوائل الحديثة الخاصة - الواحة',
@@ -24181,7 +24149,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  750 => 
+  749 => 
   array (
     'name' => 'مدارس دار العلوم النموذجية الخاصة — كرري (المنارة)',
     'name_en' => 'مدارس دار العلوم النموذجية الخاصة - المنارة',
@@ -24214,7 +24182,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  751 => 
+  750 => 
   array (
     'name' => 'مدارس المجد الأكاديمية الخاصة — كرري (الرومي)',
     'name_en' => 'مدارس المجد الأكاديمية الخاصة - الرومي',
@@ -24247,7 +24215,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  752 => 
+  751 => 
   array (
     'name' => 'مدارس الإبداع والتميز الخاصة — كرري (مدينة النيل)',
     'name_en' => 'مدارس الإبداع والتميز الخاصة - مدينة النيل',
@@ -24280,7 +24248,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  753 => 
+  752 => 
   array (
     'name' => 'مدارس الفجر الصادق الخاصة — كرري (خور عمر)',
     'name_en' => 'مدارس الفجر الصادق الخاصة - خور عمر',
@@ -24313,7 +24281,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  754 => 
+  753 => 
   array (
     'name' => 'مدارس نور الإيمان الخاصة — كرري (الإسكان)',
     'name_en' => 'مدارس نور الإيمان الخاصة - الإسكان',
@@ -24346,7 +24314,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  755 => 
+  754 => 
   array (
     'name' => 'مدارس شمس المعرفة النموذجية — كرري (الثورة)',
     'name_en' => 'مدارس شمس المعرفة النموذجية - الثورة',
@@ -24379,7 +24347,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  756 => 
+  755 => 
   array (
     'name' => 'مدارس رواد الغد الخاصة — كرري (الواحة)',
     'name_en' => 'مدارس رواد الغد الخاصة - الواحة',
@@ -24412,7 +24380,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  757 => 
+  756 => 
   array (
     'name' => 'مدارس صروح المجد النموذجية — كرري (المنارة)',
     'name_en' => 'مدارس صروح المجد النموذجية - المنارة',
@@ -24445,7 +24413,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  758 => 
+  757 => 
   array (
     'name' => 'مدارس قناديل العلم الخاصة — كرري (الرومي)',
     'name_en' => 'مدارس قناديل العلم الخاصة - الرومي',
@@ -24478,7 +24446,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  759 => 
+  758 => 
   array (
     'name' => 'مدارس مناهل المعرفة الخاصة — كرري (مدينة النيل)',
     'name_en' => 'مدارس مناهل المعرفة الخاصة - مدينة النيل',
@@ -24511,7 +24479,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  760 => 
+  759 => 
   array (
     'name' => 'مدارس الأجيال الصاعدة الخاصة — كرري (خور عمر)',
     'name_en' => 'مدارس الأجيال الصاعدة الخاصة - خور عمر',
@@ -24544,7 +24512,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  761 => 
+  760 => 
   array (
     'name' => 'مدارس المعرفة الشاملة الخاصة — كرري (الإسكان)',
     'name_en' => 'مدارس المعرفة الشاملة الخاصة - الإسكان',
@@ -24577,7 +24545,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  762 => 
+  761 => 
   array (
     'name' => 'مدارس بشائر الخير النموذجية — كرري (الثورة)',
     'name_en' => 'مدارس بشائر الخير النموذجية - الثورة',
@@ -24610,7 +24578,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  763 => 
+  762 => 
   array (
     'name' => 'مدارس براعم المستقبل الخاصة — كرري (الواحة)',
     'name_en' => 'مدارس براعم المستقبل الخاصة - الواحة',
@@ -24643,7 +24611,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  764 => 
+  763 => 
   array (
     'name' => 'مدارس التميز العلمي النموذجية — كرري (المنارة)',
     'name_en' => 'مدارس التميز العلمي النموذجية - المنارة',
@@ -24676,7 +24644,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  765 => 
+  764 => 
   array (
     'name' => 'مدارس منارة الشرق الخاصة — كرري (الرومي)',
     'name_en' => 'مدارس منارة الشرق الخاصة - الرومي',
@@ -24709,7 +24677,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  766 => 
+  765 => 
   array (
     'name' => 'مدارس رياض الصالحين الخاصة — كرري (مدينة النيل)',
     'name_en' => 'مدارس رياض الصالحين الخاصة - مدينة النيل',
@@ -24742,7 +24710,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  767 => 
+  766 => 
   array (
     'name' => 'مدارس سنابل العلم النموذجية — كرري (خور عمر)',
     'name_en' => 'مدارس سنابل العلم النموذجية - خور عمر',
@@ -24775,7 +24743,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  768 => 
+  767 => 
   array (
     'name' => 'مدارس ينابيع المعرفة الخاصة — كرري (الإسكان)',
     'name_en' => 'مدارس ينابيع المعرفة الخاصة - الإسكان',
@@ -24808,7 +24776,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  769 => 
+  768 => 
   array (
     'name' => 'مدارس آفاق المستقبل النموذجية — كرري (الثورة)',
     'name_en' => 'مدارس آفاق المستقبل النموذجية - الثورة',
@@ -24841,7 +24809,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  770 => 
+  769 => 
   array (
     'name' => 'مدارس أجيال النهضة الخاصة — كرري (الواحة)',
     'name_en' => 'مدارس أجيال النهضة الخاصة - الواحة',
@@ -24874,7 +24842,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  771 => 
+  770 => 
   array (
     'name' => 'مدارس الإتقان التعليمية الخاصة — كرري (المنارة)',
     'name_en' => 'مدارس الإتقان التعليمية الخاصة - المنارة',
@@ -24907,7 +24875,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  772 => 
+  771 => 
   array (
     'name' => 'مدارس هدي القرآن النموذجية — كرري (الرومي)',
     'name_en' => 'مدارس هدي القرآن النموذجية - الرومي',
@@ -24940,7 +24908,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  773 => 
+  772 => 
   array (
     'name' => 'مدارس قبس النور الخاصة — كرري (مدينة النيل)',
     'name_en' => 'مدارس قبس النور الخاصة - مدينة النيل',
@@ -24973,7 +24941,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  774 => 
+  773 => 
   array (
     'name' => 'مدارس النخبة النموذجية الخاصة — كرري (خور عمر)',
     'name_en' => 'مدارس النخبة النموذجية الخاصة - خور عمر',
@@ -25006,7 +24974,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  775 => 
+  774 => 
   array (
     'name' => 'مدارس الأوائل الحديثة الخاصة — كرري (الإسكان)',
     'name_en' => 'مدارس الأوائل الحديثة الخاصة - الإسكان',
@@ -25039,7 +25007,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  776 => 
+  775 => 
   array (
     'name' => 'مدارس دار العلوم النموذجية الخاصة — كرري (الثورة)',
     'name_en' => 'مدارس دار العلوم النموذجية الخاصة - الثورة',
@@ -25072,7 +25040,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  777 => 
+  776 => 
   array (
     'name' => 'مدارس المجد الأكاديمية الخاصة — كرري (الواحة)',
     'name_en' => 'مدارس المجد الأكاديمية الخاصة - الواحة',
@@ -25105,7 +25073,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  778 => 
+  777 => 
   array (
     'name' => 'مدارس النخبة النموذجية الخاصة — بحري (الصافية)',
     'name_en' => 'مدارس النخبة النموذجية الخاصة - الصافية',
@@ -25138,7 +25106,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  779 => 
+  778 => 
   array (
     'name' => 'مدارس الأوائل الحديثة الخاصة — بحري (الشعبية)',
     'name_en' => 'مدارس الأوائل الحديثة الخاصة - الشعبية',
@@ -25171,7 +25139,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  780 => 
+  779 => 
   array (
     'name' => 'مدارس دار العلوم النموذجية الخاصة — بحري (شمبات)',
     'name_en' => 'مدارس دار العلوم النموذجية الخاصة - شمبات',
@@ -25204,7 +25172,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  781 => 
+  780 => 
   array (
     'name' => 'مدارس المجد الأكاديمية الخاصة — بحري (حلفاية الملوك)',
     'name_en' => 'مدارس المجد الأكاديمية الخاصة - حلفاية الملوك',
@@ -25237,7 +25205,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  782 => 
+  781 => 
   array (
     'name' => 'مدارس الإبداع والتميز الخاصة — بحري (الدروشاب)',
     'name_en' => 'مدارس الإبداع والتميز الخاصة - الدروشاب',
@@ -25270,7 +25238,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  783 => 
+  782 => 
   array (
     'name' => 'مدارس الفجر الصادق الخاصة — بحري (الكدرو)',
     'name_en' => 'مدارس الفجر الصادق الخاصة - الكدرو',
@@ -25303,7 +25271,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  784 => 
+  783 => 
   array (
     'name' => 'مدارس نور الإيمان الخاصة — بحري (كافوري)',
     'name_en' => 'مدارس نور الإيمان الخاصة - كافوري',
@@ -25336,7 +25304,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  785 => 
+  784 => 
   array (
     'name' => 'مدارس شمس المعرفة النموذجية — بحري (السامراب)',
     'name_en' => 'مدارس شمس المعرفة النموذجية - السامراب',
@@ -25369,7 +25337,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  786 => 
+  785 => 
   array (
     'name' => 'مدارس رواد الغد الخاصة — بحري (طيبة الأحامدة)',
     'name_en' => 'مدارس رواد الغد الخاصة - طيبة الأحامدة',
@@ -25402,7 +25370,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  787 => 
+  786 => 
   array (
     'name' => 'مدارس صروح المجد النموذجية — بحري (الجيلي)',
     'name_en' => 'مدارس صروح المجد النموذجية - الجيلي',
@@ -25435,7 +25403,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  788 => 
+  787 => 
   array (
     'name' => 'مدارس قناديل العلم الخاصة — بحري (المزاد)',
     'name_en' => 'مدارس قناديل العلم الخاصة - المزاد',
@@ -25468,7 +25436,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  789 => 
+  788 => 
   array (
     'name' => 'مدارس مناهل المعرفة الخاصة — بحري (الأملاك)',
     'name_en' => 'مدارس مناهل المعرفة الخاصة - الأملاك',
@@ -25501,7 +25469,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  790 => 
+  789 => 
   array (
     'name' => 'مدارس الأجيال الصاعدة الخاصة — بحري (كوبر)',
     'name_en' => 'مدارس الأجيال الصاعدة الخاصة - كوبر',
@@ -25534,7 +25502,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  791 => 
+  790 => 
   array (
     'name' => 'مدارس المعرفة الشاملة الخاصة — بحري (الصافية)',
     'name_en' => 'مدارس المعرفة الشاملة الخاصة - الصافية',
@@ -25567,7 +25535,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  792 => 
+  791 => 
   array (
     'name' => 'مدارس بشائر الخير النموذجية — بحري (الشعبية)',
     'name_en' => 'مدارس بشائر الخير النموذجية - الشعبية',
@@ -25600,7 +25568,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  793 => 
+  792 => 
   array (
     'name' => 'مدارس براعم المستقبل الخاصة — بحري (شمبات)',
     'name_en' => 'مدارس براعم المستقبل الخاصة - شمبات',
@@ -25633,7 +25601,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  794 => 
+  793 => 
   array (
     'name' => 'مدارس التميز العلمي النموذجية — بحري (حلفاية الملوك)',
     'name_en' => 'مدارس التميز العلمي النموذجية - حلفاية الملوك',
@@ -25666,7 +25634,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  795 => 
+  794 => 
   array (
     'name' => 'مدارس منارة الشرق الخاصة — بحري (الدروشاب)',
     'name_en' => 'مدارس منارة الشرق الخاصة - الدروشاب',
@@ -25699,7 +25667,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  796 => 
+  795 => 
   array (
     'name' => 'مدارس رياض الصالحين الخاصة — بحري (الكدرو)',
     'name_en' => 'مدارس رياض الصالحين الخاصة - الكدرو',
@@ -25732,7 +25700,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  797 => 
+  796 => 
   array (
     'name' => 'مدارس سنابل العلم النموذجية — بحري (كافوري)',
     'name_en' => 'مدارس سنابل العلم النموذجية - كافوري',
@@ -25765,7 +25733,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  798 => 
+  797 => 
   array (
     'name' => 'مدارس ينابيع المعرفة الخاصة — بحري (السامراب)',
     'name_en' => 'مدارس ينابيع المعرفة الخاصة - السامراب',
@@ -25798,7 +25766,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  799 => 
+  798 => 
   array (
     'name' => 'مدارس آفاق المستقبل النموذجية — بحري (طيبة الأحامدة)',
     'name_en' => 'مدارس آفاق المستقبل النموذجية - طيبة الأحامدة',
@@ -25831,7 +25799,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  800 => 
+  799 => 
   array (
     'name' => 'مدارس أجيال النهضة الخاصة — بحري (الجيلي)',
     'name_en' => 'مدارس أجيال النهضة الخاصة - الجيلي',
@@ -25864,7 +25832,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  801 => 
+  800 => 
   array (
     'name' => 'مدارس الإتقان التعليمية الخاصة — بحري (المزاد)',
     'name_en' => 'مدارس الإتقان التعليمية الخاصة - المزاد',
@@ -25897,7 +25865,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  802 => 
+  801 => 
   array (
     'name' => 'مدارس هدي القرآن النموذجية — بحري (الأملاك)',
     'name_en' => 'مدارس هدي القرآن النموذجية - الأملاك',
@@ -25930,7 +25898,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  803 => 
+  802 => 
   array (
     'name' => 'مدارس النخبة النموذجية الخاصة — شرق النيل (الفيحاء)',
     'name_en' => 'مدارس النخبة النموذجية الخاصة - الفيحاء',
@@ -25963,7 +25931,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  804 => 
+  803 => 
   array (
     'name' => 'مدارس الأوائل الحديثة الخاصة — شرق النيل (حي الهدى)',
     'name_en' => 'مدارس الأوائل الحديثة الخاصة - حي الهدى',
@@ -25996,7 +25964,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  805 => 
+  804 => 
   array (
     'name' => 'مدارس دار العلوم النموذجية الخاصة — شرق النيل (حي النصر)',
     'name_en' => 'مدارس دار العلوم النموذجية الخاصة - حي النصر',
@@ -26029,7 +25997,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  806 => 
+  805 => 
   array (
     'name' => 'مدارس المجد الأكاديمية الخاصة — شرق النيل (حلة كوكو)',
     'name_en' => 'مدارس المجد الأكاديمية الخاصة - حلة كوكو',
@@ -26062,7 +26030,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  807 => 
+  806 => 
   array (
     'name' => 'مدارس الإبداع والتميز الخاصة — شرق النيل (الحاج يوسف)',
     'name_en' => 'مدارس الإبداع والتميز الخاصة - الحاج يوسف',
@@ -26095,7 +26063,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  808 => 
+  807 => 
   array (
     'name' => 'مدارس الفجر الصادق الخاصة — شرق النيل (حي الجامعة)',
     'name_en' => 'مدارس الفجر الصادق الخاصة - حي الجامعة',
@@ -26128,7 +26096,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  809 => 
+  808 => 
   array (
     'name' => 'مدارس نور الإيمان الخاصة — شرق النيل (القادسية)',
     'name_en' => 'مدارس نور الإيمان الخاصة - القادسية',
@@ -26161,7 +26129,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  810 => 
+  809 => 
   array (
     'name' => 'مدارس شمس المعرفة النموذجية — شرق النيل (الوادي الأخضر)',
     'name_en' => 'مدارس شمس المعرفة النموذجية - الوادي الأخضر',
@@ -26194,7 +26162,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  811 => 
+  810 => 
   array (
     'name' => 'مدارس رواد الغد الخاصة — شرق النيل (سوبا شرق)',
     'name_en' => 'مدارس رواد الغد الخاصة - سوبا شرق',
@@ -26227,7 +26195,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  812 => 
+  811 => 
   array (
     'name' => 'مدارس صروح المجد النموذجية — شرق النيل (العيلفون)',
     'name_en' => 'مدارس صروح المجد النموذجية - العيلفون',
@@ -26260,7 +26228,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  813 => 
+  812 => 
   array (
     'name' => 'مدارس قناديل العلم الخاصة — شرق النيل (الفيحاء)',
     'name_en' => 'مدارس قناديل العلم الخاصة - الفيحاء',
@@ -26293,7 +26261,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  814 => 
+  813 => 
   array (
     'name' => 'مدارس مناهل المعرفة الخاصة — شرق النيل (حي الهدى)',
     'name_en' => 'مدارس مناهل المعرفة الخاصة - حي الهدى',
@@ -26326,7 +26294,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  815 => 
+  814 => 
   array (
     'name' => 'مدارس الأجيال الصاعدة الخاصة — شرق النيل (حي النصر)',
     'name_en' => 'مدارس الأجيال الصاعدة الخاصة - حي النصر',
@@ -26359,7 +26327,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  816 => 
+  815 => 
   array (
     'name' => 'مدارس المعرفة الشاملة الخاصة — شرق النيل (حلة كوكو)',
     'name_en' => 'مدارس المعرفة الشاملة الخاصة - حلة كوكو',
@@ -26392,7 +26360,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  817 => 
+  816 => 
   array (
     'name' => 'مدارس بشائر الخير النموذجية — شرق النيل (الحاج يوسف)',
     'name_en' => 'مدارس بشائر الخير النموذجية - الحاج يوسف',
@@ -26425,7 +26393,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  818 => 
+  817 => 
   array (
     'name' => 'مدارس براعم المستقبل الخاصة — شرق النيل (حي الجامعة)',
     'name_en' => 'مدارس براعم المستقبل الخاصة - حي الجامعة',
@@ -26458,7 +26426,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  819 => 
+  818 => 
   array (
     'name' => 'مدارس التميز العلمي النموذجية — شرق النيل (القادسية)',
     'name_en' => 'مدارس التميز العلمي النموذجية - القادسية',
@@ -26491,7 +26459,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  820 => 
+  819 => 
   array (
     'name' => 'مدارس منارة الشرق الخاصة — شرق النيل (الوادي الأخضر)',
     'name_en' => 'مدارس منارة الشرق الخاصة - الوادي الأخضر',
@@ -26524,7 +26492,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  821 => 
+  820 => 
   array (
     'name' => 'مدارس رياض الصالحين الخاصة — شرق النيل (سوبا شرق)',
     'name_en' => 'مدارس رياض الصالحين الخاصة - سوبا شرق',
@@ -26557,7 +26525,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  822 => 
+  821 => 
   array (
     'name' => 'مدارس سنابل العلم النموذجية — شرق النيل (العيلفون)',
     'name_en' => 'مدارس سنابل العلم النموذجية - العيلفون',
@@ -26590,7 +26558,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  823 => 
+  822 => 
   array (
     'name' => 'مدارس ينابيع المعرفة الخاصة — شرق النيل (الفيحاء)',
     'name_en' => 'مدارس ينابيع المعرفة الخاصة - الفيحاء',
@@ -26623,7 +26591,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  824 => 
+  823 => 
   array (
     'name' => 'مدارس آفاق المستقبل النموذجية — شرق النيل (حي الهدى)',
     'name_en' => 'مدارس آفاق المستقبل النموذجية - حي الهدى',
@@ -26656,7 +26624,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  825 => 
+  824 => 
   array (
     'name' => 'مدارس النخبة النموذجية الخاصة — جبل أولياء (الكلاكلة)',
     'name_en' => 'مدارس النخبة النموذجية الخاصة - الكلاكلة',
@@ -26689,7 +26657,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  826 => 
+  825 => 
   array (
     'name' => 'مدارس الأوائل الحديثة الخاصة — جبل أولياء (أبو آدم)',
     'name_en' => 'مدارس الأوائل الحديثة الخاصة - أبو آدم',
@@ -26722,7 +26690,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  827 => 
+  826 => 
   array (
     'name' => 'مدارس دار العلوم النموذجية الخاصة — جبل أولياء (الأزهري)',
     'name_en' => 'مدارس دار العلوم النموذجية الخاصة - الأزهري',
@@ -26755,7 +26723,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  828 => 
+  827 => 
   array (
     'name' => 'مدارس المجد الأكاديمية الخاصة — جبل أولياء (السلمة)',
     'name_en' => 'مدارس المجد الأكاديمية الخاصة - السلمة',
@@ -26788,7 +26756,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  829 => 
+  828 => 
   array (
     'name' => 'مدارس الإبداع والتميز الخاصة — جبل أولياء (جبل أولياء)',
     'name_en' => 'مدارس الإبداع والتميز الخاصة - جبل أولياء',
@@ -26821,7 +26789,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  830 => 
+  829 => 
   array (
     'name' => 'مدارس الفجر الصادق الخاصة — جبل أولياء (طيبة الحسناب)',
     'name_en' => 'مدارس الفجر الصادق الخاصة - طيبة الحسناب',
@@ -26854,7 +26822,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  831 => 
+  830 => 
   array (
     'name' => 'مدارس نور الإيمان الخاصة — جبل أولياء (تريعة البجا)',
     'name_en' => 'مدارس نور الإيمان الخاصة - تريعة البجا',
@@ -26887,7 +26855,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  832 => 
+  831 => 
   array (
     'name' => 'مدارس شمس المعرفة النموذجية — جبل أولياء (الكلاكلة)',
     'name_en' => 'مدارس شمس المعرفة النموذجية - الكلاكلة',
@@ -26920,7 +26888,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  833 => 
+  832 => 
   array (
     'name' => 'مدارس رواد الغد الخاصة — جبل أولياء (أبو آدم)',
     'name_en' => 'مدارس رواد الغد الخاصة - أبو آدم',
@@ -26953,7 +26921,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  834 => 
+  833 => 
   array (
     'name' => 'مدارس صروح المجد النموذجية — جبل أولياء (الأزهري)',
     'name_en' => 'مدارس صروح المجد النموذجية - الأزهري',
@@ -26986,7 +26954,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  835 => 
+  834 => 
   array (
     'name' => 'مدارس قناديل العلم الخاصة — جبل أولياء (السلمة)',
     'name_en' => 'مدارس قناديل العلم الخاصة - السلمة',
@@ -27019,7 +26987,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  836 => 
+  835 => 
   array (
     'name' => 'مدارس مناهل المعرفة الخاصة — جبل أولياء (جبل أولياء)',
     'name_en' => 'مدارس مناهل المعرفة الخاصة - جبل أولياء',
@@ -27052,7 +27020,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  837 => 
+  836 => 
   array (
     'name' => 'مدارس الأجيال الصاعدة الخاصة — جبل أولياء (طيبة الحسناب)',
     'name_en' => 'مدارس الأجيال الصاعدة الخاصة - طيبة الحسناب',
@@ -27085,7 +27053,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  838 => 
+  837 => 
   array (
     'name' => 'مدارس المعرفة الشاملة الخاصة — جبل أولياء (تريعة البجا)',
     'name_en' => 'مدارس المعرفة الشاملة الخاصة - تريعة البجا',
@@ -27118,7 +27086,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  839 => 
+  838 => 
   array (
     'name' => 'مدارس بشائر الخير النموذجية — جبل أولياء (الكلاكلة)',
     'name_en' => 'مدارس بشائر الخير النموذجية - الكلاكلة',
@@ -27151,7 +27119,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  840 => 
+  839 => 
   array (
     'name' => 'مدارس براعم المستقبل الخاصة — جبل أولياء (أبو آدم)',
     'name_en' => 'مدارس براعم المستقبل الخاصة - أبو آدم',
@@ -27184,7 +27152,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  841 => 
+  840 => 
   array (
     'name' => 'مدارس التميز العلمي النموذجية — جبل أولياء (الأزهري)',
     'name_en' => 'مدارس التميز العلمي النموذجية - الأزهري',
@@ -27217,7 +27185,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  842 => 
+  841 => 
   array (
     'name' => 'مدارس منارة الشرق الخاصة — جبل أولياء (السلمة)',
     'name_en' => 'مدارس منارة الشرق الخاصة - السلمة',
@@ -27250,7 +27218,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  843 => 
+  842 => 
   array (
     'name' => 'مدارس رياض الصالحين الخاصة — جبل أولياء (جبل أولياء)',
     'name_en' => 'مدارس رياض الصالحين الخاصة - جبل أولياء',
@@ -27283,7 +27251,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  844 => 
+  843 => 
   array (
     'name' => 'مدارس سنابل العلم النموذجية — جبل أولياء (طيبة الحسناب)',
     'name_en' => 'مدارس سنابل العلم النموذجية - طيبة الحسناب',
@@ -27316,7 +27284,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  845 => 
+  844 => 
   array (
     'name' => 'مدارس ينابيع المعرفة الخاصة — جبل أولياء (تريعة البجا)',
     'name_en' => 'مدارس ينابيع المعرفة الخاصة - تريعة البجا',
@@ -27349,7 +27317,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  846 => 
+  845 => 
   array (
     'name' => 'مدارس آفاق المستقبل النموذجية — جبل أولياء (الكلاكلة)',
     'name_en' => 'مدارس آفاق المستقبل النموذجية - الكلاكلة',
@@ -27382,7 +27350,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  847 => 
+  846 => 
   array (
     'name' => 'مدارس النخبة النموذجية الخاصة — أم بدة (أمبدة)',
     'name_en' => 'مدارس النخبة النموذجية الخاصة - أمبدة',
@@ -27415,7 +27383,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  848 => 
+  847 => 
   array (
     'name' => 'مدارس الأوائل الحديثة الخاصة — أم بدة (دار السلام)',
     'name_en' => 'مدارس الأوائل الحديثة الخاصة - دار السلام',
@@ -27448,7 +27416,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  849 => 
+  848 => 
   array (
     'name' => 'مدارس دار العلوم النموذجية الخاصة — أم بدة (السبيل)',
     'name_en' => 'مدارس دار العلوم النموذجية الخاصة - السبيل',
@@ -27481,7 +27449,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  850 => 
+  849 => 
   array (
     'name' => 'مدارس المجد الأكاديمية الخاصة — أم بدة (ود البشير)',
     'name_en' => 'مدارس المجد الأكاديمية الخاصة - ود البشير',
@@ -27514,7 +27482,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  851 => 
+  850 => 
   array (
     'name' => 'مدارس الإبداع والتميز الخاصة — أم بدة (الراشدين)',
     'name_en' => 'مدارس الإبداع والتميز الخاصة - الراشدين',
@@ -27547,7 +27515,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  852 => 
+  851 => 
   array (
     'name' => 'مدارس الفجر الصادق الخاصة — أم بدة (العامرية)',
     'name_en' => 'مدارس الفجر الصادق الخاصة - العامرية',
@@ -27580,7 +27548,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  853 => 
+  852 => 
   array (
     'name' => 'مدارس نور الإيمان الخاصة — أم بدة (أمبدة)',
     'name_en' => 'مدارس نور الإيمان الخاصة - أمبدة',
@@ -27613,7 +27581,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  854 => 
+  853 => 
   array (
     'name' => 'مدارس شمس المعرفة النموذجية — أم بدة (دار السلام)',
     'name_en' => 'مدارس شمس المعرفة النموذجية - دار السلام',
@@ -27646,7 +27614,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  855 => 
+  854 => 
   array (
     'name' => 'مدارس رواد الغد الخاصة — أم بدة (السبيل)',
     'name_en' => 'مدارس رواد الغد الخاصة - السبيل',
@@ -27679,7 +27647,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  856 => 
+  855 => 
   array (
     'name' => 'مدارس صروح المجد النموذجية — أم بدة (ود البشير)',
     'name_en' => 'مدارس صروح المجد النموذجية - ود البشير',
@@ -27712,7 +27680,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  857 => 
+  856 => 
   array (
     'name' => 'مدارس قناديل العلم الخاصة — أم بدة (الراشدين)',
     'name_en' => 'مدارس قناديل العلم الخاصة - الراشدين',
@@ -27745,7 +27713,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  858 => 
+  857 => 
   array (
     'name' => 'مدارس مناهل المعرفة الخاصة — أم بدة (العامرية)',
     'name_en' => 'مدارس مناهل المعرفة الخاصة - العامرية',
@@ -27778,7 +27746,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  859 => 
+  858 => 
   array (
     'name' => 'مدارس الأجيال الصاعدة الخاصة — أم بدة (أمبدة)',
     'name_en' => 'مدارس الأجيال الصاعدة الخاصة - أمبدة',
@@ -27811,7 +27779,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  860 => 
+  859 => 
   array (
     'name' => 'مدارس المعرفة الشاملة الخاصة — أم بدة (دار السلام)',
     'name_en' => 'مدارس المعرفة الشاملة الخاصة - دار السلام',
@@ -27844,7 +27812,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  861 => 
+  860 => 
   array (
     'name' => 'مدارس بشائر الخير النموذجية — أم بدة (السبيل)',
     'name_en' => 'مدارس بشائر الخير النموذجية - السبيل',
@@ -27877,7 +27845,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  862 => 
+  861 => 
   array (
     'name' => 'مدارس براعم المستقبل الخاصة — أم بدة (ود البشير)',
     'name_en' => 'مدارس براعم المستقبل الخاصة - ود البشير',
@@ -27910,7 +27878,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  863 => 
+  862 => 
   array (
     'name' => 'مدارس التميز العلمي النموذجية — أم بدة (الراشدين)',
     'name_en' => 'مدارس التميز العلمي النموذجية - الراشدين',
@@ -27943,7 +27911,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  864 => 
+  863 => 
   array (
     'name' => 'مدارس منارة الشرق الخاصة — أم بدة (العامرية)',
     'name_en' => 'مدارس منارة الشرق الخاصة - العامرية',
@@ -27976,7 +27944,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  865 => 
+  864 => 
   array (
     'name' => 'مدارس رياض الصالحين الخاصة — أم بدة (أمبدة)',
     'name_en' => 'مدارس رياض الصالحين الخاصة - أمبدة',
@@ -28009,7 +27977,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  866 => 
+  865 => 
   array (
     'name' => 'مدارس سنابل العلم النموذجية — أم بدة (دار السلام)',
     'name_en' => 'مدارس سنابل العلم النموذجية - دار السلام',
@@ -28042,7 +28010,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  867 => 
+  866 => 
   array (
     'name' => 'مدارس التعليم البريطانية بالمنشية',
     'name_en' => 'British Educational Schools Al-Manshia',
@@ -28075,7 +28043,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  868 => 
+  867 => 
   array (
     'name' => 'مدرسة سان فرانسيس الخاصة',
     'name_en' => 'St. Francis School Khartoum',
@@ -28107,7 +28075,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  869 => 
+  868 => 
   array (
     'name' => 'مدرسة يس الدولية',
     'name_en' => 'Yass International School',
@@ -28139,7 +28107,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  870 => 
+  869 => 
   array (
     'name' => 'مدارس إشراقة الغد الخاصة',
     'name_en' => 'Ishraqat Al-Ghad Schools',
@@ -28171,7 +28139,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  871 => 
+  870 => 
   array (
     'name' => 'مدارس الشيخ مصطفى الأمين الخاصة',
     'name_en' => 'Sheikh Mustafa Elamin Schools',
@@ -28204,7 +28172,7 @@ return array (
     'historic_badge_reason' => 'صرح وطني تاريخي',
     'historic_votes' => 0,
   ),
-  872 => 
+  871 => 
   array (
     'name' => 'مدارس د. أبو ذر الكودة النموذجية — بنين أم درمان',
     'name_en' => 'Dr. Abuzar Al-Koda Boys Model School',
@@ -28236,7 +28204,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  873 => 
+  872 => 
   array (
     'name' => 'مدارس د. أبو ذر الكودة النموذجية — بنات أم درمان',
     'name_en' => 'Dr. Abuzar Al-Koda Girls Model School',
@@ -28268,7 +28236,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  874 => 
+  873 => 
   array (
     'name' => 'مدارس التعليم البريطاني — فرع أم درمان',
     'name_en' => 'British Educational Schools Omdurman',
@@ -28301,7 +28269,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  875 => 
+  874 => 
   array (
     'name' => 'مدارس العالية المطورة بأم درمان',
     'name_en' => 'Al-Alia Advanced Schools Omdurman',
@@ -28334,7 +28302,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  876 => 
+  875 => 
   array (
     'name' => 'روضة وتهيئة فيفي الخاصة بأم درمان',
     'name_en' => 'Fifi Early Learning Academy Omdurman',
@@ -28365,7 +28333,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  877 => 
+  876 => 
   array (
     'name' => 'مدارس السودان ومهاجر الخاصة',
     'name_en' => 'Sudan & Muhajir Private Schools',
@@ -28398,7 +28366,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  878 => 
+  877 => 
   array (
     'name' => 'مدارس المجلس الأفريقي — فرع الفتيحاب',
     'name_en' => 'African Council Schools Fitaihab',
@@ -28431,7 +28399,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  879 => 
+  878 => 
   array (
     'name' => 'مدارس سان جورج الأهلية بأم درمان',
     'name_en' => 'St. George Community School Omdurman',
@@ -28464,7 +28432,7 @@ return array (
     'historic_badge_reason' => 'صرح وطني تاريخي',
     'historic_votes' => 0,
   ),
-  880 => 
+  879 => 
   array (
     'name' => 'مدارس البشير الريح الخاصة',
     'name_en' => 'Al-Bashir El-Rayah Schools',
@@ -28497,7 +28465,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  881 => 
+  880 => 
   array (
     'name' => 'مدارس الموردة النموذجية الخاصة',
     'name_en' => 'Al-Mourada Model Schools',
@@ -28529,7 +28497,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  882 => 
+  881 => 
   array (
     'name' => 'مدارس الفتيحاب النموذجية الخاصة',
     'name_en' => 'Fitaihab Model Private Schools',
@@ -28562,7 +28530,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  883 => 
+  882 => 
   array (
     'name' => 'مدارس كبيدة الدولية — فرع بحري',
     'name_en' => 'Kabbida International Schools Bahri',
@@ -28595,7 +28563,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  884 => 
+  883 => 
   array (
     'name' => 'المجلس الأفريقي للتعليم — مدارس بحري',
     'name_en' => 'African Council Schools Bahri',
@@ -28628,7 +28596,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  885 => 
+  884 => 
   array (
     'name' => 'مدارس وولفرهامتون الدولية الخاصة',
     'name_en' => 'Wolverhampton School International',
@@ -28660,7 +28628,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  886 => 
+  885 => 
   array (
     'name' => 'مدارس النوابغ الخاصة ببحري',
     'name_en' => 'Al-Nawabigh Private Schools Bahri',
@@ -28693,7 +28661,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  887 => 
+  886 => 
   array (
     'name' => 'مدارس المواهب الإنجليزية ببحري',
     'name_en' => 'Al-Mawaheb English Schools Bahri',
@@ -28726,7 +28694,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  888 => 
+  887 => 
   array (
     'name' => 'مدارس القبس الخاصة — شمبات',
     'name_en' => 'Al-Qabas Private Schools Shambat',
@@ -28759,7 +28727,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  889 => 
+  888 => 
   array (
     'name' => 'المدرسة الإنجيلية المشتركة بحري',
     'name_en' => 'Evangelical Mixed School Bahri',
@@ -28792,7 +28760,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  890 => 
+  889 => 
   array (
     'name' => 'مدارس حلفاية الملوك النموذجية الخاصة',
     'name_en' => 'Halfayat Al-Muluk Model Schools',
@@ -28825,7 +28793,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  891 => 
+  890 => 
   array (
     'name' => 'مؤسسة أكسلانت التعليمية — مدارس الامتياز الخاصة',
     'name_en' => 'Excellent Academy - Al-Imtiaz Schools',
@@ -28859,7 +28827,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  892 => 
+  891 => 
   array (
     'name' => 'رياض ومدارس المشارق الحديثة الخاصة',
     'name_en' => 'Al-Mashariq Modern Schools Karari',
@@ -28891,7 +28859,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  893 => 
+  892 => 
   array (
     'name' => 'مجموعة المنهل التعليمية الخاصة بكرري',
     'name_en' => 'Al-Manhal Educational Group Karari',
@@ -28924,7 +28892,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  894 => 
+  893 => 
   array (
     'name' => 'مدارس المواهب العالمية — فرع كرري',
     'name_en' => 'Al-Mawaheb Global Schools Karari',
@@ -28957,7 +28925,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  895 => 
+  894 => 
   array (
     'name' => 'مدارس الشنقيطي النموذجية الخاصة',
     'name_en' => 'Al-Shanqeeti Model Schools',
@@ -28990,7 +28958,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  896 => 
+  895 => 
   array (
     'name' => 'مدارس الإشراق النموذجية الخاصة بكرري',
     'name_en' => 'Al-Ishraq Model Schools Karari',
@@ -29023,7 +28991,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  897 => 
+  896 => 
   array (
     'name' => 'مدارس قرطبة النموذجية الخاصة',
     'name_en' => 'Cordoba Model Schools Karari',
@@ -29055,7 +29023,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  898 => 
+  897 => 
   array (
     'name' => 'مدارس الحارة السادسة الخاصة',
     'name_en' => '6th District Private Schools',
@@ -29088,7 +29056,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  899 => 
+  898 => 
   array (
     'name' => 'مدارس الفتح الخاصة بكرري',
     'name_en' => 'Al-Fath Private Schools Karari',
@@ -29120,7 +29088,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  900 => 
+  899 => 
   array (
     'name' => 'مدارس ومعاهد نمبر ون — فرع شرق النيل',
     'name_en' => 'Number One Schools & Institutes East Nile',
@@ -29152,7 +29120,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  901 => 
+  900 => 
   array (
     'name' => 'مدارس الخرطوم بحري العالمية الخاصة بشرق النيل',
     'name_en' => 'Khartoum Bahri Global Private Schools',
@@ -29184,7 +29152,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  902 => 
+  901 => 
   array (
     'name' => 'مجموعة مدارس الرائد الخاصة بشرق النيل',
     'name_en' => 'Al-Raid Private Schools East Nile',
@@ -29217,7 +29185,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  903 => 
+  902 => 
   array (
     'name' => 'مدارس التوفيق الخاصة بشرق النيل',
     'name_en' => 'Al-Tawfeeq Private Schools East Nile',
@@ -29250,7 +29218,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  904 => 
+  903 => 
   array (
     'name' => 'مدارس حطين النموذجية الخاصة',
     'name_en' => 'Hittin Model Schools East Nile',
@@ -29283,7 +29251,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  905 => 
+  904 => 
   array (
     'name' => 'مدارس المايقوما النموذجية الخاصة',
     'name_en' => 'Al-Maygoma Model Schools',
@@ -29315,7 +29283,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  906 => 
+  905 => 
   array (
     'name' => 'مدارس الحاج يوسف الأهلية الخاصة',
     'name_en' => 'Haj Yousif Community Private Schools',
@@ -29348,7 +29316,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  907 => 
+  906 => 
   array (
     'name' => 'مدارس الهدى الخاصة بشرق النيل',
     'name_en' => 'Al-Huda Private Schools East Nile',
@@ -29380,7 +29348,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  908 => 
+  907 => 
   array (
     'name' => 'مدارس التكامل الخاصة',
     'name_en' => 'Al-Takamul Private Schools East Nile',
@@ -29413,7 +29381,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  909 => 
+  908 => 
   array (
     'name' => 'مدارس الشيخ البرعي الخاصة بشرق النيل',
     'name_en' => 'Sheikh Al-Buraie Private Schools',
@@ -29446,7 +29414,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  910 => 
+  909 => 
   array (
     'name' => 'مؤسسة د. أبو ذر الكودة التعليمية — فرع الكلاكلة',
     'name_en' => 'Dr. Abuzar Al-Koda Schools Kalakla',
@@ -29479,7 +29447,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  911 => 
+  910 => 
   array (
     'name' => 'مدارس المجلس الأفريقي للتعليم الخاص — فرع الكلاكلة',
     'name_en' => 'African Council Schools Kalakla',
@@ -29512,7 +29480,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  912 => 
+  911 => 
   array (
     'name' => 'مدارس الأزهري النموذجية الخاصة',
     'name_en' => 'Al-Azhari Model Schools',
@@ -29545,7 +29513,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  913 => 
+  912 => 
   array (
     'name' => 'مدارس النصر النموذجية الخاصة بجبل أولياء',
     'name_en' => 'Al-Nasr Model Schools Jabal Awliya',
@@ -29578,7 +29546,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  914 => 
+  913 => 
   array (
     'name' => 'مدارس الكلاكلة الحديثة الخاصة',
     'name_en' => 'Modern Kalakla Private Schools',
@@ -29610,7 +29578,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  915 => 
+  914 => 
   array (
     'name' => 'مدارس دار السلام الأهلية الخاصة بجبل أولياء',
     'name_en' => 'Dar Al-Salam Community Private Schools',
@@ -29643,7 +29611,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  916 => 
+  915 => 
   array (
     'name' => 'مدارس الدخينات النموذجية الخاصة',
     'name_en' => 'Al-Dukheinat Model Schools',
@@ -29675,7 +29643,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  917 => 
+  916 => 
   array (
     'name' => 'مدارس مايو الأهلية الخاصة',
     'name_en' => 'Mayo Community Private Schools',
@@ -29708,7 +29676,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  918 => 
+  917 => 
   array (
     'name' => 'مجموعة مدارس التفوق العالمية الخاصة بأم بدة',
     'name_en' => 'Al-Tafawuq Global Schools Ombadda',
@@ -29741,7 +29709,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  919 => 
+  918 => 
   array (
     'name' => 'مؤسسة دار المنهل والعين الخاصة — فرع أم بدة',
     'name_en' => 'Dar Al-Manhal & Al-Ain Schools Ombadda',
@@ -29773,7 +29741,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  920 => 
+  919 => 
   array (
     'name' => 'مدارس الأجيال الابتدائية والمتوسطة الخاصة',
     'name_en' => 'Al-Ajyal Private Schools Ombadda',
@@ -29805,7 +29773,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  921 => 
+  920 => 
   array (
     'name' => 'مدارس القبس الخاصة — فرع ود مدني',
     'name_en' => 'Al-Qabas Private Schools Wad Madani',
@@ -29838,7 +29806,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  922 => 
+  921 => 
   array (
     'name' => 'ثانوية النوابغ الخاصة بود مدني',
     'name_en' => 'Al-Nawabigh Secondary School Wad Madani',
@@ -29869,7 +29837,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  923 => 
+  922 => 
   array (
     'name' => 'مجمع النخبة التعليمي الخاص',
     'name_en' => 'Al-Nukhba Educational Complex Wad Madani',
@@ -29902,7 +29870,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  924 => 
+  923 => 
   array (
     'name' => 'مدارس الفجر النموذجية الخاصة بود مدني',
     'name_en' => 'Al-Fajr Model Schools Wad Madani',
@@ -29934,7 +29902,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  925 => 
+  924 => 
   array (
     'name' => 'مدارس الأندلس النموذجية الخاصة بود مدني',
     'name_en' => 'Al-Andalus Model Schools Wad Madani',
@@ -29966,7 +29934,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  926 => 
+  925 => 
   array (
     'name' => 'مدارس التميز الخاصة (بنين وبنات) — الحصاحيصا',
     'name_en' => 'Al-Tamayoz Private Schools Hasahisa',
@@ -29999,7 +29967,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  927 => 
+  926 => 
   array (
     'name' => 'مدارس رواد التميز الخاصة بالحصاحيصا',
     'name_en' => 'Rowad Al-Tamayoz Private Schools Hasahisa',
@@ -30031,7 +29999,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  928 => 
+  927 => 
   array (
     'name' => 'ثانوية الإمام علي الخاصة للبنين بالحصاحيصا',
     'name_en' => 'Imam Ali Secondary School for Boys Hasahisa',
@@ -30062,7 +30030,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  929 => 
+  928 => 
   array (
     'name' => 'مؤسسة عماد الدين التعليمية الخاصة بالحصاحيصا',
     'name_en' => 'Emad Al-Din Educational Foundation Hasahisa',
@@ -30095,7 +30063,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  930 => 
+  929 => 
   array (
     'name' => 'مدارس الجديد التربوية التعليمية الخاصة بالمناقل',
     'name_en' => 'Al-Jadid Educational Schools Managil',
@@ -30128,7 +30096,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  931 => 
+  930 => 
   array (
     'name' => 'مؤسسة المجد التربوية التعليمية الخاصة بالمناقل',
     'name_en' => 'Al-Majd Educational Foundation Managil',
@@ -30161,7 +30129,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  932 => 
+  931 => 
   array (
     'name' => 'مدرسة المعلم الابتدائية الخاصة بالمناقل',
     'name_en' => 'Al-Moallim Primary School Managil',
@@ -30192,7 +30160,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  933 => 
+  932 => 
   array (
     'name' => 'مدرسة نازك الخاصة بالمناقل',
     'name_en' => 'Nazik Private School Managil',
@@ -30224,7 +30192,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  934 => 
+  933 => 
   array (
     'name' => 'مدرسة الأحلام الخاصة بنات بالمناقل',
     'name_en' => 'Al-Ahlam Private School for Girls Managil',
@@ -30256,7 +30224,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  935 => 
+  934 => 
   array (
     'name' => 'مدارس مناهل المعرفة الخاصة بالمناقل',
     'name_en' => 'Manahel Al-Maarifa Schools Managil',
@@ -30288,7 +30256,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  936 => 
+  935 => 
   array (
     'name' => 'مدارس المستقبل الخاصة بالمناقل',
     'name_en' => 'Al-Mustaqbal Private Schools Managil',
@@ -30319,7 +30287,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  937 => 
+  936 => 
   array (
     'name' => 'مدرسة البتول الثانوية النموذجية الخاصة بنات برفاعة',
     'name_en' => 'Al-Batool Model Secondary School Rufaa',
@@ -30350,7 +30318,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  938 => 
+  937 => 
   array (
     'name' => 'مدرسة الشروق الخاصة المشتركة بتمبول',
     'name_en' => 'Al-Shorooq Private School Tambool',
@@ -30383,7 +30351,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  939 => 
+  938 => 
   array (
     'name' => 'مدرسة سنهوري الثانوية الخاصة بتمبول',
     'name_en' => 'Sanhouri Secondary School Tambool',
@@ -30414,7 +30382,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  940 => 
+  939 => 
   array (
     'name' => 'مدارس الإحسان الخاصة بتمبول',
     'name_en' => 'Al-Ihsan Private Schools Tambool',
@@ -30446,7 +30414,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  941 => 
+  940 => 
   array (
     'name' => 'مدرسة إقرأ التعليمية الخاصة بالكاملين',
     'name_en' => 'Iqra Educational Private School Kamlin',
@@ -30478,7 +30446,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  942 => 
+  941 => 
   array (
     'name' => 'مدارس المعالي الخاصة بالكاملين',
     'name_en' => 'Al-Maali Private Schools Kamlin',
@@ -30511,7 +30479,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  943 => 
+  942 => 
   array (
     'name' => 'مجمع الهلالية الأكاديمي الخاص',
     'name_en' => 'Al-Hilaliya Academic Complex',
@@ -30544,7 +30512,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  944 => 
+  943 => 
   array (
     'name' => 'مدارس التعليم البريطانية (فرع بورتسودان)',
     'name_en' => 'British Educational Schools Port Sudan',
@@ -30577,7 +30545,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  945 => 
+  944 => 
   array (
     'name' => 'مدرسة وستمنستر الدولية ببورتسودان',
     'name_en' => 'Westminster International School Port Sudan',
@@ -30610,7 +30578,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  946 => 
+  945 => 
   array (
     'name' => 'مدارس كبيدة الدولية — فرع بورتسودان',
     'name_en' => 'Kabbida International Port Sudan',
@@ -30643,7 +30611,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  947 => 
+  946 => 
   array (
     'name' => 'مدارس القبس الخاصة — بورتسودان',
     'name_en' => 'Al-Qabas Private Schools Port Sudan',
@@ -30676,7 +30644,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  948 => 
+  947 => 
   array (
     'name' => 'مدارس الأندلس الخاصة ببورتسودان',
     'name_en' => 'Al-Andalus Private Schools Port Sudan',
@@ -30709,7 +30677,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  949 => 
+  948 => 
   array (
     'name' => 'مدارس الجزيرة الخاصة بنات ببورتسودان',
     'name_en' => 'Al-Gezira Private Girls Schools Port Sudan',
@@ -30742,7 +30710,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  950 => 
+  949 => 
   array (
     'name' => 'مدارس آفاق الخاصة ببورتسودان',
     'name_en' => 'Afaq Private Schools Port Sudan',
@@ -30775,7 +30743,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  951 => 
+  950 => 
   array (
     'name' => 'مدرسة ألفابت أوميغا الإنجليزية الابتدائية',
     'name_en' => 'Alphabet Omega English School Primary School',
@@ -30806,7 +30774,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  952 => 
+  951 => 
   array (
     'name' => 'مدارس الساحل الأهلية النموذجية',
     'name_en' => 'Al-Sahel Model Schools Port Sudan',
@@ -30839,7 +30807,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  953 => 
+  952 => 
   array (
     'name' => 'مدارس المعلم ثانوية البنات الخاصة ببورتسودان',
     'name_en' => 'Al-Moallim Girls Secondary School Port Sudan',
@@ -30870,7 +30838,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  954 => 
+  953 => 
   array (
     'name' => 'مدرسة التوحيد القرآنية الخاصة بنات',
     'name_en' => 'Al-Tawheed Quranic School Port Sudan',
@@ -30902,7 +30870,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  955 => 
+  954 => 
   array (
     'name' => 'مدرسة ذات النطاقين الخاصة للبنات',
     'name_en' => 'Dhat Al-Nitaqayn School Port Sudan',
@@ -30934,7 +30902,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  956 => 
+  955 => 
   array (
     'name' => 'مدارس المجلس الأفريقي للتعليم الخاص — فرع بورتسودان',
     'name_en' => 'African Council Schools Port Sudan',
@@ -30967,7 +30935,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  957 => 
+  956 => 
   array (
     'name' => 'مدارس منارة الشرق الخاصة ببورتسودان',
     'name_en' => 'Manarat Al-Sharq Private School Port Sudan',
@@ -31000,7 +30968,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  958 => 
+  957 => 
   array (
     'name' => 'مدرسة الأكاديمية الحديثة الخاصة ببورتسودان',
     'name_en' => 'Modern Academy Private School Port Sudan',
@@ -31032,7 +31000,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  959 => 
+  958 => 
   array (
     'name' => 'مدارس جيل النصر الخاصة ببورتسودان',
     'name_en' => 'Jeel Al-Nasr Private Schools Port Sudan',
@@ -31064,7 +31032,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  960 => 
+  959 => 
   array (
     'name' => 'روضة ومدرسة الإشراق الخاصة ببورتسودان',
     'name_en' => 'Al-Ishraq Private School & Nursery Port Sudan',
@@ -31096,7 +31064,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  961 => 
+  960 => 
   array (
     'name' => 'مدرسة الصفا الأهلية الخاصة ببورتسودان',
     'name_en' => 'Al-Safa Private School Port Sudan',
@@ -31128,7 +31096,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  962 => 
+  961 => 
   array (
     'name' => 'مدارس الفادني الخاصة ببورتسودان',
     'name_en' => 'Al-Fadni Private Schools Port Sudan',
@@ -31161,7 +31129,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  963 => 
+  962 => 
   array (
     'name' => 'مدارس الرواد الخاصة ببورتسودان',
     'name_en' => 'Al-Rowad Private Schools Port Sudan',
@@ -31194,7 +31162,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  964 => 
+  963 => 
   array (
     'name' => 'مدارس الفجر الخاصة ببورتسودان',
     'name_en' => 'Al-Fajr Private Schools Port Sudan',
@@ -31226,7 +31194,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  965 => 
+  964 => 
   array (
     'name' => 'مدارس النخبة النموذجية الخاصة ببورتسودان',
     'name_en' => 'Al-Nokhba Model Schools Port Sudan',
@@ -31259,7 +31227,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  966 => 
+  965 => 
   array (
     'name' => 'مدرسة براعم الغد الخاصة ببورتسودان',
     'name_en' => 'Baraem Al-Ghad Private School Port Sudan',
@@ -31291,7 +31259,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  967 => 
+  966 => 
   array (
     'name' => 'مدارس الأوائل الأهلية الخاصة ببورتسودان',
     'name_en' => 'Al-Awail Private Schools Port Sudan',
@@ -31323,7 +31291,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  968 => 
+  967 => 
   array (
     'name' => 'مدارس الريان الخاصة ببورتسودان',
     'name_en' => 'Al-Rayyan Private Schools Port Sudan',
@@ -31355,7 +31323,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  969 => 
+  968 => 
   array (
     'name' => 'مدارس ضياء العلم الخاصة ببورتسودان',
     'name_en' => 'Diya Al-Elm Private Schools Port Sudan',
@@ -31388,7 +31356,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  970 => 
+  969 => 
   array (
     'name' => 'مدارس الهدى الخاصة ببورتسودان',
     'name_en' => 'Al-Huda Private Schools Port Sudan',
@@ -31420,7 +31388,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  971 => 
+  970 => 
   array (
     'name' => 'مدارس دار السلام الأهلية الخاصة ببورتسودان',
     'name_en' => 'Dar Al-Salam Private Schools Port Sudan',
@@ -31452,7 +31420,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  972 => 
+  971 => 
   array (
     'name' => 'مدارس المستقبل الخاصة ببورتسودان',
     'name_en' => 'Al-Mustaqbal Private Schools Port Sudan',
@@ -31485,7 +31453,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  973 => 
+  972 => 
   array (
     'name' => 'مدارس إشراقة البحر الأحمر الخاصة',
     'name_en' => 'Ishraqat Al-Bahr Al-Ahmar Schools Port Sudan',
@@ -31517,7 +31485,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  974 => 
+  973 => 
   array (
     'name' => 'مدارس الصداقة الخاصة ببورتسودان',
     'name_en' => 'Al-Sadaqa Private Schools Port Sudan',
@@ -31549,7 +31517,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  975 => 
+  974 => 
   array (
     'name' => 'مدارس أجيال الغد الخاصة ببورتسودان',
     'name_en' => 'Ajyal Al-Ghad Private Schools Port Sudan',
@@ -31581,7 +31549,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  976 => 
+  975 => 
   array (
     'name' => 'روضة ومدرسة الإيمان الخاصة بسواكن',
     'name_en' => 'Al-Iman Private School Suakin',
@@ -31614,7 +31582,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  977 => 
+  976 => 
   array (
     'name' => 'مدارس عثمان دقنة النموذجية الخاصة بسواكن',
     'name_en' => 'Osman Digna Model Schools Suakin',
@@ -31647,7 +31615,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  978 => 
+  977 => 
   array (
     'name' => 'مدارس سواكن الأهلية الخاصة',
     'name_en' => 'Suakin Community Private Schools',
@@ -31679,7 +31647,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  979 => 
+  978 => 
   array (
     'name' => 'مدرسة المناهل الخاصة بجبيت',
     'name_en' => 'Al-Manahel Private School Gebeit',
@@ -31711,7 +31679,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  980 => 
+  979 => 
   array (
     'name' => 'مدرسة جبيت الأهلية الخاصة',
     'name_en' => 'Gebeit Community Private School',
@@ -31743,7 +31711,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  981 => 
+  980 => 
   array (
     'name' => 'مدارس سنكات النموذجية الأهلية الخاصة',
     'name_en' => 'Sinkat Model Community Schools',
@@ -31776,7 +31744,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  982 => 
+  981 => 
   array (
     'name' => 'مدارس البجا الأهلية الخاصة بسنكات',
     'name_en' => 'Al-Beja Community Private Schools',
@@ -31808,7 +31776,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  983 => 
+  982 => 
   array (
     'name' => 'مدارس سنكات الحديثة الخاصة',
     'name_en' => 'Modern Sinkat Private Schools',
@@ -31840,7 +31808,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  984 => 
+  983 => 
   array (
     'name' => 'مدارس المعلم الخاصة بكسلا',
     'name_en' => 'Al-Moallim Private Schools Kassala',
@@ -31873,7 +31841,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  985 => 
+  984 => 
   array (
     'name' => 'المجلس الأفريقي للتعليم الخاص — فرع كسلا',
     'name_en' => 'African Council Schools Kassala',
@@ -31906,7 +31874,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  986 => 
+  985 => 
   array (
     'name' => 'مدارس زهرة المدائن الخاصة بكسلا',
     'name_en' => 'Zahrat Al-Madain Private Schools Kassala',
@@ -31938,7 +31906,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  987 => 
+  986 => 
   array (
     'name' => 'مدارس قادة المستقبل الخاصة بكسلا',
     'name_en' => 'Future Leaders Private Schools Kassala',
@@ -31971,7 +31939,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  988 => 
+  987 => 
   array (
     'name' => 'مدارس التميز الخاصة بكسلا',
     'name_en' => 'Al-Tamayoz Private Schools Kassala',
@@ -32004,7 +31972,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  989 => 
+  988 => 
   array (
     'name' => 'مدارس الديدي / تيا المريفاب بكسلا',
     'name_en' => 'Al-Didi Private Schools Kassala',
@@ -32036,7 +32004,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  990 => 
+  989 => 
   array (
     'name' => 'مدارس أروى الخاصة بكسلا',
     'name_en' => 'Arwa Private Schools Kassala',
@@ -32068,7 +32036,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  991 => 
+  990 => 
   array (
     'name' => 'مدارس التاج النموذجية الخاصة بكسلا',
     'name_en' => 'Al-Taj Model Private Schools Kassala',
@@ -32101,7 +32069,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  992 => 
+  991 => 
   array (
     'name' => 'مدارس النور الأهلية الخاصة بكسلا',
     'name_en' => 'Al-Noor Community Private Schools Kassala',
@@ -32133,7 +32101,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  993 => 
+  992 => 
   array (
     'name' => 'مدارس القبس الخاصة — فرع كسلا',
     'name_en' => 'Al-Qabas Schools Kassala',
@@ -32166,7 +32134,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  994 => 
+  993 => 
   array (
     'name' => 'مدارس كسلا الحديثة الخاصة',
     'name_en' => 'Modern Kassala Private Schools',
@@ -32199,7 +32167,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  995 => 
+  994 => 
   array (
     'name' => 'مدرسة دار العلوم الخاصة بكسلا',
     'name_en' => 'Dar Al-Uloom Private School Kassala',
@@ -32231,7 +32199,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  996 => 
+  995 => 
   array (
     'name' => 'مدارس الأمل التعليمية الخاصة بكسلا',
     'name_en' => 'Al-Amal Educational Schools Kassala',
@@ -32263,7 +32231,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  997 => 
+  996 => 
   array (
     'name' => 'مدارس الضياء الخاصة بكسلا',
     'name_en' => 'Al-Diya Private Schools Kassala',
@@ -32295,7 +32263,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  998 => 
+  997 => 
   array (
     'name' => 'مدارس الإحسان الخاصة بكسلا',
     'name_en' => 'Al-Ihsan Private Schools Kassala',
@@ -32328,7 +32296,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  999 => 
+  998 => 
   array (
     'name' => 'مدارس حلفا الجديدة الإنجليزية الخاصة',
     'name_en' => 'New Halfa English Private Schools',
@@ -32360,7 +32328,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1000 => 
+  999 => 
   array (
     'name' => 'مدارس النبراس الخاصة بحلفا الجديدة',
     'name_en' => 'Al-Nebras Private Schools New Halfa',
@@ -32393,7 +32361,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1001 => 
+  1000 => 
   array (
     'name' => 'مدارس الصفوة الخاصة بحلفا الجديدة',
     'name_en' => 'Al-Safwa Private Schools New Halfa',
@@ -32425,7 +32393,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1002 => 
+  1001 => 
   array (
     'name' => 'مدارس الرواد الخاصة بحلفا الجديدة',
     'name_en' => 'Al-Rowad Private Schools New Halfa',
@@ -32458,7 +32426,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1003 => 
+  1002 => 
   array (
     'name' => 'مدارس المناهل الخاصة بحلفا الجديدة',
     'name_en' => 'Al-Manahel Private Schools New Halfa',
@@ -32490,7 +32458,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1004 => 
+  1003 => 
   array (
     'name' => 'مدارس القربة الحديثة الخاصة',
     'name_en' => 'Modern Girba Private Schools',
@@ -32523,7 +32491,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1005 => 
+  1004 => 
   array (
     'name' => 'مدارس رواد الغد الخاصة بخشم القربة',
     'name_en' => 'Rowad Al-Ghad Private Schools Girba',
@@ -32555,7 +32523,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1006 => 
+  1005 => 
   array (
     'name' => 'مدرسة القربة النموذجية الأهلية الخاصة',
     'name_en' => 'Girba Model Community School',
@@ -32587,7 +32555,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1007 => 
+  1006 => 
   array (
     'name' => 'مؤسسة المناهل التعليمية الخاصة بالقضارف',
     'name_en' => 'Al-Manahel Educational Complex Gedaref',
@@ -32620,7 +32588,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1008 => 
+  1007 => 
   array (
     'name' => 'مدارس المعالي الخاصة بالقضارف',
     'name_en' => 'Al-Maali Private Schools Gedaref',
@@ -32652,7 +32620,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1009 => 
+  1008 => 
   array (
     'name' => 'مؤسسة دار العلوم التعليمية الخاصة بالقضارف',
     'name_en' => 'Dar Al-Uloom Educational Complex Gedaref',
@@ -32685,7 +32653,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1010 => 
+  1009 => 
   array (
     'name' => 'مدارس مقاديم للتعليم الخاص بالقضارف',
     'name_en' => 'Makadeem Private Schools Gedaref',
@@ -32718,7 +32686,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1011 => 
+  1010 => 
   array (
     'name' => 'مدرسة مقاديم الخاصة بنات بالقضارف',
     'name_en' => 'Makadeem Private School for Girls Gedaref',
@@ -32751,7 +32719,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1012 => 
+  1011 => 
   array (
     'name' => 'مدرسة دار الصفوة الخاصة بنات بالقضارف',
     'name_en' => 'Dar Al-Safwa Private School for Girls Gedaref',
@@ -32784,7 +32752,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1013 => 
+  1012 => 
   array (
     'name' => 'مدارس دار النعيم الخاصة بالقضارف',
     'name_en' => 'Dar Al-Naeem Private Schools Gedaref',
@@ -32816,7 +32784,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1014 => 
+  1013 => 
   array (
     'name' => 'مدارس رواد الغد الخاصة بالقضارف',
     'name_en' => 'Rowad Al-Ghad Private Schools Gedaref',
@@ -32849,7 +32817,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1015 => 
+  1014 => 
   array (
     'name' => 'مدارس الإشراق التعليمية الخاصة بالقضارف',
     'name_en' => 'Al-Ishraq Educational Schools Gedaref',
@@ -32881,7 +32849,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1016 => 
+  1015 => 
   array (
     'name' => 'مدارس الفرقان القرآنية الخاصة بالقضارف',
     'name_en' => 'Al-Furqan Quranic Schools Gedaref',
@@ -32913,7 +32881,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1017 => 
+  1016 => 
   array (
     'name' => 'مدرسة الأمل النموذجية الخاصة بالقضارف',
     'name_en' => 'Al-Amal Model School Gedaref',
@@ -32945,7 +32913,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1018 => 
+  1017 => 
   array (
     'name' => 'مدرسة النوابغ الخاصة بالقضارف',
     'name_en' => 'Al-Nawabigh Private School Gedaref',
@@ -32978,7 +32946,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1019 => 
+  1018 => 
   array (
     'name' => 'مدارس المستقبل الخاصة بالقضارف',
     'name_en' => 'Al-Mustaqbal Private Schools Gedaref',
@@ -33010,7 +32978,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1020 => 
+  1019 => 
   array (
     'name' => 'مدارس الرواد الحديثة الخاصة بالقضارف',
     'name_en' => 'Modern Rowad Private Schools Gedaref',
@@ -33043,7 +33011,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1021 => 
+  1020 => 
   array (
     'name' => 'مدارس الصفا الخاصة بالقضارف',
     'name_en' => 'Al-Safa Private Schools Gedaref',
@@ -33075,7 +33043,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1022 => 
+  1021 => 
   array (
     'name' => 'مدارس البيان الخاصة بالقضارف',
     'name_en' => 'Al-Bayan Private Schools Gedaref',
@@ -33107,7 +33075,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1023 => 
+  1022 => 
   array (
     'name' => 'مدارس القضارف الأهلية الخاصة',
     'name_en' => 'Gedaref Community Private Schools',
@@ -33140,7 +33108,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1024 => 
+  1023 => 
   array (
     'name' => 'مدارس الوفاق الثانوية الخاصة بالفاو',
     'name_en' => 'Al-Wefaq Secondary Private Schools Faw',
@@ -33171,7 +33139,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1025 => 
+  1024 => 
   array (
     'name' => 'مدارس الفاو الحديثة الخاصة',
     'name_en' => 'Modern Faw Private Schools',
@@ -33203,7 +33171,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1026 => 
+  1025 => 
   array (
     'name' => 'مدارس الأوائل الأهلية الخاصة بالفاو',
     'name_en' => 'Al-Awail Community Private Schools Faw',
@@ -33235,7 +33203,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1027 => 
+  1026 => 
   array (
     'name' => 'مدارس دار السلام الخاصة بالفاو',
     'name_en' => 'Dar Al-Salam Private Schools Faw',
@@ -33268,7 +33236,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1028 => 
+  1027 => 
   array (
     'name' => 'مدارس الحواتة الخاصة الأساسية',
     'name_en' => 'Al-Hawata Private Basic Schools',
@@ -33300,7 +33268,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1029 => 
+  1028 => 
   array (
     'name' => 'مدارس الرهد الأهلية النموذجية الخاصة',
     'name_en' => 'Al-Rahad Model Community Schools',
@@ -33333,7 +33301,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1030 => 
+  1029 => 
   array (
     'name' => 'مدرسة أسامة بن زيد النموذجية الخاصة بدوكة',
     'name_en' => 'Osama Bin Zaid Model School Doka',
@@ -33365,7 +33333,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1031 => 
+  1030 => 
   array (
     'name' => 'مدرسة دوكة الأهلية الخاصة',
     'name_en' => 'Doka Community Private School',
@@ -33397,7 +33365,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1032 => 
+  1031 => 
   array (
     'name' => 'مدارس المستقبل الثانوية النموذجية الخاصة بسنار',
     'name_en' => 'Al-Mustaqbal Model Secondary Schools Sennar',
@@ -33428,7 +33396,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1033 => 
+  1032 => 
   array (
     'name' => 'مدارس القمة الحديثة الخاصة بسنجة',
     'name_en' => 'Modern Al-Qimma Private Schools Singa',
@@ -33461,7 +33429,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1034 => 
+  1033 => 
   array (
     'name' => 'مدرسة أجيال المستقبل الخاصة بسنجة',
     'name_en' => 'Ajyal Al-Mustaqbal Private School Singa',
@@ -33493,7 +33461,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1035 => 
+  1034 => 
   array (
     'name' => 'مؤسسة الفجر التربوية التعليمية الخاصة بسنجة',
     'name_en' => 'Al-Fajr Educational Foundation Singa',
@@ -33525,7 +33493,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1036 => 
+  1035 => 
   array (
     'name' => 'مؤسسة المنهل التربوية الخاصة بسنجة',
     'name_en' => 'Al-Manhal Educational Foundation Singa',
@@ -33557,7 +33525,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1037 => 
+  1036 => 
   array (
     'name' => 'رياض ومدارس أحباب الله التعليمية الخاصة بسنجة',
     'name_en' => 'Ahbab Allah Educational Complex Singa',
@@ -33589,7 +33557,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1038 => 
+  1037 => 
   array (
     'name' => 'مدارس علي النور الثانوية النموذجية الخاصة بسنار',
     'name_en' => 'Ali Al-Noor Model Secondary Schools Sennar',
@@ -33620,7 +33588,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1039 => 
+  1038 => 
   array (
     'name' => 'مدارس الأندلس الخاصة بسنار',
     'name_en' => 'Al-Andalus Private Schools Sennar',
@@ -33653,7 +33621,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1040 => 
+  1039 => 
   array (
     'name' => 'مدارس السلام الثانوية الخاصة بسنار',
     'name_en' => 'Al-Salam Secondary School Sennar',
@@ -33684,7 +33652,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1041 => 
+  1040 => 
   array (
     'name' => 'مدارس المهندس الأساسية والمتوسطة الخاصة بسنار',
     'name_en' => 'Al-Muhandis Basic & Middle Schools Sennar',
@@ -33716,7 +33684,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1042 => 
+  1041 => 
   array (
     'name' => 'مدرسة تكتوك الثانوية الخاصة بسنار',
     'name_en' => 'Taktook Secondary Private School Sennar',
@@ -33747,7 +33715,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1043 => 
+  1042 => 
   array (
     'name' => 'مدارس ورياض التقدم الخاصة بسنار',
     'name_en' => 'Al-Taqaddum Private Schools & Nursery Sennar',
@@ -33778,7 +33746,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1044 => 
+  1043 => 
   array (
     'name' => 'مؤسسة المعهد السوداني التعليمية الخاصة بسنار',
     'name_en' => 'Sudanese Institute Educational Complex Sennar',
@@ -33811,7 +33779,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1045 => 
+  1044 => 
   array (
     'name' => 'مدارس التفوق الثانوية الخاصة بسنجة',
     'name_en' => 'Al-Tafawuq Secondary Schools Singa',
@@ -33842,7 +33810,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1046 => 
+  1045 => 
   array (
     'name' => 'مدارس القلم الخاصة بسنجة',
     'name_en' => 'Al-Qalam Private Schools Singa',
@@ -33874,7 +33842,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1047 => 
+  1046 => 
   array (
     'name' => 'مدارس الأمل التعليمية الخاصة بسنجة',
     'name_en' => 'Al-Amal Educational Schools Singa',
@@ -33906,7 +33874,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1048 => 
+  1047 => 
   array (
     'name' => 'مدارس الصفوة الخاصة بسنجة',
     'name_en' => 'Al-Safwa Private Schools Singa',
@@ -33939,7 +33907,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1049 => 
+  1048 => 
   array (
     'name' => 'مجموعة مدارس ورياض كشيرة بدوي الحديثة الخاصة',
     'name_en' => 'Kashira Badawi Modern Schools Singa',
@@ -33972,7 +33940,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1050 => 
+  1049 => 
   array (
     'name' => 'مدارس التميز الخاصة بالدندر',
     'name_en' => 'Al-Tamayoz Private Schools Dinder',
@@ -34005,7 +33973,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1051 => 
+  1050 => 
   array (
     'name' => 'مدارس النوابغ الثانوية الخاصة بالدندر',
     'name_en' => 'Al-Nawabigh Secondary Schools Dinder',
@@ -34036,7 +34004,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1052 => 
+  1051 => 
   array (
     'name' => 'مدارس المنهل الخاصة بالسوقي',
     'name_en' => 'Al-Manhal Private Schools Suki',
@@ -34068,7 +34036,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1053 => 
+  1052 => 
   array (
     'name' => 'معهد ومدارس الإخلاص العلمي الخاصة بالسوقي',
     'name_en' => 'Al-Ikhlas Scientific Private Schools Suki',
@@ -34101,7 +34069,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1054 => 
+  1053 => 
   array (
     'name' => 'مدرسة الأنوار العلمية الخاصة بمايرنو',
     'name_en' => 'Al-Anwar Scientific Private School Maiurno',
@@ -34133,7 +34101,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1055 => 
+  1054 => 
   array (
     'name' => 'مدارس السوكي النموذجية الأهلية الخاصة',
     'name_en' => 'Suki Model Community Schools',
@@ -34165,7 +34133,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1056 => 
+  1055 => 
   array (
     'name' => 'مؤسسة الوهج التعليمية الخاصة بالدمازين',
     'name_en' => 'Al-Wahaj Educational Complex Damazin',
@@ -34196,7 +34164,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1057 => 
+  1056 => 
   array (
     'name' => 'مدرسة الأستاذ الخاصة بالدمازين',
     'name_en' => 'Al-Ustaz Private School Damazin',
@@ -34229,7 +34197,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1058 => 
+  1057 => 
   array (
     'name' => 'مؤسسة الشعلة التعليمية القرآنية الخاصة بالدمازين',
     'name_en' => 'Al-Shoala Quranic Complex Damazin',
@@ -34261,7 +34229,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1059 => 
+  1058 => 
   array (
     'name' => 'مدرسة ليفر التعليمية الخاصة بالدمازين',
     'name_en' => 'Lever Educational Private School Damazin',
@@ -34293,7 +34261,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1060 => 
+  1059 => 
   array (
     'name' => 'مدرسة صن رايز للغات بالدمازين',
     'name_en' => 'Sunrise Language School Damazin',
@@ -34324,7 +34292,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1061 => 
+  1060 => 
   array (
     'name' => 'مدرسة ومعهد لاند مارك الإنجليزية الخاصة بالدمازين',
     'name_en' => 'Landmark English School & Institute Damazin',
@@ -34356,7 +34324,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1062 => 
+  1061 => 
   array (
     'name' => 'مدرسة الصفوة التعليمية الخاصة بالدمازين',
     'name_en' => 'Al-Safwa Educational Private School Damazin',
@@ -34388,7 +34356,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1063 => 
+  1062 => 
   array (
     'name' => 'مؤسسة الفؤاد التعليمية الخاصة بالدمازين',
     'name_en' => 'Al-Fouad Educational Foundation Damazin',
@@ -34420,7 +34388,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1064 => 
+  1063 => 
   array (
     'name' => 'مؤسسة الملوك الإنجليزية التعليمية الخاصة بالدمازين',
     'name_en' => 'The Kings English Educational Complex Damazin',
@@ -34452,7 +34420,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1065 => 
+  1064 => 
   array (
     'name' => 'مؤسسة الأمل التعليمية الخاصة بالدمازين',
     'name_en' => 'Al-Amal Educational Foundation Damazin',
@@ -34483,7 +34451,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1066 => 
+  1065 => 
   array (
     'name' => 'مؤسسة العربي التعليمية الخاصة بالدمازين',
     'name_en' => 'Al-Arabi Educational Complex Damazin',
@@ -34514,7 +34482,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1067 => 
+  1066 => 
   array (
     'name' => 'مؤسسة الواحة التعليمية الثانوية الخاصة بالدمازين',
     'name_en' => 'Al-Waha Secondary Educational Complex Damazin',
@@ -34545,7 +34513,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1068 => 
+  1067 => 
   array (
     'name' => 'ثانوية المعالي الخاصة بالدمازين',
     'name_en' => 'Al-Maali Secondary Private School Damazin',
@@ -34576,7 +34544,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1069 => 
+  1068 => 
   array (
     'name' => 'مؤسسة الشوامخ والقمة التعليمية الخاصة بالدمازين',
     'name_en' => 'Al-Shawamekh & Al-Qimma Complex Damazin',
@@ -34608,7 +34576,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1070 => 
+  1069 => 
   array (
     'name' => 'مؤسسة المهاد التعليمية الخاصة بالدمازين',
     'name_en' => 'Al-Mehad Educational Complex Damazin',
@@ -34639,7 +34607,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1071 => 
+  1070 => 
   array (
     'name' => 'روضة براعم الإيمان الخاصة بالدمازين',
     'name_en' => 'Baraem Al-Iman Private Nursery & Kindergarten',
@@ -34670,7 +34638,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1072 => 
+  1071 => 
   array (
     'name' => 'روضة الزهور التعليمية الخاصة بالدمازين',
     'name_en' => 'Al-Zuhoor Educational Kindergarten Damazin',
@@ -34701,7 +34669,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1073 => 
+  1072 => 
   array (
     'name' => 'مؤسسة الأستاذ مجذوب الطيب التعليمية الخاصة بالروصيرص',
     'name_en' => 'Ustaz Majzoub El-Tayeb Complex Roseires',
@@ -34733,7 +34701,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1074 => 
+  1073 => 
   array (
     'name' => 'مؤسسة الشعلة التعليمية القرآنية (فرع الروصيرص)',
     'name_en' => 'Al-Shoala Quranic Complex Roseires',
@@ -34764,7 +34732,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1075 => 
+  1074 => 
   array (
     'name' => 'مؤسسة الأم التعليمية المتوسطة الخاصة بالروصيرص',
     'name_en' => 'Al-Omm Middle Educational School Roseires',
@@ -34795,7 +34763,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1076 => 
+  1075 => 
   array (
     'name' => 'رياض ومدارس المؤمن العالمية — عطبرة',
     'name_en' => 'Al-Momin International Schools - Atbara',
@@ -34828,7 +34796,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1077 => 
+  1076 => 
   array (
     'name' => 'رياض ومدارس النوابغ الخاصة — عطبرة',
     'name_en' => 'Al-Nawabigh Private Schools - Atbara',
@@ -34861,7 +34829,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1078 => 
+  1077 => 
   array (
     'name' => 'مدارس المدينة الخاصة — عطبرة',
     'name_en' => 'Al-Madina Private Schools - Atbara',
@@ -34894,7 +34862,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1079 => 
+  1078 => 
   array (
     'name' => 'ثانوية نور الإيمان العالمية الخاصة — عطبرة',
     'name_en' => 'Noor Al-Iman International Secondary School - Atbara',
@@ -34926,7 +34894,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1080 => 
+  1079 => 
   array (
     'name' => 'مدارس ومعاهد نمبر ون الخاصة — عطبرة',
     'name_en' => 'Number One Private Schools & Institutes - Atbara',
@@ -34959,7 +34927,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1081 => 
+  1080 => 
   array (
     'name' => 'مدارس الأستاذة مريم عثمان الخاصة — عطبرة',
     'name_en' => 'Ustaza Maryam Osman Private Schools - Atbara',
@@ -34991,7 +34959,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1082 => 
+  1081 => 
   array (
     'name' => 'مدارس بشائر الخير الخاصة — عطبرة',
     'name_en' => 'Bashaer Al-Khair Private Schools - Atbara',
@@ -35023,7 +34991,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1083 => 
+  1082 => 
   array (
     'name' => 'مدارس الإبداع النموذجية الخاصة — عطبرة',
     'name_en' => 'Al-Ibda Model Private Schools - Atbara',
@@ -35056,7 +35024,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1084 => 
+  1083 => 
   array (
     'name' => 'مدارس الأوائل الخاصة بنين — عطبرة',
     'name_en' => 'Al-Awael Private School for Boys - Atbara',
@@ -35088,7 +35056,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1085 => 
+  1084 => 
   array (
     'name' => 'مدارس الفردوس النموذجية — عطبرة',
     'name_en' => 'Al-Fardous Model Schools - Atbara',
@@ -35120,7 +35088,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1086 => 
+  1085 => 
   array (
     'name' => 'مدارس ابن خلدون الخاصة — عطبرة',
     'name_en' => 'Ibn Khaldoun Private Schools - Atbara',
@@ -35153,7 +35121,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1087 => 
+  1086 => 
   array (
     'name' => 'مدارس العباقرة الخاصة — عطبرة',
     'name_en' => 'Al-Abaqera Private Schools - Atbara',
@@ -35185,7 +35153,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1088 => 
+  1087 => 
   array (
     'name' => 'مدارس رواد الغد الخاصة — عطبرة',
     'name_en' => 'Ruwad Al-Ghad Private Schools - Atbara',
@@ -35217,7 +35185,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1089 => 
+  1088 => 
   array (
     'name' => 'مدرسة السلام الثانوية الخاصة بنين — عطبرة',
     'name_en' => 'Al-Salam Private Secondary School for Boys - Atbara',
@@ -35248,7 +35216,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1090 => 
+  1089 => 
   array (
     'name' => 'مدارس المستقبل الأهلية الخاصة — عطبرة',
     'name_en' => 'Al-Mustaqbal Private Schools - Atbara',
@@ -35280,7 +35248,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1091 => 
+  1090 => 
   array (
     'name' => 'مدرسة المعالي الابتدائية الخاصة — عطبرة',
     'name_en' => 'Al-Maali Private Primary School - Atbara',
@@ -35311,7 +35279,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1092 => 
+  1091 => 
   array (
     'name' => 'روضة ومدرسة براعم الإيمان — عطبرة',
     'name_en' => 'Baraem Al-Iman School & KG - Atbara',
@@ -35343,7 +35311,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1093 => 
+  1092 => 
   array (
     'name' => 'مدارس سنابل العلم الخاصة — عطبرة',
     'name_en' => 'Sanabel Al-Ilm Private Schools - Atbara',
@@ -35375,7 +35343,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1094 => 
+  1093 => 
   array (
     'name' => 'مدرسة الصفا الخاصة بنات — عطبرة',
     'name_en' => 'Al-Safa Private School for Girls - Atbara',
@@ -35407,7 +35375,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1095 => 
+  1094 => 
   array (
     'name' => 'مدارس نور الإيمان العالمية الخاصة — الدامر',
     'name_en' => 'Noor Al-Iman International Private Schools - El Damer',
@@ -35440,7 +35408,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1096 => 
+  1095 => 
   array (
     'name' => 'مدرسة المرافئ الثانوية الخاصة — الدامر',
     'name_en' => 'Al-Marafi Private Secondary School - El Damer',
@@ -35471,7 +35439,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1097 => 
+  1096 => 
   array (
     'name' => 'مؤسسة منارة الدامر للتعليم الخاص',
     'name_en' => 'Manarat El Damer Educational Institution',
@@ -35504,7 +35472,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1098 => 
+  1097 => 
   array (
     'name' => 'مدارس الفاضل محمود بشير الخاصة — الدامر',
     'name_en' => 'Al-Fadil Mahmoud Bashir Private Schools - El Damer',
@@ -35536,7 +35504,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1099 => 
+  1098 => 
   array (
     'name' => 'رياض ومدارس المؤمن العالمية — الدامر',
     'name_en' => 'Al-Momin International Schools - El Damer',
@@ -35568,7 +35536,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1100 => 
+  1099 => 
   array (
     'name' => 'مدارس الصفوة النموذجية الخاصة — الدامر',
     'name_en' => 'Al-Safwa Model Private Schools - El Damer',
@@ -35601,7 +35569,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1101 => 
+  1100 => 
   array (
     'name' => 'مدارس القبس الخاصة فرع الدامر',
     'name_en' => 'Al-Qabas Private Schools - El Damer Branch',
@@ -35633,7 +35601,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1102 => 
+  1101 => 
   array (
     'name' => 'مدارس دار العلوم الخاصة — الدامر',
     'name_en' => 'Dar Al-Uloom Private Schools - El Damer',
@@ -35666,7 +35634,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1103 => 
+  1102 => 
   array (
     'name' => 'مدارس أجيال الغد الخاصة — الدامر',
     'name_en' => 'Ajyal Al-Ghad Private Schools - El Damer',
@@ -35697,7 +35665,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1104 => 
+  1103 => 
   array (
     'name' => 'مدارس التميز الأكاديمي الخاصة — الدامر',
     'name_en' => 'Academic Excellence Private Schools - El Damer',
@@ -35729,7 +35697,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1105 => 
+  1104 => 
   array (
     'name' => 'مدرسة النيل النموذجية الخاصة — الدامر',
     'name_en' => 'Al-Neel Model Private School - El Damer',
@@ -35761,7 +35729,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1106 => 
+  1105 => 
   array (
     'name' => 'مدارس الإشراق التعليمية — الدامر',
     'name_en' => 'Al-Ishraq Educational Schools - El Damer',
@@ -35793,7 +35761,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1107 => 
+  1106 => 
   array (
     'name' => 'مؤسسة مدارس الريان التعليمية الخاصة — شندي',
     'name_en' => 'Al-Rayan Educational Private Schools - Shendi',
@@ -35826,7 +35794,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1108 => 
+  1107 => 
   array (
     'name' => 'رياض ومدارس إجلال الخاصة — شندي',
     'name_en' => 'Ejlal Private Schools & KG - Shendi',
@@ -35858,7 +35826,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1109 => 
+  1108 => 
   array (
     'name' => 'مؤسسة ورياض ومدارس الفنار التعليمية الخاصة — شندي',
     'name_en' => 'Al-Fanar Educational Private Schools - Shendi',
@@ -35890,7 +35858,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1110 => 
+  1109 => 
   array (
     'name' => 'رياض ومدارس المؤمن العالمية فرع شندي',
     'name_en' => 'Al-Momin International Schools - Shendi Branch',
@@ -35923,7 +35891,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1111 => 
+  1110 => 
   array (
     'name' => 'مدرسة الأبوابي الثانوية الخاصة بنات — شندي',
     'name_en' => 'Al-Abwabi Private Secondary School for Girls - Shendi',
@@ -35954,7 +35922,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1112 => 
+  1111 => 
   array (
     'name' => 'مدارس دار المعالي الخاصة — شندي',
     'name_en' => 'Dar Al-Maali Private Schools - Shendi',
@@ -35987,7 +35955,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1113 => 
+  1112 => 
   array (
     'name' => 'مدارس الغيث الثانوية الخاصة — شندي',
     'name_en' => 'Al-Ghaith Private Secondary School - Shendi',
@@ -36018,7 +35986,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1114 => 
+  1113 => 
   array (
     'name' => 'مدارس مجذوب الخاصة — شندي',
     'name_en' => 'Magzoub Private Schools - Shendi',
@@ -36050,7 +36018,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1115 => 
+  1114 => 
   array (
     'name' => 'مدارس الرواد الخاصة — شندي',
     'name_en' => 'Al-Ruwad Private Schools - Shendi',
@@ -36082,7 +36050,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1116 => 
+  1115 => 
   array (
     'name' => 'مدارس المنار الحديثة — شندي',
     'name_en' => 'Al-Manar Modern Schools - Shendi',
@@ -36114,7 +36082,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1117 => 
+  1116 => 
   array (
     'name' => 'مدارس براعم المعرفة — شندي',
     'name_en' => 'Baraem Al-Maarifa Schools - Shendi',
@@ -36146,7 +36114,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1118 => 
+  1117 => 
   array (
     'name' => 'مدارس الفرقان الأهلية الخاصة — شندي',
     'name_en' => 'Al-Furqan Private Schools - Shendi',
@@ -36178,7 +36146,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1119 => 
+  1118 => 
   array (
     'name' => 'مدرسة أم صابرين الخاصة — بربر',
     'name_en' => 'Um Saberine Private School - Berber',
@@ -36210,7 +36178,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1120 => 
+  1119 => 
   array (
     'name' => 'مدارس ورياض الهاشمية الخاصة — بربر',
     'name_en' => 'Al-Hashimiya Private Schools - Berber',
@@ -36242,7 +36210,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1121 => 
+  1120 => 
   array (
     'name' => 'مدارس عبد المعروف علي القرآنية الخاصة — بربر',
     'name_en' => 'Abdelmarouf Ali Quranic Schools - Berber',
@@ -36275,7 +36243,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1122 => 
+  1121 => 
   array (
     'name' => 'مدرسة نور العالمية الخاصة — بربر',
     'name_en' => 'Noor International School - Berber',
@@ -36307,7 +36275,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1123 => 
+  1122 => 
   array (
     'name' => 'مدارس الفاروق النموذجية — بربر',
     'name_en' => 'Al-Farooq Model Schools - Berber',
@@ -36339,7 +36307,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1124 => 
+  1123 => 
   array (
     'name' => 'مؤسسة نورا التعليمية الخاصة — أبو حمد',
     'name_en' => 'Nora Educational Institution - Abu Hamad',
@@ -36372,7 +36340,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1125 => 
+  1124 => 
   array (
     'name' => 'ثانوية الفاروق الخاصة بنين — أبو حمد',
     'name_en' => 'Al-Farooq Private Secondary School - Abu Hamad',
@@ -36403,7 +36371,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1126 => 
+  1125 => 
   array (
     'name' => 'مدارس ملوك النيل الخاصة — أبو حمد',
     'name_en' => 'Muluk Al-Neel Private Schools - Abu Hamad',
@@ -36435,7 +36403,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1127 => 
+  1126 => 
   array (
     'name' => 'مدارس المتمة الأهلية الخاصة',
     'name_en' => 'El Matamma Private Schools',
@@ -36468,7 +36436,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1128 => 
+  1127 => 
   array (
     'name' => 'مدارس ومعاهد نمبر ون فرع دنقلا',
     'name_en' => 'Number One Private Schools & Institutes - Dongola',
@@ -36501,7 +36469,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1129 => 
+  1128 => 
   array (
     'name' => 'مؤسسة المعهد النموذجي الخاصة — دنقلا',
     'name_en' => 'Model Institute Private Schools - Dongola',
@@ -36534,7 +36502,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1130 => 
+  1129 => 
   array (
     'name' => 'رياض ومدارس رويال كوش الخاصة — دنقلا',
     'name_en' => 'Royal Kush Private Schools & KG - Dongola',
@@ -36566,7 +36534,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1131 => 
+  1130 => 
   array (
     'name' => 'مدارس حامد السوراوي الخاصة — دنقلا',
     'name_en' => 'Hamed Al-Surawi Private Schools - Dongola',
@@ -36599,7 +36567,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1132 => 
+  1131 => 
   array (
     'name' => 'مدرسة الآفاق الثانوية الخاصة بنات — دنقلا',
     'name_en' => 'Al-Afaq Private Secondary School for Girls - Dongola',
@@ -36630,7 +36598,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1133 => 
+  1132 => 
   array (
     'name' => 'مدارس نخبة المستقبل الخاصة — دنقلا',
     'name_en' => 'Future Elite Private Schools - Dongola',
@@ -36663,7 +36631,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1134 => 
+  1133 => 
   array (
     'name' => 'مؤسسة الأميرية القرآنية الخاصة — دنقلا',
     'name_en' => 'Al-Amiriya Quranic Private Schools - Dongola',
@@ -36696,7 +36664,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1135 => 
+  1134 => 
   array (
     'name' => 'مدرسة الجودة التعليمية الخاصة — دنقلا',
     'name_en' => 'Al-Jawda Private Educational School - Dongola',
@@ -36728,7 +36696,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1136 => 
+  1135 => 
   array (
     'name' => 'مدرسة كرمة النموذجية الحديثة — دنقلا',
     'name_en' => 'Karma Modern Model School - Dongola',
@@ -36760,7 +36728,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1137 => 
+  1136 => 
   array (
     'name' => 'روضة ومدارس الجيل الصاعد — دنقلا',
     'name_en' => 'Al-Jeel Al-Saeed Schools & KG - Dongola',
@@ -36792,7 +36760,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1138 => 
+  1137 => 
   array (
     'name' => 'مدارس الرضوان النموذجية الخاصة — دنقلا',
     'name_en' => 'Al-Radwan Model Private Schools - Dongola',
@@ -36824,7 +36792,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1139 => 
+  1138 => 
   array (
     'name' => 'مدرسة الممتاز الخاصة — دنقلا',
     'name_en' => 'Al-Mumtaz Private School - Dongola',
@@ -36856,7 +36824,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1140 => 
+  1139 => 
   array (
     'name' => 'مدارس مداد المعرفة الخاصة — دنقلا',
     'name_en' => 'Midad Al-Maarifa Private Schools - Dongola',
@@ -36889,7 +36857,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1141 => 
+  1140 => 
   array (
     'name' => 'مدارس التميز الخاصة — دنقلا',
     'name_en' => 'Al-Tamayuz Private Schools - Dongola',
@@ -36921,7 +36889,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1142 => 
+  1141 => 
   array (
     'name' => 'مدارس الأمل الواعد الخاصة — دنقلا',
     'name_en' => 'Al-Amal Al-Waed Private Schools - Dongola',
@@ -36952,7 +36920,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1143 => 
+  1142 => 
   array (
     'name' => 'مدارس النيل النموذجية الخاصة — دنقلا',
     'name_en' => 'Al-Neel Model Private Schools - Dongola',
@@ -36984,7 +36952,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1144 => 
+  1143 => 
   array (
     'name' => 'مدارس الإخلاص الخاصة المشتركة — مروي',
     'name_en' => 'Al-Ikhlas Private Schools - Merowe',
@@ -37017,7 +36985,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1145 => 
+  1144 => 
   array (
     'name' => 'مدرسة المنار التعليمية الخاصة — كريمة',
     'name_en' => 'Al-Manar Private School - Karima',
@@ -37050,7 +37018,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1146 => 
+  1145 => 
   array (
     'name' => 'مؤسسة الاستقامة التعليمية الخاصة — كريمة',
     'name_en' => 'Al-Istiqama Educational Institution - Karima',
@@ -37082,7 +37050,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1147 => 
+  1146 => 
   array (
     'name' => 'مؤسسة الشيخ محمد سيد حاج التعليمية الخاصة — مروي',
     'name_en' => 'Sheikh Mohamed Sayed Haj Educational School - Merowe',
@@ -37115,7 +37083,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1148 => 
+  1147 => 
   array (
     'name' => 'مدرسة الهدى القرآنية الخاصة المشتركة — مروي',
     'name_en' => 'Al-Huda Quranic Private School - Merowe',
@@ -37147,7 +37115,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1149 => 
+  1148 => 
   array (
     'name' => 'مؤسسة رواد المستقبل التعليمية الخاصة — مروي',
     'name_en' => 'Ruwad Al-Mustaqbal Educational Institution - Merowe',
@@ -37179,7 +37147,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1150 => 
+  1149 => 
   array (
     'name' => 'مدرسة بوابة النجاح الخاصة المشتركة — مروي',
     'name_en' => 'Bawabat Al-Najah Private School - Merowe',
@@ -37211,7 +37179,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1151 => 
+  1150 => 
   array (
     'name' => 'مدرسة الدكتور عبد المنعم عثمان الخاصة — مروي',
     'name_en' => 'Dr. Abdelmoniem Osman Private School - Merowe',
@@ -37244,7 +37212,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1152 => 
+  1151 => 
   array (
     'name' => 'مدرسة تنقاسي الخاصة المشتركة — مروي',
     'name_en' => 'Tangasi Private School - Merowe',
@@ -37276,7 +37244,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1153 => 
+  1152 => 
   array (
     'name' => 'مدرسة نوري النموذجية الخاصة — مروي',
     'name_en' => 'Nuri Model Private School - Merowe',
@@ -37308,7 +37276,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1154 => 
+  1153 => 
   array (
     'name' => 'مدارس سد مروي الخاصة — مروي',
     'name_en' => 'Merowe Dam Private Schools',
@@ -37341,7 +37309,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1155 => 
+  1154 => 
   array (
     'name' => 'مدارس الأوائل الأهلية — كريمة',
     'name_en' => 'Al-Awael Private Schools - Karima',
@@ -37373,7 +37341,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1156 => 
+  1155 => 
   array (
     'name' => 'مدرسة الجيل الواعد الخاصة المشتركة — الدبة',
     'name_en' => 'Al-Jeel Al-Waed Private School - Al Dabbah',
@@ -37405,7 +37373,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1157 => 
+  1156 => 
   array (
     'name' => 'مدرسة القريشابي الابتدائية والمتوسطة — الدبة',
     'name_en' => 'Al-Quraishabi Private School - Al Dabbah',
@@ -37437,7 +37405,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1158 => 
+  1157 => 
   array (
     'name' => 'مدرسة النجم التعليمية الخاصة — الدبة',
     'name_en' => 'Al-Najm Private School - Al Dabbah',
@@ -37469,7 +37437,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1159 => 
+  1158 => 
   array (
     'name' => 'مدارس الغابة النموذجية الخاصة — الدبة',
     'name_en' => 'Al-Ghaba Model Private Schools - Al Dabbah',
@@ -37501,7 +37469,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1160 => 
+  1159 => 
   array (
     'name' => 'مدارس الدبة الأهلية الحديثة الخاصة',
     'name_en' => 'Al Dabbah Modern Private Schools',
@@ -37533,7 +37501,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1161 => 
+  1160 => 
   array (
     'name' => 'مدرسة حلفا النموذجية الخاصة — وادي حلفا',
     'name_en' => 'Halfa Model Private School - Wadi Halfa',
@@ -37565,7 +37533,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1162 => 
+  1161 => 
   array (
     'name' => 'مدارس النوبة الأهلية بوادي حلفا',
     'name_en' => 'Al-Nuba Private Schools - Wadi Halfa',
@@ -37596,7 +37564,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1163 => 
+  1162 => 
   array (
     'name' => 'مدارس القولد النموذجية الخاصة',
     'name_en' => 'Al-Golid Model Private Schools',
@@ -37629,7 +37597,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1164 => 
+  1163 => 
   array (
     'name' => 'مدارس أوربي الحديثة — القولد',
     'name_en' => 'Urbi Modern Schools - Al-Golid',
@@ -37661,7 +37629,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1165 => 
+  1164 => 
   array (
     'name' => 'مدارس البرقيق الخاصة — البرقيق',
     'name_en' => 'Al-Bargeeg Private Schools',
@@ -37694,7 +37662,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1166 => 
+  1165 => 
   array (
     'name' => 'مدارس سليم النموذجية المشتركة — القولد',
     'name_en' => 'Seleim Model School - Al-Golid',
@@ -37726,7 +37694,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1167 => 
+  1166 => 
   array (
     'name' => 'مدارس المنار الثانوية الخاصة بنين — كوستي',
     'name_en' => 'Al-Manar Private Secondary School for Boys - Kosti',
@@ -37757,7 +37725,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1168 => 
+  1167 => 
   array (
     'name' => 'مدارس الأندلس الخاصة — كوستي',
     'name_en' => 'Al-Andalus Private Schools - Kosti',
@@ -37790,7 +37758,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1169 => 
+  1168 => 
   array (
     'name' => 'مؤسسة الريادة التربوية الخاصة — كوستي',
     'name_en' => 'Al-Riyada Educational Institution - Kosti',
@@ -37823,7 +37791,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1170 => 
+  1169 => 
   array (
     'name' => 'مدارس المصباح النموذجية الخاصة — كوستي',
     'name_en' => 'Al-Misbah Model Private Schools - Kosti',
@@ -37855,7 +37823,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1171 => 
+  1170 => 
   array (
     'name' => 'مدارس ود الحاج الثانوية الخاصة — كوستي',
     'name_en' => 'Wad Al-Hajj Private Secondary Schools - Kosti',
@@ -37886,7 +37854,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1172 => 
+  1171 => 
   array (
     'name' => 'مدارس الزهراء الخاصة — كوستي',
     'name_en' => 'Al-Zahraa Private Schools - Kosti',
@@ -37918,7 +37886,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1173 => 
+  1172 => 
   array (
     'name' => 'مدرسة المنهل الخاصة — كوستي',
     'name_en' => 'Al-Manhal Private School - Kosti',
@@ -37950,7 +37918,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1174 => 
+  1173 => 
   array (
     'name' => 'مدارس الفجر الجديد — كوستي',
     'name_en' => 'New Dawn Private Schools - Kosti',
@@ -37982,7 +37950,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1175 => 
+  1174 => 
   array (
     'name' => 'مدارس طيبة النموذجية الخاصة — كوستي',
     'name_en' => 'Tayba Model Private Schools - Kosti',
@@ -38014,7 +37982,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1176 => 
+  1175 => 
   array (
     'name' => 'مدارس الصفا الأهلية — كوستي',
     'name_en' => 'Al-Safa Private Schools - Kosti',
@@ -38047,7 +38015,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1177 => 
+  1176 => 
   array (
     'name' => 'مدارس النخبة الحديثة — كوستي',
     'name_en' => 'Elite Modern Schools - Kosti',
@@ -38079,7 +38047,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1178 => 
+  1177 => 
   array (
     'name' => 'مدارس المعالي الخاصة — كوستي',
     'name_en' => 'Al-Maali Private Schools - Kosti',
@@ -38111,7 +38079,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1179 => 
+  1178 => 
   array (
     'name' => 'مدرسة الإتقان الأساسية — كوستي',
     'name_en' => 'Al-Itqan Primary School - Kosti',
@@ -38142,7 +38110,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1180 => 
+  1179 => 
   array (
     'name' => 'مدارس الفردوس الخاصة — كوستي',
     'name_en' => 'Al-Fardous Private Schools - Kosti',
@@ -38174,7 +38142,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1181 => 
+  1180 => 
   array (
     'name' => 'مدارس براعم المستقبل — كوستي',
     'name_en' => 'Future Buds Private Schools - Kosti',
@@ -38206,7 +38174,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1182 => 
+  1181 => 
   array (
     'name' => 'مدارس الجيل الصاعد — كوستي',
     'name_en' => 'Rising Generation Schools - Kosti',
@@ -38238,7 +38206,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1183 => 
+  1182 => 
   array (
     'name' => 'مؤسسة المدار الخاصة — ربك',
     'name_en' => 'Al-Madar Private Schools - Rabak',
@@ -38271,7 +38239,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1184 => 
+  1183 => 
   array (
     'name' => 'مدارس المنهل العذب الخاصة — ربك',
     'name_en' => 'Al-Manhal Al-Athib Private Schools - Rabak',
@@ -38304,7 +38272,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1185 => 
+  1184 => 
   array (
     'name' => 'مؤسسة د. أبو القاسم حسين الخاصة — ربك',
     'name_en' => 'Dr. Abulkasim Hussein Educational Institution - Rabak',
@@ -38337,7 +38305,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1186 => 
+  1185 => 
   array (
     'name' => 'مدارس بدر المعالي التربوية الخاصة — ربك',
     'name_en' => 'Badr Al-Maali Private Schools - Rabak',
@@ -38369,7 +38337,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1187 => 
+  1186 => 
   array (
     'name' => 'مدرسة الإشراق الثانوية الخاصة — ربك',
     'name_en' => 'Al-Ishraq Private Secondary School - Rabak',
@@ -38400,7 +38368,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1188 => 
+  1187 => 
   array (
     'name' => 'مدرسة المستقبل الخاصة — ربك',
     'name_en' => 'Al-Mustaqbal Private School - Rabak',
@@ -38432,7 +38400,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1189 => 
+  1188 => 
   array (
     'name' => 'مدارس الرواد النموذجية — ربك',
     'name_en' => 'Al-Ruwad Model Schools - Rabak',
@@ -38464,7 +38432,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1190 => 
+  1189 => 
   array (
     'name' => 'مدارس القبس الخاصة فرع ربك',
     'name_en' => 'Al-Qabas Private Schools - Rabak Branch',
@@ -38496,7 +38464,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1191 => 
+  1190 => 
   array (
     'name' => 'مدارس الإيمان النموذجية — ربك',
     'name_en' => 'Al-Iman Model Schools - Rabak',
@@ -38528,7 +38496,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1192 => 
+  1191 => 
   array (
     'name' => 'مدارس دار الفكر — ربك',
     'name_en' => 'Dar Al-Fikr Schools - Rabak',
@@ -38560,7 +38528,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1193 => 
+  1192 => 
   array (
     'name' => 'مدرسة الشروق الابتدائية الخاصة — ربك',
     'name_en' => 'Al-Shorooq Private Primary School - Rabak',
@@ -38591,7 +38559,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1194 => 
+  1193 => 
   array (
     'name' => 'مدارس الفاروق الخاصة — ربك',
     'name_en' => 'Al-Farooq Private Schools - Rabak',
@@ -38623,7 +38591,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1195 => 
+  1194 => 
   array (
     'name' => 'مدارس كنانة العالمية الخاصة',
     'name_en' => 'Kenana International Private Schools',
@@ -38656,7 +38624,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1196 => 
+  1195 => 
   array (
     'name' => 'مدرسة كنانة جنوب المشتركة',
     'name_en' => 'Kenana South Joint School',
@@ -38688,7 +38656,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1197 => 
+  1196 => 
   array (
     'name' => 'مدرسة كنانة الجديدة الخاصة',
     'name_en' => 'New Kenana Private School',
@@ -38720,7 +38688,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1198 => 
+  1197 => 
   array (
     'name' => 'مدارس سكر عسلاية النموذجية الخاصة',
     'name_en' => 'Asalaya Sugar Model Private Schools',
@@ -38753,7 +38721,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1199 => 
+  1198 => 
   array (
     'name' => 'مدرسة النيل الأبيض الثانوية الخاصة — الدويم',
     'name_en' => 'White Nile Private Secondary School - El Dueim',
@@ -38784,7 +38752,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1200 => 
+  1199 => 
   array (
     'name' => 'مدرسة الدويم الثانوية الخاصة بنين وبنات',
     'name_en' => 'El Dueim Private Secondary School',
@@ -38815,7 +38783,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1201 => 
+  1200 => 
   array (
     'name' => 'مدارس الأقصى الخاصة — الدويم',
     'name_en' => 'Al-Aqsa Private Schools - El Dueim',
@@ -38847,7 +38815,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1202 => 
+  1201 => 
   array (
     'name' => 'مدارس المجد الأهلية — الدويم',
     'name_en' => 'Al-Majd Private Schools - El Dueim',
@@ -38879,7 +38847,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1203 => 
+  1202 => 
   array (
     'name' => 'مدارس الأستاذ دفع الله عبد الدافع — القطينة',
     'name_en' => 'Dafallah Abdeldafe Private Schools - El Geteina',
@@ -38912,7 +38880,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1204 => 
+  1203 => 
   array (
     'name' => 'مؤسسة الحكمة التربوية الخاصة — الجزيرة أبا',
     'name_en' => 'Al-Hikma Educational Institution - Aba Island',
@@ -38945,7 +38913,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1205 => 
+  1204 => 
   array (
     'name' => 'مدارس الرائد الخاصة المشتركة — الجزيرة أبا',
     'name_en' => 'Al-Raid Private Schools - Aba Island',
@@ -38977,7 +38945,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1206 => 
+  1205 => 
   array (
     'name' => 'مدارس الشيخ عبد الرحمن برة الخاصة — الجزيرة أبا',
     'name_en' => 'Sheikh Abdelrahman Berra Schools - Aba Island',
@@ -39009,7 +38977,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1207 => 
+  1206 => 
   array (
     'name' => 'مدارس التميز للتعليم الخاص — تندلتي',
     'name_en' => 'Al-Tamayuz Private Schools - Tendelti',
@@ -39042,7 +39010,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1208 => 
+  1207 => 
   array (
     'name' => 'مدارس دار الفكر الخاصة — الأبيض',
     'name_en' => 'Dar Al-Fikr Private Schools - El Obeid',
@@ -39075,7 +39043,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1209 => 
+  1208 => 
   array (
     'name' => 'مدارس النجباء الثانوية الخاصة — الأبيض',
     'name_en' => 'Al-Nujaba Private Secondary Schools - El Obeid',
@@ -39106,7 +39074,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1210 => 
+  1209 => 
   array (
     'name' => 'مدارس حمدتو الخاصة — الأبيض',
     'name_en' => 'Hamadto Private Schools - El Obeid',
@@ -39138,7 +39106,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1211 => 
+  1210 => 
   array (
     'name' => 'مؤسسة الجيل الرائد التربوية الخاصة — الأبيض',
     'name_en' => 'Al-Jeel Al-Raed Educational Institution - El Obeid',
@@ -39171,7 +39139,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1212 => 
+  1211 => 
   array (
     'name' => 'مدرسة القمم الثانوية الخاصة بنات — الأبيض',
     'name_en' => 'Al-Qimam Private Secondary School for Girls - El Obeid',
@@ -39202,7 +39170,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1213 => 
+  1212 => 
   array (
     'name' => 'مدرسة المتفوق الدولية الحديثة — الأبيض',
     'name_en' => 'Al-Mutafawweq Modern International School - El Obeid',
@@ -39235,7 +39203,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1214 => 
+  1213 => 
   array (
     'name' => 'مدرسة أبو راشد الخاصة — الأبيض',
     'name_en' => 'Abu Rashid Private School - El Obeid',
@@ -39267,7 +39235,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1215 => 
+  1214 => 
   array (
     'name' => 'مدارس التميز الابتدائية الخاصة — الأبيض',
     'name_en' => 'Al-Tamayuz Primary School - El Obeid',
@@ -39298,7 +39266,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1216 => 
+  1215 => 
   array (
     'name' => 'مدارس إقرأ النموذجية الخاصة — الأبيض',
     'name_en' => 'Iqraa Model Private Schools - El Obeid',
@@ -39330,7 +39298,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1217 => 
+  1216 => 
   array (
     'name' => 'مدارس تميز عروس الرمال الخاصة — الأبيض',
     'name_en' => 'Arous Al-Rimal Excellence Schools - El Obeid',
@@ -39363,7 +39331,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1218 => 
+  1217 => 
   array (
     'name' => 'رياض ومدارس أفريقيا العالمية الخاصة — الأبيض',
     'name_en' => 'Africa International Schools - El Obeid',
@@ -39395,7 +39363,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1219 => 
+  1218 => 
   array (
     'name' => 'مدارس الأذكياء الخاصة — الأبيض',
     'name_en' => 'Al-Azkia Private Schools - El Obeid',
@@ -39427,7 +39395,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1220 => 
+  1219 => 
   array (
     'name' => 'مؤسسة العلياء التعليمية الخاصة — الأبيض',
     'name_en' => 'Al-Alia Educational Institution - El Obeid',
@@ -39460,7 +39428,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1221 => 
+  1220 => 
   array (
     'name' => 'مؤسسة أكسفورد التعليمية الخاصة — الأبيض',
     'name_en' => 'Oxford Educational Institution - El Obeid',
@@ -39492,7 +39460,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1222 => 
+  1221 => 
   array (
     'name' => 'مدارس الأسرة الثانوية الخاصة النموذجية — الأبيض',
     'name_en' => 'Al-Osra Model Private Secondary Schools - El Obeid',
@@ -39523,7 +39491,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1223 => 
+  1222 => 
   array (
     'name' => 'مدرسة الدوحة النموذجية الخاصة — الأبيض',
     'name_en' => 'Al-Doha Model Private School - El Obeid',
@@ -39555,7 +39523,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1224 => 
+  1223 => 
   array (
     'name' => 'مدرسة الصفا الخاصة — الأبيض',
     'name_en' => 'Al-Safa Private School - El Obeid',
@@ -39587,7 +39555,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1225 => 
+  1224 => 
   array (
     'name' => 'مدارس المنار النموذجية الخاصة — الأبيض',
     'name_en' => 'Al-Manar Model Schools - El Obeid',
@@ -39619,7 +39587,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1226 => 
+  1225 => 
   array (
     'name' => 'مدرسة الفاروق الأساسية الخاصة — الأبيض',
     'name_en' => 'Al-Farooq Private Primary School - El Obeid',
@@ -39650,7 +39618,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1227 => 
+  1226 => 
   array (
     'name' => 'مدارس الهدى الأهلية — الأبيض',
     'name_en' => 'Al-Huda Private Schools - El Obeid',
@@ -39682,7 +39650,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1228 => 
+  1227 => 
   array (
     'name' => 'مدرسة النبراس الخاصة بنات — الأبيض',
     'name_en' => 'Al-Nebras Private School for Girls - El Obeid',
@@ -39714,7 +39682,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1229 => 
+  1228 => 
   array (
     'name' => 'مدرسة الشهيد عبدالرحيم محمد المتوسطة الخاصة — أم روابة',
     'name_en' => 'Shaheed Abdelrahim Mohamed Private School - Umm Ruwaba',
@@ -39745,7 +39713,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1230 => 
+  1229 => 
   array (
     'name' => 'مدارس ورياض الفردوس الخاصة — أم روابة',
     'name_en' => 'Al-Fardous Private Schools - Umm Ruwaba',
@@ -39777,7 +39745,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1231 => 
+  1230 => 
   array (
     'name' => 'مدرسة أم روابة الخاصة المشتركة',
     'name_en' => 'Umm Ruwaba Private Joint School',
@@ -39810,7 +39778,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1232 => 
+  1231 => 
   array (
     'name' => 'مدارس التضامن الأهلية — أم روابة',
     'name_en' => 'Al-Tadamun Private Schools - Umm Ruwaba',
@@ -39842,7 +39810,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1233 => 
+  1232 => 
   array (
     'name' => 'مدرسة النهضة النموذجية الخاصة — أم روابة',
     'name_en' => 'Al-Nahda Model School - Umm Ruwaba',
@@ -39874,7 +39842,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1234 => 
+  1233 => 
   array (
     'name' => 'مدارس براعم الغد — أم روابة',
     'name_en' => 'Baraem Al-Ghad Schools - Umm Ruwaba',
@@ -39905,7 +39873,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1235 => 
+  1234 => 
   array (
     'name' => 'رياض ومدارس الجيل الذكي الخاصة — الرهد',
     'name_en' => 'Smart Generation Private Schools - Er Rahad',
@@ -39937,7 +39905,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1236 => 
+  1235 => 
   array (
     'name' => 'مدرسة الرهد الثانوية الأهلية الخاصة',
     'name_en' => 'Er Rahad Private Secondary School',
@@ -39968,7 +39936,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1237 => 
+  1236 => 
   array (
     'name' => 'مدرسة بارا الثانوية الخاصة المشتركة',
     'name_en' => 'Bara Private Secondary School',
@@ -39999,7 +39967,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1238 => 
+  1237 => 
   array (
     'name' => 'مدارس واحة بارا النموذجية الخاصة',
     'name_en' => 'Bara Oasis Model Private Schools',
@@ -40031,7 +39999,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1239 => 
+  1238 => 
   array (
     'name' => 'مدرسة الأمل الابتدائية الخاصة — بارا',
     'name_en' => 'Al-Amal Private Primary School - Bara',
@@ -40062,7 +40030,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1240 => 
+  1239 => 
   array (
     'name' => 'مدرسة العوالي الخاصة — كادوقلي',
     'name_en' => 'Al-Awali Private School - Kadugli',
@@ -40094,7 +40062,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1241 => 
+  1240 => 
   array (
     'name' => 'مجمع مدارس التوحيد النموذجية الخاصة / الهداية — كادوقلي',
     'name_en' => 'Al-Tawheed Model Schools - Kadugli',
@@ -40127,7 +40095,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1242 => 
+  1241 => 
   array (
     'name' => 'مدرسة الأندلس الخاصة بنات — كادوقلي',
     'name_en' => 'Al-Andalus Private School for Girls - Kadugli',
@@ -40159,7 +40127,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1243 => 
+  1242 => 
   array (
     'name' => 'مدارس الصفا النموذجية الخاصة — كادوقلي',
     'name_en' => 'Al-Safa Model Private Schools - Kadugli',
@@ -40191,7 +40159,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1244 => 
+  1243 => 
   array (
     'name' => 'مدرسة السلام الخاصة المشتركة — كادوقلي',
     'name_en' => 'Al-Salam Private School - Kadugli',
@@ -40223,7 +40191,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1245 => 
+  1244 => 
   array (
     'name' => 'مدارس النور الأهلية — كادوقلي',
     'name_en' => 'Al-Noor Private Schools - Kadugli',
@@ -40256,7 +40224,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1246 => 
+  1245 => 
   array (
     'name' => 'مدارس الرواد الخاصة — كادوقلي',
     'name_en' => 'Al-Ruwad Private Schools - Kadugli',
@@ -40287,7 +40255,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1247 => 
+  1246 => 
   array (
     'name' => 'مدرسة الفجر الابتدائية — كادوقلي',
     'name_en' => 'Al-Fajr Primary School - Kadugli',
@@ -40318,7 +40286,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1248 => 
+  1247 => 
   array (
     'name' => 'مدارس الأمل الواعد — كادوقلي',
     'name_en' => 'Al-Amal Al-Waed Schools - Kadugli',
@@ -40350,7 +40318,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1249 => 
+  1248 => 
   array (
     'name' => 'مدرسة إقرأ الابتدائية الخاصة — الدلنج',
     'name_en' => 'Iqraa Private Primary School - Dilling',
@@ -40381,7 +40349,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1250 => 
+  1249 => 
   array (
     'name' => 'مدرسة الشيماء الخاصة — الدلنج',
     'name_en' => 'Al-Shaimaa Private School - Dilling',
@@ -40413,7 +40381,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1251 => 
+  1250 => 
   array (
     'name' => 'مدرسة المنهل الثانوية الخاصة — الدلنج',
     'name_en' => 'Al-Manhal Private Secondary School - Dilling',
@@ -40444,7 +40412,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1252 => 
+  1251 => 
   array (
     'name' => 'مدرسة النور الخاصة المشتركة — الدلنج',
     'name_en' => 'Al-Noor Private Joint School - Dilling',
@@ -40476,7 +40444,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1253 => 
+  1252 => 
   array (
     'name' => 'مدارس المعالي الخاصة — الدلنج',
     'name_en' => 'Al-Maali Private Schools - Dilling',
@@ -40508,7 +40476,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1254 => 
+  1253 => 
   array (
     'name' => 'مدرسة براعم المستقبل — الدلنج',
     'name_en' => 'Future Buds School - Dilling',
@@ -40539,7 +40507,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1255 => 
+  1254 => 
   array (
     'name' => 'مدارس النجاح الأهلية — الدلنج',
     'name_en' => 'Al-Najah Private Schools - Dilling',
@@ -40571,7 +40539,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1256 => 
+  1255 => 
   array (
     'name' => 'مدرسة عالم الفكر الخاصة بنين — أبو جبيهة',
     'name_en' => 'Alem Al-Fikr Private School for Boys - Abu Jubayhah',
@@ -40603,7 +40571,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1257 => 
+  1256 => 
   array (
     'name' => 'مدرسة المعالي الخاصة بنين — أبو جبيهة',
     'name_en' => 'Al-Maali Private School for Boys - Abu Jubayhah',
@@ -40635,7 +40603,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1258 => 
+  1257 => 
   array (
     'name' => 'مدرسة مصعب بن عمير الخاصة — أبو جبيهة',
     'name_en' => 'Musab Ibn Omair Private School - Abu Jubayhah',
@@ -40667,7 +40635,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1259 => 
+  1258 => 
   array (
     'name' => 'مدارس المنار الجديد الثانوية الخاصة — أبو جبيهة',
     'name_en' => 'Al-Manar Al-Jadeed Private Secondary Schools - Abu Jubayhah',
@@ -40698,7 +40666,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1260 => 
+  1259 => 
   array (
     'name' => 'مدارس نور المعرفة الخاصة — أبو جبيهة',
     'name_en' => 'Noor Al-Maarifa Private Schools - Abu Jubayhah',
@@ -40729,7 +40697,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1261 => 
+  1260 => 
   array (
     'name' => 'مدرسة الإشراق القرآنية — أبو جبيهة',
     'name_en' => 'Al-Ishraq Quranic School - Abu Jubayhah',
@@ -40761,7 +40729,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1262 => 
+  1261 => 
   array (
     'name' => 'مدرسة رشاد النموذجية الأهلية الخاصة',
     'name_en' => 'Rashad Model Private School',
@@ -40793,7 +40761,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1263 => 
+  1262 => 
   array (
     'name' => 'مدارس كردفان الثانوية الخاصة — النهود',
     'name_en' => 'Kordofan Private Secondary Schools - En Nuhud',
@@ -40824,7 +40792,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1264 => 
+  1263 => 
   array (
     'name' => 'مدارس كردفان الخاصة لمرحلتي الأساس والمتوسط — النهود',
     'name_en' => 'Kordofan Primary & Intermediate Private Schools - En Nuhud',
@@ -40856,7 +40824,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1265 => 
+  1264 => 
   array (
     'name' => 'مدارس الصفوة الخاصة — النهود',
     'name_en' => 'Al-Safwa Private Schools - En Nuhud',
@@ -40889,7 +40857,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1266 => 
+  1265 => 
   array (
     'name' => 'مدارس الأوائل الثانوية الخاصة — النهود',
     'name_en' => 'Al-Awael Private Secondary Schools - En Nuhud',
@@ -40920,7 +40888,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1267 => 
+  1266 => 
   array (
     'name' => 'مدارس العلا الثانوية الخاصة — النهود',
     'name_en' => 'Al-Ula Private Secondary Schools - En Nuhud',
@@ -40951,7 +40919,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1268 => 
+  1267 => 
   array (
     'name' => 'مدارس المنى الخاصة — النهود',
     'name_en' => 'Al-Muna Private Schools - En Nuhud',
@@ -40983,7 +40951,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1269 => 
+  1268 => 
   array (
     'name' => 'مجمع مدارس الشيخ محمد عبيد آل مكتوم النموذجية — النهود',
     'name_en' => 'Sheikh Mohammed Obeid Al Maktoum Model Schools - En Nuhud',
@@ -41016,7 +40984,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1270 => 
+  1269 => 
   array (
     'name' => 'مدارس الرواد الخاصة — النهود',
     'name_en' => 'Al-Ruwad Private Schools - En Nuhud',
@@ -41048,7 +41016,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1271 => 
+  1270 => 
   array (
     'name' => 'مدرسة الشروق الابتدائية — النهود',
     'name_en' => 'Al-Shorooq Primary School - En Nuhud',
@@ -41079,7 +41047,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1272 => 
+  1271 => 
   array (
     'name' => 'مدارس التميز النموذجية — النهود',
     'name_en' => 'Al-Tamayuz Model Schools - En Nuhud',
@@ -41111,7 +41079,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1273 => 
+  1272 => 
   array (
     'name' => 'مدرسة النخبة الأهلية — النهود',
     'name_en' => 'Al-Nukhba Private School - En Nuhud',
@@ -41143,7 +41111,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1274 => 
+  1273 => 
   array (
     'name' => 'مدرسة الفولة الثانوية النموذجية الخاصة',
     'name_en' => 'Al-Fula Model Private Secondary School',
@@ -41174,7 +41142,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1275 => 
+  1274 => 
   array (
     'name' => 'مدارس الرواد الخاصة — الفولة',
     'name_en' => 'Al-Ruwad Private Schools - Al-Fula',
@@ -41206,7 +41174,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1276 => 
+  1275 => 
   array (
     'name' => 'مدارس السلام الابتدائية الخاصة — الفولة',
     'name_en' => 'Al-Salam Private Primary Schools - Al-Fula',
@@ -41237,7 +41205,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1277 => 
+  1276 => 
   array (
     'name' => 'مدرسة الأمل الأهلية — الفولة',
     'name_en' => 'Al-Amal Private School - Al-Fula',
@@ -41269,7 +41237,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1278 => 
+  1277 => 
   array (
     'name' => 'مدرسة الخدمات الخاصة الأهلية — بابنوسة',
     'name_en' => 'Al-Khadamat Private School - Babanusa',
@@ -41302,7 +41270,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1279 => 
+  1278 => 
   array (
     'name' => 'مدارس بابنوسة الحديثة النموذجية',
     'name_en' => 'Babanusa Modern Model Schools',
@@ -41334,7 +41302,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1280 => 
+  1279 => 
   array (
     'name' => 'مدارس المجلد النموذجية الخاصة',
     'name_en' => 'Al-Muglad Model Private Schools',
@@ -41367,7 +41335,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1281 => 
+  1280 => 
   array (
     'name' => 'مدارس السلام الأهلية — المجلد',
     'name_en' => 'Al-Salam Private Schools - Al-Muglad',
@@ -41399,7 +41367,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1282 => 
+  1281 => 
   array (
     'name' => 'مدارس الكرامة للتعليم الأساسي والمتوسط — الخوي',
     'name_en' => 'Al-Karama Schools - El Khowei',
@@ -41431,7 +41399,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1283 => 
+  1282 => 
   array (
     'name' => 'سلسلة مدارس باخت الخاصة — نيالا',
     'name_en' => 'Bakht Private Schools - Nyala',
@@ -41464,7 +41432,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1284 => 
+  1283 => 
   array (
     'name' => 'مدارس الوالدين الثانوية الخاصة — نيالا',
     'name_en' => 'Al-Waledayn Private Secondary Schools - Nyala',
@@ -41495,7 +41463,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1285 => 
+  1284 => 
   array (
     'name' => 'مدارس ورياض إسبارك الإنجليزية العالمية الخاصة — نيالا',
     'name_en' => 'Spark English International Schools - Nyala',
@@ -41527,7 +41495,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1286 => 
+  1285 => 
   array (
     'name' => 'مدارس وقف المعارف التركية الدولية — نيالا',
     'name_en' => 'Turkish Maarif Foundation Schools - Nyala',
@@ -41560,7 +41528,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1287 => 
+  1286 => 
   array (
     'name' => 'مجمع مدارس سلطان عيسى الساير الخاصة — نيالا',
     'name_en' => 'Sultan Issa Al-Sayer Private Schools - Nyala',
@@ -41593,7 +41561,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1288 => 
+  1287 => 
   array (
     'name' => 'مدرسة العناية الخاصة — نيالا',
     'name_en' => 'Al-Enaya Private School - Nyala',
@@ -41625,7 +41593,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1289 => 
+  1288 => 
   array (
     'name' => 'منظومة مدارس الفوز الثانوية الخاصة — نيالا',
     'name_en' => 'Al-Fawz Private Secondary Schools - Nyala',
@@ -41656,7 +41624,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1290 => 
+  1289 => 
   array (
     'name' => 'مدرسة التجاني الثانوية الخاصة — نيالا',
     'name_en' => 'Al-Tijani Private Secondary School - Nyala',
@@ -41687,7 +41655,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1291 => 
+  1290 => 
   array (
     'name' => 'مدارس السراج المنير الخاصة — نيالا',
     'name_en' => 'Al-Siraj Al-Muneer Private Schools - Nyala',
@@ -41719,7 +41687,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1292 => 
+  1291 => 
   array (
     'name' => 'أكاديمية شمس الدين الخاصة — نيالا',
     'name_en' => 'Shams El-Din Private Academy - Nyala',
@@ -41751,7 +41719,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1293 => 
+  1292 => 
   array (
     'name' => 'مدارس آفاق المستقبل الخاصة — نيالا',
     'name_en' => 'Afaq Al-Mustaqbal Private Schools - Nyala',
@@ -41783,7 +41751,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1294 => 
+  1293 => 
   array (
     'name' => 'مدارس كاس الأهلية النموذجية الخاصة',
     'name_en' => 'Kass Model Private Schools',
@@ -41816,7 +41784,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1295 => 
+  1294 => 
   array (
     'name' => 'مدارس الوسام الثانوية الخاصة — الفاشر',
     'name_en' => 'Al-Wissam Private Secondary Schools - El Fasher',
@@ -41847,7 +41815,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1296 => 
+  1295 => 
   array (
     'name' => 'مدرسة الفردوس الثانوية الخاصة — الفاشر',
     'name_en' => 'Al-Fardous Private Secondary School - El Fasher',
@@ -41878,7 +41846,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1297 => 
+  1296 => 
   array (
     'name' => 'مدارس ورياض أبوقرون الخاصة — الفاشر',
     'name_en' => 'Abu Qurun Private Schools - El Fasher',
@@ -41910,7 +41878,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1298 => 
+  1297 => 
   array (
     'name' => 'مدرسة دار العلوم الثانوية الخاصة — الفاشر',
     'name_en' => 'Dar Al-Uloom Private Secondary School - El Fasher',
@@ -41941,7 +41909,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1299 => 
+  1298 => 
   array (
     'name' => 'مدارس الرتاج للتعليم الخاص — الفاشر',
     'name_en' => 'Al-Ritaj Private Schools - El Fasher',
@@ -41973,7 +41941,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1300 => 
+  1299 => 
   array (
     'name' => 'مدرسة الأشقاء العالمية — الفاشر',
     'name_en' => 'Al-Ashiqqa International School - El Fasher',
@@ -42005,7 +41973,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1301 => 
+  1300 => 
   array (
     'name' => 'مدارس سبيل الخاصة — الفاشر',
     'name_en' => 'Sabeel Private Schools - El Fasher',
@@ -42037,7 +42005,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1302 => 
+  1301 => 
   array (
     'name' => 'مجمع محمود للتعليم الخاص — كبكابية',
     'name_en' => 'Mahmoud Educational Complex - Kabkabiya',
@@ -42069,7 +42037,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1303 => 
+  1302 => 
   array (
     'name' => 'مدرسة الأصدقاء الخاصة — كتم',
     'name_en' => 'Al-Asdiqaa Private School - Kutum',
@@ -42101,7 +42069,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1304 => 
+  1303 => 
   array (
     'name' => 'مدارس ابن سينا الثانوية الخاصة — الضعين',
     'name_en' => 'Ibn Sina Private Secondary Schools - Ed Daein',
@@ -42132,7 +42100,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1305 => 
+  1304 => 
   array (
     'name' => 'مدرسة الخلفاء الراشدين الخاصة — الضعين',
     'name_en' => 'Al-Khulafa Al-Rashideen Private School - Ed Daein',
@@ -42164,7 +42132,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1306 => 
+  1305 => 
   array (
     'name' => 'مدرسة المعلم الثانوية الخاصة — الضعين',
     'name_en' => 'Al-Moallim Private Secondary School - Ed Daein',
@@ -42195,7 +42163,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1307 => 
+  1306 => 
   array (
     'name' => 'مجمع مدارس المعلمين الخاصة — عديلة',
     'name_en' => 'Teachers Complex Private Schools - Adila',
@@ -42228,7 +42196,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1308 => 
+  1307 => 
   array (
     'name' => 'مدارس السلامة الثانوية الخاصة — زالنجي',
     'name_en' => 'Al-Salama Private Secondary Schools - Zalingei',
@@ -42259,7 +42227,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1309 => 
+  1308 => 
   array (
     'name' => 'مدرسة السندس الثانوية الخاصة — زالنجي',
     'name_en' => 'Al-Sundus Private Secondary School - Zalingei',
@@ -42290,7 +42258,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1310 => 
+  1309 => 
   array (
     'name' => 'مدرسة المحمل الثانوية الخاصة — زالنجي',
     'name_en' => 'Al-Mahmal Private Secondary School - Zalingei',
@@ -42321,7 +42289,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1311 => 
+  1310 => 
   array (
     'name' => 'مدرسة المميز الأساسية الخاصة — قارسيلا',
     'name_en' => 'Al-Momayaz Private Primary School - Garsila',
@@ -42353,7 +42321,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1312 => 
+  1311 => 
   array (
     'name' => 'مدرسة التضامن الخاصة — نيرتتي',
     'name_en' => 'Al-Tadamun Private School - Nertiti',
@@ -42385,7 +42353,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1313 => 
+  1312 => 
   array (
     'name' => 'مؤسسة محي الدين الخاصة للتعليم الخاص — الجنينة',
     'name_en' => 'Mohy El-Din Educational Institution - El Geneina',
@@ -42418,7 +42386,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1314 => 
+  1313 => 
   array (
     'name' => 'مدرسة الجيل الابتدائية الخاصة — الجنينة',
     'name_en' => 'Al-Jeel Private Primary School - El Geneina',
@@ -42449,7 +42417,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1315 => 
+  1314 => 
   array (
     'name' => 'مدارس وهج القبس الثانوية الخاصة — الجنينة',
     'name_en' => 'Wahaj Al-Qabas Private Secondary Schools - El Geneina',
@@ -42480,7 +42448,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1316 => 
+  1315 => 
   array (
     'name' => 'روضة وحضانة حنين العالمية',
     'name_en' => 'Haneen International Kindergarten & Nursery',
@@ -42511,7 +42479,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1317 => 
+  1316 => 
   array (
     'name' => 'روضة أومي النموذجية',
     'name_en' => 'Ommy International Kindergarten',
@@ -42542,7 +42510,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1318 => 
+  1317 => 
   array (
     'name' => 'روضة مركز الورود الخاصة',
     'name_en' => 'Al Worood Center Kindergarten',
@@ -42573,7 +42541,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1319 => 
+  1318 => 
   array (
     'name' => 'روضة ديليجنس الإنجليزية والحضانة',
     'name_en' => 'Diligence English School, Kindergarten & Nursery',
@@ -42604,7 +42572,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1320 => 
+  1319 => 
   array (
     'name' => 'روضة وحضانة فوتستيبس',
     'name_en' => 'Footsteps Nursery & Preschool',
@@ -42635,7 +42603,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1321 => 
+  1320 => 
   array (
     'name' => 'حضانة جروينج أب 123',
     'name_en' => 'Growing Up 123 Nursery & Kindergarten',
@@ -42666,7 +42634,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1322 => 
+  1321 => 
   array (
     'name' => 'حضانة بيزي بيز العالمية',
     'name_en' => 'Busy Bees International Nursery',
@@ -42697,7 +42665,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1323 => 
+  1322 => 
   array (
     'name' => 'حضانة وروضة كيدز أويسس',
     'name_en' => 'Kids Oasis Nursery & Preschool',
@@ -42728,7 +42696,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1324 => 
+  1323 => 
   array (
     'name' => 'روضة وحضانة روزري الإنجليزية',
     'name_en' => 'Rosery School & Kindergarten',
@@ -42759,7 +42727,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1325 => 
+  1324 => 
   array (
     'name' => 'حضانة جينا النموذجية',
     'name_en' => 'Gina\'s Nursery & Preschool',
@@ -42790,7 +42758,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1326 => 
+  1325 => 
   array (
     'name' => 'حضانة كندر إنترناشونال',
     'name_en' => 'Kinder International Preschool',
@@ -42821,7 +42789,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1327 => 
+  1326 => 
   array (
     'name' => 'روضة بيرلز للطفولة المبكرة',
     'name_en' => 'Pearls Preschool Sudan',
@@ -42852,7 +42820,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1328 => 
+  1327 => 
   array (
     'name' => 'حضانة وروضة بيبي هوم',
     'name_en' => 'Baby Home Nursery & Preschool',
@@ -42883,7 +42851,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1329 => 
+  1328 => 
   array (
     'name' => 'حضانة وروضة سكينة',
     'name_en' => 'Sakeena\'s Nursery & Kindergarten',
@@ -42914,7 +42882,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1330 => 
+  1329 => 
   array (
     'name' => 'روضة ومدارس التعليم البريطانية — قسم الروضة',
     'name_en' => 'British Educational Schools Kindergarten',
@@ -42945,7 +42913,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1331 => 
+  1330 => 
   array (
     'name' => 'روضة بارون العالمية',
     'name_en' => 'Baron International School and Kindergarten',
@@ -42976,7 +42944,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1332 => 
+  1331 => 
   array (
     'name' => 'روضة جولي الدولية للأطفال',
     'name_en' => 'Jolly International Kindergarten',
@@ -43007,7 +42975,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1333 => 
+  1332 => 
   array (
     'name' => 'حضانة وروضة برايت كيندر غاردن العالمية',
     'name_en' => 'Bright Kindergarten International',
@@ -43038,7 +43006,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1334 => 
+  1333 => 
   array (
     'name' => 'روضة وحضانة زمزم النموذجية',
     'name_en' => 'Zamzam Model Kindergarten & Nursery',
@@ -43069,7 +43037,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1335 => 
+  1334 => 
   array (
     'name' => 'رياض القبس الخرطوم',
     'name_en' => 'Al-Qabas Kindergarten Khartoum',
@@ -43102,7 +43070,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1336 => 
+  1335 => 
   array (
     'name' => 'مدارس ورياض السندس الدولية',
     'name_en' => 'Al-Sundus International Kindergarten',
@@ -43133,7 +43101,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1337 => 
+  1336 => 
   array (
     'name' => 'روضة براعم الوطن المتطورة',
     'name_en' => 'Baraem Al-Watan Preschool',
@@ -43164,7 +43132,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1338 => 
+  1337 => 
   array (
     'name' => 'روضة عالم الطفولة',
     'name_en' => 'Alam Al-Tufoala Kindergarten',
@@ -43195,7 +43163,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1339 => 
+  1338 => 
   array (
     'name' => 'روضة الريان — المجلس الإفريقي للتعليم',
     'name_en' => 'Al-Rayan Kindergarten African Council',
@@ -43226,7 +43194,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1340 => 
+  1339 => 
   array (
     'name' => 'رياض سويتي كيدز النموذجية',
     'name_en' => 'Sweety Kids Preschool',
@@ -43259,7 +43227,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1341 => 
+  1340 => 
   array (
     'name' => 'روضة وحضانة أرض المعرفة',
     'name_en' => 'Ard Al-Maarifa Nursery & Kindergarten',
@@ -43290,7 +43258,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1342 => 
+  1341 => 
   array (
     'name' => 'روضة بنت الأزور — المجلس الإفريقي للتعليم',
     'name_en' => 'Bint Al-Azwar Kindergarten',
@@ -43321,7 +43289,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1343 => 
+  1342 => 
   array (
     'name' => 'روضة الأزهري النموذجية — المجلس الإفريقي',
     'name_en' => 'Al-Azhari Model Kindergarten',
@@ -43352,7 +43320,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1344 => 
+  1343 => 
   array (
     'name' => 'روضة زهرة الياسمين الخاصة',
     'name_en' => 'Zahrat Al-Yasmeen Kindergarten',
@@ -43383,7 +43351,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1345 => 
+  1344 => 
   array (
     'name' => 'روضة الإنصاف النموذجية الخاصة',
     'name_en' => 'Al-Insaf Model Kindergarten',
@@ -43414,7 +43382,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1346 => 
+  1345 => 
   array (
     'name' => 'روضة رواد المعالي الخاصة',
     'name_en' => 'Rowad Al-Maali Private Kindergarten',
@@ -43445,7 +43413,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1347 => 
+  1346 => 
   array (
     'name' => 'روضة وحضانة بيبا النموذجية',
     'name_en' => 'Biba Nursery & Kindergarten',
@@ -43476,7 +43444,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1348 => 
+  1347 => 
   array (
     'name' => 'روضة البراعم الحديثة',
     'name_en' => 'Al-Baraem Al-Hadeetha Kindergarten',
@@ -43507,7 +43475,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1349 => 
+  1348 => 
   array (
     'name' => 'روضة كيدي أكاديمي الدولية',
     'name_en' => 'Kiddie Academy International Kindergarten',
@@ -43538,7 +43506,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1350 => 
+  1349 => 
   array (
     'name' => 'روضة ومدارس المهندسين الخاصة',
     'name_en' => 'Al-Muhandiseen Kindergarten',
@@ -43569,7 +43537,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1351 => 
+  1350 => 
   array (
     'name' => 'روضة فيوتشر كيدز التعليمية',
     'name_en' => 'Future Kids Kindergarten',
@@ -43600,7 +43568,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1352 => 
+  1351 => 
   array (
     'name' => 'روضة فونكس الدولية للغات',
     'name_en' => 'Phonics International Kindergarten',
@@ -43631,7 +43599,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1353 => 
+  1352 => 
   array (
     'name' => 'روضة ماكميلان الدولية',
     'name_en' => 'Macmillan International Kindergarten',
@@ -43662,7 +43630,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1354 => 
+  1353 => 
   array (
     'name' => 'روضة الغصن الأخضر الخاصة',
     'name_en' => 'Al-Ghosn Al-Akhdar Kindergarten',
@@ -43693,7 +43661,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1355 => 
+  1354 => 
   array (
     'name' => 'روضة حاجة مدينة النموذجية',
     'name_en' => 'Haja Madina Model Kindergarten',
@@ -43724,7 +43692,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1356 => 
+  1355 => 
   array (
     'name' => 'ماما روضة النموذجية للأطفال',
     'name_en' => 'Mama Rawda Preschool',
@@ -43755,7 +43723,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1357 => 
+  1356 => 
   array (
     'name' => 'روضة الزعيم الأزهري للأطفال',
     'name_en' => 'Al-Zaeem Al-Azhari Kindergarten',
@@ -43786,7 +43754,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1358 => 
+  1357 => 
   array (
     'name' => 'روضة البيان النموذجية',
     'name_en' => 'Al-Bayan Model Kindergarten',
@@ -43817,7 +43785,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1359 => 
+  1358 => 
   array (
     'name' => 'روضة الطفل السعيد الخاصة',
     'name_en' => 'Al-Tifl Al-Saeed Kindergarten',
@@ -43848,7 +43816,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1360 => 
+  1359 => 
   array (
     'name' => 'روضة مهاجر الخاصة للأطفال',
     'name_en' => 'Muhajir Private Kindergarten',
@@ -43879,7 +43847,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1361 => 
+  1360 => 
   array (
     'name' => 'روضة أم رهف النموذجية',
     'name_en' => 'Um Rahaf Kindergarten',
@@ -43910,7 +43878,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1362 => 
+  1361 => 
   array (
     'name' => 'روضة المحجوب الخاصة',
     'name_en' => 'Al-Mahjoub Private Kindergarten',
@@ -43941,7 +43909,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1363 => 
+  1362 => 
   array (
     'name' => 'روضة البواسل النموذجية',
     'name_en' => 'Al-Bawasil Model Kindergarten',
@@ -43972,7 +43940,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1364 => 
+  1363 => 
   array (
     'name' => 'روضة أطفال المستقبل',
     'name_en' => 'Atfal Al-Mustaqbal Kindergarten',
@@ -44003,7 +43971,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1365 => 
+  1364 => 
   array (
     'name' => 'روضة براعم النور الخاصة',
     'name_en' => 'Baraem Al-Noor Kindergarten',
@@ -44034,7 +44002,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1366 => 
+  1365 => 
   array (
     'name' => 'روضة طيور الفردوس النموذجية',
     'name_en' => 'Tuyoor Al-Firdous Kindergarten',
@@ -44065,7 +44033,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1367 => 
+  1366 => 
   array (
     'name' => 'روضة المجلس الأفريقي للأطفال — الفتيحاب',
     'name_en' => 'African Council Kindergarten Fetayhab',
@@ -44096,7 +44064,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1368 => 
+  1367 => 
   array (
     'name' => 'روضة شمس المعارف الخاصة',
     'name_en' => 'Shams Al-Maarif Kindergarten',
@@ -44127,7 +44095,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1369 => 
+  1368 => 
   array (
     'name' => 'روضة أجيال الغد النموذجية',
     'name_en' => 'Ajyal Al-Ghad Kindergarten',
@@ -44158,7 +44126,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1370 => 
+  1369 => 
   array (
     'name' => 'روضة وحضانة جوهانسبيرج العالمية',
     'name_en' => 'Johannesburg International Kindergarten & Nursery',
@@ -44189,7 +44157,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1371 => 
+  1370 => 
   array (
     'name' => 'روضة أكاديمية كافوري للطفولة المبكرة',
     'name_en' => 'Kafouri Early Childhood Academy',
@@ -44220,7 +44188,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1372 => 
+  1371 => 
   array (
     'name' => 'روضة براعم كافوري النموذجية',
     'name_en' => 'Baraem Kafouri Kindergarten',
@@ -44251,7 +44219,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1373 => 
+  1372 => 
   array (
     'name' => 'روضة أشرقت الخاصة',
     'name_en' => 'Ashraqat Private Kindergarten',
@@ -44282,7 +44250,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1374 => 
+  1373 => 
   array (
     'name' => 'روضة نبع المعرفة الخاصة',
     'name_en' => 'Nabaa Al-Maarifa Kindergarten',
@@ -44313,7 +44281,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1375 => 
+  1374 => 
   array (
     'name' => 'روضة طيور الجنة النموذجية بحري',
     'name_en' => 'Tuyoor Al-Jannah Kindergarten Bahri',
@@ -44344,7 +44312,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1376 => 
+  1375 => 
   array (
     'name' => 'روضة ومدرسة الصافية الخاصة',
     'name_en' => 'Al-Safia Private Preschool',
@@ -44375,7 +44343,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1377 => 
+  1376 => 
   array (
     'name' => 'روضة حنين النموذجية بحري',
     'name_en' => 'Haneen Model Kindergarten Bahri',
@@ -44406,7 +44374,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1378 => 
+  1377 => 
   array (
     'name' => 'روضة الشروق الخاصة',
     'name_en' => 'Al-Shorooq Private Kindergarten',
@@ -44437,7 +44405,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1379 => 
+  1378 => 
   array (
     'name' => 'حضانة ومركز بوزة لخدمات الطفولة',
     'name_en' => 'Bouza Child Center & Nursery',
@@ -44468,7 +44436,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1380 => 
+  1379 => 
   array (
     'name' => 'روضة الرحيق — المجلس الإفريقي للتعليم',
     'name_en' => 'Al-Raheeq Kindergarten African Council',
@@ -44499,7 +44467,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1381 => 
+  1380 => 
   array (
     'name' => 'روضة الخرطوم التفاعلية',
     'name_en' => 'Khartoum Interactive Kindergarten',
@@ -44530,7 +44498,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1382 => 
+  1381 => 
   array (
     'name' => 'روضة الشيخ عبد الدافع القرآنية',
     'name_en' => 'Sheikh Abd Al-Dafie Quranic Kindergarten',
@@ -44561,7 +44529,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1383 => 
+  1382 => 
   array (
     'name' => 'روضة براعم الحلفايا الخاصة',
     'name_en' => 'Baraem Al-Halfaya Kindergarten',
@@ -44592,7 +44560,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1384 => 
+  1383 => 
   array (
     'name' => 'روضة الكدرو — المجلس الإفريقي للتعليم',
     'name_en' => 'Al-Kadroo African Council Kindergarten',
@@ -44623,7 +44591,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1385 => 
+  1384 => 
   array (
     'name' => 'روضة براعم الكدرو النموذجية',
     'name_en' => 'Baraem Al-Kadroo Model Kindergarten',
@@ -44654,7 +44622,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1386 => 
+  1385 => 
   array (
     'name' => 'روضة الدروشاب الحديثة',
     'name_en' => 'Al-Drooshab Modern Kindergarten',
@@ -44685,7 +44653,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1387 => 
+  1386 => 
   array (
     'name' => 'روضة النور والبيان الخاصة',
     'name_en' => 'Al-Noor Wal-Bayan Kindergarten',
@@ -44716,7 +44684,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1388 => 
+  1387 => 
   array (
     'name' => 'روضة حلة حمد النموذجية',
     'name_en' => 'Hilla Hamad Model Kindergarten',
@@ -44747,7 +44715,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1389 => 
+  1388 => 
   array (
     'name' => 'روضة رواد المعالي فرع الثورة',
     'name_en' => 'Rowad Al-Maali Kindergarten Thawra',
@@ -44778,7 +44746,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1390 => 
+  1389 => 
   array (
     'name' => 'روضة وحضانة N&A العالمية',
     'name_en' => 'N&A International Kindergarten & Nursery',
@@ -44809,7 +44777,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1391 => 
+  1390 => 
   array (
     'name' => 'روضة رياض ومدارس جمال الدين الأفغاني',
     'name_en' => 'Jamal Al-Din Al-Afghani Kindergarten',
@@ -44840,7 +44808,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1392 => 
+  1391 => 
   array (
     'name' => 'روضة مجموعة المنهل التعليمية',
     'name_en' => 'Al-Manhal Educational Kindergarten',
@@ -44871,7 +44839,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1393 => 
+  1392 => 
   array (
     'name' => 'روضة تسابيح — المجلس الإفريقي للتعليم',
     'name_en' => 'Tasabeeh African Council Kindergarten',
@@ -44902,7 +44870,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1394 => 
+  1393 => 
   array (
     'name' => 'روضة بيتر لايف التعليمية',
     'name_en' => 'Better Life Educational Kindergarten (BLEK)',
@@ -44933,7 +44901,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1395 => 
+  1394 => 
   array (
     'name' => 'روضة أزهار الربيع الخاصة',
     'name_en' => 'Azhar Al-Rabie Kindergarten',
@@ -44964,7 +44932,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1396 => 
+  1395 => 
   array (
     'name' => 'روضة المناهل الخاصة',
     'name_en' => 'Al-Manahil Private Kindergarten',
@@ -44995,7 +44963,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1397 => 
+  1396 => 
   array (
     'name' => 'روضة الفردوس للأطفال',
     'name_en' => 'Al-Firdous Kindergarten',
@@ -45026,7 +44994,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1398 => 
+  1397 => 
   array (
     'name' => 'روضة الإبداع التربوي',
     'name_en' => 'Al-Ibda Al-Tarbawi Kindergarten',
@@ -45057,7 +45025,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1399 => 
+  1398 => 
   array (
     'name' => 'روضة النخيل النموذجية',
     'name_en' => 'Al-Nakheel Model Kindergarten',
@@ -45088,7 +45056,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1400 => 
+  1399 => 
   array (
     'name' => 'روضة الهدى والنور الخاصة',
     'name_en' => 'Al-Huda Wal-Noor Kindergarten',
@@ -45119,7 +45087,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1401 => 
+  1400 => 
   array (
     'name' => 'روضة الأبرار النموذجية',
     'name_en' => 'Al-Abrar Model Kindergarten',
@@ -45150,7 +45118,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1402 => 
+  1401 => 
   array (
     'name' => 'روضة الأم الحنون الخاصة',
     'name_en' => 'Al-Umm Al-Hanoun Kindergarten',
@@ -45181,7 +45149,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1403 => 
+  1402 => 
   array (
     'name' => 'روضة ماما زينب الإنجليزية',
     'name_en' => 'Mama Zainab English Kindergarten',
@@ -45212,7 +45180,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1404 => 
+  1403 => 
   array (
     'name' => 'روضة وحضانة الموسوعة النموذجية',
     'name_en' => 'Al-Mawsooah Kindergarten & Nursery',
@@ -45243,7 +45211,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1405 => 
+  1404 => 
   array (
     'name' => 'روضة ومدرسة الفيحاء الخاصة',
     'name_en' => 'Al-Faiha Private Kindergarten',
@@ -45274,7 +45242,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1406 => 
+  1405 => 
   array (
     'name' => 'روضة ومدرسة سبل النموذجية',
     'name_en' => 'Subul Model Kindergarten',
@@ -45305,7 +45273,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1407 => 
+  1406 => 
   array (
     'name' => 'مجموعة مدارس الإبداع فرع الفيحاء تمهيدي ورياض',
     'name_en' => 'Al-Ibdaa Educational Kindergarten Al-Faiha',
@@ -45336,7 +45304,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1408 => 
+  1407 => 
   array (
     'name' => 'روضة الضفة الغربية — المجلس الإفريقي للتعليم',
     'name_en' => 'West Bank African Council Kindergarten',
@@ -45367,7 +45335,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1409 => 
+  1408 => 
   array (
     'name' => 'روضة نور الهدى الخاصة',
     'name_en' => 'Noor Al-Huda Kindergarten',
@@ -45398,7 +45366,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1410 => 
+  1409 => 
   array (
     'name' => 'روضة أحباب الله النموذجية',
     'name_en' => 'Ahbab Allah Kindergarten',
@@ -45429,7 +45397,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1411 => 
+  1410 => 
   array (
     'name' => 'روضة التلال النموذجية الخاصة',
     'name_en' => 'Al-Tilal Model Kindergarten',
@@ -45460,7 +45428,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1412 => 
+  1411 => 
   array (
     'name' => 'روضة البشائر الخاصة',
     'name_en' => 'Al-Bashayer Private Kindergarten',
@@ -45491,7 +45459,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1413 => 
+  1412 => 
   array (
     'name' => 'روضة طيور الجنة شرق النيل',
     'name_en' => 'Tuyoor Al-Jannah KG Sharq El Nil',
@@ -45522,7 +45490,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1414 => 
+  1413 => 
   array (
     'name' => 'روضة دار السلام للطفولة',
     'name_en' => 'Dar Al-Salam Kindergarten',
@@ -45553,7 +45521,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1415 => 
+  1414 => 
   array (
     'name' => 'روضة كوكو النموذجية',
     'name_en' => 'Kuku Model Kindergarten',
@@ -45584,7 +45552,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1416 => 
+  1415 => 
   array (
     'name' => 'روضة زهور الغد الخاصة',
     'name_en' => 'Zohoor Al-Ghad Kindergarten',
@@ -45615,7 +45583,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1417 => 
+  1416 => 
   array (
     'name' => 'روضة الأمل المشرق',
     'name_en' => 'Al-Amal Al-Mushriq Kindergarten',
@@ -45646,7 +45614,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1418 => 
+  1417 => 
   array (
     'name' => 'روضة ن والقلم القرآنية الخاصة',
     'name_en' => 'Noon Wal Qalam Quranic Kindergarten',
@@ -45677,7 +45645,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1419 => 
+  1418 => 
   array (
     'name' => 'رياض مؤسسة د. أبوذر الكودة التعليمية — فرع الكلاكلة',
     'name_en' => 'Dr. Abuzar Al-Koda Kindergarten Kalakla',
@@ -45710,7 +45678,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1420 => 
+  1419 => 
   array (
     'name' => 'روضة الخنساء — المجلس الإفريقي للتعليم',
     'name_en' => 'Al-Khansa Kindergarten African Council',
@@ -45741,7 +45709,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1421 => 
+  1420 => 
   array (
     'name' => 'روضة مؤسسة التراث التعليمية',
     'name_en' => 'Al-Turath Educational Kindergarten',
@@ -45772,7 +45740,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1422 => 
+  1421 => 
   array (
     'name' => 'روضة الأطباء النموذجية الكلاكلة',
     'name_en' => 'Al-Atibba Model Kindergarten Kalakla',
@@ -45803,7 +45771,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1423 => 
+  1422 => 
   array (
     'name' => 'روضة براعم الكلاكلة الخاصة',
     'name_en' => 'Baraem Al-Kalakla Kindergarten',
@@ -45834,7 +45802,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1424 => 
+  1423 => 
   array (
     'name' => 'روضة الأندلس القرآنية النموذجية',
     'name_en' => 'Al-Andalus Quranic Kindergarten',
@@ -45865,7 +45833,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1425 => 
+  1424 => 
   array (
     'name' => 'روضة جامع الكون القرآنية',
     'name_en' => 'Jamea Al-Kown Quranic Kindergarten',
@@ -45896,7 +45864,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1426 => 
+  1425 => 
   array (
     'name' => 'روضة براعم النصر الخاصة',
     'name_en' => 'Baraem Al-Nasr Kindergarten',
@@ -45927,7 +45895,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1427 => 
+  1426 => 
   array (
     'name' => 'روضة الأمل النموذجية الكلاكلة',
     'name_en' => 'Al-Amal Model Kindergarten Kalakla',
@@ -45958,7 +45926,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1428 => 
+  1427 => 
   array (
     'name' => 'روضة ومدارس بيت الأسرة والطفل ود مدني',
     'name_en' => 'Family & Child Kindergarten Wad Madani',
@@ -45989,7 +45957,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1429 => 
+  1428 => 
   array (
     'name' => 'روضة التربية الحديثة ود مدني',
     'name_en' => 'Al-Tarbiyah Al-Hadeetha Kindergarten Wad Madani',
@@ -46020,7 +45988,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1430 => 
+  1429 => 
   array (
     'name' => 'روضة القبس النموذجية ود مدني',
     'name_en' => 'Al-Qabas Model Kindergarten Wad Madani',
@@ -46051,7 +46019,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1431 => 
+  1430 => 
   array (
     'name' => 'روضة الأوائل الخاصة ود مدني',
     'name_en' => 'Al-Awael Private Kindergarten Wad Madani',
@@ -46082,7 +46050,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1432 => 
+  1431 => 
   array (
     'name' => 'روضة الياسمين الخاصة بمعهد الأستاذ',
     'name_en' => 'Al-Yasmeen Kindergarten Ustaz Institute',
@@ -46113,7 +46081,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1433 => 
+  1432 => 
   array (
     'name' => 'روضة ود مدني الإنجليزية النموذجية',
     'name_en' => 'Wad Madani English Model Kindergarten',
@@ -46144,7 +46112,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1434 => 
+  1433 => 
   array (
     'name' => 'روضة براعم الجزيرة النموذجية',
     'name_en' => 'Baraem Al-Gezira Kindergarten',
@@ -46175,7 +46143,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1435 => 
+  1434 => 
   array (
     'name' => 'روضة طيور المحبة الخاصة',
     'name_en' => 'Tuyoor Al-Mahabba Kindergarten',
@@ -46206,7 +46174,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1436 => 
+  1435 => 
   array (
     'name' => 'روضة المستقبل الواعد',
     'name_en' => 'Al-Mustaqbal Al-Waed Kindergarten',
@@ -46237,7 +46205,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1437 => 
+  1436 => 
   array (
     'name' => 'روضة أحباب الرحمن القرآنية',
     'name_en' => 'Ahbab Al-Rahman Kindergarten',
@@ -46268,7 +46236,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1438 => 
+  1437 => 
   array (
     'name' => 'روضة براعم الفيل النموذجية',
     'name_en' => 'Baraem Al-Feel Kindergarten',
@@ -46299,7 +46267,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1439 => 
+  1438 => 
   array (
     'name' => 'روضة سنكات النموذجية الخاصة',
     'name_en' => 'Sinkat Model Kindergarten',
@@ -46330,7 +46298,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1440 => 
+  1439 => 
   array (
     'name' => 'روضة النور الساطع',
     'name_en' => 'Al-Noor Al-Satea Kindergarten',
@@ -46361,7 +46329,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1441 => 
+  1440 => 
   array (
     'name' => 'روضة زهور الأمل الخاصة',
     'name_en' => 'Zohoor Al-Amal Kindergarten',
@@ -46392,7 +46360,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1442 => 
+  1441 => 
   array (
     'name' => 'روضة شمس الهدى للأطفال',
     'name_en' => 'Shams Al-Huda Kindergarten',
@@ -46423,7 +46391,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1443 => 
+  1442 => 
   array (
     'name' => 'روضة بركات الحديثة',
     'name_en' => 'Barakat Modern Kindergarten',
@@ -46454,7 +46422,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1444 => 
+  1443 => 
   array (
     'name' => 'روضة حنتوب النموذجية',
     'name_en' => 'Hantoub Model Kindergarten',
@@ -46486,7 +46454,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1445 => 
+  1444 => 
   array (
     'name' => 'روضة الواحة الخاصة ود مدني',
     'name_en' => 'Al-Waha Private Kindergarten Wad Madani',
@@ -46517,7 +46485,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1446 => 
+  1445 => 
   array (
     'name' => 'روضة الإيمان النموذجية ود مدني',
     'name_en' => 'Al-Iman Model Kindergarten Wad Madani',
@@ -46548,7 +46516,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1447 => 
+  1446 => 
   array (
     'name' => 'روضة ينابيع المعرفة',
     'name_en' => 'Yanabee Al-Maarifa Kindergarten',
@@ -46579,7 +46547,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1448 => 
+  1447 => 
   array (
     'name' => 'روضة براعم النصر الخاصة',
     'name_en' => 'Baraem Al-Nasr Kindergarten Madani',
@@ -46610,7 +46578,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1449 => 
+  1448 => 
   array (
     'name' => 'روضة رياض الصالحين ود مدني',
     'name_en' => 'Riyad Al-Saliheen Kindergarten Madani',
@@ -46641,7 +46609,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1450 => 
+  1449 => 
   array (
     'name' => 'روضة ومدارس انوفيشن العالمية الحصاحيصا',
     'name_en' => 'Innovation International Kindergarten Hasaheisa',
@@ -46672,7 +46640,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1451 => 
+  1450 => 
   array (
     'name' => 'روضة مدارس التميز الخاصة الحصاحيصا',
     'name_en' => 'Al-Tamayuz Private Kindergarten Hasaheisa',
@@ -46703,7 +46671,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1452 => 
+  1451 => 
   array (
     'name' => 'روضة براعم الحصاحيصا الخاصة',
     'name_en' => 'Baraem Al-Hasaheisa Kindergarten',
@@ -46734,7 +46702,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1453 => 
+  1452 => 
   array (
     'name' => 'روضة الأمل الخاصة الحصاحيصا',
     'name_en' => 'Al-Amal Private Kindergarten Hasaheisa',
@@ -46765,7 +46733,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1454 => 
+  1453 => 
   array (
     'name' => 'روضة الضقالة النموذجية',
     'name_en' => 'Al-Daqala Model Kindergarten',
@@ -46796,7 +46764,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1455 => 
+  1454 => 
   array (
     'name' => 'روضة السلام للأطفال الحصاحيصا',
     'name_en' => 'Al-Salam Children Kindergarten Hasaheisa',
@@ -46827,7 +46795,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1456 => 
+  1455 => 
   array (
     'name' => 'روضة مكتبة الإخوة التربوية',
     'name_en' => 'Al-Ikhwah Educational Kindergarten Hasaheisa',
@@ -46858,7 +46826,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1457 => 
+  1456 => 
   array (
     'name' => 'روضة الثريا الخاصة للتعليم العربي والإنجليزي',
     'name_en' => 'Al-Thuraya Private Kindergarten Rifaa',
@@ -46889,7 +46857,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1458 => 
+  1457 => 
   array (
     'name' => 'روضة رفاعة الطهطاوي للأطفال',
     'name_en' => 'Rifaa Al-Tahtawi Kindergarten',
@@ -46920,7 +46888,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1459 => 
+  1458 => 
   array (
     'name' => 'روضة براعم البطانة الخاصة',
     'name_en' => 'Baraem Al-Butana Kindergarten',
@@ -46951,7 +46919,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1460 => 
+  1459 => 
   array (
     'name' => 'روضة الإشراق النموذجية رفاعة',
     'name_en' => 'Al-Ishraq Model Kindergarten Rifaa',
@@ -46982,7 +46950,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1461 => 
+  1460 => 
   array (
     'name' => 'روضة الهداية الخاصة برفاعة',
     'name_en' => 'Al-Hidaya Private Kindergarten Rifaa',
@@ -47013,7 +46981,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1462 => 
+  1461 => 
   array (
     'name' => 'روضة ومدرسة الأكاديمية العلمية المناقل',
     'name_en' => 'Scientific Academy Kindergarten Al-Managil',
@@ -47044,7 +47012,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1463 => 
+  1462 => 
   array (
     'name' => 'روضة براعم المناقل النموذجية',
     'name_en' => 'Baraem Al-Managil Kindergarten',
@@ -47075,7 +47043,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1464 => 
+  1463 => 
   array (
     'name' => 'روضة الفجر الجديد الخاصة',
     'name_en' => 'Al-Fajr Al-Jadeed Kindergarten Managil',
@@ -47106,7 +47074,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1465 => 
+  1464 => 
   array (
     'name' => 'روضة الوفاء النموذجية المناقل',
     'name_en' => 'Al-Wafa Model Kindergarten Managil',
@@ -47137,7 +47105,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1466 => 
+  1465 => 
   array (
     'name' => 'روضة ومدرسة اقرأ وارتقِ القرآنية',
     'name_en' => 'Iqraa Wartaqi Quranic Kindergarten Port Sudan',
@@ -47168,7 +47136,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1467 => 
+  1466 => 
   array (
     'name' => 'روضة ومدرسة غراس القرآنية',
     'name_en' => 'Ghiras Quranic Kindergarten Port Sudan',
@@ -47199,7 +47167,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1468 => 
+  1467 => 
   array (
     'name' => 'روضة ومدارس بيت الأسرة والطفل بورتسودان',
     'name_en' => 'Family & Child Kindergarten Port Sudan',
@@ -47230,7 +47198,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1469 => 
+  1468 => 
   array (
     'name' => 'روضة رواد القبس النموذجية بورتسودان',
     'name_en' => 'Rowad Al-Qabas Kindergarten Port Sudan',
@@ -47261,7 +47229,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1470 => 
+  1469 => 
   array (
     'name' => 'مدارس والتعليم البريطانية فرع بورتسودان — قسم الروضة',
     'name_en' => 'British Educational Preschool Port Sudan',
@@ -47292,7 +47260,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1471 => 
+  1470 => 
   array (
     'name' => 'حضانة وروضة دريم كيدز',
     'name_en' => 'Dream Kids Nursery & Kindergarten Port Sudan',
@@ -47323,7 +47291,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1472 => 
+  1471 => 
   array (
     'name' => 'روضة الماهر بالقرآن',
     'name_en' => 'Al-Mahir Bil-Quran Kindergarten Port Sudan',
@@ -47354,7 +47322,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1473 => 
+  1472 => 
   array (
     'name' => 'روضة أحمدوناب الخاصة للأطفال',
     'name_en' => 'Ahmadonab Private Kindergarten Port Sudan',
@@ -47385,7 +47353,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1474 => 
+  1473 => 
   array (
     'name' => 'روضة سنابل الخير للمجلس الأفريقي',
     'name_en' => 'Sanabil Al-Khair African Council KG',
@@ -47416,7 +47384,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1475 => 
+  1474 => 
   array (
     'name' => 'روضة الرحيق المختوم الخاصة',
     'name_en' => 'Al-Raheeq Al-Makhtoom Kindergarten Port Sudan',
@@ -47447,7 +47415,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1476 => 
+  1475 => 
   array (
     'name' => 'روضة نور الإيمان للمجلس الأفريقي',
     'name_en' => 'Noor Al-Iman African Council KG Port Sudan',
@@ -47478,7 +47446,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1477 => 
+  1476 => 
   array (
     'name' => 'روضة أطفال الوطن الخاصة',
     'name_en' => 'Atfal Al-Watan Kindergarten Port Sudan',
@@ -47509,7 +47477,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1478 => 
+  1477 => 
   array (
     'name' => 'روضة براعم البحر الأحمر',
     'name_en' => 'Baraem Al-Bahr Al-Ahmar Kindergarten',
@@ -47540,7 +47508,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1479 => 
+  1478 => 
   array (
     'name' => 'روضة طيور الميناء النموذجية',
     'name_en' => 'Tuyoor Al-Mina Kindergarten',
@@ -47571,7 +47539,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1480 => 
+  1479 => 
   array (
     'name' => 'روضة المنار النموذجية الخاصة',
     'name_en' => 'Al-Manar Model Kindergarten Port Sudan',
@@ -47602,7 +47570,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1481 => 
+  1480 => 
   array (
     'name' => 'روضة أم القرى الخاصة بورتسودان',
     'name_en' => 'Umm Al-Qura Private Kindergarten',
@@ -47633,7 +47601,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1482 => 
+  1481 => 
   array (
     'name' => 'روضة البشائر الحديثة للأطفال',
     'name_en' => 'Al-Bashayer Modern Kindergarten',
@@ -47664,7 +47632,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1483 => 
+  1482 => 
   array (
     'name' => 'روضة الزهور الخاصة بورتسودان',
     'name_en' => 'Al-Zohoor Private Kindergarten Port Sudan',
@@ -47695,7 +47663,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1484 => 
+  1483 => 
   array (
     'name' => 'روضة الإيمان النموذجية بورتسودان',
     'name_en' => 'Al-Iman Model Kindergarten Port Sudan',
@@ -47726,7 +47694,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1485 => 
+  1484 => 
   array (
     'name' => 'روضة دار النعيم للأطفال',
     'name_en' => 'Dar Al-Naeem Preschool Port Sudan',
@@ -47757,7 +47725,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1486 => 
+  1485 => 
   array (
     'name' => 'روضة الأمل النموذجية بورتسودان',
     'name_en' => 'Al-Amal Model Kindergarten Port Sudan',
@@ -47788,7 +47756,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1487 => 
+  1486 => 
   array (
     'name' => 'روضة شمس الأصيل الخاصة',
     'name_en' => 'Shams Al-Aseel Kindergarten Port Sudan',
@@ -47819,7 +47787,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1488 => 
+  1487 => 
   array (
     'name' => 'روضة براعم الساحل للأطفال',
     'name_en' => 'Baraem Al-Sahel Kindergarten Port Sudan',
@@ -47850,7 +47818,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1489 => 
+  1488 => 
   array (
     'name' => 'روضة براعم النور الخاصة بورتسودان',
     'name_en' => 'Baraem Al-Noor Kindergarten Port Sudan',
@@ -47881,7 +47849,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1490 => 
+  1489 => 
   array (
     'name' => 'روضة ومدرسة الإيمان الخاصة سواكن',
     'name_en' => 'Al-Iman Private Kindergarten Suakin',
@@ -47912,7 +47880,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1491 => 
+  1490 => 
   array (
     'name' => 'روضة براعم سواكن التراثية',
     'name_en' => 'Baraem Suakin Heritage Kindergarten',
@@ -47943,7 +47911,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1492 => 
+  1491 => 
   array (
     'name' => 'روضة سواكن النموذجية الخاصة',
     'name_en' => 'Suakin Model Kindergarten',
@@ -47974,7 +47942,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1493 => 
+  1492 => 
   array (
     'name' => 'روضة المنار الساحلية سواكن',
     'name_en' => 'Al-Manar Coastal Kindergarten Suakin',
@@ -48005,7 +47973,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1494 => 
+  1493 => 
   array (
     'name' => 'روضة السعد الخاصة عطبرة',
     'name_en' => 'Al-Saad Private Kindergarten Atbara',
@@ -48036,7 +48004,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1495 => 
+  1494 => 
   array (
     'name' => 'روضة الوصال النموذجية عطبرة',
     'name_en' => 'Al-Wisal Model Kindergarten Atbara',
@@ -48067,7 +48035,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1496 => 
+  1495 => 
   array (
     'name' => 'روضة ملاذ النموذجية عطبرة',
     'name_en' => 'Malaz Model Kindergarten Atbara',
@@ -48098,7 +48066,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1497 => 
+  1496 => 
   array (
     'name' => 'روضة الأميرة الخاصة عطبرة',
     'name_en' => 'Al-Amira Private Kindergarten Atbara',
@@ -48129,7 +48097,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1498 => 
+  1497 => 
   array (
     'name' => 'روضة الاتحاد الخاصة عطبرة',
     'name_en' => 'Al-Ittihad Private Kindergarten Atbara',
@@ -48160,7 +48128,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1499 => 
+  1498 => 
   array (
     'name' => 'روضة براعم الحديد والنار',
     'name_en' => 'Baraem Atbara Kindergarten',
@@ -48191,7 +48159,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1500 => 
+  1499 => 
   array (
     'name' => 'روضة الفكي مدني النموذجية',
     'name_en' => 'Al-Faki Madani Model Kindergarten',
@@ -48222,7 +48190,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1501 => 
+  1500 => 
   array (
     'name' => 'روضة الشيخ خليفة الخاصة عطبرة',
     'name_en' => 'Sheikh Khalifa Private Kindergarten Atbara',
@@ -48253,7 +48221,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1502 => 
+  1501 => 
   array (
     'name' => 'روضة السيالة النموذجية عطبرة',
     'name_en' => 'Al-Sayala Model Kindergarten Atbara',
@@ -48284,7 +48252,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1503 => 
+  1502 => 
   array (
     'name' => 'روضة الامتداد الحديثة عطبرة',
     'name_en' => 'Al-Imtidad Modern Kindergarten Atbara',
@@ -48315,7 +48283,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1504 => 
+  1503 => 
   array (
     'name' => 'روضة أزهار الوحدة الخاصة',
     'name_en' => 'Azhar Al-Wehda Kindergarten Atbara',
@@ -48346,7 +48314,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1505 => 
+  1504 => 
   array (
     'name' => 'روضة المربعات الخاصة عطبرة',
     'name_en' => 'Al-Murabbaat Private Kindergarten Atbara',
@@ -48377,7 +48345,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1506 => 
+  1505 => 
   array (
     'name' => 'روضة أجيال النيل عطبرة',
     'name_en' => 'Ajyal Al-Neel Kindergarten Atbara',
@@ -48408,7 +48376,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1507 => 
+  1506 => 
   array (
     'name' => 'روضة براعم النور النموذجية السكة حديد',
     'name_en' => 'Baraem Al-Noor Kindergarten Railway Atbara',
@@ -48439,7 +48407,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1508 => 
+  1507 => 
   array (
     'name' => 'روضة ومدارس الطموح التعليمية شندي',
     'name_en' => 'Al-Tomouh Educational Kindergarten Shendi',
@@ -48470,7 +48438,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1509 => 
+  1508 => 
   array (
     'name' => 'روضة الملائكة الصغار بشندي',
     'name_en' => 'Little Angels Kindergarten Shendi',
@@ -48501,7 +48469,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1510 => 
+  1509 => 
   array (
     'name' => 'روضة التوحيد الخاصة كبوشية',
     'name_en' => 'Al-Tawheed Private Kindergarten Kabushiya',
@@ -48532,7 +48500,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1511 => 
+  1510 => 
   array (
     'name' => 'روضة براعم المك نمر الخاصة',
     'name_en' => 'Baraem Al-Mek Nimir Kindergarten Shendi',
@@ -48563,7 +48531,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1512 => 
+  1511 => 
   array (
     'name' => 'روضة حلة طه النموذجية شندي',
     'name_en' => 'Hilla Taha Model Kindergarten Shendi',
@@ -48594,7 +48562,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1513 => 
+  1512 => 
   array (
     'name' => 'روضة الدويم الخاصة بشندي',
     'name_en' => 'Al-Dueim Private Kindergarten Shendi',
@@ -48625,7 +48593,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1514 => 
+  1513 => 
   array (
     'name' => 'روضة شندي النموذجية مربع 9',
     'name_en' => 'Shendi Model Kindergarten Block 9',
@@ -48656,7 +48624,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1515 => 
+  1514 => 
   array (
     'name' => 'روضة دار الأرقم القرآنية شندي',
     'name_en' => 'Dar Al-Arqam Quranic Kindergarten Shendi',
@@ -48687,7 +48655,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1516 => 
+  1515 => 
   array (
     'name' => 'روضة النبراس الحديثة بشندي',
     'name_en' => 'Al-Nibras Modern Kindergarten Shendi',
@@ -48718,7 +48686,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1517 => 
+  1516 => 
   array (
     'name' => 'روضة أجيال المستقبل الدامر مربع 9',
     'name_en' => 'Ajyal Al-Mustaqbal Kindergarten Al-Damer',
@@ -48749,7 +48717,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1518 => 
+  1517 => 
   array (
     'name' => 'روضة تساهيل النموذجية الدامر',
     'name_en' => 'Tasaheel Model Kindergarten Al-Damer',
@@ -48780,7 +48748,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1519 => 
+  1518 => 
   array (
     'name' => 'روضة نور البيان الدامر',
     'name_en' => 'Noor Al-Bayan Kindergarten Al-Damer',
@@ -48811,7 +48779,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1520 => 
+  1519 => 
   array (
     'name' => 'روضة الشاطئ الخاصة بالدامر',
     'name_en' => 'Al-Shati Private Kindergarten Al-Damer',
@@ -48842,7 +48810,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1521 => 
+  1520 => 
   array (
     'name' => 'روضة المقرن النموذجية الدامر',
     'name_en' => 'Al-Muqran Model Kindergarten Al-Damer',
@@ -48873,7 +48841,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1522 => 
+  1521 => 
   array (
     'name' => 'روضة بربر النموذجية الخاصة',
     'name_en' => 'Berber Model Kindergarten',
@@ -48904,7 +48872,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1523 => 
+  1522 => 
   array (
     'name' => 'روضة القلعة الخاصة ببربر',
     'name_en' => 'Al-Qalaa Private Kindergarten Berber',
@@ -48935,7 +48903,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1524 => 
+  1523 => 
   array (
     'name' => 'روضة وحضانة كيدز كير دنقلا',
     'name_en' => 'Kids Care Kindergarten & Nursery Dongola',
@@ -48966,7 +48934,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1525 => 
+  1524 => 
   array (
     'name' => 'روضة الرضوان الخاصة دنقلا',
     'name_en' => 'Al-Ridwan Private Kindergarten Dongola',
@@ -48997,7 +48965,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1526 => 
+  1525 => 
   array (
     'name' => 'روضة الجيل الصاعد الخاصة دنقلا',
     'name_en' => 'Al-Jeel Al-Saeed Kindergarten Dongola',
@@ -49028,7 +48996,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1527 => 
+  1526 => 
   array (
     'name' => 'روضة براعم دنقلا النموذجية',
     'name_en' => 'Baraem Dongola Kindergarten',
@@ -49059,7 +49027,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1528 => 
+  1527 => 
   array (
     'name' => 'روضة شمس الشمال دنقلا',
     'name_en' => 'Shams Al-Shamal Kindergarten Dongola',
@@ -49090,7 +49058,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1529 => 
+  1528 => 
   array (
     'name' => 'روضة أركويت النموذجية دنقلا',
     'name_en' => 'Arkweet Model Kindergarten Dongola',
@@ -49121,7 +49089,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1530 => 
+  1529 => 
   array (
     'name' => 'روضة الحلة الجديدة دنقلا',
     'name_en' => 'Al-Hilla Al-Jadeeda Kindergarten Dongola',
@@ -49152,7 +49120,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1531 => 
+  1530 => 
   array (
     'name' => 'روضة دنقلا شمال الخاصة',
     'name_en' => 'Dongola North Private Kindergarten',
@@ -49183,7 +49151,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1532 => 
+  1531 => 
   array (
     'name' => 'روضة السليم النموذجية',
     'name_en' => 'Al-Seleem Model Kindergarten',
@@ -49214,7 +49182,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1533 => 
+  1532 => 
   array (
     'name' => 'روضة الزبير الخاصة دنقلا',
     'name_en' => 'Al-Zubair Private Kindergarten Dongola',
@@ -49245,7 +49213,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1534 => 
+  1533 => 
   array (
     'name' => 'روضة الواحة الخضراء دنقلا',
     'name_en' => 'Al-Waha Al-Khadra Kindergarten Dongola',
@@ -49276,7 +49244,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1535 => 
+  1534 => 
   array (
     'name' => 'روضة براعم الأمل دنقلا',
     'name_en' => 'Baraem Al-Amal Kindergarten Dongola',
@@ -49307,7 +49275,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1536 => 
+  1535 => 
   array (
     'name' => 'روضة رياض الصالحين دنقلا',
     'name_en' => 'Riyad Al-Saliheen Kindergarten Dongola',
@@ -49338,7 +49306,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1537 => 
+  1536 => 
   array (
     'name' => 'روضة النور القرآنية دنقلا العجوز',
     'name_en' => 'Al-Noor Quranic Kindergarten Old Dongola',
@@ -49369,7 +49337,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1538 => 
+  1537 => 
   array (
     'name' => 'روضة مروي النموذجية الخاصة',
     'name_en' => 'Merowe Model Kindergarten',
@@ -49400,7 +49368,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1539 => 
+  1538 => 
   array (
     'name' => 'روضة براعم الكرو الخاصة',
     'name_en' => 'Baraem Al-Kurru Kindergarten',
@@ -49431,7 +49399,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1540 => 
+  1539 => 
   array (
     'name' => 'روضة النصر الخاصة بمروي',
     'name_en' => 'Al-Nasr Private Kindergarten Merowe',
@@ -49462,7 +49430,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1541 => 
+  1540 => 
   array (
     'name' => 'روضة كريمة الحديثة للأطفال',
     'name_en' => 'Karima Modern Kindergarten',
@@ -49493,7 +49461,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1542 => 
+  1541 => 
   array (
     'name' => 'روضة جبل البركل للطفولة المبكرة',
     'name_en' => 'Jabal Barkal Preschool Karima',
@@ -49524,7 +49492,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1543 => 
+  1542 => 
   array (
     'name' => 'روضة نوري النموذجية الخاصة',
     'name_en' => 'Nuri Model Kindergarten',
@@ -49555,7 +49523,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1544 => 
+  1543 => 
   array (
     'name' => 'روضة الأندلس الخاصة كوستي',
     'name_en' => 'Al-Andalus Private Kindergarten Kosti',
@@ -49586,7 +49554,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1545 => 
+  1544 => 
   array (
     'name' => 'روضة البسملة الخاصة كوستي',
     'name_en' => 'Al-Basmalah Private Kindergarten Kosti',
@@ -49617,7 +49585,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1546 => 
+  1545 => 
   array (
     'name' => 'روضة الريادة الخاصة كوستي',
     'name_en' => 'Al-Riyada Private Kindergarten Kosti',
@@ -49648,7 +49616,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1547 => 
+  1546 => 
   array (
     'name' => 'روضة براعم كوستي النموذجية',
     'name_en' => 'Baraem Kosti Model Kindergarten',
@@ -49679,7 +49647,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1548 => 
+  1547 => 
   array (
     'name' => 'روضة النصر الحديثة كوستي',
     'name_en' => 'Al-Nasr Modern Kindergarten Kosti',
@@ -49710,7 +49678,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1549 => 
+  1548 => 
   array (
     'name' => 'روضة قوز السلام للأطفال كوستي',
     'name_en' => 'Qoz Al-Salam Kindergarten Kosti',
@@ -49741,7 +49709,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1550 => 
+  1549 => 
   array (
     'name' => 'روضة الحلة الجديدة الخاصة كوستي',
     'name_en' => 'Al-Hilla Al-Jadeeda Kindergarten Kosti',
@@ -49772,7 +49740,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1551 => 
+  1550 => 
   array (
     'name' => 'روضة طيور الجنة كوستي',
     'name_en' => 'Tuyoor Al-Jannah Kindergarten Kosti',
@@ -49803,7 +49771,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1552 => 
+  1551 => 
   array (
     'name' => 'روضة الإيمان والتقوى كوستي',
     'name_en' => 'Al-Iman Wal-Taqwa Kindergarten Kosti',
@@ -49834,7 +49802,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1553 => 
+  1552 => 
   array (
     'name' => 'روضة المستقبل الواعد كوستي',
     'name_en' => 'Al-Mustaqbal Al-Waed Kindergarten Kosti',
@@ -49865,7 +49833,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1554 => 
+  1553 => 
   array (
     'name' => 'روضة أحباب الله الخاصة كوستي',
     'name_en' => 'Ahbab Allah Kindergarten Kosti',
@@ -49896,7 +49864,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1555 => 
+  1554 => 
   array (
     'name' => 'روضة الزهور النموذجية كوستي',
     'name_en' => 'Al-Zohoor Model Kindergarten Kosti',
@@ -49927,7 +49895,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1556 => 
+  1555 => 
   array (
     'name' => 'روضة النبراس الخاصة بربك',
     'name_en' => 'Al-Nibras Kindergarten Rabak',
@@ -49958,7 +49926,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1557 => 
+  1556 => 
   array (
     'name' => 'روضة السلام النموذجية بربك',
     'name_en' => 'Al-Salam Model Kindergarten Rabak',
@@ -49989,7 +49957,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1558 => 
+  1557 => 
   array (
     'name' => 'روضة براعم الجبل بربك',
     'name_en' => 'Baraem Al-Jabal Kindergarten Rabak',
@@ -50020,7 +49988,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1559 => 
+  1558 => 
   array (
     'name' => 'روضة التضامن الخاصة بربك',
     'name_en' => 'Al-Tadamon Private Kindergarten Rabak',
@@ -50051,7 +50019,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1560 => 
+  1559 => 
   array (
     'name' => 'روضة ربك الحديثة مربع 7',
     'name_en' => 'Rabak Modern Kindergarten Block 7',
@@ -50082,7 +50050,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1561 => 
+  1560 => 
   array (
     'name' => 'روضة النيل الأبيض للأطفال بربك',
     'name_en' => 'White Nile Children Kindergarten Rabak',
@@ -50113,7 +50081,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1562 => 
+  1561 => 
   array (
     'name' => 'روضة الإشراق الخاصة بربك',
     'name_en' => 'Al-Ishraq Private Kindergarten Rabak',
@@ -50144,7 +50112,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1563 => 
+  1562 => 
   array (
     'name' => 'روضة سمارت كيدز العالمية بالدويم',
     'name_en' => 'Smart Kids International Kindergarten Ed Dueim',
@@ -50175,7 +50143,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1564 => 
+  1563 => 
   array (
     'name' => 'روضة الثورة النموذجية الدويم',
     'name_en' => 'Al-Thawra Model Kindergarten Ed Dueim',
@@ -50206,7 +50174,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1565 => 
+  1564 => 
   array (
     'name' => 'روضة بانت الخاصة بالدويم',
     'name_en' => 'Bant Private Kindergarten Ed Dueim',
@@ -50237,7 +50205,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1566 => 
+  1565 => 
   array (
     'name' => 'روضة الصفا الحديثة الدويم',
     'name_en' => 'Al-Safa Modern Kindergarten Ed Dueim',
@@ -50268,7 +50236,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1567 => 
+  1566 => 
   array (
     'name' => 'روضة بخت الرضا للأطفال بالدويم',
     'name_en' => 'Bakht Al-Ruda Children Kindergarten',
@@ -50300,7 +50268,7 @@ return array (
     'historic_badge_reason' => 'صرح وطني تاريخي',
     'historic_votes' => 0,
   ),
-  1568 => 
+  1567 => 
   array (
     'name' => 'روضة براعم الدويم الخاصة',
     'name_en' => 'Baraem Al-Dueim Kindergarten',
@@ -50331,7 +50299,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1569 => 
+  1568 => 
   array (
     'name' => 'روضة حي المؤسسات القضارف',
     'name_en' => 'Hay Al-Moassasat Kindergarten Gadarif',
@@ -50362,7 +50330,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1570 => 
+  1569 => 
   array (
     'name' => 'روضة حي الموظفين الحكومية النموذجية',
     'name_en' => 'Hay Al-Mowazafeen Kindergarten Gadarif',
@@ -50394,7 +50362,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1571 => 
+  1570 => 
   array (
     'name' => 'روضة أبايو الخاصة بالقضارف',
     'name_en' => 'Abayou Private Kindergarten Gadarif',
@@ -50425,7 +50393,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1572 => 
+  1571 => 
   array (
     'name' => 'روضة الصوفي النموذجية القضارف',
     'name_en' => 'Al-Soufi Model Kindergarten Gadarif',
@@ -50456,7 +50424,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1573 => 
+  1572 => 
   array (
     'name' => 'روضة ديم بكر الخاصة القضارف',
     'name_en' => 'Deim Bakr Private Kindergarten Gadarif',
@@ -50487,7 +50455,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1574 => 
+  1573 => 
   array (
     'name' => 'روضة ديم النور للأطفال القضارف',
     'name_en' => 'Deim Al-Noor Kindergarten Gadarif',
@@ -50518,7 +50486,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1575 => 
+  1574 => 
   array (
     'name' => 'روضة براعم القضارف الخاصة',
     'name_en' => 'Baraem Al-Gadarif Kindergarten',
@@ -50549,7 +50517,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1576 => 
+  1575 => 
   array (
     'name' => 'روضة كسلا — المجلس الإفريقي للتعليم',
     'name_en' => 'African Council Kindergarten Kassala',
@@ -50580,7 +50548,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1577 => 
+  1576 => 
   array (
     'name' => 'روضة مؤسسة بشائر الخير التعليمية الخاصة',
     'name_en' => 'Bashayer Al-Khair Kindergarten Kassala',
@@ -50611,7 +50579,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1578 => 
+  1577 => 
   array (
     'name' => 'روضة الضفة الغربية — المجلس الإفريقي بكسلا',
     'name_en' => 'West Bank African Council KG Kassala',
@@ -50642,7 +50610,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1579 => 
+  1578 => 
   array (
     'name' => 'روضة ومدارس صناع الأمل العالمية وروضة طيور الأمل',
     'name_en' => 'Tuyoor Al-Amal Kindergarten Kassala',
@@ -50673,7 +50641,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1580 => 
+  1579 => 
   array (
     'name' => 'روضة الرعاية الاجتماعية كسلا',
     'name_en' => 'Social Welfare Kindergarten Kassala',
@@ -50704,7 +50672,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1581 => 
+  1580 => 
   array (
     'name' => 'روضة الختمية النموذجية كسلا',
     'name_en' => 'Al-Khatmiya Model Kindergarten Kassala',
@@ -50735,7 +50703,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1582 => 
+  1581 => 
   array (
     'name' => 'روضة مكرام الخاصة بكسلا',
     'name_en' => 'Makram Private Kindergarten Kassala',
@@ -50766,7 +50734,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1583 => 
+  1582 => 
   array (
     'name' => 'روضة السوريبة للأطفال بكسلا',
     'name_en' => 'Al-Soreeba Children Kindergarten Kassala',
@@ -50797,7 +50765,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1584 => 
+  1583 => 
   array (
     'name' => 'روضة وحضانة نادي المصارف سنار',
     'name_en' => 'Bank Club Nursery & Kindergarten Sennar',
@@ -50828,7 +50796,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1585 => 
+  1584 => 
   array (
     'name' => 'روضة الأمل الخاصة برماش سنار',
     'name_en' => 'Al-Amal Private Kindergarten Rammash',
@@ -50859,7 +50827,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1586 => 
+  1585 => 
   array (
     'name' => 'روضة المزاد النموذجية سنار',
     'name_en' => 'Al-Mazad Model Kindergarten Sennar',
@@ -50890,7 +50858,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1587 => 
+  1586 => 
   array (
     'name' => 'روضة الدوحة الحديثة بسنار',
     'name_en' => 'Al-Doha Modern Kindergarten Sennar',
@@ -50921,7 +50889,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1588 => 
+  1587 => 
   array (
     'name' => 'روضة سنجة النموذجية الخاصة',
     'name_en' => 'Singa Model Kindergarten',
@@ -50952,7 +50920,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1589 => 
+  1588 => 
   array (
     'name' => 'روضة حي الدرجة بسنجة',
     'name_en' => 'Hay Al-Daraja Kindergarten Singa',
@@ -50983,7 +50951,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1590 => 
+  1589 => 
   array (
     'name' => 'روضة تبارك النموذجية بالأبيض',
     'name_en' => 'Tabarak Model Kindergarten El Obeid',
@@ -51014,7 +50982,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1591 => 
+  1590 => 
   array (
     'name' => 'روضة المجلس الأفريقي للتعليم بالأبيض',
     'name_en' => 'African Council Kindergarten El Obeid',
@@ -51045,7 +51013,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1592 => 
+  1591 => 
   array (
     'name' => 'روضة الصفا الخاصة بالأبيض',
     'name_en' => 'Al-Safa Private Kindergarten El Obeid',
@@ -51076,7 +51044,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1593 => 
+  1592 => 
   array (
     'name' => 'روضة الشريف النموذجية بالأبيض',
     'name_en' => 'Al-Shareef Model Kindergarten El Obeid',
@@ -51107,7 +51075,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1594 => 
+  1593 => 
   array (
     'name' => 'روضة براعم طيبة الخاصة بالأبيض',
     'name_en' => 'Baraem Tayba Kindergarten El Obeid',
@@ -51138,7 +51106,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1595 => 
+  1594 => 
   array (
     'name' => 'روضة البترول الحديثة بالأبيض',
     'name_en' => 'Al-Betroal Modern Kindergarten El Obeid',
@@ -51169,7 +51137,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1596 => 
+  1595 => 
   array (
     'name' => 'روضة كردفان النموذجية الخاصة',
     'name_en' => 'Kordofan Model Kindergarten El Obeid',
@@ -51200,7 +51168,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1597 => 
+  1596 => 
   array (
     'name' => 'روضة أجيال الغد بالأبيض',
     'name_en' => 'Ajyal Al-Ghad Kindergarten El Obeid',
@@ -51231,7 +51199,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1598 => 
+  1597 => 
   array (
     'name' => 'روضة النهود النموذجية الخاصة',
     'name_en' => 'En Nahud Model Kindergarten',
@@ -51262,7 +51230,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1599 => 
+  1598 => 
   array (
     'name' => 'روضة براعم السلام بالنهود',
     'name_en' => 'Baraem Al-Salam Kindergarten En Nahud',
@@ -51293,7 +51261,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1600 => 
+  1599 => 
   array (
     'name' => 'روضة أم روابة الخاصة للأطفال',
     'name_en' => 'Um Ruwaba Private Kindergarten',
@@ -51324,7 +51292,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1601 => 
+  1600 => 
   array (
     'name' => 'روضة الانتصار النموذجية بنيالا',
     'name_en' => 'Al-Intisar Model Kindergarten Nyala',
@@ -51355,7 +51323,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1602 => 
+  1601 => 
   array (
     'name' => 'روضة الرحمن الخاصة بنيالا',
     'name_en' => 'Al-Rahman Private Kindergarten Nyala',
@@ -51386,7 +51354,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1603 => 
+  1602 => 
   array (
     'name' => 'روضة براعم نيالا الخاصة',
     'name_en' => 'Baraem Nyala Kindergarten',
@@ -51417,7 +51385,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1604 => 
+  1603 => 
   array (
     'name' => 'روضة وحضانة إسبارك الإنجليزية العالمية الخاصة',
     'name_en' => 'Spark International English Kindergarten and Nursery',
@@ -51448,7 +51416,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1605 => 
+  1604 => 
   array (
     'name' => 'روضة أطفال كورما 1 الفاشر',
     'name_en' => 'Korma 1 Children Kindergarten El Fasher',
@@ -51479,7 +51447,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1606 => 
+  1605 => 
   array (
     'name' => 'روضة الفاشر النموذجية الخاصة',
     'name_en' => 'El Fasher Model Kindergarten',
@@ -51510,7 +51478,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1607 => 
+  1606 => 
   array (
     'name' => 'روضة براعم دارفور بالفاشر',
     'name_en' => 'Baraem Darfur Kindergarten El Fasher',
@@ -51537,6 +51505,161 @@ return array (
     'is_verified' => 0,
     'is_schoplus_client' => 0,
     'rating_avg' => '4.80',
+    'is_historic' => 0,
+    'historic_badge_reason' => NULL,
+    'historic_votes' => 0,
+  ),
+  1607 => 
+  array (
+    'name' => 'روضة ورياض القبس الخرطوم',
+    'name_en' => 'Al-Qabas Kindergarten Khartoum',
+    'slug' => 'روضة-ورياض-القبس-الخرطوم',
+    'school_type' => 'private',
+    'gender_type' => 'mixed',
+    'curriculum' => 'islamic',
+    'country' => 'السودان',
+    'established_year' => '1997',
+    'stages' => 
+    array (
+      0 => 'kindergarten',
+    ),
+    'state' => 'الخرطوم',
+    'city' => 'الخرطوم',
+    'district' => 'أركويت مربع 45',
+    'address' => 'الخرطوم — أركويت مربع 45 — شارع القبس',
+    'phone' => '+249901235510',
+    'whatsapp' => '+249901235510',
+    'email' => NULL,
+    'website' => 'https://alqabasschools.com/branches/رياض-القبس-الخرطوم/',
+    'description' => 'من أعرق رياض الأطفال في السودان تابعة لمؤسسة القبس التعليمية، تعتمد سبورات تفاعلية ومسابقات حفظ القرآن الكريم والتعليم التعاوني بإشراف ماما أمل محمد الأمين.',
+    'status' => 'approved',
+    'is_verified' => 0,
+    'is_schoplus_client' => 0,
+    'rating_avg' => '4.95',
+    'is_historic' => 0,
+    'historic_badge_reason' => NULL,
+    'historic_votes' => 0,
+  ),
+  1608 => 
+  array (
+    'name' => 'روضة ومدارس السندس الدولية',
+    'name_en' => 'Al-Sundus International Kindergarten',
+    'slug' => 'روضة-ومدارس-السندس-الدولية',
+    'school_type' => 'international',
+    'gender_type' => 'mixed',
+    'curriculum' => 'british',
+    'country' => 'السودان',
+    'established_year' => '2011',
+    'stages' => 
+    array (
+      0 => 'kindergarten',
+    ),
+    'state' => 'الخرطوم',
+    'city' => 'الخرطوم',
+    'district' => 'المعمورة',
+    'address' => 'الخرطوم — المعمورة — شارع مدني تقاطع شارع الستين',
+    'phone' => '+249919246452',
+    'whatsapp' => '+249919246452',
+    'email' => NULL,
+    'website' => 'https://facebook.com/alsundus.schools',
+    'description' => 'قسم تمهيدي متطور يضم مستويات البراعم والروضة الأولى والثانية، ويوفر تدريباً لغوياً مكثفاً وأنشطة منتسوري ومسرح عرائس.',
+    'status' => 'approved',
+    'is_verified' => 0,
+    'is_schoplus_client' => 0,
+    'rating_avg' => '4.85',
+    'is_historic' => 0,
+    'historic_badge_reason' => NULL,
+    'historic_votes' => 0,
+  ),
+  1609 => 
+  array (
+    'name' => 'روضة سويتي كيدز النموذجية',
+    'name_en' => 'Sweety Kids Preschool',
+    'slug' => 'روضة-سويتي-كيدز-النموذجية',
+    'school_type' => 'private',
+    'gender_type' => 'mixed',
+    'curriculum' => 'montessori',
+    'country' => 'السودان',
+    'established_year' => '2017',
+    'stages' => 
+    array (
+      0 => 'kindergarten',
+    ),
+    'state' => 'الخرطوم',
+    'city' => 'الخرطوم',
+    'district' => 'جبرة مربع 1',
+    'address' => 'الخرطوم — جبرة مربع 1 — قرب محطة بلال',
+    'phone' => '+249912993344',
+    'whatsapp' => '+249912993344',
+    'email' => NULL,
+    'website' => 'https://facebook.com/sweetykids.sd',
+    'description' => 'روضة أطفال نموذجية تجمع بين التعليم المدرسي الحديث والقاعدة النورانية والأنشطة الترفيهية وحصص التربية البدنية لتنمية عضلات الطفل الدقيقة والكبيرة.',
+    'status' => 'approved',
+    'is_verified' => 0,
+    'is_schoplus_client' => 0,
+    'rating_avg' => '4.80',
+    'is_historic' => 0,
+    'historic_badge_reason' => NULL,
+    'historic_votes' => 0,
+  ),
+  1610 => 
+  array (
+    'name' => 'روضة مؤسسة د. أبوذر الكودة التعليمية — فرع الكلاكلة',
+    'name_en' => 'Dr. Abuzar Al-Koda Kindergarten Kalakla',
+    'slug' => 'روضة-مؤسسة-د-أبوذر-الكودة-التعليمية-فرع-الكلاكلة',
+    'school_type' => 'private',
+    'gender_type' => 'mixed',
+    'curriculum' => 'sudanese',
+    'country' => 'السودان',
+    'established_year' => '2006',
+    'stages' => 
+    array (
+      0 => 'kindergarten',
+    ),
+    'state' => 'الخرطوم',
+    'city' => 'جبل أولياء',
+    'district' => 'الكلاكلة أبو آدم مربع 6',
+    'address' => 'جبل أولياء — الكلاكلة أبو آدم مربع 6 — جوار مسجد الشيخ الركيني',
+    'phone' => '+249125252422',
+    'whatsapp' => '+249917458400',
+    'email' => NULL,
+    'website' => 'https://facebook.com/abuzar.alkoda.kalakla',
+    'description' => 'من أشهر وأكبر صروح رياض الأطفال بجنوب الخرطوم، توفر بيئة تفاعلية وتقنيات تعليم حديثة وخدمة ترحيل بإشراف مباشر.',
+    'status' => 'approved',
+    'is_verified' => 0,
+    'is_schoplus_client' => 0,
+    'rating_avg' => '4.90',
+    'is_historic' => 0,
+    'historic_badge_reason' => NULL,
+    'historic_votes' => 0,
+  ),
+  1611 => 
+  array (
+    'name' => 'روضة ومدارس الأبرار الخاصة — فرع الكلاكلة القبة',
+    'name_en' => 'Al-Abrar Educational Kindergarten Kalakla',
+    'slug' => 'روضة-ومدارس-الأبرار-الخاصة-فرع-الكلاكلة-القبة',
+    'school_type' => 'private',
+    'gender_type' => 'mixed',
+    'curriculum' => 'sudanese',
+    'country' => 'السودان',
+    'established_year' => '2008',
+    'stages' => 
+    array (
+      0 => 'kindergarten',
+    ),
+    'state' => 'الخرطوم',
+    'city' => 'جبل أولياء',
+    'district' => 'الكلاكلة القبة',
+    'address' => 'جبل أولياء — الكلاكلة القبة — قرب محطة الصينية',
+    'phone' => '+249912307733',
+    'whatsapp' => '+249912307733',
+    'email' => NULL,
+    'website' => 'https://facebook.com/alabrar.kalakla',
+    'description' => 'روضة وقسم تمهيدي متكامل يضم فصولاً مجهزة بوسائل العرض الحديثة وألعاب التركيب والمنطق وحصص التربية البدنية.',
+    'status' => 'approved',
+    'is_verified' => 0,
+    'is_schoplus_client' => 0,
+    'rating_avg' => '4.85',
     'is_historic' => 0,
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
