@@ -810,6 +810,28 @@ function ensureTablesExist(PDO $pdo): void {
             $pdo->exec("DELETE FROM daleel_schools WHERE slug = 'قائمة-المدارس-التي-تم-فحصها-واستبعادها' OR name LIKE '%فحصها واستبعادها%' OR name LIKE 'قائمة المدارس%'");
         } catch (Throwable $e) {}
 
+        // Ensure Al-Akhillaa is repositioned to ID 25 as unverified with Banat branch
+        try {
+            $akhilla = $pdo->query("SELECT id, is_schoplus_client, address FROM daleel_schools WHERE name = 'مدارس الأخلاء الخاصة'")->fetch(PDO::FETCH_ASSOC);
+            if ($akhilla && ((int)$akhilla['id'] !== 25 || (int)$akhilla['is_schoplus_client'] !== 0 || strpos($akhilla['address'], 'بانت') === false)) {
+                $pdo->exec("DELETE FROM daleel_schools WHERE name = 'مدارس الأخلاء الخاصة'");
+                $has25 = (int)$pdo->query("SELECT COUNT(*) FROM daleel_schools WHERE id = 25 AND name != 'مدارس الأخلاء الخاصة'")->fetchColumn();
+                if ($has25 > 0) {
+                    $pdo->exec("UPDATE daleel_schools SET id = id + 1 WHERE id >= 25 ORDER BY id DESC");
+                }
+                $seedFile = __DIR__ . '/seed_schools_data.php';
+                if (file_exists($seedFile)) {
+                    $seeds = require $seedFile;
+                    if (isset($seeds[24]) && $seeds[24]['name'] === 'مدارس الأخلاء الخاصة') {
+                        require_once __DIR__ . '/SchoolBatchImporter.php';
+                        $imp = new SchoolBatchImporter($pdo);
+                        $imp->importSchool($seeds[24]);
+                        $pdo->exec("UPDATE daleel_schools SET id = 25, is_verified = 0, is_schoplus_client = 0 WHERE name = 'مدارس الأخلاء الخاصة'");
+                    }
+                }
+            }
+        } catch (Throwable $e) {}
+
         // Zero-Skip Production Auto-Seed: Ensure 100% data parity across cloud nodes
         try {
             $currCount = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE status = 'approved'")->fetchColumn();
