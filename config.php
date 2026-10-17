@@ -568,17 +568,28 @@ function ensureTablesExist(PDO $pdo): void {
 
         // Strict Directory Deduplication & National Heritage Refinements (v3.7.64)
         try {
-            // 1. Delete confirmed duplicate and phantom duplicate IDs
-            $dupIds = [4015, 42, 4113, 4168, 4164, 4080, 4136, 4166, 4238];
-            $dupPlaceholders = implode(',', $dupIds);
-            $pdo->exec("DELETE FROM daleel_school_reviews WHERE school_id IN ({$dupPlaceholders})");
-            $pdo->exec("DELETE FROM daleel_school_news WHERE school_id IN ({$dupPlaceholders})");
-            $pdo->exec("DELETE FROM daleel_school_inquiries WHERE school_id IN ({$dupPlaceholders})");
-            $pdo->exec("DELETE FROM daleel_school_claims WHERE school_id IN ({$dupPlaceholders})");
-            $pdo->exec("DELETE FROM daleel_school_historic_votes WHERE school_id IN ({$dupPlaceholders})");
-            $pdo->exec("DELETE FROM daleel_schools WHERE id IN ({$dupPlaceholders})");
+            // 1. Delete confirmed duplicates safely by pattern and state
+            $pdo->exec("DELETE FROM daleel_schools WHERE (name LIKE '%التعليم البريطانية%' OR name_en LIKE '%British Educational Schools%') AND state IN ('نهر النيل', 'سنار', 'النيل الأبيض', 'كسلا')");
+            try {
+                $pdo->exec("DELETE FROM daleel_schools WHERE name LIKE '%المجلس الأفريقي%' AND state = 'الجزيرة' AND id NOT IN (SELECT min_id FROM (SELECT MIN(id) as min_id FROM daleel_schools WHERE name LIKE '%المجلس الأفريقي%' AND state = 'الجزيرة') t)");
+                $pdo->exec("DELETE FROM daleel_schools WHERE name LIKE '%الرميساء%' AND state = 'النيل الأبيض' AND id NOT IN (SELECT min_id FROM (SELECT MIN(id) as min_id FROM daleel_schools WHERE name LIKE '%الرميساء%' AND state = 'النيل الأبيض') t)");
+                $pdo->exec("DELETE FROM daleel_schools WHERE name LIKE '%كوستي الأهلية%' AND id NOT IN (SELECT min_id FROM (SELECT MIN(id) as min_id FROM daleel_schools WHERE name LIKE '%كوستي الأهلية%') t)");
+                $pdo->exec("DELETE FROM daleel_schools WHERE name LIKE '%كمبوني%' AND state = 'الخرطوم' AND id NOT IN (SELECT min_id FROM (SELECT MIN(id) as min_id FROM daleel_schools WHERE name LIKE '%كمبوني%' AND state = 'الخرطوم') t)");
+                $pdo->exec("DELETE FROM daleel_schools WHERE name LIKE '%كمبوني%' AND state = 'البحر الأحمر' AND id NOT IN (SELECT max_id FROM (SELECT MAX(id) as max_id FROM daleel_schools WHERE name LIKE '%كمبوني%' AND state = 'البحر الأحمر') t)");
+            } catch (Throwable $e) {}
 
-            // 2. Iconify & brand Sisters' School (مدرسة الراهبات)
+            // 2. Restore Mawaheb English Schools if mistakenly modified by ID collision
+            $pdo->exec("UPDATE daleel_schools 
+                SET name = 'مدارس المواهب الإنجليزية',
+                    name_en = 'Al-Mawaheb English Schools',
+                    school_type = 'international',
+                    established_year = NULL,
+                    is_historic = 0,
+                    historic_badge_reason = NULL,
+                    description = 'من المدارس الإنجليزية الرائدة في بحري لاكتشاف ورعاية الموهوبين دراسياً وعلمياً.'
+                WHERE slug = 'مدارس-المواهب-الإنجليزية'");
+
+            // 3. Iconify & brand Sisters' School (مدرسة الراهبات) exclusively
             $pdo->exec("UPDATE daleel_schools 
                 SET name = 'مدرسة الراهبات (Sisters\' School) — الخرطوم',
                     name_en = 'Sisters\' School Khartoum',
@@ -587,9 +598,19 @@ function ensureTablesExist(PDO $pdo): void {
                     is_historic = 1,
                     historic_badge_reason = 'صرح تاريخي عريق',
                     description = 'مدرسة الراهبات (Sisters\' School / سيستر سكول) — الخرطوم، تأسست عام 1902م وتُعد من أقدم وأعرق الصروح التعليمية للبنات في السودان. تميزت بالانضباط الأكاديمي واللغات وتخريج أجيال متميزة في تاريخ السودان الحديث.'
-                WHERE id = 44 OR (name LIKE '%راهبات%' AND state = 'الخرطوم')");
+                WHERE slug = 'مدرسة-الراهبات-الخرطوم' OR (slug != 'مدارس-المواهب-الإنجليزية' AND (name LIKE '%راهبات%' OR name_en LIKE '%Sister%'))");
 
-            // 3. Comboni Port Sudan (ID 3992)
+            // 4. Restore / Confirm Port Sudan Old Secondary School
+            $pdo->exec("UPDATE daleel_schools 
+                SET name = 'مدرسة بورتسودان الثانوية بنين القديمة',
+                    name_en = 'Port Sudan Old Secondary School for Boys',
+                    school_type = 'government',
+                    established_year = '1952',
+                    is_historic = 1,
+                    historic_badge_reason = 'صرح تعليمي عريق'
+                WHERE slug = 'مدرسة-بورتسودان-الثانوية-بنين-القديمة'");
+
+            // 5. Comboni Port Sudan
             $pdo->exec("UPDATE daleel_schools 
                 SET name = 'كلية ومدرسة كمبوني (St. Joseph Comboni) — بورتسودان',
                     name_en = 'Comboni College & School Port Sudan',
@@ -598,28 +619,28 @@ function ensureTablesExist(PDO $pdo): void {
                     established_year = '1935',
                     is_historic = 1,
                     historic_badge_reason = 'صرح تعليمي تاريخي'
-                WHERE id = 3992");
+                WHERE slug = 'كلية-ومدرسة-كمبوني-بورتسودان' OR (name LIKE '%كمبوني%' AND state = 'البحر الأحمر')");
 
-            // 4. Comboni Atbara & Kadugli founding years
-            $pdo->exec("UPDATE daleel_schools SET established_year = '1944', is_historic = 1, historic_badge_reason = 'صرح تعليمي عريق' WHERE id = 4082 OR name LIKE '%كمبوني عطبرة%'");
-            $pdo->exec("UPDATE daleel_schools SET established_year = '1954', is_historic = 1, historic_badge_reason = 'صرح تعليمي عريق' WHERE id = 4381 OR name LIKE '%كمبوني كادقلي%'");
+            // 6. Comboni Atbara & Kadugli founding years
+            $pdo->exec("UPDATE daleel_schools SET established_year = '1944', is_historic = 1, historic_badge_reason = 'صرح تعليمي عريق' WHERE slug = 'مدارس-كمبوني-عطبرة' OR name LIKE '%كمبوني عطبرة%'");
+            $pdo->exec("UPDATE daleel_schools SET established_year = '1954', is_historic = 1, historic_badge_reason = 'صرح تعليمي عريق' WHERE slug = 'مدرسة-كمبوني-كادقلي-الابتدائية-المختلطة' OR name LIKE '%كمبوني كادقلي%'");
 
-            // 5. Fix misclassified school types
-            $pdo->exec("UPDATE daleel_schools SET school_type = 'private', is_historic = 0, historic_badge_reason = NULL WHERE id = 4118 OR name LIKE '%مدارس ورياض حنتوب الخاصة%'");
-            $pdo->exec("UPDATE daleel_schools SET school_type = 'private' WHERE id = 4214 OR name LIKE '%مؤسسة الأميرية التعليمية القرآنية الخاصة%'");
+            // 7. Fix misclassified school types
+            $pdo->exec("UPDATE daleel_schools SET school_type = 'private', is_historic = 0, historic_badge_reason = NULL WHERE slug = 'مدارس-ورياض-حنتوب-الخاصة' OR name LIKE '%مدارس ورياض حنتوب الخاصة%'");
+            $pdo->exec("UPDATE daleel_schools SET school_type = 'private' WHERE slug = 'مؤسسة-الأميرية-التعليمية-القرآنية-الخاصة' OR name LIKE '%مؤسسة الأميرية التعليمية القرآنية الخاصة%'");
 
-            // 6. Enrich iconic government schools with accurate founding years & historic badges
-            $pdo->exec("UPDATE daleel_schools SET established_year = '1952', is_historic = 1, historic_badge_reason = 'صرح أهلي عريق' WHERE id = 97 OR name LIKE '%كوستي الأهلية%'");
-            $pdo->exec("UPDATE daleel_schools SET established_year = '1953', is_historic = 1, historic_badge_reason = 'صرح تعليمي عريق' WHERE id = 85 OR (name LIKE '%كسلا الثانوية%' AND school_type = 'government')");
-            $pdo->exec("UPDATE daleel_schools SET established_year = '1957', is_historic = 1, historic_badge_reason = 'صرح تعليمي عريق' WHERE id = 82 OR (name LIKE '%دنقلا الثانوية%' AND school_type = 'government')");
-            $pdo->exec("UPDATE daleel_schools SET established_year = '1954', is_historic = 1, historic_badge_reason = 'صرح تعليمي عريق' WHERE id = 80 OR (name LIKE '%شندي الثانوية%' AND school_type = 'government')");
-            $pdo->exec("UPDATE daleel_schools SET established_year = '1950', is_historic = 1, historic_badge_reason = 'صرح تعليمي عريق' WHERE id = 58 OR (name LIKE '%الخرطوم الثانوية القديمة%' AND school_type = 'government')");
-            $pdo->exec("UPDATE daleel_schools SET established_year = '1956', is_historic = 1, historic_badge_reason = 'صرح تعليمي عريق' WHERE id = 60 OR (name LIKE '%بحري الثانوية القديمة%' AND school_type = 'government')");
-            $pdo->exec("UPDATE daleel_schools SET established_year = '1947', is_historic = 1, historic_badge_reason = 'صرح تعليمي عريق' WHERE id = 75 OR (name LIKE '%الأميرية بورتسودان%' AND school_type = 'government')");
-            $pdo->exec("UPDATE daleel_schools SET established_year = '1951', is_historic = 1, historic_badge_reason = 'صرح تعليمي عريق' WHERE id = 65 OR (name LIKE '%ود مدني الثانوية بنات%' AND school_type = 'government')");
-            $pdo->exec("UPDATE daleel_schools SET established_year = '1952', is_historic = 1, historic_badge_reason = 'صرح تعليمي عريق' WHERE id = 51 OR (name LIKE '%أم درمان النموذجية بنات%' AND school_type = 'government')");
-            $pdo->exec("UPDATE daleel_schools SET established_year = '1958', is_historic = 1, historic_badge_reason = 'صرح تعليمي عريق' WHERE id = 102 OR (name LIKE '%الدلنج الثانوية%' AND school_type = 'government')");
-            $pdo->exec("UPDATE daleel_schools SET established_year = '1955', is_historic = 1, historic_badge_reason = 'صرح تعليمي عريق' WHERE id = 94 OR (name LIKE '%الفاشر الثانوية القديمة%' AND school_type = 'government')");
+            // 8. Enrich iconic government schools with accurate founding years & historic badges
+            $pdo->exec("UPDATE daleel_schools SET established_year = '1952', is_historic = 1, historic_badge_reason = 'صرح أهلي عريق' WHERE slug = 'مدرسة-كوستي-الأهلية-الثانوية-العريقة' OR name LIKE '%كوستي الأهلية%'");
+            $pdo->exec("UPDATE daleel_schools SET established_year = '1953', is_historic = 1, historic_badge_reason = 'صرح تعليمي عريق' WHERE slug = 'مدرسة-كسلا-الثانوية-بنين-القديمة' OR (name LIKE '%كسلا الثانوية%' AND school_type = 'government')");
+            $pdo->exec("UPDATE daleel_schools SET established_year = '1957', is_historic = 1, historic_badge_reason = 'صرح تعليمي عريق' WHERE slug = 'مدرسة-دنقلا-الثانوية-بنين-العريقة' OR (name LIKE '%دنقلا الثانوية%' AND school_type = 'government')");
+            $pdo->exec("UPDATE daleel_schools SET established_year = '1954', is_historic = 1, historic_badge_reason = 'صرح تعليمي عريق' WHERE slug = 'مدرسة-شندي-الثانوية-بنين' OR (name LIKE '%شندي الثانوية%' AND school_type = 'government')");
+            $pdo->exec("UPDATE daleel_schools SET established_year = '1950', is_historic = 1, historic_badge_reason = 'صرح تعليمي عريق' WHERE slug = 'مدرسة-الخرطوم-الثانوية-القديمة-بنين' OR (name LIKE '%الخرطوم الثانوية القديمة%' AND school_type = 'government')");
+            $pdo->exec("UPDATE daleel_schools SET established_year = '1956', is_historic = 1, historic_badge_reason = 'صرح تعليمي عريق' WHERE slug = 'مدرسة-بحري-الثانوية-القديمة-بنين' OR (name LIKE '%بحري الثانوية القديمة%' AND school_type = 'government')");
+            $pdo->exec("UPDATE daleel_schools SET established_year = '1947', is_historic = 1, historic_badge_reason = 'صرح تعليمي عريق' WHERE slug = 'مدرسة-الأميرية-بورتسودان' OR (name LIKE '%الأميرية بورتسودان%' AND school_type = 'government')");
+            $pdo->exec("UPDATE daleel_schools SET established_year = '1951', is_historic = 1, historic_badge_reason = 'صرح تعليمي عريق' WHERE slug = 'مدرسة-ود-مدني-الثانوية-بنات-أم-المدائن' OR (name LIKE '%ود مدني الثانوية بنات%' AND school_type = 'government')");
+            $pdo->exec("UPDATE daleel_schools SET established_year = '1952', is_historic = 1, historic_badge_reason = 'صرح تعليمي عريق' WHERE slug = 'مدرسة-أم-درمان-النموذجية-بنات' OR (name LIKE '%أم درمان النموذجية بنات%' AND school_type = 'government')");
+            $pdo->exec("UPDATE daleel_schools SET established_year = '1958', is_historic = 1, historic_badge_reason = 'صرح تعليمي عريق' WHERE slug = 'مدرسة-الدلنج-الثانوية-العريقة' OR (name LIKE '%الدلنج الثانوية%' AND school_type = 'government')");
+            $pdo->exec("UPDATE daleel_schools SET established_year = '1955', is_historic = 1, historic_badge_reason = 'صرح تعليمي عريق' WHERE slug = 'مدرسة-الفاشر-الثانوية-القديمة-بنين' OR (name LIKE '%الفاشر الثانوية القديمة%' AND school_type = 'government')");
         } catch (Throwable $e) {}
 
         // Strict Verification Rule: Verification & accreditation is exclusively managed through Control Panel claims/approvals
