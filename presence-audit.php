@@ -1899,7 +1899,7 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
     <div class="audit-search-card" id="auditSearchCard">
         <form id="auditForm" onsubmit="event.preventDefault(); runDigitalAudit();">
             <div class="row g-3 align-items-end">
-                <div class="col-lg-5 col-md-6 position-relative">
+                <div class="col-lg-9 col-md-8 position-relative">
                     <label class="audit-form-label" for="auditSchoolName">
                         <span>اسم المدرسة الكامل <span class="text-danger">*</span></span>
                     </label>
@@ -1915,34 +1915,10 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
                     <div class="audit-suggest-box" id="auditSuggestBox"></div>
                 </div>
 
-                <div class="col-lg-3 col-md-3 col-6">
-                    <label class="audit-form-label" for="auditCountry">
-                        <span>الدولة</span>
-                    </label>
-                    <select id="auditCountry" name="country" class="form-select audit-input" onchange="updateAuditStates()">
-                        <?php foreach ($allCountries as $c): ?>
-                            <option value="<?= e($c) ?>" <?= $c === $prefillCountry ? 'selected' : '' ?>>
-                                <?= e($c) ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
+                <input type="hidden" id="auditCountry" name="country" value="<?= e($prefillCountry ?: 'السودان') ?>">
+                <input type="hidden" id="auditState" name="state" value="<?= e($prefillState ?: '') ?>">
 
-                <div class="col-lg-2 col-md-3 col-6">
-                    <label class="audit-form-label" for="auditState">
-                        <span>الولاية / المنطقة</span>
-                    </label>
-                    <select id="auditState" name="state" class="form-select audit-input">
-                        <option value="">كافة الولايات</option>
-                        <?php foreach ($statesForDefault as $stName => $cities): ?>
-                            <option value="<?= e($stName) ?>" <?= $stName === $prefillState ? 'selected' : '' ?>>
-                                <?= e($stName) ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-
-                <div class="col-lg-2 col-md-12">
+                <div class="col-lg-3 col-md-4">
                     <button type="submit" class="audit-btn-submit w-100" id="auditSubmitBtn">
                         <i class="fas fa-bolt"></i>
                         <span>بدء الفحص</span>
@@ -2123,31 +2099,11 @@ $autoRun = !empty($_GET['auto']) || !empty($prefillSchool);
             </div>
         </div>
 
-        <!-- CATEGORY SEGMENTED PILLS -->
+        <!-- AUDIT ITEMS HEADER -->
         <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3 mt-4">
-            <div class="segmented-pills mb-0" id="auditCategoryPills">
-                <button type="button" class="seg-pill active" data-filter="all" onclick="filterAuditItems('all')">
-                    كافة البنود
-                    <span class="pill-count" id="pillCountAll">10</span>
-                </button>
-                <button type="button" class="seg-pill" data-filter="verified" onclick="filterAuditItems('verified')">
-                    الموثقة والمؤكدة
-                    <span class="pill-count" id="pillCountVerified">0</span>
-                </button>
-                <button type="button" class="seg-pill" data-filter="missing" onclick="filterAuditItems('missing')">
-                    فرص التحسين والمفقود
-                    <span class="pill-count" id="pillCountMissing">0</span>
-                </button>
-                <button type="button" class="seg-pill" data-filter="social" onclick="filterAuditItems('social')">
-                    قنوات التواصل
-                    <span class="pill-count">4</span>
-                </button>
-                <button type="button" class="seg-pill" data-filter="trust" onclick="filterAuditItems('trust')">
-                    الاعتماد والخرائط
-                    <span class="pill-count">3</span>
-                </button>
-            </div>
-
+            <h3 style="font-size: 0.95rem; font-weight: 700; color: #0D1B2E; margin: 0;">
+                <i class="fas fa-tasks text-primary me-2"></i> بنود التدقيق والظهور الرقمي الشامل (10 بنود)
+            </h3>
             <div class="text-muted small d-none d-md-block" style="font-size: 0.7rem;">
                 <i class="fas fa-info-circle text-primary me-1"></i> يمكنك تأكيد أو تعديل أي بند بنقرة واحدة لتحسين النتيجة
             </div>
@@ -2479,6 +2435,7 @@ let CURRENT_AUDIT_DATA = null;
 function updateAuditStates() {
     const countrySel = document.getElementById('auditCountry');
     const stateSel = document.getElementById('auditState');
+    if (!countrySel || !stateSel || stateSel.tagName !== 'SELECT') return;
     const selectedCountry = countrySel.value;
     
     stateSel.innerHTML = '<option value="">كافة الولايات</option>';
