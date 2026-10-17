@@ -78,7 +78,7 @@ $statGovernment = (int) $pdo->query("SELECT COUNT(*) FROM daleel_schools WHERE s
 $statPrivate = (int) $pdo->query("SELECT COUNT(*) FROM daleel_schools WHERE status = 'approved' AND school_type IN ('private', 'international', 'community', 'language')")->fetchColumn();
 
 // Historic schools global counter (is_historic = 1 OR established_year <= 1950 OR historic_votes >= 500 OR iconic names)
-$historicWhereSql = "(is_historic = 1 OR (established_year IS NOT NULL AND CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950) OR historic_votes >= 500 OR name LIKE '%خور طقت%' OR name LIKE '%وادي سيدنا%' OR name LIKE '%حنتوب%' OR name LIKE '%بخت الرضا%' OR name LIKE '%الأهلية%أم درمان%' OR name LIKE '%كمبوني%')";
+$historicWhereSql = "(is_historic = 1 OR (established_year IS NOT NULL AND CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950) OR historic_votes >= 500 OR name LIKE '%خور طقت%' OR name LIKE '%وادي سيدنا%' OR name LIKE '%حنتوب الثانوية%' OR name LIKE '%حنتوب العريقة%' OR name LIKE '%بخت الرضا%' OR name LIKE '%الأهلية%أم درمان%' OR name LIKE '%كمبوني%' OR name LIKE '%الراهبات%' OR name_en LIKE '%Sister%')";
 $statHistoric = (int) $pdo->query("SELECT COUNT(*) FROM daleel_schools WHERE status = 'approved' AND {$historicWhereSql}")->fetchColumn();
 
 // State school counters for the state cards
@@ -304,12 +304,17 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
         <div style="padding: 26px 16px 14px; display: flex; flex-direction: column; flex-grow: 1; position: relative; z-index: 1;">
             
             <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
-                <a href="<?= $schoolUrl ?>" style="font-weight: 700; font-size: 0.9rem; color: #0B2A52; text-decoration: none;" onclick="event.stopPropagation();">
-                    <?php if ($isHistoric): ?>
-                        <i class="fas fa-landmark text-warning ms-1" style="color: #D97706 !important; font-size: 0.85rem;" title="صرح وطني عريق"></i>
+                <div>
+                    <a href="<?= $schoolUrl ?>" style="font-weight: 700; font-size: 0.9rem; color: #0B2A52; text-decoration: none;" onclick="event.stopPropagation();">
+                        <?php if ($isHistoric): ?>
+                            <i class="fas fa-landmark text-warning ms-1" style="color: #D97706 !important; font-size: 0.85rem;" title="صرح وطني عريق"></i>
+                        <?php endif; ?>
+                        <?= e($s['name']) ?>
+                    </a>
+                    <?php if (!empty($s['name_en'])): ?>
+                        <div style="font-size: 0.72rem; color: #64748B; font-weight: 600; margin-top: 1px;"><?= e($s['name_en']) ?></div>
                     <?php endif; ?>
-                    <?= e($s['name']) ?>
-                </a>
+                </div>
                 <span class="badge-state-rank-tag" title="الترتيب في ولاية <?= e($s['state']) ?>">#<?= $sStateRank ?> <?= e($s['state']) ?></span>
             </div>
 
