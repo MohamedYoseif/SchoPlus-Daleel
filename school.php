@@ -1015,7 +1015,7 @@ $totalRev = max(1, count($reviewsList));
     </div>
 
     <?php if ($claimSuccess): ?>
-    <div class="container px-3 mb-3">
+    <div class="container px-3 mb-3" id="claimResultAlert">
         <div class="d-flex align-items-center gap-3 p-3 rounded-4 border shadow-sm" style="background: #ECFDF5; border-color: #A7F3D0 !important;">
             <i class="fas fa-check-circle text-success fs-3"></i>
             <div>
@@ -1024,16 +1024,24 @@ $totalRev = max(1, count($reviewsList));
             </div>
         </div>
     </div>
+    <script>document.addEventListener("DOMContentLoaded", function() { document.getElementById("claimResultAlert")?.scrollIntoView({behavior:"smooth", block:"center"}); });</script>
     <?php elseif ($claimError): ?>
-    <div class="container px-3 mb-3">
+    <div class="container px-3 mb-3" id="claimResultAlert">
         <div class="d-flex align-items-center gap-3 p-3 rounded-4 border shadow-sm" style="background: #FEF2F2; border-color: #FECACA !important;">
             <i class="fas fa-exclamation-triangle text-danger fs-3"></i>
             <div>
                 <h6 class="fw-bold text-danger mb-1" style="font-size: 0.85rem;">خطأ أثناء إرسال طلب التوثيق</h6>
-                <p class="text-muted mb-0" style="font-size: 0.75rem;"><?= e($claimError) ?></p>
+                <p class="text-danger mb-0" style="font-size: 0.75rem; font-weight: 700;"><?= e($claimError) ?></p>
             </div>
         </div>
     </div>
+    <script>document.addEventListener("DOMContentLoaded", function() { 
+        document.getElementById("claimResultAlert")?.scrollIntoView({behavior:"smooth", block:"center"});
+        var modalEl = document.getElementById("claimSchoolModal");
+        if (modalEl && typeof bootstrap !== "undefined") {
+            new bootstrap.Modal(modalEl).show();
+        }
+    });</script>
     <?php endif; ?>
 
     <?php if ($isOwner && $school['status'] === 'pending'): ?>
@@ -2594,9 +2602,15 @@ $totalRev = max(1, count($reviewsList));
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="إغلاق"></button>
             </div>
             <form method="POST" enctype="multipart/form-data">
-                <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
+                <?= csrf_field() ?>
                 <input type="hidden" name="action" value="claim_school">
                 <div class="modal-body p-4">
+                    <?php if ($claimError): ?>
+                        <div class="alert alert-danger py-2 px-3 small rounded-3 mb-3 d-flex align-items-center gap-2">
+                            <i class="fas fa-exclamation-circle text-danger"></i>
+                            <span><?= e($claimError) ?></span>
+                        </div>
+                    <?php endif; ?>
                     <div class="p-3 rounded-3 mb-3" style="background: #FFFBEB; border: 1px solid #FCD34D; font-size: 0.74rem; color: #92400E; line-height: 1.6;">
                         <i class="fas fa-shield-alt text-warning me-1"></i>
                         هذه المدرسة مدرجة كبيانات عامة لتسهيل وصول أولياء الأمور. لتوثيق ملكيتها ونقل صلاحيات التعديل لحسابك، يرجى تزويدنا ببيانات المسؤول.
