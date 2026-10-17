@@ -641,6 +641,31 @@ function ensureTablesExist(PDO $pdo): void {
             $pdo->exec("UPDATE daleel_schools SET established_year = '1952', is_historic = 1, historic_badge_reason = 'صرح تعليمي عريق' WHERE slug = 'مدرسة-أم-درمان-النموذجية-بنات' OR (name LIKE '%أم درمان النموذجية بنات%' AND school_type = 'government')");
             $pdo->exec("UPDATE daleel_schools SET established_year = '1958', is_historic = 1, historic_badge_reason = 'صرح تعليمي عريق' WHERE slug = 'مدرسة-الدلنج-الثانوية-العريقة' OR (name LIKE '%الدلنج الثانوية%' AND school_type = 'government')");
             $pdo->exec("UPDATE daleel_schools SET established_year = '1955', is_historic = 1, historic_badge_reason = 'صرح تعليمي عريق' WHERE slug = 'مدرسة-الفاشر-الثانوية-القديمة-بنين' OR (name LIKE '%الفاشر الثانوية القديمة%' AND school_type = 'government')");
+
+            // 9. Update Al-Rumaisa School (مجمع مدارس الرميساء الخاصة — كوستي)
+            // Correction: It is NOT for girls only — it is mixed (بنين وبنات) across preschool, primary, intermediate, and secondary.
+            $pdo->exec("UPDATE daleel_schools 
+                SET name = 'مجمع مدارس الرميساء الخاصة — كوستي',
+                    name_en = 'Al-Rumaisa Private Schools - Kosti',
+                    gender_type = 'mixed',
+                    stages = '[\"kindergarten\",\"primary\",\"intermediate\",\"secondary\"]',
+                    phone = NULL,
+                    whatsapp = NULL,
+                    owner_phone = NULL,
+                    description = 'مجمع تعليمي وتربوي رائد في مدينة كوستي بولاية النيل الأبيض، يضم فروعاً متكاملة للبنين والبنات لمراحل رياض الأطفال، الابتدائي، المتوسط، والثانوي.'
+                WHERE name LIKE '%الرميساء%' OR slug LIKE '%الرميساء%' OR slug LIKE '%rumaisa%'");
+
+            // 10. Scrub all legacy sequential dummy phone placeholders (e.g. 012345678X, 0100000000)
+            $pdo->exec("UPDATE daleel_schools 
+                SET phone = NULL, whatsapp = NULL, owner_phone = NULL 
+                WHERE phone LIKE '0123456%' 
+                   OR phone LIKE '+249912345678%' 
+                   OR phone LIKE '010000%' 
+                   OR phone LIKE '%00000%' 
+                   OR whatsapp LIKE '0123456%' 
+                   OR whatsapp LIKE '+249912345678%'
+                   OR whatsapp LIKE '010000%'
+                   OR whatsapp LIKE '%00000%'");
         } catch (Throwable $e) {}
 
         // Strict Verification Rule: Verification & accreditation is exclusively managed through Control Panel claims/approvals

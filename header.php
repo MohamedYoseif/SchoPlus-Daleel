@@ -104,7 +104,7 @@ $isDaleelMobile = (
         if (!empty($schemaTargetSchool['logo'])) {
             $daleelSchema["image"] = 'https://daleel.schoplus.sd' . assetUrl($schemaTargetSchool['logo']);
         }
-        if (!empty($schemaTargetSchool['phone'])) {
+        if (!empty($schemaTargetSchool['phone']) && (!empty($schemaTargetSchool['is_verified']) || !empty($schemaTargetSchool['is_schoplus_client']))) {
             $daleelSchema["telephone"] = $schemaTargetSchool['phone'];
         }
     } else {

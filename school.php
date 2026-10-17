@@ -33,11 +33,19 @@ if (!$slug && !$id) {
 if ($slug) {
     $stmt = $pdo->prepare("SELECT * FROM daleel_schools WHERE slug = ?");
     $stmt->execute([$slug]);
+    $school = $stmt->fetch();
+    if (!$school) {
+        // Smart alias lookup for renamed/updated slugs or Arabic queries
+        $cleanSlug = str_replace('-', ' ', $slug);
+        $stmt = $pdo->prepare("SELECT * FROM daleel_schools WHERE slug LIKE ? OR name LIKE ? OR name_en LIKE ? LIMIT 1");
+        $stmt->execute(["%{$slug}%", "%{$cleanSlug}%", "%{$cleanSlug}%"]);
+        $school = $stmt->fetch();
+    }
 } else {
     $stmt = $pdo->prepare("SELECT * FROM daleel_schools WHERE id = ?");
     $stmt->execute([$id]);
+    $school = $stmt->fetch();
 }
-$school = $stmt->fetch();
 
 if (!$school) {
     http_response_code(404);
@@ -1225,12 +1233,12 @@ $totalRev = max(1, count($reviewsList));
                             <i class="fas fa-id-badge"></i> <span>وثّق مدرستك</span>
                         </button>
                     <?php endif; ?>
-                    <?php if (!empty($school['whatsapp'])): ?>
+                    <?php if (($school['is_verified'] || !empty($school['is_schoplus_client'])) && !empty($school['whatsapp'])): ?>
                         <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $school['whatsapp']) ?>?text=<?= urlencode('مرحباً، رأيت مدرستكم على دليل SchoPlus وأود الاستفسار.') ?>" target="_blank" class="btn-luxury-primary sp-btn-action" style="background: #0B2A52; color: #FFFFFF;">
                             <i class="fab fa-whatsapp"></i> <span>واتساب</span>
                         </a>
                     <?php endif; ?>
-                    <?php if (!empty($school['phone'])): ?>
+                    <?php if (($school['is_verified'] || !empty($school['is_schoplus_client'])) && !empty($school['phone'])): ?>
                         <a href="tel:<?= e($school['phone']) ?>" class="btn-luxury-outline sp-btn-action">
                             <i class="fas fa-phone-alt"></i> <span>اتصال</span>
                         </a>
@@ -1651,7 +1659,7 @@ $totalRev = max(1, count($reviewsList));
                             <p class="text-muted small mb-3" style="max-width: 440px; margin: 0 auto 16px;">
                                 لم يتم نشر جدول الرسوم التفصيلي للمدرسة حتى الآن. يمكنكم التواصل المباشر مع إدارة التسجيل أو تقديم طلب استفسار لمعرفة الرسوم وطرق السداد.
                             </p>
-                            <?php if (!empty($school['phone']) || !empty($school['whatsapp'])): ?>
+                            <?php if (($school['is_verified'] || !empty($school['is_schoplus_client'])) && (!empty($school['phone']) || !empty($school['whatsapp']))): ?>
                             <div class="d-flex justify-content-center gap-2 flex-wrap">
                                 <?php if (!empty($school['whatsapp'])): ?>
                                 <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $school['whatsapp']) ?>?text=<?= urlencode('مرحباً بكم، أود الاستفسار عن تفاصيل الرسوم الدراسية وطرق السداد في ' . $school['name']) ?>" target="_blank" class="btn btn-sm btn-success px-3 py-2 fw-bold rounded-3">
@@ -2613,33 +2621,47 @@ $totalRev = max(1, count($reviewsList));
                         بيانات الاتصال والتواصل
                     </div>
                     <div class="sp-info-card-body" style="padding-top: 8px; padding-bottom: 8px;">
-                        <?php if (!empty($school['phone'])): ?>
-                            <a href="tel:<?= e($school['phone']) ?>" class="sp-contact-row text-decoration-none">
-                                <div class="sp-contact-icon" style="background: #EFF6FF; color: var(--brand-blue);"><i class="fas fa-phone"></i></div>
-                                <div>
-                                    <span style="font-size: 0.68rem; color: var(--text-muted); display: block; font-weight: 700;">هاتف المدرسة</span>
-                                    <span class="fw-bold" style="color: var(--text-main); font-size: 0.82rem;"><?= e($school['phone']) ?></span>
-                                </div>
-                            </a>
-                        <?php else: ?>
-                            <div class="sp-contact-row" style="background: #FFFBEB; border: 1px dashed #FCD34D;">
-                                <div class="sp-contact-icon" style="background: #FEF3C7; color: #D97706;"><i class="fas fa-phone-slash"></i></div>
-                                <div>
-                                    <span style="font-size: 0.68rem; color: #92400E; display: block; font-weight: 700;">هاتف المدرسة</span>
-                                    <div style="font-size: 0.74rem; color: #78350F; line-height: 1.4;">
-                                        غير مدرج — <a href="#claimSchoolModal" data-bs-toggle="modal" class="fw-bold text-decoration-underline" style="color: #D97706;">أضف الهاتف ووثّق مدرستك</a>
+                        <?php if ($school['is_verified'] || !empty($school['is_schoplus_client'])): ?>
+                            <?php if (!empty($school['phone'])): ?>
+                                <a href="tel:<?= e($school['phone']) ?>" class="sp-contact-row text-decoration-none">
+                                    <div class="sp-contact-icon" style="background: #EFF6FF; color: var(--brand-blue);"><i class="fas fa-phone"></i></div>
+                                    <div>
+                                        <span style="font-size: 0.68rem; color: var(--text-muted); display: block; font-weight: 700;">هاتف المدرسة المعتمد</span>
+                                        <span class="fw-bold" style="color: var(--text-main); font-size: 0.82rem;"><?= e($school['phone']) ?></span>
+                                    </div>
+                                </a>
+                            <?php endif; ?>
+                            <?php if (!empty($school['whatsapp'])): ?>
+                                <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $school['whatsapp']) ?>" target="_blank" class="sp-contact-row text-decoration-none">
+                                    <div class="sp-contact-icon" style="background: #F0F4F8; color: #1E5FA8;"><i class="fab fa-whatsapp"></i></div>
+                                    <div>
+                                        <span style="font-size: 0.68rem; color: var(--text-muted); display: block; font-weight: 700;">واتساب مباشر معتمد</span>
+                                        <span class="fw-bold" style="color: var(--brand-navy); font-size: 0.82rem;"><?= e($school['whatsapp']) ?></span>
+                                    </div>
+                                </a>
+                            <?php endif; ?>
+                            <?php if (empty($school['phone']) && empty($school['whatsapp'])): ?>
+                                <div class="sp-contact-row" style="background: #F8FAFC; border: 1px dashed #CBD5E1;">
+                                    <div class="sp-contact-icon" style="background: #F1F5F9; color: #64748B;"><i class="fas fa-phone-slash"></i></div>
+                                    <div>
+                                        <span style="font-size: 0.68rem; color: var(--text-muted); display: block; font-weight: 700;">هاتف المدرسة</span>
+                                        <div style="font-size: 0.74rem; color: #64748B; line-height: 1.4;">غير محدد حالياً</div>
                                     </div>
                                 </div>
-                            </div>
-                        <?php endif; ?>
-                        <?php if (!empty($school['whatsapp'])): ?>
-                            <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $school['whatsapp']) ?>" target="_blank" class="sp-contact-row text-decoration-none">
-                                <div class="sp-contact-icon" style="background: #F0F4F8; color: #1E5FA8;"><i class="fab fa-whatsapp"></i></div>
-                                <div>
-                                    <span style="font-size: 0.68rem; color: var(--text-muted); display: block; font-weight: 700;">واتساب مباشر</span>
-                                    <span class="fw-bold" style="color: var(--brand-navy); font-size: 0.82rem;"><?= e($school['whatsapp']) ?></span>
+                            <?php endif; ?>
+                        <?php else: ?>
+                            <div class="p-3 my-2 rounded-3 text-center" style="background: #F8FAFC; border: 1.5px dashed #CBD5E1;">
+                                <div class="d-inline-flex align-items-center justify-content-center mb-2" style="width: 36px; height: 36px; border-radius: 50%; background: #EFF6FF; color: #1E5FA8;">
+                                    <i class="fas fa-lock" style="font-size: 0.95rem;"></i>
                                 </div>
-                            </a>
+                                <div class="fw-bold mb-1" style="color: #0B2A52; font-size: 0.78rem;">أرقام التواصل تظهر بعد التوثيق</div>
+                                <p class="text-muted small mb-2" style="font-size: 0.69rem; line-height: 1.45;">
+                                    لحماية خصوصية المدارس وموثوقية التواصل، تظهر أرقام الهواتف والواتساب حصراً بعد اعتماد وتوثيق المدرسة من قبل إدارتها الرسمية.
+                                </p>
+                                <button type="button" class="btn btn-sm w-100 fw-bold rounded-pill py-1 shadow-2xs" data-bs-toggle="modal" data-bs-target="#claimSchoolModal" style="background: linear-gradient(135deg, #F5A020 0%, #D97706 100%); color: #FFFFFF !important; border: none; font-size: 0.72rem;">
+                                    <i class="fas fa-id-badge me-1"></i> وثّق مدرستك الآن
+                                </button>
+                            </div>
                         <?php endif; ?>
                         <?php if (!empty($school['email'])): ?>
                             <a href="mailto:<?= e($school['email']) ?>" class="sp-contact-row text-decoration-none">
@@ -2741,18 +2763,20 @@ $totalRev = max(1, count($reviewsList));
 <!-- FLOATING MOBILE BOTTOM ACTION BAR (Native App feel) -->
 <div class="sp-mobile-bottom-bar d-md-none">
     <div class="d-flex align-items-center gap-2">
-        <?php if (!empty($school['whatsapp'])): ?>
-            <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $school['whatsapp']) ?>?text=<?= urlencode('مرحباً، رأيت مدرستكم على دليل SchoPlus وأود الاستفسار.') ?>" target="_blank" class="sp-mob-bottom-btn sp-mob-wa">
-                <i class="fab fa-whatsapp"></i> <span>واتساب</span>
-            </a>
-        <?php endif; ?>
-        <?php if (!empty($school['phone'])): ?>
-            <a href="tel:<?= e($school['phone']) ?>" class="sp-mob-bottom-btn sp-mob-call">
-                <i class="fas fa-phone-alt"></i> <span>اتصال</span>
-            </a>
-        <?php elseif (empty($school['whatsapp']) && !$school['is_verified']): ?>
-            <a href="#claimSchoolModal" data-bs-toggle="modal" class="sp-mob-bottom-btn" style="background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%); color: #B45309; border: 1px solid #FCD34D;">
-                <i class="fas fa-id-badge"></i> <span>وثّق وأضف هاتف</span>
+        <?php if ($school['is_verified'] || !empty($school['is_schoplus_client'])): ?>
+            <?php if (!empty($school['whatsapp'])): ?>
+                <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $school['whatsapp']) ?>?text=<?= urlencode('مرحباً، رأيت مدرستكم على دليل SchoPlus وأود الاستفسار.') ?>" target="_blank" class="sp-mob-bottom-btn sp-mob-wa">
+                    <i class="fab fa-whatsapp"></i> <span>واتساب</span>
+                </a>
+            <?php endif; ?>
+            <?php if (!empty($school['phone'])): ?>
+                <a href="tel:<?= e($school['phone']) ?>" class="sp-mob-bottom-btn sp-mob-call">
+                    <i class="fas fa-phone-alt"></i> <span>اتصال</span>
+                </a>
+            <?php endif; ?>
+        <?php else: ?>
+            <a href="#claimSchoolModal" data-bs-toggle="modal" class="sp-mob-bottom-btn" style="background: linear-gradient(135deg, #F5A020 0%, #D97706 100%); color: #FFFFFF; border: none;">
+                <i class="fas fa-id-badge"></i> <span>وثّق مدرستك</span>
             </a>
         <?php endif; ?>
         <a href="#tab-admission" class="sp-mob-bottom-btn sp-mob-inquiry" onclick="switchTab(document.querySelector('[data-target=\'tab-admission\']'), 'tab-admission')">

@@ -361,7 +361,7 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
                         <i class="fas fa-balance-scale"></i>
                         <span class="compare-lbl">مقارنة</span>
                     </button>
-                    <?php if (!empty($s['whatsapp'])): ?>
+                    <?php if (!empty($s['whatsapp']) && (!empty($s['is_verified']) || !empty($s['is_schoplus_client']))): ?>
                         <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $s['whatsapp']) ?>" target="_blank" class="btn btn-sm btn-outline-success rounded-circle" style="width: 30px; height: 30px; padding: 0; display: inline-flex; align-items: center; justify-content: center;" title="واتساب المدرسة" onclick="event.stopPropagation();">
                             <i class="fab fa-whatsapp"></i>
                         </a>
