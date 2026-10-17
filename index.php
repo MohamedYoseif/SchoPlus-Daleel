@@ -280,10 +280,7 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
                 <span class="badge-directory-rank"><i class="fas fa-award"></i> الترتيب #<?= $sRank ?></span>
                 <?php if ($isHistoric): ?>
                     <span class="historic-ribbon-badge">
-                        <i class="fas fa-landmark"></i> <?= e($hBadge['label']) ?>
-                        <?php if (!empty($hBadge['year'])): ?>
-                            <span class="historic-ribbon-year">• تأسست <?= e($hBadge['year']) ?>م</span>
-                        <?php endif; ?>
+                        <i class="fas fa-landmark"></i> صرح وطني عريق
                     </span>
                 <?php endif; ?>
                 <?php if (!empty($s['is_schoplus_client'])): ?>
@@ -321,30 +318,8 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
                 <span><?= e($s['country'] ?? 'السودان') ?> — ولاية <?= e($s['state']) ?> — <?= e($s['city']) ?> <?= !empty($s['district']) ? '('.e($s['district']).')' : '' ?></span>
             </div>
 
-            <?php if ($isHistoric): ?>
-                <!-- Exclusive Heritage Strip for Historic Schools -->
-                <div class="historic-heritage-strip">
-                    <div class="historic-strip-icon">
-                        <i class="fas fa-history"></i>
-                    </div>
-                    <div class="historic-strip-content">
-                        <div class="historic-strip-title">
-                            <span>إرث تعليمي وتاريخي وطني</span>
-                            <?php if (!empty($hBadge['legacy_years'])): ?>
-                                <span class="historic-age-chip"><?= e($hBadge['legacy_years']) ?> عاماً من العطاء</span>
-                            <?php elseif (!empty($hBadge['year'])): ?>
-                                <span class="historic-age-chip">تأسست <?= e($hBadge['year']) ?>م</span>
-                            <?php endif; ?>
-                        </div>
-                        <div class="historic-strip-sub">
-                            من الصروح الوطنية الرائدة التي خرّجت أجيالاً وقادة وبنت مسيرة التعليم الحديث.
-                        </div>
-                    </div>
-                </div>
-            <?php endif; ?>
-
-            <p class="school-card-desc mb-2" style="font-size: 0.73rem; color: #475569;">
-                <?= e($s['description'] ?: 'مؤسسة تعليمية وتربوية تقدم برامج أكاديمية متميزة وبيئة متطورة للطلاب.') ?>
+            <p class="school-card-desc mb-2 <?= $isHistoric ? 'historic-card-desc' : '' ?>" style="font-size: 0.73rem; <?= $isHistoric ? 'color: #1E293B;' : 'color: #475569;' ?>">
+                <?= e($s['description'] ?: ($isHistoric ? 'صرح تعليمي وتاريخي عريق أسهم في مسيرة النهضة التعليمية بالسودان.' : 'مؤسسة تعليمية وتربوية تقدم برامج أكاديمية متميزة وبيئة متطورة للطلاب.')) ?>
             </p>
 
             <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 12px;">
@@ -355,9 +330,14 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
                 <span class="badge" style="<?= $tBadge['style'] ?> font-size: 0.68rem; font-weight: 700;">
                     <i class="<?= $tBadge['icon'] ?> me-1"></i> <?= e($tBadge['label']) ?>
                 </span>
-                <?php if ($isHistoric): ?>
+                <?php if ($isHistoric && !empty($s['established_year'])): ?>
+                    <?php $legacy = (int)date('Y') - (int)$s['established_year']; ?>
                     <span class="badge" style="background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; font-size: 0.68rem; font-weight: 800;">
-                        <i class="fas fa-landmark text-warning me-1"></i> <?= e($hBadge['label']) ?> (<?= e($hBadge['sub']) ?>)
+                        <i class="fas fa-calendar-alt text-warning me-1"></i> تأسست <?= e($s['established_year']) ?>م<?= ($legacy > 0) ? " ({$legacy} عاماً)" : '' ?>
+                    </span>
+                <?php elseif ($isHistoric): ?>
+                    <span class="badge" style="background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; font-size: 0.68rem; font-weight: 800;">
+                        <i class="fas fa-landmark text-warning me-1"></i> صرح وطني عريق
                     </span>
                 <?php elseif (!empty($s['established_year'])): ?>
                     <span class="badge-established"><i class="fas fa-calendar-alt me-1"></i> تأسست <?= e($s['established_year']) ?></span>
@@ -1644,57 +1624,17 @@ require_once __DIR__ . '/header.php';
     border: 1.5px solid #FFFFFF;
     z-index: 3;
 }
-.historic-heritage-strip {
-    background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
-    border: 1px solid #FDE68A;
-    border-right: 3.5px solid #D97706;
-    border-radius: 8px;
-    padding: 7px 10px;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    position: relative;
-    z-index: 1;
-}
-.historic-strip-icon {
-    width: 26px;
-    height: 26px;
-    min-width: 26px;
-    border-radius: 6px;
-    background: #FDE68A;
-    color: #92400E;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.75rem;
-}
-.historic-strip-content {
-    flex-grow: 1;
-    line-height: 1.25;
-}
-.historic-strip-title {
-    font-size: 0.72rem;
-    font-weight: 800;
-    color: #78350F;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 4px;
-}
-.historic-age-chip {
-    background: #FDE68A;
-    color: #78350F;
-    padding: 1px 6px;
+.historic-card-desc {
+    color: #1E293B !important;
+    font-size: 0.74rem !important;
+    line-height: 1.55 !important;
+    border-right: 3px solid #F5A020;
+    padding-right: 8px;
+    background: rgba(254, 243, 199, 0.4);
     border-radius: 4px;
-    font-size: 0.62rem;
-    font-weight: 800;
-    white-space: nowrap;
-}
-.historic-strip-sub {
-    font-size: 0.66rem;
-    color: #92400E;
-    margin-top: 2px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 10px !important;
 }
 .btn-historic-action {
     background: linear-gradient(135deg, #B45309 0%, #D97706 100%) !important;

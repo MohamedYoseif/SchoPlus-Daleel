@@ -637,58 +637,18 @@ $isDaleelMobile = (
             z-index: 3;
         }
 
-        /* 5. Heritage Strip inside card body */
-        .historic-heritage-strip {
-            background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
-            border: 1px solid #FDE68A;
-            border-right: 3.5px solid #D97706;
-            border-radius: 8px;
-            padding: 7px 10px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            position: relative;
-            z-index: 1;
-        }
-        .historic-strip-icon {
-            width: 26px;
-            height: 26px;
-            min-width: 26px;
-            border-radius: 6px;
-            background: #FDE68A;
-            color: #92400E;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.75rem;
-        }
-        .historic-strip-content {
-            flex-grow: 1;
-            line-height: 1.25;
-        }
-        .historic-strip-title {
-            font-size: 0.72rem;
-            font-weight: 800;
-            color: #78350F;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 4px;
-        }
-        .historic-age-chip {
-            background: #FDE68A;
-            color: #78350F;
-            padding: 1px 6px;
+        /* 5. Historic Unique Description Styling */
+        .historic-card-desc {
+            color: #1E293B !important;
+            font-size: 0.74rem !important;
+            line-height: 1.55 !important;
+            border-right: 3px solid #F5A020;
+            padding-right: 8px;
+            background: rgba(254, 243, 199, 0.4);
             border-radius: 4px;
-            font-size: 0.62rem;
-            font-weight: 800;
-            white-space: nowrap;
-        }
-        .historic-strip-sub {
-            font-size: 0.66rem;
-            color: #92400E;
-            margin-top: 2px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            margin-bottom: 10px !important;
         }
 
         /* 6. Historic Action Button */
