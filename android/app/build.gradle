@@ -43,6 +43,8 @@ android {
             storePassword 'schoplus2026'
             keyAlias 'schoplus'
             keyPassword 'schoplus2026'
+            v1SigningEnabled true
+            v2SigningEnabled true
         }
     }
 

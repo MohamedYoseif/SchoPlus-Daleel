@@ -337,6 +337,7 @@ $stage    = trim($_GET['stage'] ?? '');
 $quick    = trim($_GET['quick'] ?? ''); // smart, top_rated, latest
 $tab      = trim($_GET['tab'] ?? 'home'); // home, search, schoplus, news, manage, login, register
 $schoolId = (int)($_GET['school_id'] ?? 0);
+$schoolSlug = trim($_GET['slug'] ?? '');
 
 // Single School Detail View
 $selectedSchool = null;
@@ -345,6 +346,14 @@ if ($schoolId > 0) {
     $stmt->execute([$schoolId]);
     $selectedSchool = $stmt->fetch();
     if ($selectedSchool) {
+        $pdo->prepare("UPDATE daleel_schools SET views_count = views_count + 1 WHERE id = ?")->execute([$schoolId]);
+    }
+} elseif ($schoolSlug !== '') {
+    $stmt = $pdo->prepare("SELECT * FROM daleel_schools WHERE slug = ? AND status = 'approved'");
+    $stmt->execute([$schoolSlug]);
+    $selectedSchool = $stmt->fetch();
+    if ($selectedSchool) {
+        $schoolId = (int)$selectedSchool['id'];
         $pdo->prepare("UPDATE daleel_schools SET views_count = views_count + 1 WHERE id = ?")->execute([$schoolId]);
     }
 }

@@ -315,9 +315,19 @@ public class MainActivity extends AppCompatActivity {
             // Redirect web school profile to native mobile view
             if (path != null && (path.equals("/school.php") || path.startsWith("/school/"))) {
                 String schoolId = parsedUri.getQueryParameter("id");
+                String schoolSlug = parsedUri.getQueryParameter("slug");
                 if (schoolId != null && !schoolId.isEmpty()) {
                     webView.loadUrl("https://daleel.schoplus.sd/mobile/?school_id=" + schoolId);
                     return true;
+                } else if (schoolSlug != null && !schoolSlug.isEmpty()) {
+                    webView.loadUrl("https://daleel.schoplus.sd/mobile/?slug=" + schoolSlug);
+                    return true;
+                } else if (path.startsWith("/school/")) {
+                    String slugFromPath = path.substring("/school/".length()).trim();
+                    if (!slugFromPath.isEmpty()) {
+                        webView.loadUrl("https://daleel.schoplus.sd/mobile/?slug=" + slugFromPath);
+                        return true;
+                    }
                 }
             } else if (path != null && path.equals("/login.php")) {
                 webView.loadUrl("https://daleel.schoplus.sd/mobile/?tab=login");

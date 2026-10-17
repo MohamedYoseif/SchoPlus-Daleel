@@ -33,8 +33,8 @@
                                 <a href="/downloads/daleel-schoplus.apk" download class="btn px-3 py-2 fw-bold text-white d-inline-flex align-items-center justify-content-center gap-2 rounded-3 shadow-xs" style="background: #1E5FA8; border: 1.5px solid #F5A020; font-size: 0.82rem;">
                                     <i class="fab fa-android fa-lg text-warning"></i>
                                     <div class="text-start">
-                                        <span class="d-block text-warning opacity-75" style="font-size: 0.62rem; line-height: 1;">أندرويد مباشر</span>
-                                        <span class="d-block fw-bold" style="font-size: 0.82rem; line-height: 1.2;">تنزيل تطبيق أندرويد APK (مباشر)</span>
+                                        <span class="d-block text-warning opacity-75" style="font-size: 0.62rem; line-height: 1;">أندرويد أصلي • 5 ميغابايت فقط</span>
+                                        <span class="d-block fw-bold" style="font-size: 0.82rem; line-height: 1.2;">تنزيل تطبيق أندرويد APK (فائق السرعة)</span>
                                     </div>
                                 </a>
 
