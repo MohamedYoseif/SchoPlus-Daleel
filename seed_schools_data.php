@@ -2,9 +2,9 @@
 
 /**
  * SchoPlus Daleel - Comprehensive Global Sudanese Schools Directory Dataset
- * Total Institutions: 1703
+ * Total Institutions: 1704
  * Coverage: All 18 States of Sudan + 19 Diaspora Countries Worldwide
- * Updated: 2026-10-17 22:24:30
+ * Updated: 2026-10-17 22:37:17
  */
 
 return array (
@@ -54654,6 +54654,39 @@ return array (
     'status' => 'approved',
     'is_verified' => 0,
     'is_schoplus_client' => 0,
+    'rating_avg' => '5.00',
+    'is_historic' => 0,
+    'historic_badge_reason' => NULL,
+    'historic_votes' => 0,
+  ),
+  1703 => 
+  array (
+    'name' => 'مدارس الأخلاء الخاصة',
+    'name_en' => 'Al-Akhillaa Private Schools',
+    'slug' => 'مدارس-الأخلاء-الخاصة',
+    'school_type' => 'private',
+    'gender_type' => 'mixed',
+    'curriculum' => 'sudanese',
+    'country' => 'السودان',
+    'established_year' => NULL,
+    'stages' => 
+    array (
+      0 => 'primary',
+      1 => 'intermediate',
+      2 => 'secondary',
+    ),
+    'state' => 'الخرطوم',
+    'city' => 'أم درمان',
+    'district' => 'أمبدة — السبيل (الحارة 8)',
+    'address' => 'ولاية الخرطوم — أم درمان — أمبدة السبيل الحارة 8 (جوار مسجد كرار)',
+    'phone' => NULL,
+    'whatsapp' => NULL,
+    'email' => NULL,
+    'website' => NULL,
+    'description' => 'أول صرح تعليمي رائد اعتمد منظومة SchoPlus السحابية الذكية في السودان. تقدم المدارس تعليماً نوعياً متكاملاً للمراحل الابتدائية والمتوسطة والثانوية (بنين وبنات) مع بيئة تربوية محفزة وأقسام تاج الحافظين والأنشطة العلمية والثقافية.',
+    'status' => 'approved',
+    'is_verified' => 0,
+    'is_schoplus_client' => 1,
     'rating_avg' => '5.00',
     'is_historic' => 0,
     'historic_badge_reason' => NULL,

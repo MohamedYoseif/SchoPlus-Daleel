@@ -1,7 +1,7 @@
 {
-    "version": "3.7.76",
+    "version": "3.7.77",
     "release_date": "2026-10-17",
     "version_type": "enterprise",
     "min_php_version": "8.2",
-    "release_notes": "إخفاء تبويب وروابط المدارس الذكية مؤقتاً في دليل المدارس v3.7.76"
+    "release_notes": "إدراج وتوثيق مدارس الأخلاء الخاصة بأم درمان — الصرح الأول المؤسس لنظام SchoPlus الذكي v3.7.77"
 }
