@@ -564,16 +564,17 @@ function ensureTablesExist(PDO $pdo): void {
         // Strict Stages Audit: Government schools NEVER have kindergarten in Sudan + Deduce stages by name
         try {
             require_once __DIR__ . '/SudanGeography.php';
-            $allSchoolsToAudit = $pdo->query("SELECT id, name, school_type, stages FROM daleel_schools")->fetchAll(PDO::FETCH_ASSOC);
+            $allSchoolsToAudit = $pdo->query("SELECT id, name, school_type, description, stages FROM daleel_schools")->fetchAll(PDO::FETCH_ASSOC);
             if (!empty($allSchoolsToAudit)) {
                 $updStageStmt = $pdo->prepare("UPDATE daleel_schools SET stages = ? WHERE id = ?");
                 foreach ($allSchoolsToAudit as $schItem) {
                     $sId = (int)$schItem['id'];
                     $sName = $schItem['name'] ?? '';
                     $sType = $schItem['school_type'] ?? 'private';
+                    $sDesc = $schItem['description'] ?? '';
                     $curStages = json_decode($schItem['stages'] ?? '[]', true) ?: [];
 
-                    $newStages = SudanGeography::deduceStages($sType, $sName, $curStages);
+                    $newStages = SudanGeography::deduceStages($sType, $sName, $curStages, $sDesc);
                     if ($newStages !== $curStages) {
                         $updStageStmt->execute([json_encode($newStages, JSON_UNESCAPED_UNICODE), $sId]);
                     }

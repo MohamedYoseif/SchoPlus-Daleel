@@ -94,9 +94,10 @@ class SchoolBatchImporter
         $genderType = $data['gender_type'] ?? 'mixed';
         $curriculum = $data['curriculum'] ?? 'sudanese';
         
-        // Accurate stage deduction: Government schools NEVER have kindergarten in Sudan
+        // Accurate stage deduction: Government schools NEVER have kindergarten in Sudan, and no school gets kindergarten unless explicitly stated
         $rawStages = $data['stages'] ?? null;
-        $deducedStages = SudanGeography::deduceStages($schoolType, $name, $rawStages);
+        $description = trim($data['description'] ?? '');
+        $deducedStages = SudanGeography::deduceStages($schoolType, $name, $rawStages, $description);
         $stages = json_encode($deducedStages, JSON_UNESCAPED_UNICODE);
         
         $phone = trim($data['phone'] ?? '');

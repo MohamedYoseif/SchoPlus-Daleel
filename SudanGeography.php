@@ -667,21 +667,39 @@ class SudanGeography
     }
 
     /**
-     * Deduces accurate educational stages based on school type and name
-     * Rule: Government schools NEVER have kindergarten in Sudan.
-     * Specific stage keywords in school name (ثانوية, متوسطة, أساس/ابتدائي, روضة) narrow down stages.
+     * Deduces accurate educational stages based on school type and name/description
+     * Strict User Rule: مالم تذكر المدرسة صراحة أنها تحتوي رياض أطفال لا يتم إضافتها نهائياً حتى لو كانت مدرسة خاصة.
+     * Government schools NEVER have kindergarten in Sudan under any circumstances.
      *
      * @param string|null $schoolType 'government', 'private', 'international', etc.
      * @param string|null $schoolName Name of the school
      * @param array|string|null $explicitStages Explicitly provided stages if any
+     * @param string|null $description Optional school description
      * @return array Array of stage keys: e.g. ['secondary'] or ['primary', 'intermediate']
      */
-    public static function deduceStages(?string $schoolType, ?string $schoolName = '', $explicitStages = null): array
+    public static function deduceStages(?string $schoolType, ?string $schoolName = '', $explicitStages = null, ?string $description = ''): array
     {
         $schoolType = strtolower(trim((string)$schoolType));
         $schoolName = trim((string)$schoolName);
+        $description = trim((string)$description);
 
-        // If explicit stages were given as array or JSON
+        $textSearch = mb_strtolower($schoolName . ' ' . $description, 'UTF-8');
+
+        // Check if Kindergarten is EXPLICITLY mentioned in name or description
+        $hasExplicitKg = (
+            mb_stripos($textSearch, 'روضة') !== false ||
+            mb_stripos($textSearch, 'روضه') !== false ||
+            mb_stripos($textSearch, 'رياض أطفال') !== false ||
+            mb_stripos($textSearch, 'رياض اطفال') !== false ||
+            mb_stripos($textSearch, 'تمهيدي') !== false ||
+            mb_stripos($textSearch, 'حضانة') !== false ||
+            mb_stripos($textSearch, 'حضانه') !== false ||
+            mb_stripos($textSearch, 'kindergarten') !== false ||
+            mb_stripos($textSearch, 'nursery') !== false ||
+            mb_stripos($textSearch, 'preschool') !== false
+        );
+
+        // Parse explicit stages if passed
         $stages = [];
         if (is_array($explicitStages)) {
             $stages = $explicitStages;
@@ -692,7 +710,6 @@ class SudanGeography
             }
         }
 
-        // If no explicit stages were provided or default full set was passed, deduce accurately from name & type
         $fullSet = ['kindergarten', 'primary', 'intermediate', 'secondary'];
         if (empty($stages) || $stages === $fullSet) {
             $nameLower = mb_strtolower($schoolName, 'UTF-8');
@@ -700,9 +717,9 @@ class SudanGeography
             $isSec = (mb_stripos($nameLower, 'ثانوي') !== false || mb_stripos($nameLower, 'ثانويه') !== false || mb_stripos($nameLower, 'secondary') !== false || mb_stripos($nameLower, 'عليا') !== false);
             $isInter = (mb_stripos($nameLower, 'متوسط') !== false || mb_stripos($nameLower, 'متوسطه') !== false || mb_stripos($nameLower, 'intermediate') !== false || mb_stripos($nameLower, 'إعدادي') !== false);
             $isPrim = (mb_stripos($nameLower, 'ابتدائي') !== false || mb_stripos($nameLower, 'أساس') !== false || mb_stripos($nameLower, 'اساس') !== false || mb_stripos($nameLower, 'primary') !== false);
-            $isKg = (mb_stripos($nameLower, 'روض') !== false || mb_stripos($nameLower, 'اطفال') !== false || mb_stripos($nameLower, 'أطفال') !== false || mb_stripos($nameLower, 'تمهيدي') !== false || mb_stripos($nameLower, 'kindergarten') !== false || mb_stripos($nameLower, 'nursery') !== false);
+            $isOnlyKg = $hasExplicitKg && (mb_stripos($nameLower, 'روضة') !== false || mb_stripos($nameLower, 'روضه') !== false || mb_stripos($nameLower, 'تمهيدي') !== false) && !$isPrim && !$isInter && !$isSec;
 
-            if ($isKg && !$isPrim && !$isInter && !$isSec) {
+            if ($isOnlyKg) {
                 $stages = ['kindergarten'];
             } elseif ($isSec && !$isPrim && !$isInter) {
                 $stages = ['secondary'];
@@ -715,29 +732,38 @@ class SudanGeography
             } elseif ($isInter && $isSec && !$isPrim) {
                 $stages = ['intermediate', 'secondary'];
             } else {
-                // General default by school type:
-                if ($schoolType === 'government') {
-                    // Sudanese government schools are never kindergarten: usually primary/intermediate or secondary
-                    if ($isSec) {
-                        $stages = ['secondary'];
-                    } else {
-                        $stages = ['primary', 'intermediate', 'secondary'];
-                    }
+                // Default stages for schools (primary, intermediate, secondary) WITHOUT kindergarten by default
+                if ($isSec) {
+                    $stages = ['secondary'];
                 } else {
-                    $stages = ['kindergarten', 'primary', 'intermediate', 'secondary'];
+                    $stages = ['primary', 'intermediate', 'secondary'];
                 }
+            }
+
+            // ONLY include kindergarten if EXPLICITLY mentioned in school name or description AND NOT a government school
+            if ($hasExplicitKg && $schoolType !== 'government' && !in_array('kindergarten', $stages, true)) {
+                array_unshift($stages, 'kindergarten');
             }
         }
 
-        // Strict Rule: Government schools NEVER have kindergarten (رياض أطفال) in Sudan
+        // Strict Enforcement:
+        // 1. Government schools NEVER have kindergarten in Sudan
         if ($schoolType === 'government') {
             $stages = array_values(array_filter($stages, function($stg) {
                 return $stg !== 'kindergarten';
             }));
-            // If somehow empty, default to primary and intermediate
-            if (empty($stages)) {
-                $stages = ['primary', 'intermediate'];
+        } else {
+            // 2. For private/international/other schools: DO NOT include kindergarten UNLESS explicitly mentioned in name or description
+            if (!$hasExplicitKg) {
+                $stages = array_values(array_filter($stages, function($stg) {
+                    return $stg !== 'kindergarten';
+                }));
             }
+        }
+
+        // Fallback if empty
+        if (empty($stages)) {
+            $stages = ($schoolType === 'government') ? ['primary', 'intermediate'] : ['primary', 'intermediate', 'secondary'];
         }
 
         return array_values(array_unique($stages));
