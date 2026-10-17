@@ -9,6 +9,9 @@
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/SchoolBatchImporter.php';
 
+@set_time_limit(300);
+@ini_set('memory_limit', '256M');
+
 $isCli = (php_sapi_name() === 'cli');
 
 if (!$isCli) {
