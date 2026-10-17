@@ -257,22 +257,33 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
     $schoolUrl = '/school/' . urlencode($s['slug']);
     $sRank = getSchoolDirectoryRank($pdo, (int)$s['id'], !empty($s['directory_rank']) ? (int)$s['directory_rank'] : null);
     $sStateRank = getSchoolStateRank($pdo, (int)$s['id'], (string)($s['state'] ?? ''), !empty($s['state_rank']) ? (int)$s['state_rank'] : null);
+    $isHistoric = isSchoolHistoric($s);
+    $hBadge = $isHistoric ? getSchoolHistoricBadge($s) : null;
 ?>
 <div class="col-xl-4 col-md-6 col-12">
-    <div class="luxury-card clickable-school-card h-100 d-flex flex-column" onclick="window.location.href='<?= $schoolUrl ?>'">
+    <div class="luxury-card clickable-school-card <?= $isHistoric ? 'luxury-card-historic' : '' ?> h-100 d-flex flex-column" onclick="window.location.href='<?= $schoolUrl ?>'">
         
+        <?php if ($isHistoric): ?>
+            <!-- Prestigious Top Crown Bar -->
+            <div class="historic-card-crown-bar" title="صرح تعليمي وتاريخي عريق وموثق"></div>
+            <!-- Antique Landmark Watermark -->
+            <i class="fas fa-landmark historic-card-watermark" aria-hidden="true"></i>
+        <?php endif; ?>
+
         <div class="card-cover-wrap" style="<?= $cover ? "background-image: url('{$cover}');" : '' ?>">
             <div class="card-cover-overlay"></div>
             <?php if (!$cover): ?>
-                <div class="cover-placeholder-icon"><i class="fas fa-school"></i></div>
+                <div class="cover-placeholder-icon"><i class="<?= $isHistoric ? 'fas fa-landmark' : 'fas fa-school' ?>"></i></div>
             <?php endif; ?>
 
             <div style="position: absolute; top: 10px; left: 10px; z-index: 2; display: flex; flex-direction: column; gap: 4px; align-items: flex-end;">
                 <span class="badge-directory-rank"><i class="fas fa-award"></i> الترتيب #<?= $sRank ?></span>
-                <?php if (isSchoolHistoric($s)): ?>
-                    <?php $hB = getSchoolHistoricBadge($s); ?>
-                    <span class="badge" style="background: linear-gradient(135deg, #78350F 0%, #B45309 100%); color: #FEF3C7; border: 1px solid #FCD34D; font-size: 0.65rem; padding: 2.5px 8px; border-radius: 999px; font-weight: 800; box-shadow: 0 2px 8px rgba(180, 83, 9, 0.35);">
-                        <i class="fas fa-landmark text-warning"></i> <?= e($hB['label']) ?>
+                <?php if ($isHistoric): ?>
+                    <span class="historic-ribbon-badge">
+                        <i class="fas fa-landmark"></i> <?= e($hBadge['label']) ?>
+                        <?php if (!empty($hBadge['year'])): ?>
+                            <span class="historic-ribbon-year">• تأسست <?= e($hBadge['year']) ?>م</span>
+                        <?php endif; ?>
                     </span>
                 <?php endif; ?>
                 <?php if (!empty($s['is_schoplus_client'])): ?>
@@ -287,13 +298,19 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
 
             <div class="card-logo-badge">
                 <img src="<?= $logo ?>" alt="" loading="lazy">
+                <?php if ($isHistoric): ?>
+                    <span class="historic-logo-seal" title="صرح وطني عريق وموثق"><i class="fas fa-crown"></i></span>
+                <?php endif; ?>
             </div>
         </div>
 
-        <div style="padding: 26px 16px 14px; display: flex; flex-direction: column; flex-grow: 1;">
+        <div style="padding: 26px 16px 14px; display: flex; flex-direction: column; flex-grow: 1; position: relative; z-index: 1;">
             
             <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
                 <a href="<?= $schoolUrl ?>" style="font-weight: 700; font-size: 0.9rem; color: #0B2A52; text-decoration: none;" onclick="event.stopPropagation();">
+                    <?php if ($isHistoric): ?>
+                        <i class="fas fa-landmark text-warning ms-1" style="color: #D97706 !important; font-size: 0.85rem;" title="صرح وطني عريق وموثق"></i>
+                    <?php endif; ?>
                     <?= e($s['name']) ?>
                 </a>
                 <span class="badge-state-rank-tag" title="الترتيب في ولاية <?= e($s['state']) ?>">#<?= $sStateRank ?> <?= e($s['state']) ?></span>
@@ -303,6 +320,28 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
                 <i class="fas fa-map-marker-alt text-danger me-1"></i>
                 <span><?= e($s['country'] ?? 'السودان') ?> — ولاية <?= e($s['state']) ?> — <?= e($s['city']) ?> <?= !empty($s['district']) ? '('.e($s['district']).')' : '' ?></span>
             </div>
+
+            <?php if ($isHistoric): ?>
+                <!-- Exclusive Heritage Strip for Historic Schools -->
+                <div class="historic-heritage-strip">
+                    <div class="historic-strip-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <div class="historic-strip-content">
+                        <div class="historic-strip-title">
+                            <span>إرث تعليمي وتاريخي وطني</span>
+                            <?php if (!empty($hBadge['legacy_years'])): ?>
+                                <span class="historic-age-chip"><?= e($hBadge['legacy_years']) ?> عاماً من العطاء</span>
+                            <?php elseif (!empty($hBadge['year'])): ?>
+                                <span class="historic-age-chip">تأسست <?= e($hBadge['year']) ?>م</span>
+                            <?php endif; ?>
+                        </div>
+                        <div class="historic-strip-sub">
+                            من الصروح الوطنية الرائدة التي خرّجت أجيالاً وقادة وبنت مسيرة التعليم الحديث.
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
 
             <p class="school-card-desc mb-2" style="font-size: 0.73rem; color: #475569;">
                 <?= e($s['description'] ?: 'مؤسسة تعليمية وتربوية تقدم برامج أكاديمية متميزة وبيئة متطورة للطلاب.') ?>
@@ -316,17 +355,16 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
                 <span class="badge" style="<?= $tBadge['style'] ?> font-size: 0.68rem; font-weight: 700;">
                     <i class="<?= $tBadge['icon'] ?> me-1"></i> <?= e($tBadge['label']) ?>
                 </span>
-                <?php if (isSchoolHistoric($s)): ?>
-                    <?php $hInfo = getSchoolHistoricBadge($s); ?>
+                <?php if ($isHistoric): ?>
                     <span class="badge" style="background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; font-size: 0.68rem; font-weight: 800;">
-                        <i class="fas fa-landmark text-warning me-1"></i> صرح عريق (<?= e($hInfo['sub']) ?>)
+                        <i class="fas fa-landmark text-warning me-1"></i> <?= e($hBadge['label']) ?> (<?= e($hBadge['sub']) ?>)
                     </span>
                 <?php elseif (!empty($s['established_year'])): ?>
                     <span class="badge-established"><i class="fas fa-calendar-alt me-1"></i> تأسست <?= e($s['established_year']) ?></span>
                 <?php endif; ?>
             </div>
 
-            <div style="padding-top: 12px; border-top: 1px solid #EDF2F7; display: flex; align-items: center; justify-content: space-between; margin-top: auto;">
+            <div style="padding-top: 12px; border-top: 1px solid <?= $isHistoric ? '#FDE68A' : '#EDF2F7' ?>; display: flex; align-items: center; justify-content: space-between; margin-top: auto;">
                 <div class="star-rating">
                     <i class="fas fa-star"></i>
                     <span class="fw-bold text-dark" style="font-size: 0.78rem;"><?= number_format($s['rating_avg'], 1) ?></span>
@@ -343,10 +381,17 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
                             <i class="fab fa-whatsapp"></i>
                         </a>
                     <?php endif; ?>
-                    <a href="<?= $schoolUrl ?>" class="btn-luxury-outline btn-sm py-1 px-2" onclick="event.stopPropagation();" style="font-size: 0.72rem;">
-                        <span>عرض التفاصيل</span>
-                        <i class="fas fa-arrow-left"></i>
-                    </a>
+                    <?php if ($isHistoric): ?>
+                        <a href="<?= $schoolUrl ?>" class="btn-historic-action btn-sm py-1 px-2" onclick="event.stopPropagation();" style="font-size: 0.72rem;">
+                            <span>تصفح الإرث والتفاصيل</span>
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
+                    <?php else: ?>
+                        <a href="<?= $schoolUrl ?>" class="btn-luxury-outline btn-sm py-1 px-2" onclick="event.stopPropagation();" style="font-size: 0.72rem;">
+                            <span>عرض التفاصيل</span>
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
+                    <?php endif; ?>
                 </div>
             </div>
 
@@ -1521,6 +1566,155 @@ require_once __DIR__ . '/header.php';
     transform: translateY(-4px);
     box-shadow: 0 12px 30px rgba(11, 42, 82, 0.12);
     border-color: #CBD5E1;
+}
+
+/* HISTORIC SCHOOL CARDS (SchoPlus Luxury Heritage Style) */
+.luxury-card-historic {
+    background: linear-gradient(180deg, #FFFDF8 0%, #FFFFFF 100%) !important;
+    border: 1.5px solid #F5A020 !important;
+    box-shadow: 0 4px 22px rgba(245, 160, 32, 0.12), 0 2px 8px rgba(11, 42, 82, 0.04) !important;
+    position: relative;
+    overflow: hidden;
+}
+.luxury-card-historic:hover {
+    border-color: #D97706 !important;
+    box-shadow: 0 16px 36px rgba(217, 119, 6, 0.22), 0 4px 12px rgba(11, 42, 82, 0.08) !important;
+    transform: translateY(-5px) !important;
+}
+.historic-card-crown-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4.5px;
+    background: linear-gradient(90deg, #92400E 0%, #D97706 20%, #F5A020 50%, #FCD34D 80%, #92400E 100%);
+    z-index: 10;
+    box-shadow: 0 1px 4px rgba(180, 83, 9, 0.35);
+}
+.historic-card-watermark {
+    position: absolute;
+    bottom: -6px;
+    left: -4px;
+    font-size: 5.5rem;
+    color: #B45309;
+    opacity: 0.045;
+    pointer-events: none;
+    z-index: 0;
+    transform: rotate(-10deg);
+}
+.historic-ribbon-badge {
+    background: linear-gradient(135deg, #78350F 0%, #B45309 60%, #D97706 100%) !important;
+    color: #FEF3C7 !important;
+    border: 1px solid #FCD34D !important;
+    font-size: 0.68rem !important;
+    padding: 3px 10px !important;
+    border-radius: 999px !important;
+    font-weight: 800 !important;
+    box-shadow: 0 3px 10px rgba(120, 53, 15, 0.4) !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+.historic-ribbon-badge i {
+    color: #FCD34D !important;
+}
+.historic-ribbon-year {
+    font-size: 0.64rem;
+    opacity: 0.95;
+    color: #FFFBEB;
+}
+.luxury-card-historic .card-logo-badge {
+    border: 2px solid #F5A020 !important;
+    box-shadow: 0 4px 14px rgba(245, 160, 32, 0.28) !important;
+}
+.historic-logo-seal {
+    position: absolute;
+    bottom: -4px;
+    left: -4px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #B45309 0%, #F5A020 100%);
+    color: #FFFFFF;
+    font-size: 0.58rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(120, 53, 15, 0.35);
+    border: 1.5px solid #FFFFFF;
+    z-index: 3;
+}
+.historic-heritage-strip {
+    background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+    border: 1px solid #FDE68A;
+    border-right: 3.5px solid #D97706;
+    border-radius: 8px;
+    padding: 7px 10px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    z-index: 1;
+}
+.historic-strip-icon {
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
+    border-radius: 6px;
+    background: #FDE68A;
+    color: #92400E;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+}
+.historic-strip-content {
+    flex-grow: 1;
+    line-height: 1.25;
+}
+.historic-strip-title {
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: #78350F;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+}
+.historic-age-chip {
+    background: #FDE68A;
+    color: #78350F;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.62rem;
+    font-weight: 800;
+    white-space: nowrap;
+}
+.historic-strip-sub {
+    font-size: 0.66rem;
+    color: #92400E;
+    margin-top: 2px;
+}
+.btn-historic-action {
+    background: linear-gradient(135deg, #B45309 0%, #D97706 100%) !important;
+    color: #FFFFFF !important;
+    border: 1px solid #F5A020 !important;
+    font-weight: 700 !important;
+    font-size: 0.72rem !important;
+    box-shadow: 0 2px 8px rgba(180, 83, 9, 0.22) !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 6px;
+    text-decoration: none !important;
+    transition: all 0.2s ease;
+}
+.btn-historic-action:hover {
+    background: linear-gradient(135deg, #92400E 0%, #B45309 100%) !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 4px 14px rgba(180, 83, 9, 0.35) !important;
+    transform: translateY(-1px);
 }
 </style>
 

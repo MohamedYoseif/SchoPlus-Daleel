@@ -549,6 +549,170 @@ $isDaleelMobile = (
             border-color: #CBD5E1;
         }
 
+        /* ============================================================
+           HISTORIC / HERITAGE SCHOOL CARDS (SchoPlus Style F v2 Luxury Heritage)
+           ============================================================ */
+        .luxury-card-historic {
+            background: linear-gradient(180deg, #FFFDF8 0%, #FFFFFF 100%) !important;
+            border: 1.5px solid #F5A020 !important;
+            box-shadow: 0 4px 22px rgba(245, 160, 32, 0.12), 0 2px 8px rgba(11, 42, 82, 0.04) !important;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .luxury-card-historic:hover {
+            border-color: #D97706 !important;
+            box-shadow: 0 16px 36px rgba(217, 119, 6, 0.22), 0 4px 12px rgba(11, 42, 82, 0.08) !important;
+            transform: translateY(-5px) !important;
+        }
+
+        /* 1. Crown Bar pinned to top edge */
+        .historic-card-crown-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4.5px;
+            background: linear-gradient(90deg, #92400E 0%, #D97706 20%, #F5A020 50%, #FCD34D 80%, #92400E 100%);
+            z-index: 10;
+            box-shadow: 0 1px 4px rgba(180, 83, 9, 0.35);
+        }
+
+        /* 2. Watermark */
+        .historic-card-watermark {
+            position: absolute;
+            bottom: -6px;
+            left: -4px;
+            font-size: 5.5rem;
+            color: #B45309;
+            opacity: 0.045;
+            pointer-events: none;
+            z-index: 0;
+            transform: rotate(-10deg);
+        }
+
+        /* 3. Heritage Ribbon Badge on Cover */
+        .historic-ribbon-badge {
+            background: linear-gradient(135deg, #78350F 0%, #B45309 60%, #D97706 100%) !important;
+            color: #FEF3C7 !important;
+            border: 1px solid #FCD34D !important;
+            font-size: 0.68rem !important;
+            padding: 3px 10px !important;
+            border-radius: 999px !important;
+            font-weight: 800 !important;
+            box-shadow: 0 3px 10px rgba(120, 53, 15, 0.4) !important;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .historic-ribbon-badge i {
+            color: #FCD34D !important;
+        }
+        .historic-ribbon-year {
+            font-size: 0.64rem;
+            opacity: 0.95;
+            color: #FFFBEB;
+        }
+
+        /* 4. Golden Logo Badge & Seal */
+        .luxury-card-historic .card-logo-badge {
+            border: 2px solid #F5A020 !important;
+            box-shadow: 0 4px 14px rgba(245, 160, 32, 0.28) !important;
+        }
+        .historic-logo-seal {
+            position: absolute;
+            bottom: -4px;
+            left: -4px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #B45309 0%, #F5A020 100%);
+            color: #FFFFFF;
+            font-size: 0.58rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 6px rgba(120, 53, 15, 0.35);
+            border: 1.5px solid #FFFFFF;
+            z-index: 3;
+        }
+
+        /* 5. Heritage Strip inside card body */
+        .historic-heritage-strip {
+            background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+            border: 1px solid #FDE68A;
+            border-right: 3.5px solid #D97706;
+            border-radius: 8px;
+            padding: 7px 10px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            z-index: 1;
+        }
+        .historic-strip-icon {
+            width: 26px;
+            height: 26px;
+            min-width: 26px;
+            border-radius: 6px;
+            background: #FDE68A;
+            color: #92400E;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+        }
+        .historic-strip-content {
+            flex-grow: 1;
+            line-height: 1.25;
+        }
+        .historic-strip-title {
+            font-size: 0.72rem;
+            font-weight: 800;
+            color: #78350F;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4px;
+        }
+        .historic-age-chip {
+            background: #FDE68A;
+            color: #78350F;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-size: 0.62rem;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+        .historic-strip-sub {
+            font-size: 0.66rem;
+            color: #92400E;
+            margin-top: 2px;
+        }
+
+        /* 6. Historic Action Button */
+        .btn-historic-action {
+            background: linear-gradient(135deg, #B45309 0%, #D97706 100%) !important;
+            color: #FFFFFF !important;
+            border: 1px solid #F5A020 !important;
+            font-weight: 700 !important;
+            font-size: 0.72rem !important;
+            box-shadow: 0 2px 8px rgba(180, 83, 9, 0.22) !important;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border-radius: 6px;
+            text-decoration: none !important;
+            transition: all 0.2s ease;
+        }
+        .btn-historic-action:hover {
+            background: linear-gradient(135deg, #92400E 0%, #B45309 100%) !important;
+            color: #FFFFFF !important;
+            box-shadow: 0 4px 14px rgba(180, 83, 9, 0.35) !important;
+            transform: translateY(-1px);
+        }
+
         /* Badges */
         .badge-schoplus-smart {
             background: #FFFFFF;

@@ -240,9 +240,9 @@ if (!function_exists('isSchoolHistoric')) {
         if (!empty($school['is_historic'])) {
             return true;
         }
-        // 2. Founded in or before 1950
+        // 2. Founded in or before 1960 (the golden era of Sudanese historic education)
         $year = (int)($school['established_year'] ?? 0);
-        if ($year > 1800 && $year <= 1950) {
+        if ($year > 1800 && $year <= 1960) {
             return true;
         }
         // 3. More than 500 community votes
@@ -254,9 +254,11 @@ if (!function_exists('isSchoolHistoric')) {
         $name = $school['name'] ?? '';
         $iconicNames = [
             'وادي سيدنا', 'خور طقت', 'حنتوب', 'رفاعة', 'بخت الرضا',
-            'الأهلية أم درمان', 'أم درمان الأهلية', 'المؤتمر الثانوية',
-            'الشيخ مصطفى الأمين', 'بربر الثانوية', 'الخرطوم الإنجيلية للبنات',
-            'كمبوني الخرطوم', 'كلية كمبوني', 'السنية'
+            'الأهلية أم درمان', 'أم درمان الأهلية', 'المؤتمر الثانوية', 'المؤتمر',
+            'الشيخ مصطفى الأمين', 'بربر الثانوية', 'الخرطوم الإنجيلية',
+            'كلية كمبوني', 'كمبوني', 'السنية', 'مدرسة الراهبات',
+            'بورتسودان الثانوية بنين القديمة', 'الفاشر الثانوية القديمة',
+            'الدلنج الثانوية', 'عطبرة الثانوية القديمة', 'الدويم الثانوية'
         ];
         foreach ($iconicNames as $ic) {
             if (mb_stripos($name, $ic) !== false) {
@@ -275,9 +277,9 @@ if (!function_exists('getSchoolHistoricBadge')) {
         $year = (int)($school['established_year'] ?? 0);
         $votes = (int)($school['historic_votes'] ?? 0);
 
-        $label = 'صرح عريق';
+        $label = 'صرح عريق وموثق';
         $sub = '';
-        if ($year > 1800 && $year <= 1950) {
+        if ($year > 1800) {
             $sub = "تأسست {$year}م";
         } elseif ($votes >= 500) {
             $sub = "تصويت مجتمعي (+{$votes})";
@@ -287,11 +289,14 @@ if (!function_exists('getSchoolHistoricBadge')) {
             $sub = "إرث تاريخي وطني";
         }
 
+        $legacyYears = ($year > 1800) ? ((int)date('Y') - $year) : null;
+
         return [
-            'label' => $label,
-            'sub'   => $sub,
-            'year'  => $year ?: null,
-            'votes' => $votes,
+            'label'        => $label,
+            'sub'          => $sub,
+            'year'         => $year ?: null,
+            'legacy_years' => $legacyYears,
+            'votes'        => $votes,
         ];
     }
 }
