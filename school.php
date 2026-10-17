@@ -188,16 +188,25 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']) 
     $userAgent = substr($_SERVER['HTTP_USER_AGENT'] ?? '', 0, 250);
     $sessionId = session_id();
 
-    // Check if voted in the last 24 hours from same IP or Session
+    // 1. Check if voted via 1-year Cookie: sp_voted_historic_{schoolId}
+    $cookieName = 'sp_voted_historic_' . $school['id'];
+    $hasVotedCookie = !empty($_COOKIE[$cookieName]);
+
+    // 2. Check if voted in the last 1 year (or 365 days) from same IP or Session in DB
     $checkVote = $pdo->prepare("SELECT id FROM daleel_school_historic_votes 
         WHERE school_id = ? AND (session_id = ? OR (ip_address IS NOT NULL AND ip_address = ?))
-        AND created_at >= DATE_SUB(NOW(), INTERVAL 24 HOUR) LIMIT 1");
+        AND created_at >= DATE_SUB(NOW(), INTERVAL 365 DAY) LIMIT 1");
     $checkVote->execute([$school['id'], $sessionId, $clientIp]);
 
-    if ($checkVote->fetch()) {
+    if ($hasVotedCookie || $checkVote->fetch()) {
+        // Refresh cookie for 1 year if missing
+        if (!$hasVotedCookie) {
+            setcookie($cookieName, '1', time() + (365 * 24 * 3600), '/', '', false, true);
+        }
+
         echo json_encode([
             'success' => false,
-            'message' => 'لقد قمت بالتصويت بالفعل لهذه المدرسة مؤخراً. شكراً لمشاركتك!',
+            'message' => 'لقد قمت بالتصويت بالفعل لهذه المدرسة مسبقاً (التصويت متاح مرة واحدة سنوياً). شكراً لمشاركتك ووفائك!',
             'already_voted' => true,
             'votes_count' => (int)($school['historic_votes'] ?? 0),
             'is_historic' => isSchoolHistoric($school)
@@ -208,6 +217,9 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST' && isset($_POST['action']) 
     // Insert vote
     $insVote = $pdo->prepare("INSERT INTO daleel_school_historic_votes (school_id, ip_address, user_agent, session_id, created_at) VALUES (?, ?, ?, ?, NOW())");
     $insVote->execute([$school['id'], $clientIp, $userAgent, $sessionId]);
+
+    // Set 1-Year persistent Cookie (365 days)
+    setcookie($cookieName, '1', time() + (365 * 24 * 3600), '/', '', false, true);
 
     // Update school votes count
     $updSchool = $pdo->prepare("UPDATE daleel_schools SET historic_votes = historic_votes + 1 WHERE id = ?");
@@ -2494,6 +2506,21 @@ $totalRev = max(1, count($reviewsList));
                 $historicVotes = (int)($school['historic_votes'] ?? 0);
                 $historicBadgeInfo = getSchoolHistoricBadge($school);
                 $estYear = (int)($school['established_year'] ?? 0);
+
+                // Check if user has already voted within 1 year via Cookie or DB
+                $userVotedCookie = 'sp_voted_historic_' . $school['id'];
+                $hasUserVoted = !empty($_COOKIE[$userVotedCookie]);
+                if (!$hasUserVoted) {
+                    $uIp = $_SERVER['REMOTE_ADDR'] ?? null;
+                    $uSess = session_id();
+                    $uCheck = $pdo->prepare("SELECT id FROM daleel_school_historic_votes 
+                        WHERE school_id = ? AND (session_id = ? OR (ip_address IS NOT NULL AND ip_address = ?))
+                        AND created_at >= DATE_SUB(NOW(), INTERVAL 365 DAY) LIMIT 1");
+                    $uCheck->execute([$school['id'], $uSess, $uIp]);
+                    if ($uCheck->fetch()) {
+                        $hasUserVoted = true;
+                    }
+                }
                 ?>
                 <div class="sp-info-card mb-3" id="historicSchoolCard" style="border: 1.5px solid <?= $isHistoricSchool ? '#FCD34D' : '#E2E8F0' ?>; background: <?= $isHistoricSchool ? 'linear-gradient(180deg, #FFFBEB 0%, #FFFFFF 100%)' : '#FFFFFF' ?>;">
                     <div class="sp-info-card-head d-flex align-items-center justify-content-between" style="background: <?= $isHistoricSchool ? 'linear-gradient(135deg, #78350F 0%, #B45309 100%)' : '#0B2A52' ?>; color: #FFFFFF;">
@@ -2532,9 +2559,15 @@ $totalRev = max(1, count($reviewsList));
                                 </div>
                             </div>
 
-                            <button type="button" class="btn btn-sm w-100 rounded-pill py-2 fw-bold text-dark shadow-xs" id="btnVoteHistoric" onclick="submitHistoricVote()" style="background: linear-gradient(135deg, #FDE68A 0%, #F59E0B 100%); border: 1px solid #FCD34D; font-size: 0.75rem;">
-                                <i class="fas fa-heart text-danger me-1"></i> دعم وتأكيد عراقة المدرسة (+1)
-                            </button>
+                            <?php if ($hasUserVoted): ?>
+                                <button type="button" class="btn btn-sm w-100 rounded-pill py-2 fw-bold text-white shadow-xs" disabled style="background: #059669; border: 1px solid #047857; font-size: 0.75rem;">
+                                    <i class="fas fa-check-circle me-1"></i> صوتك مسجل ومحفوظ لمدة عام ✓
+                                </button>
+                            <?php else: ?>
+                                <button type="button" class="btn btn-sm w-100 rounded-pill py-2 fw-bold text-dark shadow-xs" id="btnVoteHistoric" onclick="submitHistoricVote()" style="background: linear-gradient(135deg, #FDE68A 0%, #F59E0B 100%); border: 1px solid #FCD34D; font-size: 0.75rem;">
+                                    <i class="fas fa-heart text-danger me-1"></i> دعم وتأكيد عراقة المدرسة (+1)
+                                </button>
+                            <?php endif; ?>
                         <?php else: ?>
                             <div class="mb-3">
                                 <div class="d-flex align-items-center gap-2 mb-2">
@@ -2555,9 +2588,15 @@ $totalRev = max(1, count($reviewsList));
                                     </div>
                                 </div>
 
-                                <button type="button" class="btn btn-primary w-100 rounded-pill py-2 fw-bold shadow-sm" id="btnVoteHistoric" onclick="submitHistoricVote()" style="background: linear-gradient(135deg, #1E5FA8 0%, #0B2A52 100%); border: none; font-size: 0.76rem;">
-                                    <i class="fas fa-vote-yea text-warning me-1"></i> صوّت لاعتمادها كـ "صرح عريق"
-                                </button>
+                                <?php if ($hasUserVoted): ?>
+                                    <button type="button" class="btn btn-sm w-100 rounded-pill py-2 fw-bold text-white shadow-xs" disabled style="background: #059669; border: 1px solid #047857; font-size: 0.75rem;">
+                                        <i class="fas fa-check-circle me-1"></i> صوتك مسجل ومحفوظ لمدة عام ✓
+                                    </button>
+                                <?php else: ?>
+                                    <button type="button" class="btn btn-primary w-100 rounded-pill py-2 fw-bold shadow-sm" id="btnVoteHistoric" onclick="submitHistoricVote()" style="background: linear-gradient(135deg, #1E5FA8 0%, #0B2A52 100%); border: none; font-size: 0.76rem;">
+                                        <i class="fas fa-vote-yea text-warning me-1"></i> صوّت لاعتمادها كـ "صرح عريق"
+                                    </button>
+                                <?php endif; ?>
                             </div>
                         <?php endif; ?>
                         <div id="historicVoteMsg" class="mt-2 text-center" style="display: none; font-size: 0.72rem; font-weight: 700;"></div>
