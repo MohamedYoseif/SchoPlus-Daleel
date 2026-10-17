@@ -1507,7 +1507,7 @@ return array (
     'description' => 'فرع بورتسودان المعتمد لمدرسة الخرطوم الدولية، يقدم مناهج كامبريدج البريطانية والشهادة الثانوية الدولية IGCSE.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   58 => 
   array (
@@ -1535,7 +1535,7 @@ return array (
     'description' => 'مجمع تعليمي دولي متكامل بحي الشاطئ شمال فندق كورال، يدرس مناهج كامبريدج البريطانية المتطورة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   59 => 
   array (
@@ -1563,7 +1563,7 @@ return array (
     'description' => 'من أعرق سلاسل المدارس الدولية الخاصة، يقدم تعليماً ثنائي اللغة بمناهج بريطانية وسودانية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   60 => 
   array (
@@ -1591,7 +1591,7 @@ return array (
     'description' => 'مؤسسة تعليمية دولية بحي ترانسيت جوار هيئة الموانئ البحرية، تقدم برامج تعليمية باللغة الإنجليزية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   61 => 
   array (
@@ -1618,7 +1618,7 @@ return array (
     'description' => 'صرح تعليمي نموذجي خاص بحي سلالاب مربع 4، يتصدر أوائل شهادات الأساس والمتوسطة بالبحر الأحمر.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   62 => 
   array (
@@ -1645,7 +1645,7 @@ return array (
     'description' => 'مدرسة خاصة متميزة بحي الثورة مربع 2، بيئة تعليمية محفزة ومعامل علمية متطورة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   63 => 
   array (
@@ -1672,7 +1672,7 @@ return array (
     'description' => 'مؤسسة تعليمية نموذجية تهتم بالمنهج الأكاديمي والتحصيل العلمي وحفظ القرآن الكريم والتربية القيمية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   64 => 
   array (
@@ -1699,7 +1699,7 @@ return array (
     'description' => 'مدرسة خاصة بحي ديم النور بشارع السلام، حققت مراكز متقدمة في امتحانات الشهادة الثانوية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   65 => 
   array (
@@ -1726,7 +1726,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة بحي الشاطئ مربع 1، تميز أكاديمي مستمر ومراكز متقدمة بالشهادة المتوسطة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   66 => 
   array (
@@ -1752,7 +1752,7 @@ return array (
     'description' => 'مدارس خاصة مرخصة بحي الوحدة جنوب الصينية، تقدم تعليماً أساسياً وتربوياً متكاملاً.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   67 => 
   array (
@@ -1778,7 +1778,7 @@ return array (
     'description' => 'مدرسة بنين خاصة تابعة لمدارس المجلس الأفريقي للتعليم الخاص، بيئة مدرسية عالية الانضباط.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   68 => 
   array (
@@ -1804,7 +1804,7 @@ return array (
     'description' => 'مدرسة بنات خاصة تابعة للمجلس الأفريقي بحي المطار، كادر تعليمي متميز وتفوق سنوي في النتائج.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   69 => 
   array (
@@ -1829,7 +1829,7 @@ return array (
     'description' => 'مرحلة ثانوية مساق علمي وأدبي للبنين بحي الشاطئ، تتصدر نسب النجاح بالشهادة السودانية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   70 => 
   array (
@@ -1854,7 +1854,7 @@ return array (
     'description' => 'مرحلة ثانوية للبنات بحي دبايوا، بيئة تربوية رائدة ومعدلات قبول عالية في كليات القمة الجامعية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   71 => 
   array (
@@ -1879,7 +1879,7 @@ return array (
     'description' => 'مجمع متكامل لصفوف المرحلة الابتدائية مع فصول حاسوب وأنشطة لا صفية وملاعب.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   72 => 
   array (
@@ -1904,7 +1904,7 @@ return array (
     'description' => 'روضة نموذجية متطورة لتنمية مهارات الطفولة المبكرة والتهيئة المدرسية بحي المطار.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   73 => 
   array (
@@ -1931,7 +1931,7 @@ return array (
     'description' => 'صرح تعليمي كنسي ومجتمعي تاريخي عريق تأسس عام 1948م بشارع الميناء أمام الكنيسة الكاثوليكية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   74 => 
   array (
@@ -1958,7 +1958,7 @@ return array (
     'description' => 'مدرسة خاصة تخدم أبناء الجالية الإريترية والمجتمع المحلي بتصديق من وزارة التربية والتوجيه.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   75 => 
   array (
@@ -1985,7 +1985,7 @@ return array (
     'description' => 'مؤسسة تعليمية معتمدة بإشراف مكتب التعليم الأجنبي والجاليات بوزارة التربية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   76 => 
   array (
@@ -2011,7 +2011,7 @@ return array (
     'description' => 'مدارس خاصة بحي دبايوا مربع 3، تقدم تعليماً أساسياً وتربوياً متكاملاً للأطفال.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   77 => 
   array (
@@ -2037,7 +2037,7 @@ return array (
     'description' => 'صرح تعليمي خاص بسلالاب شمال الاستاد، يهتم بالتفوق العلمي والتحصيل الأكاديمي.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   78 => 
   array (
@@ -2063,7 +2063,7 @@ return array (
     'description' => 'مدرسة خاصة معتمدة بمحلية سواكن جوار الميناء التاريخي، تسهم في تعزيز التعليم الأهلي.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   79 => 
   array (
@@ -2089,7 +2089,7 @@ return array (
     'description' => 'مدرسة خاصة معتمدة بمحلية طوكر لتعليم الأساس وحفظ القرآن الكريم والعلوم الشرعية والأكاديمية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   80 => 
   array (
@@ -2115,7 +2115,7 @@ return array (
     'description' => 'فرع مدارس الأندلس بمدينة سنكات، يقدم تعليماً نموذجياً لطلاب محلية سنكات وجبيت.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   81 => 
   array (
@@ -2141,7 +2141,7 @@ return array (
     'description' => 'مدرسة خاصة للأطفال والتأسيس الابتدائي بحي المطار ببورتسودان.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   82 => 
   array (
@@ -2167,7 +2167,7 @@ return array (
     'description' => 'مدارس خاصة بحي سلالاب تركز على المهارات العلمية وتنمية المواهب والتفوق الأكاديمي.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   83 => 
   array (
@@ -2193,7 +2193,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة تلتزم بأعلى معايير الجودة والتحصيل الأكاديمي.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   84 => 
   array (
@@ -2218,7 +2218,7 @@ return array (
     'description' => 'مؤسسة متخصصة في رياض الأطفال والتعليم قبل المدرسي بحي الشاطئ.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   85 => 
   array (
@@ -2244,7 +2244,7 @@ return array (
     'description' => 'مدرسة خاصة بحي ديم النور، تقدم مناهج وزارة التربية مع برامج تقوية مستمرة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   86 => 
   array (
@@ -2270,7 +2270,7 @@ return array (
     'description' => 'مدرسة خاصة بحي ترانسيت، بيئة تربوية مشجعة وكادر تدريسي ذو كفاءة عالية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   87 => 
   array (
@@ -2296,7 +2296,7 @@ return array (
     'description' => 'مدرسة خاصة بحي الثورة توفر فصولاً دراسية مجهزة ومعامل حاسوب متطورة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   88 => 
   array (
@@ -2322,7 +2322,7 @@ return array (
     'description' => 'مدرسة خاصة بحي الوحدة تقدم خدمات تعليمية متميزة لأبناء المنطقة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   89 => 
   array (
@@ -2348,7 +2348,7 @@ return array (
     'description' => 'مؤسسة تعليمية بحي دبايوا تضم روضة أطفال وفصولاً للمرحلة الابتدائية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   90 => 
   array (
@@ -2374,7 +2374,7 @@ return array (
     'description' => 'مدرسة خاصة معتمدة تخدم أحياء ديم سواكن وما حولها مع متابعة دورية للطلاب.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   91 => 
   array (
@@ -2400,7 +2400,7 @@ return array (
     'description' => 'مدرسة خاصة بمدينة جبيت تسهم في توفير بدائل تعليمية متميزة لأبناء المنطقة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   92 => 
   array (
@@ -2426,7 +2426,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة بسواكن تعنى بالتربية الإسلامية والتعليم الأساسي المتكامل.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   93 => 
   array (
@@ -2452,7 +2452,7 @@ return array (
     'description' => 'معتمدة من منظمة البكالوريا الدولية (IB World School) ومجلس المدارس الدولية (CIS).',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   94 => 
   array (
@@ -2480,7 +2480,7 @@ return array (
     'description' => 'رابطة الولايات الوسطى للكليات والمدارس (MSA)، وسفارة الولايات المتحدة بالخرطوم.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   95 => 
   array (
@@ -2508,7 +2508,7 @@ return array (
     'description' => 'مسجلة كمركز معتمد لامتحانات كامبريدج لدى المجلس الثقافي البريطاني بالخرطوم منذ أكثر من قرن.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   96 => 
   array (
@@ -2535,7 +2535,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   97 => 
   array (
@@ -2560,7 +2560,7 @@ return array (
     'description' => 'التوثيق والتحقق:** شبكة مدارس الإرسالية الكاثوليكية، موثقة في الخرائط التعليمية وسجلات الكنائس بوزارة التربية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   98 => 
   array (
@@ -2588,7 +2588,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   99 => 
   array (
@@ -2616,7 +2616,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   100 => 
   array (
@@ -2644,7 +2644,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   101 => 
   array (
@@ -2672,7 +2672,7 @@ return array (
     'description' => 'صفحة فيسبوك الرسمية المعتمدة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   102 => 
   array (
@@ -2700,7 +2700,7 @@ return array (
     'description' => 'صفحة رسمية معتمدة على فيسبوك وإشراف الملحقية الثقافية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   103 => 
   array (
@@ -2726,7 +2726,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   104 => 
   array (
@@ -2753,7 +2753,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   105 => 
   array (
@@ -2780,7 +2780,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   106 => 
   array (
@@ -2808,7 +2808,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   107 => 
   array (
@@ -2835,7 +2835,7 @@ return array (
     'description' => 'التوثيق والتحقق:** صفحة معتمدة ورقم قيد بوزارة التربية محلية الخرطوم.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   108 => 
   array (
@@ -2862,7 +2862,7 @@ return array (
     'description' => 'التوثيق والتحقق:** سجلات أوائل الشهادة السودانية بولاية الخرطوم، وصفحة رسمية موثقة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   109 => 
   array (
@@ -2888,7 +2888,7 @@ return array (
     'description' => 'التوثيق والتحقق:** صفحة رسمية معتمدة على فيسبوك وإعلانات القبول.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   110 => 
   array (
@@ -2915,7 +2915,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   111 => 
   array (
@@ -2941,7 +2941,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   112 => 
   array (
@@ -2967,7 +2967,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   113 => 
   array (
@@ -2993,7 +2993,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   114 => 
   array (
@@ -3019,7 +3019,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   115 => 
   array (
@@ -3045,7 +3045,7 @@ return array (
     'description' => 'التوثيق والتحقق:** صفحة رسمية معتمدة بإشراف إدارة التعليم الخاص بمحلية الخرطوم.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   116 => 
   array (
@@ -3072,7 +3072,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   117 => 
   array (
@@ -3100,7 +3100,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   118 => 
   array (
@@ -3127,7 +3127,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   119 => 
   array (
@@ -3154,7 +3154,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   120 => 
   array (
@@ -3180,7 +3180,7 @@ return array (
     'description' => 'التوثيق والتحقق:** صفحة معتمدة على فيسبوك وقوائم امتحانات الشهادة الثانوية بمحلية أم درمان.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   121 => 
   array (
@@ -3206,7 +3206,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   122 => 
   array (
@@ -3234,7 +3234,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   123 => 
   array (
@@ -3260,7 +3260,7 @@ return array (
     'description' => 'التوثيق والتحقق:** توثيق إدارة التعليم الأهلي والخاص، وسجلات نتائج مرحلة الأساس.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   124 => 
   array (
@@ -3288,7 +3288,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   125 => 
   array (
@@ -3316,7 +3316,7 @@ return array (
     'description' => 'التوثيق والتحقق:** معتمدة رسمياً ومصنفة ضمن كبرى المدارس الخاصة بكرري وأم درمان.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   126 => 
   array (
@@ -3343,7 +3343,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   127 => 
   array (
@@ -3370,7 +3370,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   128 => 
   array (
@@ -3397,7 +3397,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   129 => 
   array (
@@ -3422,7 +3422,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   130 => 
   array (
@@ -3449,7 +3449,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   131 => 
   array (
@@ -3476,7 +3476,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   132 => 
   array (
@@ -3503,7 +3503,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   133 => 
   array (
@@ -3531,7 +3531,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   134 => 
   array (
@@ -3557,7 +3557,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   135 => 
   array (
@@ -3583,7 +3583,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   136 => 
   array (
@@ -3611,7 +3611,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   137 => 
   array (
@@ -3637,7 +3637,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   138 => 
   array (
@@ -3665,7 +3665,7 @@ return array (
     'description' => 'التوثيق والتحقق:** صفحة رسمية معتمدة وقيد معتمد بوزارة التربية بولاية الخرطوم.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   139 => 
   array (
@@ -3690,7 +3690,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   140 => 
   array (
@@ -3716,7 +3716,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   141 => 
   array (
@@ -3742,7 +3742,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   142 => 
   array (
@@ -3769,7 +3769,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   143 => 
   array (
@@ -3794,7 +3794,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   144 => 
   array (
@@ -3821,7 +3821,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   145 => 
   array (
@@ -3848,7 +3848,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   146 => 
   array (
@@ -3874,7 +3874,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   147 => 
   array (
@@ -3901,7 +3901,7 @@ return array (
     'description' => 'المراحل التعليمية:** أساس، متوسط، ثانوي (مراكز امتحانات شهادة ثانوية).؛ التوثيق والتحقق:** صفحة رسمية معتمدة على فيسبوك وكشوفات امتحانات محلية بحري.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   148 => 
   array (
@@ -3928,7 +3928,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   149 => 
   array (
@@ -3955,7 +3955,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   150 => 
   array (
@@ -3981,7 +3981,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   151 => 
   array (
@@ -4009,7 +4009,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   152 => 
   array (
@@ -4036,7 +4036,7 @@ return array (
     'description' => 'صفحة رسمية معتمدة على فيسبوك.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   153 => 
   array (
@@ -4064,7 +4064,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   154 => 
   array (
@@ -4091,7 +4091,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   155 => 
   array (
@@ -4119,7 +4119,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   156 => 
   array (
@@ -4146,7 +4146,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   157 => 
   array (
@@ -4174,7 +4174,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   158 => 
   array (
@@ -4201,7 +4201,7 @@ return array (
     'description' => 'مسجلة لدى [schoolsinsudan.com](https://schoolsinsudan.com) وصفحة رسمية معتمدة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   159 => 
   array (
@@ -4229,7 +4229,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   160 => 
   array (
@@ -4256,7 +4256,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   161 => 
   array (
@@ -4283,7 +4283,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   162 => 
   array (
@@ -4311,7 +4311,7 @@ return array (
     'description' => 'التوثيق والتحقق:** صفحة معتمدة وقيد رسمي بوزارة التربية والتوجيه.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   163 => 
   array (
@@ -4337,7 +4337,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   164 => 
   array (
@@ -4365,7 +4365,7 @@ return array (
     'description' => 'كشوفات الشرف الرسمية لوزارة التربية والتوجيه بولاية نهر النيل لامتحانات الشهادة الابتدائية (منهن الطالبة المتفوقة: لجين أحمد علي حسين – مدرسة النوابغ الخاصة).؛ صفحة رسمية معتمدة على فيسبوك: `رياض ومدارس النوابغ الخاصة عطبرة`.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   165 => 
   array (
@@ -4392,7 +4392,7 @@ return array (
     'description' => 'كشوفات أوائل الشهادة الابتدائية بولاية نهر النيل (منهن الطالبة المتفوقة: أشرقت محمد بشير درار – مدرسة المدينة الخاصة بنات).؛ الصفحة المعتمدة على فيسبوك: `facebook.com/almadinaschools.sd',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   166 => 
   array (
@@ -4419,7 +4419,7 @@ return array (
     'description' => 'أرقام هواتف الإدارة والتسجيل المعتمدة: `0918122214` - `0122287869`.؛ الصفحة الرسمية وإعلانات العام الدراسي المعتمدة على فيسبوك.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   167 => 
   array (
@@ -4446,7 +4446,7 @@ return array (
     'description' => 'لوحات شرف وتفوق طلاب الكودة فرع عطبرة في امتحانات ولاية نهر النيل، وصفحة المؤسسة المعتمدة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   168 => 
   array (
@@ -4471,7 +4471,7 @@ return array (
     'description' => 'أرقام هواتف الإدارة والتسجيل المعتمدة: `0111977742` - `0111909592`.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   169 => 
   array (
@@ -4498,7 +4498,7 @@ return array (
     'description' => 'كشوفات أوائل الشهادة الابتدائية بولاية نهر النيل (منهن الطالبة: ليال عاطف عبدالله محمد الأمين – مدرسة نمبر ون الخاصة بنات).',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   170 => 
   array (
@@ -4525,7 +4525,7 @@ return array (
     'description' => 'الحسابات والصفحات الرسمية المعتمدة للمؤسسة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   171 => 
   array (
@@ -4553,7 +4553,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بنهر النيل، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   172 => 
   array (
@@ -4580,7 +4580,7 @@ return array (
     'description' => 'سجلات وزارة التربية والتوجيه الخاصة بإدارة التعليم غير الحكومي/الكنائسي.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   173 => 
   array (
@@ -4605,7 +4605,7 @@ return array (
     'description' => 'صفحة رسمية معتمدة على فيسبوك: `مدرسه السلام الثانوية الخاصة بنين  عطبره`.؛ سجلات الأنشطة التربوية والزيارات العلمية الأكاديمية المشتركة مع كليات جامعة وادي النيل.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   174 => 
   array (
@@ -4630,7 +4630,7 @@ return array (
     'description' => 'الصفحة المعتمدة وإعلانات القبول الرسمية: `مدرسة النهضة الثانوية الخاصة عطبرة`.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   175 => 
   array (
@@ -4657,7 +4657,7 @@ return array (
     'description' => 'التوثيق الجغرافي وسجلات الأعمال المعتمدة Bizmideast، والصفحة الرسمية: `الصفوه الخاصه بنات عطبره`.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   176 => 
   array (
@@ -4684,7 +4684,7 @@ return array (
     'description' => 'الإعلانات الرسمية الصادرة عن إدارة المؤسسة للعام الدراسي وشواغر الكادر التعليمي لفرع عطبرة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   177 => 
   array (
@@ -4711,7 +4711,7 @@ return array (
     'description' => 'أرقام الهواتف الرسمية المعتمدة: `0918122214` - `0967681273` - `0122287869`.؛ إعلانات التسجيل وبدء العام الدراسي المعتمدة بفرع الدامر.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   178 => 
   array (
@@ -4738,7 +4738,7 @@ return array (
     'description' => 'الإعلان الرسمي الصادر عن إدارة مؤسسة الكودة لافتتاح فرع مدينة الدامر، والصفحة المعتمدة للمؤسسة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   179 => 
   array (
@@ -4764,7 +4764,7 @@ return array (
     'description' => 'صفحة رسمية معتمدة على فيسبوك: `مدرسة المرافئ الثانوية الدامر`.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   180 => 
   array (
@@ -4791,7 +4791,7 @@ return array (
     'description' => 'الصفحة الرسمية المعتمدة على فيسبوك: `مدارس منارة الدامر الخاصة`.؛ سجلات مشاركات المدرسة في امتحانات النقل والشهادة الابتدائية بمحلية الدامر.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   181 => 
   array (
@@ -4818,7 +4818,7 @@ return array (
     'description' => 'لوحات شرف وتكريم متفوقي الشهادة الثانوية بولاية نهر النيل (أحرزت مراكز متقدمة على مستوى الولاية).',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   182 => 
   array (
@@ -4845,7 +4845,7 @@ return array (
     'description' => 'الإعلانات الدورية المعتمدة للتسجيل والامتحانات، وأرقام المؤسسة المعتمدة: `0123485295` - `0912979728`.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   183 => 
   array (
@@ -4871,7 +4871,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بنهر النيل، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   184 => 
   array (
@@ -4899,7 +4899,7 @@ return array (
     'description' => 'الصفحة المعتمدة على فيسبوك: `مدارس ورياض الفنار التعليمية الخاصة شندي`.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   185 => 
   array (
@@ -4926,7 +4926,7 @@ return array (
     'description' => 'كشوفات الشرف الصادرة عن وزارة التربية والتوجيه بنهر النيل (الطالبة المتفوقة: تماضر منصور محمد علي – مدرسة دار المعالي الخاصة بنات – 279 درجة في الشهادة الابتدائية).؛ الصفحة المعتمدة على فيسبوك: `دار المعالي الثانوية الخاصة شندي`.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   186 => 
   array (
@@ -4953,7 +4953,7 @@ return array (
     'description' => 'السجلات والبحوث الميدانية التربوية لجامعة شندي حول مدارس التعليم الثانوي الخاص.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   187 => 
   array (
@@ -4980,7 +4980,7 @@ return array (
     'description' => 'الصفحة الرسمية المعتمدة على فيسبوك: `رياض ومدارس إجلال الخاصة شندي`.؛ إعلانات المنح الدراسية للمتفوقين ولوحات تكريم الناجحين في امتحانات الأساس والمتوسط.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   188 => 
   array (
@@ -5005,7 +5005,7 @@ return array (
     'description' => 'الإعلانات الرسمية لفتح باب القبول والتسجيل وكورسات الشهادة الثانوية المكثفة بشندي.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   189 => 
   array (
@@ -5030,7 +5030,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بنهر النيل، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   190 => 
   array (
@@ -5057,7 +5057,7 @@ return array (
     'description' => 'أرقام الهواتف الرسمية المعتمدة للتسجيل والإدارة: `+249911091665` - `+249911091666` - `+249911091667`.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   191 => 
   array (
@@ -5084,7 +5084,7 @@ return array (
     'description' => 'أرقام الهواتف الرسمية المعتمدة لفرع المتمة: `+249911091666` - `+249902962863` - `+249912454684`.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   192 => 
   array (
@@ -5112,7 +5112,7 @@ return array (
     'description' => 'الصفحة المعتمدة على فيسبوك: `مدارس عبد المعروف علي التعليمية الخاصة`.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   193 => 
   array (
@@ -5139,7 +5139,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بنهر النيل، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   194 => 
   array (
@@ -5166,7 +5166,7 @@ return array (
     'description' => 'الصفحة المعتمدة على فيسبوك: `مدارس ورياض أم صابرين الخاصة بربر`.؛ إعلانات التقويم المدرسي المعتمدة وتوفير خدمات الترحيل والكتاب المدرسي.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   195 => 
   array (
@@ -5192,7 +5192,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بنهر النيل، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   196 => 
   array (
@@ -5220,7 +5220,7 @@ return array (
     'description' => 'نتائج امتحانات الشهادة الابتدائية بمحلية أبو حمد (إحراز تلاميذ المدرسة للمراكز الأولى على مستوى المحلية).',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   197 => 
   array (
@@ -5245,7 +5245,7 @@ return array (
     'description' => 'التغطيات والتوثيق الرسمي الصادر عن منصة كبوشية الإعلامية لكرنفالات التخريج السنوية المعتمدة من إدارة التعليم قبل المدرسي.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   198 => 
   array (
@@ -5270,7 +5270,7 @@ return array (
     'description' => 'التوثيق المجتمعي والإعلامي المحلي لاحتفالات التخريج والمناشط الصفية المعتمدة بوحدة كبوشية الإدارية.؛ تم توثيق (35) صرحاً تعليمياً خاصاً حقيقياً معتمداً يشمل كافة المراحل الدراسية في عموم محليات ولاية نهر النيل (عطبرة، الدامر، شندي، المتمة، بربر، أبو حمد، كبوشية)، مع تفاصيل دقيقة للأحياء والمربعات والشوارع وأرقام الاتصال والروابط وسجلات وزارة التربية والتوجيه بالولاية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   199 => 
   array (
@@ -5298,7 +5298,7 @@ return array (
     'description' => ' صفحة رسمية معتمدة على فيسبوك، تقارير شبكة المسار نيوز، نتائج معتمدة لأوائل الشهادة السودانية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   200 => 
   array (
@@ -5326,7 +5326,7 @@ return array (
     'description' => ' أول مدرسة إنجليزية تأسست بمدني (فبراير 2012م)، مسجلة لدى كامبريدج برقم SD028، تدرس مناهج Macmillan إلى جانب المنهج السوداني في اللغة العربية والتربية الإسلامية.؛  صفحة فيسبوك الرسمية المعتمدة (`WadMadaniEnglishSchool`)، ومسجلة جغرافياً على Wikimapia.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   201 => 
   array (
@@ -5351,7 +5351,7 @@ return array (
     'description' => 'أرقام الهواتف المعتمدة للتسجيل:** `0121906204` - `0925228093`.؛  صفحة رسمية معتمدة على فيسبوك، وإعلانات التسجيل والقبول السنوية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   202 => 
   array (
@@ -5376,7 +5376,7 @@ return array (
     'description' => ' السجل التجاري المعتمد على دليل Bizmideast، وتقارير متابعة امتحانات الشهادة الثانوية على منصات الأخبار المعتمدة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   203 => 
   array (
@@ -5403,7 +5403,7 @@ return array (
     'description' => ' صفحة رسمية للمدرسة، ومقيدة بالدليل التجاري والخدمي Bizmideast تحت تصنيف المدارس الخاصة بود مدني.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   204 => 
   array (
@@ -5430,7 +5430,7 @@ return array (
     'description' => ' د. جلال عبد الله علي.؛ نتائج الامتحانات:** حققت طالبتها "شيماء أسامة عبد القادر" مراكز متقدمة على مستوى ولاية الجزيرة في امتحانات الشهادة السودانية وتم تكريمها رسمياً.؛  صفحة رسمية معتمدة على فيسبوك وتقارير صحفية موثقة في منصة الرؤية برس.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   205 => 
   array (
@@ -5455,7 +5455,7 @@ return array (
     'description' => ' صفحة رسمية معتمدة على فيسبوك وإنستغرام وإعلانات التسجيل والكورسات الأكاديمية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   206 => 
   array (
@@ -5482,7 +5482,7 @@ return array (
     'description' => ' الموقع الرسمي لمدارس القبس بالسودان (`alqabasschools.com`) فرع ود مدني، ولوائح شرف امتحانات الشهادة السودانية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   207 => 
   array (
@@ -5509,7 +5509,7 @@ return array (
     'description' => ' البوابة الرسمية للمجلس الأفريقي للتعليم الخاص، دليل Bizmideast، وتقارير متابعة وزارة التربية والتعليم بولاية الجزيرة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   208 => 
   array (
@@ -5534,7 +5534,7 @@ return array (
     'description' => 'النتائج:** تصدر قوائم المائة الأوائل في الشهادة السودانية على مدار سنوات متعددة.؛  مسجلة على خريطة Wikimapia للمدارس الخاصة بمدني، وصفحات التوثيق الأكاديمي بجامعة الجزيرة وفيسبوك.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   209 => 
   array (
@@ -5559,7 +5559,7 @@ return array (
     'description' => ' صفحة رسمية معتمدة على فيسبوك، وإعلانات التسجيل المعتمدة من وزارة التربية بالولاية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   210 => 
   array (
@@ -5585,7 +5585,7 @@ return array (
     'description' => ' صفحة رسمية وتغطيات الأنشطة الطلابية والأكاديمية وتكريم المتفوقين عبر منصات الإعلام المحلي في ود مدني.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   211 => 
   array (
@@ -5610,7 +5610,7 @@ return array (
     'description' => ' صفحة رسمية معتمدة على فيسبوك، مقيدة بسجلات التعليم الخاص في وزارة التربية والتعليم بالولاية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   212 => 
   array (
@@ -5636,7 +5636,7 @@ return array (
     'description' => ' مقيدة في الدليل التجاري Bizmideast تحت رقم تسجيل مدارس حنتوب الخاصة، والتوثيق الجغرافي لوحدة حنتوب.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   213 => 
   array (
@@ -5662,7 +5662,7 @@ return array (
     'description' => 'المراحل التعليمية:** مرحلة الأساس والمرحلة الثانوية (مدارس جاليات وكنائس إنجيلية معتمدة).؛  مسجلة على ويكيمابيا (Wikimapia) ودليل Cybo للمؤسسات التعليمية، وسجلات الكنيسة الإنجيلية ووزارة التربية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   214 => 
   array (
@@ -5689,7 +5689,7 @@ return array (
     'description' => ' صفحة رسمية نشطة على فيسبوك وإنستغرام وإعلانات التسجيل والتوظيف.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   215 => 
   array (
@@ -5714,7 +5714,7 @@ return array (
     'description' => ' أ. مصطفى بلول / أ. الأمين قريقر.؛  صفحة رسمية معتمدة على فيسبوك وإعلانات القبول والتسجيل.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   216 => 
   array (
@@ -5740,7 +5740,7 @@ return array (
     'description' => ' صفحة رسمية معتمدة على فيسبوك، وإعلانات المنح الدراسية للمتفوقات بشهادة الأساس.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   217 => 
   array (
@@ -5767,7 +5767,7 @@ return array (
     'description' => ' صفحة رسمية ومقر ميداني معتمد بالمنصورة وإعلانات استيعاب المعلمين والمعلمات.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   218 => 
   array (
@@ -5792,7 +5792,7 @@ return array (
     'description' => ' مقيدة في الدليل الخدمي Bizmideast، وسجلات إدارة التعليم غير الحكومي بالمحلية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   219 => 
   array (
@@ -5818,7 +5818,7 @@ return array (
     'description' => ' صفحة رسمية معتمدة على فيسبوك وإعلانات العام الدراسي.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   220 => 
   array (
@@ -5845,7 +5845,7 @@ return array (
     'description' => ' صفحة رسمية معتمدة على فيسبوك، ومركز امتحانات معتمد وموثق في تقارير وزارة التربية والتعليم بالولاية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   221 => 
   array (
@@ -5870,7 +5870,7 @@ return array (
     'description' => 'النتائج الرسمية:** تصدرت كشوفات نتائج الشهادة الابتدائية بمحلية المناقل وحققت أعلى نسب نجاح ومراكز متقدمة على مستوى الولاية، موثقة بتقارير وزارة التربية والتعليم والمدير التنفيذي للمحلية ومدير التعليم الخاص بالولاية أ. عبد الله حسين (موقع أرض المحنة).',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   222 => 
   array (
@@ -5896,7 +5896,7 @@ return array (
     'description' => 'النتائج الرسمية:** حققت طالباتها مراكز متقدمة في امتحانات الشهادة المتوسطة الرسمية المعتمدة بولاية الجزيرة (مثل المركز 71 على مستوى المحلية بمجموع متميز).',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   223 => 
   array (
@@ -5921,7 +5921,7 @@ return array (
     'description' => 'النتائج الرسمية:** حصدت طالباتها مراكز متقدمة ضمن لوحة شرف امتحانات الشهادة المتوسطة الرسمية بمحلية المناقل.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   224 => 
   array (
@@ -5948,7 +5948,7 @@ return array (
     'description' => ' فرع معتمد مسجل رسمياً للمجلس الأفريقي، وموثق بحضور الإدارة التنفيذية لوزارة التربية بالولاية في مراسم الامتحانات والتكريم.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   225 => 
   array (
@@ -5973,7 +5973,7 @@ return array (
     'description' => ' مقيدة بالدليل التجاري Bizmideast، وصفحة المدرسة التوثيقية على فيسبوك، وسجلات جلوس الطلاب لامتحانات الشهادة الثانوية برفاعة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   226 => 
   array (
@@ -5998,7 +5998,7 @@ return array (
     'description' => ' معتمدة وموثقة بكشوفات مراكز الامتحانات ونتائج الشهادة الثانوية لقطاع شرق الجزيرة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   227 => 
   array (
@@ -6023,7 +6023,7 @@ return array (
     'description' => ' صفحة رسمية ومشاركات طلابية في امتحانات الشهادة الثانوية بوحدة تمبول الإدارية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   228 => 
   array (
@@ -6048,7 +6048,7 @@ return array (
     'description' => ' مشاركة رسمية في امتحانات شهادة مرحلة الأساس والشهادة الابتدائية بمحلية شرق الجزيرة وسجلات التواصل المعتمدة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   229 => 
   array (
@@ -6073,7 +6073,7 @@ return array (
     'description' => ' تقارير المدارس الخاصة التابعة لمحلية شرق الجزيرة ومنشورات إدارة التعليم غير الحكومي.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   230 => 
   array (
@@ -6101,7 +6101,7 @@ return array (
     'description' => 'المنصات الرسمية:** صفحة رسمية معتمدة على فيسبوك وحساب موثق على إنستغرام لفرع سنار.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   231 => 
   array (
@@ -6126,7 +6126,7 @@ return array (
     'description' => 'التوثيق الجغرافي والرسمي:** صفحة فيسبوك رسمية معتمدة ("مدارس المستقبل الثانوية النموذجية الخاصة")، ومسجلة في قواعد البيانات الجغرافية الدولية (Worldplaces).',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   232 => 
   array (
@@ -6153,7 +6153,7 @@ return array (
     'description' => ' العميد / محمد موسى البشير.؛ المنصات الرسمية والأنشطة:** صفحة رسمية معتمدة على فيسبوك ("مدرسة علي النور الثانوية ولاية سنار")، ومجموعة "مدرسة علي النور الخاصة سنار".؛ الإنجازات المعتمدة:** التتويج الرسمي ببطولة دوري المدارس الثانوية بمدينة سنار وتوفير منح دراسية للمتفوقين في شهادة الأساس/المتوسطة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   233 => 
   array (
@@ -6180,7 +6180,7 @@ return array (
     'description' => 'المنصات والأنشطة الأكاديمية:** صفحة رسمية معتمدة على فيسبوك، وتوثيق الزيارات والبرامج العلمية المشتركة في معمل الحاسوب وتقنية المعلومات بجامعة سنار.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   234 => 
   array (
@@ -6206,7 +6206,7 @@ return array (
     'description' => 'المنصات الرسمية:** صفحة رسمية معتمدة على فيسبوك ("مدارس المهندس الاساسية الخاصة-سنار").؛ التغطيات التعليمية:** تغطيات إعلامية للأنشطة وسير الامتحانات بإشراف الأستاذ نادر المدني وكوادر المدرسة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   235 => 
   array (
@@ -6231,7 +6231,7 @@ return array (
     'description' => 'المنصات والنتائج:** صفحة رسمية لخريجي وطلاب المدرسة على فيسبوك ("مدرسة تكتوك الثانوية الخاصة بسنار") وسجلات نتائج امتحانات الشهادة الثانوية السودانية بالولاية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   236 => 
   array (
@@ -6256,7 +6256,7 @@ return array (
     'description' => 'المنصات الرسمية:** صفحة فيسبوك معتمدة ("السلام الثانوية الخاصة سنار").',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   237 => 
   array (
@@ -6284,7 +6284,7 @@ return array (
     'description' => 'الاعتماد الرسمي:** معتمدة ومسجلة رسمياً لدى وزارة التربية والتعليم بولاية سنار، وصفحة رسمية معتمدة على فيسبوك ("مجموعة مدارس التقدم الخاصة").',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   238 => 
   array (
@@ -6309,7 +6309,7 @@ return array (
     'description' => 'المنصات الإعلامية:** صفحة رسمية معتمدة على فيسبوك، وتغطيات وثائقية مصورة على يوتيوب لأنشطة المؤسسة المدرسية والتربوية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   239 => 
   array (
@@ -6336,7 +6336,7 @@ return array (
     'description' => 'المنصات الرسمية:** صفحة رسمية معتمدة على فيسبوك، مع توفير خطوط ترحيل للطلاب في مدينة سنجة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   240 => 
   array (
@@ -6362,7 +6362,7 @@ return array (
     'description' => 'أرقام الهواتف المعتمدة:** `0903004790` / `0121974064؛ المنصات الرسمية:** صفحة رسمية معتمدة على فيسبوك وإعلانات القبول والتسجيل المنشورة بأرقام الإدارة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   241 => 
   array (
@@ -6388,7 +6388,7 @@ return array (
     'description' => 'أرقام الهواتف المعتمدة:** `0903689720` / `0122173450؛ المنصات والكوادر:** صفحة رسمية معتمدة على فيسبوك بإشراف الأستاذ عاطف بسيوني وقناة يوتيوب لتوثيق الفعاليات المدرسية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   242 => 
   array (
@@ -6414,7 +6414,7 @@ return array (
     'description' => 'المنصات الرسمية:** صفحة رسمية معتمدة على فيسبوك وإعلانات دورية رسمية للقبول والتسجيل.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   243 => 
   array (
@@ -6440,7 +6440,7 @@ return array (
     'description' => 'المنصات الرسمية:** صفحة رسمية معتمدة على فيسبوك، ومقاطع وثائقية للأنشطة والاحتفالات على يوتيوب.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   244 => 
   array (
@@ -6465,7 +6465,7 @@ return array (
     'description' => 'المنصات والنتائج:** صفحة رسمية معتمدة على فيسبوك، ونشر نتائج امتحانات الشهادة السودانية، وفعاليات مشتركة موثقة بحضور قيادات وزارة التربية والتوجيه بالولاية والفرقة 17 مشاة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   245 => 
   array (
@@ -6491,7 +6491,7 @@ return array (
     'description' => 'المنصات الرسمية:** صفحة رسمية معتمدة على فيسبوك ("مدارس القلم الخاصة سنجة") وسجلات تكريم المتفوقين في امتحانات الشهادة الابتدائية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   246 => 
   array (
@@ -6518,7 +6518,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بسنار، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   247 => 
   array (
@@ -6544,7 +6544,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بسنار، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   248 => 
   array (
@@ -6570,7 +6570,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بسنار، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   249 => 
   array (
@@ -6596,7 +6596,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بسنار، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   250 => 
   array (
@@ -6622,7 +6622,7 @@ return array (
     'description' => 'المنصات والتسجيل:** صفحة رسمية وتغطيات معتمدة من فعاليات الحي والمدينة في استقبال وتسجيل الطلاب.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   251 => 
   array (
@@ -6647,7 +6647,7 @@ return array (
     'description' => 'الصحافة والتوثيق الرسمي:** تقارير إخبارية موسعة في الصحف السودانية (صحيفة كوش نيوز، وشبكة 5ws الإخبارية) توثق تفوق المدرسة ودورها في استقرار التعليم وتكريم أوائل الطلاب.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   252 => 
   array (
@@ -6673,7 +6673,7 @@ return array (
     'description' => ' تغطيات مصورة لاحتفالات تكريم المتفوقين في امتحانات شهادة الأساس بالسوكي/السبيكة، ومشاركات رسمية في الأنشطة الطلابية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   253 => 
   array (
@@ -6700,7 +6700,7 @@ return array (
     'description' => 'المنصات والأنشطة:** صفحة رسمية معتمدة على فيسبوك، ومسجلة تحت إشراف وتوجيه مكتب التعليم بمحلية السوكي.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   254 => 
   array (
@@ -6725,7 +6725,7 @@ return array (
     'description' => ' الأستاذ ميسرة أحمد جبريل.؛ المراحل التعليمية:** مرحلة ابتدائية خاصة (من الصف الأول حتى السادس الابتدائي، ومراكز امتحانات النقل المعتمدة).؛ المنصات والتغطيات:** صفحة رسمية معتمدة على فيسبوك، وتغطيات إعلامية مصورة لجولات المتابعة الإشرافية والامتحانات الرسمية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   255 => 
   array (
@@ -6753,7 +6753,7 @@ return array (
     'description' => 'صفحة رسمية معتمدة على فيسبوك: *(مدارس الاندلس الخاصة  كوستي)*.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   256 => 
   array (
@@ -6780,7 +6780,7 @@ return array (
     'description' => 'مركز معتمد من وزارة التربية والتوجيه لتصحيح امتحانات الشهادة المتوسطة على مستوى الولاية.؛ حصد طلابها المركز الأول على مستوى ولاية النيل الأبيض في امتحانات الشهادة المتوسطة بالدرجة الكاملة (280/280) (مثل الطالبة: *أم مهل مساعد النور*، والطالبة: *آمنة الباقر عبد الله*، والطالب: *عبد الباقي حلو عبد الله*).؛ إحراز المركز الأول لسنوات متعددة في الشهادة الابتدائية بولاية النيل الأبيض.؛ تغطيات وكالات الأنباء المعتمدة ومنصات الأخبار التربوية (سكووب برس، ',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   257 => 
   array (
@@ -6807,7 +6807,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالنيل الأبيض، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   258 => 
   array (
@@ -6834,7 +6834,7 @@ return array (
     'description' => 'صفحة رسمية معتمدة على فيسبوك: *(مدارس الزهراء الخاصة - Al-Zahra Private Schools)*.؛ كراسات مدرسية وهوية بصرية مطبوعة ومعتمدة بإشراف الإدارة، وإعلانات بدء العام الدراسي والتسجيل وزيارات ميدانية موثقة لجامعة النيل الأبيض.؛ توثيق الموقع الجغرافي على الخرائط المفتوحة المعتمدة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   259 => 
   array (
@@ -6860,7 +6860,7 @@ return array (
     'description' => 'الاعتماد الوزاري:** معتمدة رسمياً كمركز امتحانات الشهادة المتوسطة برقم المركز المعتمد (**مركز رقم 132**).؛ كشوفات وزارة التربية لمراكز امتحانات الشهادة المتوسطة بكوستي.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   260 => 
   array (
@@ -6888,7 +6888,7 @@ return array (
     'description' => 'تكريمات واحتفالات رسمية للمتفوقين بحضور وتشريف وزير التربية والتوجيه بولاية النيل الأبيض والمدير التنفيذي لمحلية كوستي.؛ الصفحة الرسمية المعتمدة على فيسبوك: *(مؤسسة الريادة التربوية الخاصة كوستي)*.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   261 => 
   array (
@@ -6915,7 +6915,7 @@ return array (
     'description' => 'إعلانات التسجيل المعتمدة بحي المربعات في كوستي.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   262 => 
   array (
@@ -6940,7 +6940,7 @@ return array (
     'description' => 'مسجلة ضمن المؤسسات التعليمية المعتمدة على Wikimapia التعليمية بكوستي.؛ مدرجة في سجلات المدارس المعتمدة في امتحانات الشهادة الثانوية بوزارة التربية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   263 => 
   array (
@@ -6965,7 +6965,7 @@ return array (
     'description' => 'السجلات التاريخية لحي المرابيع ووزارة التربية والتوجيه.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   264 => 
   array (
@@ -6991,7 +6991,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالنيل الأبيض، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   265 => 
   array (
@@ -7016,7 +7016,7 @@ return array (
     'description' => 'فصول وبرامج التركيز للشهادة السودانية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   266 => 
   array (
@@ -7043,7 +7043,7 @@ return array (
     'description' => 'احتلت طالباتها مراكز متقدمة من بين العشرة الأوائل على مستوى ولاية النيل الأبيض في امتحانات الشهادة المتوسطة.؛ مؤتمر إعلان نتائج الشهادة المتوسطة والابتدائية الصادر عن وزارة التربية والتوجيه بالولاية.؛ الصفحة الرسمية وتغطيات تكريم المتفوقين.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   267 => 
   array (
@@ -7069,7 +7069,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالنيل الأبيض، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   268 => 
   array (
@@ -7094,7 +7094,7 @@ return array (
     'description' => 'مشاركة في امتحانات الشهادة الثانوية السودانية لمدارس ربك الخاصة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   269 => 
   array (
@@ -7121,7 +7121,7 @@ return array (
     'description' => 'مسجلة ومعتمدة على الخرائط الجغرافية التعليمية (Wikimapia: Al-Mustaqbal Private School Rabak).',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   270 => 
   array (
@@ -7146,7 +7146,7 @@ return array (
     'description' => ' تحقيق نسب نجاح 100% ومراكز متقدمة تاريخياً في الشهادة السودانية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   271 => 
   array (
@@ -7171,7 +7171,7 @@ return array (
     'description' => ' سجلات تكريم أوائل الشهادة السودانية على مستوى السودان وولاية النيل الأبيض.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   272 => 
   array (
@@ -7197,7 +7197,7 @@ return array (
     'description' => ' نتائج امتحانات مرحلة الأساس والمتوسطة بمحلية كنانة / الجبلين.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   273 => 
   array (
@@ -7223,7 +7223,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالنيل الأبيض، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   274 => 
   array (
@@ -7250,7 +7250,7 @@ return array (
     'description' => ' مشاركة رسمية وتفوق في امتحانات الشهادة المتوسطة بولاية النيل الأبيض ونسب نجاح كاملة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   275 => 
   array (
@@ -7277,7 +7277,7 @@ return array (
     'description' => 'أرقام هواتف التواصل والتسجيل المعتمدة:؛ الإعلانات واللوحات الرسمية المعتمدة للفرع جوار الاستاد بالدويم.؛ إدراجها ضمن المدارس المتميزة في نتائج الشهادة المتوسطة بالولاية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   276 => 
   array (
@@ -7302,7 +7302,7 @@ return array (
     'description' => 'سجلات خريجي الدويم، والصفحة الرسمية التوثيقية للمدرسة على فيسبوك.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   277 => 
   array (
@@ -7327,7 +7327,7 @@ return array (
     'description' => 'مسجلة ضمن كشوفات وزارة التربية لمراكز امتحانات الشهادة الثانوية بمحلية الدويم.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   278 => 
   array (
@@ -7354,7 +7354,7 @@ return array (
     'description' => 'تصدر طلابها لوحات الشرف القومية على مستوى جمهورية السودان والولاية (مثل الطالبة: *لما إبراهيم ضيف الله* التي أحرزت مراكز متقدمة جداً في الشهادة السودانية).؛ الصفحة الرسمية والمنشورات المعتمدة: *(مدارس الأستاذ دفع الله عبد الدافع الخاصة - القطينة)*.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   279 => 
   array (
@@ -7379,7 +7379,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالنيل الأبيض، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   280 => 
   array (
@@ -7407,7 +7407,7 @@ return array (
     'description' => 'الصفحة الرسمية المعتمدة: *(مؤسسة الحكمة التربوية التعليمية الخاصة - الجزيرة أبا)* تحت وسم: `#مؤسسةالحكمةالتربويةالتعليميةالخاصة_الجزيرةأبا`.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   281 => 
   array (
@@ -7433,7 +7433,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالنيل الأبيض، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   282 => 
   array (
@@ -7459,7 +7459,7 @@ return array (
     'description' => 'احتفالات المجتمع المحلي بالجزيرة أبا بنتائج وتفوق طلاب المدرسة في الشهادات العامة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   283 => 
   array (
@@ -7487,7 +7487,7 @@ return array (
     'description' => 'الإعلانات المعتمدة على صفحة *(مدارس التميز للتعليم الخاص تندلتي / ابن البيطار)*، وأرقام هواتف الإدارة المنشورة رسمياً.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   284 => 
   array (
@@ -7513,7 +7513,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالنيل الأبيض، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   285 => 
   array (
@@ -7541,7 +7541,7 @@ return array (
     'description' => 'الصفحة الرسمية:** صفحة معتمدة وموثقة على فيسبوك باسم (مؤسسة المناهل التعليمية الخاصة - القضارف).؛ السجل الرسمي:** حاصلة على إشادات متكررة من إدارة التعليم غير الحكومي وتصدر سنوي في قوائم المتفوقين.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   286 => 
   array (
@@ -7568,7 +7568,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالقضارف، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   287 => 
   array (
@@ -7596,7 +7596,7 @@ return array (
     'description' => 'الشهادات الرسمية:** نالت مدرسة دار العلوم المركز الأول على مستوى ولاية القضارف في الشهادة المتوسطة، والمركز الأول في الشهادة الابتدائية، وتكريم رسمي من والي القضارف ووزارة التربية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   288 => 
   array (
@@ -7623,7 +7623,7 @@ return array (
     'description' => 'الصفحة الرسمية:** صفحات معتمدة باسم (مدارس مقاديم للتعليم الخاص) و(مدرسة مقاديم الخاصة بنات).',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   289 => 
   array (
@@ -7650,7 +7650,7 @@ return array (
     'description' => ' المدير العام: الأستاذ بلال علي عبد القادر محمد.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   290 => 
   array (
@@ -7677,7 +7677,7 @@ return array (
     'description' => 'الصفحة الرسمية:** صفحة فيسبوك نشطة ومعتمدة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   291 => 
   array (
@@ -7704,7 +7704,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالقضارف، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   292 => 
   array (
@@ -7730,7 +7730,7 @@ return array (
     'description' => 'الشهادات الرسمية:** إحراز طالبة المدرسة (أبرار أنور عبد الجليل عبد القادر) **المركز الأول على مستوى ولاية القضارف** في امتحانات الشهادة الابتدائية بمجموع 279 درجة لعام 2025/2026م.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   293 => 
   array (
@@ -7756,7 +7756,7 @@ return array (
     'description' => ' إدارة الأستاذ سامي بشير.؛ الشهادات الرسمية:** إحراز الطالب (محمد أسامة محمد عبدالرحيم) المركز الأول المشترك على مستوى ولاية القضارف في الشهادة المتوسطة بمجموع كامل (280 درجة).',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   294 => 
   array (
@@ -7784,7 +7784,7 @@ return array (
     'description' => 'الصفحة الرسمية:** صفحة معتمدة ومسجلة رسمياً لدى وزارة التربية بولاية القضارف.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   295 => 
   array (
@@ -7809,7 +7809,7 @@ return array (
     'description' => ' إدارة الخبير التربوي الأستاذ عبد الله بابكر.؛ الشهادات الرسمية:** تصدرت كشوفات المدارس المتفوقة ونسب النجاح في امتحانات الشهادة الثانوية لعدة أعوام متتالية بالولاية، وتكريم مباشر من قيادات وزارة التربية والتوجيه.؛ الشعار والتوثيق:** الشعار الرسمي المعتمد: *"دار الصفوة.. نحن لا ننشد النجاح بل ننشد التفوق"*.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   296 => 
   array (
@@ -7835,7 +7835,7 @@ return array (
     'description' => 'التوثيق الجغرافي والرسمي:** موثقة على الخرائط الجغرافية (Wikimapia) وتغطيات وزارة التربية والتوجيه لحفلات تخريج الطلاب وتكريم المتفوقين بإشراف إدارة التعليم غير الحكومي.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   297 => 
   array (
@@ -7860,7 +7860,7 @@ return array (
     'description' => ' الأستاذ الباشا محمد آدم، والأستاذ مازن عباس.؛ التغطية الرسمية:** تغطيات متلفزة وصحفية معتمدة لإعلانات القبول والتسجيل، وتغطيات قناة المناهل لاحتفالات المدرسة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   298 => 
   array (
@@ -7887,7 +7887,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالقضارف، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   299 => 
   array (
@@ -7913,7 +7913,7 @@ return array (
     'description' => ' منشورات التسجيل الرسمية المعتمدة بوزارة التربية، وصفحة رسمية موثقة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   300 => 
   array (
@@ -7939,7 +7939,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالقضارف، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   301 => 
   array (
@@ -7964,7 +7964,7 @@ return array (
     'description' => 'النشاط:** تنظيم كورسات المراجعة الرسمية لشهادة الثانوية بإشراف كبار موجهي المواد بالولاية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   302 => 
   array (
@@ -7990,7 +7990,7 @@ return array (
     'description' => ' صفحة فيسبوك نشطة، وفعاليات ومناشط تربوية مغطاة إعلامياً بولاية القضارف.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   303 => 
   array (
@@ -8016,7 +8016,7 @@ return array (
     'description' => 'المنصة الرسمية:** منصة رقمية لإدارة شؤون الطلاب والمتابعة الدراسية ([tamayoz-edu.com](https://tamayoz-edu.com/)) وصفحات معتمدة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   304 => 
   array (
@@ -8041,7 +8041,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالقضارف، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   305 => 
   array (
@@ -8066,7 +8066,7 @@ return array (
     'description' => 'السجل الرسمي:** مسجلة ضمن كشوفات المدارس الخاصة المعتمدة بوزارة التربية والتوجيه ولها صفحة توثيقية بالولاية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   306 => 
   array (
@@ -8092,7 +8092,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالقضارف، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   307 => 
   array (
@@ -8120,7 +8120,7 @@ return array (
     'description' => 'النتيجة الرسمية:** حائزة على المركز الأول على مستوى المدارس الخاصة بالولاية الشمالية في نتيجة امتحانات الشهادة المتوسطة بنسبة نجاح 100%.؛ المرجع والصفحة:** صفحة ومطبوعات "مؤسسة المعهد النموذجي دنقلا"، معتمدة في كشوفات وزارة التربية والتعليم بالولاية الشمالية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   308 => 
   array (
@@ -8148,7 +8148,7 @@ return array (
     'description' => 'النتيجة الرسمية:** تتصدر قوائم شرف المدارس الخاصة بالولاية، وحقق طلابها المركز الأول على مستوى الولاية الشمالية في الشهادة الابتدائية والمركز الثاني في الشهادة المتوسطة.؛ الهواتف المعتمدة للتسجيل والإدارة:',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   309 => 
   array (
@@ -8175,7 +8175,7 @@ return array (
     'description' => 'النتيجة الرسمية:** إحراز المركز السابع ولائياً، وحصد طلابها المركز الأول على مستوى الولاية (مكرر) في الشهادة المتوسطة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   310 => 
   array (
@@ -8202,7 +8202,7 @@ return array (
     'description' => 'المراحل التعليمية:** ابتدائي – متوسط – ثانوي ومعسكرات تركيز الشهادة السودانية.؛ النتيجة الرسمية:** مصنفة ضمن قائمة المدارس الخاصة العشر الأوائل في الشهادة المتوسطة بالولاية الشمالية مع تحقيق طلابها للدرجات الكاملة.؛ الهواتف المعتمدة للتسجيل والمتابعة:؛ المرجع والصفحة:** منصة ومدارس الأستاذ حامد السوراوي التعليمية، وسجلات إدارة التعليم الخاص بدنقلا.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   311 => 
   array (
@@ -8230,7 +8230,7 @@ return array (
     'description' => 'الهواتف المعتمدة:',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   312 => 
   array (
@@ -8257,7 +8257,7 @@ return array (
     'description' => 'الهواتف المعتمدة للتسجيل والترحيل:؛ المرجع والصفحة:** الصفحة الرسمية المعتمدة ل "مدرسة الجودة التعليمية الخاصة دنقلا".',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   313 => 
   array (
@@ -8282,7 +8282,7 @@ return array (
     'description' => 'المرجع والصفحة:** سجلات امتحانات الشهادة الثانوية بوزارة التربية، والصفحة الرسمية "ثانوية نخبة المستقبل الخاصة بدنقلا".',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   314 => 
   array (
@@ -8307,7 +8307,7 @@ return array (
     'description' => 'المرجع والصفحة:** مسجلة في الدليل التعليمي التجاري والدولي (Bizmideast) وسجلات وزارة التربية بالولاية الشمالية للمرحلة الثانوية الخاصة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   315 => 
   array (
@@ -8334,7 +8334,7 @@ return array (
     'description' => 'النتيجة الرسمية:** إدراج ضمن المدارس المتنافسة في امتحانات الشهادة المتوسطة والابتدائية بمحلية دنقلا.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   316 => 
   array (
@@ -8359,7 +8359,7 @@ return array (
     'description' => 'الهواتف المعتمدة:؛ المرجع والصفحة:** الصفحة الرسمية المعتمدة برياض الأطفال الخاصة في دنقلا.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   317 => 
   array (
@@ -8384,7 +8384,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالشمالية، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   318 => 
   array (
@@ -8411,7 +8411,7 @@ return array (
     'description' => 'النتيجة الرسمية:** حائزة على المركز الرابع على مستوى المدارس الخاصة بالولاية الشمالية في نتيجة الشهادة المتوسطة.؛ المرجع والصفحة:** الصفحة المعتمدة "مدارس الإخلاص الخاصة - مروي" وكشوفات مكتب تعليم مروي.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   319 => 
   array (
@@ -8438,7 +8438,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالشمالية، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   320 => 
   array (
@@ -8464,7 +8464,7 @@ return array (
     'description' => 'النتيجة الرسمية:** تصدرت وحدة كريمة الإدارية وحازت على المركز الخامس على مستوى الولاية الشمالية في قائمة المدارس الخاصة للشهادة المتوسطة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   321 => 
   array (
@@ -8490,7 +8490,7 @@ return array (
     'description' => 'النتيجة الرسمية:** حصد التلميذ (أبو دجانة عمر محمد خليفة) من المدرسة المركز الأول على مستوى الولاية الشمالية في الشهادة الابتدائية، ونالت المدرسة المركز السادس ولائياً في ترتيب المدارس الخاصة المتوسطة.؛ المرجع:** مؤتمر إعلان النتيجة الرسمي لوزارة التربية بالولاية الشمالية وتغطيات الصحف السودانية المعتمدة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   322 => 
   array (
@@ -8517,7 +8517,7 @@ return array (
     'description' => 'النتيجة الرسمية:** احتلت المركز الثامن في تصنيف المدارس الخاصة بالشهادة المتوسطة على مستوى الولاية الشمالية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   323 => 
   array (
@@ -8543,7 +8543,7 @@ return array (
     'description' => 'النتيجة الرسمية:** نالت المركز العاشر ضمن قائمة المدارس الخاصة المتميزة بالولاية الشمالية للشهادة المتوسطة.؛ المرجع:** بإشراف الأستاذة جيهان حاج أحمد، ورعاية كرنفالات التفوق الأكاديمي بنادي ترهاقا بمروي وتوثيقات وزارة التربية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   324 => 
   array (
@@ -8569,7 +8569,7 @@ return array (
     'description' => 'النتيجة الرسمية:** إحراز المركز الأول على مستوى الولاية الشمالية في الشهادة الابتدائية (التلميذة هبة عمر).',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   325 => 
   array (
@@ -8595,7 +8595,7 @@ return array (
     'description' => 'النتيجة الرسمية:** مدرجة رسمياً ضمن قائمة المدارس الخاصة المعتمدة المشاركة في امتحانات الشهادة المتوسطة بوزارة التربية بالشمالية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   326 => 
   array (
@@ -8621,7 +8621,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالشمالية، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   327 => 
   array (
@@ -8647,7 +8647,7 @@ return array (
     'description' => 'النتيجة الرسمية:** حائزة على المركز الثالث على مستوى المدارس الخاصة بالولاية الشمالية والأولى على نطاق محلية الدبة في امتحانات الشهادة المتوسطة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   328 => 
   array (
@@ -8673,7 +8673,7 @@ return array (
     'description' => 'النتيجة الرسمية:** المركز التاسع على مستوى الولاية الشمالية في ترتيب المدارس الخاصة بالشهادة المتوسطة.؛ المرجع:** تكريمات إدارة التعليم بمحلية الدبة ووحدة الدبة الإدارية لمتفوقي المدرسة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   329 => 
   array (
@@ -8699,7 +8699,7 @@ return array (
     'description' => 'المرجع والتوثيق:** مشروع تعليمي خاص تم افتتاحه وتدشينه رسمياً لخدمة استقرار وتوطين التعليم بالمحلية بإشراف وزير التربية والتعليم المكلف بالولاية الشمالية والمدير التنفيذي لمحلية الدبة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   330 => 
   array (
@@ -8724,7 +8724,7 @@ return array (
     'description' => 'النشاط الرسمي:** الصرح التعليمي الخاص الرائد بوادي حلفا لتأهيل وتنظيم الامتحانات التجريبية المعتمدة لطلاب الشهادة السودانية بإدارة ووكالة الأستاذ عمران البدوي الطيب.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   331 => 
   array (
@@ -8752,7 +8752,7 @@ return array (
     'description' => 'التوثيق الإلكتروني:** صفحة فيسبوك رسمية نشطة ومعتمدة للمدرسة وموثقة لدى المنصات التعليمية بالسودان.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   332 => 
   array (
@@ -8780,7 +8780,7 @@ return array (
     'description' => 'سجلات وزارة التربية:** تأسست بمرسوم رسمي من وزارة التربية والتوجيه بولاية كسلا في مارس 2013، وتضم أكثر من 1,093 طالباً وطالبة وهيئة تدريسية تضم 37 معلماً ومعلمة، ونسب نجاح 100% في الشهادة العامة.؛ صفحة فيسبوك:** صفحة معتمدة تحت اسم مؤسسات المجلس الأفريقي للتعليم بولاية كسلا.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   333 => 
   array (
@@ -8808,7 +8808,7 @@ return array (
     'description' => ' صفحة فيسبوك معتمدة ومسجلة في إعلانات وزارة التربية للقبول بالتعليم الخاص.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   334 => 
   array (
@@ -8836,7 +8836,7 @@ return array (
     'description' => ' صفحة فيسبوك الرسمية (رياض ومدارس جودة كسلا التعليمية الخاصة)، وموثقة لدى المجلس الأعلى للتعليم غير الحكومي بالولاية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   335 => 
   array (
@@ -8864,7 +8864,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بكسلا، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   336 => 
   array (
@@ -8891,7 +8891,7 @@ return array (
     'description' => ' صفحة رسمية معتمدة على فيسبوك تحت اسم (مدارس مستقبلي - My Future School).',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   337 => 
   array (
@@ -8918,7 +8918,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بكسلا، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   338 => 
   array (
@@ -8944,7 +8944,7 @@ return array (
     'description' => ' صفحة فيسبوك رسمية نشطة باسم (مدرسة الفرقان الخاصة – كسلا) وسجلات امتحانات النقل والأساس بكسلا.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   339 => 
   array (
@@ -8970,7 +8970,7 @@ return array (
     'description' => ' كشوفات وإعلانات التسجيل المعتمدة في كسلا وتجمعات المعلمين.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   340 => 
   array (
@@ -8997,7 +8997,7 @@ return array (
     'description' => ' يشرف عليها أ. البراء عبد الله (محاضر بجامعة كسلا - قسم اللغويات).؛  صفحة فيسبوك الرسمية وإعلانات التسجيل للمنهج الأجنبي بالولاية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   341 => 
   array (
@@ -9022,7 +9022,7 @@ return array (
     'description' => 'دليل التوثيق والتحقق القاطع:** موثقة في سجلات التعليم الخاص بحي العرب وإعلانات المدارس بالمنطقة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   342 => 
   array (
@@ -9048,7 +9048,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بكسلا، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   343 => 
   array (
@@ -9073,7 +9073,7 @@ return array (
     'description' => 'دليل التوثيق والتحقق القاطع:** مسجلة في مراكز امتحانات الشهادة الثانوية بولاية كسلا وموثقة بفيسبوك.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   344 => 
   array (
@@ -9099,7 +9099,7 @@ return array (
     'description' => 'دليل التوثيق والتحقق القاطع:** صفحة رسمية معتمدة على فيسبوك تحت اسم (مدارس المعلم الخاصه-كسلا) بشعارها التربوي المعتمد.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   345 => 
   array (
@@ -9124,7 +9124,7 @@ return array (
     'description' => 'دليل التوثيق والتحقق القاطع:** فرع معتمد لمؤسسة عائشة بخيت التعليمية (إدارة د. محمد عبد المحسن)، موثقة في معسكرات الشهادة الثانوية بكسلا ومتابعات وزارة التربية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   346 => 
   array (
@@ -9149,7 +9149,7 @@ return array (
     'description' => ' صفحة فيسبوك رسمية نشطة تنشر قوائم شرف الشهادة السودانية وشهادات المتفوقين.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   347 => 
   array (
@@ -9174,7 +9174,7 @@ return array (
     'description' => 'سجلات الامتحانات:** موثقة في لوحات شرف وتكريم متفوقات امتحانات الشهادة الثانوية بحلفا الجديدة وصفحتها الرسمية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   348 => 
   array (
@@ -9199,7 +9199,7 @@ return array (
     'description' => 'نتائج وزارة التربية الرسمية:** أحرزت طالبتها (إسراء سعيد أحمد) المركز الثاني على مستوى السودان والأول على ولاية كسلا في امتحانات الشهادة الثانوية بنسبة 97.1%، وموثقة في سجلات الوزارة والإعلام القومي.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   349 => 
   array (
@@ -9224,7 +9224,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بكسلا، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   350 => 
   array (
@@ -9252,7 +9252,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بكسلا، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   351 => 
   array (
@@ -9277,7 +9277,7 @@ return array (
     'description' => 'دليل التوثيق والتحقق القاطع:** صفحة رسمية معتمدة على فيسبوك تحت اسم (مدرسة رابعة العدوية الإبتدائية الخاصة حلفا الجديدة).',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   352 => 
   array (
@@ -9302,7 +9302,7 @@ return array (
     'description' => 'دليل التوثيق والتحقق القاطع:** صفحة رسمية معتمدة وإعلانات وظيفية ومشاركات في الأنشطة والدوريات المدرسية الرسمية بحي عريضة بخشم القربة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   353 => 
   array (
@@ -9327,7 +9327,7 @@ return array (
     'description' => 'دليل التوثيق والتحقق القاطع:** مسجلة لدى إدارة التعليم بمحلية خشم القربة وفي لوحات شرف نتائج الشهادة السودانية وكورسات الامتحانات المعتمدة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   354 => 
   array (
@@ -9353,7 +9353,7 @@ return array (
     'description' => 'دليل التوثيق والتحقق القاطع:** مسجلة في كشوفات وزارة التربية وتكريم المتفوقين في الشهادة الثانوية بخشم القربة (مثل تكريم الطالبات قنوان باسل وغيرها).',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   355 => 
   array (
@@ -9378,7 +9378,7 @@ return array (
     'description' => 'لوحة شرف وزارة التربية والتعليم بولاية شمال كردفان:** تصدرت المدرسة نتائج الشهادة الابتدائية محققة المركز الأول المشترك على مستوى الولاية لعام 2026م عبر الطالبات: *ريناد منصور، رماز عبد القادر فرح، ورهف موسى عبد الرحمن* (بمجموع 279 درجة)، والمركز الثاني للطالبتين: *عاتقة صابر وأسيل مصطفى* (278 درجة)، والمركز الثالث للطالبات: *مياس جلاب، حباب بدر الدين، وآمنة نزار* (277 درجة)، والخامس للطالب: *عبد الله طيب الأسماء* (275 درجة).؛ كما أحرزت تلميذتها ',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   356 => 
   array (
@@ -9404,7 +9404,7 @@ return array (
     'description' => 'نتيجة الشهادة الابتدائية الرسمية بولاية شمال كردفان:** أحرز تلميذ المدرسة *وضاح محمد أحمد هارون* المركز الأول على مستوى الولاية بمجموع 279 درجة.؛ الصفحة المعتمدة للمدرسة والمبادرات التربوية الميدانية الرسمية الموثقة مثل مبادرة «أخي اكتب معي».',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   357 => 
   array (
@@ -9429,7 +9429,7 @@ return array (
     'description' => 'لوحات شرف وتكريم الطلاب المتفوقين في الشهادة السودانية والصفحة الرسمية المعتمدة للمدرسة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   358 => 
   array (
@@ -9457,7 +9457,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشمال كردفان، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   359 => 
   array (
@@ -9483,7 +9483,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشمال كردفان، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   360 => 
   array (
@@ -9508,7 +9508,7 @@ return array (
     'description' => 'إعلانات التسجيل وبدء العام الدراسي المعتمدة لحي الشارقة بالأبيض.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   361 => 
   array (
@@ -9534,7 +9534,7 @@ return array (
     'description' => 'الصفحة التعريفية والترويجية المعتمدة ومطبوعات القبول السنوي.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   362 => 
   array (
@@ -9559,7 +9559,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشمال كردفان، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   363 => 
   array (
@@ -9584,7 +9584,7 @@ return array (
     'description' => 'سجلات التفوق بوزارة التربية:** إحراز طلابها المركز الأول على مستوى ولاية شمال كردفان في امتحانات الشهادة الثانوية السودانية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   364 => 
   array (
@@ -9611,7 +9611,7 @@ return array (
     'description' => 'الصفحة المعتمدة للمدرسة وتغطيات قناة الواقع TV لأنشطتها التربوية وتخريج الدفعات بحي كريمة بالأبيض.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   365 => 
   array (
@@ -9638,7 +9638,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشمال كردفان، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   366 => 
   array (
@@ -9664,7 +9664,7 @@ return array (
     'description' => 'لوحات شرف الشهادة السودانية بشمال كردفان المنشورة عبر منصة "الغرة الإخبارية" ومجموعات مدارس الأبيض التوثيقية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   367 => 
   array (
@@ -9690,7 +9690,7 @@ return array (
     'description' => 'التغطيات المصورة لاحتفالات ختام العام الدراسي وتكريم المتفوقين في الشهادة السودانية برعاية وزارة التربية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   368 => 
   array (
@@ -9716,7 +9716,7 @@ return array (
     'description' => 'مسجلة بالدليل الدولي للمؤسسات التعليمية (SchoolAndCollegeListings) وسجلات الكنيسة الكاثوليكية ووزارة التربية بشمال كردفان وصفحة المدرسة الرسمية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   369 => 
   array (
@@ -9743,7 +9743,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشمال كردفان، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   370 => 
   array (
@@ -9768,7 +9768,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشمال كردفان، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   371 => 
   array (
@@ -9794,7 +9794,7 @@ return array (
     'description' => 'السجلات الإدارية بوزارة التربية والتعليم بمحلية شيكان والبيانات التربوية المعتمدة المنشورة بالصحف الإخبارية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   372 => 
   array (
@@ -9819,7 +9819,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشمال كردفان، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   373 => 
   array (
@@ -9846,7 +9846,7 @@ return array (
     'description' => 'الصفحة الرسمية المعتمدة على فيسبوك: *(مدارس و رياض الفردوس الخاصة بأم روابة)* وإعلانات بدء الامتحانات وتسجيل الطلاب.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   374 => 
   array (
@@ -9872,7 +9872,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشمال كردفان، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   375 => 
   array (
@@ -9899,7 +9899,7 @@ return array (
     'description' => 'الصفحة الرسمية المعتمدة على فيسبوك: *(رياض ومدارس الجيل الذكي الخاصة - الرهد)* وإعلانات التسجيل السنوية بمحلية الرهد.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   376 => 
   array (
@@ -9925,7 +9925,7 @@ return array (
     'description' => 'الصفحة الرسمية المعتمدة على فيسبوك: *(مدارس عدن النموذجية الخاصة - الرهد)* وإعلانات الامتحانات ونتائج الطلاب.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   377 => 
   array (
@@ -9950,7 +9950,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشمال كردفان، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   378 => 
   array (
@@ -9975,7 +9975,7 @@ return array (
     'description' => 'الصفحات الرسمية المعتمدة على فيسبوك: *(مدرسة بارا الثانوية الخاصة)* و*(مدرسة بارا الثانوية الخاصة بنين بنات)* وسجلات الجالسين لامتحانات الشهادة الثانوية بمركز محلية بارا.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   379 => 
   array (
@@ -10002,7 +10002,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالنيل الأزرق، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   380 => 
   array (
@@ -10028,7 +10028,7 @@ return array (
     'description' => ' إدارة تربوية معتمدة ترفع شعار: *"حيث يلتقي العلم بالقيم.. ويولد التفوق"*.؛ لوحة شرف وزارة التربية والتعليم:** إحراز تلميذتها النابغة **نادية محمد الأمين الفاضل** المركز الأول على مستوى إقليم النيل الأزرق في امتحانات الشهادة الابتدائية بمجموع (277) درجة، والمُعلنة رسمياً في المؤتمر الصحفي لحاكم الإقليم ووزارة التربية.؛ صفحة فيسبوك الرسمية المعتمدة للمؤسسة معلنة أرقام التواصل ونشرات القبول وتوزيع الحقيبة والكتب المدرسية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   381 => 
   array (
@@ -10055,7 +10055,7 @@ return array (
     'description' => 'الصفحات المعتمدة على فيسبوك: صفحة *«مدرسة الأستاذ الخاصة (بنين) بمدينة الدمازين»* وصفحة *«الاستاذ الخاصة الدمازين»*.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   382 => 
   array (
@@ -10081,7 +10081,7 @@ return array (
     'description' => 'صفحة رسمية معتمدة على منصة فيسبوك توثق الأيام الثقافية والترفيهية والامتحانات المدرسية المشتركة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   383 => 
   array (
@@ -10108,7 +10108,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالنيل الأزرق، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   384 => 
   array (
@@ -10135,7 +10135,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالنيل الأزرق، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   385 => 
   array (
@@ -10162,7 +10162,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالنيل الأزرق، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   386 => 
   array (
@@ -10188,7 +10188,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالنيل الأزرق، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   387 => 
   array (
@@ -10214,7 +10214,7 @@ return array (
     'description' => 'مسجلة ومعتمدة دولياً في الدليل العالمي للمؤسسات التعليمية: *SchoolAndCollegeListings (Damazin Directory)*.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   388 => 
   array (
@@ -10239,7 +10239,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالنيل الأزرق، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   389 => 
   array (
@@ -10264,7 +10264,7 @@ return array (
     'description' => 'الكادر:** يضم نخبة من كبار أساتذة المرحلة الثانوية وواضعي الامتحانات بالإقليم.؛ تقرير مصور لفعاليات المؤسسة وتدشينها لمنح التفوق الدراسي السنوية لطلاب ولاية النيل الأزرق.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   390 => 
   array (
@@ -10289,7 +10289,7 @@ return array (
     'description' => 'كشوفات قيد امتحانات الشهادة الثانوية لمدارس البنات الخاصة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   391 => 
   array (
@@ -10315,7 +10315,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالنيل الأزرق، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   392 => 
   array (
@@ -10341,7 +10341,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالنيل الأزرق، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   393 => 
   array (
@@ -10367,7 +10367,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالنيل الأزرق، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   394 => 
   array (
@@ -10392,7 +10392,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالنيل الأزرق، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   395 => 
   array (
@@ -10417,7 +10417,7 @@ return array (
     'description' => 'صفحة وسجلات النشاط التربوي الخاص بأطفال حي الزهور بالدمازين.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   396 => 
   array (
@@ -10443,7 +10443,7 @@ return array (
     'description' => 'الصفحة الرسمية المعتمدة على فيسبوك: *(مؤسسة الأستاذ مجذوب الطيب التعليمية الخاصة بالرصيرص)*.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   397 => 
   array (
@@ -10468,7 +10468,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالنيل الأزرق، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   398 => 
   array (
@@ -10494,7 +10494,7 @@ return array (
     'description' => 'مدونة المؤسسة الرسمية وسجلات افتتاح فرع الضفة الشرقية (قنيص شرق).',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   399 => 
   array (
@@ -10522,7 +10522,7 @@ return array (
     'description' => 'نتائج رسمية لوزارة التربية والتوجيه بولاية جنوب دارفور (حصد طلابها المراكز الأولى في امتحانات شهادتي الأساس والمتوسطة والشهادة الثانوية، ومنهم المتفوقة: *مياسة عبدالله*، والتلميذة: *براءة إسحق إبراهيم*).؛ صفحة رسمية معتمدة وتغطيات ميدانية وتوثيقية لأنشطة المجمع وتأهيل فروعه ومرافقه.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   400 => 
   array (
@@ -10549,7 +10549,7 @@ return array (
     'description' => 'كشوفات شرف امتحانات شهادة الأساس والشهادة الثانوية الرسمية بولاية جنوب دارفور (من أوائل الطلاب بالولاية: *مصعب محمد هارون*، *رغدة حامد آدم*، و*محراب فضل حمدان علي*).',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   401 => 
   array (
@@ -10575,7 +10575,7 @@ return array (
     'description' => 'كشوفات وزارة التربية والتوجيه لشهادة الأساس (حققت طالباتها المركز الأول المشترك على مستوى الولاية: *صفاء صالح علي* و*مروج أحمد آدم وادي* بنسبة نجاح كاملة).',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   402 => 
   array (
@@ -10600,7 +10600,7 @@ return array (
     'description' => 'معتمدة بترخيص رسمي دولي وسوداني مشترك من وزارة التربية ومؤسسة وقف المعارف التركي.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   403 => 
   array (
@@ -10626,7 +10626,7 @@ return array (
     'description' => 'سجلات نتائج شهادة الأساس والمرحلتين الابتدائية والمتوسطة الصادرة عن وزارة التربية بولاية جنوب دارفور (حصد طلابها مراكز لوائح الشرف مثل التلميذ: *رمان جبريل ناصر*).',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   404 => 
   array (
@@ -10651,7 +10651,7 @@ return array (
     'description' => 'صفحة رسمية معتمدة على فيسبوك بعنوان: `مدرسة الفوز الثانوية الخاصة بنات (نيالا)`.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   405 => 
   array (
@@ -10677,7 +10677,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بجنوب دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   406 => 
   array (
@@ -10703,7 +10703,7 @@ return array (
     'description' => 'مرخصة وتتبع لإشراف إدارة التعليم الخاص بوزارة التربية بولاية جنوب دارفور.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   407 => 
   array (
@@ -10729,7 +10729,7 @@ return array (
     'description' => 'مسجلة ومعتمدة في دليل المؤسسات التعليمية Cybo برقم قيد ضمن مدارس مدينة نيالا.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   408 => 
   array (
@@ -10754,7 +10754,7 @@ return array (
     'description' => 'صفحة رسمية معتمدة على فيسبوك باسم: `مدرسة المنار الخاصة بنات في نيالا`.؛ كشوفات مشاركة الطالبات في امتحانات الشهادة الثانوية السودانية لولاية جنوب دارفور.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   409 => 
   array (
@@ -10779,7 +10779,7 @@ return array (
     'description' => 'صفحة رسمية معتمدة على فيسبوك: `مدرسة المستنير الثانوية الخاصة - نيالا`.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   410 => 
   array (
@@ -10804,7 +10804,7 @@ return array (
     'description' => 'صفحة رسمية معتمدة على فيسبوك باسم: `حيان الثانوية الخاصة / نيالا`.؛ سجلات الجلوس لامتحانات الشهادة الثانوية بمركز امتحانات نيالا.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   411 => 
   array (
@@ -10830,7 +10830,7 @@ return array (
     'description' => 'صفحات رسمية معتمدة على فيسبوك: `مدرسة التجاني الخاصة - نيالا` و`التجاني الثانوية الخاصة نيالا`.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   412 => 
   array (
@@ -10855,7 +10855,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بجنوب دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   413 => 
   array (
@@ -10880,7 +10880,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بجنوب دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   414 => 
   array (
@@ -10905,7 +10905,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بجنوب دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   415 => 
   array (
@@ -10930,7 +10930,7 @@ return array (
     'description' => 'مسجلة ومعتمدة في دليل الشرق الأوسط للأعمال `bizmideast.com` تصنيف التعليم الأساسي الخاص بنيالا باسم: `مدرسة على رحمة الأساسية الخاصة`.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   416 => 
   array (
@@ -10955,7 +10955,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بجنوب دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   417 => 
   array (
@@ -10980,7 +10980,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بجنوب دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   418 => 
   array (
@@ -11005,7 +11005,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بجنوب دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   419 => 
   array (
@@ -11031,7 +11031,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بجنوب دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   420 => 
   array (
@@ -11056,7 +11056,7 @@ return array (
     'description' => 'صفحة رسمية معتمدة على فيسبوك: "ابن سينا بنات الضعين" و"ابنسيناء الخاصة الضعين".',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   421 => 
   array (
@@ -11082,7 +11082,7 @@ return array (
     'description' => 'سجلات تكريم الطلاب المتفوقين في الامتحانات العامة برعاية وحضور والي ولاية شرق دارفور ووزارة التربية والتوجيه بالولاية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   422 => 
   array (
@@ -11107,7 +11107,7 @@ return array (
     'description' => 'الإحداثيات الجغرافية المعتمدة (Mapcarta / OpenStreetMap): `11.45815° N, 26.13384° E`.؛ صفحة رسمية معتمدة على فيسبوك: "مدرسة المعلم الثانوية الخاصة الضعين".',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   423 => 
   array (
@@ -11132,7 +11132,7 @@ return array (
     'description' => 'الإحداثيات الجغرافية المعتمدة (Mapcarta / OpenStreetMap): `11.45982° N, 26.12378° E`.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   424 => 
   array (
@@ -11157,7 +11157,7 @@ return array (
     'description' => 'صفحة رسمية معتمدة على فيسبوك باسم "أكاديمية الضعين الثانوية الخاصة".',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   425 => 
   array (
@@ -11182,7 +11182,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشرق دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   426 => 
   array (
@@ -11207,7 +11207,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشرق دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   427 => 
   array (
@@ -11232,7 +11232,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشرق دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   428 => 
   array (
@@ -11257,7 +11257,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشرق دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   429 => 
   array (
@@ -11282,7 +11282,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشرق دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   430 => 
   array (
@@ -11308,7 +11308,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشرق دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   431 => 
   array (
@@ -11334,7 +11334,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشرق دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   432 => 
   array (
@@ -11360,7 +11360,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشرق دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   433 => 
   array (
@@ -11385,7 +11385,7 @@ return array (
     'description' => 'صفحة رسمية معتمدة على منصة فيسبوك توثق الأنشطة التربوية واليومية للأطفال وطابور الصباح بالضعين.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   434 => 
   array (
@@ -11412,7 +11412,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشرق دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   435 => 
   array (
@@ -11437,7 +11437,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشرق دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   436 => 
   array (
@@ -11463,7 +11463,7 @@ return array (
     'description' => 'الإحداثيات الجغرافية الرسمية المعتمدة على الخرائط المفتوحة الدولية (Mapcarta / OpenStreetMap): `11.59106° N, 26.54541° E`.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   437 => 
   array (
@@ -11490,7 +11490,7 @@ return array (
     'description' => 'كشوفات وزارة التربية والتوجيه لشهادة مرحلة الأساس؛ حيث حصدت المدرسة المركز الأول على مستوى ولاية شمال دارفور بالدرجة الكاملة (280 درجة) عبر الطالب المتفوق *عمار ياسر حامد*.؛ صفحة فيسبوك رسمية نشطة لمدارس زين العابدين بالفاشر، ومسجلة بسجلات التعليم الخاص بوزارة التربية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   438 => 
   array (
@@ -11518,7 +11518,7 @@ return array (
     'description' => 'لوحات شرف امتحانات الشهادة الابتدائية والأساس بولاية شمال دارفور المنشورة عبر شبكة "كوش نيوز" وراديو دبنقا، وتصدر طالبات المدرسة قوائم الأوائل بالمحلية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   439 => 
   array (
@@ -11543,7 +11543,7 @@ return array (
     'description' => 'سجلات تكريم حكومة إقليم دارفور الرسمية للطالب (*عمار ياسر حامد*) من مدرسة الفردوس الثانوية الخاصة بنين بالفاشر الذي أحرز المركز الأول على مستوى إقليم دارفور بأكمله في امتحانات الشهادة الثانوية السودانية.؛ الصفحة الرسمية المعتمدة على فيسبوك: "الفردوس الثانويه الخاصة الفاشر".',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   440 => 
   array (
@@ -11568,7 +11568,7 @@ return array (
     'description' => 'الصفحة الرسمية المعتمدة على فيسبوك: "الصفحة الرسمية لمدارس الوسام الثانوية الخاصة - الفاشر".؛ لوحات شرف كشوفات أوائل الشهادة السودانية بولاية شمال دارفور والمغطاة عبر المنصات الإخبارية الرسمية (مثل صحيفة "المندرة نيوز").',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   441 => 
   array (
@@ -11594,7 +11594,7 @@ return array (
     'description' => 'الصفحة الرسمية المعتمدة على فيسبوك: "مدارس ورياض أبوقرون الخاص - El Fasher".',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   442 => 
   array (
@@ -11620,7 +11620,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشمال دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   443 => 
   array (
@@ -11646,7 +11646,7 @@ return array (
     'description' => 'الصفحة الرسمية المعتمدة على منصة فيسبوك: "دار العلوم الثانويه الخاصه بنين الفاشر" وصفحة "مدرسة دار العلوم الخاصة الفاشر".؛ توثيق الفعاليات الأكاديمية والامتحانات الرسمية وإعلانات التسجيل عبر منصتها المعتمدة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   444 => 
   array (
@@ -11672,7 +11672,7 @@ return array (
     'description' => 'الصفحة الرسمية المعتمدة على فيسبوك: "الفاشر الرتاج الثانوية الخاصة".',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   445 => 
   array (
@@ -11697,7 +11697,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشمال دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   446 => 
   array (
@@ -11722,7 +11722,7 @@ return array (
     'description' => 'كشوفات أوائل الشهادة الرسمية لمرحلة الأساس الصادرة عن وزارة التربية والتوجيه بولاية شمال دارفور والمغطاة عبر التقارير الرسمية وإذاعة راديو دبنقا.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   447 => 
   array (
@@ -11748,7 +11748,7 @@ return array (
     'description' => 'الصفحة الرسمية المعتمدة على فيسبوك: "مجمع الفاشر للتعليم الخاص" (معرف المعرف الرقمي: `61555981504958`).',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   448 => 
   array (
@@ -11773,7 +11773,7 @@ return array (
     'description' => 'كشوفات وزارة التربية والتوجيه بولاية شمال دارفور الرسمية لنتيجة شهادة الأساس للعام الدراسي 2020-2021؛ حيث أحرز التلميذ (*مسعود إدريس جاسر*) من مجمع محمود للتعليم الخاص بنين بمحلية كبكابية **المركز الأول مشترك على مستوى ولاية شمال دارفور قاطبة** بمجموع 279 درجة (موثق رسمياً عبر إذاعة بلادي، راديو دبنقا، وشبكات التغطية الإخبارية).',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   449 => 
   array (
@@ -11798,7 +11798,7 @@ return array (
     'description' => 'مسجلة ضمن سجلات مكتب التعليم الخاص التابع لإدارة التعليم بمحلية كبكابية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   450 => 
   array (
@@ -11823,7 +11823,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشمال دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   451 => 
   array (
@@ -11848,7 +11848,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشمال دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   452 => 
   array (
@@ -11873,7 +11873,7 @@ return array (
     'description' => 'موثقة عبر تقارير شبكة أثر الإعلامية وسجلات مبادرات التعليم الخاص بمحلية مليط لمواجهة تحديات تعطل المؤسسات الحكومية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   453 => 
   array (
@@ -11898,7 +11898,7 @@ return array (
     'description' => 'موثقة ومسجلة بسجلات التعليم بمدينة كتم، مع توثيقات ميدانية ومرئية لأنشطتها التعليمية والتربوية وبرامج تفوق طلابها بمدينة كتم.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   454 => 
   array (
@@ -11923,7 +11923,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بوسط دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   455 => 
   array (
@@ -11948,7 +11948,7 @@ return array (
     'description' => 'توثيق تكريم المتفوقين في امتحانات الشهادة السودانية على مستوى الولاية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   456 => 
   array (
@@ -11973,7 +11973,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بوسط دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   457 => 
   array (
@@ -11998,7 +11998,7 @@ return array (
     'description' => 'لوحة شرف رسمية صادر عن وزارة التربية والتعليم بولاية وسط دارفور:** أحرز تلميذها (محمد حامد ضيف الله) المركز الأول المشترك على مستوى محلية زالنجي في امتحانات الشهادة الابتدائية بمجموع 236 درجة (يونيو 2026م).؛ التغطيات الإخبارية المعتمدة لنتائج الامتحانات في صحيفة التنوير الإلكترونية، والفعاليات الثقافية والمعارض الفنية للطفل المستضافة بالمدرسة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   458 => 
   array (
@@ -12024,7 +12024,7 @@ return array (
     'description' => 'سجلات وزارة التربية والتوجيه بوسط دارفور:** حققت المراكز المتقدمة في قائمة الشرف للشهادة الابتدائية للعام 2026م؛ حيث تقاسم التلميذ (مقام عبدالمطلب هرون) المركز الأول بمجموع 236 درجة، ونالت التلميذة (مها محمد أحمد عثمان) المركز الثالث بمجموع 232 درجة، والتلميذة (ابتهاج مهدي عبدالمولى) المركز الخامس بمجموع 228 درجة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   459 => 
   array (
@@ -12049,7 +12049,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بوسط دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   460 => 
   array (
@@ -12074,7 +12074,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بوسط دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   461 => 
   array (
@@ -12099,7 +12099,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بوسط دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   462 => 
   array (
@@ -12125,7 +12125,7 @@ return array (
     'description' => 'صفحة رسمية معتمدة على فيسبوك توثق التأسيس في 13 ديسمبر 2017م بترخيص من وزارة التربية والتعليم.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   463 => 
   array (
@@ -12150,7 +12150,7 @@ return array (
     'description' => 'دليل التوثيق والتحقق:** السجلات الإدارية والجغرافية الموثقة لمدينة قارسيلا، والموسوعات المعرفية المفتوحة (ويكيبيديا)، ومنصة 6abbo التوثيقية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   464 => 
   array (
@@ -12176,7 +12176,7 @@ return array (
     'description' => 'دليل التوثيق والتحقق:** بيانات وسجلات المؤسسات التعليمية غير الحكومية بمحلية وادي صالح، والمنشورات المدرسية الموثقة على فيسبوك.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   465 => 
   array (
@@ -12201,7 +12201,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بوسط دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   466 => 
   array (
@@ -12226,7 +12226,7 @@ return array (
     'description' => 'دليل التوثيق والتحقق:** السجلات الرسمية والتاريخية لقطاع التعليم الأهلي والخاص في مدينة قارسيلا.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   467 => 
   array (
@@ -12251,7 +12251,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بوسط دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   468 => 
   array (
@@ -12276,7 +12276,7 @@ return array (
     'description' => 'إعلانات النتائج المدرسية وحفلات تكريم الطلاب المتفوقين بحضور الإدارة والأساتذة المنشورة والموثقة على وسائل التواصل الاجتماعي والمواقع الإخبارية (مثل شبكة كوش نيوز).',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   469 => 
   array (
@@ -12302,7 +12302,7 @@ return array (
     'description' => 'الكادر والإدارة:** بإشراف وإدارة الأستاذ بيلو محمد صالح وعدد من القيادات التربوية بالمحلية.؛ مسجلة ومعتمدة لدى إدارة التعليم الخاص بوزارة التربية والتوجيه بولاية جنوب كردفان.؛ إعلان النتائج الرسمية عبر منصة الناطق الرسمي باسم حكومة ولاية جنوب كردفان: حصدت المدرسة المراكز الأولى على مستوى الولاية بالكامل في الشهادة الابتدائية؛ حيث أحرز الطالب **علي عبد الواحد علي محمد** (المعالي الخاصة بنين) **المركز الأول على مستوى الولاية**، ونالت الطالبة **فاطم',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   470 => 
   array (
@@ -12329,7 +12329,7 @@ return array (
     'description' => 'توثيق تكريم الأوائل والمتفوقين على مستوى المحلية، وإدراج طلابها رسمياً في امتحانات النقل والشهادات العامة بإشراف مكتب التعليم بمحلية أبو جبيهة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   471 => 
   array (
@@ -12355,7 +12355,7 @@ return array (
     'description' => ' بإدارة وإشراف المربي الأستاذ/ أسامة بشير حامد.؛ صفحة رسمية معتمدة على فيسبوك: `مدرسة مصعب بن عمير الخاصة بنين وبنات أبوجبيهة`.؛ سجلات ومشاركات رسمية منتظمة في امتحانات شهادة المرحلة الابتدائية والمتوسطة التابعة لوزارة التربية والتوجيه بجنوب كردفان.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   472 => 
   array (
@@ -12380,7 +12380,7 @@ return array (
     'description' => ' بإشراف وإدارة الأستاذ/ يحيى عثمان ونخبة من أساتذة المرحلة الثانوية.؛ صفحة رسمية وسجلات خريجين وتوثيق لامتحانات الشهادة الثانوية السودانية على منصات التواصل وشبكة مدارس المنار.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   473 => 
   array (
@@ -12406,7 +12406,7 @@ return array (
     'description' => 'مسجلة رسمياً بسجلات وزارة التربية والتوجيه بولاية جنوب كردفان.؛ لوحة شرف امتحانات شهادة المرحلة المتوسطة الرسمية للولاية (المؤتمر الصحفي لوزارة التربية بأبو جبيهة): أحرز تلميذ المدرسة **محمد السمؤال الشاذلي** **المرتبة الثالثة (مشترك) على مستوى ولاية جنوب كردفان** بمجموع 266 درجة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   474 => 
   array (
@@ -12432,7 +12432,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بجنوب كردفان، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   475 => 
   array (
@@ -12457,7 +12457,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بجنوب كردفان، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   476 => 
   array (
@@ -12483,7 +12483,7 @@ return array (
     'description' => 'سجلات نتائج امتحانات شهادة الأساس بالمحلية؛ حيث ورد اسمها رسمياً في كشوفات التفوق وتنافسها على المراكز الأولى بين مدارس محلية الدلنج.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   477 => 
   array (
@@ -12508,7 +12508,7 @@ return array (
     'description' => 'وردت في سجلات وزارة التربية وإعلانات مبادرات استمرار العملية التعليمية وتجمعات طلاب الشهادة الثانوية بالدلنج.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   478 => 
   array (
@@ -12534,7 +12534,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بجنوب كردفان، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   479 => 
   array (
@@ -12559,7 +12559,7 @@ return array (
     'description' => 'موثقة في الخرائط والمراجع الجغرافية الدولية (Wikimapia) والسجلات التاريخية للتعليم في كردفان.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   480 => 
   array (
@@ -12584,7 +12584,7 @@ return array (
     'description' => 'صفحة رسمية معتمدة على منصة فيسبوك: `مدرسة العوالي الخاصة كادوقلي`.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   481 => 
   array (
@@ -12610,7 +12610,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بجنوب كردفان، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   482 => 
   array (
@@ -12636,7 +12636,7 @@ return array (
     'description' => 'المؤتمر الصحفي الرسمي لإعلان نتيجة شهادة المرحلة المتوسطة بولاية جنوب كردفان (المعتمد رسمياً من وزارة التربية والتوجيه ووالي الولاية):؛ حصدت طالبة المدرسة **مارنا مكي علي جاد الكريم** **المركز الأول على مستوى ولاية جنوب كردفان** بنتيجة 271 درجة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   483 => 
   array (
@@ -12661,7 +12661,7 @@ return array (
     'description' => 'صفحة رسمية معتمدة على فيسبوك تحت اسم: `مدارس كردفان الثانوية الخاصة _ النهود`.؛ كشوفات وزارة التربية والتوجيه بولاية غرب كردفان لامتحانات الشهادة الثانوية السودانية، حيث حقق طلابها مراكز متقدمة في قائمة المتفوقين على مستوى الولاية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   484 => 
   array (
@@ -12687,7 +12687,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بغرب كردفان، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   485 => 
   array (
@@ -12713,7 +12713,7 @@ return array (
     'description' => 'لوحات الشرف وتكريم أوائل التلاميذ في امتحانات الشهادة الابتدائية بولاية غرب كردفان والمنشورة رسمياً بالصفحات المحلية المعتمدة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   486 => 
   array (
@@ -12738,7 +12738,7 @@ return array (
     'description' => 'إحراز طلاب المدرسة لمراكز عليا ضمن قائمة العشرة الأوائل لامتحانات الشهادة السودانية على مستوى ولاية غرب كردفان وفق كشوفات وزارة التربية والتوجيه المنشورة عبر صحيفة "اليوم التالي".',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   487 => 
   array (
@@ -12763,7 +12763,7 @@ return array (
     'description' => 'سجلات المدارس الأهلية والخاصة التابعة لمكتب التعليم الثانوي بمحلية النهود، وحضورها في توثيقات دفع الطلاب المتفوقين في امتحانات الشهادة السودانية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   488 => 
   array (
@@ -12789,7 +12789,7 @@ return array (
     'description' => 'سجلات المؤسسات التعليمية الخاصة المعتمدة بمدينة النهود، وتوثيقات المنصات التربوية لخريجي المدرسة في الشهادات العامة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   489 => 
   array (
@@ -12815,7 +12815,7 @@ return array (
     'description' => 'تصدر المدرسة للمركز الأول على مستوى ولاية غرب كردفان كاملاً بنسبة نجاح 100% (أحرزت التلميذة: سجود صلاح الدين التوم أبوعطية المركز الأول على الولاية).',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   490 => 
   array (
@@ -12841,7 +12841,7 @@ return array (
     'description' => 'إدراج مراكزها وطلابها ضمن نتائج امتحانات الشهادة الابتدائية والمتوسطة بولاية غرب كردفان، والتقارير المشتركة بين وزارة التربية والتوجيه ومفوضية العون الإنساني لتمكين الطلاب واستقرارهم الأكاديمي.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   491 => 
   array (
@@ -12866,7 +12866,7 @@ return array (
     'description' => 'التوثيق الصادر عن وكالة أنباء "Arab 24" وصحيفة "الإمارات اليوم" وسجلات المشروعات التعليمية لهيئة آل مكتوم الخيرية بالسودان (تاريخ التأسيس 2017م والافتتاح 2018م).',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   492 => 
   array (
@@ -12891,7 +12891,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بغرب كردفان، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   493 => 
   array (
@@ -12919,7 +12919,7 @@ return array (
     'description' => 'لوحة الشرف الرسمية:** إحراز طالبة المدرسة (يسرى حامد آدم) المركز الأول على مستوى السودان في امتحانات الشهادة الثانوية السودانية، مع تكريم رسمي موثق من حكومة ولاية غرب دارفور وإدارة التعليم.؛ المرجعية الرقمية:** الصفحة الرسمية المعتمدة على فيسبوك وتوثيقات المؤتمرات الصحفية لوزارة التربية بالولاية.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   494 => 
   array (
@@ -12946,7 +12946,7 @@ return array (
     'description' => 'الكادر الإداري والفني الموثق:؛ إنجاز مدرسي قومي وقاري رسمي:** توجت المدرسة بالمركز الأول وكأس النسخة الأولى للبطولة الأفريقية للمدارس على مستوى السودان (2022/2023)، ومثلت السودان رسمياً في التصفيات والنهائيات القارية بتنزانيا تحت مظلة الاتحاد الأفريقي (CAF)، ووزارة التربية والتعليم الاتحادية، والاتحاد السوداني لكرة القدم.؛ التغطية الرسمية المعتمدة:** وثائق وتقارير الصحف الوطنية والقنوات الرياضية السودانية (صحيفة كورة سودان، وكالة عزة برس، منصة ال',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   495 => 
   array (
@@ -12972,7 +12972,7 @@ return array (
     'description' => 'السجلات الإدارية لوزارة التربية:** مسجلة ومدرجة ضمن كشوفات "إدارة التعليم غير الحكومي" بمحلية الجنينة، وتظهر في نماذج الامتحانات الشهرية وأوراق العمل المقررة لطلاب الشهادة بولاية غرب دارفور.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   496 => 
   array (
@@ -12997,7 +12997,7 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بغرب دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
   497 => 
   array (
@@ -13024,6 +13024,6 @@ return array (
     'description' => 'مؤسسة تعليمية خاصة معتمدة بغرب دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'rating_avg' => 4.9,
     'status' => 'approved',
-    'is_verified' => 1,
+    'is_verified' => 0,
   ),
 );

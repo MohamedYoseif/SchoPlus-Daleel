@@ -277,7 +277,7 @@ if (!function_exists('getSchoolHistoricBadge')) {
         $year = (int)($school['established_year'] ?? 0);
         $votes = (int)($school['historic_votes'] ?? 0);
 
-        $label = 'صرح عريق وموثق';
+        $label = 'صرح وطني عريق';
         $sub = '';
         if ($year > 1800) {
             $sub = "تأسست {$year}م";
@@ -409,7 +409,7 @@ function ensureTablesExist(PDO $pdo): void {
         is_schoplus_client TINYINT(1) NOT NULL DEFAULT 0,
         schoplus_school_id BIGINT UNSIGNED NULL,
         is_featured TINYINT(1) NOT NULL DEFAULT 0,
-        is_verified TINYINT(1) NOT NULL DEFAULT 1,
+        is_verified TINYINT(1) NOT NULL DEFAULT 0,
         rating_avg DECIMAL(3, 2) NOT NULL DEFAULT 5.00,
         reviews_count INT UNSIGNED NOT NULL DEFAULT 0,
         views_count INT UNSIGNED NOT NULL DEFAULT 0,
@@ -556,10 +556,16 @@ function ensureTablesExist(PDO $pdo): void {
             INDEX idx_school_session (school_id, session_id)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
 
-        // Pre-flag heritage schools founded <= 1950 or iconic national schools
+        // Pre-flag heritage schools founded <= 1960 or iconic national schools
         try {
-            $pdo->exec("UPDATE daleel_schools SET is_historic = 1, historic_badge_reason = 'تأسست قبل عام 1950' WHERE established_year IS NOT NULL AND CAST(established_year AS UNSIGNED) <= 1950 AND CAST(established_year AS UNSIGNED) >= 1800");
-            $pdo->exec("UPDATE daleel_schools SET is_historic = 1, historic_badge_reason = 'صرح قومي تاريخي' WHERE name LIKE '%خور طقت%' OR name LIKE '%وادي سيدنا%' OR name LIKE '%حنتوب%' OR name LIKE '%بخت الرضا%' OR name LIKE '%رفاعة%بابكر بدري%' OR name LIKE '%بربر الثانوية%' OR name LIKE '%الأهلية%أم درمان%'");
+            $pdo->exec("UPDATE daleel_schools SET is_historic = 1, historic_badge_reason = 'صرح وطني عريق' WHERE established_year IS NOT NULL AND CAST(established_year AS UNSIGNED) <= 1960 AND CAST(established_year AS UNSIGNED) >= 1800");
+            $pdo->exec("UPDATE daleel_schools SET is_historic = 1, historic_badge_reason = 'صرح وطني تاريخي' WHERE name LIKE '%خور طقت%' OR name LIKE '%وادي سيدنا%' OR name LIKE '%حنتوب%' OR name LIKE '%بخت الرضا%' OR name LIKE '%رفاعة%بابكر بدري%' OR name LIKE '%بربر الثانوية%' OR name LIKE '%الأهلية%أم درمان%' OR name LIKE '%المؤتمر%' OR name LIKE '%الشيخ مصطفى الأمين%' OR name LIKE '%كمبوني%'");
+        } catch (Throwable $e) {}
+
+        // Strict Verification Rule: Verification & accreditation is exclusively managed through Control Panel claims/approvals
+        try {
+            $pdo->exec("ALTER TABLE daleel_schools MODIFY COLUMN is_verified TINYINT(1) NOT NULL DEFAULT 0");
+            $pdo->exec("UPDATE daleel_schools SET is_verified = 0 WHERE is_schoplus_client = 0 AND id NOT IN (SELECT school_id FROM daleel_school_claims WHERE status = 'approved')");
         } catch (Throwable $e) {}
 
         // Zero-Skip Schema Migration: Make phone fields nullable and clean dummy placeholders

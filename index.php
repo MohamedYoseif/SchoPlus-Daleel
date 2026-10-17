@@ -265,7 +265,7 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
         
         <?php if ($isHistoric): ?>
             <!-- Prestigious Top Crown Bar -->
-            <div class="historic-card-crown-bar" title="صرح تعليمي وتاريخي عريق وموثق"></div>
+            <div class="historic-card-crown-bar" title="صرح تعليمي وتاريخي عريق"></div>
             <!-- Antique Landmark Watermark -->
             <i class="fas fa-landmark historic-card-watermark" aria-hidden="true"></i>
         <?php endif; ?>
@@ -290,16 +290,16 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
                     <span class="badge-schoplus-smart"><i class="fas fa-bolt"></i> SchoPlus الذكي</span>
                 <?php endif; ?>
                 <?php if (!empty($s['is_verified'])): ?>
-                    <span class="badge bg-success text-white border border-light" style="font-size: 0.65rem; padding: 2px 8px; border-radius: 999px;"><i class="fas fa-check-circle me-1"></i> موثقة</span>
+                    <span class="badge bg-success text-white border border-light" style="font-size: 0.65rem; padding: 2px 8px; border-radius: 999px;"><i class="fas fa-check-circle me-1"></i> موثقة بالدليل</span>
                 <?php else: ?>
-                    <span class="badge bg-secondary text-white border border-light" style="font-size: 0.65rem; padding: 2px 8px; border-radius: 999px; opacity: 0.9;"><i class="fas fa-info-circle me-1"></i> عامة</span>
+                    <span class="badge" style="background: rgba(100, 116, 139, 0.85); color: #FFFFFF; font-size: 0.65rem; padding: 2px 8px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.25);"><i class="fas fa-info-circle me-1"></i> عامة (غير موثقة)</span>
                 <?php endif; ?>
             </div>
 
             <div class="card-logo-badge">
                 <img src="<?= $logo ?>" alt="" loading="lazy">
                 <?php if ($isHistoric): ?>
-                    <span class="historic-logo-seal" title="صرح وطني عريق وموثق"><i class="fas fa-crown"></i></span>
+                    <span class="historic-logo-seal" title="صرح وطني عريق"><i class="fas fa-crown"></i></span>
                 <?php endif; ?>
             </div>
         </div>
@@ -309,7 +309,7 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
             <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
                 <a href="<?= $schoolUrl ?>" style="font-weight: 700; font-size: 0.9rem; color: #0B2A52; text-decoration: none;" onclick="event.stopPropagation();">
                     <?php if ($isHistoric): ?>
-                        <i class="fas fa-landmark text-warning ms-1" style="color: #D97706 !important; font-size: 0.85rem;" title="صرح وطني عريق وموثق"></i>
+                        <i class="fas fa-landmark text-warning ms-1" style="color: #D97706 !important; font-size: 0.85rem;" title="صرح وطني عريق"></i>
                     <?php endif; ?>
                     <?= e($s['name']) ?>
                 </a>
