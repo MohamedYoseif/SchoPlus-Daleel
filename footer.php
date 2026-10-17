@@ -65,7 +65,7 @@
                         </a>
                     </div>
                     <p class="text-muted leading-relaxed mb-0" style="font-size: 0.73rem; line-height: 1.75; max-width: 440px;">
-                        المنصة الرقمية الوطنية الموحدة للمدارس السودانية. تمكّن أولياء الأمور والطلاب من البحث والتعرف على كافة المدارس ومقارنتها، وتتيح لإدارات المدارس حضوراً رقمياً احترافياً وتواصلاً مباشراً مع الأسر.
+                        خدمة رقمية مستقلة تهدف لمساعدة أولياء الأمور والطلاب في البحث والتعرف على المدارس ومقارنتها، وتمكين إدارات المدارس من تعزيز حضورها الرقمي وتطوير قنوات تواصلها المباشر مع الأسر.
                     </p>
                 </div>
 
@@ -107,12 +107,13 @@
             </div>
 
             <!-- سياسة الاستخدام وإخلاء المسؤولية -->
-            <div class="mt-4 p-3 rounded-3" style="background: #FFFFFF; border: 1px solid #DDE4ED;">
+            <div class="mt-4 p-3 rounded-3" style="background: #FFFFFF; border: 1px solid #DDE4ED; box-shadow: 0 1px 4px rgba(11, 42, 82, 0.03);">
                 <div class="d-flex align-items-start gap-2">
-                    <i class="fas fa-info-circle text-primary mt-1" style="font-size: 0.85rem; flex-shrink: 0;"></i>
-                    <div style="font-size: 0.71rem; color: #64748B; line-height: 1.7;">
+                    <i class="fas fa-shield-alt text-primary mt-1" style="font-size: 0.85rem; flex-shrink: 0; color: #1E5FA8 !important;"></i>
+                    <div style="font-size: 0.71rem; color: #64748B; line-height: 1.75;">
                         <strong class="text-dark">سياسة الاستخدام وإخلاء المسؤولية:</strong>
-                        هذا الدليل هو منصة رقمية وطنية مفتوحة ومستقلة. كافة البيانات والمعلومات المنشورة تتم إضافتها وإدارتها مباشرة من قِبل إدارات المدارس على مسؤوليتهم.
+                        هذا الدليل هو <span class="fw-bold text-dark">خدمة رقمية مستقلة</span> للمساهمة في مساعدة أولياء الأمور والطلاب، وتعزيز التطوير والحضور الرقمي للمدارس. 
+                        المدارس غير الموثقة في الدليل تم إدراجها وفهرستها آلياً استناداً إلى مصادر ومؤشرات عامة لتسهيل الوصول إليها، وقد تحتمل وجود أخطاء أو بيانات غير محدثة، في حين أن <span class="fw-bold text-success">المدارس الموثقة</span> تم اعتماد وتدقيق بياناتها والتواصل بشأنها رسمياً عبر إداراتها وممثليها المفوضين. كما يُتاح لأي مدرسة <a href="/login.php" class="text-decoration-underline fw-bold" style="color: #1E5FA8;">إثبات الملكية والتوثيق</a> لتحديث أو تصحيح بياناتها مجاناً.
                     </div>
                 </div>
             </div>
