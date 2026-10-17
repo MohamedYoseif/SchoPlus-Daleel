@@ -80,9 +80,30 @@ class SchoolBatchImporter
         $existing = $dupStmt->fetch(PDO::FETCH_ASSOC);
 
         if ($existing) {
+            // Update existing school with newly verified fields
+            $upPhone = !empty($data['phone']) ? trim($data['phone']) : null;
+            $upWhatsapp = !empty($data['whatsapp']) ? trim($data['whatsapp']) : $upPhone;
+            $upDesc = !empty($data['description']) ? trim($data['description']) : null;
+            $upStages = !empty($data['stages']) ? json_encode(SudanGeography::deduceStages($data['school_type'] ?? 'private', $name, $data['stages'], $upDesc), JSON_UNESCAPED_UNICODE) : null;
+            
+            $upStmt = $this->pdo->prepare("UPDATE daleel_schools SET 
+                phone = COALESCE(phone, :phone),
+                whatsapp = COALESCE(whatsapp, :whatsapp),
+                stages = COALESCE(:stages, stages),
+                description = CASE WHEN description IS NULL OR description = '' THEN :desc ELSE description END,
+                is_verified = 1
+                WHERE id = :id");
+            $upStmt->execute([
+                ':phone' => $upPhone,
+                ':whatsapp' => $upWhatsapp,
+                ':stages' => $upStages,
+                ':desc' => $upDesc,
+                ':id' => $existing['id']
+            ]);
+
             return [
                 'status' => 'skipped',
-                'message' => 'المدرسة موجودة مسبقاً',
+                'message' => 'المدرسة موجودة مسبقاً وتم تحديث التوثيق',
                 'id' => $existing['id'],
                 'name' => $existing['name'],
                 'slug' => $existing['slug']
