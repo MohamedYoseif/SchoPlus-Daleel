@@ -1725,18 +1725,18 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                         </div>
 
                         <div class="p-3.5 p-md-4 bg-white">
-                            <!-- SECTION 1: SEARCH BY SCHOOL NAME (Primary & Direct) -->
+                            <!-- SECTION 1: SEARCH BY SCHOOL NAME (Primary & Direct via Google Maps) -->
                             <div class="p-3.5 rounded-3 border mb-4" style="background: #F8FAFC; border-color: #E2E8F0 !important;">
                                 <label class="form-label fw-bold text-dark mb-2 d-flex align-items-center justify-content-between" style="font-size: 0.88rem;">
-                                    <span><i class="fas fa-search text-primary me-1"></i> أدخل اسم المدرسة للبحث والاستكشاف المباشر:</span>
-                                    <span class="badge bg-primary text-white" style="font-size: 0.65rem;">فحص خرائط جوجل + المنصات</span>
+                                    <span><i class="fas fa-map-marked-alt text-success me-1"></i> البحث في خرائط جوجل (Google Maps) واستكشاف المدرسة:</span>
+                                    <span class="badge bg-success text-white" style="font-size: 0.65rem;"><i class="fas fa-check-circle me-1"></i> فحص خرائط جوجل + المنصات</span>
                                 </label>
 
                                 <div class="row g-2 align-items-center">
                                     <div class="col-lg-7 col-12">
                                         <div class="input-group">
                                             <span class="input-group-text bg-white" style="border-color: #CBD5E1;"><i class="fas fa-school text-muted"></i></span>
-                                            <input type="text" id="studioQuery" class="form-control" placeholder="اكتب اسم المدرسة هنا (مثال: مدارس القبس، مدارس المنار، روضة المستقبل...)" style="font-size: 0.85rem; border-color: #CBD5E1; padding: 10px 14px;" onkeydown="if(event.key==='Enter') runStudioResearch();">
+                                            <input type="text" id="studioQuery" class="form-control" placeholder="اكتب اسم المدرسة للبحث عنها في خرائط جوجل (مثال: مدارس القبس، مدارس المنار، روضة المستقبل...)" style="font-size: 0.85rem; border-color: #CBD5E1; padding: 10px 14px;" onkeydown="if(event.key==='Enter') runStudioResearch();">
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-sm-6 col-12">
@@ -1746,13 +1746,13 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                                         </div>
                                     </div>
                                     <div class="col-lg-2 col-sm-6 col-12">
-                                        <button type="button" id="btnRunStudio" class="btn w-100 fw-bold py-2 shadow-sm text-white" onclick="runStudioResearch()" style="background: #F5A020; border-color: #F5A020; font-size: 0.85rem; border-radius: 8px;">
-                                            <i class="fas fa-search me-1"></i> ابدأ الاستكشاف
+                                        <button type="button" id="btnRunStudio" class="btn w-100 fw-bold py-2 shadow-sm text-white" onclick="runStudioResearch()" style="background: #10B981; border-color: #10B981; font-size: 0.85rem; border-radius: 8px;">
+                                            <i class="fas fa-map-search me-1"></i> ابحث في الخرائط
                                         </button>
                                     </div>
                                 </div>
                                 <div class="form-text small text-muted mt-2" style="font-size: 0.72rem;">
-                                    <i class="fas fa-info-circle text-info me-1"></i> يقوم المحرك آلياً بالبحث في خرائط جوجل للتأكد من وجود المدرسة وموقعها، وفحص فيسبوك ويوتيوب وتيك توك والمراجع الحكومية لجلب الهواتف الحقيقية والنبذة قبل الاعتماد.
+                                    <i class="fas fa-info-circle text-info me-1"></i> يبحث المحرك مباشرة في <strong>خرائط جوجل</strong> لإظهار موقع المدرسة الحي وإحداثياتها، واستقصاء فيسبوك ويوتيوب وتيك توك والمراجع الحكومية لجلب الهواتف الحقيقية والنبذة.
                                 </div>
                             </div>
 
@@ -2419,39 +2419,58 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                 </div>
 
                 <div class="card-body p-3 p-md-4">
-                    <!-- 5 Multi-Platform Live Search Buttons -->
+                    <!-- 1. DEDICATED GOOGLE MAPS GROUNDING SECTION -->
+                    <div class="p-3 rounded-3 border mb-3" style="background: #F0FDF4; border-color: #BBF7D0 !important;">
+                        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
+                            <span class="fw-bold text-success" style="font-size: 0.84rem;">
+                                <i class="fas fa-map-marked-alt me-1"></i> التحقق الجغرافي الميداني من خرائط جوجل (Google Maps Grounding):
+                            </span>
+                            <a href="${p.google_maps.search_url}" target="_blank" class="btn btn-sm btn-success fw-bold py-1 px-3 shadow-sm text-white" style="font-size: 0.74rem; border-radius: 6px;">
+                                <i class="fas fa-external-link-alt me-1"></i> فتح الخريطة بكامل الشاشة في Google Maps ↗
+                            </a>
+                        </div>
+                        
+                        <!-- Interactive Embedded Map Preview -->
+                        <div class="rounded-3 overflow-hidden border shadow-2xs mb-2" style="height: 200px; background: #E2E8F0;">
+                            <iframe src="https://maps.google.com/maps?q=${encodeURIComponent(d.formatted_name + ' ' + d.city + ' ' + d.state)}&output=embed" width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+
+                        <div>
+                            <label class="form-label small fw-bold text-dark mb-1">
+                                <i class="fas fa-map-pin text-danger me-1"></i> رابط موقع المدرسة على خرائط جوجل (Google Maps Link):
+                            </label>
+                            <input type="url" id="dosGmap" class="form-control form-control-sm" placeholder="الصق الرابط الفعلي من خرائط جوجل إن توفر (مثال: https://maps.app.goo.gl/...)" value="${escapeHtml(p.google_maps.existing_url || '')}" style="font-size: 0.78rem;">
+                        </div>
+                    </div>
+
+                    <!-- 2. OTHER PLATFORMS FOR DEEP ENRICHMENT -->
                     <div class="mb-3">
-                        <label class="form-label fw-bold text-dark small mb-2"><i class="fas fa-external-link-alt text-muted me-1"></i> روابط الاستقصاء والتحقق الميداني المباشر من المنصات:</label>
+                        <label class="form-label fw-bold text-dark small mb-2"><i class="fas fa-share-nodes text-primary me-1"></i> استقصاء المنصات الرقمية ومراجع الشهادة (للهواتف والنبذة):</label>
                         <div class="row g-2">
-                            <div class="col-md col-sm-6 col-12">
-                                <a href="${p.google_maps.search_url}" target="_blank" class="btn btn-sm w-100 py-2 d-flex align-items-center justify-content-center gap-1.5 text-white fw-bold shadow-sm" style="background: #10B981; font-size: 0.74rem;">
-                                    <i class="${p.google_maps.icon}"></i> فتح خرائط جوجل
-                                </a>
-                            </div>
-                            <div class="col-md col-sm-6 col-12">
-                                <a href="${p.facebook.search_url}" target="_blank" class="btn btn-sm w-100 py-2 d-flex align-items-center justify-content-center gap-1.5 text-white fw-bold shadow-sm" style="background: #1877F2; font-size: 0.74rem;">
+                            <div class="col-md-3 col-sm-6 col-12">
+                                <a href="${p.facebook.search_url}" target="_blank" class="btn btn-sm w-100 py-2 d-flex align-items-center justify-content-center gap-1.5 text-white fw-bold shadow-sm" style="background: #1877F2; font-size: 0.74rem; border-radius: 6px;">
                                     <i class="${p.facebook.icon}"></i> صفحة فيسبوك
                                 </a>
                             </div>
-                            <div class="col-md col-sm-6 col-12">
-                                <a href="${p.youtube.search_url}" target="_blank" class="btn btn-sm w-100 py-2 d-flex align-items-center justify-content-center gap-1.5 text-white fw-bold shadow-sm" style="background: #DC2626; font-size: 0.74rem;">
+                            <div class="col-md-3 col-sm-6 col-12">
+                                <a href="${p.youtube.search_url}" target="_blank" class="btn btn-sm w-100 py-2 d-flex align-items-center justify-content-center gap-1.5 text-white fw-bold shadow-sm" style="background: #DC2626; font-size: 0.74rem; border-radius: 6px;">
                                     <i class="${p.youtube.icon}"></i> فيديوهات يوتيوب
                                 </a>
                             </div>
-                            <div class="col-md col-sm-6 col-12">
-                                <a href="${p.tiktok.search_url}" target="_blank" class="btn btn-sm w-100 py-2 d-flex align-items-center justify-content-center gap-1.5 text-white fw-bold shadow-sm" style="background: #111827; font-size: 0.74rem;">
+                            <div class="col-md-3 col-sm-6 col-12">
+                                <a href="${p.tiktok.search_url}" target="_blank" class="btn btn-sm w-100 py-2 d-flex align-items-center justify-content-center gap-1.5 text-white fw-bold shadow-sm" style="background: #111827; font-size: 0.74rem; border-radius: 6px;">
                                     <i class="${p.tiktok.icon}"></i> جولات تيك توك
                                 </a>
                             </div>
-                            <div class="col-md col-sm-6 col-12">
-                                <a href="${p.web_references.search_url}" target="_blank" class="btn btn-sm w-100 py-2 d-flex align-items-center justify-content-center gap-1.5 text-white fw-bold shadow-sm" style="background: #0284C7; font-size: 0.74rem;">
-                                    <i class="${p.web_references.icon}"></i> مراجع غوغل
+                            <div class="col-md-3 col-sm-6 col-12">
+                                <a href="${p.web_references.search_url}" target="_blank" class="btn btn-sm w-100 py-2 d-flex align-items-center justify-content-center gap-1.5 text-white fw-bold shadow-sm" style="background: #0284C7; font-size: 0.74rem; border-radius: 6px;">
+                                    <i class="${p.web_references.icon}"></i> مراجع غوغل والشهادة
                                 </a>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Editable Dossier Form -->
+                    <!-- 3. EDITABLE DOSSIER FORM -->
                     <div class="p-3 bg-light rounded-3 border">
                         <h6 class="fw-bold text-dark mb-3" style="font-size: 0.84rem;"><i class="fas fa-check-circle text-success me-1"></i> مراجعة واعتماد بيانات المدرسة قبل الحفظ بالدليل:</h6>
                         
@@ -2463,7 +2482,7 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
 
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <label class="form-label small fw-bold text-dark mb-1">الهاتف الموثق (إن وجد بالخريطة أو فيسبوك)</label>
-                                <input type="text" id="dosPhone" class="form-control form-control-sm" placeholder="فارغ إن لم يتوفر" value="${escapeHtml(d.phone || '')}">
+                                <input type="text" id="dosPhone" class="form-control form-control-sm" placeholder="فارغ إن لم يتوفر بالخريطة" value="${escapeHtml(d.phone || '')}">
                             </div>
 
                             <div class="col-lg-3 col-sm-6 col-12">
@@ -2472,21 +2491,16 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                             </div>
 
                             <div class="col-lg-6 col-12">
-                                <label class="form-label small fw-bold text-dark mb-1"><i class="fas fa-map-marker-alt text-danger me-1"></i> رابط خرائط جوجل الفعلي (Pin URL)</label>
-                                <input type="url" id="dosGmap" class="form-control form-control-sm" placeholder="الصق الرابط الفعلي من خرائط جوجل إن توفر" value="${escapeHtml(p.google_maps.existing_url || '')}">
-                            </div>
-
-                            <div class="col-lg-6 col-12">
                                 <label class="form-label small fw-bold text-dark mb-1"><i class="fab fa-facebook text-primary me-1"></i> رابط صفحة الفيسبوك الرسمية</label>
                                 <input type="url" id="dosFacebook" class="form-control form-control-sm" placeholder="https://facebook.com/..." value="${escapeHtml(p.facebook.existing_url || '')}">
                             </div>
 
-                            <div class="col-lg-4 col-sm-6 col-12">
+                            <div class="col-lg-3 col-sm-6 col-12">
                                 <label class="form-label small fw-bold text-dark mb-1"><i class="fab fa-youtube text-danger me-1"></i> قناة / فيديو يوتيوب</label>
                                 <input type="url" id="dosYoutube" class="form-control form-control-sm" placeholder="https://youtube.com/..." value="${escapeHtml(p.youtube.existing_url || '')}">
                             </div>
 
-                            <div class="col-lg-4 col-sm-6 col-12">
+                            <div class="col-lg-3 col-sm-6 col-12">
                                 <label class="form-label small fw-bold text-dark mb-1"><i class="fab fa-tiktok text-dark me-1"></i> حساب تيك توك</label>
                                 <input type="url" id="dosTiktok" class="form-control form-control-sm" placeholder="https://tiktok.com/@..." value="${escapeHtml(p.tiktok.existing_url || '')}">
                             </div>
@@ -2496,9 +2510,9 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                                 <input type="text" id="dosYear" class="form-control form-control-sm" placeholder="مثال: 2012" value="${escapeHtml(d.established_year || '')}">
                             </div>
 
-                            <div class="col-12">
+                            <div class="col-lg-8 col-12">
                                 <label class="form-label small fw-bold text-dark mb-1"><i class="fas fa-align-left text-muted me-1"></i> النبذة التعريفية الشاملة عن المدرسة</label>
-                                <textarea id="dosDesc" class="form-control form-control-sm" rows="3">${escapeHtml(d.description || '')}</textarea>
+                                <textarea id="dosDesc" class="form-control form-control-sm" rows="2">${escapeHtml(d.description || '')}</textarea>
                             </div>
                         </div>
 
