@@ -63,6 +63,14 @@ $isDaleelMobile = (
     <link rel="apple-touch-icon" href="/assets/images/logo-icon.png?v=3.7.84">
     <title><?= isset($pageTitle) ? e($pageTitle) . ' | دليل المدارس السودانية' : 'دليل المدارس السودانية — دليلك الشامل لاختيار أفضل المدارس في السودان' ?></title>
     
+    <!-- Meta Description (SEO) -->
+    <meta name="description" content="<?= isset($pageDescription) ? e($pageDescription) : (isset($ogDesc) && !empty($ogDesc) && $ogDesc !== 'دليلك الشامل لاختيار أفضل المدارس في السودان — تصفح الرسوم والمرافق وتواصل مباشرة.' ? e($ogDesc) : 'دليل المدارس السودانية — المنصة الوطنية الأولى والذكية الشاملة لاستكشاف ومقارنة المدارس ورياض الأطفال والمراكز التعليمية في ولايات السودان ودول المهجر.') ?>">
+    
+    <!-- Preload Hero Image for faster LCP on Directory Home -->
+    <?php if (empty($schemaTargetSchool) && (empty($_SERVER['REQUEST_URI']) || parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) === '/' || parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) === '/index.php')): ?>
+    <link rel="preload" as="image" href="/assets/images/family-hero.webp" fetchpriority="high">
+    <?php endif; ?>
+    
     <!-- Open Graph / WhatsApp / Facebook Meta Tags -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="<?= isset($ogTitle) ? e($ogTitle) : (isset($pageTitle) ? e($pageTitle) . ' | دليل المدارس السودانية' : 'دليل المدارس السودانية — منصة الاستكشاف والقبول الذكي') ?>">

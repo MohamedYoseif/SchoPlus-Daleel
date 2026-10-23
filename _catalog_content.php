@@ -438,12 +438,12 @@ if (!function_exists('renderCatalogPagination')) {
             <div>
                 <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3 pb-2 border-bottom">
                     <div>
-                        <span style="color: #64748B; font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">
+                        <span style="color: #1E5FA8; font-size: 0.68rem; font-weight: 700; text-transform: uppercase;">
                             <i class="fas fa-list me-1"></i> استكشف المدارس
                         </span>
                         <h2 style="font-size: 1.15rem; font-weight: 700; color: #0B2A52; margin: 0;">قائمة المدارس السودانية في الدليل</h2>
                     </div>
-                    <div class="mt-2 mt-md-0 text-muted" style="font-size: 0.72rem;">
+                    <div class="mt-2 mt-md-0" style="font-size: 0.72rem; color: #475569;">
                         عرض <strong><?= count($catalogSchools) ?></strong> من أصل <strong><?= $statTotal ?></strong> مدرسة مسجلة
                     </div>
                 </div>

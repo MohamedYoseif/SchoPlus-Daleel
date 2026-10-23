@@ -55,6 +55,34 @@
     </section>
 
     <footer class="daleel-footer" style="background-color: #F8FAFC; border-top: 1px solid #DDE4ED; padding: 40px 0 25px; margin-top: 24px; color: #475569;">
+        <style>
+            .daleel-footer-link {
+                display: flex !important;
+                align-items: center;
+                min-height: 42px;
+                padding: 6px 0;
+                color: #334155 !important;
+                text-decoration: none;
+                font-size: 0.78rem;
+                font-weight: 500;
+                transition: color 0.15s ease;
+            }
+            .daleel-footer-link:hover {
+                color: #1E5FA8 !important;
+            }
+            .daleel-footer a.text-secondary {
+                display: inline-flex !important;
+                align-items: center;
+                min-height: 42px;
+                padding: 6px 0;
+                color: #334155 !important;
+                font-size: 0.78rem !important;
+                text-decoration: none;
+            }
+            .daleel-footer a.text-secondary:hover {
+                color: #1E5FA8 !important;
+            }
+        </style>
         <div class="container">
             <div class="row g-4">
                 <!-- Col 1: Identity & Description -->
@@ -64,44 +92,44 @@
                             <img src="/assets/images/logo.png?v=3.7.84" alt="دليل المدارس السودانية" style="height: 46px; width: auto; object-fit: contain;">
                         </a>
                     </div>
-                    <p class="text-muted leading-relaxed mb-0" style="font-size: 0.73rem; line-height: 1.75; max-width: 440px;">
+                    <p class="leading-relaxed mb-0" style="font-size: 0.73rem; line-height: 1.75; max-width: 440px; color: #475569;">
                         خدمة رقمية مستقلة تهدف لمساعدة أولياء الأمور والطلاب في البحث والتعرف على المدارس ومقارنتها، وتمكين إدارات المدارس من تعزيز حضورها الرقمي وتطوير قنوات تواصلها المباشر مع الأسر.
                     </p>
                 </div>
 
                 <!-- Col 2: Directory Browsing (Parents/Students) -->
                 <div class="col-lg-3 col-md-6 col-6">
-                    <h5 class="fw-bold mb-3" style="font-size: 0.85rem; color: #0B2A52;">تصفح واستكشاف</h5>
-                    <a href="/" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">
-                        <i class="fas fa-th-large me-1 text-muted" style="font-size: 0.68rem;"></i> كافة المدارس
+                    <h3 class="fw-bold mb-2" style="font-size: 0.88rem; color: #0B2A52;">تصفح واستكشاف</h3>
+                    <a href="/" class="daleel-footer-link">
+                        <i class="fas fa-th-large me-2" style="font-size: 0.72rem; color: #1E5FA8;"></i> كافة المدارس
                     </a>
                     <?php /* رابط المدارس الذكية (مخفي حالياً)
-                    <a href="/#schoplus-schools" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">
-                        <i class="fas fa-star me-1 text-warning" style="font-size: 0.68rem;"></i> المدارس الذكية المعتمدة
+                    <a href="/#schoplus-schools" class="daleel-footer-link">
+                        <i class="fas fa-star me-2 text-warning" style="font-size: 0.72rem;"></i> المدارس الذكية المعتمدة
                     </a>
                     */ ?>
-                    <a href="/?view=top_rated" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">
-                        <i class="fas fa-award me-1 text-primary" style="font-size: 0.68rem;"></i> المدارس الأعلى تقييماً
+                    <a href="/?view=top_rated" class="daleel-footer-link">
+                        <i class="fas fa-award me-2" style="font-size: 0.72rem; color: #F5A020;"></i> المدارس الأعلى تقييماً
                     </a>
-                    <a href="/compare.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">
-                        <i class="fas fa-balance-scale me-1 text-muted" style="font-size: 0.68rem;"></i> مقارنة المدارس
+                    <a href="/compare.php" class="daleel-footer-link">
+                        <i class="fas fa-balance-scale me-2" style="font-size: 0.72rem; color: #1E5FA8;"></i> مقارنة المدارس
                     </a>
                 </div>
 
                 <!-- Col 3: School Administration (Management Only) -->
                 <div class="col-lg-4 col-md-6 col-6">
-                    <h5 class="fw-bold mb-3" style="font-size: 0.85rem; color: #0B2A52;">لأصحاب المدارس</h5>
-                    <a href="/login.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">
-                        <i class="fas fa-user-shield me-1 text-muted" style="font-size: 0.68rem;"></i> دخول بوابة الإدارة
+                    <h3 class="fw-bold mb-2" style="font-size: 0.88rem; color: #0B2A52;">لأصحاب المدارس</h3>
+                    <a href="/login.php" class="daleel-footer-link">
+                        <i class="fas fa-user-shield me-2" style="font-size: 0.72rem; color: #1E5FA8;"></i> دخول بوابة الإدارة
                     </a>
-                    <a href="/register.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">
-                        <i class="fas fa-plus-circle me-1 text-success" style="font-size: 0.68rem;"></i> تسجيل واعتماد مدرسة جديدة
+                    <a href="/register.php" class="daleel-footer-link">
+                        <i class="fas fa-plus-circle me-2" style="font-size: 0.72rem; color: #10B981;"></i> تسجيل واعتماد مدرسة جديدة
                     </a>
-                    <a href="/presence-audit.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">
-                        <i class="fas fa-satellite-dish me-1 text-muted" style="font-size: 0.68rem;"></i> فحص الوجود الرقمي للمدرسة
+                    <a href="/presence-audit.php" class="daleel-footer-link">
+                        <i class="fas fa-satellite-dish me-2" style="font-size: 0.72rem; color: #1E5FA8;"></i> فحص الوجود الرقمي للمدرسة
                     </a>
-                    <a href="https://schoplus.sd" target="_blank" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">
-                        <i class="fas fa-cloud me-1 text-primary" style="font-size: 0.68rem;"></i> حلول SchoPlus لإدارة المدارس
+                    <a href="https://schoplus.sd" target="_blank" class="daleel-footer-link">
+                        <i class="fas fa-cloud me-2" style="font-size: 0.72rem; color: #1E5FA8;"></i> حلول SchoPlus لإدارة المدارس
                     </a>
                 </div>
             </div>
@@ -110,7 +138,7 @@
             <div class="mt-4 p-3 rounded-3" style="background: #FFFFFF; border: 1px solid #DDE4ED; box-shadow: 0 1px 4px rgba(11, 42, 82, 0.03);">
                 <div class="d-flex align-items-start gap-2">
                     <i class="fas fa-shield-alt text-primary mt-1" style="font-size: 0.85rem; flex-shrink: 0; color: #1E5FA8 !important;"></i>
-                    <div style="font-size: 0.71rem; color: #64748B; line-height: 1.75;">
+                    <div style="font-size: 0.71rem; color: #334155; line-height: 1.75;">
                         <strong class="text-dark">سياسة الاستخدام وإخلاء المسؤولية:</strong>
                         هذا الدليل هو <span class="fw-bold text-dark">خدمة رقمية مستقلة</span> للمساهمة في مساعدة أولياء الأمور والطلاب، وتعزيز التطوير والحضور الرقمي للمدارس. 
                         المدارس غير الموثقة في الدليل تم إدراجها وفهرستها آلياً استناداً إلى مصادر ومؤشرات عامة لتسهيل الوصول إليها، وقد تحتمل وجود أخطاء أو بيانات غير محدثة، في حين أن <span class="fw-bold text-success">المدارس الموثقة</span> تم اعتماد وتدقيق بياناتها والتواصل بشأنها رسمياً عبر إداراتها وممثليها المفوضين. كما يُتاح لأي مدرسة <a href="/login.php" class="text-decoration-underline fw-bold" style="color: #1E5FA8;">إثبات الملكية والتوثيق</a> لتحديث أو تصحيح بياناتها مجاناً.
@@ -120,9 +148,9 @@
 
             <hr class="my-3" style="border-color: #DDE4ED;">
 
-            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2 text-muted" style="font-size: 0.72rem;">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2" style="font-size: 0.72rem; color: #475569;">
                 <div>جميع الحقوق محفوظة © <?= date('Y') ?> — دليل المدارس السودانية | ملتقى المدارس وأولياء الأمور في السودان</div>
-                <div>خدمة رقمية مجانية مقدمة من فريق <strong>SchoPlus</strong></div>
+                <div>خدمة رقمية مجانية مقدمة من فريق <strong style="color: #0B2A52;">SchoPlus</strong></div>
             </div>
         </div>
     </footer>

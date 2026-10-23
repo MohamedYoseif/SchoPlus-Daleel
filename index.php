@@ -2082,7 +2082,7 @@ require_once __DIR__ . '/header.php';
                 <div class="col-lg-4 col-12 text-center">
                     <div class="sp-join-side-box" style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 12px; padding: 14px 18px;">
                         <i class="fas fa-certificate fa-2x mb-2" style="color: #F5A020 !important;"></i>
-                        <h5 class="sp-join-side-title fw-bold mb-1" style="font-size: 0.9rem; color: #FFFFFF !important;">ارتقِ بمدرستك مع SchoPlus</h5>
+                        <h3 class="sp-join-side-title fw-bold mb-1" style="font-size: 0.9rem; color: #FFFFFF !important;">ارتقِ بمدرستك مع SchoPlus</h3>
                         <p class="sp-join-side-desc mb-2" style="font-size: 0.71rem !important; line-height: 1.55; color: #E2E8F0 !important;">حوّل مدرستك إلى مدرسة ذكية مع أنظمة الحسابات، شؤون الطلاب، الجداول الآلية، وبوابة أولياء الأمور عبر الواتساب.</p>
                         <a href="https://schoplus.sd" target="_blank" class="sp-join-side-btn" style="background: #FFFFFF !important; color: #0B2A52 !important; font-weight: 800; font-size: 0.74rem; padding: 7px 14px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; width: 100%; text-decoration: none;">
                             <i class="fas fa-external-link-alt" style="color: #1E5FA8 !important;"></i>
