@@ -217,24 +217,42 @@ if (!function_exists('renderCatalogPagination')) {
 
                 </div>
 
-                <!-- ADVERTISING SPACE (مساحة إعلانية أسفل تصفية حسب الولاية) -->
+                <!-- ADVERTISING SPACE (مساحة إعلانية ديناميكية أسفل تصفية حسب الولاية) -->
+                <?php 
+                $adConfig = isset($pdo) && function_exists('getDaleelSetting') ? getDaleelSetting($pdo, 'sidebar_ad_config', null) : null;
+                $adEnabled = $adConfig['enabled'] ?? true;
+                if ($adEnabled): 
+                    $adTitle = !empty($adConfig['title']) ? $adConfig['title'] : 'أعلن هنا لمدرستك أو خدماتك';
+                    $adDesc = !empty($adConfig['desc']) ? $adConfig['desc'] : 'فرصة مميزة للوصول المباشر إلى آلاف أولياء الأمور والطلاب في كافة ولايات السودان يومياً.';
+                    $adCtaText = !empty($adConfig['cta_text']) ? $adConfig['cta_text'] : 'احجز مساحتك الإعلانية';
+                    $adPhone = !empty($adConfig['phone']) ? preg_replace('/[^0-9]/', '', $adConfig['phone']) : '249912345678';
+                    $adCtaUrl = !empty($adConfig['cta_url']) ? $adConfig['cta_url'] : ("https://wa.me/" . $adPhone . "?text=" . urlencode('مرحباً إدارة دليل SchoPlus، أود الاستفسار عن تفاصيل وحجز المساحة الإعلانية أسفل تصفية الولايات.'));
+                    $adBannerImg = !empty($adConfig['banner_img']) ? $adConfig['banner_img'] : '';
+                ?>
                 <div class="sp-sidebar-ad-card mt-3">
                     <div class="sp-sidebar-ad-header">
                         <span class="sp-sidebar-ad-badge">
                             <i class="fas fa-ad"></i> مساحة إعلانية
                         </span>
                         <span class="sp-sidebar-ad-status">
-                            <span class="sp-ad-pulse-dot"></span> متاحة الآن
+                            <span class="sp-ad-pulse-dot"></span> نشطة الآن
                         </span>
                     </div>
                     
                     <div class="sp-sidebar-ad-body">
+                        <?php if (!empty($adBannerImg)): ?>
+                        <div class="mb-2 text-center">
+                            <img src="<?= e($adBannerImg) ?>" alt="<?= e($adTitle) ?>" class="img-fluid rounded border" style="max-height: 120px; object-fit: cover; width: 100%;">
+                        </div>
+                        <?php else: ?>
                         <div class="sp-sidebar-ad-icon">
                             <i class="fas fa-bullhorn"></i>
                         </div>
-                        <h6 class="sp-sidebar-ad-title">أعلن هنا لمدرستك أو خدماتك</h6>
+                        <?php endif; ?>
+
+                        <h6 class="sp-sidebar-ad-title"><?= e($adTitle) ?></h6>
                         <p class="sp-sidebar-ad-desc">
-                            فرصة مميزة للوصول المباشر إلى آلاف أولياء الأمور والطلاب في كافة ولايات السودان يومياً.
+                            <?= nl2br(e($adDesc)) ?>
                         </p>
                         
                         <div class="sp-sidebar-ad-perks">
@@ -242,9 +260,9 @@ if (!function_exists('renderCatalogPagination')) {
                             <div class="sp-ad-perk"><i class="fas fa-check-circle text-warning"></i> ظهور دائم بجانب دليل المدارس</div>
                         </div>
 
-                        <a href="https://wa.me/249912345678?text=<?= urlencode('مرحباً إدارة دليل SchoPlus، أود الاستفسار عن تفاصيل وحجز المساحة الإعلانية أسفل تصفية الولايات.') ?>" target="_blank" class="sp-sidebar-ad-btn">
+                        <a href="<?= e($adCtaUrl) ?>" target="_blank" class="sp-sidebar-ad-btn">
                             <i class="fab fa-whatsapp"></i>
-                            <span>احجز مساحتك الإعلانية</span>
+                            <span><?= e($adCtaText) ?></span>
                         </a>
 
                         <div class="sp-sidebar-ad-footer-text">
@@ -252,6 +270,7 @@ if (!function_exists('renderCatalogPagination')) {
                         </div>
                     </div>
                 </div>
+                <?php endif; ?>
 
             </aside>
         </div>

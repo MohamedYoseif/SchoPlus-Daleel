@@ -1,7 +1,7 @@
 {
-    "version": "3.7.91",
+    "version": "3.7.93",
     "release_date": "2026-10-23",
     "version_type": "enterprise",
     "min_php_version": "8.2",
-    "release_notes": "دليل المدارس السودانية (daleel.schoplus.sd) — ترقية محركات البحث SEO بنسبة 100% وإضافة الوصف الذكي وتحسين سهولة الوصول A11y وتسريع LCP عبر Preload v3.7.91"
+    "release_notes": "دليل المدارس السودانية (daleel.schoplus.sd) — إطلاق لوحة التحكم الإدارية المستقلة الشاملة (admin.php) وإدارة الإعلانات وتوثيق المدارس ومحرك الاستكشاف الذكي v3.7.93"
 }

@@ -391,6 +391,32 @@ if (!function_exists('getSchoolHistoricBadge')) {
     }
 }
 
+if (!function_exists('getDaleelSetting')) {
+    function getDaleelSetting(PDO $pdo, string $key, $default = null) {
+        try {
+            $stmt = $pdo->prepare("SELECT setting_value FROM daleel_settings WHERE setting_key = ? LIMIT 1");
+            $stmt->execute([$key]);
+            $val = $stmt->fetchColumn();
+            return ($val !== false && $val !== null) ? $val : $default;
+        } catch (Throwable $e) {
+            return $default;
+        }
+    }
+}
+
+if (!function_exists('setDaleelSetting')) {
+    function setDaleelSetting(PDO $pdo, string $key, $value): bool {
+        try {
+            $stmt = $pdo->prepare("INSERT INTO daleel_settings (setting_key, setting_value, created_at, updated_at) 
+                                   VALUES (?, ?, NOW(), NOW()) 
+                                   ON DUPLICATE KEY UPDATE setting_value = VALUES(setting_value), updated_at = NOW()");
+            return $stmt->execute([$key, is_array($value) ? json_encode($value, JSON_UNESCAPED_UNICODE) : (string)$value]);
+        } catch (Throwable $e) {
+            return false;
+        }
+    }
+}
+
 /**
  * Singleton Database Connection
  */
@@ -644,6 +670,16 @@ function ensureTablesExist(PDO $pdo): void {
             INDEX idx_school_vote (school_id),
             INDEX idx_school_ip (school_id, ip_address),
             INDEX idx_school_session (school_id, session_id)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
+
+        // Create daleel_settings table for dynamic system & ads management
+        $pdo->exec("CREATE TABLE IF NOT EXISTS daleel_settings (
+            id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            setting_key VARCHAR(100) NOT NULL UNIQUE,
+            setting_value LONGTEXT NULL,
+            created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            INDEX idx_setting_key (setting_key)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
 
         // Pre-flag heritage schools founded <= 1960 or iconic national schools
