@@ -16,6 +16,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
 
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/SudanGeography.php';
+require_once __DIR__ . '/SchoolBatchImporter.php';
 
 $pdo = db();
 
@@ -39,9 +40,9 @@ if (mb_strlen($name, 'UTF-8') < 3) {
     exit;
 }
 
-if (strlen($phone) < 7) {
+if (!SchoolBatchImporter::isValidRealPhone($phone) && !SchoolBatchImporter::isValidRealPhone($whatsapp)) {
     http_response_code(422);
-    echo json_encode(['success' => false, 'message' => 'رقم الهاتف/الواتساب مطلوب للمتابعة.'], JSON_UNESCAPED_UNICODE);
+    echo json_encode(['success' => false, 'message' => 'رقم الهاتف/الواتساب غير صالح أو وهمي. يلزم توفير رقم هاتف حقيقي مؤكد وموثق (قاعدة الصرامة الصفرية للهواتف).'], JSON_UNESCAPED_UNICODE);
     exit;
 }
 

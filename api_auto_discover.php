@@ -30,6 +30,8 @@ if (!$isAuthAdmin && $providedKey !== $secretKey && php_sapi_name() !== 'cli') {
 $query = trim((string)($_POST['query'] ?? ($inputData['query'] ?? '')));
 $state = trim((string)($_POST['state'] ?? ($inputData['state'] ?? '')));
 $city = trim((string)($_POST['city'] ?? ($inputData['city'] ?? '')));
+$phone = trim((string)($_POST['phone'] ?? ($inputData['phone'] ?? '')));
+$whatsapp = trim((string)($_POST['whatsapp'] ?? ($inputData['whatsapp'] ?? $phone)));
 
 if (empty($query)) {
     echo json_encode([
@@ -40,7 +42,7 @@ if (empty($query)) {
 }
 
 try {
-    $result = SchoolAutoResearcher::autoDiscoverAndRegister($pdo, $query, $state, $city);
+    $result = SchoolAutoResearcher::autoDiscoverAndRegister($pdo, $query, $state, $city, null, $phone, $whatsapp);
 
     // If a new school was created, export master seed in background
     if (!empty($result['created'])) {

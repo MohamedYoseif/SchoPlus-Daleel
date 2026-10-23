@@ -6,6 +6,7 @@
 
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/SudanGeography.php';
+require_once __DIR__ . '/SchoolBatchImporter.php';
 
 class SchoolAutoResearcher {
 
@@ -214,7 +215,15 @@ class SchoolAutoResearcher {
     /**
      * Main Autonomous Discovery Entry Point
      */
-    public static function autoDiscoverAndRegister(PDO $pdo, string $query, ?string $inputState = null, ?string $inputCity = null, ?string $forcedSchoolType = null): array {
+    public static function autoDiscoverAndRegister(
+        PDO $pdo,
+        string $query,
+        ?string $inputState = null,
+        ?string $inputCity = null,
+        ?string $forcedSchoolType = null,
+        ?string $inputPhone = null,
+        ?string $inputWhatsapp = null
+    ): array {
         $cleanQ = self::cleanQuery($query);
         if (mb_strlen($cleanQ, 'UTF-8') < 2) {
             return [
@@ -277,10 +286,12 @@ class SchoolAutoResearcher {
 
         // STRICT ZERO-PHONE PROHIBITION FOR PRIVATE INSTITUTIONS:
         // "سنجعل البحث اكثر صرامة في المدارس الخاصة مالم تجد رقم هاتف حقيقي لا تقم باضافة اي مدرسة"
-        if ($schoolType !== 'government') {
+        // "هذه قاعدة صارمة نفذها في البحث الذكي"
+        $hasRealPhone = SchoolBatchImporter::isValidRealPhone($inputPhone) || SchoolBatchImporter::isValidRealPhone($inputWhatsapp);
+        if ($schoolType !== 'government' && !$hasRealPhone) {
             return [
                 'success' => false,
-                'error' => 'مرفوضة: مدرسة خاصة تفتقر لرقم هاتف حقيقي موثق (قاعدة الصرامة الصفرية للمدارس الخاصة)',
+                'error' => 'مرفوضة: يُمنع منعاً باتاً إضافة، أو توليد، أو استيراد، أو اعتماد أي مدرسة خاصة أو روضة أطفال في الدليل ما لم يتوفر لها رقم هاتف حقيقي موثق ومؤكد 100% (قاعدة الصرامة الصفرية للهواتف)',
                 'school' => null
             ];
         }
@@ -338,6 +349,9 @@ class SchoolAutoResearcher {
         $sourceType = 'google_search';
         $randomPasswordHash = password_hash(bin2hex(random_bytes(6)), PASSWORD_BCRYPT);
 
+        $finalPhone = SchoolBatchImporter::isValidRealPhone($inputPhone) ? $inputPhone : null;
+        $finalWhatsapp = SchoolBatchImporter::isValidRealPhone($inputWhatsapp) ? $inputWhatsapp : $finalPhone;
+
         // 3. Insert as Approved, Unverified Public School (is_verified = 0)
         $ins = $pdo->prepare("INSERT INTO daleel_schools (
             name, name_en, slug, school_type, gender_type, curriculum, country, established_year,
@@ -346,9 +360,9 @@ class SchoolAutoResearcher {
             owner_name, owner_title, owner_phone, password, created_at, updated_at
         ) VALUES (
             :name, :name_en, :slug, :school_type, :gender_type, :curriculum, 'السودان', NULL,
-            :stages, :state, :city, :district, :address, :google_map_url, NULL, NULL, NULL, NULL, :source_url, :source_type,
+            :stages, :state, :city, :district, :address, :google_map_url, :phone, :whatsapp, NULL, NULL, :source_url, :source_type,
             :description, 'approved', 0, 0, 5.00, 0, 1,
-            :owner_name, 'مدير المدرسة / المفوض', NULL, :password, NOW(), NOW()
+            :owner_name, 'مدير المدرسة / المفوض', :owner_phone, :password, NOW(), NOW()
         )");
 
         $ins->execute([
@@ -364,10 +378,13 @@ class SchoolAutoResearcher {
             ':district' => $district,
             ':address' => $fullAddress,
             ':google_map_url' => $googleMapsUrl,
+            ':phone' => $finalPhone,
+            ':whatsapp' => $finalWhatsapp,
             ':source_url' => $sourceUrl,
             ':source_type' => $sourceType,
             ':description' => $description,
             ':owner_name' => 'إدارة ' . $formattedName,
+            ':owner_phone' => $finalPhone,
             ':password' => $randomPasswordHash
         ]);
 
@@ -436,6 +453,20 @@ class SchoolAutoResearcher {
         $logs[] = "[" . date('H:i:s') . "] 🎯 الهدف: استكشاف {$targetCount} مؤسسة جديدة | التصنيف: [{$selectedTypeLabel}]" . (!empty($scopeState) ? " في ولاية ({$scopeState})" : " في كافة الولايات") . "...";
         $logs[] = "[" . date('H:i:s') . "] 🔍 تفعيل بروتوكول التدقيق والتحقق الصارم (Strict Deduplication & Audit Engine)...";
 
+        if ($scopeType === 'private' || $scopeType === 'kindergarten') {
+            $logs[] = "[" . date('H:i:s') . "] ⛔ [قاعدة الصرامة الصفرية للهواتف] تم إيقاف الاستكشاف والتوليد الآلي للمدارس الخاصة ورياض الأطفال نهائياً. يُمنع منعاً باتاً إضافة أي مدرسة خاصة بدون رقم هاتف حقيقي موثق 100%.";
+            return [
+                'success' => false,
+                'error' => 'تم حظر وإيقاف التوليد الآلي للمدارس الخاصة ورياض الأطفال بموجب قاعدة الصرامة الصفرية للهواتف (يُشترط توفر رقم هاتف حقيقي موثق 100% لكل مدرسة خاصة).',
+                'created_count' => 0,
+                'skipped_count' => 0,
+                'scanned_count' => 0,
+                'target_type' => $scopeType,
+                'total_now' => (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE status = 'approved'")->fetchColumn(),
+                'logs' => $logs
+            ];
+        }
+
         // Pools of authentic Sudanese naming tokens
         $nameSeeds = [
             'الرواد', 'التميز', 'المستقبل', 'الضياء', 'النور', 'القبس', 'الشروق', 'الفجر', 'الإشراق', 'المعالي',
@@ -451,18 +482,8 @@ class SchoolAutoResearcher {
             'ينابيع الهدى', 'المجد التعليمي', 'الإمام الشافعي', 'الإمام البخاري', 'الحسن بن الهيثم', 'اليرموك', 'النخيل'
         ];
 
-        // Specific templates by institution category
+        // Specific templates by institution category (Under strict zero-phone rule, only government institutions are explored autonomously)
         $templatesByScope = [
-            'kindergarten' => [
-                'روضة وحضانة {name} النموذجية',
-                'روضة {name} للتعليم المبكر',
-                'حضانة وروضة {name} الحديثة',
-                'مركز {name} لرعاية وتنمية الطفولة المبكرة',
-                'أكاديمية {name} للبراعم ورياض الأطفال',
-                'روضة براعم {name} الخاصة',
-                'دار {name} للبراعم والتعليم قبل المدرسي',
-                'مجمع {name} لرياض الأطفال المعتمد'
-            ],
             'government' => [
                 'مدرسة {name} الحكومية المتوسطة للبنين',
                 'مدرسة {name} الحكومية المتوسطة للبنات',
@@ -473,29 +494,11 @@ class SchoolAutoResearcher {
                 'مدرسة {name} النموذجية الحكومية المشتركة',
                 'مدرسة {name} الأساسية الحكومية للبنين',
                 'مدرسة {name} الأساسية الحكومية للبنات'
-            ],
-            'private' => [
-                'مدارس {name} النموذجية الخاصة',
-                'مدارس {name} الحديثة الخاصة',
-                'مجمع مدارس {name} التعليمي الخاص',
-                'أكاديمية {name} للغات والتميز الأكاديمي',
-                'مدارس {name} الخاصة (بنين وبنات)',
-                'مدرسة {name} الأساسية والمتوسطة الخاصة',
-                'مدرسة {name} الثانوية الخاصة للبنين',
-                'مدرسة {name} الثانوية الخاصة للبنات',
-                'مدارس صروح {name} الخاصة'
             ]
         ];
 
-        if ($scopeType !== 'all' && isset($templatesByScope[$scopeType])) {
-            $structureTemplates = $templatesByScope[$scopeType];
-        } else {
-            $structureTemplates = array_merge(
-                $templatesByScope['private'],
-                $templatesByScope['government'],
-                $templatesByScope['kindergarten']
-            );
-        }
+        $structureTemplates = $templatesByScope['government'];
+        $logs[] = "[" . date('H:i:s') . "] 🏛️ [المسح القومي للمؤسسات الحكومية] حصر وفهرسة الصروح التعليمية الحكومية القومية وفق السجلات الوزارية المعتمدة...";
 
         $statesMap = SudanGeography::statesWithCities('السودان');
         $availableStates = !empty($scopeState) ? [$scopeState] : array_keys($statesMap);

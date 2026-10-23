@@ -36,22 +36,28 @@ class SchoolBatchImporter
         $digits = preg_replace('/[^0-9]/', '', $phone);
         if (strlen($digits) < 9 || strlen($digits) > 15) return false;
 
-        // Dummy/Placeholder checks
+        $norm = $digits;
+        if (str_starts_with($norm, '00249')) $norm = substr($norm, 5);
+        elseif (str_starts_with($norm, '249')) $norm = substr($norm, 3);
+        if (str_starts_with($norm, '0')) $norm = substr($norm, 1);
+
+        // Dummy/Placeholder checks (matching normalized local digits or raw digits)
         $dummyNumbers = [
-            '249912389100', '249912376820', '249912389010', '249912378940',
-            '249123456012', '249912778899', '249912445566', '249912667788',
-            '249912556677', '249912334455', '249912448833', '249912448822',
-            '249912445588', '249912771144', '249912551188', '249912338877',
-            '249912441122', '249912447788', '249912440011', '249912558822',
-            '249912558833', '123456012', '0100000000', '0900000000'
+            '912389100', '912376820', '912389010', '912378940',
+            '123456012', '912778899', '912445566', '912667788',
+            '912556677', '912334455', '912448833', '912448822',
+            '912445588', '912771144', '912551188', '912338877',
+            '912441122', '912447788', '912440011', '912558822',
+            '912558833', '100000000', '900000000', '123456789'
         ];
 
         foreach ($dummyNumbers as $d) {
-            if (str_contains($digits, $d)) return false;
+            if (str_contains($norm, $d) || str_contains($digits, $d)) return false;
         }
 
         // Repeating sequences (e.g. 5 identical consecutive digits, or sequential patterns)
-        if (preg_match('/(.)\1{4,}/', $digits)) return false;
+        if (preg_match('/(.)\1{4,}/', $norm) || preg_match('/(.)\1{4,}/', $digits)) return false;
+        if (preg_match('/123456|654321|445566|778899|112233|223344|334455|556677/', $norm)) return false;
         if (preg_match('/123456|654321|445566|778899|112233|223344|334455|556677/', $digits)) return false;
 
         return true;

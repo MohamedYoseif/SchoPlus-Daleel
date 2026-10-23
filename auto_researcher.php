@@ -18,14 +18,15 @@ $isCli = (php_sapi_name() === 'cli');
 
 if ($isCli) {
     echo "=== SchoPlus Daleel Autonomous Background Researcher ===\n";
-    $options = getopt('', ['query:', 'state:', 'city:', 'scan']);
+    $options = getopt('', ['query:', 'state:', 'city:', 'phone:', 'scan']);
     $query = $options['query'] ?? null;
     $state = $options['state'] ?? null;
     $city = $options['city'] ?? null;
+    $phone = $options['phone'] ?? null;
 
     if (!empty($query)) {
         echo "Discovering single school: {$query}...\n";
-        $res = SchoolAutoResearcher::autoDiscoverAndRegister($pdo, $query, $state, $city);
+        $res = SchoolAutoResearcher::autoDiscoverAndRegister($pdo, $query, $state, $city, null, $phone, $phone);
         print_r($res);
         exit(0);
     }
@@ -143,9 +144,13 @@ require __DIR__ . '/header.php';
             </div>
         </div>
         <div class="card-body p-4 bg-light">
+            <div class="alert alert-warning py-2 px-3 mb-3 d-flex align-items-center gap-2" style="font-size: 0.76rem; border-radius: 8px; border: 1px solid #FDE68A; background: #FEF3C7; color: #92400E;">
+                <i class="fas fa-shield-alt fs-6"></i>
+                <span><strong>قاعدة الصرامة الصفرية للهواتف:</strong> يُمنع منعاً باتاً إضافة، أو توليد، أو اعتماد أي مدرسة خاصة أو روضة أطفال في الدليل ما لم يتوفر لها رقم هاتف حقيقي موثق ومؤكد 100%. الصروح الحكومية التاريخية فقط هي المعفاة.</span>
+            </div>
             <form id="autoDiscoverForm" onsubmit="event.preventDefault(); runAutoDiscover();">
                 <div class="row g-3">
-                    <div class="col-lg-6 col-12">
+                    <div class="col-lg-5 col-12">
                         <label class="form-label fw-bold text-dark" style="font-size: 0.75rem;">اسم المدرسة أو المجمع أو الروضة <span class="text-danger">*</span></label>
                         <div class="input-group">
                             <span class="input-group-text bg-white" style="border-color: #DDE4ED;"><i class="fas fa-school text-muted"></i></span>
@@ -153,23 +158,30 @@ require __DIR__ . '/header.php';
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-6 col-12">
-                        <label class="form-label fw-bold text-dark" style="font-size: 0.75rem;">الولاية (اختياري / استنتاج آلي)</label>
+                        <label class="form-label fw-bold text-dark" style="font-size: 0.75rem;">رقم هاتف المدرسة <span class="text-danger">* (إلزامي للخاصة)</span></label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white" style="border-color: #DDE4ED;"><i class="fas fa-phone text-muted"></i></span>
+                            <input type="text" id="discPhone" class="form-control" placeholder="مثال: +249912345678 أو 0912345678" style="border-color: #DDE4ED; font-size: 0.8rem;">
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-sm-6 col-12">
+                        <label class="form-label fw-bold text-dark" style="font-size: 0.75rem;">الولاية (اختياري)</label>
                         <select id="discState" class="form-select" style="border-color: #DDE4ED; font-size: 0.8rem;">
-                            <option value="">استنتاج تلقائي من الاسم</option>
+                            <option value="">استنتاج تلقائي</option>
                             <?php foreach (SudanGeography::states('السودان') as $st): ?>
                                 <option value="<?= e($st) ?>"><?= e($st) ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <label class="form-label fw-bold text-dark" style="font-size: 0.75rem;">المدينة / المحلية (اختياري)</label>
-                        <input type="text" id="discCity" class="form-control" placeholder="مثال: بورتسودان، ود مدني، كرري..." style="border-color: #DDE4ED; font-size: 0.8rem;">
+                    <div class="col-lg-2 col-sm-6 col-12">
+                        <label class="form-label fw-bold text-dark" style="font-size: 0.75rem;">المدينة / المحلية</label>
+                        <input type="text" id="discCity" class="form-control" placeholder="مثال: بورتسودان..." style="border-color: #DDE4ED; font-size: 0.8rem;">
                     </div>
                 </div>
 
                 <div class="mt-3 d-flex flex-wrap align-items-center justify-content-between gap-2">
                     <div class="text-muted small" style="font-size: 0.71rem;">
-                        <i class="fas fa-shield-alt text-success me-1"></i> تُدرج المدارس الجديدة كـ <strong>مدارس عامة غير موثقة (is_verified = 0)</strong> مع إمكانية التوثيق لاحقاً.
+                        <i class="fas fa-shield-alt text-success me-1"></i> تخضع كافة المدخلات لفحص التحقق الصارم من الأرقام الحقيقية وتجنب التكرار.
                     </div>
                     <button type="submit" id="btnRunDiscovery" class="btn-luxury-primary px-4 py-2 text-white fw-bold" style="background: #F5A020; border-color: #F5A020; font-size: 0.8rem;">
                         <i class="fas fa-magic me-1"></i> بدء الاستكشاف والفهرسة
@@ -243,6 +255,7 @@ require __DIR__ . '/header.php';
 <script>
 function runAutoDiscover() {
     const q = document.getElementById('discQuery').value.trim();
+    const phone = document.getElementById('discPhone') ? document.getElementById('discPhone').value.trim() : '';
     const st = document.getElementById('discState').value.trim();
     const ct = document.getElementById('discCity').value.trim();
     const btn = document.getElementById('btnRunDiscovery');
@@ -262,12 +275,13 @@ function runAutoDiscover() {
         <div class="p-3 bg-white rounded-3 border text-center shadow-sm">
             <div class="spinner-border text-primary mb-2" role="status" style="width: 2rem; height: 2rem;"></div>
             <div class="fw-bold text-dark" style="font-size: 0.82rem;">جاري مسح المصادر وفهرسة بيانات "${q}"...</div>
-            <div class="text-muted small" style="font-size: 0.72rem;">يتم الآن استنتاج الموقع، تحديد المراحل، وفحص عدم التكرار...</div>
+            <div class="text-muted small" style="font-size: 0.72rem;">يتم الآن استنتاج الموقع، التحقق من الهاتف الصارم، وفحص عدم التكرار...</div>
         </div>
     `;
 
     const fd = new FormData();
     fd.append('query', q);
+    fd.append('phone', phone);
     fd.append('state', st);
     fd.append('city', ct);
 

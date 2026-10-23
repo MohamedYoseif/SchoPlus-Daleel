@@ -472,8 +472,17 @@ if (isset($_REQUEST['ajax_action'])) {
                 foreach ($cleanLines as $idx => $line) {
                     if (mb_strlen($line, 'UTF-8') < 2) continue;
                     try {
+                        $phoneInLine = null;
+                        if (preg_match('/(\+?249[0-9]{9}|0[0-9]{9})/', $line, $mPhone)) {
+                            $phoneInLine = $mPhone[1];
+                            $cleanSchoolName = trim(preg_replace('/(\+?249[0-9]{9}|0[0-9]{9})/', '', $line));
+                            $cleanSchoolName = trim($cleanSchoolName, " ,-—:|");
+                        } else {
+                            $cleanSchoolName = $line;
+                        }
+
                         $forcedType = ($scopeType !== 'all') ? $scopeType : null;
-                        $res = SchoolAutoResearcher::autoDiscoverAndRegister($pdo, $line, !empty($scopeState) ? $scopeState : null, null, $forcedType);
+                        $res = SchoolAutoResearcher::autoDiscoverAndRegister($pdo, $cleanSchoolName, !empty($scopeState) ? $scopeState : null, null, $forcedType, $phoneInLine, $phoneInLine);
                         if (!empty($res['created'])) {
                             $createdCount++;
                             $sch = $res['school'];

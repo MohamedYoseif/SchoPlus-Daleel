@@ -6,6 +6,7 @@
 
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/SudanGeography.php';
+require_once __DIR__ . '/SchoolBatchImporter.php';
 
 // If already logged in, redirect to dashboard
 if (currentSchool()) {
@@ -89,6 +90,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         if (!$phone) {
             $errors[] = 'يرجى إدخال هاتف المدرسة للتواصل.';
+        } elseif ($school_type !== 'government' && !SchoolBatchImporter::isValidRealPhone($phone)) {
+            $errors[] = 'رقم هاتف المدرسة غير صالح أو متكرر أو وهمي. يلزم توفير رقم هاتف حقيقي مؤكد (قاعدة الصرامة الصفرية للهواتف).';
         }
         if (mb_strlen($owner_name) < 3) {
             $errors[] = 'يرجى إدخال اسم المسؤول / مدير المدرسة.';
