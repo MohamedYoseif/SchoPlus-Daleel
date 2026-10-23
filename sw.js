@@ -1,14 +1,14 @@
 /**
  * SchoPlus Schools Directory (daleel.schoplus.sd)
- * Progressive Web App (PWA) Service Worker v3.7.2
+ * Progressive Web App (PWA) Service Worker v3.7.84
  */
 
-const CACHE_NAME = 'daleel-pwa-v3.7.3';
+const CACHE_NAME = 'daleel-pwa-v3.7.84';
 const STATIC_ASSETS = [
     '/',
     '/manifest.json',
-    '/assets/images/logo.png?v=3.7.3',
-    '/assets/images/logo-icon.png?v=3.7.3',
+    '/assets/images/logo.png?v=3.7.84',
+    '/assets/images/logo-icon.png?v=3.7.84',
     'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css',
     'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css',
     'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js'

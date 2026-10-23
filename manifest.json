@@ -12,13 +12,13 @@
   "dir": "rtl",
   "icons": [
     {
-      "src": "/assets/images/logo-icon.png?v=3.7.3",
+      "src": "/assets/images/logo-icon.png?v=3.7.84",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/assets/images/logo-icon.png?v=3.7.3",
+      "src": "/assets/images/logo-icon.png?v=3.7.84",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"

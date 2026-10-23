@@ -18,7 +18,7 @@
                         <div class="col-12 text-center text-sm-start">
                             <div class="d-flex align-items-center justify-content-center justify-content-sm-start gap-3">
                                 <div class="bg-white rounded-3 p-2 d-flex align-items-center justify-content-center shadow-sm" style="width: 46px; height: 46px; flex-shrink: 0;">
-                                    <img src="/assets/images/logo-icon.png?v=3.7.4" alt="دليل المدارس" style="width: 32px; height: 32px; object-fit: contain;">
+                                    <img src="/assets/images/logo-icon.png?v=3.7.84" alt="دليل المدارس" style="width: 32px; height: 32px; object-fit: contain;">
                                 </div>
                                 <div>
                                     <h4 class="fw-bold text-white mb-1" style="font-size: 1.05rem;">حمّل تطبيق دليل المدارس على هاتفك</h4>
@@ -61,7 +61,7 @@
                 <div class="col-lg-5 col-md-12">
                     <div class="mb-3">
                         <a href="/" class="d-inline-block text-decoration-none">
-                            <img src="/assets/images/logo.png?v=3.7.8" alt="دليل المدارس السودانية" style="height: 46px; width: auto; object-fit: contain;">
+                            <img src="/assets/images/logo.png?v=3.7.84" alt="دليل المدارس السودانية" style="height: 46px; width: auto; object-fit: contain;">
                         </a>
                     </div>
                     <p class="text-muted leading-relaxed mb-0" style="font-size: 0.73rem; line-height: 1.75; max-width: 440px;">
@@ -503,7 +503,7 @@
                 <div class="modal-header border-0 px-4 pt-4 pb-2 text-white" style="background: linear-gradient(135deg, #0B2A52 0%, #1E5FA8 100%);">
                     <div class="d-flex align-items-center gap-3">
                         <div class="bg-white rounded-3 p-2 d-flex align-items-center justify-content-center shadow-sm" style="width: 46px; height: 46px;">
-                            <img src="/assets/images/logo-icon.png?v=3.7.3" alt="دليل المدارس" style="width: 32px; height: 32px; object-fit: contain;">
+                            <img src="/assets/images/logo-icon.png?v=3.7.84" alt="دليل المدارس" style="width: 32px; height: 32px; object-fit: contain;">
                         </div>
                         <div>
                             <h5 class="modal-title fw-bold fs-6 mb-0 text-white" id="iosInstallModalLabel">تثبيت التطبيق على الآيفون (iOS)</h5>
@@ -558,7 +558,7 @@
         <div class="rounded-4 p-3 shadow-lg d-flex align-items-center justify-content-between gap-3 text-white border" style="background: linear-gradient(135deg, #0B2A52 0%, #163870 100%); border-color: #F5A020 !important;">
             <div class="d-flex align-items-center gap-2">
                 <div class="bg-white rounded-3 p-1 d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; flex-shrink: 0;">
-                    <img src="/assets/images/logo-icon.png?v=3.7.3" alt="دليل المدارس" style="width: 28px; height: 28px;">
+                    <img src="/assets/images/logo-icon.png?v=3.7.84" alt="دليل المدارس" style="width: 28px; height: 28px;">
                 </div>
                 <div>
                     <div class="fw-bold text-white small" style="font-size: 0.76rem;">ثبّت التطبيق على الآيفون 📱</div>

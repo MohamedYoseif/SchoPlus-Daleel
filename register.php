@@ -669,7 +669,7 @@ $statesWithCities = SudanGeography::statesWithCities($selectedCountry);
         
         <!-- Header Title Banner -->
         <div class="text-center mb-4">
-            <img src="/assets/images/logo-icon.png?v=3.6.97" alt="دليل المدارس السودانية" class="mx-auto mb-2 d-block" style="width: 56px; height: 56px; object-fit: contain;">
+            <img src="/assets/images/logo-icon.png?v=3.7.84" alt="دليل المدارس السودانية" class="mx-auto mb-2 d-block" style="width: 56px; height: 56px; object-fit: contain;">
             <h2 class="fw-bold text-dark mb-1" style="font-size: 1.35rem;">تسجيل مدرسة جديدة في الدليل</h2>
             <p class="text-muted" style="max-width: 580px; margin: auto; font-size: 0.8rem; line-height: 1.6;">
                 أدخل بيانات مدرستك عبر 3 خطوات ميسرة، لإنشاء الملف التعريفي والوصول المباشر للوحة التحكم.

@@ -590,8 +590,8 @@ if (!empty($_SESSION['daleel_school_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>دليل المدارس السودانية — ملتقى المدارس وأولياء الأمور في السودان</title>
     
-    <link rel="icon" type="image/png" href="/assets/images/favicon.png?v=3.6.97">
-    <link rel="apple-touch-icon" href="/assets/images/logo-icon.png?v=3.6.97">
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png?v=3.7.84">
+    <link rel="apple-touch-icon" href="/assets/images/logo-icon.png?v=3.7.84">
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#0B2A52">
     <meta name="mobile-web-app-capable" content="yes">
@@ -1421,7 +1421,7 @@ if (!empty($_SESSION['daleel_school_id'])) {
     <!-- ── Header ── -->
     <header class="m-header">
         <a href="/mobile/" class="m-brand">
-            <img src="/assets/images/logo-icon.png?v=3.6.97" alt="دليل المدارس السودانية" class="m-brand-logo">
+            <img src="/assets/images/logo-icon.png?v=3.7.84" alt="دليل المدارس السودانية" class="m-brand-logo">
             <div class="m-brand-text">
                 <span class="m-brand-title">دليل المدارس السودانية</span>
                 <span class="m-brand-subtitle">ملتقى المدارس وأولياء الأمور في السودان</span>
@@ -2407,7 +2407,7 @@ if (!empty($_SESSION['daleel_school_id'])) {
             <?php else: ?>
                 <!-- School Owner Login Form -->
                 <div class="m-info-block text-center py-4">
-                    <img src="/assets/images/logo-icon.png?v=3.6.97" style="width:58px; height:58px; object-fit:contain;" class="mb-2" alt="دليل المدارس السودانية">
+                    <img src="/assets/images/logo-icon.png?v=3.7.84" style="width:58px; height:58px; object-fit:contain;" class="mb-2" alt="دليل المدارس السودانية">
                     <h3 class="fw-bold text-dark mb-1" style="font-size:1.10rem;">دخول أصحاب وإدارات المدارس</h3>
                     <p class="text-muted small mb-4" style="font-size:0.74rem;">إدارة بيانات مدرستك، تحديث الرسوم، واستقبال طلبات القبول</p>
 
