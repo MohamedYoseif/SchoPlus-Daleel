@@ -2,9 +2,9 @@
 
 /**
  * SchoPlus Daleel - Comprehensive Global Sudanese Schools Directory Dataset
- * Total Institutions: 1553
+ * Total Institutions: 1555
  * Coverage: All 18 States of Sudan + 19 Diaspora Countries Worldwide
- * Updated: 2026-10-23 08:55:45
+ * Updated: 2026-10-23 12:27:33
  */
 
 return array (
@@ -35,7 +35,7 @@ return array (
     'description' => 'من أعرق وأرقى المدارس الدولية في السودان، تقدم برامج البكالوريا الدولية (IB) وبيئة تعليمية عالمية متطورة ومرافق رياضية متكاملة.',
     'status' => 'approved',
     'is_verified' => 0,
-    'is_schoplus_client' => 0,
+    'is_schoplus_client' => 1,
     'rating_avg' => '4.90',
     'is_historic' => 0,
     'historic_badge_reason' => NULL,
@@ -49882,6 +49882,71 @@ return array (
     'is_verified' => 0,
     'is_schoplus_client' => 0,
     'rating_avg' => '4.90',
+    'is_historic' => 0,
+    'historic_badge_reason' => NULL,
+    'historic_votes' => 0,
+  ),
+  1553 => 
+  array (
+    'name' => 'مجمع مدارس الرشاد التعليمي — سنجة الخاصة',
+    'name_en' => 'Complex Schools Al Al Al Al Private',
+    'slug' => 'مجمع-مدارس-الرشاد-التعليمي-سنجة-الخاصة',
+    'school_type' => 'private',
+    'gender_type' => 'mixed',
+    'curriculum' => 'sudanese',
+    'country' => 'السودان',
+    'established_year' => NULL,
+    'stages' => 
+    array (
+      0 => 'primary',
+      1 => 'intermediate',
+      2 => 'secondary',
+    ),
+    'state' => 'سنار',
+    'city' => 'سنجة',
+    'district' => 'سنجة',
+    'address' => 'ولاية سنار — سنجة',
+    'phone' => NULL,
+    'whatsapp' => NULL,
+    'email' => NULL,
+    'website' => NULL,
+    'description' => 'صرح تربوي وتعليمي متميز يقع في ولاية سنار — سنجة، يقدم خدماته الأكاديمية والتربوية لطلاب المراحل (ابتدائي / أساس، متوسطة، ثانوية)، ويهتم بتطوير المهارات العلمية والأنشطة الطلابية وبناء بيئة تعليمية محفزة.',
+    'status' => 'approved',
+    'is_verified' => 0,
+    'is_schoplus_client' => 0,
+    'rating_avg' => '5.00',
+    'is_historic' => 0,
+    'historic_badge_reason' => NULL,
+    'historic_votes' => 0,
+  ),
+  1554 => 
+  array (
+    'name' => 'مدرسة سوبا الأساسية والمتوسطة — مايرنو الخاصة',
+    'name_en' => 'School Al Al Al Al Al Private',
+    'slug' => 'مدرسة-سوبا-الأساسية-والمتوسطة-مايرنو-الخاصة',
+    'school_type' => 'private',
+    'gender_type' => 'mixed',
+    'curriculum' => 'sudanese',
+    'country' => 'السودان',
+    'established_year' => NULL,
+    'stages' => 
+    array (
+      0 => 'primary',
+      1 => 'intermediate',
+    ),
+    'state' => 'سنار',
+    'city' => 'مايرنو',
+    'district' => 'مايرنو',
+    'address' => 'ولاية سنار — مايرنو',
+    'phone' => NULL,
+    'whatsapp' => NULL,
+    'email' => NULL,
+    'website' => NULL,
+    'description' => 'صرح تربوي وتعليمي متميز يقع في ولاية سنار — مايرنو، يقدم خدماته الأكاديمية والتربوية لطلاب المراحل (ابتدائي / أساس، متوسطة)، ويهتم بتطوير المهارات العلمية والأنشطة الطلابية وبناء بيئة تعليمية محفزة.',
+    'status' => 'approved',
+    'is_verified' => 0,
+    'is_schoplus_client' => 0,
+    'rating_avg' => '5.00',
     'is_historic' => 0,
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,

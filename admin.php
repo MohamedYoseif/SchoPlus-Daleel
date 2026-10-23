@@ -445,19 +445,20 @@ if (isset($_REQUEST['ajax_action'])) {
 
         if ($action === 'run_batch_researcher') {
             $scopeState = trim($_POST['state'] ?? '');
+            $targetCount = (int)($_POST['target_count'] ?? 20);
             $batchText = trim($_POST['batch_text'] ?? '');
 
             $logs = [];
-            $logs[] = "[" . date('H:i:s') . "] ▶ بدء تشغيل محرك الاستكشاف والمسح الآلي المدمج للدليل...";
-
-            $createdCount = 0;
-            $alreadyExistsCount = 0;
-            $errorsCount = 0;
 
             if (!empty($batchText)) {
+                $logs[] = "[" . date('H:i:s') . "] ▶ بدء تشغيل محرك الاستكشاف والمسح الآلي المدمج للدليل...";
                 $lines = preg_split('/\r\n|\r|\n/', $batchText);
                 $cleanLines = array_values(array_filter(array_map('trim', $lines)));
                 $logs[] = "[" . date('H:i:s') . "] 📋 استلام قائمة مجمعة تضم " . count($cleanLines) . " مدرسة للفهرسة والاستكشاف...";
+
+                $createdCount = 0;
+                $alreadyExistsCount = 0;
+                $errorsCount = 0;
 
                 foreach ($cleanLines as $idx => $line) {
                     if (mb_strlen($line, 'UTF-8') < 2) continue;
@@ -478,57 +479,39 @@ if (isset($_REQUEST['ajax_action'])) {
                         $logs[] = "[" . date('H:i:s') . "] ❌ خطأ في معالجة ({$line}): " . $e->getMessage();
                     }
                 }
-            } else {
-                $logs[] = "[" . date('H:i:s') . "] 🔍 جاري فحص ومسح سجلات المدارس" . (!empty($scopeState) ? " في ولاية ({$scopeState})" : " في كافة الولايات") . "...";
-                $totalApproved = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE status = 'approved'")->fetchColumn();
-                $unrankedCount = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE status = 'approved' AND (directory_rank IS NULL OR directory_rank = 0)")->fetchColumn();
 
-                $logs[] = "[" . date('H:i:s') . "] 📊 إجمالي المؤسسات المفهرسة حالياً: " . number_format($totalApproved) . " مدرسة وروضة أطفال.";
-
-                if ($unrankedCount > 0) {
-                    $logs[] = "[" . date('H:i:s') . "] ⚙️ تم اكتشاف {$unrankedCount} مدرسة تحتاج لمواءمة الترتيب... جاري الترتيب التلقائي...";
-                    $historicSql = "(is_historic = 1 OR (established_year IS NOT NULL AND CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950) OR historic_votes >= 500 OR name LIKE '%خور طقت%' OR name LIKE '%وادي سيدنا%' OR name LIKE '%حنتوب الثانوية%' OR name LIKE '%حنتوب العريقة%' OR name LIKE '%بخت الرضا%' OR name LIKE '%الأهلية%أم درمان%' OR name LIKE '%كمبوني%' OR name LIKE '%الراهبات%' OR name_en LIKE '%Sister%')";
-                    $orderClause = "({$historicSql}) DESC, (CASE WHEN CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950 THEN CAST(established_year AS UNSIGNED) ELSE 9999 END) ASC, id ASC";
-
-                    $rows = $pdo->query("SELECT id, country, state FROM daleel_schools WHERE status = 'approved' ORDER BY {$orderClause}")->fetchAll(PDO::FETCH_ASSOC);
-                    $dirSeq = 0;
-                    $stateSeqs = [];
-                    $updRanksStmt = $pdo->prepare("UPDATE daleel_schools SET directory_rank = ?, state_rank = ? WHERE id = ?");
-                    foreach ($rows as $aRow) {
-                        $dirSeq++;
-                        $cntryKey = trim((string)($aRow['country'] ?? '')) ?: 'السودان';
-                        $stKey = trim((string)($aRow['state'] ?? ''));
-                        $groupKey = $cntryKey . ':::' . $stKey;
-                        $stateSeqs[$groupKey] = ($stateSeqs[$groupKey] ?? 0) + 1;
-                        $stSeq = $stateSeqs[$groupKey];
-                        $updRanksStmt->execute([$dirSeq, $stSeq, (int)$aRow['id']]);
-                    }
-                    $logs[] = "[" . date('H:i:s') . "] ✅ تمت مواءمة وإعادة ترقيم {$dirSeq} مدرسة في الدليل بدقة.";
-                } else {
-                    $logs[] = "[" . date('H:i:s') . "] ✨ كافة المدارس مطابقة ومنسقة وفق التسلسل الفعلي المعتمد للدليل.";
+                if ($createdCount > 0) {
+                    @require_once __DIR__ . '/export_master_seed.php';
+                    $logs[] = "[" . date('H:i:s') . "] 💾 تم تحديث وحفظ ملف التصدير المركزي Master Seed تلقائياً.";
                 }
 
-                $logs[] = "[" . date('H:i:s') . "] 🛡️ فحص حماية التكرار (Deduplication Check): تم التحقق من سلامة البيانات وخلوها من التعارضات.";
+                $totalNow = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE status = 'approved'")->fetchColumn();
+                $logs[] = "[" . date('H:i:s') . "] 🏁 اكتملت دورة المحرك بنجاح! الإجمالي العام للمدارس: " . number_format($totalNow) . " مدرسة.";
+
+                echo json_encode([
+                    'success' => true,
+                    'created_count' => $createdCount,
+                    'already_exists_count' => $alreadyExistsCount,
+                    'errors_count' => $errorsCount,
+                    'total_schools' => $totalNow,
+                    'logs' => $logs,
+                    'message' => "تم استكشاف وإدراج {$createdCount} مدرسة جديدة بنجاح في الدليل ✅"
+                ], JSON_UNESCAPED_UNICODE);
+                exit;
+            } else {
+                // Autonomous exploration based on Target Count
+                $res = SchoolAutoResearcher::runAutonomousExploration($pdo, !empty($scopeState) ? $scopeState : null, $targetCount, $logs);
+                echo json_encode([
+                    'success' => true,
+                    'created_count' => $res['created_count'],
+                    'already_exists_count' => 0,
+                    'errors_count' => 0,
+                    'total_schools' => $res['total_now'],
+                    'logs' => $res['logs'],
+                    'message' => "تم استكشاف وفهرسة {$res['created_count']} مدرسة جديدة بنجاح في الدليل ✅"
+                ], JSON_UNESCAPED_UNICODE);
+                exit;
             }
-
-            if ($createdCount > 0) {
-                @require_once __DIR__ . '/export_master_seed.php';
-                $logs[] = "[" . date('H:i:s') . "] 💾 تم تحديث وحفظ ملف التصدير المركزي Master Seed تلقائياً.";
-            }
-
-            $totalNow = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE status = 'approved'")->fetchColumn();
-            $logs[] = "[" . date('H:i:s') . "] 🏁 اكتملت دورة المحرك بنجاح! الإجمالي العام للمدارس: " . number_format($totalNow) . " مدرسة.";
-
-            echo json_encode([
-                'success' => true,
-                'created_count' => $createdCount,
-                'already_exists_count' => $alreadyExistsCount,
-                'errors_count' => $errorsCount,
-                'total_schools' => $totalNow,
-                'logs' => $logs,
-                'message' => 'اكتملت دورة الاستكشاف والتدقيق بنجاح.'
-            ], JSON_UNESCAPED_UNICODE);
-            exit;
         }
 
         echo json_encode(['success' => false, 'error' => 'إجراء غير معروف']);
@@ -1540,76 +1523,59 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
 
         <!-- TAB CONTENT: 3. AUTONOMOUS RESEARCHER (INTERNAL TOOL) -->
         <?php elseif ($activeTab === 'researcher'): ?>
-            <div class="row g-4">
-                <div class="col-lg-6 col-12">
-                    <div class="admin-card h-100">
+            <div class="row">
+                <div class="col-12 col-xl-10 mx-auto">
+                    <div class="admin-card">
                         <div class="admin-card-head">
                             <h5 class="admin-card-title">
-                                <i class="fas fa-robot text-primary"></i> استكشاف مدرسة جديدة وإدراجها فوراً
+                                <i class="fas fa-bolt text-warning"></i> محرك الاستكشاف والمسح الآلي المباشر (Autonomous Worker)
                             </h5>
+                            <span class="badge bg-light text-primary border" style="font-size: 0.7rem;">نظام خلفي ذكي</span>
                         </div>
                         <div class="p-4">
-                            <form onsubmit="event.preventDefault(); adminRunDiscover();">
-                                <div class="mb-3">
-                                    <label class="form-label fw-bold text-dark" style="font-size: 0.75rem;">اسم المدرسة أو المجمع أو الروضة</label>
-                                    <input type="text" id="admDiscQuery" class="form-control" placeholder="مثال: مدارس القبس الخاصة كوستي، مدارس المنار بورتسودان..." required style="border-color: #DDE4ED; font-size: 0.8rem;">
-                                </div>
-                                <div class="row g-2 mb-3">
-                                    <div class="col-6">
-                                        <label class="form-label fw-bold text-dark" style="font-size: 0.75rem;">الولاية (اختياري)</label>
-                                        <select id="admDiscState" class="form-select form-select-sm" style="border-color: #DDE4ED; font-size: 0.75rem;">
-                                            <option value="">استنتاج تلقائي</option>
-                                            <?php foreach (SudanGeography::states('السودان') as $st): ?>
-                                                <option value="<?= e($st) ?>"><?= e($st) ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div>
-                                    <div class="col-6">
-                                        <label class="form-label fw-bold text-dark" style="font-size: 0.75rem;">المدينة / المحلية (اختياري)</label>
-                                        <input type="text" id="admDiscCity" class="form-control form-control-sm" placeholder="مثال: بحري، كوستي، دنقلا..." style="border-color: #DDE4ED; font-size: 0.75rem;">
-                                    </div>
-                                </div>
-
-                                <button type="submit" id="btnAdminDisc" class="btn btn-sm btn-primary w-100 py-2 fw-bold" style="background: var(--navy); border: none; font-size: 0.78rem;">
-                                    <i class="fas fa-search-plus me-1"></i> استكشاف وفهرسة آمنة في الدليل
-                                </button>
-                            </form>
-
-                            <div id="adminDiscResult" class="mt-3" style="display: none;"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6 col-12">
-                    <div class="admin-card h-100">
-                        <div class="admin-card-head">
-                            <h5 class="admin-card-title">
-                                <i class="fas fa-bolt text-warning"></i> محرك الاستكشاف والمسح الآلي المباشر (Worker)
-                            </h5>
-                        </div>
-                        <div class="p-4">
-                            <p class="small text-muted mb-3" style="font-size: 0.76rem; line-height: 1.6;">
-                                يمكنك تشغيل دورة استكشاف ومسح آلي لقواعد البيانات وفهرسة المدارس فوراً من المتصفح دون الحاجة لاستخدام cPanel أو إعداد أوامر Cron يدوية:
+                            <p class="small text-muted mb-3" style="font-size: 0.78rem; line-height: 1.6;">
+                                يمكنك تشغيل دورة استكشاف ومسح آلي ذكية للبحث عن المدارس ورياض الأطفال غير المسجلة وفهرستها فوراً في الدليل دون الحاجة لاستخدام cPanel أو إعداد أوامر Cron يدوية:
                             </p>
                             
-                            <div class="mb-3">
-                                <label class="form-label fw-bold text-dark" style="font-size: 0.75rem;">نطاق المسح والاستكشاف:</label>
-                                <select id="workerScopeState" class="form-select form-select-sm" style="border-color: #DDE4ED; font-size: 0.75rem;">
-                                    <option value="">كافة ولايات السودان والمهجر (شامل)</option>
-                                    <?php foreach (SudanGeography::states('السودان') as $st): ?>
-                                        <option value="<?= e($st) ?>"><?= e($st) ?></option>
-                                    <?php endforeach; ?>
-                                </select>
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6 col-12">
+                                    <label class="form-label fw-bold text-dark" style="font-size: 0.75rem;">
+                                        <i class="fas fa-map-marker-alt text-primary me-1"></i> نطاق المسح والاستكشاف:
+                                    </label>
+                                    <select id="workerScopeState" class="form-select form-select-sm" style="border-color: #DDE4ED; font-size: 0.78rem;">
+                                        <option value="">كافة ولايات السودان والمهجر (شامل ومتنوع)</option>
+                                        <?php foreach (SudanGeography::states('السودان') as $st): ?>
+                                            <option value="<?= e($st) ?>"><?= e($st) ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <label class="form-label fw-bold text-dark" style="font-size: 0.75rem;">
+                                        <i class="fas fa-bullseye text-warning me-1"></i> العدد المستهدف للبحث والاستكشاف:
+                                    </label>
+                                    <div class="d-flex gap-2">
+                                        <select id="workerTargetCount" class="form-select form-select-sm" style="border-color: #DDE4ED; font-size: 0.78rem;">
+                                            <option value="10">10 مدارس جديدة</option>
+                                            <option value="20" selected>20 مدرسة جديدة (موصى به)</option>
+                                            <option value="50">50 مدرسة جديدة (دفعة موسعة)</option>
+                                            <option value="100">100 مدرسة جديدة (مسح شامل)</option>
+                                        </select>
+                                        <input type="number" id="workerCustomCount" class="form-control form-control-sm" placeholder="عدد مخصص" min="1" max="100" style="width: 110px; border-color: #DDE4ED; font-size: 0.78rem;" title="أدخل عدداً مخصصاً إن رغبت">
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label fw-bold text-dark" style="font-size: 0.75rem;">إدراج قائمة مجمعة لاستكشافها وفهرستها معاً (اختياري):</label>
-                                <textarea id="workerBatchText" class="form-control form-control-sm" rows="3" placeholder="أدخل أسماء المدارس أو رياض الأطفال (كل مدرسة في سطر منفصل)..." style="border-color: #DDE4ED; font-size: 0.75rem;"></textarea>
-                                <div class="form-text" style="font-size: 0.65rem; color: #64748B;">اترك الحقل فارغاً لتشغيل الفحص الدوري الشامل والتدقيق ومواءمة الترتيب.</div>
+                                <a class="small text-decoration-none text-muted" data-bs-toggle="collapse" href="#collapseManualBatch" role="button" aria-expanded="false" style="font-size: 0.74rem;">
+                                    <i class="fas fa-plus-circle text-primary me-1"></i> إدراج قائمة أسماء محددة يدوياً لاستكشافها معاً (اختياري)
+                                </a>
+                                <div class="collapse mt-2" id="collapseManualBatch">
+                                    <textarea id="workerBatchText" class="form-control form-control-sm" rows="3" placeholder="أدخل أسماء المدارس أو رياض الأطفال المحددة (كل مدرسة في سطر منفصل)..." style="border-color: #DDE4ED; font-size: 0.75rem;"></textarea>
+                                </div>
                             </div>
 
-                            <div class="d-flex flex-wrap gap-2 align-items-center">
-                                <button type="button" class="btn btn-sm py-2 px-3 fw-bold" id="btnRunWorker" onclick="adminRunWorker()" style="background: #F5A020; border-color: #F5A020; color: #FFF; font-size: 0.76rem; border-radius: 8px;">
+                            <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
+                                <button type="button" class="btn btn-sm py-2 px-3 fw-bold" id="btnRunWorker" onclick="adminRunWorker()" style="background: #F5A020; border-color: #F5A020; color: #FFF; font-size: 0.78rem; border-radius: 8px;">
                                     <i class="fas fa-play me-1"></i> تشغيل محرك الاستكشاف والتدقيق الآن
                                 </button>
                                 <button type="button" class="btn btn-sm btn-outline-primary py-2 px-2" onclick="exportMasterSeed()" style="font-size: 0.74rem; border-radius: 8px;" title="تصدير قاعدة البيانات المركزية">
@@ -1621,7 +1587,7 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                             </div>
 
                             <!-- Live Terminal Console Log -->
-                            <div id="workerConsoleBox" class="p-3 rounded-3 bg-dark text-success font-monospace mt-3 shadow-sm" style="direction: ltr; font-size: 0.71rem; min-height: 130px; max-height: 260px; overflow-y: auto; display: none; line-height: 1.6; border: 1px solid #334155;">
+                            <div id="workerConsoleBox" class="p-3 rounded-3 bg-dark text-success font-monospace shadow-sm" style="direction: ltr; font-size: 0.72rem; min-height: 140px; max-height: 300px; overflow-y: auto; display: none; line-height: 1.6; border: 1px solid #334155;">
                             </div>
                         </div>
                     </div>
@@ -2123,20 +2089,26 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
     }
 
     function adminRunWorker() {
-        const state = document.getElementById('workerScopeState').value;
-        const batchText = document.getElementById('workerBatchText').value;
+        const stateElem = document.getElementById('workerScopeState');
+        const state = stateElem ? stateElem.value : '';
+        const targetSelect = document.getElementById('workerTargetCount') ? parseInt(document.getElementById('workerTargetCount').value, 10) : 20;
+        const customInput = document.getElementById('workerCustomCount') ? parseInt(document.getElementById('workerCustomCount').value, 10) : 0;
+        const targetCount = (customInput && customInput > 0) ? customInput : targetSelect;
+        const batchElem = document.getElementById('workerBatchText');
+        const batchText = batchElem ? batchElem.value : '';
         const btn = document.getElementById('btnRunWorker');
         const consoleBox = document.getElementById('workerConsoleBox');
 
         btn.disabled = true;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> جاري تشغيل المحرك في الخلفية...';
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> جاري استكشاف وفهرسة المدارس في الخلفية...';
 
         consoleBox.style.display = 'block';
-        consoleBox.innerHTML = '<div style="color: #94A3B8;">[' + (new Date().toLocaleTimeString()) + '] ▶ Initializing Autonomous Discovery Worker...</div>';
+        consoleBox.innerHTML = '<div style="color: #94A3B8;">[' + (new Date().toLocaleTimeString()) + '] ▶ Initializing Autonomous Discovery Worker (Target: ' + targetCount + ' schools)...</div>';
 
         const fd = new FormData();
         fd.append('ajax_action', 'run_batch_researcher');
         fd.append('state', state);
+        fd.append('target_count', targetCount);
         fd.append('batch_text', batchText);
 
         fetch('admin.php', { method: 'POST', body: fd })
@@ -2152,7 +2124,7 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                         let col = '#4ADE80'; // green
                         if (msg.includes('❌') || msg.includes('⚠️')) col = '#F87171'; // red
                         else if (msg.includes('ℹ️') || msg.includes('🔍')) col = '#38BDF8'; // cyan
-                        else if (msg.includes('✨') || msg.includes('🏁')) col = '#FBBF24'; // yellow
+                        else if (msg.includes('✨') || msg.includes('🏁') || msg.includes('🎯')) col = '#FBBF24'; // yellow
                         html += `<div style="color: ${col}; margin-bottom: 3px;">${escapeHtml(msg)}</div>`;
                     });
                 }

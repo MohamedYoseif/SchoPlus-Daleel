@@ -1258,41 +1258,44 @@ $isDaleelMobile = (
             }
         }
 
-        /* Live AI Discovery & Verification Activity Bar (Style F v2 - Placed Below Header) */
+        /* Live AI Discovery & Verification Activity Bar (Style F v2 - White Brand Canvas) */
         .daleel-live-bar {
-            background: linear-gradient(90deg, #0B2A52 0%, #12356B 45%, #184282 75%, #0B2A52 100%);
+            background: #FFFFFF;
             border-bottom: 2px solid #F5A020;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            color: #FFFFFF;
-            font-size: 0.74rem;
+            border-top: 1px solid #DDE4ED;
+            color: #3D5068;
+            font-size: 0.76rem;
             z-index: 1030;
             position: relative;
-            box-shadow: 0 4px 14px rgba(11, 42, 82, 0.10);
+            box-shadow: 0 4px 18px rgba(11, 42, 82, 0.05);
+            padding: 4px 0;
         }
         .daleel-live-bar .container {
-            min-height: 38px;
+            min-height: 44px;
         }
         .live-pulse-badge {
             display: inline-flex;
             align-items: center;
-            background: rgba(245, 160, 32, 0.16);
-            border: 1px solid rgba(245, 160, 32, 0.45);
-            color: #FCD34D;
-            font-size: 0.65rem;
+            background: #FFFBEB;
+            border: 1px solid #FCD34D;
+            color: #B45309;
+            font-size: 0.66rem;
             font-weight: 800;
-            padding: 3px 9px;
+            padding: 4px 10px;
             border-radius: 999px;
             white-space: nowrap;
-            gap: 5px;
+            gap: 6px;
             line-height: 1.2;
             letter-spacing: 0.2px;
             transition: all 0.3s ease;
             flex-shrink: 0;
+            box-shadow: 0 1px 3px rgba(245, 160, 32, 0.10);
         }
         .live-pulse-badge.badge-verified {
-            background: rgba(16, 185, 129, 0.18);
-            border-color: rgba(16, 185, 129, 0.5);
-            color: #34D399;
+            background: #ECFDF5;
+            border-color: #A7F3D0;
+            color: #047857;
+            box-shadow: 0 1px 3px rgba(16, 185, 129, 0.10);
         }
         .pulse-dot {
             width: 7px;
@@ -1316,27 +1319,27 @@ $isDaleelMobile = (
             100% { transform: scale(0.85); opacity: 0.75; }
         }
         .live-ticker-text {
-            font-size: 0.74rem;
-            color: #E2E8F0;
-            line-height: 1.4;
+            font-size: 0.76rem;
+            color: #3D5068;
+            line-height: 1.45;
             transition: opacity 0.25s ease, transform 0.25s ease;
         }
         .live-ticker-text strong {
-            color: #FFFFFF;
-            font-weight: 700;
+            color: #0B2A52;
+            font-weight: 800;
             letter-spacing: -0.1px;
         }
         .live-ticker-loc {
-            color: #93C5FD;
-            font-size: 0.71rem;
-            font-weight: 600;
+            color: #1E5FA8;
+            font-size: 0.74rem;
+            font-weight: 700;
         }
         .live-btn-visit {
             background: linear-gradient(135deg, #F5A020 0%, #E08E15 100%);
             color: #FFFFFF !important;
-            font-size: 0.68rem;
+            font-size: 0.70rem;
             font-weight: 800;
-            padding: 4px 12px;
+            padding: 5px 14px;
             border-radius: 999px;
             text-decoration: none;
             white-space: nowrap;
@@ -1344,47 +1347,48 @@ $isDaleelMobile = (
             display: inline-flex;
             align-items: center;
             gap: 5px;
-            box-shadow: 0 2px 6px rgba(245, 160, 32, 0.35);
+            box-shadow: 0 2px 8px rgba(245, 160, 32, 0.30);
             flex-shrink: 0;
         }
         .live-btn-visit:hover {
             background: linear-gradient(135deg, #FFB03A 0%, #F5A020 100%);
             color: #FFFFFF !important;
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(245, 160, 32, 0.5);
+            box-shadow: 0 4px 14px rgba(245, 160, 32, 0.45);
         }
         @media (max-width: 576px) {
             .daleel-live-bar {
-                font-size: 0.71rem;
+                font-size: 0.72rem;
+                padding: 3px 0;
             }
             .daleel-live-bar .container {
-                min-height: 35px;
+                min-height: 38px;
                 padding-left: 8px !important;
                 padding-right: 8px !important;
             }
             .live-pulse-badge {
-                font-size: 0.6rem;
-                padding: 2px 7px;
+                font-size: 0.62rem;
+                padding: 3px 8px;
                 gap: 4px;
             }
             .live-pulse-badge i {
-                font-size: 0.62rem;
+                font-size: 0.65rem;
             }
             .pulse-dot {
                 width: 6px;
                 height: 6px;
             }
             .live-ticker-text {
-                font-size: 0.71rem;
+                font-size: 0.73rem;
             }
             .live-ticker-loc {
-                font-size: 0.68rem;
+                font-size: 0.70rem;
             }
             .live-btn-visit {
-                font-size: 0.64rem;
-                padding: 3px 9px;
+                font-size: 0.66rem;
+                padding: 4px 10px;
                 gap: 4px;
-                border-radius: 6px;
+                border-radius: 8px;
             }
         }
     </style>
@@ -1571,16 +1575,16 @@ $isDaleelMobile = (
                 }
 
                 if (isVerified) {
-                    ticker.innerHTML = '<span class="d-none d-md-inline text-white-50">تم توثيق مدرسة </span>' +
+                    ticker.innerHTML = '<span class="d-none d-md-inline text-muted">تم توثيق مدرسة </span>' +
                                        '<strong>' + (s.name || '') + '</strong>' +
                                        locHtml +
-                                       '<span class="d-none d-lg-inline text-white-50 me-1"> رسمياً في الدليل</span>';
+                                       '<span class="d-none d-lg-inline text-muted me-1"> رسمياً في الدليل</span>';
                     link.title = 'زيارة صفحة ' + (s.name || '') + ' الموثقة';
                 } else {
-                    ticker.innerHTML = '<span class="d-none d-md-inline text-white-50">تمت إضافة مدرسة </span>' +
+                    ticker.innerHTML = '<span class="d-none d-md-inline text-muted">تمت إضافة مدرسة </span>' +
                                        '<strong>' + (s.name || '') + '</strong>' +
                                        locHtml +
-                                       '<span class="d-none d-lg-inline text-white-50 me-1"> عبر محرك الاستكشاف</span>';
+                                       '<span class="d-none d-lg-inline text-muted me-1"> عبر محرك الاستكشاف</span>';
                     link.title = 'زيارة صفحة ' + (s.name || '');
                 }
 
