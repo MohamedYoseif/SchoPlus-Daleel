@@ -947,10 +947,11 @@ function ensureTablesExist(PDO $pdo): void {
         } catch (Throwable $e) {}
 
         // Zero-Skip Production Auto-Seed: Ensure 100% data parity across cloud nodes
+        // Initial Master Seed Check: only on clean empty database
         try {
             $currCount = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE status = 'approved'")->fetchColumn();
             $seedFile = __DIR__ . '/seed_schools_data.php';
-            if ($currCount < 1720 && file_exists($seedFile)) {
+            if ($currCount === 0 && file_exists($seedFile)) {
                 require_once __DIR__ . '/SchoolBatchImporter.php';
                 $seedImporter = new SchoolBatchImporter($pdo);
                 $seedSchools = require $seedFile;
@@ -964,13 +965,23 @@ function ensureTablesExist(PDO $pdo): void {
         try {
             $diasporaCount = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE country != 'السودان'")->fetchColumn();
             $diasporaSeedFile = __DIR__ . '/seed_diaspora_schools_data.php';
-            if ($diasporaCount < 90 && file_exists($diasporaSeedFile)) {
+            if ($diasporaCount === 0 && file_exists($diasporaSeedFile)) {
                 require_once __DIR__ . '/SchoolBatchImporter.php';
                 $diasporaImporter = new SchoolBatchImporter($pdo);
                 $diasporaSchools = require $diasporaSeedFile;
                 if (is_array($diasporaSchools) && count($diasporaSchools) > 0) {
                     $diasporaImporter->importBatch($diasporaSchools);
                 }
+            }
+        } catch (Throwable $e) {}
+
+        // Self-healing Daleel Deduplication & Branch Normalization Routine
+        try {
+            $apprCount = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE status = 'approved'")->fetchColumn();
+            $dupCheck = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE name = 'مدارس القبس الخاصة' AND city = 'عطبرة'")->fetchColumn();
+            if ($apprCount > 1560 || $dupCheck > 0) {
+                require_once __DIR__ . '/run_deduplication.php';
+                runDaleelDeduplication($pdo);
             }
         } catch (Throwable $e) {}
 
