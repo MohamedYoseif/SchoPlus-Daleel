@@ -229,7 +229,11 @@ class SchoolAutoResearcher {
         ?string $inputDescription = null,
         ?string $inputFacebook = null,
         ?string $inputWebsite = null,
-        ?string $inputEstablishedYear = null
+        ?string $inputEstablishedYear = null,
+        ?string $inputYoutube = null,
+        ?string $inputTiktok = null,
+        ?string $inputInstagram = null,
+        ?string $inputTelegram = null
     ): array {
         $cleanQ = self::cleanQuery($query);
         if (mb_strlen($cleanQ, 'UTF-8') < 2) {
@@ -242,7 +246,7 @@ class SchoolAutoResearcher {
         // 1. Check if school already exists via universal search clause
         list($searchClause, $searchParams) = buildUniversalSchoolSearchClause($cleanQ);
         if (!empty($searchClause)) {
-            $chkStmt = $pdo->prepare("SELECT id, name, name_en, slug, school_type, state, city, district, address, phone, whatsapp, google_map_url, facebook, stages, is_verified, directory_rank 
+            $chkStmt = $pdo->prepare("SELECT id, name, name_en, slug, school_type, state, city, district, address, phone, whatsapp, google_map_url, facebook, youtube, tiktok, instagram, telegram, stages, is_verified, directory_rank 
                                       FROM daleel_schools 
                                       WHERE {$searchClause} 
                                       LIMIT 1");
@@ -250,7 +254,7 @@ class SchoolAutoResearcher {
             $existing = $chkStmt->fetch(PDO::FETCH_ASSOC);
 
             if ($existing) {
-                // If existing school was missing phone/facebook/google_map_url and new verified info is provided, enrich it!
+                // If existing school was missing info and new verified info is provided, enrich it!
                 $enrichUpdates = [];
                 $enrichParams = [];
                 if (empty($existing['phone']) && SchoolBatchImporter::isValidRealPhone($inputPhone)) {
@@ -265,6 +269,22 @@ class SchoolAutoResearcher {
                 if (empty($existing['facebook']) && !empty($inputFacebook)) {
                     $enrichUpdates[] = "facebook = :fb";
                     $enrichParams[':fb'] = $inputFacebook;
+                }
+                if (empty($existing['youtube']) && !empty($inputYoutube)) {
+                    $enrichUpdates[] = "youtube = :yt";
+                    $enrichParams[':yt'] = $inputYoutube;
+                }
+                if (empty($existing['tiktok']) && !empty($inputTiktok)) {
+                    $enrichUpdates[] = "tiktok = :tt";
+                    $enrichParams[':tt'] = $inputTiktok;
+                }
+                if (empty($existing['instagram']) && !empty($inputInstagram)) {
+                    $enrichUpdates[] = "instagram = :ig";
+                    $enrichParams[':ig'] = $inputInstagram;
+                }
+                if (empty($existing['telegram']) && !empty($inputTelegram)) {
+                    $enrichUpdates[] = "telegram = :tg";
+                    $enrichParams[':tg'] = $inputTelegram;
                 }
                 if (!empty($enrichUpdates)) {
                     $enrichParams[':id'] = (int)$existing['id'];
@@ -380,12 +400,12 @@ class SchoolAutoResearcher {
         // 3. Insert as Approved, Verified/Unverified Public School
         $ins = $pdo->prepare("INSERT INTO daleel_schools (
             name, name_en, slug, school_type, gender_type, curriculum, country, established_year,
-            stages, state, city, district, address, google_map_url, phone, whatsapp, email, website, facebook, source_url, source_type,
+            stages, state, city, district, address, google_map_url, phone, whatsapp, email, website, facebook, youtube, tiktok, instagram, telegram, source_url, source_type,
             description, status, is_verified, is_schoplus_client, rating_avg, reviews_count, views_count,
             owner_name, owner_title, owner_phone, password, created_at, updated_at
         ) VALUES (
             :name, :name_en, :slug, :school_type, :gender_type, :curriculum, 'السودان', :established_year,
-            :stages, :state, :city, :district, :address, :google_map_url, :phone, :whatsapp, NULL, :website, :facebook, :source_url, :source_type,
+            :stages, :state, :city, :district, :address, :google_map_url, :phone, :whatsapp, NULL, :website, :facebook, :youtube, :tiktok, :instagram, :telegram, :source_url, :source_type,
             :description, 'approved', 0, 0, 5.00, 0, 1,
             :owner_name, 'مدير المدرسة / المفوض', :owner_phone, :password, NOW(), NOW()
         )");
@@ -408,6 +428,10 @@ class SchoolAutoResearcher {
             ':whatsapp' => $finalWhatsapp,
             ':website' => !empty($inputWebsite) ? $inputWebsite : null,
             ':facebook' => !empty($inputFacebook) ? $inputFacebook : null,
+            ':youtube' => !empty($inputYoutube) ? $inputYoutube : null,
+            ':tiktok' => !empty($inputTiktok) ? $inputTiktok : null,
+            ':instagram' => !empty($inputInstagram) ? $inputInstagram : null,
+            ':telegram' => !empty($inputTelegram) ? $inputTelegram : null,
             ':source_url' => $sourceUrl,
             ':source_type' => $sourceType,
             ':description' => $description,
@@ -479,7 +503,11 @@ class SchoolAutoResearcher {
                 $s['description'] ?? null,
                 $s['facebook'] ?? null,
                 $s['website'] ?? null,
-                $s['established_year'] ?? null
+                $s['established_year'] ?? null,
+                $s['youtube'] ?? null,
+                $s['tiktok'] ?? null,
+                $s['instagram'] ?? null,
+                $s['telegram'] ?? null
             );
 
             if (!empty($res['created'])) {

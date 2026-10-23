@@ -145,12 +145,15 @@ require __DIR__ . '/header.php';
                 </div>
 
                 <!-- Navigation Tabs -->
-                <div class="d-flex gap-2">
-                    <button type="button" class="btn btn-sm text-white fw-bold px-3 py-1.5 active" id="tabBtnSingle" onclick="switchResearcherTab('single')" style="background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; font-size: 0.75rem;">
-                        <i class="fas fa-search-plus me-1"></i> استكشاف وإثراء مدرسة
+                <div class="d-flex flex-wrap gap-2">
+                    <button type="button" class="btn btn-sm text-white fw-bold px-3 py-1.5 active" id="tabBtnStudio" onclick="switchResearcherTab('studio')" style="background: rgba(255,255,255,0.22); border: 1px solid rgba(255,255,255,0.4); border-radius: 8px; font-size: 0.75rem;">
+                        <i class="fas fa-satellite-dish me-1 text-warning"></i> استوديو الاستقصاء الشامل
+                    </button>
+                    <button type="button" class="btn btn-sm text-white fw-bold px-3 py-1.5" id="tabBtnSingle" onclick="switchResearcherTab('single')" style="background: transparent; border: 1px solid rgba(255,255,255,0.25); border-radius: 8px; font-size: 0.75rem;">
+                        <i class="fas fa-edit me-1"></i> إدخال مباشر
                     </button>
                     <button type="button" class="btn btn-sm text-white fw-bold px-3 py-1.5" id="tabBtnBatch" onclick="switchResearcherTab('batch')" style="background: transparent; border: 1px solid rgba(255,255,255,0.25); border-radius: 8px; font-size: 0.75rem;">
-                        <i class="fas fa-layer-group me-1"></i> إدراج سريع بالدفعات
+                        <i class="fas fa-layer-group me-1"></i> إدراج بالدفعات
                     </button>
                 </div>
             </div>
@@ -161,13 +164,38 @@ require __DIR__ . '/header.php';
             <div class="alert alert-info py-2.5 px-3 mb-3 d-flex align-items-start gap-2" style="font-size: 0.75rem; border-radius: 10px; border: 1px solid #BAE6FD; background: #F0F9FF; color: #0369A1;">
                 <i class="fas fa-info-circle fs-5 mt-0.5 text-primary"></i>
                 <div>
-                    <strong>قاعدة الاعتماد الجغرافي والإثراء التوثيقي:</strong>
-                    إذا وُجدت المدرسة على خرائط جوجل ولها موقع وعنوان حقيقي، <strong>تُدرج في الدليل ولا تُستبعد حتى لو لم يتوفر لها هاتف في الخريطة</strong> (يُترك الهاتف فارغاً لمنع أي خطأ). ثم يُجرى البحث عن <strong>صفحة الفيسبوك الرسمية، هاتف القبول والتسجيل، والمراجع ونبذة تعريفية متكاملة</strong> لإثراء البطاقة.
+                    <strong>استوديو الاستقصاء الرقمي متعدد المنصات:</strong>
+                    البحث التفاعلي اللحظي في <strong>خرائط جوجل (Google Maps)</strong> لتثبيت الموقع الجغرافي، مع استكشاف متعمق لـ <strong>فيسبوك، يوتيوب، تيك توك، ومراجع غوغل</strong> لجلب هواتف القبول، الشعار، فيديوهات الفعاليات، ونبذة تعريفية متكاملة قبل الاعتماد النهائي بالدليل.
                 </div>
             </div>
 
-            <!-- TAB 1: Single School Discovery & Deep Enrichment -->
-            <div id="sectionSingleDiscovery">
+            <!-- TAB 1: Live Multi-Platform Research Studio -->
+            <div id="sectionStudioDiscovery">
+                <div class="p-3.5 bg-white rounded-3 border shadow-sm mb-3">
+                    <label class="form-label fw-bold text-dark mb-2" style="font-size: 0.85rem;">
+                        <i class="fas fa-radar text-primary me-1"></i> ابدأ الاستقصاء الرقمي الشامل لمدرسة أو روضة:
+                    </label>
+                    <div class="row g-2">
+                        <div class="col-lg-6 col-12">
+                            <input type="text" id="studioQuery" class="form-control" placeholder="اكتب اسم المدرسة (مثال: مدارس القبس، مدارس المنار، روضة البراعم...)" style="font-size: 0.82rem; border-color: #DDE4ED; padding: 10px 14px;">
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <input type="text" id="studioCity" class="form-control" placeholder="المدينة (مثال: بورتسودان، عطبرة...)" style="font-size: 0.82rem; border-color: #DDE4ED; padding: 10px 14px;">
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <button type="button" id="btnRunStudio" class="btn btn-primary w-100 fw-bold py-2" onclick="runStudioResearch()" style="background: #1E5FA8; border-color: #1E5FA8; font-size: 0.82rem;">
+                                <i class="fas fa-search me-1"></i> استقصاء شامل
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Studio Dossier Result Container -->
+                <div id="studioDossierBox" style="display: none;"></div>
+            </div>
+
+            <!-- TAB 2: Direct Single School Form -->
+            <div id="sectionSingleDiscovery" style="display: none;">
                 <form id="autoDiscoverForm" onsubmit="event.preventDefault(); runAutoDiscover();">
                     <div class="row g-3">
                         <div class="col-lg-5 col-12">
@@ -335,26 +363,302 @@ require __DIR__ . '/header.php';
 let parsedBatchItems = [];
 
 function switchResearcherTab(tab) {
+    const btnStudio = document.getElementById('tabBtnStudio');
     const btnSingle = document.getElementById('tabBtnSingle');
     const btnBatch = document.getElementById('tabBtnBatch');
+    const secStudio = document.getElementById('sectionStudioDiscovery');
     const secSingle = document.getElementById('sectionSingleDiscovery');
     const secBatch = document.getElementById('sectionBatchDiscovery');
 
-    if (tab === 'single') {
+    [btnStudio, btnSingle, btnBatch].forEach(b => {
+        if (b) {
+            b.style.background = 'transparent';
+            b.classList.remove('active');
+        }
+    });
+    [secStudio, secSingle, secBatch].forEach(s => {
+        if (s) s.style.display = 'none';
+    });
+
+    if (tab === 'studio') {
+        btnStudio.style.background = 'rgba(255,255,255,0.22)';
+        btnStudio.classList.add('active');
+        secStudio.style.display = 'block';
+    } else if (tab === 'single') {
         btnSingle.style.background = 'rgba(255,255,255,0.18)';
         btnSingle.classList.add('active');
-        btnBatch.style.background = 'transparent';
-        btnBatch.classList.remove('active');
         secSingle.style.display = 'block';
-        secBatch.style.display = 'none';
     } else {
         btnBatch.style.background = 'rgba(255,255,255,0.18)';
         btnBatch.classList.add('active');
-        btnSingle.style.background = 'transparent';
-        btnSingle.classList.remove('active');
-        secSingle.style.display = 'none';
         secBatch.style.display = 'block';
     }
+}
+
+function runStudioResearch() {
+    const q = document.getElementById('studioQuery').value.trim();
+    const ct = document.getElementById('studioCity').value.trim();
+    const btn = document.getElementById('btnRunStudio');
+    const box = document.getElementById('studioDossierBox');
+
+    if (!q) {
+        alert('يرجى إدخال اسم المدرسة للبدء في الاستقصاء الشامل.');
+        return;
+    }
+
+    btn.disabled = true;
+    const oldHtml = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> جاري الاستقصاء عبر المنصات...';
+
+    box.style.display = 'block';
+    box.innerHTML = `
+        <div class="p-4 bg-white rounded-3 border text-center shadow-sm">
+            <div class="spinner-border text-primary mb-3" role="status" style="width: 2.2rem; height: 2.2rem;"></div>
+            <h6 class="fw-bold text-dark" style="font-size: 0.95rem;">جاري الاستقصاء الرقمي الشامل لـ "${q}"...</h6>
+            <div class="text-muted small" style="font-size: 0.74rem;">
+                يتم الآن مسح إحداثيات خرائط جوجل، البحث في صفحات فيسبوك، قنوات يوتيوب، حسابات تيك توك، ومراجع الشهادة السودانية...
+            </div>
+        </div>
+    `;
+
+    fetch('/api_deep_research.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: q, city: ct })
+    })
+    .then(r => r.json())
+    .then(data => {
+        btn.disabled = false;
+        btn.innerHTML = oldHtml;
+
+        if (!data || !data.success) {
+            box.innerHTML = `
+                <div class="alert alert-danger p-3 rounded-3 shadow-sm border">
+                    <i class="fas fa-exclamation-triangle text-danger me-1"></i> ${data.error || 'تعذر إتمام الاستقصاء.'}
+                </div>
+            `;
+            return;
+        }
+
+        renderStudioDossier(data);
+    })
+    .catch(err => {
+        btn.disabled = false;
+        btn.innerHTML = oldHtml;
+        box.innerHTML = `
+            <div class="alert alert-danger p-3 rounded-3 shadow-sm border">
+                <i class="fas fa-exclamation-triangle text-danger me-1"></i> حدث خطأ أثناء الاتصال بالخادم.
+            </div>
+        `;
+    });
+}
+
+function renderStudioDossier(d) {
+    const box = document.getElementById('studioDossierBox');
+    const p = d.platforms;
+
+    let html = `
+        <div class="card border-0 shadow-sm rounded-3 overflow-hidden" style="border: 1px solid #DDE4ED !important;">
+            <!-- Dossier Header -->
+            <div class="card-header bg-white p-3 border-bottom d-flex flex-wrap justify-content-between align-items-center gap-2">
+                <div>
+                    <span class="badge bg-primary text-white mb-1" style="font-size: 0.68rem;"><i class="fas fa-folder-open me-1"></i> ملف الاستقصاء الرقمي المكتشف</span>
+                    <h5 class="fw-bold text-dark mb-0" style="font-size: 1.05rem;">${d.formatted_name}</h5>
+                    <div class="text-muted small" style="font-size: 0.72rem;">${d.formatted_name_en}</div>
+                </div>
+                <div class="d-flex flex-wrap gap-1.5 align-items-center">
+                    <span class="badge bg-light text-dark border"><i class="fas fa-map-marker-alt text-danger me-1"></i> ${d.state} — ${d.city} (${d.district})</span>
+                    <span class="badge" style="background: #EFF6FF; color: #1E5FA8; border: 1px solid #BFDBFE;">${d.curriculum === 'british' ? 'منهج بريطاني' : 'منهج سوداني'}</span>
+                    ${d.exists_in_db ? `<span class="badge bg-warning text-dark"><i class="fas fa-database me-1"></i> مسجلة بالدليل (#${d.existing_rank || d.existing_id})</span>` : `<span class="badge bg-success text-white"><i class="fas fa-sparkles me-1"></i> جديدة</span>`}
+                </div>
+            </div>
+
+            <div class="card-body p-3 p-md-4">
+                <!-- 5 Multi-Platform Live Search Buttons -->
+                <div class="mb-3">
+                    <label class="form-label fw-bold text-dark small mb-2"><i class="fas fa-external-link-alt text-muted me-1"></i> روابط الاستقصاء والتحقق الميداني المباشر من المنصات:</label>
+                    <div class="row g-2">
+                        <div class="col-md col-sm-6 col-12">
+                            <a href="${p.google_maps.search_url}" target="_blank" class="btn btn-sm w-100 py-2 d-flex align-items-center justify-content-center gap-1.5 text-white fw-bold shadow-sm" style="background: #10B981; font-size: 0.74rem;">
+                                <i class="${p.google_maps.icon}"></i> فتح خرائط جوجل
+                            </a>
+                        </div>
+                        <div class="col-md col-sm-6 col-12">
+                            <a href="${p.facebook.search_url}" target="_blank" class="btn btn-sm w-100 py-2 d-flex align-items-center justify-content-center gap-1.5 text-white fw-bold shadow-sm" style="background: #1877F2; font-size: 0.74rem;">
+                                <i class="${p.facebook.icon}"></i> صفحة فيسبوك
+                            </a>
+                        </div>
+                        <div class="col-md col-sm-6 col-12">
+                            <a href="${p.youtube.search_url}" target="_blank" class="btn btn-sm w-100 py-2 d-flex align-items-center justify-content-center gap-1.5 text-white fw-bold shadow-sm" style="background: #DC2626; font-size: 0.74rem;">
+                                <i class="${p.youtube.icon}"></i> فيديوهات يوتيوب
+                            </a>
+                        </div>
+                        <div class="col-md col-sm-6 col-12">
+                            <a href="${p.tiktok.search_url}" target="_blank" class="btn btn-sm w-100 py-2 d-flex align-items-center justify-content-center gap-1.5 text-white fw-bold shadow-sm" style="background: #111827; font-size: 0.74rem;">
+                                <i class="${p.tiktok.icon}"></i> جولات تيك توك
+                            </a>
+                        </div>
+                        <div class="col-md col-sm-6 col-12">
+                            <a href="${p.web_references.search_url}" target="_blank" class="btn btn-sm w-100 py-2 d-flex align-items-center justify-content-center gap-1.5 text-white fw-bold shadow-sm" style="background: #0284C7; font-size: 0.74rem;">
+                                <i class="${p.web_references.icon}"></i> مراجع غوغل
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Editable Dossier Form -->
+                <div class="p-3 bg-light rounded-3 border">
+                    <h6 class="fw-bold text-dark mb-3" style="font-size: 0.84rem;"><i class="fas fa-check-circle text-success me-1"></i> مراجعة واعتماد بيانات المدرسة قبل الحفظ بالدليل:</h6>
+                    
+                    <div class="row g-2.5">
+                        <div class="col-lg-6 col-12">
+                            <label class="form-label small fw-bold text-dark mb-1">الاسم المعتمد في الدليل</label>
+                            <input type="text" id="dosName" class="form-control form-control-sm" value="${d.formatted_name}">
+                        </div>
+
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <label class="form-label small fw-bold text-dark mb-1">الهاتف الموثق (إن وجد بالخريطة أو فيسبوك)</label>
+                            <input type="text" id="dosPhone" class="form-control form-control-sm" placeholder="فارغ إن لم يتوفر">
+                        </div>
+
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <label class="form-label small fw-bold text-dark mb-1">الواتساب</label>
+                            <input type="text" id="dosWhatsapp" class="form-control form-control-sm" placeholder="فارغ إن لم يتوفر">
+                        </div>
+
+                        <div class="col-lg-6 col-12">
+                            <label class="form-label small fw-bold text-dark mb-1"><i class="fas fa-map-marker-alt text-danger me-1"></i> رابط خرائط جوجل الفعلي (Pin URL)</label>
+                            <input type="url" id="dosGmap" class="form-control form-control-sm" placeholder="الصق الرابط الفعلي من خرائط جوجل إن توفر" value="${p.google_maps.existing_url || ''}">
+                        </div>
+
+                        <div class="col-lg-6 col-12">
+                            <label class="form-label small fw-bold text-dark mb-1"><i class="fab fa-facebook text-primary me-1"></i> رابط صفحة الفيسبوك الرسمية</label>
+                            <input type="url" id="dosFacebook" class="form-control form-control-sm" placeholder="https://facebook.com/..." value="${p.facebook.existing_url || ''}">
+                        </div>
+
+                        <div class="col-lg-4 col-sm-6 col-12">
+                            <label class="form-label small fw-bold text-dark mb-1"><i class="fab fa-youtube text-danger me-1"></i> قناة / فيديو يوتيوب</label>
+                            <input type="url" id="dosYoutube" class="form-control form-control-sm" placeholder="https://youtube.com/..." value="${p.youtube.existing_url || ''}">
+                        </div>
+
+                        <div class="col-lg-4 col-sm-6 col-12">
+                            <label class="form-label small fw-bold text-dark mb-1"><i class="fab fa-tiktok text-dark me-1"></i> حساب تيك توك</label>
+                            <input type="url" id="dosTiktok" class="form-control form-control-sm" placeholder="https://tiktok.com/@..." value="${p.tiktok.existing_url || ''}">
+                        </div>
+
+                        <div class="col-lg-4 col-sm-6 col-12">
+                            <label class="form-label small fw-bold text-dark mb-1">سنة التأسيس (اختياري)</label>
+                            <input type="text" id="dosYear" class="form-control form-control-sm" placeholder="مثال: 2012">
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label small fw-bold text-dark mb-1"><i class="fas fa-align-left text-muted me-1"></i> النبذة التعريفية الشاملة عن المدرسة</label>
+                            <textarea id="dosDesc" class="form-control form-control-sm" rows="3">${d.description}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="mt-3 d-flex flex-wrap justify-content-between align-items-center gap-2">
+                        <span class="text-muted small" style="font-size: 0.72rem;">
+                            <i class="fas fa-shield-alt text-success me-1"></i> خالية من أي أرقام هواتف وهمية، موثقة جغرافياً ورقمياً.
+                        </span>
+                        <button type="button" id="btnCommitDossier" class="btn btn-success fw-bold px-4 py-2 text-white shadow-sm" onclick="commitStudioDossier('${d.state}', '${d.city}', '${d.district}', '${d.school_type}')" style="font-size: 0.84rem;">
+                            <i class="fas fa-check-circle me-1"></i> اعتماد وحفظ بيانات المدرسة في الدليل
+                        </button>
+                    </div>
+                </div>
+
+                <div id="dossierSaveStatus" class="mt-3" style="display: none;"></div>
+            </div>
+        </div>
+    `;
+
+    box.innerHTML = html;
+}
+
+function commitStudioDossier(state, city, district, schoolType) {
+    const name = document.getElementById('dosName').value.trim();
+    const phone = document.getElementById('dosPhone').value.trim();
+    const whatsapp = document.getElementById('dosWhatsapp').value.trim();
+    const gmap = document.getElementById('dosGmap').value.trim();
+    const fb = document.getElementById('dosFacebook').value.trim();
+    const yt = document.getElementById('dosYoutube').value.trim();
+    const tt = document.getElementById('dosTiktok').value.trim();
+    const yr = document.getElementById('dosYear').value.trim();
+    const desc = document.getElementById('dosDesc').value.trim();
+
+    const btn = document.getElementById('btnCommitDossier');
+    const stBox = document.getElementById('dossierSaveStatus');
+
+    if (!name) {
+        alert('يرجى تحديد اسم المدرسة.');
+        return;
+    }
+
+    btn.disabled = true;
+    const oldHtml = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> جاري الحفظ والاعتماد بالدليل...';
+
+    const fd = new FormData();
+    fd.append('query', name);
+    fd.append('state', state);
+    fd.append('city', city);
+    fd.append('district', district);
+    fd.append('school_type', schoolType);
+    fd.append('phone', phone);
+    fd.append('whatsapp', whatsapp || phone);
+    fd.append('google_map_url', gmap);
+    fd.append('facebook', fb);
+    fd.append('youtube', yt);
+    fd.append('tiktok', tt);
+    fd.append('established_year', yr);
+    fd.append('description', desc);
+
+    fetch('/api_auto_discover.php', {
+        method: 'POST',
+        body: fd
+    })
+    .then(r => r.json())
+    .then(data => {
+        btn.disabled = false;
+        btn.innerHTML = oldHtml;
+        stBox.style.display = 'block';
+
+        if (data && data.success) {
+            const sch = data.school;
+            stBox.innerHTML = `
+                <div class="alert alert-success p-3 rounded-3 shadow-sm border mb-0 d-flex flex-wrap justify-content-between align-items-center gap-2">
+                    <div>
+                        <div class="fw-bold text-dark mb-0.5"><i class="fas fa-check-circle text-success me-1"></i> ${data.message || 'تم اعتماد وحفظ المدرسة بنجاح!'}</div>
+                        <div class="text-muted small">أصبحت المدرسة مفهرسة في دليل المدارس السودانية برتبة رسمية.</div>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <a href="${sch.url}" target="_blank" class="btn btn-sm btn-primary fw-bold px-3 py-1.5" style="font-size: 0.76rem;">
+                            <i class="fas fa-external-link-alt me-1"></i> عرض صفحة المدرسة بالدليل
+                        </a>
+                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="document.getElementById('studioQuery').value=''; document.getElementById('studioDossierBox').style.display='none';" style="font-size: 0.76rem;">
+                            استقصاء مدرسة أخرى
+                        </button>
+                    </div>
+                </div>
+            `;
+        } else {
+            stBox.innerHTML = `
+                <div class="alert alert-danger p-3 rounded-3 shadow-sm border mb-0">
+                    <i class="fas fa-exclamation-triangle text-danger me-1"></i> ${data.error || 'حدث خطأ أثناء الحفظ.'}
+                </div>
+            `;
+        }
+    })
+    .catch(err => {
+        btn.disabled = false;
+        btn.innerHTML = oldHtml;
+        stBox.style.display = 'block';
+        stBox.innerHTML = `
+            <div class="alert alert-danger p-3 rounded-3 shadow-sm border mb-0">
+                <i class="fas fa-exclamation-triangle text-danger me-1"></i> حدث خطأ أثناء الاتصال بالخادم.
+            </div>
+        `;
+    });
 }
 
 function runAutoDiscover() {

@@ -64,6 +64,10 @@ $phone = trim((string)($_POST['phone'] ?? ($inputData['phone'] ?? '')));
 $whatsapp = trim((string)($_POST['whatsapp'] ?? ($inputData['whatsapp'] ?? $phone)));
 $googleMapUrl = trim((string)($_POST['google_map_url'] ?? ($inputData['google_map_url'] ?? '')));
 $facebook = trim((string)($_POST['facebook'] ?? ($inputData['facebook'] ?? '')));
+$youtube = trim((string)($_POST['youtube'] ?? ($inputData['youtube'] ?? '')));
+$tiktok = trim((string)($_POST['tiktok'] ?? ($inputData['tiktok'] ?? '')));
+$instagram = trim((string)($_POST['instagram'] ?? ($inputData['instagram'] ?? '')));
+$telegram = trim((string)($_POST['telegram'] ?? ($inputData['telegram'] ?? '')));
 $website = trim((string)($_POST['website'] ?? ($inputData['website'] ?? '')));
 $description = trim((string)($_POST['description'] ?? ($inputData['description'] ?? '')));
 $schoolType = trim((string)($_POST['school_type'] ?? ($inputData['school_type'] ?? '')));
@@ -92,7 +96,11 @@ try {
         $description ?: null,
         $facebook ?: null,
         $website ?: null,
-        $establishedYear ?: null
+        $establishedYear ?: null,
+        $youtube ?: null,
+        $tiktok ?: null,
+        $instagram ?: null,
+        $telegram ?: null
     );
 
     // If a new school was created, export master seed in background
