@@ -50,12 +50,27 @@ if (!empty($_GET['suggest']) && $_GET['suggest'] == '1') {
         $s['type_label'] = $s['school_type'] === 'government' ? 'حكومية' : ($s['school_type'] === 'private' ? 'خاصة' : ($s['school_type'] === 'international' ? 'دولية' : 'مدرسة'));
     }
 
-    // 2. Matching Cities & States
+    // 2. Matching Cities, States & Districts
     $locations = [];
     try {
-        $locStmt = $pdo->prepare("SELECT city, state, COUNT(*) as cnt FROM daleel_schools WHERE status = 'approved' AND (city LIKE ? OR state LIKE ?) GROUP BY city, state ORDER BY cnt DESC LIMIT 3");
+        $locStmt = $pdo->prepare("SELECT city, state, NULL as district, COUNT(*) as cnt FROM daleel_schools WHERE status = 'approved' AND (city LIKE ? OR state LIKE ?) GROUP BY city, state ORDER BY cnt DESC LIMIT 3");
         $locStmt->execute([$cleanSq . '%', $cleanSq . '%']);
         $locations = $locStmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if (count($locations) < 3) {
+            $distStmt = $pdo->prepare("SELECT city, state, district, COUNT(*) as cnt FROM daleel_schools WHERE status = 'approved' AND district IS NOT NULL AND district != '' AND district LIKE ? GROUP BY city, state, district ORDER BY cnt DESC LIMIT 3");
+            $distStmt->execute(['%' . $cleanSq . '%']);
+            $distRows = $distStmt->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($distRows as $dr) {
+                if (count($locations) >= 4) break;
+                $locations[] = [
+                    'city' => $dr['city'],
+                    'state' => $dr['state'],
+                    'district' => $dr['district'],
+                    'cnt' => (int)$dr['cnt']
+                ];
+            }
+        }
     } catch (Throwable $e) {}
 
     // 3. Matching Stages
@@ -3510,15 +3525,23 @@ ob_start();
                     </div>
                 `;
 
-                // 1. Matching Locations (Cities & States)
+                // 1. Matching Locations (Cities, States, & Districts)
                 if (locations.length > 0) {
                     html += `<div class="sp-suggest-section-title"><i class="fas fa-map-marker-alt text-danger"></i> المدن والمناطق المطابقة</div>`;
                     locations.forEach(loc => {
+                        const isDistrict = !!loc.district;
+                        const labelHtml = isDistrict 
+                            ? `<strong>${highlightMatch(loc.district, query)}</strong> <span class="text-muted small">(${escapeHtml(loc.city)} — ${escapeHtml(loc.state)})</span>`
+                            : `<strong>${highlightMatch(loc.city, query)}</strong> <span class="text-muted small">(${escapeHtml(loc.state)})</span>`;
+                        const iconHtml = isDistrict 
+                            ? `<i class="fas fa-map-pin text-danger" style="font-size:0.75rem;"></i>`
+                            : `<i class="fas fa-city text-primary" style="font-size:0.75rem;"></i>`;
+                        const safeDist = isDistrict ? escapeHtml(loc.district) : '';
                         html += `
-                            <a href="javascript:void(0)" class="sp-suggest-loc-item" onclick="filterByLocation('${escapeHtml(loc.city)}', '${escapeHtml(loc.state)}')">
+                            <a href="javascript:void(0)" class="sp-suggest-loc-item" onclick="filterByLocation('${escapeHtml(loc.city)}', '${escapeHtml(loc.state)}', '${safeDist}')">
                                 <div class="d-flex align-items-center gap-2">
-                                    <i class="fas fa-city text-primary" style="font-size:0.75rem;"></i>
-                                    <span><strong>${highlightMatch(loc.city, query)}</strong> <span class="text-muted small">(${escapeHtml(loc.state)})</span></span>
+                                    ${iconHtml}
+                                    <span>${labelHtml}</span>
                                 </div>
                                 <span class="sp-suggest-loc-count">${loc.cnt} مدرسة</span>
                             </a>
@@ -3588,9 +3611,10 @@ ob_start();
                 activeSuggestIndex = -1;
             }
 
-            window.filterByLocation = function(city, state) {
+            window.filterByLocation = function(city, state, district) {
                 closeSuggestions();
                 const url = new URL(window.location.origin);
+                if (district) url.searchParams.set('q', district);
                 if (city) url.searchParams.set('city', city);
                 if (state) url.searchParams.set('state', state);
                 loadCatalogAjax(url.pathname + url.search, true, true);

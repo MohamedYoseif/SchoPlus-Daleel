@@ -176,6 +176,7 @@ function runDaleelDeduplication(PDO $pdo): array {
         4383 => 5119,
         4015 => 1,
         4016 => 2,
+        4399 => 5196,
     ];
     foreach ($specificMerges as $sDel => $sKeep) {
         if (!isset($confirmedDuplicates[$sDel])) {

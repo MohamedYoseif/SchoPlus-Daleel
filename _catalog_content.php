@@ -446,15 +446,42 @@ if (!function_exists('renderCatalogPagination')) {
 
             <!-- SEARCH RESULTS (GRID OR LIST) -->
             <?php if (empty($searchResults)): ?>
+                <?php
+                // Smart Location/District Fallback Suggestion when 0 schools match by name
+                $suggestedLocation = null;
+                if (!empty($q)) {
+                    try {
+                        $qTokens = array_filter(explode(' ', $q), fn($w) => mb_strlen(trim($w), 'UTF-8') >= 3);
+                        foreach ($qTokens as $qk) {
+                            if (in_array($qk, ['مدرسة', 'مدارس', 'مدار', 'مجمع', 'مؤسسة', 'خاصة', 'حكومية', 'بنين', 'بنات', 'نموذجية'])) continue;
+                            $sLoc = $pdo->prepare("SELECT city, state, district, COUNT(*) as cnt FROM daleel_schools WHERE status = 'approved' AND (district LIKE ? OR city LIKE ?) GROUP BY city, state, district ORDER BY cnt DESC LIMIT 1");
+                            $sLoc->execute(['%' . addcslashes($qk, '%_') . '%', '%' . addcslashes($qk, '%_') . '%']);
+                            $suggestedLocation = $sLoc->fetch(PDO::FETCH_ASSOC);
+                            if ($suggestedLocation) break;
+                        }
+                    } catch (Throwable $e) {}
+                }
+                ?>
                 <div class="col-12 py-5 text-center">
                     <div class="p-4 p-md-5 bg-white rounded-4 border text-center shadow-sm max-w-md mx-auto" style="max-width: 520px; margin: 0 auto; border-color: #DDE4ED !important;">
                         <div style="width: 56px; height: 56px; border-radius: 50%; background: #EFF6FF; color: #1E5FA8; display: inline-flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 14px;">
                             <i class="fas fa-search"></i>
                         </div>
-                        <h4 class="fw-bold text-dark" style="font-size: 1.05rem;">لم نعثر على مدرسة مطابقة للبحث</h4>
+                        <h4 class="fw-bold text-dark" style="font-size: 1.05rem;">لم نعثر على مدرسة باسم "<?= e($q) ?>"</h4>
                         <?php if (!empty($q)): ?>
+                            <?php if ($suggestedLocation): ?>
+                                <div class="alert alert-info py-2 px-3 text-start d-flex flex-wrap align-items-center justify-content-between gap-2 my-3" style="background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 10px; font-size: 0.76rem;">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <i class="fas fa-map-pin text-danger" style="font-size: 0.85rem;"></i>
+                                        <span>هل تقصد البحث عن مدارس في <strong><?= e($suggestedLocation['district'] ?: $suggestedLocation['city']) ?></strong> (<?= e($suggestedLocation['city']) ?> — <?= e($suggestedLocation['state']) ?>)؟</span>
+                                    </div>
+                                    <a href="<?= buildFilterUrl(['q' => $suggestedLocation['district'] ?: $suggestedLocation['city'], 'city' => $suggestedLocation['city'], 'state' => $suggestedLocation['state']]) ?>" class="btn btn-sm btn-primary rounded-pill px-3 py-1" style="font-size: 0.72rem; background: #1E5FA8; border-color: #1E5FA8;">
+                                        عرض المدارس (<?= $suggestedLocation['cnt'] ?>)
+                                    </a>
+                                </div>
+                            <?php endif; ?>
                             <p class="text-muted small" style="font-size: 0.76rem; line-height: 1.6; margin-bottom: 18px;">
-                                هل تبحث عن مدرسة <strong class="text-dark">"<?= e($q) ?>"</strong>؟ قد لا تكون مسجلة بعد في الدليل، ولكن يمكنك فحص حضورها الرقمي الشامل على جوجل وخرائط جوجل وشبكات التواصل بنقرة واحدة!
+                                لم يتم العثور على مدرسة مسجلة بهذا الاسم في الدليل. يمكنك فحص حضورها الرقمي الشامل على جوجل والخرائط وشبكات التواصل بنقرة واحدة:
                             </p>
                             <div class="d-flex flex-wrap align-items-center justify-content-center gap-2 mb-2">
                                 <a href="/presence-audit.php?school=<?= urlencode($q) ?>&country=<?= urlencode($country) ?>&state=<?= urlencode($state) ?>&auto=1" class="btn-luxury-primary btn-sm py-2 px-3" style="font-size: 0.78rem;">

@@ -141,32 +141,12 @@ if (!function_exists('buildUniversalSchoolSearchClause')) {
         // MySQL expression that normalizes Arabic characters on the fly across all search fields
         $normSql = "REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(%s, 'أ', 'ا'), 'إ', 'ا'), 'آ', 'ا'), 'ة', 'ه'), 'ى', 'ي'), 'ئ', 'ي')";
         
-        // Comprehensive search fields:
-        // Name (AR & EN), City, State, District, Address, Description, Curriculum, School Type,
-        // Phone numbers (phone, whatsapp, owner_phone), School Management (owner_name, owner_title),
-        // Plus semantic Arabic matching for School Types and Stages
-        $fields = [
-            'name',
-            'name_en',
-            'city',
-            'state',
-            'district',
-            'address',
-            'description',
-            'curriculum',
-            'owner_name',
-            'owner_title',
-            'phone',
-            'whatsapp',
-            'owner_phone',
-            "(CASE WHEN school_type = 'government' THEN 'حكومية حكومي' WHEN school_type IN ('private', 'international', 'language') THEN 'خاصة اهلية دولية' ELSE '' END)",
-            "(CASE WHEN stages LIKE '%kindergarten%' THEN 'روضة رياض اطفال حضانة حضانه' ELSE '' END)",
-            "(CASE WHEN stages LIKE '%primary%' THEN 'اساس اساسي ابتدائي ابتدائية' ELSE '' END)",
-            "(CASE WHEN stages LIKE '%intermediate%' THEN 'متوسط متوسطة' ELSE '' END)",
-            "(CASE WHEN stages LIKE '%secondary%' THEN 'ثانوي ثانوية' ELSE '' END)"
-        ];
+        $schoolNouns = ['مدرسه', 'مدارس', 'مدار', 'مجمع', 'مؤسسه', 'سلسله'];
+        $typeWords = ['خاصه', 'حكوميه', 'دوليه', 'عالميه', 'اهليه', 'نموذجيه', 'بنين', 'بنات', 'مشترك', 'مختلط'];
+        $stageWords = ['روضه', 'رياض', 'حضانه', 'اطفال', 'ابتدائي', 'اساس', 'متوسط', 'ثانوي'];
+        $stopWords = ['في', 'من', 'الي', 'علي', 'عن', 'مع', 'ب'];
 
-        // Tokenize search query to support multi-keyword partial matches (e.g. "الاخلاء بانت")
+        // Tokenize search query
         $tokens = array_values(array_filter(explode(' ', $rawNorm), function($t) {
             return mb_strlen(trim($t), 'UTF-8') >= 2;
         }));
@@ -175,20 +155,107 @@ if (!function_exists('buildUniversalSchoolSearchClause')) {
             $tokens = [$rawNorm];
         }
 
-        $tokenClauses = [];
-        $params = [];
+        $hasSchoolNoun = false;
+        $distinctiveTokens = [];
+        $typeTokens = [];
+        $stageTokens = [];
 
-        foreach ($tokens as $token) {
-            $fieldClauses = [];
-            $term = "%{$token}%";
-            foreach ($fields as $f) {
-                $fieldClauses[] = sprintf("COALESCE({$normSql}, '') LIKE ?", $f);
-                $params[] = $term;
+        foreach ($tokens as $t) {
+            if (in_array($t, $schoolNouns)) {
+                $hasSchoolNoun = true;
+                continue;
             }
-            $tokenClauses[] = '(' . implode(' OR ', $fieldClauses) . ')';
+            if (in_array($t, $typeWords)) {
+                $typeTokens[] = $t;
+                continue;
+            }
+            if (in_array($t, $stageWords)) {
+                $stageTokens[] = $t;
+                continue;
+            }
+            if (in_array($t, $stopWords)) {
+                continue;
+            }
+            $distinctiveTokens[] = $t;
         }
 
-        $sql = '(' . implode(' AND ', $tokenClauses) . ')';
+        $clauses = [];
+        $params = [];
+
+        // CASE 1: The user explicitly searched for a school by name using prefixes like "مدرسة / مدارس / مدار / مجمع كذا"
+        // E.g. "مدار الكفاح الخاصة" -> Distinctive name is "الكفاح".
+        // The distinctive name MUST match the school's actual name (name or name_en) or official city!
+        // It CANNOT be satisfied by a random neighborhood or district while the school has an entirely different name!
+        if ($hasSchoolNoun && !empty($distinctiveTokens)) {
+            foreach ($distinctiveTokens as $dt) {
+                $term = "%{$dt}%";
+                $clauses[] = sprintf("(COALESCE({$normSql}, '') LIKE ? OR COALESCE({$normSql}, '') LIKE ? OR COALESCE({$normSql}, '') LIKE ? OR COALESCE({$normSql}, '') LIKE ?)",
+                    'name', 'name_en', 'city', 'state');
+                $params[] = $term;
+                $params[] = $term;
+                $params[] = $term;
+                $params[] = $term;
+            }
+
+            if (!empty($typeTokens)) {
+                $typeSql = "(CASE WHEN school_type = 'government' THEN 'حكومية حكومي' WHEN school_type IN ('private', 'international', 'language') THEN 'خاصة اهلية دولية' ELSE '' END)";
+                foreach ($typeTokens as $tt) {
+                    $term = "%{$tt}%";
+                    $clauses[] = sprintf("(COALESCE({$normSql}, '') LIKE ? OR COALESCE({$normSql}, '') LIKE ?)", 'name', $typeSql);
+                    $params[] = $term;
+                    $params[] = $term;
+                }
+            }
+
+            if (!empty($stageTokens)) {
+                $stageSql = "(CASE 
+                    WHEN stages LIKE '%kindergarten%' THEN 'روضة رياض اطفال حضانة' 
+                    WHEN stages LIKE '%primary%' THEN 'اساس ابتدائي' 
+                    WHEN stages LIKE '%intermediate%' THEN 'متوسط' 
+                    WHEN stages LIKE '%secondary%' THEN 'ثانوي ثانوية' 
+                    ELSE '' END)";
+                foreach ($stageTokens as $st) {
+                    $term = "%{$st}%";
+                    $clauses[] = sprintf("(COALESCE({$normSql}, '') LIKE ? OR COALESCE({$normSql}, '') LIKE ?)", 'name', $stageSql);
+                    $params[] = $term;
+                    $params[] = $term;
+                }
+            }
+        } else {
+            // CASE 2: Freeform keyword or location search
+            $fields = [
+                'name',
+                'name_en',
+                'city',
+                'state',
+                'district',
+                'address',
+                'description',
+                'curriculum',
+                'owner_name',
+                'owner_title',
+                'phone',
+                'whatsapp',
+                'owner_phone',
+                "(CASE WHEN school_type = 'government' THEN 'حكومية حكومي' WHEN school_type IN ('private', 'international', 'language') THEN 'خاصة اهلية دولية' ELSE '' END)",
+                "(CASE WHEN stages LIKE '%kindergarten%' THEN 'روضة رياض اطفال حضانة حضانه' ELSE '' END)",
+                "(CASE WHEN stages LIKE '%primary%' THEN 'اساس اساسي ابتدائي ابتدائية' ELSE '' END)",
+                "(CASE WHEN stages LIKE '%intermediate%' THEN 'متوسط متوسطة' ELSE '' END)",
+                "(CASE WHEN stages LIKE '%secondary%' THEN 'ثانوي ثانوية' ELSE '' END)"
+            ];
+
+            foreach ($tokens as $token) {
+                $fieldClauses = [];
+                $term = "%{$token}%";
+                foreach ($fields as $f) {
+                    $fieldClauses[] = sprintf("COALESCE({$normSql}, '') LIKE ?", $f);
+                    $params[] = $term;
+                }
+                $clauses[] = '(' . implode(' OR ', $fieldClauses) . ')';
+            }
+        }
+
+        $sql = '(' . implode(' AND ', $clauses) . ')';
         return [$sql, $params];
     }
 }
