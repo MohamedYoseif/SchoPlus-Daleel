@@ -2210,15 +2210,14 @@ require_once __DIR__ . '/header.php';
     font-size: 0.72rem;
 }
 .school-card-desc {
-    font-size: 0.73rem;
-    line-height: 1.5;
+    font-size: 0.74rem;
+    line-height: 1.6;
     color: #475569;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    min-height: 2.2rem;
-    max-height: 2.2rem;
+    min-height: 2.4rem;
 }
 .luxury-card-footer {
     padding-top: 10px;
@@ -2427,13 +2426,11 @@ require_once __DIR__ . '/header.php';
 .historic-card-desc {
     color: #1E293B !important;
     font-size: 0.74rem !important;
-    line-height: 1.55 !important;
+    line-height: 1.6 !important;
     border-right: 3px solid #F5A020;
-    padding-right: 8px;
-    background: rgba(254, 243, 199, 0.4);
-    border-radius: 4px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding: 6px 10px;
+    background: rgba(254, 243, 199, 0.45);
+    border-radius: 6px;
     margin-bottom: 10px !important;
 }
 .btn-historic-action {

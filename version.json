@@ -1,7 +1,7 @@
 {
-    "version": "3.8.23",
+    "version": "3.8.24",
     "release_date": "2026-10-23",
     "version_type": "enterprise",
     "min_php_version": "8.2",
-    "release_notes": "دليل المدارس السودانية (daleel.schoplus.sd) — معالجة ظهور شعار المدرسة بالبطاقات الشبكية بنقله خارج غلاف الغلاف لمنع الاقتطاع (Overflow Clip Fix) وتوسيع مساحة العنوان ورقم ترتيب الولاية v3.8.23"
+    "release_notes": "دليل المدارس السودانية (daleel.schoplus.sd) — إزالة قيد الارتفاع الصلب لوصف المدرسة (school-card-desc max-height removal) وضبط تباعد الأسطر (line-height: 1.6) لمنع قص الأحرف في السطر الثاني v3.8.24"
 }
