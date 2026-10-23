@@ -277,9 +277,10 @@ if (!$isMasterAdmin): ?>
     </div>
 </body>
 </html>
-<?php exit; endif; ?>
+<?php 
+exit; 
+endif;
 
-<?php
 // =========================================================================
 // 2. MASTER ADMIN AJAX ACTIONS HANDLER
 // =========================================================================
@@ -635,6 +636,7 @@ if (isset($_REQUEST['ajax_action'])) {
             $ch = curl_init($cloudUrl);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) SchoPlus-Daleel-Sync/3.8');
             curl_setopt($ch, CURLOPT_TIMEOUT, 15);
             $res = curl_exec($ch);
             $err = curl_error($ch);
@@ -685,7 +687,7 @@ if (isset($_REQUEST['ajax_action'])) {
             } catch (Throwable $e) {}
 
             // 4. Send via cURL to https://daleel.schoplus.sd/api_sync.php
-            $syncUrl = 'https://daleel.schoplus.sd/api_sync.php';
+            $syncUrl = 'https://daleel.schoplus.sd/api_sync.php?action=push&key=schoplus_daleel_deploy_sec_4412f';
             $payload = [
                 'action' => 'push',
                 'key' => 'schoplus_daleel_deploy_sec_4412f',
@@ -703,6 +705,7 @@ if (isset($_REQUEST['ajax_action'])) {
             ]);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) SchoPlus-Daleel-Sync/3.8');
             curl_setopt($ch, CURLOPT_TIMEOUT, 60);
 
             $response = curl_exec($ch);
@@ -731,6 +734,7 @@ if (isset($_REQUEST['ajax_action'])) {
             $ch = curl_init($cloudUrl);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) SchoPlus-Daleel-Sync/3.8');
             curl_setopt($ch, CURLOPT_TIMEOUT, 60);
             $res = curl_exec($ch);
             $err = curl_error($ch);

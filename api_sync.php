@@ -13,10 +13,13 @@ require_once __DIR__ . '/config.php';
 $pdo = db();
 $syncSecretKey = 'schoplus_daleel_deploy_sec_4412f';
 
+$rawInput = file_get_contents('php://input');
+$jsonPayload = json_decode($rawInput, true) ?: [];
+
 // ─── 1. AUTHENTICATION CHECK ────────────────────────────────────────────────
 $authHeader = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
 $syncKeyHeader = $_SERVER['HTTP_X_SYNC_KEY'] ?? '';
-$providedKey = $_POST['key'] ?? ($_GET['key'] ?? '');
+$providedKey = $_POST['key'] ?? ($_GET['key'] ?? ($jsonPayload['key'] ?? ''));
 
 if (preg_match('/Bearer\s+(.*)$/i', $authHeader, $m)) {
     $providedKey = trim($m[1]);
@@ -28,7 +31,7 @@ $isAdminSession = false;
 if (session_status() === PHP_SESSION_NONE) {
     @session_start();
 }
-if (!empty($_SESSION['daleel_admin_id'])) {
+if (!empty($_SESSION['daleel_master_admin']) || !empty($_SESSION['daleel_admin_id'])) {
     $isAdminSession = true;
 }
 
@@ -41,7 +44,7 @@ if (!$isAdminSession && $providedKey !== $syncSecretKey) {
     exit;
 }
 
-$action = trim($_POST['action'] ?? ($_GET['action'] ?? 'stats'));
+$action = trim($_POST['action'] ?? ($_GET['action'] ?? ($jsonPayload['action'] ?? 'stats')));
 
 // ─── 2. ACTION: STATS (فحص إحصائيات السحابة والمزامنة) ───────────────────────
 if ($action === 'stats') {
@@ -90,8 +93,7 @@ if ($action === 'push') {
     @set_time_limit(300);
     @ini_set('memory_limit', '512M');
 
-    $rawInput = file_get_contents('php://input');
-    $payload = json_decode($rawInput, true);
+    $payload = !empty($jsonPayload) ? $jsonPayload : (json_decode(file_get_contents('php://input'), true) ?: []);
 
     if (empty($payload) && !empty($_POST['data'])) {
         $payload = json_decode($_POST['data'], true);
