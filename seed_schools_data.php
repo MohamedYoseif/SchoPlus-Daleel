@@ -2,9 +2,9 @@
 
 /**
  * SchoPlus Daleel - Comprehensive Global Sudanese Schools Directory Dataset
- * Total Institutions: 1559
+ * Total Institutions: 1552
  * Coverage: All 18 States of Sudan + 19 Diaspora Countries Worldwide
- * Updated: 2026-10-23 13:18:11
+ * Updated: 2026-10-23 15:20:02
  */
 
 return array (
@@ -32,6 +32,8 @@ return array (
     'whatsapp' => '+249187123456',
     'email' => NULL,
     'website' => 'https://kics.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أعرق وأرقى المدارس الدولية في السودان، تقدم برامج البكالوريا الدولية (IB) وبيئة تعليمية عالمية متطورة ومرافق رياضية متكاملة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -65,6 +67,8 @@ return array (
     'whatsapp' => '+249155770108',
     'email' => NULL,
     'website' => 'https://kaskhartoum.com',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية دولية عريقة تأسست عام 1957 تدرس المنهج الأمريكي الشامل لجميع المراحل الدراسية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -98,6 +102,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تعتمد مناهج كامبريدج البريطانية والـ IGCSE مع تركيز عالٍ على اللغة الإنجليزية والعلوم والتكنولوجيا.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -131,6 +137,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع كامبريدج بأم درمان يقدم تدريساً بريطانياً معتمداً ومرافق دراسية مجهزة بأحدث التقنيات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -164,6 +172,8 @@ return array (
     'whatsapp' => '+249912123456',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس التعليم البريطانية الرائدة في تقديم الشهادة البريطانية IGCSE والأنشطة الطلابية المتميزة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -197,6 +207,8 @@ return array (
     'whatsapp' => '+249912123457',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع أم درمان لمدارس التعليم البريطاني يقدم برامج أكاديمية دولية بمعايير عالمية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -230,6 +242,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أقدم وأبرز المدارس العالمية في السودان، خرجت أجيالاً متفوقة في شهادات كامبريدج البريطانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -262,6 +276,8 @@ return array (
     'whatsapp' => '+249912388888',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي لغات متميز يجمع بين المناهج الإنجليزية ورعاية القيم التربوية والأنشطة المتعددة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -295,6 +311,8 @@ return array (
     'whatsapp' => '+249912399999',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة دولية تقدم المنهج البريطاني للجاليات والطلاب السودانيين بنخبة من الأساتذة الأكفاء.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -328,6 +346,8 @@ return array (
     'whatsapp' => '+249912888111',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المدرسة الدولية الرائدة في بورتسودان لتدريس المنهج البريطاني مع بيئة تعليمية حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -361,6 +381,8 @@ return array (
     'whatsapp' => '+249912777222',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس وقف المعارف التركية العالمية، تتميز بأحدث المعامل والتقنيات وتدريس اللغات والعلوم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -394,6 +416,8 @@ return array (
     'whatsapp' => '+249912777333',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع الخرطوم لمدارس المعارف التركية، بيئة تعليمية ذكية وبرامج دولية معتمدة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -427,6 +451,8 @@ return array (
     'whatsapp' => '+249912666444',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية بريطانية تركز على الابتكار وتنمية المهارات القيادية للطلاب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -460,6 +486,8 @@ return array (
     'whatsapp' => '+249912555555',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تعليم متميز يجمع بين الجودة الأكاديمية والتربية السلوكية الراقية والشهادات الدولية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -493,6 +521,8 @@ return array (
     'whatsapp' => '+249912444333',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تهدف لبناء جيل قيادي من خلال المنهج البريطاني وتطوير الذكاء الاصطناعي ومهارات القرن 21.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -526,6 +556,8 @@ return array (
     'whatsapp' => '+249912333222',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من المدارس الإنجليزية الرائدة في بحري لاكتشاف ورعاية الموهوبين دراسياً وعلمياً.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -559,6 +591,8 @@ return array (
     'whatsapp' => '+249912311111',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'أيقونة التفوق الأكاديمي وصاحبة المراكز الأولى في الشهادة السودانية على مدار سنوات طويلة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -592,6 +626,8 @@ return array (
     'whatsapp' => '+249912311112',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع الكودة للبنات، بيئة نموذجية للتفوق والتحصيل العلمي العالي ومتابعة مستمرة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -625,6 +661,8 @@ return array (
     'whatsapp' => '+249912311113',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع الخرطوم لمؤسسة الكودة التعليمية يقدم ذات معايير التفوق والريادة التعليمية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -658,6 +696,8 @@ return array (
     'whatsapp' => '+249912222111',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة عريقة تحظى بثقة واسعة وإشادة مستمرة بنسب النجاح الباهرة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -691,6 +731,8 @@ return array (
     'whatsapp' => '+249912222112',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع كوبر العريق لمدارس الملك فهد، يغطي جميع المراحل من الأساس وحتى الثانوي بنين وبنات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -724,6 +766,8 @@ return array (
     'whatsapp' => '+249912999001',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس القبس التربوية تجمع بين التحصيل العلمي الأصيل والتربية الأخلاقية واللغوية الرفيعة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -757,6 +801,8 @@ return array (
     'whatsapp' => '+249912999002',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع القبس بأم درمان، بيئة هادئة ومحفزة للطلاب ومكتبات ومعامل حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -790,6 +836,8 @@ return array (
     'whatsapp' => '+249912999003',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع القبس ببحري بشمبات، صرح تعليمي متكامل ومجهز بأفضل الوسائل التعليمية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -823,6 +871,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تربوي وتعليمي متميز في أم درمان بحي بانت شرق (جوار مدرسة أم درمان الأهلية)، يضم المراحل الابتدائية والمتوسطة والثانوية (بنين وبنات)، ويهتم ببناء القيم الأكاديمية والتربوية والأنشطة الإبداعية وتنمية مهارات الطلاب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -856,6 +906,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية وتربوية رائدة في أم بدة السبيل الحارة 8 (جوار مسجد كرار)، توفر بيئة مدرسية نموذجية لطلاب المراحل الابتدائية والمتوسطة والثانوية (بنين وبنات)، وتضم نخبة من الكفاءات التعليمية مع برامج تربوية وأنشطة صفية ولاصفية متكاملة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -889,6 +941,8 @@ return array (
     'whatsapp' => '+249183888000',
     'email' => NULL,
     'website' => 'https://africancouncil.net',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'شبكة مدارس المجلس الأفريقي الأكبر في السودان وإفريقيا، صرح رائد في التعليم والأنشطة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -923,6 +977,8 @@ return array (
     'whatsapp' => '+249183888001',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع الفتيحاب العريق، يضم مجمعات نموذجية لمراحل الروضة والابتدائي والمتوسط والثانوي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -956,6 +1012,8 @@ return array (
     'whatsapp' => '+249183888002',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع بحري للمجلس الأفريقي، مساحات واسعة وملاعب ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -989,6 +1047,8 @@ return array (
     'whatsapp' => '+249183888003',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع ولاية الجزيرة بمدينة ود مدني، من أفضل المدارس الخاصة بالولاية وأعلاها تفوقاً.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -1022,6 +1082,8 @@ return array (
     'whatsapp' => '+249912777888',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس نموذجية خاصة ذات صيت واسع في رعاية الإبداع الطلابي والتميز الأكاديمي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -1055,6 +1117,8 @@ return array (
     'whatsapp' => '+249912444555',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة تاريخية تقدم منهجاً إنجليزياً مترجماً قوياً وتخريج طلاب متميزين في اللغات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -1088,6 +1152,8 @@ return array (
     'whatsapp' => '+249912444556',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع سان جورج بأم درمان، موقع متميز وبيئة تربوية منضبطة وتاريخ حافل.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -1121,6 +1187,8 @@ return array (
     'whatsapp' => '+249912333444',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تعليم حديث ومتميز بأحدث الأساليب وكادر تعليمي على درجة عالية من الخبرة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -1154,6 +1222,8 @@ return array (
     'whatsapp' => '+249912666777',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أكبر وأشهر المدارس الخاصة بمحلية شرق النيل وتحقق نتائج باهرة سنوياً.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -1187,6 +1257,8 @@ return array (
     'whatsapp' => '+249912555666',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تربوي بارز في أم درمان، يتميز بالاهتمام بالفائقين والمتابعة التربوية الدقيقة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -1220,6 +1292,8 @@ return array (
     'whatsapp' => '+249912111222',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس رائدة بالصحافة، بيئة نموذجية ومكتبات ومعامل حاسوب متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -1253,6 +1327,8 @@ return array (
     'whatsapp' => '+249912888999',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أقدم المدارس الخاصة بمدينة بحري، تجمع بين التربية الإسلامية والتفوق الأكاديمي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -1286,6 +1362,8 @@ return array (
     'whatsapp' => '+249912000111',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة عريقة تأسست في قلب أم درمان وخرجت قيادات وكفاءات سودانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -1319,6 +1397,8 @@ return array (
     'whatsapp' => '+249912000222',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تركز على التعليم التفاعلي والوسائط المتعددة والأنشطة العلمية والرياضية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -1352,6 +1432,8 @@ return array (
     'whatsapp' => '+249912000333',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تحظى بسمعة طيبة وتفوق مستمر لطلابها في امتحانات الشهادة الثانوية والأساس.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -1385,6 +1467,8 @@ return array (
     'whatsapp' => '+249912000444',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تحمل اسم رائد الصحافة السودانية، وتشتهر بمستوى لغوي وأكاديمي وثقافي رفيع.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -1418,6 +1502,8 @@ return array (
     'whatsapp' => '+249183777000',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'واحدة من أقدم وأعرق المدارس والكليات في السودان، تأسست عام 1929 وتخرج منها كبار رجالات الدولة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -1451,6 +1537,8 @@ return array (
     'whatsapp' => '+249183777002',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تاريخي في ولاية الجزيرة اشتهر بجودة التعليم واللغة الإنجليزية والتربية الرفيعة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -1484,6 +1572,8 @@ return array (
     'whatsapp' => '+249183777111',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة الراهبات (Sisters\' School / سيستر سكول) — الخرطوم، تأسست عام 1902م وتُعد من أقدم وأعرق الصروح التعليمية للبنات في السودان. تميزت بالانضباط الأكاديمي الصارم واللغات الحية وتخريج رائدات المجتمع في الطب والعلوم والدبلوماسية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -1517,6 +1607,8 @@ return array (
     'whatsapp' => '+249185333000',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية وتجارية تاريخية بحري العريقة ساهمت في تخريج أجيال الكفاءات المحاسبية والإدارية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -1548,6 +1640,8 @@ return array (
     'whatsapp' => '+249187555000',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تقع في حي المسالمة التاريخي بأم درمان، تعايش تعليمي وثقافي عريق يمتد لعقود طويلة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -1581,6 +1675,8 @@ return array (
     'whatsapp' => '+249183788000',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تربوية وطنية تقدم تعليماً متميزاً لكافة أطياف المجتمع السوداني بأعلى درجات الانضباط.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -1614,6 +1710,8 @@ return array (
     'whatsapp' => '+249183799000',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تدرس المناهج المشتركة وتخدم الجالية والطلاب السودانيين في قلب العاصمة الخرطوم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -1645,6 +1743,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة المؤتمر الثانوية بنين بأم درمان تأسست عام 1951م تخليداً لمؤتمر الخريجين العام رمز حركة الاستقلال. صرح أكاديمي رصين عُرف باحتلال المراكز الأولى في الشهادة الثانوية وتخريج نوابغ الطب والعلوم والهندسة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -1676,6 +1776,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'رمز التعليم الأهلي والوطني في السودان، قادت حركة الوعي والنهضة التعليمية في البلاد.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -1709,6 +1811,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'قلعة تفوق الفتيات بالعاصمة الوطنية وصانعة أوائل الشهادة الثانوية تأسست عام 1952م بأم درمان، وتربعت لعقود على قمة كليات الطب والصيدلة والعلوم بجامعة الخرطوم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -1742,6 +1846,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'درة الوقف التعليمي الخيري وأسطورة التفوق بالشهادة السودانية تأسست عام 1970م بمبادرة المحسن الكبير الشيخ مصطفى الأمين، وحصدت المركز الأول بالشهادة السودانية عشرات المرات وخرّجت نوابغ جراحة القلب والذكاء الاصطناعي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -1775,6 +1881,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة نموذجية رائدة في أم درمان تمتاز بارتفاع معدلات القبول ومستوى أكاديمي باهر.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -1808,6 +1916,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة نموذجية متفوقة اشتهرت بحصد المراكز الأولى والميداليات الذهبية في الشهادة السودانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -1841,6 +1951,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من المدارس النموذجية المتميزة بأم درمان بفضل كادرها التعليمي النخبوي ومتابعتها المستمرة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -1874,6 +1986,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المدرسة التجريبية النموذجية لجامعة الخرطوم، تجمع بين أحدث النظريات التربوية والتطبيق العملي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -1905,6 +2019,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة تاريخية عريقة تقع قبالة جامعة الخرطوم ولها تاريخ نضالي وأكاديمي مشرق.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -1936,6 +2052,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'قلعة التعليم الأكاديمي النموذجي في قلب العاصمة الخرطوم تأسست عام 1950م، واحتضنت أوائل الطلاب ومثلت مصنعاً حقيقياً للأطباء والمهندسين وأساتذة الجامعات وقادة الخدمة المدنية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -1969,6 +2087,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة نموذجية متميزة لبنات العاصمة تخرج منها نخبة الطبيبات والمهندسات ورائدات الأعمال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -2000,6 +2120,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'قلعة التعليم الثانوي الكبرى في مدينة بحري تأسست في عام الاستقلال 1956م بحي المزاد العريق. تخرج منها نخبة من كبار العلماء والسياسيين والأطباء والرياضيين الذين مثلوا السودان محلياً ودولياً.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -2033,6 +2155,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'أبرز مدرسة نموذجية للبنات في بحري وتعتبر معياراً للتفوق الأكاديمي والنشاط المدرسي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -2064,6 +2188,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة ثانوية حكومية تاريخية في شمبات تحظى بتقدير ومكانة رفيعة في المجتمع البحراوي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -2097,6 +2223,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تحمل اسم المناضل الوطني عبيد حاج الأمين وتتميز بمستواها التعليمي والتربوي النموذجي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -2128,6 +2256,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الملقبة بـ "السنية"، قلعة التعليم الثانوي في ولاية الجزيرة وأحد أعمدة التعليم بالسودان.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -2159,6 +2289,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'رائدة تعليم الفتيات الثانوي في ولاية الجزيرة تأسست عام 1951م وخرجت رائدات المجتمع والعمل الوطني.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -2192,6 +2324,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المدرسة النموذجية الأولى في ولاية الجزيرة التي تجمع صفوة الطلاب المتفوقين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -2225,6 +2359,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح نموذجي للفتيات في ولاية الجزيرة يتصدر قوائم الشرف في الامتحانات القومية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -2258,6 +2394,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة متميزة بمراحل الأساس والمتوسط بنات في مدينة ود مدني.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -2291,6 +2429,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة نموذجية تخدم أحياء ود مدني بكفاءة وانضباط عالي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -2324,6 +2464,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المدرسة الأولى في محلية الحصاحيصا، تاريخ عريض في التحصيل والنشاط الرياضي والثقافي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -2357,6 +2499,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'أشهر المدارس الخاصة بمحلية المناقل الكبرى، تحظى برعاية تربوية واهتمام مكثف بالطلاب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -2388,6 +2532,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'القلعة التعليمية الكبرى على ساحل البحر الأحمر، مدرسة تاريخية تخرج منها معظم رموز وقيادات الشرق.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -2421,6 +2567,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المدرسة النموذجية الأولى للبنات في البحر الأحمر، وتشتهر بتفوق طالباتها ونسب النجاح الكاملة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -2454,6 +2602,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي نموذجي يستقطب نخبة الطلاب المتفوقين في بورتسودان.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -2487,6 +2637,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'أقدم مدرسة أميرية تاريخية في بورتسودان وساحل البحر الأحمر تأسست عام 1947م وشكلت ذاكرة التعليم في المدينة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -2520,6 +2672,8 @@ return array (
     'whatsapp' => '+249912444001',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة حديثة ومتطورة في بورتسودان تواكب التوسع السكاني والتعليمي في المدينة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -2553,6 +2707,8 @@ return array (
     'whatsapp' => '+249912444002',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة خاصة متميزة بمستويات تعليمية قوية ومعامل حاسوب متكاملة في بورتسودان.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -2584,6 +2740,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'قلعة التنوير والفكر في عاصمة الحديد والنار تأسست عام 1950م بمدينة عطبرة، وخرّجت كبار قادة الهندسة الميكانيكية والسكك الحديدية والطب وأساتذة الجامعات ورواد الحركة الوطنية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -2617,6 +2775,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المدرسة النموذجية الأبرز لبنات نهر النيل وتحقق نتائج مبهرة في الشهادة القومية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -2648,6 +2808,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تربوي وأكاديمي عريق بمدينة شندي التاريخية تأسس عام 1954م، وتخرجت منه أجيال قادت مرافق الدولة والجامعات والقطاع الطبي والهندسي والقضائي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -2679,6 +2841,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدينة القرآن والعلم، مدرستها النموذجية تمثل منارة للتحصيل الأكاديمي والتربوي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -2710,6 +2874,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'منارة الولاية الشمالية وقلعة النوابغ على ضفاف النيل تأسست عام 1957م بدنقلا، وعُرفت بنسب تفوقها الكاسحة في الشهادة الثانوية وتخريج كبار العلماء والأساتذة والأطباء.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -2741,6 +2907,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'منارة علمية شامخة في أرض الحضارات تشتهر بتفوق طلابها وتماسك مجتمعها المدرسي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -2772,6 +2940,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'إحدى أقدم المدارس النظامية في تاريخ السودان تأسست عام 1906م بمدينة بربر العريقة بنهر النيل، وتخرجت منها أجيال القضاة والعلماء والإداريين والأدباء الذين شيدوا أجهزة الدولة السودانية بعد الاستقلال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -2803,6 +2973,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الصرح الثانوي التاريخي الأول بشرق السودان تأسس عام 1953م تحت سفوح جبال التاكا وتوتيل بحاضرة الشرق كسلا، وتخرجت منه أجيال قادت التنمية والإدارة والقضاء والطب في شرق السودان.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -2836,6 +3008,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المدرسة الأولى في قائمة الشرف والتميز الأكاديمي للفتيات في ولاية كسلا.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -2867,6 +3041,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح عريق في عاصمة السمسم والذرة، يخرج أجيالاً متفوقة تخدم مختلف بقاع السودان.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -2900,6 +3076,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة نموذجية متألقة تتصدر نتائج الامتحانات السنوية في الولاية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -2931,6 +3109,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'في أرض السلطنة الزرقاء، مدرسة نموذجية تمثل شعلة للتعليم والمعرفة في الولاية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -2962,6 +3142,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المدرسة التاريخية الرائدة للبنات على ضفاف النيل الأزرق بولاية سنار.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -2993,6 +3175,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'درة التعليم القومي في الغرب السوداني وشعلة كردفان التاريخية تأسست عام 1950م قرب الأبيض. صُممت وسط غابات الهشاب لجمع نوابغ الطلاب من كافة أقاليم السودان، وعُرفت بالانضباط التربوي الصارم وصهر النسيج الوطني وتخريج كبار قادة الدولة والطب والهندسة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -3026,6 +3210,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة نموذجية متميزة في عروس الرمال تواصل إشعاع التعليم في إقليم كردفان.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -3059,6 +3245,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المدرسة الأولى في قائمة الشرف لتعليم البنات في ولايات كردفان الكبرى.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -3090,6 +3278,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'منارة إقليم دارفور التعليمية الكبرى ومركز تخريج الكفاءات في غرب السودان.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -3123,6 +3313,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة رائدة في تعليم الفتيات بدارفور وإعداد القيادات النسوية والمهنية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -3154,6 +3346,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المدرسة النموذجية المركزية في حاضرة جنوب دارفور، مستويات تحصيلية متقدمة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -3187,6 +3381,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'أيقونة الجهد الشعبي والتجاري بالنيل الأبيض تأسست عام 1952م بالجهد الذاتي لأهالي وتجار كوستي، وخرّجت أطباء ومهندسين ورجال أعمال وقادة في الخدمة المدنية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -3220,6 +3416,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المدرسة النموذجية الأولى في عاصمة النيل الأبيض للبنات، تتصدر الترتيب سنوياً.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -3251,6 +3449,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي نموذجي يجمع نوابغ إقليم النيل الأزرق عند سد الروصيرص العظيم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -3284,6 +3484,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'أبرز مدرسة ثانوية في أقصى غرب السودان تواصل مسيرة العطاء والتعليم والتنوير.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -3315,6 +3517,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'شعلة العلم والتآخي في جبال النوبة، تقدم نموذجاً تربوياً متفرداً في جنوب كردفان.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -3346,6 +3550,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'قلعة العلم والمعرفة في قلب جبال النوبة ومدينة التعليم الأولى تأسست عام 1958م بالدلنج، ومثلت صرحاً للتآخي والتنوير وتخريج قيادات التعليم والصحة والإدارة بجنوب كردفان.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -3379,6 +3585,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المدرسة النموذجية الأولى في ولاية شرق دارفور وحاضنتها التعليمية الكبرى.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -3410,6 +3618,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدينة البرتقال وعاصمة وسط دارفور، تمثل مدرستها مركز الثقل التعليمي بالإقليم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -3441,6 +3651,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الصرح النموذجي الأول في حاضرة غرب كردفان ويخرج متفوقي المحليات المختلفة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -3472,6 +3684,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تاريخ تليد في مدينة الصمغ العربي ومركز تجاري وتعليمي عريق في كردفان.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -3503,6 +3717,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'كعبة التربية والتعليم وقبلة المناهج السودانية تأسست عام 1934م بمدينة الدويم على النيل الأبيض بقيادة عبد الرحمن علي طه ومستر غريفيثس. الصرح الذي وُلدت فيه كتب المناهج السودانية وتدرب فيه آلاف المعلمين وصيغت فيه الهوية التربوية للسودان الحديث.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -3534,6 +3750,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'أول مدرسة لتعليم البنات في تاريخ السودان الحديث، أسسها رائد تعليم المرأة الشيخ بابكر بدري عام 1903م في رفاعة بشرق الجزيرة. مثلت الشرارة الكبرى لتنوير وتحرير المرأة السودانية وتخريج أولى المعلمات والطبيبات وتأسيس كلية الأحفاد.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -3565,6 +3783,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح وطني تعليمي قومي رائد تأسس عام 1937م شمال أم درمان على ضفاف النيل. إحدى قلاع المثلث القومي للتعليم الثانوي بالسودان (مع حنتوب وخور طقت). تميزت بطراز معماري مهيب وداخليات بأسماء قادة التاريخ، وخرّجت رؤساء وزارات وعلماء ذرة واستشاريي طب وقادة استقلال وبناء السودان.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -3596,6 +3816,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'درة المدارس القومية الكبرى في السودان تأسست عام 1946م على الضفة الشرقية للنيل الأزرق بود مدني. موئل الفكر والأدب والسياسة، وضمت حرماً جامعياً مصغراً وملاعب أولمبية، وخرّجت الروائي العالمي الطيب صالح والبروفيسور عبد الله الطيب ونخبة صناع النهضة الوطنية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -3629,6 +3851,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تربوية رائدة في مدينة كوستي تشمل مراحل التعليم الابتدائي والمتوسط والثانوي، متميزة بنتائجها الأكاديمية في امتحانات الشهادة وتكريم المتفوقين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -3661,6 +3885,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي وتربوي بارز بمحلية كوستي يضم رياض الأطفال والمرحلة الابتدائية والمتوسطة، ومتميز بالأنشطة الثقافية والدورات المدرسية والمخيمات الصيفية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -3694,6 +3920,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع تعليمي وتربوي رائد في مدينة كوستي بولاية النيل الأبيض، يضم فروعاً متكاملة للبنين والبنات لمراحل رياض الأطفال، الابتدائي، المتوسط، والثانوي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -3727,6 +3955,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع تعليمي خاص متكامل للبنين والبنات في مدينة كوستي يغطي المراحل الأساسية والمتوسطة والثانوية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -3760,6 +3990,8 @@ return array (
     'whatsapp' => '+249912334455',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي نموذجي متكامل بمجمع شركة سكر كنانة، يقدم تعليماً متميزاً لأبناء العاملين والمجتمع المحلي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -3793,6 +4025,8 @@ return array (
     'whatsapp' => '+249912165037',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع بورتسودان المعتمد لمدرسة الخرطوم الدولية، يقدم مناهج كامبريدج البريطانية والشهادة الثانوية الدولية IGCSE.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -3826,6 +4060,8 @@ return array (
     'whatsapp' => '+249911091703',
     'email' => NULL,
     'website' => 'https://bes.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع تعليمي دولي متكامل بحي الشاطئ شمال فندق كورال، يدرس مناهج كامبريدج البريطانية المتطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -3859,6 +4095,8 @@ return array (
     'whatsapp' => '+249123000995',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية دولية بحي ترانسيت جوار هيئة الموانئ البحرية، تقدم برامج تعليمية باللغة الإنجليزية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -3891,6 +4129,8 @@ return array (
     'whatsapp' => '0912543210',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة متميزة بحي الثورة مربع 2، بيئة تعليمية محفزة ومعامل علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -3923,6 +4163,8 @@ return array (
     'whatsapp' => '0123654789',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية نموذجية تهتم بالمنهج الأكاديمي والتحصيل العلمي وحفظ القرآن الكريم والتربية القيمية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -3956,6 +4198,8 @@ return array (
     'whatsapp' => '0922456789',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة بحي ديم النور بشارع السلام، حققت مراكز متقدمة في امتحانات الشهادة الثانوية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -3989,6 +4233,8 @@ return array (
     'whatsapp' => '0912112233',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة بحي الشاطئ مربع 1، تميز أكاديمي مستمر ومراكز متقدمة بالشهادة المتوسطة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -4020,6 +4266,8 @@ return array (
     'whatsapp' => '0912987456',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة مرخصة بحي الوحدة جنوب الصينية، تقدم تعليماً أساسياً وتربوياً متكاملاً.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -4052,6 +4300,8 @@ return array (
     'whatsapp' => '+249123456012',
     'email' => NULL,
     'website' => 'https://africancouncil.net',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة بنين خاصة تابعة لمدارس المجلس الأفريقي للتعليم الخاص، بيئة مدرسية عالية الانضباط.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -4084,6 +4334,8 @@ return array (
     'whatsapp' => '+249123456012',
     'email' => NULL,
     'website' => 'https://africancouncil.net',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة بنات خاصة تابعة للمجلس الأفريقي بحي المطار، كادر تعليمي متميز وتفوق سنوي في النتائج.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -4115,6 +4367,8 @@ return array (
     'whatsapp' => '+249123456012',
     'email' => NULL,
     'website' => 'https://africancouncil.net',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مرحلة ثانوية مساق علمي وأدبي للبنين بحي الشاطئ، تتصدر نسب النجاح بالشهادة السودانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -4146,6 +4400,8 @@ return array (
     'whatsapp' => '+249123456012',
     'email' => NULL,
     'website' => 'https://africancouncil.net',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مرحلة ثانوية للبنات بحي دبايوا، بيئة تربوية رائدة ومعدلات قبول عالية في كليات القمة الجامعية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -4177,6 +4433,8 @@ return array (
     'whatsapp' => '+249123456012',
     'email' => NULL,
     'website' => 'https://africancouncil.net',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع متكامل لصفوف المرحلة الابتدائية مع فصول حاسوب وأنشطة لا صفية وملاعب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -4208,6 +4466,8 @@ return array (
     'whatsapp' => '+249123456012',
     'email' => NULL,
     'website' => 'https://africancouncil.net',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة نموذجية متطورة لتنمية مهارات الطفولة المبكرة والتهيئة المدرسية بحي المطار.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -4241,6 +4501,8 @@ return array (
     'whatsapp' => '+249311822456',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تأسست عام 1935م (وشيدت مباني كلية جوزيف كمبوني 1948م)؛ صرح تعليمي ومجتمعي تاريخي عريق بشارع الميناء أمام الكنيسة الكاثوليكية، يمتلك إرثاً ممتداً في الانضباط وجودة التعليم باللغتين الإنجليزية والعربية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -4274,6 +4536,8 @@ return array (
     'whatsapp' => '+249912445588',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة تخدم أبناء الجالية الإريترية والمجتمع المحلي بتصديق من وزارة التربية والتوجيه.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -4307,6 +4571,8 @@ return array (
     'whatsapp' => '+249912778899',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية معتمدة بإشراف مكتب التعليم الأجنبي والجاليات بوزارة التربية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -4338,6 +4604,8 @@ return array (
     'whatsapp' => '0912678901',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة بحي دبايوا مربع 3، تقدم تعليماً أساسياً وتربوياً متكاملاً للأطفال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -4370,6 +4638,8 @@ return array (
     'whatsapp' => '0912889900',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي خاص بسلالاب شمال الاستاد، يهتم بالتفوق العلمي والتحصيل الأكاديمي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -4402,6 +4672,8 @@ return array (
     'whatsapp' => '0912445566',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة معتمدة بمحلية سواكن جوار الميناء التاريخي، تسهم في تعزيز التعليم الأهلي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -4434,6 +4706,8 @@ return array (
     'whatsapp' => '0912334455',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة معتمدة بمحلية طوكر لتعليم الأساس وحفظ القرآن الكريم والعلوم الشرعية والأكاديمية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -4466,6 +4740,8 @@ return array (
     'whatsapp' => '0123088825',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع مدارس الأندلس بمدينة سنكات، يقدم تعليماً نموذجياً لطلاب محلية سنكات وجبيت.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -4497,6 +4773,8 @@ return array (
     'whatsapp' => '0912554433',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة للأطفال والتأسيس الابتدائي بحي المطار ببورتسودان.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -4529,6 +4807,8 @@ return array (
     'whatsapp' => '0922114455',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة بحي سلالاب تركز على المهارات العلمية وتنمية المواهب والتفوق الأكاديمي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -4561,6 +4841,8 @@ return array (
     'whatsapp' => '0123778899',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تلتزم بأعلى معايير الجودة والتحصيل الأكاديمي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -4594,6 +4876,8 @@ return array (
     'whatsapp' => '0912883344',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة متخصصة في رياض الأطفال والتعليم قبل المدرسي بحي الشاطئ.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -4626,6 +4910,8 @@ return array (
     'whatsapp' => '0912665544',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة بحي ديم النور، تقدم مناهج وزارة التربية مع برامج تقوية مستمرة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -4658,6 +4944,8 @@ return array (
     'whatsapp' => '0912332211',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة بمدينة جبيت تسهم في توفير بدائل تعليمية متميزة لأبناء المنطقة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -4668,70 +4956,6 @@ return array (
     'historic_votes' => 0,
   ),
   144 => 
-  array (
-    'name' => 'مدرسة الخرطوم الدولية المجتمعية',
-    'name_en' => 'Khartoum International Community School - KICS',
-    'slug' => 'مدرسة-الخرطوم-الدولية-المجتمعية',
-    'school_type' => 'international',
-    'gender_type' => 'mixed',
-    'curriculum' => 'sudanese',
-    'country' => 'السودان',
-    'established_year' => NULL,
-    'stages' => 
-    array (
-      0 => 'secondary',
-    ),
-    'state' => 'الخرطوم',
-    'city' => 'الخرطوم',
-    'district' => '?نوب  / سوبا   الراقي، امتداد طريق مدني.',
-    'address' => 'الخرطوم — الخرطوم — ?نوب  / سوبا   الراقي، امتداد طريق مدني.',
-    'phone' => NULL,
-    'whatsapp' => NULL,
-    'email' => NULL,
-    'website' => 'https://kics.sd',
-    'description' => 'معتمدة من منظمة البكالوريا الدولية (IB World School) ومجلس المدارس الدولية (CIS).',
-    'status' => 'approved',
-    'is_verified' => 0,
-    'is_schoplus_client' => 0,
-    'rating_avg' => '4.90',
-    'is_historic' => 0,
-    'historic_badge_reason' => NULL,
-    'historic_votes' => 0,
-  ),
-  145 => 
-  array (
-    'name' => 'مدرسة الخرطوم الأمريكية',
-    'name_en' => 'Khartoum American School - KAS',
-    'slug' => 'مدرسة-الخرطوم-الأمريكية',
-    'school_type' => 'international',
-    'gender_type' => 'mixed',
-    'curriculum' => 'american',
-    'country' => 'السودان',
-    'established_year' => NULL,
-    'stages' => 
-    array (
-      0 => 'primary',
-      1 => 'intermediate',
-      2 => 'secondary',
-    ),
-    'state' => 'الخرطوم',
-    'city' => 'الخرطوم',
-    'district' => 'محمد نجيب، قرب تقاطع  61.',
-    'address' => 'الخرطوم — الخرطوم — محمد نجيب، قرب تقاطع  61.',
-    'phone' => NULL,
-    'whatsapp' => NULL,
-    'email' => NULL,
-    'website' => 'https://kaskhartoum.org',
-    'description' => 'رابطة الولايات الوسطى للكليات والمدارس (MSA)، وسفارة الولايات المتحدة بالخرطوم.',
-    'status' => 'approved',
-    'is_verified' => 0,
-    'is_schoplus_client' => 0,
-    'rating_avg' => '4.90',
-    'is_historic' => 0,
-    'historic_badge_reason' => NULL,
-    'historic_votes' => 0,
-  ),
-  146 => 
   array (
     'name' => 'مدرسة الاتحاد العليا',
     'name_en' => 'Unity High School',
@@ -4755,6 +4979,8 @@ return array (
     'whatsapp' => '+249183747310',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مسجلة كمركز معتمد لامتحانات كامبريدج لدى المجلس الثقافي البريطاني بالخرطوم منذ أكثر من قرن.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -4764,7 +4990,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  147 => 
+  145 => 
   array (
     'name' => 'مدرسة القديس فرنسيس الخاصة',
     'name_en' => 'St. Francis Primary School',
@@ -4786,6 +5012,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'التوثيق والتحقق:** شبكة مدارس الإرسالية الكاثوليكية، موثقة في الخرائط التعليمية وسجلات الكنائس بوزارة التربية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -4795,7 +5023,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  148 => 
+  146 => 
   array (
     'name' => 'مدرسة السودان العالمية',
     'name_en' => 'Sudan International Grammar School - SIGS',
@@ -4813,12 +5041,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'الخرطوم',
-    'district' => '?لمنشية، مربع 7.',
-    'address' => 'الخرطوم — الخرطوم — ?لمنشية، مربع 7.',
+    'district' => 'المنشية، مربع 7.',
+    'address' => 'الخرطوم — الخرطوم — المنشية، مربع 7.',
     'phone' => '0183284411',
     'whatsapp' => '0183284411',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -4828,7 +5058,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  149 => 
+  147 => 
   array (
     'name' => 'مدارس كامبردج العالمية ومراكز التدريب',
     'name_en' => 'Cambridge International Schools - CITC',
@@ -4846,12 +5076,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'الخرطوم',
-    'district' => '?لمعمورة، مربع 69 / امتداد العرفة،  النخيل.',
-    'address' => 'الخرطوم — الخرطوم — ?لمعمورة، مربع 69 / امتداد العرفة،  النخيل.',
+    'district' => 'المعمورة، مربع 69 / امتداد العرفة، النخيل.',
+    'address' => 'الخرطوم — الخرطوم — المعمورة، مربع 69 / امتداد العرفة، النخيل.',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => 'https://citchorizon.com',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -4861,7 +5093,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  150 => 
+  148 => 
   array (
     'name' => 'مدارس سميت الدولية',
     'name_en' => 'Summit International Schools',
@@ -4879,12 +5111,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'الخرطوم',
-    'district' => '?لمعمورة، شرق محطة وقود بشائر.',
-    'address' => 'الخرطوم — الخرطوم — ?لمعمورة، شرق محطة وقود بشائر.',
+    'district' => 'المعمورة، شرق محطة وقود بشائر.',
+    'address' => 'الخرطوم — الخرطوم — المعمورة، شرق محطة وقود بشائر.',
     'phone' => '0155301374',
     'whatsapp' => '0155301374',
     'email' => NULL,
     'website' => 'https://summit-schools.com',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -4894,7 +5128,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  151 => 
+  149 => 
   array (
     'name' => 'مدرسة نورديك الدولية بالخرطوم',
     'name_en' => 'Nordik International School',
@@ -4917,6 +5151,8 @@ return array (
     'whatsapp' => '+249901239000',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صفحة فيسبوك الرسمية المعتمدة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -4926,7 +5162,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  152 => 
+  150 => 
   array (
     'name' => 'المدرسة السعودية العالمية بالخرطوم',
     'name_en' => 'Saudia International School',
@@ -4944,12 +5180,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'الخرطوم',
-    'district' => '?لعمارات، ال رقم 53.',
-    'address' => 'الخرطوم — الخرطوم — ?لعمارات، ال رقم 53.',
+    'district' => 'العمارات، ال رقم 53.',
+    'address' => 'الخرطوم — الخرطوم — العمارات، ال رقم 53.',
     'phone' => '0901232756',
     'whatsapp' => '0901232756',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صفحة رسمية معتمدة على فيسبوك وإشراف الملحقية الثقافية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -4959,7 +5197,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  153 => 
+  151 => 
   array (
     'name' => 'المدرسة الفرنسية الدولية بالخرطوم',
     'name_en' => 'École Française Internationale de Khartoum - EFIK',
@@ -4981,6 +5219,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -4990,40 +5230,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  154 => 
-  array (
-    'name' => 'مؤسسة الجودة التربوية التعليمية الخاصة',
-    'name_en' => '',
-    'slug' => 'مؤسسة-الجودة-التربوية-التعليمية-الخاصة',
-    'school_type' => 'private',
-    'gender_type' => 'mixed',
-    'curriculum' => 'sudanese',
-    'country' => 'السودان',
-    'established_year' => NULL,
-    'stages' => 
-    array (
-      0 => 'primary',
-      1 => 'intermediate',
-      2 => 'secondary',
-    ),
-    'state' => 'الخرطوم',
-    'city' => 'الخرطوم',
-    'district' => '?ركويت (شرق البلابل).',
-    'address' => 'الخرطوم — الخرطوم — ?ركويت (شرق البلابل).',
-    'phone' => '0154883004',
-    'whatsapp' => '0154883004',
-    'email' => NULL,
-    'website' => 'https://algawda.sd',
-    'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
-    'status' => 'approved',
-    'is_verified' => 0,
-    'is_schoplus_client' => 0,
-    'rating_avg' => '4.90',
-    'is_historic' => 0,
-    'historic_badge_reason' => NULL,
-    'historic_votes' => 0,
-  ),
-  155 => 
+  152 => 
   array (
     'name' => 'مدرسة المنار الجديد الخاصة',
     'name_en' => '',
@@ -5041,12 +5248,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'الخرطوم',
-    'district' => '?لطائف.',
-    'address' => 'الخرطوم — الخرطوم — ?لطائف.',
+    'district' => 'الطائف.',
+    'address' => 'الخرطوم — الخرطوم — الطائف.',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -5056,7 +5265,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  156 => 
+  153 => 
   array (
     'name' => 'مدارس القبس الخاصة',
     'name_en' => '',
@@ -5080,6 +5289,8 @@ return array (
     'whatsapp' => '0912308130',
     'email' => NULL,
     'website' => 'https://alqabasschools.com',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -5089,7 +5300,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  157 => 
+  154 => 
   array (
     'name' => 'مدارس الخرطوم الدولية الخاصة',
     'name_en' => '',
@@ -5106,12 +5317,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'الخرطوم',
-    'district' => '?ركويت، مربع 48  العمارة الكويتية، تقاطع  المويه مع  المطار.',
-    'address' => 'الخرطوم — الخرطوم — ?ركويت، مربع 48  العمارة الكويتية، تقاطع  المويه مع  المطار.',
+    'district' => 'أركويت، مربع 48 العمارة الكويتية، تقاطع المويه مع المطار.',
+    'address' => 'الخرطوم — الخرطوم — أركويت، مربع 48 العمارة الكويتية، تقاطع المويه مع المطار.',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'التوثيق والتحقق:** صفحة معتمدة ورقم قيد بوزارة التربية محلية الخرطوم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -5121,7 +5334,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  158 => 
+  155 => 
   array (
     'name' => 'مدارس الفتح الخاصة',
     'name_en' => '',
@@ -5139,12 +5352,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'الخرطوم',
-    'district' => '?لامتداد (الدرجة الثالثة، محطة 7).',
-    'address' => 'الخرطوم — الخرطوم — ?لامتداد (الدرجة الثالثة، محطة 7).',
+    'district' => 'الامتداد (الدرجة الثالثة، محطة 7).',
+    'address' => 'الخرطوم — الخرطوم — الامتداد (الدرجة الثالثة، محطة 7).',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'التوثيق والتحقق:** سجلات أوائل الشهادة السودانية بولاية الخرطوم، وصفحة رسمية موثقة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -5154,7 +5369,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  159 => 
+  156 => 
   array (
     'name' => 'مدارس بارادايس الخاصة ورياض الأطفال',
     'name_en' => 'Paradise Schools & Kindergarten',
@@ -5170,12 +5385,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'الخرطوم',
-    'district' => '?لطائف،  الستين.',
-    'address' => 'الخرطوم — الخرطوم — ?لطائف،  الستين.',
+    'district' => 'الطائف، الستين.',
+    'address' => 'الخرطوم — الخرطوم — الطائف، الستين.',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'التوثيق والتحقق:** صفحة رسمية معتمدة على فيسبوك وإعلانات القبول.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -5185,7 +5402,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  160 => 
+  157 => 
   array (
     'name' => 'مدارس رياض الذكر الحكيم الخاصة',
     'name_en' => '',
@@ -5202,12 +5419,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'الخرطوم',
-    'district' => '?برة، مربع 19.',
-    'address' => 'الخرطوم — الخرطوم — ?برة، مربع 19.',
+    'district' => 'جبرة، مربع 19.',
+    'address' => 'الخرطوم — الخرطوم — جبرة، مربع 19.',
     'phone' => '0915405566',
     'whatsapp' => '0915405566',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -5217,7 +5436,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  161 => 
+  158 => 
   array (
     'name' => 'مدرسة الخرطوم كرييتف العالمية',
     'name_en' => 'Khartoum International Creative School',
@@ -5233,12 +5452,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'الخرطوم',
-    'district' => '?برة، مربع 14.',
-    'address' => 'الخرطوم — الخرطوم — ?برة، مربع 14.',
+    'district' => 'جبرة، مربع 14.',
+    'address' => 'الخرطوم — الخرطوم — جبرة، مربع 14.',
     'phone' => '0916546190',
     'whatsapp' => '0916546190',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -5248,7 +5469,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  162 => 
+  159 => 
   array (
     'name' => 'مدارس البصيرة القرآنية الخاصة',
     'name_en' => '',
@@ -5264,12 +5485,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'الخرطوم',
-    'district' => '?برة، مربع 19،  الزومة،  رقم 8.',
-    'address' => 'الخرطوم — الخرطوم — ?برة، مربع 19،  الزومة،  رقم 8.',
+    'district' => 'جبرة، مربع 19، الزومة، رقم 8.',
+    'address' => 'الخرطوم — الخرطوم — جبرة، مربع 19، الزومة، رقم 8.',
     'phone' => '0111171177',
     'whatsapp' => '0111171177',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -5279,7 +5502,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  163 => 
+  160 => 
   array (
     'name' => 'مدارس هيام العالمية الخاصة',
     'name_en' => '',
@@ -5295,12 +5518,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'الخرطوم',
-    'district' => '?برة، ال الرئيسي، مقابل منتزه المقرن.',
-    'address' => 'الخرطوم — الخرطوم — ?برة، ال الرئيسي، مقابل منتزه المقرن.',
+    'district' => 'جبرة، ال الرئيسي، مقابل منتزه المقرن.',
+    'address' => 'الخرطوم — الخرطوم — جبرة، ال الرئيسي، مقابل منتزه المقرن.',
     'phone' => '0912799166',
     'whatsapp' => '0912799166',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -5310,7 +5535,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  164 => 
+  161 => 
   array (
     'name' => 'روضة ومدارس الريان',
     'name_en' => '',
@@ -5333,6 +5558,8 @@ return array (
     'whatsapp' => '249120022595',
     'email' => NULL,
     'website' => 'https://africancouncil.net',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -5342,7 +5569,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  165 => 
+  162 => 
   array (
     'name' => 'مدرسة الصحافة 15 القرآنية الخاصة',
     'name_en' => '',
@@ -5359,12 +5586,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'الخرطوم',
-    'district' => '?لصحافة، مربع 15.',
-    'address' => 'الخرطوم — الخرطوم — ?لصحافة، مربع 15.',
+    'district' => 'الصحافة، مربع 15.',
+    'address' => 'الخرطوم — الخرطوم — الصحافة، مربع 15.',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'التوثيق والتحقق:** صفحة رسمية معتمدة بإشراف إدارة التعليم الخاص بمحلية الخرطوم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -5374,7 +5603,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  166 => 
+  163 => 
   array (
     'name' => 'مدرسة تشالنج الدولية',
     'name_en' => 'Challenge International School - فرع الخرطوم',
@@ -5391,12 +5620,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'الخرطوم',
-    'district' => '?نوب   النزهة.',
-    'address' => 'الخرطوم — الخرطوم — ?نوب   النزهة.',
+    'district' => 'جنوب النزهة.',
+    'address' => 'الخرطوم — الخرطوم — جنوب النزهة.',
     'phone' => '0157905892',
     'whatsapp' => '0157905892',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -5406,7 +5637,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  167 => 
+  164 => 
   array (
     'name' => 'مدارس التعليم البريطانية',
     'name_en' => 'British Educational Schools - فرع المهندسين',
@@ -5423,12 +5654,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'أم درمان',
-    'district' => '?لمهندسين.',
-    'address' => 'الخرطوم — أم درمان — ?لمهندسين.',
+    'district' => 'المهندسين.',
+    'address' => 'الخرطوم — أم درمان — المهندسين.',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -5438,7 +5671,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  168 => 
+  165 => 
   array (
     'name' => 'روضة ومدارس صن لايت العالمية',
     'name_en' => 'Sunlight International School & KG',
@@ -5460,6 +5693,8 @@ return array (
     'whatsapp' => '0112332234',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -5469,7 +5704,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  169 => 
+  166 => 
   array (
     'name' => 'مدارس القبس المنير الخاصة',
     'name_en' => '',
@@ -5493,6 +5728,8 @@ return array (
     'whatsapp' => '0912308130',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -5502,39 +5739,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  170 => 
-  array (
-    'name' => 'مدرسة الملازمين الخاصة',
-    'name_en' => '',
-    'slug' => 'مدرسة-الملازمين-الخاصة',
-    'school_type' => 'private',
-    'gender_type' => 'mixed',
-    'curriculum' => 'sudanese',
-    'country' => 'السودان',
-    'established_year' => NULL,
-    'stages' => 
-    array (
-      0 => 'primary',
-      1 => 'intermediate',
-    ),
-    'state' => 'الخرطوم',
-    'city' => 'أم درمان',
-    'district' => '?لملازمين العريق (قرب الإذاعة والتلفزيون).',
-    'address' => 'الخرطوم — أم درمان — ?لملازمين العريق (قرب الإذاعة والتلفزيون).',
-    'phone' => NULL,
-    'whatsapp' => NULL,
-    'email' => NULL,
-    'website' => NULL,
-    'description' => 'التوثيق والتحقق:** توثيق إدارة التعليم الأهلي والخاص، وسجلات نتائج مرحلة الأساس.',
-    'status' => 'approved',
-    'is_verified' => 0,
-    'is_schoplus_client' => 0,
-    'rating_avg' => '4.90',
-    'is_historic' => 0,
-    'historic_badge_reason' => NULL,
-    'historic_votes' => 0,
-  ),
-  171 => 
+  167 => 
   array (
     'name' => 'مؤسسة أكسلانت التعليمية - مدارس الامتياز الخاصة',
     'name_en' => '',
@@ -5558,6 +5763,8 @@ return array (
     'whatsapp' => '0129139393',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -5567,7 +5774,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  172 => 
+  168 => 
   array (
     'name' => 'مجموعة المنهل التعليمية الخاصة',
     'name_en' => '',
@@ -5591,6 +5798,8 @@ return array (
     'whatsapp' => '0123021026',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'التوثيق والتحقق:** معتمدة رسمياً ومصنفة ضمن كبرى المدارس الخاصة بكرري وأم درمان.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -5600,7 +5809,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  173 => 
+  169 => 
   array (
     'name' => 'مدارس المهندسين الخاصة',
     'name_en' => '',
@@ -5618,12 +5827,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'أم درمان',
-    'district' => '?لثورة، غرب طلمبة النيل / الفردوس / استوب الرومي.',
-    'address' => 'الخرطوم — أم درمان — ?لثورة، غرب طلمبة النيل / الفردوس / استوب الرومي.',
+    'district' => 'الثورة، غرب طلمبة النيل / الفردوس / استوب الرومي.',
+    'address' => 'الخرطوم — أم درمان — الثورة، غرب طلمبة النيل / الفردوس / استوب الرومي.',
     'phone' => '0125789001',
     'whatsapp' => '0125789001',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -5633,7 +5844,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  174 => 
+  170 => 
   array (
     'name' => 'مدرسة المدار الثانوية الخاصة',
     'name_en' => '',
@@ -5649,12 +5860,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'كرري',
-    'district' => '?لثورة،  الوادي، استوب  النيل.',
-    'address' => 'الخرطوم — كرري — ?لثورة،  الوادي، استوب  النيل.',
+    'district' => 'الثورة، الوادي، استوب النيل.',
+    'address' => 'الخرطوم — كرري — الثورة، الوادي، استوب النيل.',
     'phone' => '0912158772',
     'whatsapp' => '0912158772',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -5664,7 +5877,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  175 => 
+  171 => 
   array (
     'name' => 'مدارس فاطمة محمد صالح الخاصة',
     'name_en' => '',
@@ -5681,12 +5894,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'كرري',
-    'district' => '?لوادي، الواحة شرق مربع 5 (شرق طلمبة بشائر سابقاً).',
-    'address' => 'الخرطوم — كرري — ?لوادي، الواحة شرق مربع 5 (شرق طلمبة بشائر سابقاً).',
+    'district' => 'الوادي، الواحة شرق مربع 5 (شرق طلمبة بشائر سابقاً).',
+    'address' => 'الخرطوم — كرري — الوادي، الواحة شرق مربع 5 (شرق طلمبة بشائر سابقاً).',
     'phone' => '0916257974',
     'whatsapp' => '0916257974',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -5696,7 +5911,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  176 => 
+  172 => 
   array (
     'name' => 'مؤسسة دار المنهل والعين التربوية التعليمية الخاصة',
     'name_en' => '',
@@ -5713,12 +5928,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'كرري',
-    'district' => '?لثورة.',
-    'address' => 'الخرطوم — كرري — ?لثورة.',
+    'district' => 'الثورة.',
+    'address' => 'الخرطوم — كرري — الثورة.',
     'phone' => '0129488801',
     'whatsapp' => '0129488801',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -5728,7 +5945,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  177 => 
+  173 => 
   array (
     'name' => 'مجمع مدارس المجلس الإفريقي بكرري',
     'name_en' => '',
@@ -5752,6 +5969,8 @@ return array (
     'whatsapp' => '0123565779',
     'email' => NULL,
     'website' => 'https://africancouncil.net',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -5761,39 +5980,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  178 => 
-  array (
-    'name' => 'مدرسة الأجيال الابتدائية والمتوسطة الخاصة',
-    'name_en' => '',
-    'slug' => 'مدرسة-الأجيال-الابتدائية-والمتوسطة-الخاصة',
-    'school_type' => 'private',
-    'gender_type' => 'mixed',
-    'curriculum' => 'sudanese',
-    'country' => 'السودان',
-    'established_year' => NULL,
-    'stages' => 
-    array (
-      0 => 'primary',
-      1 => 'intermediate',
-    ),
-    'state' => 'الخرطوم',
-    'city' => 'أم بدة',
-    'district' => '?ار السلام، مربع 26.',
-    'address' => 'الخرطوم — أمبدة — ?ار السلام، مربع 26.',
-    'phone' => NULL,
-    'whatsapp' => NULL,
-    'email' => NULL,
-    'website' => NULL,
-    'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
-    'status' => 'approved',
-    'is_verified' => 0,
-    'is_schoplus_client' => 0,
-    'rating_avg' => '4.90',
-    'is_historic' => 0,
-    'historic_badge_reason' => NULL,
-    'historic_votes' => 0,
-  ),
-  179 => 
+  174 => 
   array (
     'name' => 'مدارس السودان الدولية',
     'name_en' => '',
@@ -5811,12 +5998,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'بحري',
-    'district' => '?لصافية، شرق مقسم سوداني.',
-    'address' => 'الخرطوم — بحري — ?لصافية، شرق مقسم سوداني.',
+    'district' => 'الصافية، شرق مقسم سوداني.',
+    'address' => 'الخرطوم — بحري — الصافية، شرق مقسم سوداني.',
     'phone' => '0127779888',
     'whatsapp' => '0127779888',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -5826,7 +6015,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  180 => 
+  175 => 
   array (
     'name' => 'مدرسة دار المعرفة السودانية',
     'name_en' => '',
@@ -5842,12 +6031,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'بحري',
-    'district' => '?لصافية، شمال مربع 7، مبنى رقم 211.',
-    'address' => 'الخرطوم — بحري — ?لصافية، شمال مربع 7، مبنى رقم 211.',
+    'district' => 'الصافية، شمال مربع 7، مبنى رقم 211.',
+    'address' => 'الخرطوم — بحري — الصافية، شمال مربع 7، مبنى رقم 211.',
     'phone' => '0902276859',
     'whatsapp' => '0902276859',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -5857,7 +6048,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  181 => 
+  176 => 
   array (
     'name' => 'مدارس ورياض يثرب التعليمية الخاصة',
     'name_en' => '',
@@ -5875,12 +6066,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'الخرطوم',
-    'district' => '?حري   المعونة الرئيسي.',
-    'address' => 'الخرطوم — الخرطوم — ?حري   المعونة الرئيسي.',
+    'district' => 'بحري المعونة الرئيسي.',
+    'address' => 'الخرطوم — الخرطوم — بحري المعونة الرئيسي.',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'التوثيق والتحقق:** صفحة رسمية معتمدة وقيد معتمد بوزارة التربية بولاية الخرطوم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -5890,7 +6083,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  182 => 
+  177 => 
   array (
     'name' => 'مدرسة العلا الجديدة الثانوية الخاصة',
     'name_en' => '',
@@ -5906,12 +6099,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'بحري',
-    'district' => '?مبات،  العملاق.',
-    'address' => 'الخرطوم — بحري — ?مبات،  العملاق.',
+    'district' => 'شمبات، العملاق.',
+    'address' => 'الخرطوم — بحري — شمبات، العملاق.',
     'phone' => '0122376227',
     'whatsapp' => '0122376227',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -5921,7 +6116,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  183 => 
+  178 => 
   array (
     'name' => 'مدارس الرحاب الخاصة وروضة أكاديمية الطفل',
     'name_en' => '',
@@ -5937,12 +6132,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'بحري',
-    'district' => '?مبات الأراضي (لفة جنوب).',
-    'address' => 'الخرطوم — بحري — ?مبات الأراضي (لفة جنوب).',
+    'district' => 'شمبات الأراضي (لفة جنوب).',
+    'address' => 'الخرطوم — بحري — شمبات الأراضي (لفة جنوب).',
     'phone' => '0903737000',
     'whatsapp' => '0903737000',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -5952,7 +6149,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  184 => 
+  179 => 
   array (
     'name' => 'مدرسة الولاء الخاصة',
     'name_en' => '',
@@ -5968,12 +6165,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'بحري',
-    'district' => '?لفاية الملوك / الدروشاب (جنوب محطة فقيري).',
-    'address' => 'الخرطوم — بحري — ?لفاية الملوك / الدروشاب (جنوب محطة فقيري).',
+    'district' => 'الحلفايا الملوك / الدروشاب (جنوب محطة فقيري).',
+    'address' => 'الخرطوم — بحري — الحلفايا الملوك / الدروشاب (جنوب محطة فقيري).',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -5983,7 +6182,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  185 => 
+  180 => 
   array (
     'name' => 'مدرسة توينز الخاصة',
     'name_en' => 'TWINS Private School',
@@ -6000,12 +6199,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'بحري',
-    'district' => '?لدروشاب جنوب، بعد الطلمبتين، جوار سنتر أبو طلال.',
-    'address' => 'الخرطوم — بحري — ?لدروشاب جنوب، بعد الطلمبتين، جوار سنتر أبو طلال.',
+    'district' => 'الدروشاب جنوب، بعد الطلمبتين، جوار سنتر أبو طلال.',
+    'address' => 'الخرطوم — بحري — الدروشاب جنوب، بعد الطلمبتين، جوار سنتر أبو طلال.',
     'phone' => '0900951513',
     'whatsapp' => '0900951513',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -6015,7 +6216,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  186 => 
+  181 => 
   array (
     'name' => 'مدرسة نون الخاصة',
     'name_en' => '',
@@ -6032,12 +6233,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'بحري',
-    'district' => '?لدروشاب، محطة الركشات.',
-    'address' => 'الخرطوم — بحري — ?لدروشاب، محطة الركشات.',
+    'district' => 'الدروشاب، محطة الركشات.',
+    'address' => 'الخرطوم — بحري — الدروشاب، محطة الركشات.',
     'phone' => '0912148250',
     'whatsapp' => '0912148250',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -6047,7 +6250,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  187 => 
+  182 => 
   array (
     'name' => 'مجموعة مدارس حامد السوراوي الخاصة',
     'name_en' => '',
@@ -6065,12 +6268,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'بحري',
-    'district' => '?لكدرو، أم القرى،  الأمية.',
-    'address' => 'الخرطوم — بحري — ?لكدرو، أم القرى،  الأمية.',
+    'district' => 'الكدرو، أم القرى، الأمية.',
+    'address' => 'الخرطوم — بحري — الكدرو، أم القرى، الأمية.',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المراحل التعليمية:** أساس، متوسط، ثانوي (مراكز امتحانات شهادة ثانوية).؛ التوثيق والتحقق:** صفحة رسمية معتمدة على فيسبوك وكشوفات امتحانات محلية بحري.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -6080,7 +6285,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  188 => 
+  183 => 
   array (
     'name' => 'مدارس نور الإيمان العالمية الجديدة الخاصة',
     'name_en' => '',
@@ -6103,6 +6308,8 @@ return array (
     'whatsapp' => '0912979728',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -6112,7 +6319,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  189 => 
+  184 => 
   array (
     'name' => 'مجمع مدارس ومؤسسة علم بالقلم القرآنية',
     'name_en' => '',
@@ -6134,6 +6341,8 @@ return array (
     'whatsapp' => '0117711967',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -6143,7 +6352,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  190 => 
+  185 => 
   array (
     'name' => 'مجموعة مدارس الإبداع الخاصة',
     'name_en' => '',
@@ -6167,6 +6376,8 @@ return array (
     'whatsapp' => '0110041600',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -6176,7 +6387,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  191 => 
+  186 => 
   array (
     'name' => 'مدارس سبل الخاصة',
     'name_en' => 'Subul Private School',
@@ -6193,12 +6404,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'شرق النيل',
-    'district' => '?لفيحاء، مربع 4.',
-    'address' => 'الخرطوم — شرق النيل — ?لفيحاء، مربع 4.',
+    'district' => 'الفيحاء، مربع 4.',
+    'address' => 'الخرطوم — شرق النيل — الفيحاء، مربع 4.',
     'phone' => '0990005052',
     'whatsapp' => '0990005052',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صفحة رسمية معتمدة على فيسبوك.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -6208,7 +6421,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  192 => 
+  187 => 
   array (
     'name' => 'مدارس الخرطوم بحري العالمية الخاصة',
     'name_en' => '',
@@ -6226,12 +6439,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'الخرطوم',
-    'district' => '?رق النيل  لفة الوالي، الفيحاء مربع 7 (جوار مسجد التوبة).',
-    'address' => 'الخرطوم — الخرطوم — ?رق النيل  لفة الوالي، الفيحاء مربع 7 (جوار مسجد التوبة).',
+    'district' => 'شرق النيل لفة الوالي، الفيحاء مربع 7 (جوار مسجد التوبة).',
+    'address' => 'الخرطوم — الخرطوم — شرق النيل لفة الوالي، الفيحاء مربع 7 (جوار مسجد التوبة).',
     'phone' => '0123769869',
     'whatsapp' => '0123769869',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -6241,7 +6456,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  193 => 
+  188 => 
   array (
     'name' => 'مدارس ورياض أفريقيا للتعليم الخاص',
     'name_en' => '',
@@ -6259,12 +6474,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'شرق النيل',
-    'district' => '?لنصر،  واحد (الشقلة وسط، تقاطع كبري الشهيدة ندى).',
-    'address' => 'الخرطوم — شرق النيل — ?لنصر،  واحد (الشقلة وسط، تقاطع كبري الشهيدة ندى).',
+    'district' => 'النصر، واحد (الشقلة وسط، تقاطع كبري الشهيدة ندى).',
+    'address' => 'الخرطوم — شرق النيل — النصر، واحد (الشقلة وسط، تقاطع كبري الشهيدة ندى).',
     'phone' => '0927346000',
     'whatsapp' => '0927346000',
     'email' => NULL,
     'website' => 'https://gmail.com',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -6274,7 +6491,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  194 => 
+  189 => 
   array (
     'name' => 'مدارس الدكتور إدريس جلال الخاصة',
     'name_en' => '',
@@ -6292,12 +6509,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'شرق النيل',
-    'district' => '?لهدى، قرب  القذافي ومستشفى الكرامة.',
-    'address' => 'الخرطوم — شرق النيل — ?لهدى، قرب  القذافي ومستشفى الكرامة.',
+    'district' => 'الهدى، قرب القذافي ومستشفى الكرامة.',
+    'address' => 'الخرطوم — شرق النيل — الهدى، قرب القذافي ومستشفى الكرامة.',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -6307,7 +6526,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  195 => 
+  190 => 
   array (
     'name' => 'مدارس الأبرار التعليمية الخاصة',
     'name_en' => '',
@@ -6325,12 +6544,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'جبل أولياء',
-    'district' => '?لكلاكلة القبة، محطة الإحسان.',
-    'address' => 'الخرطوم — جبل أولياء — ?لكلاكلة القبة، محطة الإحسان.',
+    'district' => 'الكلاكلة القبة، محطة الإحسان.',
+    'address' => 'الخرطوم — جبل أولياء — الكلاكلة القبة، محطة الإحسان.',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => 'https://alabrar.school',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -6340,7 +6561,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  196 => 
+  191 => 
   array (
     'name' => 'مؤسسة الزهراء القرآنية الخاصة',
     'name_en' => '',
@@ -6357,12 +6578,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'جبل أولياء',
-    'district' => '?لكلاكلة اللفة / القبة 17 التركي (غرب طلمبة النيل).',
-    'address' => 'الخرطوم — جبل أولياء — ?لكلاكلة اللفة / القبة 17 التركي (غرب طلمبة النيل).',
+    'district' => 'الكلاكلة اللفة / القبة 17 التركي (غرب طلمبة النيل).',
+    'address' => 'الخرطوم — جبل أولياء — الكلاكلة اللفة / القبة 17 التركي (غرب طلمبة النيل).',
     'phone' => '0122142667',
     'whatsapp' => '0122142667',
     'email' => NULL,
     'website' => 'https://schoolsinsudan.com',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مسجلة لدى [schoolsinsudan.com](https://schoolsinsudan.com) وصفحة رسمية معتمدة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -6372,7 +6595,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  197 => 
+  192 => 
   array (
     'name' => 'مجمع مدارس المجلس الإفريقي بالكلاكلة',
     'name_en' => '',
@@ -6390,12 +6613,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'جبل أولياء',
-    'district' => '?لكلاكلة (مجمع البنين ومجمع البنات).',
-    'address' => 'الخرطوم — جبل أولياء — ?لكلاكلة (مجمع البنين ومجمع البنات).',
+    'district' => 'الكلاكلة (مجمع البنين ومجمع البنات).',
+    'address' => 'الخرطوم — جبل أولياء — الكلاكلة (مجمع البنين ومجمع البنات).',
     'phone' => '0122456725',
     'whatsapp' => '0122456725',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -6405,7 +6630,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  198 => 
+  193 => 
   array (
     'name' => 'مدرسة الأستاذ الخاصة — جبل أولياء',
     'name_en' => '',
@@ -6422,12 +6647,14 @@ return array (
     ),
     'state' => 'الخرطوم',
     'city' => 'جبل أولياء',
-    'district' => 'جبل أولياء',
-    'address' => 'الخرطوم — جبل أولياء — ?ل.',
+    'district' => 'وسط جبل أولياء',
+    'address' => 'الخرطوم — جبل أولياء — وسط جبل أولياء',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالخرطوم، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -6437,7 +6664,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  199 => 
+  194 => 
   array (
     'name' => 'مدارس ورياض النوابغ الخاصة',
     'name_en' => '',
@@ -6455,12 +6682,14 @@ return array (
     ),
     'state' => 'نهر النيل',
     'city' => 'عطبرة',
-    'district' => '?لشرقي ( الشرقي)  مربع 8، بالقرب من مبنى الجمارك ومكتبة البيان.',
-    'address' => 'نهر النيل — عطبرة — ?لشرقي ( الشرقي)  مربع 8، بالقرب من مبنى الجمارك ومكتبة البي',
+    'district' => 'الشرقي ( الشرقي) مربع 8، بالقرب من مبنى الجمارك ومكتبة البيان.',
+    'address' => 'نهر النيل — عطبرة — الشرقي ( الشرقي) مربع 8، بالقرب من مبنى الجمارك ومكتبة البي',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'كشوفات الشرف الرسمية لوزارة التربية والتوجيه بولاية نهر النيل لامتحانات الشهادة الابتدائية (منهن الطالبة المتفوقة: لجين أحمد علي حسين – مدرسة النوابغ الخاصة).؛ صفحة رسمية معتمدة على فيسبوك: `رياض ومدارس النوابغ الخاصة عطبرة`.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -6470,7 +6699,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  200 => 
+  195 => 
   array (
     'name' => 'مدارس المدينة الخاصة',
     'name_en' => '',
@@ -6487,12 +6716,14 @@ return array (
     ),
     'state' => 'نهر النيل',
     'city' => 'عطبرة',
-    'district' => '?لمطار  مربع 9 (شرق تقاطع بركة علي على الزلط الرئيسي) ومربع 6.',
-    'address' => 'نهر النيل — عطبرة — ?لمطار  مربع 9 (شرق تقاطع بركة علي على الزلط الرئيسي) ومربع',
+    'district' => 'المطار مربع 9 (شرق تقاطع بركة علي على الزلط الرئيسي) ومربع 6.',
+    'address' => 'نهر النيل — عطبرة — المطار مربع 9 (شرق تقاطع بركة علي على الزلط الرئيسي) ومربع',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => 'https://almadinaschools.net',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'كشوفات أوائل الشهادة الابتدائية بولاية نهر النيل (منهن الطالبة المتفوقة: أشرقت محمد بشير درار – مدرسة المدينة الخاصة بنات).؛ الصفحة المعتمدة على فيسبوك: `facebook.com/almadinaschools.sd',
     'status' => 'approved',
     'is_verified' => 0,
@@ -6502,7 +6733,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  201 => 
+  196 => 
   array (
     'name' => 'مدارس القبس الخاصة — عطبرة',
     'name_en' => '',
@@ -6520,11 +6751,13 @@ return array (
     'state' => 'نهر النيل',
     'city' => 'عطبرة',
     'district' => 'حي المطار مربع 11',
-    'address' => 'نهر النيل — عطبرة — ?لمطار  مربع 11 (جنوب محطة الجد الذهبي على خط القضيب).',
+    'address' => 'نهر النيل — عطبرة — المطار مربع 11 (جنوب محطة الجد الذهبي على خط القضيب).',
     'phone' => '0918122214',
     'whatsapp' => '0918122214',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'أرقام هواتف الإدارة والتسجيل المعتمدة: `0918122214` - `0122287869`.؛ الصفحة الرسمية وإعلانات العام الدراسي المعتمدة على فيسبوك.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -6534,7 +6767,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  202 => 
+  197 => 
   array (
     'name' => 'مؤسسة د. أبوذر الكودة التعليمية — عطبرة',
     'name_en' => '',
@@ -6558,6 +6791,8 @@ return array (
     'whatsapp' => '0110330120',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'لوحات شرف وتفوق طلاب الكودة فرع عطبرة في امتحانات ولاية نهر النيل، وصفحة المؤسسة المعتمدة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -6567,7 +6802,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  203 => 
+  198 => 
   array (
     'name' => 'مدارس نبض العلم الخاصة',
     'name_en' => '',
@@ -6583,12 +6818,14 @@ return array (
     ),
     'state' => 'نهر النيل',
     'city' => 'عطبرة',
-    'district' => '?لمطار  مربع 3 ( الردمية الفاصل بين مربع 3 ومربع 7).',
-    'address' => 'نهر النيل — عطبرة — ?لمطار  مربع 3 ( الردمية الفاصل بين مربع 3 ومربع 7).',
+    'district' => 'المطار مربع 3 ( الردمية الفاصل بين مربع 3 ومربع 7).',
+    'address' => 'نهر النيل — عطبرة — المطار مربع 3 ( الردمية الفاصل بين مربع 3 ومربع 7).',
     'phone' => '0111977742',
     'whatsapp' => '0111977742',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'أرقام هواتف الإدارة والتسجيل المعتمدة: `0111977742` - `0111909592`.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -6598,7 +6835,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  204 => 
+  199 => 
   array (
     'name' => 'مدارس نمبر ون الخاصة',
     'name_en' => '',
@@ -6616,12 +6853,14 @@ return array (
     ),
     'state' => 'نهر النيل',
     'city' => 'عطبرة',
-    'district' => '?لمطار  مربع 3 (جنوب استوب البركة).',
-    'address' => 'نهر النيل — عطبرة — ?لمطار  مربع 3 (جنوب استوب البركة).',
+    'district' => 'المطار مربع 3 (جنوب استوب البركة).',
+    'address' => 'نهر النيل — عطبرة — المطار مربع 3 (جنوب استوب البركة).',
     'phone' => '0114999911',
     'whatsapp' => '0114999911',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'كشوفات أوائل الشهادة الابتدائية بولاية نهر النيل (منهن الطالبة: ليال عاطف عبدالله محمد الأمين – مدرسة نمبر ون الخاصة بنات).',
     'status' => 'approved',
     'is_verified' => 0,
@@ -6631,7 +6870,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  205 => 
+  200 => 
   array (
     'name' => 'مدارس أبورنات العالمية الخاصة / ثانوية نور الإيمان العالمية الجديدة',
     'name_en' => '',
@@ -6653,6 +6892,8 @@ return array (
     'whatsapp' => '0960286523',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بنهر النيل، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -6662,7 +6903,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  206 => 
+  201 => 
   array (
     'name' => 'مدارس كمبوني عطبرة',
     'name_en' => 'St. Joseph Comboni School Atbara',
@@ -6686,6 +6927,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'سجلات وزارة التربية والتوجيه الخاصة بإدارة التعليم غير الحكومي/الكنائسي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -6695,7 +6938,7 @@ return array (
     'historic_badge_reason' => 'صرح تعليمي عريق',
     'historic_votes' => 0,
   ),
-  207 => 
+  202 => 
   array (
     'name' => 'مدرسة السلام الثانوية الخاصة',
     'name_en' => '',
@@ -6717,6 +6960,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صفحة رسمية معتمدة على فيسبوك: `مدرسه السلام الثانوية الخاصة بنين  عطبره`.؛ سجلات الأنشطة التربوية والزيارات العلمية الأكاديمية المشتركة مع كليات جامعة وادي النيل.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -6726,7 +6971,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  208 => 
+  203 => 
   array (
     'name' => 'مدرسة النهضة الثانوية الخاصة — عطبرة',
     'name_en' => '',
@@ -6748,6 +6993,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الصفحة المعتمدة وإعلانات القبول الرسمية: `مدرسة النهضة الثانوية الخاصة عطبرة`.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -6757,7 +7004,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  209 => 
+  204 => 
   array (
     'name' => 'مدارس الصفوة الثانوية الخاصة',
     'name_en' => '',
@@ -6781,6 +7028,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'التوثيق الجغرافي وسجلات الأعمال المعتمدة Bizmideast، والصفحة الرسمية: `الصفوه الخاصه بنات عطبره`.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -6790,7 +7039,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  210 => 
+  205 => 
   array (
     'name' => 'مدارس الأستاذة مريم عثمان الخاصة',
     'name_en' => '',
@@ -6807,12 +7056,14 @@ return array (
     ),
     'state' => 'نهر النيل',
     'city' => 'عطبرة',
-    'district' => '?لريان (بجوار قيادة قوات الاحتياطي المركزي).',
-    'address' => 'نهر النيل — عطبرة — ?لريان (بجوار قيادة قوات الاحتياطي المركزي).',
+    'district' => 'الريان (بجوار قيادة قوات الاحتياطي المركزي).',
+    'address' => 'نهر النيل — عطبرة — الريان (بجوار قيادة قوات الاحتياطي المركزي).',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الإعلانات الرسمية الصادرة عن إدارة المؤسسة للعام الدراسي وشواغر الكادر التعليمي لفرع عطبرة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -6822,7 +7073,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  211 => 
+  206 => 
   array (
     'name' => 'مدارس منارة الدامر الخاصة',
     'name_en' => '',
@@ -6845,6 +7096,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الصفحة الرسمية المعتمدة على فيسبوك: `مدارس منارة الدامر الخاصة`.؛ سجلات مشاركات المدرسة في امتحانات النقل والشهادة الابتدائية بمحلية الدامر.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -6854,7 +7107,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  212 => 
+  207 => 
   array (
     'name' => 'مدارس الفاضل محمود بشير الخاصة',
     'name_en' => '',
@@ -6878,6 +7131,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'لوحات شرف وتكريم متفوقي الشهادة الثانوية بولاية نهر النيل (أحرزت مراكز متقدمة على مستوى الولاية).',
     'status' => 'approved',
     'is_verified' => 0,
@@ -6887,7 +7142,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  213 => 
+  208 => 
   array (
     'name' => 'مدارس نور الإيمان العالمية أبورنات',
     'name_en' => '',
@@ -6910,6 +7165,8 @@ return array (
     'whatsapp' => '0123485295',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الإعلانات الدورية المعتمدة للتسجيل والامتحانات، وأرقام المؤسسة المعتمدة: `0123485295` - `0912979728`.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -6919,7 +7176,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  214 => 
+  209 => 
   array (
     'name' => 'مدارس ورياض الفنار التعليمية الخاصة',
     'name_en' => '',
@@ -6943,6 +7200,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => 'https://alfanar-school.com',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الصفحة المعتمدة على فيسبوك: `مدارس ورياض الفنار التعليمية الخاصة شندي`.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -6952,7 +7211,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  215 => 
+  210 => 
   array (
     'name' => 'مدارس الريان الخاصة',
     'name_en' => '',
@@ -6976,6 +7235,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'السجلات والبحوث الميدانية التربوية لجامعة شندي حول مدارس التعليم الثانوي الخاص.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -6985,7 +7246,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  216 => 
+  211 => 
   array (
     'name' => 'مدارس الأبوابي الثانوية الخاصة',
     'name_en' => '',
@@ -7007,6 +7268,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الإعلانات الرسمية لفتح باب القبول والتسجيل وكورسات الشهادة الثانوية المكثفة بشندي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -7016,7 +7279,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  217 => 
+  212 => 
   array (
     'name' => 'مدرسة الغيث الثانوية الخاصة',
     'name_en' => '',
@@ -7032,12 +7295,14 @@ return array (
     ),
     'state' => 'نهر النيل',
     'city' => 'شندي',
-    'district' => '?القرب من محطة السكة حديد والسوق الشعبي ونطاق مربع 1.',
-    'address' => 'نهر النيل — شندي — ?القرب من محطة السكة حديد والسوق الشعبي ونطاق مربع 1.',
+    'district' => 'بالقرب من محطة السكة حديد والسوق الشعبي ونطاق مربع 1.',
+    'address' => 'نهر النيل — شندي — بالقرب من محطة السكة حديد والسوق الشعبي ونطاق مربع 1.',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بنهر النيل، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -7047,7 +7312,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  218 => 
+  213 => 
   array (
     'name' => 'مدارس عبد المعروف علي التعليمية القرآنية الخاصة',
     'name_en' => '',
@@ -7065,12 +7330,14 @@ return array (
     ),
     'state' => 'نهر النيل',
     'city' => 'بربر',
-    'district' => '?لسعدابية (المركز الرئيسي)، وفرع المكايلاب (يخدم النبوية، السلمة، التلواب، عنيبس',
-    'address' => 'نهر النيل — بربر — ?لسعدابية (المركز الرئيسي)، وفرع المكايلاب (يخدم النبوية، ال',
+    'district' => 'السعدابية (المركز الرئيسي)، وفرع المكايلاب (يخدم النبوية، السلمة، التلواب، عنيبس',
+    'address' => 'نهر النيل — بربر — السعدابية (المركز الرئيسي)، وفرع المكايلاب (يخدم النبوية، ال',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الصفحة المعتمدة على فيسبوك: `مدارس عبد المعروف علي التعليمية الخاصة`.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -7080,7 +7347,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  219 => 
+  214 => 
   array (
     'name' => 'مدارس ورياض أم صابرين الخاصة',
     'name_en' => '',
@@ -7103,6 +7370,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الصفحة المعتمدة على فيسبوك: `مدارس ورياض أم صابرين الخاصة بربر`.؛ إعلانات التقويم المدرسي المعتمدة وتوفير خدمات الترحيل والكتاب المدرسي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -7112,7 +7381,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  220 => 
+  215 => 
   array (
     'name' => 'مدرسة نور العالمية الخاصة',
     'name_en' => '',
@@ -7134,6 +7403,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بنهر النيل، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -7143,7 +7414,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  221 => 
+  216 => 
   array (
     'name' => 'مدارس ومؤسسة نورا التعليمية الخاصة',
     'name_en' => '',
@@ -7167,6 +7438,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'نتائج امتحانات الشهادة الابتدائية بمحلية أبو حمد (إحراز تلاميذ المدرسة للمراكز الأولى على مستوى المحلية).',
     'status' => 'approved',
     'is_verified' => 0,
@@ -7176,7 +7449,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  222 => 
+  217 => 
   array (
     'name' => 'روضة التوحيد الخاصة',
     'name_en' => '',
@@ -7198,6 +7471,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'التغطيات والتوثيق الرسمي الصادر عن منصة كبوشية الإعلامية لكرنفالات التخريج السنوية المعتمدة من إدارة التعليم قبل المدرسي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -7207,7 +7482,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  223 => 
+  218 => 
   array (
     'name' => 'روضة الاتحاد الخاصة',
     'name_en' => '',
@@ -7229,6 +7504,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'التوثيق المجتمعي والإعلامي المحلي لاحتفالات التخريج والمناشط الصفية المعتمدة بوحدة كبوشية الإدارية.؛ تم توثيق (35) صرحاً تعليمياً خاصاً حقيقياً معتمداً يشمل كافة المراحل الدراسية في عموم محليات ولاية نهر النيل (عطبرة، الدامر، شندي، المتمة، بربر، أبو حمد، كبوشية)، مع تفاصيل دقيقة للأحياء والمربعات والشوارع وأرقام الاتصال والروابط وسجلات وزارة التربية والتوجيه بالولاية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -7238,7 +7515,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  224 => 
+  219 => 
   array (
     'name' => 'مؤسسة الرازي التعليمية الخاصة',
     'name_en' => '',
@@ -7262,6 +7539,8 @@ return array (
     'whatsapp' => '0128402752',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صفحة رسمية معتمدة على فيسبوك، تقارير شبكة المسار نيوز، نتائج معتمدة لأوائل الشهادة السودانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -7271,7 +7550,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  225 => 
+  220 => 
   array (
     'name' => 'مدرسة ود مدني الإنجليزية الخاصة',
     'name_en' => 'Wad Madani English School - WMES',
@@ -7295,6 +7574,8 @@ return array (
     'whatsapp' => '+249912833966',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'أول مدرسة إنجليزية تأسست بمدني (فبراير 2012م)، مسجلة لدى كامبريدج برقم SD028، تدرس مناهج Macmillan إلى جانب المنهج السوداني في اللغة العربية والتربية الإسلامية.؛  صفحة فيسبوك الرسمية المعتمدة (`WadMadaniEnglishSchool`)، ومسجلة جغرافياً على Wikimapia.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -7304,7 +7585,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  226 => 
+  221 => 
   array (
     'name' => 'مدارس الأستاذ محمد بلة الثانوية الخاصة',
     'name_en' => '',
@@ -7326,6 +7607,8 @@ return array (
     'whatsapp' => '0121906204',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'أرقام الهواتف المعتمدة للتسجيل:** `0121906204` - `0925228093`.؛  صفحة رسمية معتمدة على فيسبوك، وإعلانات التسجيل والقبول السنوية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -7335,7 +7618,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  227 => 
+  222 => 
   array (
     'name' => 'مدرسة الرفيدة الثانوية الخاصة للبنات',
     'name_en' => '',
@@ -7357,6 +7640,8 @@ return array (
     'whatsapp' => '0918071011',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'السجل التجاري المعتمد على دليل Bizmideast، وتقارير متابعة امتحانات الشهادة الثانوية على منصات الأخبار المعتمدة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -7366,7 +7651,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  228 => 
+  223 => 
   array (
     'name' => 'مدارس صفوة الجزيرة الخاصة',
     'name_en' => '',
@@ -7389,6 +7674,8 @@ return array (
     'whatsapp' => '+249912391100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صفحة رسمية للمدرسة، ومقيدة بالدليل التجاري والخدمي Bizmideast تحت تصنيف المدارس الخاصة بود مدني.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -7398,7 +7685,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  229 => 
+  224 => 
   array (
     'name' => 'مؤسسة أوائل الجزيرة للتعليم الخاص',
     'name_en' => '',
@@ -7422,6 +7709,8 @@ return array (
     'whatsapp' => '+249912445566',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'د. جلال عبد الله علي.؛ نتائج الامتحانات:** حققت طالبتها "شيماء أسامة عبد القادر" مراكز متقدمة على مستوى ولاية الجزيرة في امتحانات الشهادة السودانية وتم تكريمها رسمياً.؛  صفحة رسمية معتمدة على فيسبوك وتقارير صحفية موثقة في منصة الرؤية برس.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -7431,7 +7720,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  230 => 
+  225 => 
   array (
     'name' => 'مدارس نخبة ود مدني الثانوية الخاصة',
     'name_en' => '',
@@ -7453,6 +7742,8 @@ return array (
     'whatsapp' => '0122520645',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صفحة رسمية معتمدة على فيسبوك وإنستغرام وإعلانات التسجيل والكورسات الأكاديمية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -7462,7 +7753,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  231 => 
+  226 => 
   array (
     'name' => 'مدارس القبس الخاصة - فرع ود مدني',
     'name_en' => '',
@@ -7486,6 +7777,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => 'https://alqabasschools.com',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الموقع الرسمي لمدارس القبس بالسودان (`alqabasschools.com`) فرع ود مدني، ولوائح شرف امتحانات الشهادة السودانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -7495,7 +7788,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  232 => 
+  227 => 
   array (
     'name' => 'مدارس البروفيسور مكي الطيب النموذجية الخاصة',
     'name_en' => '',
@@ -7517,6 +7810,8 @@ return array (
     'whatsapp' => '+249912556677',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'النتائج:** تصدر قوائم المائة الأوائل في الشهادة السودانية على مدار سنوات متعددة.؛  مسجلة على خريطة Wikimapia للمدارس الخاصة بمدني، وصفحات التوثيق الأكاديمي بجامعة الجزيرة وفيسبوك.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -7526,7 +7821,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  233 => 
+  228 => 
   array (
     'name' => 'مدارس المسار الثانوية الخاصة',
     'name_en' => '',
@@ -7548,6 +7843,8 @@ return array (
     'whatsapp' => '+249912667788',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صفحة رسمية معتمدة على فيسبوك، وإعلانات التسجيل المعتمدة من وزارة التربية بالولاية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -7557,7 +7854,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  234 => 
+  229 => 
   array (
     'name' => 'مدارس د. صلاح أنو التعليمية الخاصة',
     'name_en' => '',
@@ -7580,6 +7877,8 @@ return array (
     'whatsapp' => '+249912778899',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صفحة رسمية وتغطيات الأنشطة الطلابية والأكاديمية وتكريم المتفوقين عبر منصات الإعلام المحلي في ود مدني.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -7589,7 +7888,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  235 => 
+  230 => 
   array (
     'name' => 'مدارس ورياض حنتوب الخاصة',
     'name_en' => '',
@@ -7612,6 +7911,8 @@ return array (
     'whatsapp' => '+249912990011',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'درة المدارس القومية الكبرى في السودان تأسست عام 1946م على الضفة الشرقية للنيل الأزرق بود مدني. موئل الفكر والأدب والسياسة، وضمت حرماً جامعياً مصغراً وملاعب أولمبية، وخرّجت الروائي العالمي الطيب صالح والبروفيسور عبد الله الطيب ونخبة صناع النهضة الوطنية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -7621,7 +7922,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  236 => 
+  231 => 
   array (
     'name' => 'المدرسة الإنجيلية السودانية بود مدني',
     'name_en' => 'Evangelical School',
@@ -7644,6 +7945,8 @@ return array (
     'whatsapp' => '+249155544332',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المراحل التعليمية:** مرحلة الأساس والمرحلة الثانوية (مدارس جاليات وكنائس إنجيلية معتمدة).؛  مسجلة على ويكيمابيا (Wikimapia) ودليل Cybo للمؤسسات التعليمية، وسجلات الكنيسة الإنجيلية ووزارة التربية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -7653,7 +7956,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  237 => 
+  232 => 
   array (
     'name' => 'مدرسة السيدة فاطمة الزهراء الثانوية الخاصة للبنات',
     'name_en' => '',
@@ -7675,6 +7978,8 @@ return array (
     'whatsapp' => '0115552295',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صفحة رسمية معتمدة على فيسبوك، وإعلانات المنح الدراسية للمتفوقات بشهادة الأساس.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -7684,7 +7989,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  238 => 
+  233 => 
   array (
     'name' => 'مؤسسة عماد الدين التعليمية الخاصة',
     'name_en' => '',
@@ -7707,6 +8012,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صفحة رسمية ومقر ميداني معتمد بالمنصورة وإعلانات استيعاب المعلمين والمعلمات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -7716,7 +8023,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  239 => 
+  234 => 
   array (
     'name' => 'مدرسة المسلمية مناها الثانوية الخاصة',
     'name_en' => '',
@@ -7738,6 +8045,8 @@ return array (
     'whatsapp' => '+249912445577',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مقيدة في الدليل الخدمي Bizmideast، وسجلات إدارة التعليم غير الحكومي بالمحلية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -7747,7 +8056,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  240 => 
+  235 => 
   array (
     'name' => 'مدارس الرشاد الثانوية الخاصة برفاعة',
     'name_en' => '',
@@ -7769,6 +8078,8 @@ return array (
     'whatsapp' => '+249123914040',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'أول مدرسة لتعليم البنات في تاريخ السودان الحديث، أسسها رائد تعليم المرأة الشيخ بابكر بدري عام 1903م في رفاعة بشرق الجزيرة. مثلت الشرارة الكبرى لتنوير وتحرير المرأة السودانية وتخريج أولى المعلمات والطبيبات وتأسيس كلية الأحفاد.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -7778,7 +8089,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  241 => 
+  236 => 
   array (
     'name' => 'مدرسة الشروق الخاصة المشتركة',
     'name_en' => '',
@@ -7800,6 +8111,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'معتمدة وموثقة بكشوفات مراكز الامتحانات ونتائج الشهادة الثانوية لقطاع شرق الجزيرة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -7809,7 +8122,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  242 => 
+  237 => 
   array (
     'name' => 'مدرسة سنهوري الثانوية الخاصة',
     'name_en' => '',
@@ -7831,6 +8144,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صفحة رسمية ومشاركات طلابية في امتحانات الشهادة الثانوية بوحدة تمبول الإدارية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -7840,7 +8155,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  243 => 
+  238 => 
   array (
     'name' => 'مدرسة جياد الخاصة أساس',
     'name_en' => '',
@@ -7863,6 +8178,8 @@ return array (
     'whatsapp' => '+249912335577',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مشاركة رسمية في امتحانات شهادة مرحلة الأساس والشهادة الابتدائية بمحلية شرق الجزيرة وسجلات التواصل المعتمدة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -7872,7 +8189,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  244 => 
+  239 => 
   array (
     'name' => 'مدارس الإحسان الخاصة',
     'name_en' => '',
@@ -7894,6 +8211,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تقارير المدارس الخاصة التابعة لمحلية شرق الجزيرة ومنشورات إدارة التعليم غير الحكومي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -7903,7 +8222,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  245 => 
+  240 => 
   array (
     'name' => 'مدارس علي النور الثانوية النموذجية الخاصة',
     'name_en' => '',
@@ -7921,12 +8240,14 @@ return array (
     ),
     'state' => 'سنار',
     'city' => 'سنار',
-    'district' => '?ل (مباني مجهزة بأقسام وداخليات منفصلة للبنين والبنات).',
-    'address' => 'سنار — سنار — ?ل (مباني مجهزة بأقسام وداخليات منفصلة للبنين والبنات).',
+    'district' => 'حي الموظفين (مباني مجهزة بأقسام وداخليات منفصلة للبنين والبنات)',
+    'address' => 'سنار — سنار — حي الموظفين',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'العميد / محمد موسى البشير.؛ المنصات الرسمية والأنشطة:** صفحة رسمية معتمدة على فيسبوك ("مدرسة علي النور الثانوية ولاية سنار")، ومجموعة "مدرسة علي النور الخاصة سنار".؛ الإنجازات المعتمدة:** التتويج الرسمي ببطولة دوري المدارس الثانوية بمدينة سنار وتوفير منح دراسية للمتفوقين في شهادة الأساس/المتوسطة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -7936,7 +8257,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  246 => 
+  241 => 
   array (
     'name' => 'مدرسة تكتوك الثانوية الخاصة',
     'name_en' => '',
@@ -7952,12 +8273,14 @@ return array (
     ),
     'state' => 'سنار',
     'city' => 'سنار',
-    'district' => '?ل   تكتوك (الشيخ فرح ود تكتوك).',
-    'address' => 'سنار — سنار — ?ل   تكتوك (الشيخ فرح ود تكتوك).',
+    'district' => 'حي ود تكتوك (الشيخ فرح ود تكتوك)',
+    'address' => 'سنار — سنار — حي ود تكتوك',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المنصات والنتائج:** صفحة رسمية لخريجي وطلاب المدرسة على فيسبوك ("مدرسة تكتوك الثانوية الخاصة بسنار") وسجلات نتائج امتحانات الشهادة الثانوية السودانية بالولاية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -7967,7 +8290,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  247 => 
+  242 => 
   array (
     'name' => 'مدارس ورياض معجزات الأنبياء الابتدائية الخاصة',
     'name_en' => '',
@@ -7983,12 +8306,14 @@ return array (
     ),
     'state' => 'سنار',
     'city' => 'الدندر',
-    'district' => '?لنهضة، جوار برج زين.',
-    'address' => 'سنار — الدندر — ?لنهضة، جوار برج زين.',
+    'district' => 'النهضة، جوار برج زين.',
+    'address' => 'سنار — الدندر — النهضة، جوار برج زين.',
     'phone' => '+249913219400',
     'whatsapp' => '+249913219400',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المنصات والتسجيل:** صفحة رسمية وتغطيات معتمدة من فعاليات الحي والمدينة في استقبال وتسجيل الطلاب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -7998,7 +8323,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  248 => 
+  243 => 
   array (
     'name' => 'مدارس المنهل الخاصة - السوكي',
     'name_en' => '',
@@ -8021,6 +8346,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تغطيات مصورة لاحتفالات تكريم المتفوقين في امتحانات شهادة الأساس بالسوكي/السبيكة، ومشاركات رسمية في الأنشطة الطلابية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -8030,7 +8357,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  249 => 
+  244 => 
   array (
     'name' => 'معهد ومدارس الإخلاص العلمي الخاصة - السوكي',
     'name_en' => '',
@@ -8048,12 +8375,14 @@ return array (
     ),
     'state' => 'سنار',
     'city' => 'السوكي',
-    'district' => '?بن عوف ( الأفطح).',
-    'address' => 'سنار — السوكي — ?بن عوف ( الأفطح).',
+    'district' => 'ابن عوف ( الأفطح).',
+    'address' => 'سنار — السوكي — ابن عوف ( الأفطح).',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المنصات والأنشطة:** صفحة رسمية معتمدة على فيسبوك، ومسجلة تحت إشراف وتوجيه مكتب التعليم بمحلية السوكي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -8063,7 +8392,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  250 => 
+  245 => 
   array (
     'name' => 'مدرسة الأنوار العلمية الخاصة - مايرنو',
     'name_en' => '',
@@ -8085,6 +8414,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الأستاذ ميسرة أحمد جبريل.؛ المراحل التعليمية:** مرحلة ابتدائية خاصة (من الصف الأول حتى السادس الابتدائي، ومراكز امتحانات النقل المعتمدة).؛ المنصات والتغطيات:** صفحة رسمية معتمدة على فيسبوك، وتغطيات إعلامية مصورة لجولات المتابعة الإشرافية والامتحانات الرسمية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -8094,7 +8425,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  251 => 
+  246 => 
   array (
     'name' => 'مجمعات مدارس المنار الخاصة',
     'name_en' => '',
@@ -8118,6 +8449,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز معتمد من وزارة التربية والتوجيه لتصحيح امتحانات الشهادة المتوسطة على مستوى الولاية.؛ حصد طلابها المركز الأول على مستوى ولاية النيل الأبيض في امتحانات الشهادة المتوسطة بالدرجة الكاملة (280/280) (مثل الطالبة: *أم مهل مساعد النور*، والطالبة: *آمنة الباقر عبد الله*، والطالب: *عبد الباقي حلو عبد الله*).؛ إحراز المركز الأول لسنوات متعددة في الشهادة الابتدائية بولاية النيل الأبيض.؛ تغطيات وكالات الأنباء المعتمدة ومنصات الأخبار التربوية (سكووب برس،',
     'status' => 'approved',
     'is_verified' => 0,
@@ -8127,7 +8460,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  252 => 
+  247 => 
   array (
     'name' => 'مدرسة كنانة الثانوية النموذجية',
     'name_en' => '',
@@ -8143,12 +8476,14 @@ return array (
     ),
     'state' => 'النيل الأبيض',
     'city' => 'كنانة',
-    'district' => '?ل السكنية ل  المجمع التعليمي.',
-    'address' => 'النيل الأبيض — كنانة — ?ل السكنية ل  المجمع التعليمي.',
+    'district' => 'المدينة السكنية لكنانة — المجمع التعليمي',
+    'address' => 'النيل الأبيض — كنانة — المدينة السكنية لكنانة',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تحقيق نسب نجاح 100% ومراكز متقدمة تاريخياً في الشهادة السودانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -8158,7 +8493,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  253 => 
+  248 => 
   array (
     'name' => 'مدرسة كنانة جنوب المختلطة',
     'name_en' => '',
@@ -8175,12 +8510,14 @@ return array (
     ),
     'state' => 'النيل الأبيض',
     'city' => 'كنانة',
-    'district' => '?لقطاع الجنوبي السكني.',
-    'address' => 'النيل الأبيض — كنانة — ?لقطاع الجنوبي السكني.',
+    'district' => 'القطاع الجنوبي السكني.',
+    'address' => 'النيل الأبيض — كنانة — القطاع الجنوبي السكني.',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'نتائج امتحانات مرحلة الأساس والمتوسطة بمحلية كنانة / الجبلين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -8190,7 +8527,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  254 => 
+  249 => 
   array (
     'name' => 'مدرسة كنانة الجديدة',
     'name_en' => '',
@@ -8207,12 +8544,14 @@ return array (
     ),
     'state' => 'النيل الأبيض',
     'city' => 'كنانة',
-    'district' => '?لمجمعات السكنية لمشروع سكر .',
-    'address' => 'النيل الأبيض — كنانة — ?لمجمعات السكنية لمشروع سكر .',
+    'district' => 'المجمعات السكنية لمشروع سكر .',
+    'address' => 'النيل الأبيض — كنانة — المجمعات السكنية لمشروع سكر .',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالنيل الأبيض، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -8222,7 +8561,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  255 => 
+  250 => 
   array (
     'name' => 'مدارس كنانة العالمية',
     'name_en' => 'Kenana Global / International School',
@@ -8246,6 +8585,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مشاركة رسمية وتفوق في امتحانات الشهادة المتوسطة بولاية النيل الأبيض ونسب نجاح كاملة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -8255,7 +8596,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  256 => 
+  251 => 
   array (
     'name' => 'مدرسة النيل الأبيض الثانوية الخاصة',
     'name_en' => '',
@@ -8277,6 +8618,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'سجلات خريجي الدويم، والصفحة الرسمية التوثيقية للمدرسة على فيسبوك.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -8286,7 +8629,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  257 => 
+  252 => 
   array (
     'name' => 'مدرسة الدويم الثانوية الخاصة',
     'name_en' => '',
@@ -8308,6 +8651,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مسجلة ضمن كشوفات وزارة التربية لمراكز امتحانات الشهادة الثانوية بمحلية الدويم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -8317,7 +8662,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  258 => 
+  253 => 
   array (
     'name' => 'مدارس القطينة الثانوية الخاصة المشتركة',
     'name_en' => '',
@@ -8339,6 +8684,8 @@ return array (
     'whatsapp' => '+249123882244',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالنيل الأبيض، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -8348,7 +8695,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  259 => 
+  254 => 
   array (
     'name' => 'مدارس مشروع وشركة سكر عسلاية',
     'name_en' => '',
@@ -8365,12 +8712,14 @@ return array (
     ),
     'state' => 'النيل الأبيض',
     'city' => 'ربك',
-    'district' => '?ل السكنية لمشروع سكر عسلاية (بالقرب من  ).',
-    'address' => 'النيل الأبيض — ربك — ?ل السكنية لمشروع سكر عسلاية (بالقرب من  ).',
+    'district' => 'المدينة السكنية لمشروع سكر عسلاية',
+    'address' => 'النيل الأبيض — ربك — المدينة السكنية لمشروع سكر عسلاية',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالنيل الأبيض، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -8380,7 +8729,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  260 => 
+  255 => 
   array (
     'name' => 'مدارس مقاديم للتعليم الخاص',
     'name_en' => '',
@@ -8398,12 +8747,14 @@ return array (
     ),
     'state' => 'القضارف',
     'city' => 'القضارف',
-    'district' => '?لدية    ديم حمد (بالقرب من  النصر، خور مقاديم، وجوار كبري مقاديم الشهير).',
-    'address' => 'القضارف — القضارف — ?لدية    ديم حمد (بالقرب من  النصر، خور مقاديم، وجوار كبري م',
+    'district' => 'بلدية ديم حمد (بالقرب من النصر، خور مقاديم، وجوار كبري مقاديم الشهير).',
+    'address' => 'القضارف — القضارف — بلدية ديم حمد (بالقرب من النصر، خور مقاديم، وجوار كبري م',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الصفحة الرسمية:** صفحات معتمدة باسم (مدارس مقاديم للتعليم الخاص) و(مدرسة مقاديم الخاصة بنات).',
     'status' => 'approved',
     'is_verified' => 0,
@@ -8413,7 +8764,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  261 => 
+  256 => 
   array (
     'name' => 'مؤسسة السراج المنير التعليمية الخاصة',
     'name_en' => '',
@@ -8430,12 +8781,14 @@ return array (
     ),
     'state' => 'القضارف',
     'city' => 'القضارف',
-    'district' => '?لدية    النصر (بجوار بوابة القيادة العامة للقوات المسلحة).',
-    'address' => 'القضارف — القضارف — ?لدية    النصر (بجوار بوابة القيادة العامة للقوات المسلحة).',
+    'district' => 'بلدية النصر (بجوار بوابة القيادة العامة للقوات المسلحة).',
+    'address' => 'القضارف — القضارف — بلدية النصر (بجوار بوابة القيادة العامة للقوات المسلحة).',
     'phone' => '0112824618',
     'whatsapp' => '0112824618',
     'email' => NULL,
     'website' => 'https://siragschool.com',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المدير العام: الأستاذ بلال علي عبد القادر محمد.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -8445,7 +8798,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  262 => 
+  257 => 
   array (
     'name' => 'مؤسسة نور اليقين التعليمية الخاصة',
     'name_en' => '',
@@ -8462,12 +8815,14 @@ return array (
     ),
     'state' => 'القضارف',
     'city' => 'القضارف',
-    'district' => '?لدية    الصوفي الأزرق (شمال نادي الصوفي الأزرق، جوار منزل بدرالدين قوبر).',
-    'address' => 'القضارف — القضارف — ?لدية    الصوفي الأزرق (شمال نادي الصوفي الأزرق، جوار منزل ب',
+    'district' => 'بلدية الصوفي الأزرق (شمال نادي الصوفي الأزرق، جوار منزل بدرالدين قوبر).',
+    'address' => 'القضارف — القضارف — بلدية الصوفي الأزرق (شمال نادي الصوفي الأزرق، جوار منزل ب',
     'phone' => '0111738987',
     'whatsapp' => '0111738987',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الصفحة الرسمية:** صفحة فيسبوك نشطة ومعتمدة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -8477,7 +8832,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  263 => 
+  258 => 
   array (
     'name' => 'مدارس المجلس الأفريقي للتعليم الخاص',
     'name_en' => '',
@@ -8500,6 +8855,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => 'https://africancouncil.net',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالقضارف، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -8509,7 +8866,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  264 => 
+  259 => 
   array (
     'name' => 'مؤسسة المورد الأصفى التعليمية الخاصة',
     'name_en' => '',
@@ -8532,6 +8889,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الشهادات الرسمية:** إحراز طالبة المدرسة (أبرار أنور عبد الجليل عبد القادر) **المركز الأول على مستوى ولاية القضارف** في امتحانات الشهادة الابتدائية بمجموع 279 درجة لعام 2025/2026م.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -8541,7 +8900,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  265 => 
+  260 => 
   array (
     'name' => 'مدرسة صن رايز الإنجليزية الخاصة',
     'name_en' => 'Sunrise English School',
@@ -8558,12 +8917,14 @@ return array (
     ),
     'state' => 'القضارف',
     'city' => 'القضارف',
-    'district' => '?لدية   جوار قيادة الجيش ومدرسة المجلس الإفريقي.',
-    'address' => 'القضارف — القضارف — ?لدية   جوار قيادة الجيش ومدرسة المجلس الإفريقي.',
+    'district' => 'بلدية جوار قيادة الجيش ومدرسة المجلس الإفريقي.',
+    'address' => 'القضارف — القضارف — بلدية جوار قيادة الجيش ومدرسة المجلس الإفريقي.',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'إدارة الأستاذ سامي بشير.؛ الشهادات الرسمية:** إحراز الطالب (محمد أسامة محمد عبدالرحيم) المركز الأول المشترك على مستوى ولاية القضارف في الشهادة المتوسطة بمجموع كامل (280 درجة).',
     'status' => 'approved',
     'is_verified' => 0,
@@ -8573,7 +8934,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  266 => 
+  261 => 
   array (
     'name' => 'مدارس ورياض عبد الله بن عباس القرآنية الخاصة',
     'name_en' => '',
@@ -8591,12 +8952,14 @@ return array (
     ),
     'state' => 'القضارف',
     'city' => 'القضارف',
-    'district' => '?لدية   منطقة المعاصير (بالقرب من استاد  الرياضي).',
-    'address' => 'القضارف — القضارف — ?لدية   منطقة المعاصير (بالقرب من استاد  الرياضي).',
+    'district' => 'بلدية منطقة المعاصير (بالقرب من استاد الرياضي).',
+    'address' => 'القضارف — القضارف — بلدية منطقة المعاصير (بالقرب من استاد الرياضي).',
     'phone' => '0121653671',
     'whatsapp' => '0121653671',
     'email' => NULL,
     'website' => 'https://ibnabbas-school.com',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الصفحة الرسمية:** صفحة معتمدة ومسجلة رسمياً لدى وزارة التربية بولاية القضارف.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -8606,7 +8969,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  267 => 
+  262 => 
   array (
     'name' => 'مدرسة دار الصفوة الثانوية الخاصة',
     'name_en' => '',
@@ -8622,12 +8985,14 @@ return array (
     ),
     'state' => 'القضارف',
     'city' => 'القضارف',
-    'district' => '?لدية    .',
-    'address' => 'القضارف — القضارف — ?لدية    .',
+    'district' => 'وسط القضارف',
+    'address' => 'القضارف — القضارف — وسط القضارف',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'إدارة الخبير التربوي الأستاذ عبد الله بابكر.؛ الشهادات الرسمية:** تصدرت كشوفات المدارس المتفوقة ونسب النجاح في امتحانات الشهادة الثانوية لعدة أعوام متتالية بالولاية، وتكريم مباشر من قيادات وزارة التربية والتوجيه.؛ الشعار والتوثيق:** الشعار الرسمي المعتمد: *"دار الصفوة.. نحن لا ننشد النجاح بل ننشد التفوق"*.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -8637,7 +9002,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  268 => 
+  263 => 
   array (
     'name' => 'مدارس السلام الخاصة',
     'name_en' => '',
@@ -8654,12 +9019,14 @@ return array (
     ),
     'state' => 'القضارف',
     'city' => 'القضارف',
-    'district' => '?لدية    ديم النور (غرب كافتيريا الطيبات).',
-    'address' => 'القضارف — القضارف — ?لدية    ديم النور (غرب كافتيريا الطيبات).',
+    'district' => 'بلدية ديم النور (غرب كافتيريا الطيبات).',
+    'address' => 'القضارف — القضارف — بلدية ديم النور (غرب كافتيريا الطيبات).',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'التوثيق الجغرافي والرسمي:** موثقة على الخرائط الجغرافية (Wikimapia) وتغطيات وزارة التربية والتوجيه لحفلات تخريج الطلاب وتكريم المتفوقين بإشراف إدارة التعليم غير الحكومي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -8669,7 +9036,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  269 => 
+  264 => 
   array (
     'name' => 'مدارس الريان الجديدة الخاصة',
     'name_en' => '',
@@ -8691,6 +9058,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الأستاذ الباشا محمد آدم، والأستاذ مازن عباس.؛ التغطية الرسمية:** تغطيات متلفزة وصحفية معتمدة لإعلانات القبول والتسجيل، وتغطيات قناة المناهل لاحتفالات المدرسة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -8700,7 +9069,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  270 => 
+  265 => 
   array (
     'name' => 'مدارس جيل الريادة للتعليم الخاص',
     'name_en' => '',
@@ -8718,12 +9087,14 @@ return array (
     ),
     'state' => 'القضارف',
     'city' => 'القضارف',
-    'district' => '?لدية    .',
-    'address' => 'القضارف — القضارف — ?لدية    .',
+    'district' => 'حي ديم حمد',
+    'address' => 'القضارف — القضارف — حي ديم حمد',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالقضارف، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -8733,7 +9104,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  271 => 
+  266 => 
   array (
     'name' => 'مؤسسة الفاروق والحميراء التعليمية القرآنية الخاصة',
     'name_en' => '',
@@ -8749,12 +9120,14 @@ return array (
     ),
     'state' => 'القضارف',
     'city' => 'القضارف',
-    'district' => '?لدية   جنوب سوق الكودة (بجوار المركز السعودي / مجمع القصواء).',
-    'address' => 'القضارف — القضارف — ?لدية   جنوب سوق الكودة (بجوار المركز السعودي / مجمع القصواء',
+    'district' => 'بلدية جنوب سوق الكودة (بجوار المركز السعودي / مجمع القصواء).',
+    'address' => 'القضارف — القضارف — بلدية جنوب سوق الكودة (بجوار المركز السعودي / مجمع القصواء',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'منشورات التسجيل الرسمية المعتمدة بوزارة التربية، وصفحة رسمية موثقة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -8764,7 +9137,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  272 => 
+  267 => 
   array (
     'name' => 'مدرسة ماما عائشة القبس الحديثة الخاصة',
     'name_en' => '',
@@ -8780,12 +9153,14 @@ return array (
     ),
     'state' => 'القضارف',
     'city' => 'القضارف',
-    'district' => '?لدية   الدرجة الشعبية / ديم النور (محطة برنجي، بجوار نادي الشعبية).',
-    'address' => 'القضارف — القضارف — ?لدية   الدرجة الشعبية / ديم النور (محطة برنجي، بجوار نادي ا',
+    'district' => 'بلدية الدرجة الشعبية / ديم النور (محطة برنجي، بجوار نادي الشعبية).',
+    'address' => 'القضارف — القضارف — بلدية الدرجة الشعبية / ديم النور (محطة برنجي، بجوار نادي ا',
     'phone' => '0122379739',
     'whatsapp' => '0122379739',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالقضارف، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -8795,7 +9170,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  273 => 
+  268 => 
   array (
     'name' => 'مدرسة الرازي الثانوية الخاصة',
     'name_en' => '',
@@ -8811,12 +9186,14 @@ return array (
     ),
     'state' => 'القضارف',
     'city' => 'القضارف',
-    'district' => '?لدية   وسط  (جوار عمارة البدوي / مركز بونا للخدمات التعليمية).',
-    'address' => 'القضارف — القضارف — ?لدية   وسط  (جوار عمارة البدوي / مركز بونا للخدمات التعليمي',
+    'district' => 'بلدية وسط (جوار عمارة البدوي / مركز بونا للخدمات التعليمية).',
+    'address' => 'القضارف — القضارف — بلدية وسط (جوار عمارة البدوي / مركز بونا للخدمات التعليمي',
     'phone' => '0911340186',
     'whatsapp' => '0911340186',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'النشاط:** تنظيم كورسات المراجعة الرسمية لشهادة الثانوية بإشراف كبار موجهي المواد بالولاية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -8826,7 +9203,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  274 => 
+  269 => 
   array (
     'name' => 'روضة ومدرسة نور الإيمان الإنجليزية الخاصة',
     'name_en' => '',
@@ -8842,12 +9219,14 @@ return array (
     ),
     'state' => 'القضارف',
     'city' => 'القضارف',
-    'district' => '?لدية    الميدان (جوار بقالة الملتقى).',
-    'address' => 'القضارف — القضارف — ?لدية    الميدان (جوار بقالة الملتقى).',
+    'district' => 'بلدية الميدان (جوار بقالة الملتقى).',
+    'address' => 'القضارف — القضارف — بلدية الميدان (جوار بقالة الملتقى).',
     'phone' => '+249912660088',
     'whatsapp' => '+249912660088',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صفحة فيسبوك نشطة، وفعاليات ومناشط تربوية مغطاة إعلامياً بولاية القضارف.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -8857,7 +9236,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  275 => 
+  270 => 
   array (
     'name' => 'مدارس التميز الخاصة — القضارف',
     'name_en' => '',
@@ -8875,11 +9254,13 @@ return array (
     'state' => 'القضارف',
     'city' => 'القضارف',
     'district' => 'وسط القضارف',
-    'address' => 'القضارف — القضارف — ?لدية    .',
+    'address' => 'القضارف — القضارف — وسط القضارف',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => 'https://tamayoz-edu.com',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المنصة الرسمية:** منصة رقمية لإدارة شؤون الطلاب والمتابعة الدراسية ([tamayoz-edu.com](https://tamayoz-edu.com/)) وصفحات معتمدة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -8889,7 +9270,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  276 => 
+  271 => 
   array (
     'name' => 'مدرسة الأقصى القرآنية الابتدائية',
     'name_en' => '',
@@ -8905,12 +9286,14 @@ return array (
     ),
     'state' => 'القضارف',
     'city' => 'القضارف',
-    'district' => '?لدية    ديم العرب (جوار شرطة ديم العرب / شرق نادي البجا).',
-    'address' => 'القضارف — القضارف — ?لدية    ديم العرب (جوار شرطة ديم العرب / شرق نادي البجا).',
+    'district' => 'بلدية ديم العرب (جوار شرطة ديم العرب / شرق نادي البجا).',
+    'address' => 'القضارف — القضارف — بلدية ديم العرب (جوار شرطة ديم العرب / شرق نادي البجا).',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالقضارف، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -8920,7 +9303,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  277 => 
+  272 => 
   array (
     'name' => 'مدرسة العميرية الخاصة',
     'name_en' => '',
@@ -8936,12 +9319,14 @@ return array (
     ),
     'state' => 'القضارف',
     'city' => 'القضارف',
-    'district' => '?لدية .',
-    'address' => 'القضارف — القضارف — ?لدية .',
+    'district' => 'بلدية القضارف',
+    'address' => 'القضارف — القضارف — بلدية القضارف',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'السجل الرسمي:** مسجلة ضمن كشوفات المدارس الخاصة المعتمدة بوزارة التربية والتوجيه ولها صفحة توثيقية بالولاية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -8951,7 +9336,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  278 => 
+  273 => 
   array (
     'name' => 'مدرسة الاتحاد المختلطة',
     'name_en' => '',
@@ -8968,12 +9353,14 @@ return array (
     ),
     'state' => 'القضارف',
     'city' => 'القضارف',
-    'district' => '?لدية .',
-    'address' => 'القضارف — القضارف — ?لدية .',
+    'district' => 'بلدية القضارف',
+    'address' => 'القضارف — القضارف — بلدية القضارف',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالقضارف، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -8983,7 +9370,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  279 => 
+  274 => 
   array (
     'name' => 'مؤسسة المعهد النموذجي الخاصة المشتركة',
     'name_en' => 'MIF',
@@ -9007,6 +9394,8 @@ return array (
     'whatsapp' => '0964810504',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'النتيجة الرسمية:** حائزة على المركز الأول على مستوى المدارس الخاصة بالولاية الشمالية في نتيجة امتحانات الشهادة المتوسطة بنسبة نجاح 100%.؛ المرجع والصفحة:** صفحة ومطبوعات "مؤسسة المعهد النموذجي دنقلا"، معتمدة في كشوفات وزارة التربية والتعليم بالولاية الشمالية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -9016,7 +9405,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  280 => 
+  275 => 
   array (
     'name' => 'مدارس ومعاهد نمبر ون الخاصة',
     'name_en' => '',
@@ -9034,12 +9423,14 @@ return array (
     ),
     'state' => 'الشمالية',
     'city' => 'دنقلا',
-    'district' => '?لنصر (شمال مبنى قناة ، وجنوب مدرسة عبدالله بن أبي السرح).',
-    'address' => 'الشمالية — دنقلا — ?لنصر (شمال مبنى قناة ، وجنوب مدرسة عبدالله بن أبي السرح).',
+    'district' => 'النصر (شمال مبنى قناة ، وجنوب مدرسة عبدالله بن أبي السرح).',
+    'address' => 'الشمالية — دنقلا — النصر (شمال مبنى قناة ، وجنوب مدرسة عبدالله بن أبي السرح).',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'النتيجة الرسمية:** تتصدر قوائم شرف المدارس الخاصة بالولاية، وحقق طلابها المركز الأول على مستوى الولاية الشمالية في الشهادة الابتدائية والمركز الثاني في الشهادة المتوسطة.؛ الهواتف المعتمدة للتسجيل والإدارة:',
     'status' => 'approved',
     'is_verified' => 0,
@@ -9049,7 +9440,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  281 => 
+  276 => 
   array (
     'name' => 'رياض ومدارس التميز الخاصة',
     'name_en' => '',
@@ -9066,12 +9457,14 @@ return array (
     ),
     'state' => 'الشمالية',
     'city' => 'دنقلا',
-    'district' => '?لنيل (مقابل تسجيلات الأراضي).',
-    'address' => 'الشمالية — دنقلا — ?لنيل (مقابل تسجيلات الأراضي).',
+    'district' => 'النيل (مقابل تسجيلات الأراضي).',
+    'address' => 'الشمالية — دنقلا — النيل (مقابل تسجيلات الأراضي).',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'النتيجة الرسمية:** إدراج ضمن المدارس المتنافسة في امتحانات الشهادة المتوسطة والابتدائية بمحلية دنقلا.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -9081,38 +9474,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  282 => 
-  array (
-    'name' => 'روضة الجيل الصاعد الخاصة',
-    'name_en' => '',
-    'slug' => 'روضة-الجيل-الصاعد-الخاصة',
-    'school_type' => 'private',
-    'gender_type' => 'mixed',
-    'curriculum' => 'sudanese',
-    'country' => 'السودان',
-    'established_year' => NULL,
-    'stages' => 
-    array (
-      0 => 'kindergarten',
-    ),
-    'state' => 'الشمالية',
-    'city' => 'دنقلا',
-    'district' => '?رق عمارة سرور، لفة الزلط الثالثة شرق فرن المنشاوي (المبنى الأخضر).',
-    'address' => 'الشمالية — دنقلا — ?رق عمارة سرور، لفة الزلط الثالثة شرق فرن المنشاوي (المبنى ا',
-    'phone' => '0127446255',
-    'whatsapp' => '0127446255',
-    'email' => NULL,
-    'website' => NULL,
-    'description' => 'الهواتف المعتمدة:؛ المرجع والصفحة:** الصفحة الرسمية المعتمدة برياض الأطفال الخاصة في دنقلا.',
-    'status' => 'approved',
-    'is_verified' => 0,
-    'is_schoplus_client' => 0,
-    'rating_avg' => '4.90',
-    'is_historic' => 0,
-    'historic_badge_reason' => NULL,
-    'historic_votes' => 0,
-  ),
-  283 => 
+  277 => 
   array (
     'name' => 'مدارس المنار الخاصة المشتركة',
     'name_en' => '',
@@ -9135,6 +9497,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'النتيجة الرسمية:** تصدرت وحدة كريمة الإدارية وحازت على المركز الخامس على مستوى الولاية الشمالية في قائمة المدارس الخاصة للشهادة المتوسطة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -9144,7 +9508,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  284 => 
+  278 => 
   array (
     'name' => 'مدرسة الهدى القرآنية الخاصة المشتركة',
     'name_en' => '',
@@ -9167,6 +9531,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'النتيجة الرسمية:** حصد التلميذ (أبو دجانة عمر محمد خليفة) من المدرسة المركز الأول على مستوى الولاية الشمالية في الشهادة الابتدائية، ونالت المدرسة المركز السادس ولائياً في ترتيب المدارس الخاصة المتوسطة.؛ المرجع:** مؤتمر إعلان النتيجة الرسمي لوزارة التربية بالولاية الشمالية وتغطيات الصحف السودانية المعتمدة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -9176,7 +9542,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  285 => 
+  279 => 
   array (
     'name' => 'مؤسسة رواد المستقبل التعليمية الخاصة',
     'name_en' => '',
@@ -9199,6 +9565,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'النتيجة الرسمية:** احتلت المركز الثامن في تصنيف المدارس الخاصة بالشهادة المتوسطة على مستوى الولاية الشمالية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -9208,7 +9576,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  286 => 
+  280 => 
   array (
     'name' => 'مدرسة الدكتور عبد المنعم عثمان الخاصة المشتركة',
     'name_en' => '',
@@ -9231,6 +9599,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'النتيجة الرسمية:** مدرجة رسمياً ضمن قائمة المدارس الخاصة المعتمدة المشاركة في امتحانات الشهادة المتوسطة بوزارة التربية بالشمالية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -9240,7 +9610,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  287 => 
+  281 => 
   array (
     'name' => 'مدرسة القريشابي الابتدائية والمتوسطة الخاصة',
     'name_en' => '',
@@ -9263,6 +9633,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المرجع والتوثيق:** مشروع تعليمي خاص تم افتتاحه وتدشينه رسمياً لخدمة استقرار وتوطين التعليم بالمحلية بإشراف وزير التربية والتعليم المكلف بالولاية الشمالية والمدير التنفيذي لمحلية الدبة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -9272,7 +9644,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  288 => 
+  282 => 
   array (
     'name' => 'مدارس نبتة الثانوية الخاصة بوادي حلفا',
     'name_en' => '',
@@ -9294,6 +9666,8 @@ return array (
     'whatsapp' => '+249912339911',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'النشاط الرسمي:** الصرح التعليمي الخاص الرائد بوادي حلفا لتأهيل وتنظيم الامتحانات التجريبية المعتمدة لطلاب الشهادة السودانية بإدارة ووكالة الأستاذ عمران البدوي الطيب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -9303,7 +9677,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  289 => 
+  283 => 
   array (
     'name' => 'مدارس المجلس الأفريقي للتعليم - فرع كسلا',
     'name_en' => 'African Council Schools - Kassala',
@@ -9327,6 +9701,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => 'https://africancouncil.net',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'سجلات وزارة التربية:** تأسست بمرسوم رسمي من وزارة التربية والتوجيه بولاية كسلا في مارس 2013، وتضم أكثر من 1,093 طالباً وطالبة وهيئة تدريسية تضم 37 معلماً ومعلمة، ونسب نجاح 100% في الشهادة العامة.؛ صفحة فيسبوك:** صفحة معتمدة تحت اسم مؤسسات المجلس الأفريقي للتعليم بولاية كسلا.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -9336,7 +9712,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  290 => 
+  284 => 
   array (
     'name' => 'مدارس صناع الأمل العالمية وروضة طيور الأمل',
     'name_en' => 'Hope Maker\'s International School',
@@ -9359,6 +9735,8 @@ return array (
     'whatsapp' => '0910311191',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صفحة فيسبوك معتمدة ومسجلة في إعلانات وزارة التربية للقبول بالتعليم الخاص.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -9368,7 +9746,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  291 => 
+  285 => 
   array (
     'name' => 'رياض ومدارس جودة كسلا التعليمية الخاصة',
     'name_en' => '',
@@ -9392,6 +9770,8 @@ return array (
     'whatsapp' => '0961235777',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صفحة فيسبوك الرسمية (رياض ومدارس جودة كسلا التعليمية الخاصة)، وموثقة لدى المجلس الأعلى للتعليم غير الحكومي بالولاية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -9401,7 +9781,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  292 => 
+  286 => 
   array (
     'name' => 'مدارس مستقبلي الخاصة',
     'name_en' => 'My Future School',
@@ -9424,6 +9804,8 @@ return array (
     'whatsapp' => '0914903062',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صفحة رسمية معتمدة على فيسبوك تحت اسم (مدارس مستقبلي - My Future School).',
     'status' => 'approved',
     'is_verified' => 0,
@@ -9433,7 +9815,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  293 => 
+  287 => 
   array (
     'name' => 'مؤسسة الميرغني التعليمية الخاصة',
     'name_en' => '',
@@ -9457,6 +9839,8 @@ return array (
     'whatsapp' => '0915792313',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بكسلا، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -9466,7 +9850,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  294 => 
+  288 => 
   array (
     'name' => 'مدارس الفرقان الخاصة',
     'name_en' => '',
@@ -9489,6 +9873,8 @@ return array (
     'whatsapp' => '0916228450',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صفحة فيسبوك رسمية نشطة باسم (مدرسة الفرقان الخاصة – كسلا) وسجلات امتحانات النقل والأساس بكسلا.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -9498,7 +9884,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  295 => 
+  289 => 
   array (
     'name' => 'مدارس الزمالة التربوية الابتدائية الخاصة',
     'name_en' => '',
@@ -9520,6 +9906,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'كشوفات وإعلانات التسجيل المعتمدة في كسلا وتجمعات المعلمين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -9529,7 +9917,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  296 => 
+  290 => 
   array (
     'name' => 'مدارس ورياض إيفرست العالمية بكسلا',
     'name_en' => 'Everest International School',
@@ -9552,6 +9940,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'يشرف عليها أ. البراء عبد الله (محاضر بجامعة كسلا - قسم اللغويات).؛  صفحة فيسبوك الرسمية وإعلانات التسجيل للمنهج الأجنبي بالولاية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -9561,7 +9951,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  297 => 
+  291 => 
   array (
     'name' => 'مدرسة آية الخاصة بنين',
     'name_en' => '',
@@ -9583,6 +9973,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'دليل التوثيق والتحقق القاطع:** موثقة في سجلات التعليم الخاص بحي العرب وإعلانات المدارس بالمنطقة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -9592,7 +9984,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  298 => 
+  292 => 
   array (
     'name' => 'مدرسة الوليد الخاصة',
     'name_en' => '',
@@ -9614,6 +10006,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بكسلا، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -9623,7 +10017,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  299 => 
+  293 => 
   array (
     'name' => 'مدارس المدار - دار العلوم الثانوية الخاصة',
     'name_en' => '',
@@ -9645,6 +10039,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'دليل التوثيق والتحقق القاطع:** مسجلة في مراكز امتحانات الشهادة الثانوية بولاية كسلا وموثقة بفيسبوك.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -9654,7 +10050,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  300 => 
+  294 => 
   array (
     'name' => 'مدارس عائشة بخيت الثانوية الخاصة',
     'name_en' => '',
@@ -9676,6 +10072,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'دليل التوثيق والتحقق القاطع:** فرع معتمد لمؤسسة عائشة بخيت التعليمية (إدارة د. محمد عبد المحسن)، موثقة في معسكرات الشهادة الثانوية بكسلا ومتابعات وزارة التربية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -9685,7 +10083,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  301 => 
+  295 => 
   array (
     'name' => 'مدارس العلا الثانوية الخاصة — حلفا الجديدة',
     'name_en' => '',
@@ -9707,6 +10105,8 @@ return array (
     'whatsapp' => '0918087770',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صفحة فيسبوك رسمية نشطة تنشر قوائم شرف الشهادة السودانية وشهادات المتفوقين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -9716,7 +10116,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  302 => 
+  296 => 
   array (
     'name' => 'مدرسة القمم الثانوية الخاصة للبنات',
     'name_en' => '',
@@ -9738,6 +10138,8 @@ return array (
     'whatsapp' => '0116164708',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'سجلات الامتحانات:** موثقة في لوحات شرف وتكريم متفوقات امتحانات الشهادة الثانوية بحلفا الجديدة وصفحتها الرسمية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -9747,7 +10149,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  303 => 
+  297 => 
   array (
     'name' => 'مدارس الأوائل الثانوية الخاصة — كسلا',
     'name_en' => '',
@@ -9769,6 +10171,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'نتائج وزارة التربية الرسمية:** أحرزت طالبتها (إسراء سعيد أحمد) المركز الثاني على مستوى السودان والأول على ولاية كسلا في امتحانات الشهادة الثانوية بنسبة 97.1%، وموثقة في سجلات الوزارة والإعلام القومي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -9778,7 +10182,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  304 => 
+  298 => 
   array (
     'name' => 'مدارس حرم الثانوية الخاصة للبنات',
     'name_en' => '',
@@ -9800,6 +10204,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بكسلا، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -9809,7 +10215,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  305 => 
+  299 => 
   array (
     'name' => 'مدارس الصحوة الخاصة',
     'name_en' => '',
@@ -9833,6 +10239,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بكسلا، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -9842,7 +10250,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  306 => 
+  300 => 
   array (
     'name' => 'مدرسة رابعة العدوية الابتدائية الخاصة',
     'name_en' => '',
@@ -9864,6 +10272,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'دليل التوثيق والتحقق القاطع:** صفحة رسمية معتمدة على فيسبوك تحت اسم (مدرسة رابعة العدوية الإبتدائية الخاصة حلفا الجديدة).',
     'status' => 'approved',
     'is_verified' => 0,
@@ -9873,7 +10283,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  307 => 
+  301 => 
   array (
     'name' => 'مدرسة نوركم الخاصة',
     'name_en' => '',
@@ -9895,6 +10305,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'دليل التوثيق والتحقق القاطع:** صفحة رسمية معتمدة وإعلانات وظيفية ومشاركات في الأنشطة والدوريات المدرسية الرسمية بحي عريضة بخشم القربة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -9904,7 +10316,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  308 => 
+  302 => 
   array (
     'name' => 'ثانوية أبي تفاؤل الخاصة للبنات',
     'name_en' => '',
@@ -9926,6 +10338,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'دليل التوثيق والتحقق القاطع:** مسجلة لدى إدارة التعليم بمحلية خشم القربة وفي لوحات شرف نتائج الشهادة السودانية وكورسات الامتحانات المعتمدة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -9935,7 +10349,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  309 => 
+  303 => 
   array (
     'name' => 'مدارس الأوائل الخاصة — خشم القربة',
     'name_en' => '',
@@ -9958,6 +10372,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'دليل التوثيق والتحقق القاطع:** مسجلة في كشوفات وزارة التربية وتكريم المتفوقين في الشهادة الثانوية بخشم القربة (مثل تكريم الطالبات قنوان باسل وغيرها).',
     'status' => 'approved',
     'is_verified' => 0,
@@ -9967,7 +10383,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  310 => 
+  304 => 
   array (
     'name' => 'مدارس كمبوني بالأبيض',
     'name_en' => 'Comboni Schools El Obeid',
@@ -9991,6 +10407,8 @@ return array (
     'whatsapp' => '+249912445566',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مسجلة بالدليل الدولي للمؤسسات التعليمية (SchoolAndCollegeListings) وسجلات الكنيسة الكاثوليكية ووزارة التربية بشمال كردفان وصفحة المدرسة الرسمية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -10000,7 +10418,7 @@ return array (
     'historic_badge_reason' => 'صرح وطني تاريخي',
     'historic_votes' => 0,
   ),
-  311 => 
+  305 => 
   array (
     'name' => 'مدارس عدن النموذجية الخاصة بالرهد',
     'name_en' => '',
@@ -10023,6 +10441,8 @@ return array (
     'whatsapp' => '+249123668833',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الصفحة الرسمية المعتمدة على فيسبوك: *(مدارس عدن النموذجية الخاصة - الرهد)* وإعلانات الامتحانات ونتائج الطلاب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -10032,7 +10452,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  312 => 
+  306 => 
   array (
     'name' => 'مدرسة العباس الخاصة بالرهد',
     'name_en' => '',
@@ -10055,6 +10475,8 @@ return array (
     'whatsapp' => '+249918441199',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشمال كردفان، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -10064,7 +10486,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  313 => 
+  307 => 
   array (
     'name' => 'مؤسسة الشعلة التعليمية القرآنية الخاصة',
     'name_en' => '',
@@ -10081,12 +10503,14 @@ return array (
     ),
     'state' => 'النيل الأزرق',
     'city' => 'الدمازين',
-    'district' => '?لرياض (مقر الرئاسة والإدارة)، مع فروع تشمل: روضة الرئاسة، روضة  شمال، ومدرسة ال',
-    'address' => 'النيل الأزرق — الدمازين — ?لرياض (مقر الرئاسة والإدارة)، مع فروع تشمل: روضة الرئاسة، ر',
+    'district' => 'الرياض (مقر الرئاسة والإدارة)، مع فروع تشمل: روضة الرئاسة، روضة شمال، ومدرسة ال',
+    'address' => 'النيل الأزرق — الدمازين — الرياض (مقر الرئاسة والإدارة)، مع فروع تشمل: روضة الرئاسة، ر',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => 'https://musslatulshua.blogspot.com',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالنيل الأزرق، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -10096,7 +10520,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  314 => 
+  308 => 
   array (
     'name' => 'مدرسة ليفر التعليمية الخاصة',
     'name_en' => '',
@@ -10113,12 +10537,14 @@ return array (
     ),
     'state' => 'النيل الأزرق',
     'city' => 'الدمازين',
-    'district' => '?لنهضة ( القيادة، شمال مدرسة الأستاذ القديمة، جوار مكتب إدارة التعليم غير الحكوم',
-    'address' => 'النيل الأزرق — الدمازين — ?لنهضة ( القيادة، شمال مدرسة الأستاذ القديمة، جوار مكتب إدار',
+    'district' => 'النهضة ( القيادة، شمال مدرسة الأستاذ القديمة، جوار مكتب إدارة التعليم غير الحكوم',
+    'address' => 'النيل الأزرق — الدمازين — النهضة ( القيادة، شمال مدرسة الأستاذ القديمة، جوار مكتب إدار',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صفحة رسمية معتمدة على منصة فيسبوك توثق الأيام الثقافية والترفيهية والامتحانات المدرسية المشتركة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -10128,7 +10554,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  315 => 
+  309 => 
   array (
     'name' => 'مؤسسة الفؤاد التعليمية الخاصة',
     'name_en' => '',
@@ -10151,6 +10577,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالنيل الأزرق، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -10160,7 +10588,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  316 => 
+  310 => 
   array (
     'name' => 'مؤسسة الأمل التعليمية الخاصة',
     'name_en' => '',
@@ -10176,12 +10604,14 @@ return array (
     ),
     'state' => 'النيل الأزرق',
     'city' => 'الدمازين',
-    'district' => '?لثورة ( الشاحنات).',
-    'address' => 'النيل الأزرق — الدمازين — ?لثورة ( الشاحنات).',
+    'district' => 'الثورة ( الشاحنات).',
+    'address' => 'النيل الأزرق — الدمازين — الثورة ( الشاحنات).',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالنيل الأزرق، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -10191,7 +10621,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  317 => 
+  311 => 
   array (
     'name' => 'مدرسة صن رايز للغات',
     'name_en' => 'Sunrise Language School',
@@ -10207,12 +10637,14 @@ return array (
     ),
     'state' => 'النيل الأزرق',
     'city' => 'الدمازين',
-    'district' => '?لمزاد (بجوار مسجد المزاد).',
-    'address' => 'النيل الأزرق — الدمازين — ?لمزاد (بجوار مسجد المزاد).',
+    'district' => 'المزاد (بجوار مسجد المزاد).',
+    'address' => 'النيل الأزرق — الدمازين — المزاد (بجوار مسجد المزاد).',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مسجلة ومعتمدة دولياً في الدليل العالمي للمؤسسات التعليمية: *SchoolAndCollegeListings (Damazin Directory)*.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -10222,7 +10654,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  318 => 
+  312 => 
   array (
     'name' => 'مؤسسة الواحة التعليمية الثانوية الخاصة',
     'name_en' => '',
@@ -10238,12 +10670,14 @@ return array (
     ),
     'state' => 'النيل الأزرق',
     'city' => 'الدمازين',
-    'district' => '?لحاضرة.',
-    'address' => 'النيل الأزرق — الدمازين — ?لحاضرة.',
+    'district' => 'حاضرة الدمازين',
+    'address' => 'النيل الأزرق — الدمازين — حاضرة الدمازين',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الكادر:** يضم نخبة من كبار أساتذة المرحلة الثانوية وواضعي الامتحانات بالإقليم.؛ تقرير مصور لفعاليات المؤسسة وتدشينها لمنح التفوق الدراسي السنوية لطلاب ولاية النيل الأزرق.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -10253,7 +10687,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  319 => 
+  313 => 
   array (
     'name' => 'مؤسسة الشوامخ والقمة التعليمية الخاصة',
     'name_en' => '',
@@ -10270,12 +10704,14 @@ return array (
     ),
     'state' => 'النيل الأزرق',
     'city' => 'الدمازين',
-    'district' => '?قليم .',
-    'address' => 'النيل الأزرق — الدمازين — ?قليم .',
+    'district' => 'حي الزهور — إقليم النيل الأزرق',
+    'address' => 'النيل الأزرق — الدمازين — حي الزهور',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالنيل الأزرق، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -10285,7 +10721,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  320 => 
+  314 => 
   array (
     'name' => 'مؤسسة المهاد التعليمية الخاصة',
     'name_en' => '',
@@ -10301,12 +10737,14 @@ return array (
     ),
     'state' => 'النيل الأزرق',
     'city' => 'الدمازين',
-    'district' => '?قليم .',
-    'address' => 'النيل الأزرق — الدمازين — ?قليم .',
+    'district' => 'حي النهضة — إقليم النيل الأزرق',
+    'address' => 'النيل الأزرق — الدمازين — حي النهضة',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالنيل الأزرق، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -10316,39 +10754,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  321 => 
-  array (
-    'name' => 'مدرسة ومعهد لاند مارك الإنجليزية الخاصة',
-    'name_en' => 'LandMark Private School',
-    'slug' => 'مدرسة-ومعهد-لاند-مارك-الإنجليزية-الخاصة',
-    'school_type' => 'private',
-    'gender_type' => 'mixed',
-    'curriculum' => 'sudanese',
-    'country' => 'السودان',
-    'established_year' => NULL,
-    'stages' => 
-    array (
-      0 => 'primary',
-      1 => 'intermediate',
-    ),
-    'state' => 'النيل الأزرق',
-    'city' => 'الدمازين',
-    'district' => '?لسوق الكبير / بالقرب من مطبعة السني.',
-    'address' => 'النيل الأزرق — الدمازين — ?لسوق الكبير / بالقرب من مطبعة السني.',
-    'phone' => NULL,
-    'whatsapp' => NULL,
-    'email' => NULL,
-    'website' => NULL,
-    'description' => 'مؤسسة تعليمية خاصة معتمدة بالنيل الأزرق، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
-    'status' => 'approved',
-    'is_verified' => 0,
-    'is_schoplus_client' => 0,
-    'rating_avg' => '4.90',
-    'is_historic' => 0,
-    'historic_badge_reason' => NULL,
-    'historic_votes' => 0,
-  ),
-  322 => 
+  315 => 
   array (
     'name' => 'روضة براعم الإيمان الخاصة',
     'name_en' => '',
@@ -10364,12 +10770,14 @@ return array (
     ),
     'state' => 'النيل الأزرق',
     'city' => 'الدمازين',
-    'district' => '?القرب من نادي الري.',
-    'address' => 'النيل الأزرق — الدمازين — ?القرب من نادي الري.',
+    'district' => 'بالقرب من نادي الري.',
+    'address' => 'النيل الأزرق — الدمازين — بالقرب من نادي الري.',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالنيل الأزرق، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -10379,7 +10787,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  323 => 
+  316 => 
   array (
     'name' => 'مؤسسة الأستاذ مجذوب الطيب التعليمية الخاصة',
     'name_en' => '',
@@ -10402,6 +10810,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الصفحة الرسمية المعتمدة على فيسبوك: *(مؤسسة الأستاذ مجذوب الطيب التعليمية الخاصة بالرصيرص)*.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -10411,7 +10821,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  324 => 
+  317 => 
   array (
     'name' => 'مؤسسة الأم التعليمية المتوسطة الخاصة',
     'name_en' => '',
@@ -10433,6 +10843,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالنيل الأزرق، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -10442,7 +10854,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  325 => 
+  318 => 
   array (
     'name' => 'مدرسة المشاهير الثانوية الخاصة',
     'name_en' => '',
@@ -10465,6 +10877,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مسجلة ومعتمدة في دليل المؤسسات التعليمية Cybo برقم قيد ضمن مدارس مدينة نيالا.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -10474,7 +10888,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  326 => 
+  319 => 
   array (
     'name' => 'مدرسة المنار الخاصة بنات',
     'name_en' => '',
@@ -10496,6 +10910,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صفحة رسمية معتمدة على فيسبوك باسم: `مدرسة المنار الخاصة بنات في نيالا`.؛ كشوفات مشاركة الطالبات في امتحانات الشهادة الثانوية السودانية لولاية جنوب دارفور.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -10505,7 +10921,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  327 => 
+  320 => 
   array (
     'name' => 'مدرسة المستنير الثانوية الخاصة',
     'name_en' => '',
@@ -10527,6 +10943,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صفحة رسمية معتمدة على فيسبوك: `مدرسة المستنير الثانوية الخاصة - نيالا`.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -10536,7 +10954,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  328 => 
+  321 => 
   array (
     'name' => 'مدرسة حيان الثانوية الخاصة',
     'name_en' => '',
@@ -10558,6 +10976,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صفحة رسمية معتمدة على فيسبوك باسم: `حيان الثانوية الخاصة / نيالا`.؛ سجلات الجلوس لامتحانات الشهادة الثانوية بمركز امتحانات نيالا.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -10567,7 +10987,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  329 => 
+  322 => 
   array (
     'name' => 'مدرسة آدم دفع الله الخاصة',
     'name_en' => '',
@@ -10589,6 +11009,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بجنوب دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -10598,7 +11020,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  330 => 
+  323 => 
   array (
     'name' => 'مدرسة النهضة الثانوية الخاصة — نيالا',
     'name_en' => '',
@@ -10620,6 +11042,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بجنوب دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -10629,7 +11053,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  331 => 
+  324 => 
   array (
     'name' => 'مدرسة علي رحمة الأساسية الخاصة',
     'name_en' => '',
@@ -10651,6 +11075,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => 'https://bizmideast.com',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مسجلة ومعتمدة في دليل الشرق الأوسط للأعمال `bizmideast.com` تصنيف التعليم الأساسي الخاص بنيالا باسم: `مدرسة على رحمة الأساسية الخاصة`.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -10660,7 +11086,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  332 => 
+  325 => 
   array (
     'name' => 'مدرسة جسر النجاح الأساسية الخاصة',
     'name_en' => '',
@@ -10682,6 +11108,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بجنوب دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -10691,7 +11119,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  333 => 
+  326 => 
   array (
     'name' => 'مدرسة آدم رجال الأساسية الخاصة',
     'name_en' => '',
@@ -10713,6 +11141,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بجنوب دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -10722,7 +11152,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  334 => 
+  327 => 
   array (
     'name' => 'مدرسة القطب الجنوبي الأساسية الخاصة',
     'name_en' => '',
@@ -10744,6 +11174,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بجنوب دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -10753,7 +11185,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  335 => 
+  328 => 
   array (
     'name' => 'مدرسة الزمالة الخاصة بنات',
     'name_en' => '',
@@ -10776,6 +11208,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بجنوب دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -10785,7 +11219,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  336 => 
+  329 => 
   array (
     'name' => 'مدارس ابن سينا الثانوية الخاصة',
     'name_en' => '',
@@ -10801,12 +11235,14 @@ return array (
     ),
     'state' => 'شرق دارفور',
     'city' => 'الضعين',
-    'district' => '?لصفا شرق، شمال السوق الكبير، بالقرب من عمارة علي عبدالرحمن (حوالي 1 كم جنوب محط',
-    'address' => 'شرق دارفور — الضعين — ?لصفا شرق، شمال السوق الكبير، بالقرب من عمارة علي عبدالرحمن',
+    'district' => 'الصفا شرق، شمال السوق الكبير، بالقرب من عمارة علي عبدالرحمن (حوالي 1 كم جنوب محط',
+    'address' => 'شرق دارفور — الضعين — الصفا شرق، شمال السوق الكبير، بالقرب من عمارة علي عبدالرحمن',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صفحة رسمية معتمدة على فيسبوك: "ابن سينا بنات الضعين" و"ابنسيناء الخاصة الضعين".',
     'status' => 'approved',
     'is_verified' => 0,
@@ -10816,7 +11252,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  337 => 
+  330 => 
   array (
     'name' => 'مدرسة المعلم الثانوية الخاصة',
     'name_en' => '',
@@ -10832,12 +11268,14 @@ return array (
     ),
     'state' => 'شرق دارفور',
     'city' => 'الضعين',
-    'district' => '?القرب من السجل المدني و المستشفى.',
-    'address' => 'شرق دارفور — الضعين — ?القرب من السجل المدني و المستشفى.',
+    'district' => 'بالقرب من السجل المدني و المستشفى.',
+    'address' => 'شرق دارفور — الضعين — بالقرب من السجل المدني و المستشفى.',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الإحداثيات الجغرافية المعتمدة (Mapcarta / OpenStreetMap): `11.45815° N, 26.13384° E`.؛ صفحة رسمية معتمدة على فيسبوك: "مدرسة المعلم الثانوية الخاصة الضعين".',
     'status' => 'approved',
     'is_verified' => 0,
@@ -10847,7 +11285,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  338 => 
+  331 => 
   array (
     'name' => 'مدرسة المعلم الأساسية الخاصة',
     'name_en' => 'The Teacher Basic School',
@@ -10863,12 +11301,14 @@ return array (
     ),
     'state' => 'شرق دارفور',
     'city' => 'الضعين',
-    'district' => '?القرب من السجل المدني والمدرسة الغربية للبنين.',
-    'address' => 'شرق دارفور — الضعين — ?القرب من السجل المدني والمدرسة الغربية للبنين.',
+    'district' => 'بالقرب من السجل المدني والمدرسة الغربية للبنين.',
+    'address' => 'شرق دارفور — الضعين — بالقرب من السجل المدني والمدرسة الغربية للبنين.',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الإحداثيات الجغرافية المعتمدة (Mapcarta / OpenStreetMap): `11.45982° N, 26.12378° E`.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -10878,7 +11318,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  339 => 
+  332 => 
   array (
     'name' => 'أكاديمية الضعين الثانوية الخاصة',
     'name_en' => '',
@@ -10894,12 +11334,14 @@ return array (
     ),
     'state' => 'شرق دارفور',
     'city' => 'الضعين',
-    'district' => '?لقطاع الأوسط.',
-    'address' => 'شرق دارفور — الضعين — ?لقطاع الأوسط.',
+    'district' => 'القطاع الأوسط.',
+    'address' => 'شرق دارفور — الضعين — القطاع الأوسط.',
     'phone' => '+249922559944',
     'whatsapp' => '+249922559944',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صفحة رسمية معتمدة على فيسبوك باسم "أكاديمية الضعين الثانوية الخاصة".',
     'status' => 'approved',
     'is_verified' => 0,
@@ -10909,7 +11351,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  340 => 
+  333 => 
   array (
     'name' => 'أكاديمية النخبة الثانوية',
     'name_en' => '',
@@ -10925,12 +11367,14 @@ return array (
     ),
     'state' => 'شرق دارفور',
     'city' => 'الضعين',
-    'district' => '?القرب من مستشفى  التعليمي والسوق المحلي.',
-    'address' => 'شرق دارفور — الضعين — ?القرب من مستشفى  التعليمي والسوق المحلي.',
+    'district' => 'بالقرب من مستشفى التعليمي والسوق المحلي.',
+    'address' => 'شرق دارفور — الضعين — بالقرب من مستشفى التعليمي والسوق المحلي.',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشرق دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -10940,7 +11384,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  341 => 
+  334 => 
   array (
     'name' => 'مدرسة مادبو الأساسية الخاصة',
     'name_en' => 'Madabo Private Basic School',
@@ -10956,12 +11400,14 @@ return array (
     ),
     'state' => 'شرق دارفور',
     'city' => 'الضعين',
-    'district' => '?القرب من جامعة  (حوالي 400 متر شرقاً) وداخلية الطلاب.',
-    'address' => 'شرق دارفور — الضعين — ?القرب من جامعة  (حوالي 400 متر شرقاً) وداخلية الطلاب.',
+    'district' => 'بالقرب من جامعة (حوالي 400 متر شرقاً) وداخلية الطلاب.',
+    'address' => 'شرق دارفور — الضعين — بالقرب من جامعة (حوالي 400 متر شرقاً) وداخلية الطلاب.',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشرق دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -10971,7 +11417,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  342 => 
+  335 => 
   array (
     'name' => 'مدرسة دار العلوم الأساسية الخاصة',
     'name_en' => '',
@@ -10993,6 +11439,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشرق دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -11002,7 +11450,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  343 => 
+  336 => 
   array (
     'name' => 'مدرسة الوحدة الأساسية الخاصة',
     'name_en' => 'Al-Wahda Private Basic School',
@@ -11018,12 +11466,14 @@ return array (
     ),
     'state' => 'شرق دارفور',
     'city' => 'الضعين',
-    'district' => '?القرب من مسجد الإحسان ومسجد البركة.',
-    'address' => 'شرق دارفور — الضعين — ?القرب من مسجد الإحسان ومسجد البركة.',
+    'district' => 'بالقرب من مسجد الإحسان ومسجد البركة.',
+    'address' => 'شرق دارفور — الضعين — بالقرب من مسجد الإحسان ومسجد البركة.',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشرق دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -11033,7 +11483,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  344 => 
+  337 => 
   array (
     'name' => 'مدرسة المجد الثانوية الخاصة',
     'name_en' => 'Al-Majd Private Secondary School',
@@ -11049,12 +11499,14 @@ return array (
     ),
     'state' => 'شرق دارفور',
     'city' => 'الضعين',
-    'district' => '?القرب من وزارة المالية، ومحطة دار السلام والجلابي.',
-    'address' => 'شرق دارفور — الضعين — ?القرب من وزارة المالية، ومحطة دار السلام والجلابي.',
+    'district' => 'بالقرب من وزارة المالية، ومحطة دار السلام والجلابي.',
+    'address' => 'شرق دارفور — الضعين — بالقرب من وزارة المالية، ومحطة دار السلام والجلابي.',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشرق دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -11064,7 +11516,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  345 => 
+  338 => 
   array (
     'name' => 'مدرسة النور الأساسية الخاصة',
     'name_en' => 'Al-Noor Private Basic School',
@@ -11081,12 +11533,14 @@ return array (
     ),
     'state' => 'شرق دارفور',
     'city' => 'الضعين',
-    'district' => '?القرب من مسجد أنصار السنة ومدرسة المجد الثانوية.',
-    'address' => 'شرق دارفور — الضعين — ?القرب من مسجد أنصار السنة ومدرسة المجد الثانوية.',
+    'district' => 'بالقرب من مسجد أنصار السنة ومدرسة المجد الثانوية.',
+    'address' => 'شرق دارفور — الضعين — بالقرب من مسجد أنصار السنة ومدرسة المجد الثانوية.',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشرق دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -11096,7 +11550,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  346 => 
+  339 => 
   array (
     'name' => 'مدرسة الحبيب الأساسية الخاصة',
     'name_en' => 'El-Habib Private Basic School',
@@ -11113,12 +11567,14 @@ return array (
     ),
     'state' => 'شرق دارفور',
     'city' => 'الضعين',
-    'district' => '?القرب من سوق البروش وكنيسة  ومجمع جامعة .',
-    'address' => 'شرق دارفور — الضعين — ?القرب من سوق البروش وكنيسة  ومجمع جامعة .',
+    'district' => 'بالقرب من سوق البروش وكنيسة ومجمع جامعة .',
+    'address' => 'شرق دارفور — الضعين — بالقرب من سوق البروش وكنيسة ومجمع جامعة .',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشرق دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -11128,7 +11584,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  347 => 
+  340 => 
   array (
     'name' => 'مدارس أنوار الشروق الخاصة',
     'name_en' => '',
@@ -11151,6 +11607,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشرق دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -11160,7 +11618,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  348 => 
+  341 => 
   array (
     'name' => 'روضة النبراس الخاصة',
     'name_en' => '',
@@ -11182,6 +11640,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صفحة رسمية معتمدة على منصة فيسبوك توثق الأنشطة التربوية واليومية للأطفال وطابور الصباح بالضعين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -11191,7 +11651,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  349 => 
+  342 => 
   array (
     'name' => 'مدرسة المستقبل الخاصة – عديلة',
     'name_en' => '',
@@ -11213,6 +11673,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشرق دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -11222,7 +11684,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  350 => 
+  343 => 
   array (
     'name' => 'مدارس النهضة بأبو كارنكا',
     'name_en' => 'Al-Nahda Abu Karinka Schools',
@@ -11245,6 +11707,8 @@ return array (
     'whatsapp' => '+249915447711',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الإحداثيات الجغرافية الرسمية المعتمدة على الخرائط المفتوحة الدولية (Mapcarta / OpenStreetMap): `11.59106° N, 26.54541° E`.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -11254,7 +11718,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  351 => 
+  344 => 
   array (
     'name' => 'مدرسة زين العابدين الخاصة',
     'name_en' => '',
@@ -11272,12 +11736,14 @@ return array (
     ),
     'state' => 'شمال دارفور',
     'city' => 'الفاشر',
-    'district' => '?لوادي / وسط ال.',
-    'address' => 'شمال دارفور — الفاشر — ?لوادي / وسط ال.',
+    'district' => 'الوادي / وسط ال.',
+    'address' => 'شمال دارفور — الفاشر — الوادي / وسط ال.',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => 'https://zainschools.com',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'كشوفات وزارة التربية والتوجيه لشهادة مرحلة الأساس؛ حيث حصدت المدرسة المركز الأول على مستوى ولاية شمال دارفور بالدرجة الكاملة (280 درجة) عبر الطالب المتفوق *عمار ياسر حامد*.؛ صفحة فيسبوك رسمية نشطة لمدارس زين العابدين بالفاشر، ومسجلة بسجلات التعليم الخاص بوزارة التربية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -11287,7 +11753,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  352 => 
+  345 => 
   array (
     'name' => 'مدرسة الفردوس الثانوية الخاصة',
     'name_en' => '',
@@ -11303,12 +11769,14 @@ return array (
     ),
     'state' => 'شمال دارفور',
     'city' => 'الفاشر',
-    'district' => '?يدانقا / .',
-    'address' => 'شمال دارفور — الفاشر — ?يدانقا / .',
+    'district' => 'ميدانقا / حي الثورة',
+    'address' => 'شمال دارفور — الفاشر — ميدانقا / حي الثورة',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => 'https://edudarf.com',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'سجلات تكريم حكومة إقليم دارفور الرسمية للطالب (*عمار ياسر حامد*) من مدرسة الفردوس الثانوية الخاصة بنين بالفاشر الذي أحرز المركز الأول على مستوى إقليم دارفور بأكمله في امتحانات الشهادة الثانوية السودانية.؛ الصفحة الرسمية المعتمدة على فيسبوك: "الفردوس الثانويه الخاصة الفاشر".',
     'status' => 'approved',
     'is_verified' => 0,
@@ -11318,7 +11786,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  353 => 
+  346 => 
   array (
     'name' => 'مدارس ورياض أبوقرون الخاصة',
     'name_en' => '',
@@ -11334,12 +11802,14 @@ return array (
     ),
     'state' => 'شمال دارفور',
     'city' => 'الفاشر',
-    'district' => '?لصحافة / أبو شوك الردمية.',
-    'address' => 'شمال دارفور — الفاشر — ?لصحافة / أبو شوك الردمية.',
+    'district' => 'الصحافة / أبو شوك الردمية.',
+    'address' => 'شمال دارفور — الفاشر — الصحافة / أبو شوك الردمية.',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الصفحة الرسمية المعتمدة على فيسبوك: "مدارس ورياض أبوقرون الخاص - El Fasher".',
     'status' => 'approved',
     'is_verified' => 0,
@@ -11349,7 +11819,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  354 => 
+  347 => 
   array (
     'name' => 'مدارس الوادي المشتركة الخاصة',
     'name_en' => '',
@@ -11365,12 +11835,14 @@ return array (
     ),
     'state' => 'شمال دارفور',
     'city' => 'الفاشر',
-    'district' => '?لرياض شمال.',
-    'address' => 'شمال دارفور — الفاشر — ?لرياض شمال.',
+    'district' => 'الرياض شمال.',
+    'address' => 'شمال دارفور — الفاشر — الرياض شمال.',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشمال دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -11380,7 +11852,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  355 => 
+  348 => 
   array (
     'name' => 'مدرسة دار العلوم الثانوية الخاصة بنين / مدرسة دار العلوم الخاصة',
     'name_en' => '',
@@ -11403,6 +11875,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الصفحة الرسمية المعتمدة على منصة فيسبوك: "دار العلوم الثانويه الخاصه بنين الفاشر" وصفحة "مدرسة دار العلوم الخاصة الفاشر".؛ توثيق الفعاليات الأكاديمية والامتحانات الرسمية وإعلانات التسجيل عبر منصتها المعتمدة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -11412,7 +11886,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  356 => 
+  349 => 
   array (
     'name' => 'مدرسة الحاج الطاهر الخاصة',
     'name_en' => '',
@@ -11434,6 +11908,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'كشوفات أوائل الشهادة الرسمية لمرحلة الأساس الصادرة عن وزارة التربية والتوجيه بولاية شمال دارفور والمغطاة عبر التقارير الرسمية وإذاعة راديو دبنقا.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -11443,7 +11919,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  357 => 
+  350 => 
   array (
     'name' => 'مجمع الفاشر للتعليم الخاص',
     'name_en' => '',
@@ -11466,6 +11942,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الصفحة الرسمية المعتمدة على فيسبوك: "مجمع الفاشر للتعليم الخاص" (معرف المعرف الرقمي: `61555981504958`).',
     'status' => 'approved',
     'is_verified' => 0,
@@ -11475,7 +11953,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  358 => 
+  351 => 
   array (
     'name' => 'مدرسة الأمل الأساسية الخاصة',
     'name_en' => '',
@@ -11497,6 +11975,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مسجلة ضمن سجلات مكتب التعليم الخاص التابع لإدارة التعليم بمحلية كبكابية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -11506,7 +11986,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  359 => 
+  352 => 
   array (
     'name' => 'مدرسة العباس الابتدائية المختلطة الخاصة',
     'name_en' => '',
@@ -11528,6 +12008,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشمال دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -11537,7 +12019,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  360 => 
+  353 => 
   array (
     'name' => 'مدارس سبيل الخاصة',
     'name_en' => '',
@@ -11559,6 +12041,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بشمال دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -11568,7 +12052,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  361 => 
+  354 => 
   array (
     'name' => 'مدرسة ابن حيان الخاصة',
     'name_en' => '',
@@ -11590,6 +12074,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'موثقة عبر تقارير شبكة أثر الإعلامية وسجلات مبادرات التعليم الخاص بمحلية مليط لمواجهة تحديات تعطل المؤسسات الحكومية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -11599,7 +12085,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  362 => 
+  355 => 
   array (
     'name' => 'مدرسة المحمل الثانوية الخاصة',
     'name_en' => '',
@@ -11621,6 +12107,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بوسط دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -11630,7 +12118,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  363 => 
+  356 => 
   array (
     'name' => 'مدرسة أجيال المستقبل الخاصة — زالنجي',
     'name_en' => '',
@@ -11652,6 +12140,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'لوحة شرف رسمية صادر عن وزارة التربية والتعليم بولاية وسط دارفور:** أحرز تلميذها (محمد حامد ضيف الله) المركز الأول المشترك على مستوى محلية زالنجي في امتحانات الشهادة الابتدائية بمجموع 236 درجة (يونيو 2026م).؛ التغطيات الإخبارية المعتمدة لنتائج الامتحانات في صحيفة التنوير الإلكترونية، والفعاليات الثقافية والمعارض الفنية للطفل المستضافة بالمدرسة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -11661,7 +12151,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  364 => 
+  357 => 
   array (
     'name' => 'مدرسة أيادي الخير الخاصة',
     'name_en' => '',
@@ -11684,6 +12174,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'سجلات وزارة التربية والتوجيه بوسط دارفور:** حققت المراكز المتقدمة في قائمة الشرف للشهادة الابتدائية للعام 2026م؛ حيث تقاسم التلميذ (مقام عبدالمطلب هرون) المركز الأول بمجموع 236 درجة، ونالت التلميذة (مها محمد أحمد عثمان) المركز الثالث بمجموع 232 درجة، والتلميذة (ابتهاج مهدي عبدالمولى) المركز الخامس بمجموع 228 درجة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -11693,7 +12185,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  365 => 
+  358 => 
   array (
     'name' => 'مدرسة أزوم الثانوية الخاصة',
     'name_en' => '',
@@ -11715,6 +12207,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بوسط دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -11724,7 +12218,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  366 => 
+  359 => 
   array (
     'name' => 'مدرسة التميز الثانوية الخاصة',
     'name_en' => '',
@@ -11746,6 +12240,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بوسط دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -11755,7 +12251,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  367 => 
+  360 => 
   array (
     'name' => 'مدرسة الحكمة الثانوية الخاصة',
     'name_en' => '',
@@ -11777,6 +12273,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بوسط دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -11786,7 +12284,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  368 => 
+  361 => 
   array (
     'name' => 'مجمع رياض ومدارس أحباب الله النموذجية الخاصة للتعليم قبل المدرسي',
     'name_en' => '',
@@ -11802,12 +12300,14 @@ return array (
     ),
     'state' => 'وسط دارفور',
     'city' => 'زالنجي',
-    'district' => '?لسوق شمال.',
-    'address' => 'وسط دارفور — زالنجي — ?لسوق شمال.',
+    'district' => 'السوق شمال.',
+    'address' => 'وسط دارفور — زالنجي — السوق شمال.',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صفحة رسمية معتمدة على فيسبوك توثق التأسيس في 13 ديسمبر 2017م بترخيص من وزارة التربية والتعليم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -11817,7 +12317,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  369 => 
+  362 => 
   array (
     'name' => 'مدرسة المميز الأساسية الخاصة المختلطة',
     'name_en' => '',
@@ -11839,6 +12339,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'دليل التوثيق والتحقق:** السجلات الإدارية والجغرافية الموثقة لمدينة قارسيلا، والموسوعات المعرفية المفتوحة (ويكيبيديا)، ومنصة 6abbo التوثيقية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -11848,7 +12350,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  370 => 
+  363 => 
   array (
     'name' => 'مدرسة الحميراء الابتدائية والمتوسطة الخاصة',
     'name_en' => '',
@@ -11871,6 +12373,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'دليل التوثيق والتحقق:** بيانات وسجلات المؤسسات التعليمية غير الحكومية بمحلية وادي صالح، والمنشورات المدرسية الموثقة على فيسبوك.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -11880,7 +12384,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  371 => 
+  364 => 
   array (
     'name' => 'مدرسة النبراس الثانوية الخاصة',
     'name_en' => '',
@@ -11902,6 +12406,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بوسط دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -11911,7 +12417,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  372 => 
+  365 => 
   array (
     'name' => 'مدرسة الآفاق الثانوية الخاصة — قارسيلا',
     'name_en' => '',
@@ -11933,6 +12439,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'دليل التوثيق والتحقق:** السجلات الرسمية والتاريخية لقطاع التعليم الأهلي والخاص في مدينة قارسيلا.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -11942,7 +12450,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  373 => 
+  366 => 
   array (
     'name' => 'مدرسة وعد النجاح الثانوية الخاصة',
     'name_en' => '',
@@ -11958,12 +12466,14 @@ return array (
     ),
     'state' => 'وسط دارفور',
     'city' => 'زالنجي',
-    'district' => '?م دخن   أم دخن (جنوب غرب  قرب المثلث الحدودي).',
-    'address' => 'وسط دارفور — زالنجي — ?م دخن   أم دخن (جنوب غرب  قرب المثلث الحدودي).',
+    'district' => 'أم دخن أم دخن (جنوب غرب قرب المثلث الحدودي).',
+    'address' => 'وسط دارفور — زالنجي — أم دخن أم دخن (جنوب غرب قرب المثلث الحدودي).',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بوسط دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -11973,7 +12483,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  374 => 
+  367 => 
   array (
     'name' => 'مدارس المعالي الخاصة — أبو جبيهة',
     'name_en' => '',
@@ -11996,6 +12506,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الكادر والإدارة:** بإشراف وإدارة الأستاذ بيلو محمد صالح وعدد من القيادات التربوية بالمحلية.؛ مسجلة ومعتمدة لدى إدارة التعليم الخاص بوزارة التربية والتوجيه بولاية جنوب كردفان.؛ إعلان النتائج الرسمية عبر منصة الناطق الرسمي باسم حكومة ولاية جنوب كردفان: حصدت المدرسة المراكز الأولى على مستوى الولاية بالكامل في الشهادة الابتدائية؛ حيث أحرز الطالب **علي عبد الواحد علي محمد** (المعالي الخاصة بنين) **المركز الأول على مستوى الولاية**، ونالت الطالبة **فاطم',
     'status' => 'approved',
     'is_verified' => 0,
@@ -12005,7 +12517,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  375 => 
+  368 => 
   array (
     'name' => 'مدارس المعلم الخاصة',
     'name_en' => '',
@@ -12028,6 +12540,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توثيق تكريم الأوائل والمتفوقين على مستوى المحلية، وإدراج طلابها رسمياً في امتحانات النقل والشهادات العامة بإشراف مكتب التعليم بمحلية أبو جبيهة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -12037,7 +12551,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  376 => 
+  369 => 
   array (
     'name' => 'مدارس المنار الجديد الثانوية الخاصة',
     'name_en' => '',
@@ -12053,12 +12567,14 @@ return array (
     ),
     'state' => 'جنوب كردفان',
     'city' => 'أبو جبيهة',
-    'district' => '?نوب ديوان الزكاة، وشمال البنك الزراعي.',
-    'address' => 'جنوب كردفان — أبو جبيهة — ?نوب ديوان الزكاة، وشمال البنك الزراعي.',
+    'district' => 'جنوب ديوان الزكاة، وشمال البنك الزراعي.',
+    'address' => 'جنوب كردفان — أبو جبيهة — جنوب ديوان الزكاة، وشمال البنك الزراعي.',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'بإشراف وإدارة الأستاذ/ يحيى عثمان ونخبة من أساتذة المرحلة الثانوية.؛ صفحة رسمية وسجلات خريجين وتوثيق لامتحانات الشهادة الثانوية السودانية على منصات التواصل وشبكة مدارس المنار.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -12068,7 +12584,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  377 => 
+  370 => 
   array (
     'name' => 'مدرسة عالم الفكر التعليمية الخاصة',
     'name_en' => '',
@@ -12091,6 +12607,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مسجلة رسمياً بسجلات وزارة التربية والتوجيه بولاية جنوب كردفان.؛ لوحة شرف امتحانات شهادة المرحلة المتوسطة الرسمية للولاية (المؤتمر الصحفي لوزارة التربية بأبو جبيهة): أحرز تلميذ المدرسة **محمد السمؤال الشاذلي** **المرتبة الثالثة (مشترك) على مستوى ولاية جنوب كردفان** بمجموع 266 درجة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -12100,7 +12618,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  378 => 
+  371 => 
   array (
     'name' => 'مدرسة إقرأ الابتدائية الخاصة',
     'name_en' => '',
@@ -12122,6 +12640,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بجنوب كردفان، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -12131,7 +12651,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  379 => 
+  372 => 
   array (
     'name' => 'مدرسة كمبوني كادقلي الابتدائية المختلطة',
     'name_en' => 'Comboni Private School - Kadugli',
@@ -12154,6 +12674,8 @@ return array (
     'whatsapp' => '+249912443355',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'موثقة في الخرائط والمراجع الجغرافية الدولية (Wikimapia) والسجلات التاريخية للتعليم في كردفان.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -12163,7 +12685,7 @@ return array (
     'historic_badge_reason' => 'صرح تعليمي عريق',
     'historic_votes' => 0,
   ),
-  380 => 
+  373 => 
   array (
     'name' => 'مدرسة الأندلس الخاصة بنات — أبو كرشولا',
     'name_en' => '',
@@ -12186,6 +12708,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المؤتمر الصحفي الرسمي لإعلان نتيجة شهادة المرحلة المتوسطة بولاية جنوب كردفان (المعتمد رسمياً من وزارة التربية والتوجيه ووالي الولاية):؛ حصدت طالبة المدرسة **مارنا مكي علي جاد الكريم** **المركز الأول على مستوى ولاية جنوب كردفان** بنتيجة 271 درجة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -12195,7 +12719,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  381 => 
+  374 => 
   array (
     'name' => 'مدارس كردفان الخاصة لمرحلتي الأساس والابتدائي والمتوسط',
     'name_en' => '',
@@ -12218,6 +12742,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بغرب كردفان، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -12227,7 +12753,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  382 => 
+  375 => 
   array (
     'name' => 'مجمع مدارس الشيخ محمد عبيد آل مكتوم الثانوية العلمية النموذجية',
     'name_en' => '',
@@ -12249,6 +12775,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'التوثيق الصادر عن وكالة أنباء "Arab 24" وصحيفة "الإمارات اليوم" وسجلات المشروعات التعليمية لهيئة آل مكتوم الخيرية بالسودان (تاريخ التأسيس 2017م والافتتاح 2018م).',
     'status' => 'approved',
     'is_verified' => 0,
@@ -12258,7 +12786,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  383 => 
+  376 => 
   array (
     'name' => 'مدرسة الخدمات الخاصة / الأهلية',
     'name_en' => '',
@@ -12274,12 +12802,14 @@ return array (
     ),
     'state' => 'غرب كردفان',
     'city' => 'بابنوسة',
-    'district' => '?لحريكة.',
-    'address' => 'غرب كردفان — بابنوسة — ?لحريكة.',
+    'district' => 'الحريكة.',
+    'address' => 'غرب كردفان — بابنوسة — الحريكة.',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بغرب كردفان، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -12289,7 +12819,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  384 => 
+  377 => 
   array (
     'name' => 'مدارس وهج القبس الثانوية الخاصة',
     'name_en' => '',
@@ -12306,12 +12836,14 @@ return array (
     ),
     'state' => 'غرب دارفور',
     'city' => 'الجنينة',
-    'district' => '?لكفاح  منطقة دارندوكة (شرق مسجد شعيب).',
-    'address' => 'غرب دارفور — الجنينة — ?لكفاح  منطقة دارندوكة (شرق مسجد شعيب).',
+    'district' => 'الكفاح منطقة دارندوكة (شرق مسجد شعيب).',
+    'address' => 'غرب دارفور — الجنينة — الكفاح منطقة دارندوكة (شرق مسجد شعيب).',
     'phone' => NULL,
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'السجلات الإدارية لوزارة التربية:** مسجلة ومدرجة ضمن كشوفات "إدارة التعليم غير الحكومي" بمحلية الجنينة، وتظهر في نماذج الامتحانات الشهرية وأوراق العمل المقررة لطلاب الشهادة بولاية غرب دارفور.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -12321,7 +12853,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  385 => 
+  378 => 
   array (
     'name' => 'روضة اليمامة الخاصة للأطفال',
     'name_en' => 'Al-Yamamah Kindergarten',
@@ -12343,6 +12875,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بغرب دارفور، تقدم بيئة تعليمية متكاملة ومناهج حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -12352,7 +12886,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  386 => 
+  379 => 
   array (
     'name' => 'مدارس القبس الدولية — فرع الرياض',
     'name_en' => 'Al-Qabas International School - Riyadh',
@@ -12376,6 +12910,8 @@ return array (
     'whatsapp' => '+249912300017',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أعرق المدارس الدولية المعتمدة من المجلس الثقافي البريطاني وكامبردج (SD017)، تقدم برامج Checkpoint وIGCSE والشهادة السودانية المتميزة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -12385,7 +12921,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  387 => 
+  380 => 
   array (
     'name' => 'مدرسة أكسفورد أكاديمي — الخرطوم',
     'name_en' => 'Oxford Academy Khartoum',
@@ -12409,6 +12945,8 @@ return array (
     'whatsapp' => '+249912166720',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز معتمد رسمياً من المجلس الثقافي البريطاني (SD021) لتدريس المنهج البريطاني الدولي واختبارات كامبردج الدولية IGCSE و A-Levels.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -12418,7 +12956,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  388 => 
+  381 => 
   array (
     'name' => 'مدرسة ليدرز العالمية بالخرطوم',
     'name_en' => 'Leaders International Schools Khartoum',
@@ -12442,6 +12980,8 @@ return array (
     'whatsapp' => '+249912391900',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة دولية رائدة معتمدة من المجلس الثقافي البريطاني لتقديم مناهج كامبردج الدولية وبرامج Checkpoint وIGCSE بإشراف كوادر تربوية دولية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -12451,7 +12991,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  389 => 
+  382 => 
   array (
     'name' => 'مدرسة وادي النيل العالمية — الخرطوم',
     'name_en' => 'Nile Valley International School',
@@ -12475,6 +13015,8 @@ return array (
     'whatsapp' => '+249912384910',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية دولية متخصصة في تدريس المناهج الإنجليزية الدولية البريطانية وتأهيل الطلاب للجامعات العالمية والسودانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -12484,7 +13026,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  390 => 
+  383 => 
   array (
     'name' => 'مدرسة ذا بيربل كرايون العالمية',
     'name_en' => 'The Purple Crayon Primary and Infant School',
@@ -12508,6 +13050,8 @@ return array (
     'whatsapp' => '+249912304950',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة دولية بريطانية معتمدة تركز على التعليم التفاعلي وبناء المهارات الفردية وتطبيق مسار كامبردج الدولي حتى الصف الحادي عشر.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -12517,7 +13061,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  391 => 
+  384 => 
   array (
     'name' => 'أكاديمية أفيناش الدولية — الخرطوم',
     'name_en' => 'Avinash Academy Khartoum',
@@ -12541,6 +13085,8 @@ return array (
     'whatsapp' => '+249912194010',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'أكاديمية تعليمية رائدة تقدم مسارات التعليم المتقدم واللغات والشهادات الدولية المعتمدة من الشبكة التعليمية للمجلس الثقافي البريطاني.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -12550,7 +13096,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  392 => 
+  385 => 
   array (
     'name' => 'مدرسة إي بي سي للغات (ABC Language School)',
     'name_en' => 'ABC Language School Khartoum',
@@ -12574,6 +13120,8 @@ return array (
     'whatsapp' => '+249912158820',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز تعليمي معتمد رسمياً من المجلس الثقافي البريطاني (SD016) متخصص في تدريس اللغات والمنهج البريطاني لمختلف المراحل الدراسية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -12583,7 +13131,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  393 => 
+  386 => 
   array (
     'name' => 'مدرسة المنال الخاصة — الخرطوم 2',
     'name_en' => 'Almanal School Khartoum 2',
@@ -12607,6 +13155,8 @@ return array (
     'whatsapp' => '+249912371900',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة عريقة معتمدة من المجلس الثقافي البريطاني (SD020) تقدم برامج تعليمية وطنية ودولية متوازنة وبيئة تربوية منضبطة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -12616,7 +13166,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  394 => 
+  387 => 
   array (
     'name' => 'مدرسة هولم الإنجليزية الخاصة (HOLM English Medium School)',
     'name_en' => 'HOLM English Medium School Khartoum',
@@ -12640,6 +13190,8 @@ return array (
     'whatsapp' => '+249912385100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز تعليمي بريطاني معتمد (SD012) يقدم التعليم باللغة الإنجليزية وفقاً للمقررات العالمية واختبارات IGCSE البريطانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -12649,7 +13201,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  395 => 
+  388 => 
   array (
     'name' => 'مدارس جيمس الدولية بالخرطوم (Khartoum GEMS)',
     'name_en' => 'Khartoum GEMS International School',
@@ -12673,6 +13225,8 @@ return array (
     'whatsapp' => '+249912399200',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي دولي يتبع لشبكة المدارس العالمية المعتمدة لتقديم بيئة تعليمية ذكية وتنمية مهارات التفكير الناقد والإبداع.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -12682,7 +13236,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  396 => 
+  389 => 
   array (
     'name' => 'مدارس القبس الخاصة — فرع العمارات',
     'name_en' => 'Al-Qabas Private Schools - Alamarat',
@@ -12706,6 +13260,8 @@ return array (
     'whatsapp' => '+249912305540',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'أحد أبرز فروع مجمع القبس التعليمي النموذجي، يركز على الجمع بين الأصالة والقيم والتفوق الأكاديمي المشهود في الشهادة السودانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -12715,7 +13271,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  397 => 
+  390 => 
   array (
     'name' => 'مدارس القبس الخاصة — فرع المعمورة',
     'name_en' => 'Al-Qabas Private Schools - Al-Mamoura',
@@ -12739,6 +13295,8 @@ return array (
     'whatsapp' => '+249912305550',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع تعليمي نموذجي حديث يضم بنين وبنات بمبانٍ مجهزة بمختبرات حاسوب وعلوم وملاعب رياضية متكاملة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -12748,7 +13306,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  398 => 
+  391 => 
   array (
     'name' => 'مدارس دار الأرقم القرآنية النموذجية — جبرة',
     'name_en' => 'Dar Al-Arqam Model Quranic Schools - Jabra',
@@ -12772,6 +13330,8 @@ return array (
     'whatsapp' => '+249912187340',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية قرآنية متميزة تدمج بين حفظ وتجويد القرآن الكريم والمناهج الأكاديمية العلمية المتفوقة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -12781,7 +13341,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  399 => 
+  392 => 
   array (
     'name' => 'مدارس المملكة الخاصة — جبرة',
     'name_en' => 'Al-Mamlaka Private Schools - Jabra',
@@ -12805,6 +13365,8 @@ return array (
     'whatsapp' => '+249912788059',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس رائدة في جنوب الخرطوم تشتهر بكوادرها الأكاديمية ذات الخبرة الطويلة والنتائج الباهرة في امتحانات الشهادة الثانوية والأساس.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -12814,7 +13376,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  400 => 
+  393 => 
   array (
     'name' => 'مدارس الفلاح النموذجية الخاصة — الصحافة',
     'name_en' => 'Al-Falah Model Private Schools - Al-Sahafa',
@@ -12838,6 +13400,8 @@ return array (
     'whatsapp' => '+249912176430',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تربوي بارز في منطقة الصحافة يقدم تعليماً نوعياً مدعوماً بالأنشطة اللاصفية والاهتمام الفردي بالطلاب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -12847,7 +13411,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  401 => 
+  394 => 
   array (
     'name' => 'مدارس الإيمان النموذجية الخاصة — الصحافة غرب',
     'name_en' => 'Al-Eiman Model Private Schools - Al-Sahafa',
@@ -12871,6 +13435,8 @@ return array (
     'whatsapp' => '+249912189910',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية نموذجية تضم مراحل الأساس والثانوي وتحقق مراكز متقدمة على مستوى محلية الخرطوم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -12880,7 +13446,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  402 => 
+  395 => 
   array (
     'name' => 'مدارس الرائد النموذجية الخاصة — العمارات',
     'name_en' => 'Al-Raid Model Private Schools - Alamarat',
@@ -12904,6 +13470,8 @@ return array (
     'whatsapp' => '+249912387600',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة عريقة تأسست لتقديم بيئة تعليمية راقية وتخريج كوادر متميزة في المساقات العلمية والأدبية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -12913,7 +13481,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  403 => 
+  396 => 
   array (
     'name' => 'مدارس الوسيلة الخاصة — جبرة',
     'name_en' => 'Al-Waseela Private Schools - Jabra',
@@ -12937,6 +13505,8 @@ return array (
     'whatsapp' => '+249912198750',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع تعليمي خاص يركز على المتابعة الأكاديمية الدقيقة والدروس التعزيزية والأنشطة الثقافية والرياضية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -12946,7 +13516,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  404 => 
+  397 => 
   array (
     'name' => 'مدارس ابن خلدون النموذجية — أركويت',
     'name_en' => 'Ibn Khaldoun Model Schools - Arkaweet',
@@ -12970,6 +13540,8 @@ return array (
     'whatsapp' => '+249912376510',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من المدارس النموذجية المرموقة في أركويت التي تحظى بثقة واسعة من أولياء الأمور بفضل كادرها التعليمي المختار بعناية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -12979,7 +13551,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  405 => 
+  398 => 
   array (
     'name' => 'مدارس المستقبل الحديثة الخاصة — المعمورة',
     'name_en' => 'Al-Mustaqbal Modern Schools - Al-Mamoura',
@@ -13003,6 +13575,8 @@ return array (
     'whatsapp' => '+249912389920',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية حديثة تقدم تعليماً متطوراً يدمج الوسائل التقنية الحديثة وشاشات العرض الذكية في الفصول الدراسية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -13012,7 +13586,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  406 => 
+  399 => 
   array (
     'name' => 'مدارس البيان النموذجية الخاصة — الرياض',
     'name_en' => 'Al-Bayan Model Schools - Riyadh',
@@ -13036,6 +13610,8 @@ return array (
     'whatsapp' => '+249912345670',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس نموذجية خاصة ذات سمعة أكاديمية رفيعة تشتهر بنسب النجاح الكاملة في الشهادات العامة وقاعات دراسية مكيفة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -13045,7 +13621,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  407 => 
+  400 => 
   array (
     'name' => 'مدارس الصفا النموذجية الخاصة — الطائف',
     'name_en' => 'Al-Safa Model Schools - Al-Taif',
@@ -13069,6 +13645,8 @@ return array (
     'whatsapp' => '+249912367890',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع تعليمي متكامل يوفر بيئة مدرسية محفزة للتعلم والابتكار مع رعاية فائقة للطلاب المتفوقين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -13078,7 +13656,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  408 => 
+  401 => 
   array (
     'name' => 'مدارس الروابي النموذجية الخاصة — أركويت',
     'name_en' => 'Al-Rawabi Model Schools - Arkaweet',
@@ -13102,6 +13680,8 @@ return array (
     'whatsapp' => '+249912354320',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي خاص يركز على إتقان اللغات الأجنبية وتقنية المعلومات والمقررات العلمية التطبيقية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -13111,7 +13691,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  409 => 
+  402 => 
   array (
     'name' => 'مدارس بدر الكبرى النموذجية — جبرة',
     'name_en' => 'Badr Al-Kubra Model Schools - Jabra',
@@ -13135,6 +13715,8 @@ return array (
     'whatsapp' => '+249912398710',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تربوية كبرى تضم مراحل الأساس والمتوسط والثانوي بنين وبنات بإشراف هيئة تدريسية متميزة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -13144,7 +13726,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  410 => 
+  403 => 
   array (
     'name' => 'مدارس الرضوان النموذجية — الصحافة جنوب',
     'name_en' => 'Al-Radwan Model Schools - Al-Sahafa',
@@ -13168,6 +13750,8 @@ return array (
     'whatsapp' => '+249912387120',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة تقدم مناهج تعليمية نموذجية مع برامج تقوية مستمرة وأنشطة علمية وفنية وثقافية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -13177,7 +13761,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  411 => 
+  404 => 
   array (
     'name' => 'مدارس الريان الخاصة — المعمورة',
     'name_en' => 'Al-Rayan Private Schools - Al-Mamoura',
@@ -13201,6 +13785,8 @@ return array (
     'whatsapp' => '+249912391230',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع تعليمي عصري يوفر فصولاً دراسية مجهزة ووسائل إيضاح حديثة ومختبرات علمية متخصصة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -13210,7 +13796,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  412 => 
+  405 => 
   array (
     'name' => 'مدارس الهدى النموذجية الخاصة — الطائف',
     'name_en' => 'Al-Huda Model Schools - Al-Taif',
@@ -13234,6 +13820,8 @@ return array (
     'whatsapp' => '+249912378940',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من المدارس النموذجية المرموقة التي حقق طلابها مراتب الشرف الأولى في امتحانات الشهادة الثانوية العامة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -13243,7 +13831,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  413 => 
+  406 => 
   array (
     'name' => 'مدارس الأمانة الخاصة — العمارات',
     'name_en' => 'Al-Amana Private Schools - Alamarat',
@@ -13267,6 +13855,8 @@ return array (
     'whatsapp' => '+249912389010',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة تقدم خدمة تعليمية متكاملة تتضمن حافلات ترحيل مدرسية آمنة وملاعب ومكتبات زاخرة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -13276,7 +13866,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  414 => 
+  407 => 
   array (
     'name' => 'مدارس الصداقة الخاصة — حي النزهة',
     'name_en' => 'Al-Sadaqa Private Schools - Al-Nuzha',
@@ -13300,6 +13890,8 @@ return array (
     'whatsapp' => '+249912376190',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية وتربوية تقدم تعليماً نموذجياً يلبي متطلبات التميز الأكاديمي وصقل مواهب الطلاب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -13309,7 +13901,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  415 => 
+  408 => 
   array (
     'name' => 'مدارس الأوائل الخاصة — الصحافة وسط',
     'name_en' => 'Al-Awael Private Schools - Al-Sahafa',
@@ -13333,6 +13925,8 @@ return array (
     'whatsapp' => '+249912389230',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة تضم فصولاً منفصلة للبنين والبنات وبيئة تعليمية محفزة بإشراف تربويين مرموقين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -13342,7 +13936,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  416 => 
+  409 => 
   array (
     'name' => 'مدارس المجد النموذجية الخاصة — جبرة',
     'name_en' => 'Al-Majd Model Schools - Jabra',
@@ -13366,6 +13960,8 @@ return array (
     'whatsapp' => '+249912378900',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع تعليمي متكامل يقدم برامج إثرائية ومسابقات تفاعلية وإعداداً مكثفاً للامتحانات النهائية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -13375,7 +13971,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  417 => 
+  410 => 
   array (
     'name' => 'مدارس الجريف غرب النموذجية الخاصة',
     'name_en' => 'Al-Jereif West Model Schools',
@@ -13399,6 +13995,8 @@ return array (
     'whatsapp' => '+249912384750',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية رائدة في شرق الخرطوم تشهد إقبالاً كبيراً لتميز نتائجها ومرافقها الأكاديمية والرياضية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -13408,7 +14006,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  418 => 
+  411 => 
   array (
     'name' => 'مدارس النيلين الخاصة — بري الدرايسة',
     'name_en' => 'Al-Neelain Private Schools - Burri',
@@ -13432,6 +14030,8 @@ return array (
     'whatsapp' => '+249912398410',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة عريقة تقع في حي بري العريق وتقدم برامج تعليمية معتمدة وخدمات تربوية متقدمة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -13441,7 +14041,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  419 => 
+  412 => 
   array (
     'name' => 'مدارس بري الخاصة — اللاماب ناصر',
     'name_en' => 'Burri Private Schools - Lamab Nasser',
@@ -13465,6 +14065,8 @@ return array (
     'whatsapp' => '+249912389140',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تربوي مجتمعي يخدم أبناء منطقة بري والمناطق المجاورة ببرامج تعليمية نموذجية وأنشطة متميزة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -13474,7 +14076,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  420 => 
+  413 => 
   array (
     'name' => 'مدارس الديم النموذجية الخاصة — الديوم الشرقية',
     'name_en' => 'Al-Deim Model Schools - Eastern Deims',
@@ -13498,6 +14100,8 @@ return array (
     'whatsapp' => '+249912376820',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة في قلب الخرطوم تجمع بين الكفاءة التعليمية والالتزام الأخلاقي والتربوي الصارم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -13507,7 +14111,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  421 => 
+  414 => 
   array (
     'name' => 'مدارس المجاهدين النموذجية الخاصة',
     'name_en' => 'Al-Mujahideen Model Schools',
@@ -13531,6 +14135,8 @@ return array (
     'whatsapp' => '+249912387190',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع تعليمي نموذجي حديث يتمتع ببيئة هادئة ومرافق رياضية ومختبرات تكنولوجية متقدمة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -13540,7 +14146,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  422 => 
+  415 => 
   array (
     'name' => 'مدارس الفردوس النموذجية الخاصة — الخرطوم',
     'name_en' => 'Al-Ferdous Model Schools - Khartoum',
@@ -13564,6 +14170,8 @@ return array (
     'whatsapp' => '+249912398200',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس نموذجية خاصة ذات بيئة مدرسية محفزة للتعلم والمنافسة الشريفة بين الطلاب في شتى المواد الدراسية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -13573,7 +14181,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  423 => 
+  416 => 
   array (
     'name' => 'مدارس الشجرة النموذجية الخاصة',
     'name_en' => 'Al-Shajara Model Schools',
@@ -13597,6 +14205,8 @@ return array (
     'whatsapp' => '+249912376540',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة في جنوب الخرطوم تقدم تعليماً متميزاً بأسعار مناسبة ومعلمين أكفاء.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -13606,7 +14216,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  424 => 
+  417 => 
   array (
     'name' => 'مدارس اللاماب بحر أبيض النموذجية',
     'name_en' => 'Al-Lamab Bahr Abyad Model Schools',
@@ -13630,6 +14240,8 @@ return array (
     'whatsapp' => '+249912389100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي نموذجي يخدم أحياء جنوب الخرطوم بكادر تربوي متخصص ومناهج معززة بالأنشطة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -13639,7 +14251,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  425 => 
+  418 => 
   array (
     'name' => 'مدارس المقرن النموذجية الخاصة',
     'name_en' => 'Al-Muqran Model Private Schools',
@@ -13663,6 +14275,8 @@ return array (
     'whatsapp' => '+249912371230',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة نموذجية في موقع استراتيجي بوسط العاصمة تهدف إلى التميز الأكاديمي الشامل.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -13672,7 +14286,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  426 => 
+  419 => 
   array (
     'name' => 'مدارس السجانة النموذجية الخاصة',
     'name_en' => 'Al-Sajjana Model Private Schools',
@@ -13696,6 +14310,8 @@ return array (
     'whatsapp' => '+249912389710',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة عريقة تتميز بالانضباط وارتفاع نسب التحصيل في الشهادة العامة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -13705,7 +14321,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  427 => 
+  420 => 
   array (
     'name' => 'مدارس القوز النموذجية الخاصة',
     'name_en' => 'Al-Gooz Model Private Schools',
@@ -13729,6 +14345,8 @@ return array (
     'whatsapp' => '+249912376510',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة توفر برامج تعليمية وتربوية متكاملة للطلاب ورعاية للأنشطة الثقافية والاجتماعية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -13738,7 +14356,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  428 => 
+  421 => 
   array (
     'name' => 'مدارس الرميلة النموذجية الخاصة',
     'name_en' => 'Al-Rumaila Model Private Schools',
@@ -13762,6 +14380,8 @@ return array (
     'whatsapp' => '+249912389230',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع تعليمي خاص يركز على التطبيق العملي للعلوم والرياضيات وبناء شخصية الطالب المتزنة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -13771,7 +14391,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  429 => 
+  422 => 
   array (
     'name' => 'مدارس سوبا غرب النموذجية الخاصة',
     'name_en' => 'Soba West Model Private Schools',
@@ -13795,6 +14415,8 @@ return array (
     'whatsapp' => '+249912378940',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي نموذجي يخدم منطقة سوبا والمناطق السكنية الجديدة جنوب الخرطوم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -13804,7 +14426,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  430 => 
+  423 => 
   array (
     'name' => 'مدارس الدوحة النموذجية الخاصة — الخرطوم',
     'name_en' => 'Al-Doha Model Schools - Khartoum',
@@ -13828,6 +14450,8 @@ return array (
     'whatsapp' => '+249912389010',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة تقدم مناهج متطورة وبيئة صفية مريحة تحفز الإبداع والتحصيل العلمي المتميز.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -13837,7 +14461,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  431 => 
+  424 => 
   array (
     'name' => 'مدارس الحلة الجديدة الخاصة — الخرطوم',
     'name_en' => 'Al-Hilla Al-Jadeeda Private Schools',
@@ -13861,6 +14485,8 @@ return array (
     'whatsapp' => '+249912376820',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة تقدم تعليماً متميزاً بأسعار مناسبة ومعلمين ذوي خبرة طويلة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -13870,7 +14496,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  432 => 
+  425 => 
   array (
     'name' => 'مدارس نمرة 3 النموذجية الخاصة',
     'name_en' => 'Khartoum 3 Model Private Schools',
@@ -13894,6 +14520,8 @@ return array (
     'whatsapp' => '+249912389100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة نموذجية في موقع وسطي بالخرطوم تقدم تعليماً متميزاً وخدمات نقل متكاملة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -13903,7 +14531,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  433 => 
+  426 => 
   array (
     'name' => 'مدارس الإشراق التعليمية الخاصة — المعمورة',
     'name_en' => 'Al-Ishraq Educational Schools - Al-Mamoura',
@@ -13927,6 +14555,8 @@ return array (
     'whatsapp' => '+249912378940',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع تعليمي نموذجي حديث يقدم مسارات تعليمية متطورة وفصولاً تفاعلية مكيفة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -13936,7 +14566,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  434 => 
+  427 => 
   array (
     'name' => 'مدارس رواد النهضة الخاصة — الرياض',
     'name_en' => 'Ruwad Al-Nahda Private Schools - Riyadh',
@@ -13960,6 +14590,8 @@ return array (
     'whatsapp' => '+249912389010',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة نموذجية ذات أداء أكاديمي مرموق تسعى إلى بناء جيل واعٍ متسلح بالعلم والمعرفة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -13969,7 +14601,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  435 => 
+  428 => 
   array (
     'name' => 'مدارس النور القرآنية الخاصة — جبرة',
     'name_en' => 'Al-Noor Quranic Private Schools - Jabra',
@@ -13993,6 +14625,8 @@ return array (
     'whatsapp' => '+249912376820',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس قرآنية خاصة تدمج تعليم القرآن الكريم والحديث الشريف مع المناهج العلمية المعتمدة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -14002,7 +14636,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  436 => 
+  429 => 
   array (
     'name' => 'مدارس الفتح النموذجية الخاصة — الصحافة',
     'name_en' => 'Al-Fateh Model Schools - Al-Sahafa',
@@ -14026,6 +14660,8 @@ return array (
     'whatsapp' => '+249912389100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة عريقة تضم نخبة من خيرة الأساتذة والمعلمين أصحاب الخبرات الطويلة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -14035,7 +14671,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  437 => 
+  430 => 
   array (
     'name' => 'مدارس النجوم الخاصة — أركويت',
     'name_en' => 'Al-Nojoom Private Schools - Arkaweet',
@@ -14059,6 +14695,8 @@ return array (
     'whatsapp' => '+249912378940',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي يهدف لاكتشاف مواهب الطلاب ورعايتها أكاديمياً ورياضياً وثقافياً.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -14068,7 +14706,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  438 => 
+  431 => 
   array (
     'name' => 'مدارس الأندلس النموذجية الخاصة — النزهة',
     'name_en' => 'Al-Andalus Model Schools - Al-Nuzha',
@@ -14092,6 +14730,8 @@ return array (
     'whatsapp' => '+249912389010',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس نموذجية خاصة ذات مرافق متقدمة ومختبرات علمية متطورة لتأهيل الطلاب للشهادات العامة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -14101,7 +14741,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  439 => 
+  432 => 
   array (
     'name' => 'مدارس المناهل الخاصة — الطائف',
     'name_en' => 'Al-Manahil Private Schools - Al-Taif',
@@ -14125,6 +14765,8 @@ return array (
     'whatsapp' => '+249912376820',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة تقدم تعليماً رفيع المستوى في الرياضيات والعلوم واللغات العربية والإنجليزية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -14134,7 +14776,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  440 => 
+  433 => 
   array (
     'name' => 'مدارس العاصمة للغات — العمارات',
     'name_en' => 'Capital Language Schools - Alamarat',
@@ -14158,6 +14800,8 @@ return array (
     'whatsapp' => '+249912389100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس لغات متخصصة تولي عناية قصوى لتعليم اللغات الحية وتدريب الطلاب على المحادثة والترجمة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -14167,7 +14811,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  441 => 
+  434 => 
   array (
     'name' => 'مدارس القمة الخاصة — أركويت',
     'name_en' => 'Al-Qimma Private Schools - Arkaweet',
@@ -14191,6 +14835,8 @@ return array (
     'whatsapp' => '+249912378940',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس نموذجية خاصة ذات سجل حافل بالنتائج الباهرة في مسابقات الرياضيات والعلوم الوطنية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -14200,7 +14846,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  442 => 
+  435 => 
   array (
     'name' => 'مدارس الفرسان النموذجية — المعمورة',
     'name_en' => 'Al-Fursan Model Schools - Al-Mamoura',
@@ -14224,6 +14870,8 @@ return array (
     'whatsapp' => '+249912389010',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تربوي متكامل يوفر بيئة دراسية محفزة وبرامج إرشادية وتدريبية مستمرة للطلاب والمعلمين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -14233,7 +14881,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  443 => 
+  436 => 
   array (
     'name' => 'مدارس اليرموك الخاصة — جبرة',
     'name_en' => 'Al-Yarmouk Private Schools - Jabra',
@@ -14257,6 +14905,8 @@ return array (
     'whatsapp' => '+249912376820',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة تقدم برامج تعليمية مميزة بإشراف كادر تدريسي من حملة الماجستير والخبرات الميدانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -14266,7 +14916,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  444 => 
+  437 => 
   array (
     'name' => 'مدارس النماء الخاصة — الصحافة',
     'name_en' => 'Al-Namaa Private Schools - Al-Sahafa',
@@ -14290,6 +14940,8 @@ return array (
     'whatsapp' => '+249912389100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس نموذجية خاصة ذات فصول مجهزة وملاعب وأنشطة رائدة لتعزيز الذكاء والابتكار.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -14299,7 +14951,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  445 => 
+  438 => 
   array (
     'name' => 'مدارس العباقرة الخاصة — الرياض',
     'name_en' => 'Al-Abaqira Private Schools - Riyadh',
@@ -14323,6 +14975,8 @@ return array (
     'whatsapp' => '+249912378940',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة تهتم برعاية الموهوبين وتقديم مناهج الحساب الذهني وتنمية التفكير العلمي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -14332,7 +14986,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  446 => 
+  439 => 
   array (
     'name' => 'مدارس الآفاق العالمية — العمارات',
     'name_en' => 'Al-Afaq International Schools - Alamarat',
@@ -14356,6 +15010,8 @@ return array (
     'whatsapp' => '+249912389010',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة دولية تقدم تعليماً متعدد اللغات وبيئة دراسية حديثة مجهزة بأحدث الوسائل التكنولوجية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -14365,7 +15021,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  447 => 
+  440 => 
   array (
     'name' => 'مدارس دار السلام الخاصة — الجريف غرب',
     'name_en' => 'Dar Al-Salam Private Schools - Jereif',
@@ -14389,6 +15045,8 @@ return array (
     'whatsapp' => '+249912376820',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة تقدم خدمات تعليمية متطورة ومتابعة لصيقة لكل طالب مع قاعات دراسية مريحة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -14398,7 +15056,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  448 => 
+  441 => 
   array (
     'name' => 'مدارس الضياء التعليمية — بري المحس',
     'name_en' => 'Al-Diyaa Educational Schools - Burri',
@@ -14422,6 +15080,8 @@ return array (
     'whatsapp' => '+249912389100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع تعليمي نموذجي يضم كادراً مؤهلاً ويحقق نتائج باهرة ومراكز متقدمة سنوياً.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -14431,7 +15091,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  449 => 
+  442 => 
   array (
     'name' => 'مدارس أركويت النموذجية الخاصة',
     'name_en' => 'Arkaweet Model Private Schools',
@@ -14455,6 +15115,8 @@ return array (
     'whatsapp' => '+249912378940',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة نموذجية ذات خبرة عريقة في الإعداد الأكاديمي والامتحانات التنافسية العامة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -14464,7 +15126,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  450 => 
+  443 => 
   array (
     'name' => 'مدرسة النصر القبطية الخاصة — الخرطوم',
     'name_en' => 'Al-Nasr Coptic Private School - Khartoum',
@@ -14488,6 +15150,8 @@ return array (
     'whatsapp' => '+249912389010',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أعرق مدارس الجاليات والتعليم الخاص في السودان، تأسست منذ أكثر من قرن وخرجت أجيالاً من الأطباء والمهندسين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -14497,7 +15161,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  451 => 
+  444 => 
   array (
     'name' => 'مدارس جلوبال العالمية — المهندسين',
     'name_en' => 'Global International Schools - Al-Mohandiseen',
@@ -14521,6 +15185,8 @@ return array (
     'whatsapp' => '+249912300088',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية دولية كبرى في أم درمان معتمدة رسمياً من كامبردج والمجلس الثقافي البريطاني، تتبع أحدث أساليب التعليم التفاعلي والمختبرات الذكية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -14530,7 +15196,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  452 => 
+  445 => 
   array (
     'name' => 'مدارس ماكميلان الدولية — أم درمان',
     'name_en' => 'Macmillan International School (MIS)',
@@ -14555,6 +15221,8 @@ return array (
     'whatsapp' => '+249912187650',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة دولية تقدم التعليم لمراحل التمهيدي والأساس والثانوي عبر المنهجين السوداني والبريطاني IGCSE المعتمد.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -14564,7 +15232,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  453 => 
+  446 => 
   array (
     'name' => 'مدارس إدريس الإنجليزية ورياض الأطفال — أم درمان',
     'name_en' => 'Idris English Schools and Kindergarten',
@@ -14588,6 +15256,8 @@ return array (
     'whatsapp' => '+249912398110',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز تعليمي بريطاني معتمد يقدم برامج كامبردج وعلوم الروبوت والبرمجة والتأسيس اللغوي المتين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -14597,7 +15267,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  454 => 
+  447 => 
   array (
     'name' => 'مدارس إكسلانس جونيور الدولية — أم درمان',
     'name_en' => 'Excellence Junior School Omdurman',
@@ -14620,6 +15290,8 @@ return array (
     'whatsapp' => '+249912376540',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة دولية متخصصة في مراحل الطفولة والأساس معتمدة لامتحانات Checkpoint البريطانية وتنمية القيم والسلوك الإيجابي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -14629,7 +15301,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  455 => 
+  448 => 
   array (
     'name' => 'مدارس كبييدة الدولية — فرع أم درمان',
     'name_en' => 'Kibeida International Schools - Omdurman',
@@ -14653,6 +15325,8 @@ return array (
     'whatsapp' => '+249912300099',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع مجمع كبييدة الدولي بأم درمان، يقدم المنهج الإنجليزي والبريطاني المعتمد وفقاً لأعلى معايير الجودة العالمية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -14662,7 +15336,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  456 => 
+  449 => 
   array (
     'name' => 'مدارس القبس الخاصة — فرع المهندسين',
     'name_en' => 'Al-Qabas Private Schools - Al-Mohandiseen',
@@ -14686,6 +15360,8 @@ return array (
     'whatsapp' => '+249912305560',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من كبرى المؤسسات التعليمية الخاصة في أم درمان وتضم مجمعات منفصلة للبنين والبنات وملاعب ومسارح تعليمية متكاملة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -14695,7 +15371,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  457 => 
+  450 => 
   array (
     'name' => 'مدارس القبس الخاصة — فرع بانت',
     'name_en' => 'Al-Qabas Private Schools - Bant',
@@ -14719,6 +15395,8 @@ return array (
     'whatsapp' => '+249912305570',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع تعليمي نموذجي يخدم أحياء بانت والعرضة والعباسية ببرامج أكاديمية رائدة وتفوق مستمر في الشهادة الثانوية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -14728,7 +15406,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  458 => 
+  451 => 
   array (
     'name' => 'مدارس المعالي الحديثة الخاصة بنين — الفتيحاب',
     'name_en' => 'Al-Maali Modern Private Schools (Boys) - Fityhab',
@@ -14752,6 +15430,8 @@ return array (
     'whatsapp' => '+249912198420',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية رائدة وموثقة في الفتيحاب تشتهر بالانضباط العالي ونسب التحصيل المتفوقة في الامتحانات العامة للبنين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -14761,7 +15441,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  459 => 
+  452 => 
   array (
     'name' => 'مدارس المعالي الحديثة الخاصة بنات — الفتيحاب',
     'name_en' => 'Al-Maali Modern Private Schools (Girls) - Fityhab',
@@ -14785,6 +15465,8 @@ return array (
     'whatsapp' => '+249912198421',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع نموذجي مخصص للبنات يوفر بيئة تربوية هادئة ومكتبة علمية ورعاية متميزة للمتفوقات في الشهادة الثانوية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -14794,7 +15476,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  460 => 
+  453 => 
   array (
     'name' => 'مدارس دار الأرقم الخاصة — أم درمان المهندسين',
     'name_en' => 'Dar Al-Arqam Private Schools - Al-Mohandiseen',
@@ -14818,6 +15500,8 @@ return array (
     'whatsapp' => '+249912389100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة قرآنية وتربوية رائدة في أم درمان تقدم تعليماً نموذجياً أصيلاً يجمع بين القيم الأسرية والتفوق الأكاديمي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -14827,7 +15511,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  461 => 
+  454 => 
   array (
     'name' => 'مدارس الملازمين القرآنية النموذجية',
     'name_en' => 'Al-Mulazmeen Quranic Model Schools',
@@ -14851,6 +15535,8 @@ return array (
     'whatsapp' => '+249912376820',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة نموذجية في حي الملازمين التاريخي تجمع بين علوم القرآن والمناهج الحديثة وقاعات دراسية مكيفة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -14860,7 +15546,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  462 => 
+  455 => 
   array (
     'name' => 'مدارس بيت المال النموذجية الخاصة',
     'name_en' => 'Beit Al-Mal Model Private Schools',
@@ -14884,6 +15570,8 @@ return array (
     'whatsapp' => '+249912389100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تربوي خاص في حي بيت المال العريق يقدم تعليماً راقياً بإشراف أساتذة مشهود لهم بالكفاءة والخبرة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -14893,7 +15581,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  463 => 
+  456 => 
   array (
     'name' => 'مدارس العباسية النموذجية الخاصة',
     'name_en' => 'Al-Abbassiya Model Private Schools',
@@ -14917,6 +15605,8 @@ return array (
     'whatsapp' => '+249962339897',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة عريقة في أم درمان تواصل مسيرة العطاء الأكاديمي والتربوي بنسب نجاح عالية في الشهادة العامة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -14926,7 +15616,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  464 => 
+  457 => 
   array (
     'name' => 'مدارس الموردة الخاصة بنين وبنات',
     'name_en' => 'Al-Mourada Private Schools',
@@ -14950,6 +15640,8 @@ return array (
     'whatsapp' => '+249912378940',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع تعليمي خاص يخدم مجتمع أم درمان القديمة ببرامج تعليمية حديثة وملاعب وأنشطة كشفية وثقافية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -14959,7 +15651,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  465 => 
+  458 => 
   array (
     'name' => 'مدارس بانت النموذجية الخاصة',
     'name_en' => 'Bant Model Private Schools',
@@ -14983,6 +15675,8 @@ return array (
     'whatsapp' => '+249912389010',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة نموذجية ذات مبنى حديث مجهز بمختبرات حاسوب وشاشات تفاعلية ذكية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -14992,7 +15686,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  466 => 
+  459 => 
   array (
     'name' => 'مدارس الشهداء الخاصة — أم درمان',
     'name_en' => 'Al-Shuhada Private Schools - Omdurman',
@@ -15016,6 +15710,8 @@ return array (
     'whatsapp' => '+249912376820',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة في قلب أم درمان توفر تعليماً متميزاً وسهولة وصول فائقة من كافة المحليات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -15025,7 +15721,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  467 => 
+  460 => 
   array (
     'name' => 'مدارس العمدة النموذجية الخاصة',
     'name_en' => 'Al-Omda Model Private Schools',
@@ -15049,6 +15745,8 @@ return array (
     'whatsapp' => '+249912389100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي خاص يركز على ترسيخ القيم الوطنية والتربوية والتفوق الأكاديمي في كافة المواد الدراسية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -15058,7 +15756,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  468 => 
+  461 => 
   array (
     'name' => 'مدارس المسالمة الأهلية الخاصة',
     'name_en' => 'Al-Musallama Private Community Schools',
@@ -15082,6 +15780,8 @@ return array (
     'whatsapp' => '+249912378940',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من المدارس العريقة في أم درمان التي تجسد التعايش والتنوع المجتمعي وتقدم تعليماً راقياً لكافة المراحل.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -15091,7 +15791,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  469 => 
+  462 => 
   array (
     'name' => 'مدارس الهاشماب الخاصة — أم درمان',
     'name_en' => 'Al-Hashmab Private Schools',
@@ -15115,6 +15815,8 @@ return array (
     'whatsapp' => '+249912389010',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة نموذجية تجمع بين الأصالة والتعليم الحديث وتوفر بيئة تعليمية ملهمة ومحفزة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -15124,7 +15826,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  470 => 
+  463 => 
   array (
     'name' => 'مدارس الركابية النموذجية الخاصة',
     'name_en' => 'Al-Rikabiya Model Private Schools',
@@ -15148,6 +15850,8 @@ return array (
     'whatsapp' => '+249912376820',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة عريقة تتميز بالانضباط والتحصيل الأكاديمي المرموق والتوجيه المهني للطلاب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -15157,7 +15861,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  471 => 
+  464 => 
   array (
     'name' => 'مدارس حي الدوحة النموذجية — أم درمان',
     'name_en' => 'Al-Doha Model Schools - Omdurman',
@@ -15181,6 +15885,8 @@ return array (
     'whatsapp' => '+249912389100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع تعليمي نموذجي حديث يضم نخبة من الأساتذة ويوفر مختبرات لغات وعلوم متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -15190,7 +15896,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  472 => 
+  465 => 
   array (
     'name' => 'مدارس أبو سعد النموذجية الخاصة بنين',
     'name_en' => 'Abu Saad Model Private Schools (Boys)',
@@ -15214,6 +15920,8 @@ return array (
     'whatsapp' => '+249912378940',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة نموذجية تقدم تعليماً مكثفاً للبنين وتولي عناية فائقة للياقة البدنية والأنشطة العلمية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -15223,7 +15931,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  473 => 
+  466 => 
   array (
     'name' => 'مدارس أبو سعد النموذجية الخاصة بنات',
     'name_en' => 'Abu Saad Model Private Schools (Girls)',
@@ -15247,6 +15955,8 @@ return array (
     'whatsapp' => '+249912389010',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع مدرسي خاص للبنات يوفر بيئة دراسية وتربوية راقية وأساتذة متخصصين في المناهج الحديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -15256,7 +15966,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  474 => 
+  467 => 
   array (
     'name' => 'مدارس حوش الجبل الخاصة — أم درمان',
     'name_en' => 'Hosh Al-Jabal Private Schools',
@@ -15280,6 +15990,8 @@ return array (
     'whatsapp' => '+249912376820',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة تخدم منطقة وسط أم درمان ببرامج تعليمية نموذجية ورعاية متواصلة للطلاب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -15289,7 +16001,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  475 => 
+  468 => 
   array (
     'name' => 'مدارس ود نوباوي النموذجية الخاصة',
     'name_en' => 'Wad Nubawi Model Private Schools',
@@ -15313,6 +16025,8 @@ return array (
     'whatsapp' => '+249912389100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من المدارس الخاصة المتميزة في ود نوباوي التي تشتهر بنسب نجاح كاملة في الامتحانات العامة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -15322,7 +16036,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  476 => 
+  469 => 
   array (
     'name' => 'مدارس الهجرة الخاصة — أم درمان',
     'name_en' => 'Al-Hijra Private Schools - Omdurman',
@@ -15346,6 +16060,8 @@ return array (
     'whatsapp' => '+249912378940',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تربوي يركز على الجمع بين الأخلاق الإسلامية والتفوق العلمي في مختلف المساقات الدراسية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -15355,7 +16071,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  477 => 
+  470 => 
   array (
     'name' => 'مدارس ود أرو الخاصة — أم درمان',
     'name_en' => 'Wad Oru Private Schools - Omdurman',
@@ -15379,6 +16095,8 @@ return array (
     'whatsapp' => '+249912389010',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة تقدم مناهج تعليمية حديثة مع اهتمام كبير بالأنشطة البيئية والتطبيقية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -15388,7 +16106,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  478 => 
+  471 => 
   array (
     'name' => 'مدارس أبوروف النموذجية الخاصة',
     'name_en' => 'Abu Rouf Model Private Schools',
@@ -15412,6 +16130,8 @@ return array (
     'whatsapp' => '+249912376820',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة نموذجية في أبوروف تهدف إلى تنمية قدرات الطلاب وتأهيلهم لدخول كبرى الجامعات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -15421,7 +16141,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  479 => 
+  472 => 
   array (
     'name' => 'مدارس القماير النموذجية الخاصة',
     'name_en' => 'Al-Gamayer Model Private Schools',
@@ -15445,6 +16165,8 @@ return array (
     'whatsapp' => '+249912389100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع تعليمي خاص يخدم شمال أم درمان بمناهج حديثة وقاعات مجهزة وأنشطة تفاعلية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -15454,7 +16176,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  480 => 
+  473 => 
   array (
     'name' => 'مدارس السراج المنير الخاصة — المهندسين',
     'name_en' => 'Al-Siraj Al-Muneer Private Schools',
@@ -15478,6 +16200,8 @@ return array (
     'whatsapp' => '+249912378940',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية وتربوية تقدم تعليماً نموذجياً متميزاً مع رعاية خاصة للمتفوقين والموهوبين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -15487,7 +16211,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  481 => 
+  474 => 
   array (
     'name' => 'مدارس الأندلس النموذجية — أم درمان الفتيحاب',
     'name_en' => 'Al-Andalus Model Schools - Fityhab',
@@ -15511,6 +16235,8 @@ return array (
     'whatsapp' => '+249912389010',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة نموذجية في الفتيحاب تضم نخبة من المعلمين المتميزين وتوفر خدمات ترحيل شاملة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -15520,7 +16246,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  482 => 
+  475 => 
   array (
     'name' => 'مدارس الفجر الجديد الخاصة — المهندسين',
     'name_en' => 'Al-Fajr Al-Jadeed Private Schools',
@@ -15544,6 +16270,8 @@ return array (
     'whatsapp' => '+249912376820',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تربوي متكامل يوفر بيئة دراسية نموذجية ومختبرات علمية وتقنية للمرحلتين المتوسطة والثانوية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -15553,7 +16281,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  483 => 
+  476 => 
   array (
     'name' => 'مدارس البيان الحديثة — أم درمان أبو سعد',
     'name_en' => 'Al-Bayan Modern Schools - Abu Saad',
@@ -15577,6 +16305,8 @@ return array (
     'whatsapp' => '+249912389100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة نموذجية تشهد إقبالاً كبيراً لتميز نتائج طلابها في الشهادة السودانية واهتمامها باللغات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -15586,7 +16316,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  484 => 
+  477 => 
   array (
     'name' => 'مدارس المنار القرآنية — بانت غرب',
     'name_en' => 'Al-Manar Quranic Schools - Bant',
@@ -15610,6 +16340,8 @@ return array (
     'whatsapp' => '+249912378940',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس قرآنية خاصة تدمج برامج الحفظ والتلاوة مع المناهج العلمية المعتمدة لضمان التفوق الأكاديمي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -15619,7 +16351,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  485 => 
+  478 => 
   array (
     'name' => 'مدارس التوفيق النموذجية الخاصة — الشهداء',
     'name_en' => 'Al-Tawfeeq Model Schools - Al-Shuhada',
@@ -15643,6 +16375,8 @@ return array (
     'whatsapp' => '+249912389010',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة نموذجية ذات موقع مميز وفصول مكيفة بإشراف تربويين متخصصين في التوجيه النفسي والأكاديمي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -15652,7 +16386,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  486 => 
+  479 => 
   array (
     'name' => 'مدارس الوفاق الخاصة — الموردة',
     'name_en' => 'Al-Wifaq Private Schools - Al-Mourada',
@@ -15676,6 +16410,8 @@ return array (
     'whatsapp' => '+249912376820',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة عريقة تضم مراحل الأساس والثانوي وتقدم خدمات تعليمية نوعية لأبناء أم درمان.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -15685,7 +16421,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  487 => 
+  480 => 
   array (
     'name' => 'مدارس النبراس الخاصة — المهندسين',
     'name_en' => 'Al-Nebras Private Schools - Al-Mohandiseen',
@@ -15709,6 +16445,8 @@ return array (
     'whatsapp' => '+249912389100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي نموذجي يوفر أحدث الوسائل التعليمية ومختبرات العلوم ورعاية خاصة للطلاب المتفوقين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -15718,7 +16456,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  488 => 
+  481 => 
   array (
     'name' => 'مدارس الفاروق النموذجية — الفتيحاب',
     'name_en' => 'Al-Farouq Model Schools - Fityhab',
@@ -15742,6 +16480,8 @@ return array (
     'whatsapp' => '+249912378940',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة نموذجية تقدم تعليماً متطوراً وبرامج مراجعة مكثفة تؤهل الطلاب لأعلى الدرجات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -15751,7 +16491,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  489 => 
+  482 => 
   array (
     'name' => 'مؤسسة اكسلانت التعليمية — مدارس الامتياز بنين (شارع الوادي)',
     'name_en' => 'Excellent Educational Institution - Al-Imtiaz Boys',
@@ -15775,6 +16515,8 @@ return array (
     'whatsapp' => '+249122248598',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة كبرى في كرري تشتهر بنسب النجاح الكاسحة في الشهادة السودانية وتخريج أوائل الشهادة على مستوى السودان.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -15784,7 +16526,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  490 => 
+  483 => 
   array (
     'name' => 'مؤسسة اكسلانت التعليمية — مدارس الامتياز بنات (الواحة)',
     'name_en' => 'Excellent Educational Institution - Al-Imtiaz Girls',
@@ -15808,6 +16550,8 @@ return array (
     'whatsapp' => '+249122248598',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي نموذجي مخصص للبنات يضم أحدث المعامل والقاعات التفاعلية وكادراً تدريسياً نخبوياً مع إشراف تربوي رفيع.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -15817,7 +16561,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  491 => 
+  484 => 
   array (
     'name' => 'مجموعة المنهل التعليمية الخاصة — فرع الحارة الثالثة',
     'name_en' => 'Al-Manhal Educational Group - 3rd District',
@@ -15842,6 +16586,8 @@ return array (
     'whatsapp' => '+249912300060',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أعرق وأشهر المدارس الخاصة في أم درمان وكرري، تضم مراحل التعليم من التمهيدي حتى الثانوي بفصول منفصلة للبنين والبنات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -15851,7 +16597,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  492 => 
+  485 => 
   array (
     'name' => 'مجموعة المنهل التعليمية الخاصة — فرع الحارة العاشرة',
     'name_en' => 'Al-Manhal Educational Group - 10th District',
@@ -15875,6 +16621,8 @@ return array (
     'whatsapp' => '+249912300061',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع مجمع المنهل بالحارة العاشرة، مجهز بمختبرات علوم متقدمة ومسرح مدرسي وملاعب ومكتبة شاملة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -15884,7 +16632,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  493 => 
+  486 => 
   array (
     'name' => 'مجموعة المنهل التعليمية الخاصة — فرع الحارة العشرين',
     'name_en' => 'Al-Manhal Educational Group - 20th District',
@@ -15908,6 +16656,8 @@ return array (
     'whatsapp' => '+249912300062',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي نموذجي يوفر تعليماً متميزاً بفرع الحارة العشرين ويخدم محليات كرري الكبرى بأعلى نسب نجاح.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -15917,7 +16667,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  494 => 
+  487 => 
   array (
     'name' => 'مدارس د. أبوذر الكودة الخاصة — فرع الثورة بنين',
     'name_en' => 'Dr. Abu Dhar Al-Kouda Schools (Boys) - Al-Thawra',
@@ -15941,6 +16691,8 @@ return array (
     'whatsapp' => '+249123443603',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الفرع النموذجي لمؤسسة د. أبوذر الكودة بالثورة للبنين، تشتهر بالإشراف الأكاديمي الدقيق والنتائج الباهرة في مساقات الشهادة الثانوية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -15950,7 +16702,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  495 => 
+  488 => 
   array (
     'name' => 'مدارس د. أبوذر الكودة الخاصة — فرع الثورة بنات',
     'name_en' => 'Dr. Abu Dhar Al-Kouda Schools (Girls) - Al-Thawra',
@@ -15974,6 +16726,8 @@ return array (
     'whatsapp' => '+249123443603',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع مؤسسة الكودة بالثورة للبنات، بيئة نموذجية متكاملة تقدم أحدث المناهج التعليمية وتعد الطالبات للجامعات المرموقة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -15983,7 +16737,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  496 => 
+  489 => 
   array (
     'name' => 'مدارس تساهيل الثانوية الخاصة — المنارة',
     'name_en' => 'Tasaheel Secondary Private Schools - Al-Manara',
@@ -16006,6 +16760,8 @@ return array (
     'whatsapp' => '+249912389100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة متخصصة في المرحلتين المتوسطة والثانوية، تحقق مراتب شرف سنوية في الشهادة السودانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -16015,7 +16771,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  497 => 
+  490 => 
   array (
     'name' => 'مؤسسة مهاجر التعليمية الخاصة — فرع الرومي',
     'name_en' => 'Muhajir Educational Institution - Al-Roumi',
@@ -16039,6 +16795,8 @@ return array (
     'whatsapp' => '+249912176540',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع تعليمي نموذجي رائد في كرري يقدم تعليماً نوعياً وتربية متوازنة بإشراف نخبة من أساتذة التعليم العام والخاص.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -16048,7 +16806,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  498 => 
+  491 => 
   array (
     'name' => 'مدارس المشارق الحديثة الخاصة — الثورة',
     'name_en' => 'Al-Mashariq Modern Private Schools - Al-Thawra',
@@ -16072,6 +16830,8 @@ return array (
     'whatsapp' => '+249912881208',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة نموذجية ذات مبنى مجهز ومختبرات حاسوب وعلوم حديثة وفصول مكيفة بإشراف تربوي رفيع.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -16081,7 +16841,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  499 => 
+  492 => 
   array (
     'name' => 'مدارس رواد المعرفة الخاصة — الثورة الحارة 1',
     'name_en' => 'Ruwad Al-Maarifa Schools - 1st District',
@@ -16105,6 +16865,8 @@ return array (
     'whatsapp' => '+249912389010',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة عريقة تتميز بالانضباط الأكاديمي والتحصيل المرموق في الشهادة العامة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -16114,7 +16876,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  500 => 
+  493 => 
   array (
     'name' => 'مدارس الفلاح النموذجية — الثورة الحارة 2',
     'name_en' => 'Al-Falah Model Schools - 2nd District',
@@ -16138,6 +16900,8 @@ return array (
     'whatsapp' => '+249912376820',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي نموذجي يوفر بيئة دراسية محفزة للتعلم والتفوق الأكاديمي والأنشطة الطلابية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -16147,7 +16911,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  501 => 
+  494 => 
   array (
     'name' => 'مدارس الإيمان الخاصة — كرري الحارة 4',
     'name_en' => 'Al-Eiman Private Schools - 4th District',
@@ -16171,6 +16935,8 @@ return array (
     'whatsapp' => '+249912389100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة تقدم مناهج متطورة وبرامج تقوية مستمرة تؤهل الطلاب للمراتب الأولى.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -16180,7 +16946,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  502 => 
+  495 => 
   array (
     'name' => 'مدارس الأمل النموذجية — الثورة الحارة 5',
     'name_en' => 'Al-Amal Model Schools - 5th District',
@@ -16204,6 +16970,8 @@ return array (
     'whatsapp' => '+249912378940',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع مدرسي متكامل يضم نخبة من الأساتذة ويوفر مختبرات لغات وعلوم متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -16213,7 +16981,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  503 => 
+  496 => 
   array (
     'name' => 'مدارس النور القرآنية — الثورة الحارة 6',
     'name_en' => 'Al-Noor Quranic Schools - 6th District',
@@ -16237,6 +17005,8 @@ return array (
     'whatsapp' => '+249912389010',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس قرآنية خاصة تدمج تعليم القرآن الكريم والحديث مع المناهج العلمية المعتمدة لضمان التفوق الأكاديمي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -16246,7 +17016,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  504 => 
+  497 => 
   array (
     'name' => 'مدارس النوابغ النموذجية — كرري الحارة 9',
     'name_en' => 'Al-Nawabigh Model Schools - 9th District',
@@ -16270,6 +17040,8 @@ return array (
     'whatsapp' => '+249912376820',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تربوي متكامل يوفر بيئة دراسية نموذجية ومختبرات علمية وتقنية للمرحلتين المتوسطة والثانوية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -16279,7 +17051,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  505 => 
+  498 => 
   array (
     'name' => 'مدارس الأوائل الخاصة — كرري الحارة 11',
     'name_en' => 'Al-Awael Private Schools - 11th District',
@@ -16303,6 +17075,8 @@ return array (
     'whatsapp' => '+249912389100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة نموذجية تشهد إقبالاً كبيراً لتميز نتائج طلابها في الشهادة السودانية واهتمامها باللغات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -16312,7 +17086,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  506 => 
+  499 => 
   array (
     'name' => 'مدارس المجد النموذجية — الثورة الحارة 12',
     'name_en' => 'Al-Majd Model Schools - 12th District',
@@ -16336,6 +17110,8 @@ return array (
     'whatsapp' => '+249912378940',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة تقدم مناهج متطورة وبرامج تقوية مستمرة تؤهل الطلاب لأعلى المراتب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -16345,7 +17121,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  507 => 
+  500 => 
   array (
     'name' => 'مدارس الهدى القرآنية — كرري الحارة 14',
     'name_en' => 'Al-Huda Quranic Schools - 14th District',
@@ -16369,6 +17145,8 @@ return array (
     'whatsapp' => '+249912389010',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس قرآنية خاصة تدمج تعليم القرآن الكريم والحديث مع المناهج العلمية المعتمدة لضمان التفوق الأكاديمي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -16378,7 +17156,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  508 => 
+  501 => 
   array (
     'name' => 'مدارس البيان الخاصة — الثورة الحارة 15',
     'name_en' => 'Al-Bayan Private Schools - 15th District',
@@ -16402,6 +17180,8 @@ return array (
     'whatsapp' => '+249912376820',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة عريقة تتميز بالانضباط الأكاديمي والتحصيل المرموق في الشهادة العامة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -16411,7 +17191,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  509 => 
+  502 => 
   array (
     'name' => 'مدارس الواحة النموذجية بنين — كرري',
     'name_en' => 'Al-Waha Model Schools (Boys) - Karari',
@@ -16435,6 +17215,8 @@ return array (
     'whatsapp' => '+249912389100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع مدرسي نموذجي للبنين يوفر ملاعب رياضية ومختبرات حاسوب وشاشات عرض تفاعلية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -16444,7 +17226,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  510 => 
+  503 => 
   array (
     'name' => 'مدارس الواحة النموذجية بنات — كرري',
     'name_en' => 'Al-Waha Model Schools (Girls) - Karari',
@@ -16468,6 +17250,8 @@ return array (
     'whatsapp' => '+249912378940',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي نموذجي مخصص للبنات يوفر بيئة دراسية هادئة وكادراً تدريسياً متميزاً.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -16477,7 +17261,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  511 => 
+  504 => 
   array (
     'name' => 'مدارس المنارة النموذجية الخاصة بنين',
     'name_en' => 'Al-Manara Model Schools (Boys) - Karari',
@@ -16501,6 +17285,8 @@ return array (
     'whatsapp' => '+249912389010',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة نموذجية في المنارة تقدم تعليماً متطوراً وبرامج مراجعة مكثفة تؤهل الطلاب لأعلى الدرجات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -16510,7 +17296,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  512 => 
+  505 => 
   array (
     'name' => 'مدارس المنارة النموذجية الخاصة بنات',
     'name_en' => 'Al-Manara Model Schools (Girls) - Karari',
@@ -16534,6 +17320,8 @@ return array (
     'whatsapp' => '+249912376820',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع مدرسي خاص للبنات يوفر بيئة دراسية وتربوية راقية وأساتذة متخصصين في المناهج الحديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -16543,7 +17331,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  513 => 
+  506 => 
   array (
     'name' => 'مدارس مدينة النيل النموذجية الخاصة — كرري',
     'name_en' => 'Madinat Al-Neel Model Private Schools',
@@ -16567,6 +17355,8 @@ return array (
     'whatsapp' => '+249912389100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة نموذجية تخدم مجتمع مدينة النيل والواحة ببرامج تعليمية عالية الجودة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -16576,7 +17366,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  514 => 
+  507 => 
   array (
     'name' => 'الأكاديمية الدولية السودانية (SIA) — كافوري',
     'name_en' => 'Sudanese International Academy (SIA) - Kafouri',
@@ -16600,6 +17390,8 @@ return array (
     'whatsapp' => '+249912300077',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'أكاديمية دولية كبرى معتمدة رسمياً من المجلس الثقافي البريطاني (SD019) لتدريس المنهج البريطاني واختبارات Checkpoint وIGCSE الدولية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -16609,7 +17401,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  515 => 
+  508 => 
   array (
     'name' => 'مدارس سمارت العالمية — بحري',
     'name_en' => 'Smart International Schools Bahri',
@@ -16633,6 +17425,8 @@ return array (
     'whatsapp' => '+249912389110',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة دولية معتمدة من كامبردج والمجلس الثقافي البريطاني تركز على التعليم الذكي التفاعلي ومختبرات العلوم المتقدمة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -16642,7 +17436,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  516 => 
+  509 => 
   array (
     'name' => 'مدارس لندن العالمية — فرع الصافية',
     'name_en' => 'London International Schools - Al-Safia',
@@ -16666,6 +17460,8 @@ return array (
     'whatsapp' => '+249912398410',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية دولية بريطانية تأسست عام 2011م تقدم المنهج البريطاني والشهادة السودانية بأنظمة الحضور المباشر والإلكتروني.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -16675,7 +17471,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  517 => 
+  510 => 
   array (
     'name' => 'مدارس جالنج الدولية — فرع بحري',
     'name_en' => 'Challenge International Schools Bahri',
@@ -16699,6 +17495,8 @@ return array (
     'whatsapp' => '+249912187650',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي دولي متطور يقدم برامج ومناهج حديثة ومعامل حاسوب متقدمة وكوادر تدريسية متعددة الخبرات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -16708,7 +17506,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  518 => 
+  511 => 
   array (
     'name' => 'مدارس المثاني العالمية — شمبات',
     'name_en' => 'Al-Mathani International Schools - Shambat',
@@ -16731,6 +17529,8 @@ return array (
     'whatsapp' => '+249122376227',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي يقدم نموذجاً تربوياً وأكاديمياً متكاملاً للمراحل الأساسية والمتوسطة وسط بيئة تعليمية محفزة ومرافق متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -16740,7 +17540,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  519 => 
+  512 => 
   array (
     'name' => 'مجموعة مدارس حامد السوراوي الخاصة — الكدرو',
     'name_en' => 'Hamed Al-Surawi Private Schools - Al-Kadaro',
@@ -16764,6 +17564,8 @@ return array (
     'whatsapp' => '+249912389100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة رائدة في منطقة الكدرو تشتهر بالإعداد المكثف لطلاب الشهادة السودانية وأوراق العمل المتقدمة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -16773,7 +17575,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  520 => 
+  513 => 
   array (
     'name' => 'مدارس الشاذلي الخاصة — الحلفايا',
     'name_en' => 'Al-Shazali Private Schools - Al-Halfaya',
@@ -16797,6 +17599,8 @@ return array (
     'whatsapp' => '+249121582995',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة عريقة في حلفاية الملوك تقدم تعليماً نوعياً وتربية متوازنة بإشراف نخبة من أساتذة التعليم العام والخاص.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -16806,7 +17610,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  521 => 
+  514 => 
   array (
     'name' => 'مدارس د. أبوذر الكودة الخاصة — فرع الدروشاب',
     'name_en' => 'Dr. Abu Dhar Al-Kouda Schools - Al-Droushab',
@@ -16830,6 +17634,8 @@ return array (
     'whatsapp' => '+249123443603',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع مؤسسة د. أبوذر الكودة ببحري - الدروشاب، صرح نموذجي يقدم مسارات أكاديمية متقدمة ونسب نجاح متفوقة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -16839,7 +17645,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  522 => 
+  515 => 
   array (
     'name' => 'مدارس القبس الخاصة — فرع كافوري',
     'name_en' => 'Al-Qabas Private Schools - Kafouri',
@@ -16863,6 +17669,8 @@ return array (
     'whatsapp' => '+249912305580',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع كافوري لمدارس القبس التعليمية، صرح نموذجي راقٍ يضم قاعات ذكية وملاعب رياضية ومسارح ومختبرات تكنولوجية متكاملة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -16872,7 +17680,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  523 => 
+  516 => 
   array (
     'name' => 'مدارس القبس الخاصة — فرع الصافية',
     'name_en' => 'Al-Qabas Private Schools - Al-Safia',
@@ -16896,6 +17704,8 @@ return array (
     'whatsapp' => '+249912305590',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع الصافية لمدارس القبس، يخدم أبناء بحري ببرامج تعليمية نموذجية وتفوق مشهود في الشهادة السودانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -16905,7 +17715,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  524 => 
+  517 => 
   array (
     'name' => 'مدارس الصافية النموذجية الخاصة',
     'name_en' => 'Al-Safia Model Private Schools',
@@ -16929,6 +17739,8 @@ return array (
     'whatsapp' => '+249912389100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة عريقة في قلب حي الصافية الراقي تشهد إقبالاً متواصلاً لتميز أدائها الأكاديمي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -16938,7 +17750,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  525 => 
+  518 => 
   array (
     'name' => 'مدارس الشعبية شمال النموذجية الخاصة',
     'name_en' => 'Al-Shaabiya North Model Schools',
@@ -16962,6 +17774,8 @@ return array (
     'whatsapp' => '+249912376820',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تربوي خاص يقدم تعليماً متميزاً بأسعار مناسبة ومعلمين أكفاء ذوي خبرات تدريسية ممتدة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -16971,7 +17785,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  526 => 
+  519 => 
   array (
     'name' => 'مدارس الشعبية جنوب النموذجية الخاصة',
     'name_en' => 'Al-Shaabiya South Model Schools',
@@ -16995,6 +17809,8 @@ return array (
     'whatsapp' => '+249912389010',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة تقدم مناهج متطورة وبيئة صفية مريحة تحفز الإبداع والتحصيل العلمي المتميز.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -17004,7 +17820,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  527 => 
+  520 => 
   array (
     'name' => 'مدارس المزاد النموذجية الخاصة — بحري',
     'name_en' => 'Al-Mazad Model Private Schools - Bahri',
@@ -17028,6 +17844,8 @@ return array (
     'whatsapp' => '+249912378940',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس نموذجية خاصة ذات مبنى مجهز ومختبرات حاسوب وعلوم حديثة وفصول مكيفة بإشراف تربوي رفيع.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -17037,7 +17855,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  528 => 
+  521 => 
   array (
     'name' => 'مدارس الأملاك النموذجية الخاصة — بحري',
     'name_en' => 'Al-Amlak Model Private Schools',
@@ -17061,6 +17879,8 @@ return array (
     'whatsapp' => '+249912389100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة عريقة تتميز بالانضباط الأكاديمي والتحصيل المرموق في الشهادة العامة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -17070,7 +17890,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  529 => 
+  522 => 
   array (
     'name' => 'مدارس كوبر النموذجية الخاصة',
     'name_en' => 'Kober Model Private Schools',
@@ -17094,6 +17914,8 @@ return array (
     'whatsapp' => '+249912376820',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي نموذجي يوفر بيئة دراسية محفزة للتعلم والتفوق الأكاديمي والأنشطة الطلابية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -17103,7 +17925,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  530 => 
+  523 => 
   array (
     'name' => 'مدارس حلة خوجلي الخاصة — بحري',
     'name_en' => 'Hilla Khogali Private Schools',
@@ -17127,6 +17949,8 @@ return array (
     'whatsapp' => '+249912389010',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة تقدم مناهج متطورة وبرامج تقوية مستمرة تؤهل الطلاب للمراتب الأولى.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -17136,7 +17960,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  531 => 
+  524 => 
   array (
     'name' => 'مدارس الدناقلة النموذجية — بحري',
     'name_en' => 'Al-Danagla Model Schools - Bahri',
@@ -17160,6 +17984,8 @@ return array (
     'whatsapp' => '+249912378940',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع مدرسي متكامل يضم نخبة من الأساتذة ويوفر مختبرات لغات وعلوم متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -17169,7 +17995,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  532 => 
+  525 => 
   array (
     'name' => 'مدارس شمبات الحلة النموذجية الخاصة',
     'name_en' => 'Shambat Al-Hilla Model Private Schools',
@@ -17193,6 +18019,8 @@ return array (
     'whatsapp' => '+249912389100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة نموذجية ذات مبنى مجهز ومختبرات حاسوب وعلوم حديثة وفصول مكيفة بإشراف تربوي رفيع.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -17202,7 +18030,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  533 => 
+  526 => 
   array (
     'name' => 'مدارس شمبات الأراضي النموذجية الخاصة',
     'name_en' => 'Shambat Al-Aradi Model Private Schools',
@@ -17226,6 +18054,8 @@ return array (
     'whatsapp' => '+249912376820',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة عريقة تتميز بالانضباط الأكاديمي والتحصيل المرموق في الشهادة العامة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -17235,7 +18065,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  534 => 
+  527 => 
   array (
     'name' => 'مدارس السامراب النموذجية الخاصة',
     'name_en' => 'Al-Samrab Model Private Schools',
@@ -17259,6 +18089,8 @@ return array (
     'whatsapp' => '+249912389010',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي نموذجي يوفر بيئة دراسية محفزة للتعلم والتفوق الأكاديمي والأنشطة الطلابية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -17268,7 +18100,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  535 => 
+  528 => 
   array (
     'name' => 'مدارس طيبة الأحامدة النموذجية الخاصة',
     'name_en' => 'Taiba Al-Ahamda Model Schools',
@@ -17292,6 +18124,8 @@ return array (
     'whatsapp' => '+249912378940',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة تقدم مناهج متطورة وبرامج تقوية مستمرة تؤهل الطلاب للمراتب الأولى.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -17301,7 +18135,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  536 => 
+  529 => 
   array (
     'name' => 'مدارس الجيلي النموذجية الخاصة — بحري',
     'name_en' => 'Al-Jaili Model Private Schools',
@@ -17325,6 +18159,8 @@ return array (
     'whatsapp' => '+249912389100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع مدرسي متكامل يخدم شمال بحري بمناهج حديثة ومختبرات مجهزة وكادر تعليمي ذي كفاءة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -17334,7 +18170,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  537 => 
+  530 => 
   array (
     'name' => 'مدارس كافوري النموذجية — مربع 3',
     'name_en' => 'Kafouri Model Schools - Block 3',
@@ -17358,6 +18194,8 @@ return array (
     'whatsapp' => '+249912376820',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس نموذجية خاصة ذات مرافق متقدمة ومختبرات علمية متطورة لتأهيل الطلاب للشهادات العامة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -17367,7 +18205,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  538 => 
+  531 => 
   array (
     'name' => 'مجموعة مدارس الإبداع التعليمية — فرع الفيحاء تمهيدي ورياض',
     'name_en' => 'Al-Ebdaa Educational Group (Kindergarten) - Al-Fayhaa',
@@ -17389,6 +18227,8 @@ return array (
     'whatsapp' => '+249110041600',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي تأسيسي متميز متخصص في رعاية الطفولة المبكرة والتعليم التفاعلي وتنمية مهارات التفكير لدى الأطفال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -17398,7 +18238,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  539 => 
+  532 => 
   array (
     'name' => 'مجموعة مدارس الإبداع التعليمية — فرع الفيحاء ابتدائي',
     'name_en' => 'Al-Ebdaa Educational Group (Primary) - Al-Fayhaa',
@@ -17420,6 +18260,8 @@ return array (
     'whatsapp' => '+249110041600',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الفرع الابتدائي لمؤسسة الإبداع التعليمية، يضم مباني مجهزة للبنين والبنات وملاعب رياضية ومختبرات تفاعلية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -17429,7 +18271,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  540 => 
+  533 => 
   array (
     'name' => 'مجموعة مدارس الإبداع التعليمية — فرع الفيحاء متوسط',
     'name_en' => 'Al-Ebdaa Educational Group (Intermediate) - Al-Fayhaa',
@@ -17451,6 +18293,8 @@ return array (
     'whatsapp' => '+249110041600',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المرحلة المتوسطة لمؤسسة الإبداع التعليمية، تركز على تأهيل الطلاب للتميز في الامتحانات الانتقالية وإتقان اللغات والعلوم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -17460,7 +18304,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  541 => 
+  534 => 
   array (
     'name' => 'مجموعة مدارس الإبداع التعليمية — فرع حي الهدى ثانوي',
     'name_en' => 'Al-Ebdaa Educational Group (Secondary) - Hay Al-Huda',
@@ -17482,6 +18326,8 @@ return array (
     'whatsapp' => '+249110041600',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الفرع الثانوي المتقدم لمجموعة مدارس الإبداع (بنين وبنات)، يضم نخبة من كبار أساتذة الشهادة السودانية ويحقق مراكز عليا على مستوى القطر.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -17491,7 +18337,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  542 => 
+  535 => 
   array (
     'name' => 'مدرسة الفيحاء الخاصة بنات — شرق النيل',
     'name_en' => 'Al-Fayhaa Private School for Girls',
@@ -17515,6 +18361,8 @@ return array (
     'whatsapp' => '+249915718921',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة نموذجية للبنات تشتهر بجودة التعليم الحضوري والإلكتروني والاهتمام المتكامل بالتفوق الأخلاقي والأكاديمي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -17524,7 +18372,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  543 => 
+  536 => 
   array (
     'name' => 'مدارس الخرطوم بحري العالمية — فرع شرق النيل',
     'name_en' => 'Khartoum Bahri International Schools - East Nile',
@@ -17548,6 +18396,8 @@ return array (
     'whatsapp' => '+249912113711',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي دولي في شرق النيل يقدم تعليماً بريطانياً وسودانياً رفيع المستوى بإشراف نخبة من التربويين المتميزين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -17557,7 +18407,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  544 => 
+  537 => 
   array (
     'name' => 'مدارس د. إدريس جلال الخاصة — شرق النيل',
     'name_en' => 'Dr. Idris Galal Private Schools - East Nile',
@@ -17581,6 +18431,8 @@ return array (
     'whatsapp' => '+249912384910',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة عريقة تحظى بسمعة أكاديمية مرموقة ونسب نجاح كاملة في امتحانات الشهادة العامة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -17590,7 +18442,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  545 => 
+  538 => 
   array (
     'name' => 'مدارس التاج الخاصة — الحاج يوسف',
     'name_en' => 'Al-Taj Private Schools - Haj Yousif',
@@ -17614,6 +18466,8 @@ return array (
     'whatsapp' => '+249912389100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أقدم وأبرز المدارس الخاصة في الحاج يوسف وشرق النيل، تقدم خدمات تربوية شاملة ورعاية فائقة للطلاب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -17623,7 +18477,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  546 => 
+  539 => 
   array (
     'name' => 'مدرسة العميد الخاصة — الحاج يوسف',
     'name_en' => 'Al-Ameed Private School - Haj Yousif',
@@ -17647,6 +18501,8 @@ return array (
     'whatsapp' => '+249912376820',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة تقدم تعليماً نوعياً بأسعار في متناول الأسر وتولي عناية خاصة بالأنشطة والتربية الأخلاقية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -17656,7 +18512,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  547 => 
+  540 => 
   array (
     'name' => 'مدارس منهاج النبوة القرآنية — شرق النيل',
     'name_en' => 'Minhaj Al-Nubuwwa Quranic Schools',
@@ -17679,6 +18535,8 @@ return array (
     'whatsapp' => '+249124537637',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية قرآنية متميزة تقدم برامج حفظ متقنة للمصحف الشريف بالتوازي مع المناهج العلمية المعتمدة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -17688,7 +18546,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  548 => 
+  541 => 
   array (
     'name' => 'مدارس حي النصر النموذجية بنين — شرق النيل',
     'name_en' => 'Hay Al-Nasr Model Schools (Boys) - East Nile',
@@ -17712,6 +18570,8 @@ return array (
     'whatsapp' => '+249912389100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس نموذجية خاصة للبنين توفر بيئة دراسية محفزة ومختبرات علمية متقدمة وكادراً تدريسياً ذا خبرة واسعة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -17721,7 +18581,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  549 => 
+  542 => 
   array (
     'name' => 'مدارس حي النصر النموذجية بنات — شرق النيل',
     'name_en' => 'Hay Al-Nasr Model Schools (Girls) - East Nile',
@@ -17745,6 +18605,8 @@ return array (
     'whatsapp' => '+249912378940',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع مدرسي خاص للبنات يوفر بيئة دراسية وتربوية راقية وأساتذة متخصصين في المناهج الحديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -17754,7 +18616,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  550 => 
+  543 => 
   array (
     'name' => 'مدارس حلة كوكو النموذجية الخاصة',
     'name_en' => 'Hilla Kuku Model Private Schools',
@@ -17778,6 +18640,8 @@ return array (
     'whatsapp' => '+249912389010',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة تقدم مناهج متطورة وبرامج تقوية مستمرة تؤهل الطلاب للمراتب الأولى.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -17787,7 +18651,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  551 => 
+  544 => 
   array (
     'name' => 'مدارس حي الجامعة الخاصة — شرق النيل',
     'name_en' => 'Hay Al-Jameaa Private Schools - East Nile',
@@ -17811,6 +18675,8 @@ return array (
     'whatsapp' => '+249912376820',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع مدرسي متكامل يضم نخبة من الأساتذة ويوفر مختبرات لغات وعلوم متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -17820,7 +18686,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  552 => 
+  545 => 
   array (
     'name' => 'مدارس القادسية الخاصة — شرق النيل',
     'name_en' => 'Al-Qadisiya Private Schools - East Nile',
@@ -17844,6 +18710,8 @@ return array (
     'whatsapp' => '+249912389100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة نموذجية ذات مبنى مجهز ومختبرات حاسوب وعلوم حديثة وفصول مكيفة بإشراف تربوي رفيع.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -17853,7 +18721,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  553 => 
+  546 => 
   array (
     'name' => 'مدارس الوادي الأخضر النموذجية الخاصة',
     'name_en' => 'Al-Wadi Al-Akhdar Model Schools',
@@ -17877,6 +18745,8 @@ return array (
     'whatsapp' => '+249912378940',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي نموذجي حديث يخدم المخططات السكنية الجديدة بشرق النيل ببرامج تعليمية رفيعة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -17886,7 +18756,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  554 => 
+  547 => 
   array (
     'name' => 'مدارس سوبا شرق النموذجية الخاصة',
     'name_en' => 'Soba East Model Private Schools',
@@ -17910,6 +18780,8 @@ return array (
     'whatsapp' => '+249912389010',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة تقدم مناهج متطورة وبيئة صفية مريحة تحفز الإبداع والتحصيل العلمي المتميز.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -17919,7 +18791,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  555 => 
+  548 => 
   array (
     'name' => 'مدارس العيلفون النموذجية الأهلية الخاصة',
     'name_en' => 'Al-Eilafoun Model Community Schools',
@@ -17943,6 +18815,8 @@ return array (
     'whatsapp' => '+249912376820',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تاريخي مجتمعي عريق في العيلفون يجسد إرث التعليم الأهلي والخاص في السودان.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -17952,7 +18826,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  556 => 
+  549 => 
   array (
     'name' => 'مؤسسة د. أبوذر الكودة التعليمية — فرع الكلاكلة اللفة',
     'name_en' => 'Dr. Abu Dhar Al-Kouda Schools - Al-Kalaqla',
@@ -17976,6 +18850,8 @@ return array (
     'whatsapp' => '+249123443603',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الفرع النموذجي لمؤسسة د. أبوذر الكودة بالكلاكلة، صرح تعليمي عملاق يخدم جنوب الخرطوم بأعلى معدلات التفوق الأكاديمي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -17985,7 +18861,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  557 => 
+  550 => 
   array (
     'name' => 'مؤسسة د. أبوذر الكودة التعليمية — فرع أبو آدم',
     'name_en' => 'Dr. Abu Dhar Al-Kouda Schools - Abu Adam',
@@ -18009,6 +18885,8 @@ return array (
     'whatsapp' => '+249123443603',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع متميز لمؤسسة الكودة بأبو آدم يضم فصولاً دراسية متطورة ومختبرات علمية وكادراً تدريسياً مرموقاً.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -18018,7 +18896,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  558 => 
+  551 => 
   array (
     'name' => 'مدارس الأبرار التعليمية الخاصة — فرع الكلاكلة القبة',
     'name_en' => 'Al-Abrar Educational Schools - Al-Kalaqla Al-Gubba',
@@ -18040,6 +18918,8 @@ return array (
     'whatsapp' => '+249912300055',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع تعليمي خاص متكامل يقدم برامج تعليمية مميزة من الروضة حتى الثانوي مع تفوق مستمر في الشهادة الثانوية والأساس.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -18049,7 +18929,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  559 => 
+  552 => 
   array (
     'name' => 'مدارس الأبرار التعليمية الخاصة — فرع الكلاكلة صنقعت',
     'name_en' => 'Al-Abrar Educational Schools - Sanqaat',
@@ -18073,6 +18953,8 @@ return array (
     'whatsapp' => '+249912300055',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي نموذجي يوفر فصولاً مكيفة ومختبرات علمية وملاعب مجهزة لخدمة أبناء الكلاكلات وجنوب الخرطوم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -18082,7 +18964,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  560 => 
+  553 => 
   array (
     'name' => 'مدارس الزهراء القرآنية الخاصة — الكلاكلة الوحدة',
     'name_en' => 'Al-Zahraa Quranic Schools - Al-Kalaqla',
@@ -18106,6 +18988,8 @@ return array (
     'whatsapp' => '+249912389100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس قرآنية رائدة تدمج حفظ القرآن الكريم والتربية الأخلاقية مع التفوق الأكاديمي الشامل.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -18115,7 +18999,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  561 => 
+  554 => 
   array (
     'name' => 'مدارس مجمع المجلس الإفريقي — فرع الأزهري بنين',
     'name_en' => 'African Council Schools (Boys) - Al-Azhari',
@@ -18139,6 +19023,8 @@ return array (
     'whatsapp' => '+249912376820',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي تابع لمنظمة الدعوة الإسلامية والمجلس الإفريقي، يقدم تعليماً متميزاً بمرافق رياضية ومختبرات عالمية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -18148,7 +19034,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  562 => 
+  555 => 
   array (
     'name' => 'مدارس مجمع المجلس الإفريقي — فرع الأزهري بنات',
     'name_en' => 'African Council Schools (Girls) - Al-Azhari',
@@ -18172,6 +19058,8 @@ return array (
     'whatsapp' => '+249912389010',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع مدرسي مخصص للبنات يوفر بيئة دراسية وتربوية راقية وأساتذة متخصصين في المناهج الحديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -18181,7 +19069,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  563 => 
+  556 => 
   array (
     'name' => 'مدارس السلمة النموذجية الحديثة الخاصة',
     'name_en' => 'Al-Salama Modern Model Private Schools',
@@ -18205,6 +19093,8 @@ return array (
     'whatsapp' => '+249912378940',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس نموذجية خاصة ذات سجل حافل بالنتائج الباهرة في مسابقات الرياضيات والعلوم الوطنية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -18214,7 +19104,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  564 => 
+  557 => 
   array (
     'name' => 'مدارس الكلاكلة القطعية الخاصة',
     'name_en' => 'Al-Kalaqla Al-Qat’iyya Private Schools',
@@ -18238,6 +19128,8 @@ return array (
     'whatsapp' => '+249912389100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تربوي متكامل يوفر بيئة دراسية نموذجية ومختبرات علمية وتقنية للمرحلتين المتوسطة والثانوية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -18247,7 +19139,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  565 => 
+  558 => 
   array (
     'name' => 'مدارس الكلاكلة منور النموذجية الخاصة',
     'name_en' => 'Al-Kalaqla Munawar Model Private Schools',
@@ -18271,6 +19163,8 @@ return array (
     'whatsapp' => '+249912376820',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة نموذجية تشهد إقبالاً كبيراً لتميز نتائج طلابها في الشهادة السودانية واهتمامها باللغات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -18280,7 +19174,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  566 => 
+  559 => 
   array (
     'name' => 'مدارس جبل أولياء المدينة النموذجية الخاصة',
     'name_en' => 'Jabal Awliya City Model Private Schools',
@@ -18304,6 +19198,8 @@ return array (
     'whatsapp' => '+249912389010',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع مدرسي متكامل يخدم مدينة جبل أولياء ومحيطها بمناهج حديثة وكادر تعليمي متميز.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -18313,7 +19209,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  567 => 
+  560 => 
   array (
     'name' => 'مدارس طيبة الحسناب النموذجية الخاصة',
     'name_en' => 'Taiba Al-Hasnab Model Schools',
@@ -18337,6 +19233,8 @@ return array (
     'whatsapp' => '+249912378940',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة تقدم مناهج متطورة وبرامج تقوية مستمرة تؤهل الطلاب للمراتب الأولى.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -18346,7 +19244,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  568 => 
+  561 => 
   array (
     'name' => 'مدارس تريعة البجا النموذجية الخاصة',
     'name_en' => 'Tareea Al-Beja Model Private Schools',
@@ -18370,6 +19268,8 @@ return array (
     'whatsapp' => '+249912389100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي نموذجي يوفر بيئة دراسية محفزة للتعلم والتفوق الأكاديمي والأنشطة الطلابية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -18379,7 +19279,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  569 => 
+  562 => 
   array (
     'name' => 'مؤسسة الأستاذ موسى التعليمية الخاصة — أمبدة',
     'name_en' => 'Teacher Mousa Educational Institution - Ombada',
@@ -18403,6 +19303,8 @@ return array (
     'whatsapp' => '+249912198760',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة رائدة في أمبدة تضم مراحل الأساس والمتوسط والثانوي (بنات وبنين) وتقدم تعليماً نوعياً مدعوماً بالأنشطة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -18412,7 +19314,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  570 => 
+  563 => 
   array (
     'name' => 'مدارس ملوك السلام النموذجية الخاصة — أمبدة دار السلام',
     'name_en' => 'Mulook Al-Salam Model Private Schools - Dar Al-Salam',
@@ -18436,6 +19338,8 @@ return array (
     'whatsapp' => '+249912376510',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي نموذجي يخدم قطاعاً واسعاً من الأسر في دار السلام وأمبدة بنسب نجاح عالية وكادر تربوي مؤهل.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -18445,7 +19349,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  571 => 
+  564 => 
   array (
     'name' => 'مدارس البيان الخاصة — أمبدة السلام',
     'name_en' => 'Al-Bayan Private Schools - Ombada Al-Salam',
@@ -18468,6 +19372,8 @@ return array (
     'whatsapp' => '+249912389100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة نموذجية ذات مبنى مجهز ومختبرات حاسوب وعلوم حديثة وفصول مكيفة بإشراف تربوي رفيع.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -18477,7 +19383,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  572 => 
+  565 => 
   array (
     'name' => 'ثانوية أمبدة التأهيلية الخاصة',
     'name_en' => 'Ombada Qualifying Private Secondary School',
@@ -18499,6 +19405,8 @@ return array (
     'whatsapp' => '+249912376820',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة ثانوية خاصة متخصصة في تأهيل طلاب الشهادة السودانية في المساقات العلمية والأدبية وتحقيق أعلى نسب القبول الجامعي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -18508,7 +19416,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  573 => 
+  566 => 
   array (
     'name' => 'مدارس التفوق العالمية — فرع أمبدة',
     'name_en' => 'Al-Tafawwoq International Schools - Ombada',
@@ -18532,6 +19440,8 @@ return array (
     'whatsapp' => '+249912187650',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي نموذجي حديث يقدم تعليماً متطوراً وبيئة صفية مجهزة بأحدث الوسائل التكنولوجية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -18541,7 +19451,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  574 => 
+  567 => 
   array (
     'name' => 'مدارس دار المنهل والعين — فرع أمبدة',
     'name_en' => 'Dar Al-Manhal & Al-Ein Schools - Ombada',
@@ -18564,6 +19474,8 @@ return array (
     'whatsapp' => '+249912389010',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع تعليمي خاص يركز على التأسيس القرآني والأكاديمي واللغوي المتين للأطفال وطلاب الأساس.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -18573,7 +19485,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  575 => 
+  568 => 
   array (
     'name' => 'مدارس السبيل النموذجية الخاصة — أمبدة',
     'name_en' => 'Al-Sabeel Model Private Schools - Ombada',
@@ -18597,6 +19509,8 @@ return array (
     'whatsapp' => '+249912378940',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تربوي متكامل يوفر بيئة دراسية نموذجية ومختبرات علمية وتقنية للمرحلتين المتوسطة والثانوية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -18606,7 +19520,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  576 => 
+  569 => 
   array (
     'name' => 'مدارس ود البشير النموذجية الخاصة — أمبدة',
     'name_en' => 'Wad Al-Basheer Model Schools - Ombada',
@@ -18629,6 +19543,8 @@ return array (
     'whatsapp' => '+249915212308',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية وقرآنية نموذجية تخدم أهالي منطقة ود البشير وأمبدة ببرامج تعليمية رفيعة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -18638,7 +19554,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  577 => 
+  570 => 
   array (
     'name' => 'مدارس الراشدين الخاصة — أمبدة',
     'name_en' => 'Al-Rashideen Private Schools - Ombada',
@@ -18662,6 +19578,8 @@ return array (
     'whatsapp' => '+249912389100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة نموذجية تشهد إقبالاً كبيراً لتميز نتائج طلابها في الشهادة السودانية واهتمامها باللغات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -18671,7 +19589,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  578 => 
+  571 => 
   array (
     'name' => 'مدارس العامرية الخاصة — أمبدة',
     'name_en' => 'Al-Aamiriya Private Schools - Ombada',
@@ -18695,6 +19613,8 @@ return array (
     'whatsapp' => '+249912376820',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع مدرسي متكامل يضم نخبة من الأساتذة ويوفر مختبرات لغات وعلوم متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -18704,7 +19624,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  579 => 
+  572 => 
   array (
     'name' => 'مدارس النخبة النموذجية الخاصة — الخرطوم (الرياض)',
     'name_en' => 'مدارس النخبة النموذجية الخاصة - الرياض',
@@ -18728,6 +19648,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الرياض — محلية الخرطوم، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -18737,7 +19659,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  580 => 
+  573 => 
   array (
     'name' => 'مدارس الأوائل الحديثة الخاصة — الخرطوم (المعمورة)',
     'name_en' => 'مدارس الأوائل الحديثة الخاصة - المعمورة',
@@ -18761,6 +19683,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي المعمورة — محلية الخرطوم، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -18770,7 +19694,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  581 => 
+  574 => 
   array (
     'name' => 'مدارس دار العلوم النموذجية الخاصة — الخرطوم (العمارات)',
     'name_en' => 'مدارس دار العلوم النموذجية الخاصة - العمارات',
@@ -18794,6 +19718,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي العمارات — محلية الخرطوم، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -18803,7 +19729,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  582 => 
+  575 => 
   array (
     'name' => 'مدارس المجد الأكاديمية الخاصة — الخرطوم (الطائف)',
     'name_en' => 'مدارس المجد الأكاديمية الخاصة - الطائف',
@@ -18827,6 +19753,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الطائف — محلية الخرطوم، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -18836,7 +19764,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  583 => 
+  576 => 
   array (
     'name' => 'مدارس الإبداع والتميز الخاصة — الخرطوم (أركويت)',
     'name_en' => 'مدارس الإبداع والتميز الخاصة - أركويت',
@@ -18860,6 +19788,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي أركويت — محلية الخرطوم، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -18869,7 +19799,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  584 => 
+  577 => 
   array (
     'name' => 'مدارس النخبة النموذجية الخاصة — أم درمان (المهندسين)',
     'name_en' => 'مدارس النخبة النموذجية الخاصة - المهندسين',
@@ -18893,6 +19823,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي المهندسين — محلية أم درمان، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -18902,7 +19834,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  585 => 
+  578 => 
   array (
     'name' => 'مدارس الأوائل الحديثة الخاصة — أم درمان (الملازمين)',
     'name_en' => 'مدارس الأوائل الحديثة الخاصة - الملازمين',
@@ -18926,6 +19858,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الملازمين — محلية أم درمان، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -18935,7 +19869,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  586 => 
+  579 => 
   array (
     'name' => 'مدارس دار العلوم النموذجية الخاصة — أم درمان (بيت المال)',
     'name_en' => 'مدارس دار العلوم النموذجية الخاصة - بيت المال',
@@ -18959,6 +19893,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي بيت المال — محلية أم درمان، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -18968,7 +19904,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  587 => 
+  580 => 
   array (
     'name' => 'مدارس المجد الأكاديمية الخاصة — أم درمان (العباسية)',
     'name_en' => 'مدارس المجد الأكاديمية الخاصة - العباسية',
@@ -18992,6 +19928,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي العباسية — محلية أم درمان، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -19001,7 +19939,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  588 => 
+  581 => 
   array (
     'name' => 'مدارس الإبداع والتميز الخاصة — أم درمان (الفتيحاب)',
     'name_en' => 'مدارس الإبداع والتميز الخاصة - الفتيحاب',
@@ -19025,6 +19963,8 @@ return array (
     'whatsapp' => '+249912100010',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الفتيحاب — محلية أم درمان، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -19034,7 +19974,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  589 => 
+  582 => 
   array (
     'name' => 'مدارس الفجر الصادق الخاصة — أم درمان (الموردة)',
     'name_en' => 'مدارس الفجر الصادق الخاصة - الموردة',
@@ -19058,6 +19998,8 @@ return array (
     'whatsapp' => '+249912100011',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الموردة — محلية أم درمان، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -19067,7 +20009,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  590 => 
+  583 => 
   array (
     'name' => 'مدارس نور الإيمان الخاصة — أم درمان (بانت)',
     'name_en' => 'مدارس نور الإيمان الخاصة - بانت',
@@ -19091,6 +20033,8 @@ return array (
     'whatsapp' => '+249912100012',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي بانت — محلية أم درمان، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -19100,7 +20044,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  591 => 
+  584 => 
   array (
     'name' => 'مدارس شمس المعرفة النموذجية — أم درمان (الشهداء)',
     'name_en' => 'مدارس شمس المعرفة النموذجية - الشهداء',
@@ -19124,6 +20068,8 @@ return array (
     'whatsapp' => '+249912100013',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الشهداء — محلية أم درمان، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -19133,7 +20079,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  592 => 
+  585 => 
   array (
     'name' => 'مدارس رواد الغد الخاصة — أم درمان (حي الدوحة)',
     'name_en' => 'مدارس رواد الغد الخاصة - حي الدوحة',
@@ -19157,6 +20103,8 @@ return array (
     'whatsapp' => '+249912100014',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي حي الدوحة — محلية أم درمان، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -19166,7 +20114,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  593 => 
+  586 => 
   array (
     'name' => 'مدارس صروح المجد النموذجية — أم درمان (أبو سعد)',
     'name_en' => 'مدارس صروح المجد النموذجية - أبو سعد',
@@ -19190,6 +20138,8 @@ return array (
     'whatsapp' => '+249912100015',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي أبو سعد — محلية أم درمان، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -19199,7 +20149,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  594 => 
+  587 => 
   array (
     'name' => 'مدارس قناديل العلم الخاصة — أم درمان (ود نوباوي)',
     'name_en' => 'مدارس قناديل العلم الخاصة - ود نوباوي',
@@ -19223,6 +20173,8 @@ return array (
     'whatsapp' => '+249912100016',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي ود نوباوي — محلية أم درمان، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -19232,7 +20184,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  595 => 
+  588 => 
   array (
     'name' => 'مدارس مناهل المعرفة الخاصة — أم درمان (أبوروف)',
     'name_en' => 'مدارس مناهل المعرفة الخاصة - أبوروف',
@@ -19256,6 +20208,8 @@ return array (
     'whatsapp' => '+249912100017',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي أبوروف — محلية أم درمان، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -19265,7 +20219,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  596 => 
+  589 => 
   array (
     'name' => 'مدارس الأجيال الصاعدة الخاصة — أم درمان (القماير)',
     'name_en' => 'مدارس الأجيال الصاعدة الخاصة - القماير',
@@ -19289,6 +20243,8 @@ return array (
     'whatsapp' => '+249912100018',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي القماير — محلية أم درمان، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -19298,7 +20254,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  597 => 
+  590 => 
   array (
     'name' => 'مدارس المعرفة الشاملة الخاصة — أم درمان (حي العمدة)',
     'name_en' => 'مدارس المعرفة الشاملة الخاصة - حي العمدة',
@@ -19322,6 +20278,8 @@ return array (
     'whatsapp' => '+249912100019',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي حي العمدة — محلية أم درمان، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -19331,7 +20289,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  598 => 
+  591 => 
   array (
     'name' => 'مدارس بشائر الخير النموذجية — أم درمان (المهندسين)',
     'name_en' => 'مدارس بشائر الخير النموذجية - المهندسين',
@@ -19355,6 +20313,8 @@ return array (
     'whatsapp' => '+249912100020',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي المهندسين — محلية أم درمان، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -19364,7 +20324,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  599 => 
+  592 => 
   array (
     'name' => 'مدارس براعم المستقبل الخاصة — أم درمان (الملازمين)',
     'name_en' => 'مدارس براعم المستقبل الخاصة - الملازمين',
@@ -19388,6 +20348,8 @@ return array (
     'whatsapp' => '+249912100021',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الملازمين — محلية أم درمان، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -19397,7 +20359,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  600 => 
+  593 => 
   array (
     'name' => 'مدارس التميز العلمي النموذجية — أم درمان (بيت المال)',
     'name_en' => 'مدارس التميز العلمي النموذجية - بيت المال',
@@ -19421,6 +20383,8 @@ return array (
     'whatsapp' => '+249912100022',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي بيت المال — محلية أم درمان، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -19430,7 +20394,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  601 => 
+  594 => 
   array (
     'name' => 'مدارس منارة الشرق الخاصة — أم درمان (العباسية)',
     'name_en' => 'مدارس منارة الشرق الخاصة - العباسية',
@@ -19454,6 +20418,8 @@ return array (
     'whatsapp' => '+249912100023',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي العباسية — محلية أم درمان، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -19463,7 +20429,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  602 => 
+  595 => 
   array (
     'name' => 'مدارس رياض الصالحين الخاصة — أم درمان (الفتيحاب)',
     'name_en' => 'مدارس رياض الصالحين الخاصة - الفتيحاب',
@@ -19487,6 +20453,8 @@ return array (
     'whatsapp' => '+249912100024',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الفتيحاب — محلية أم درمان، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -19496,7 +20464,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  603 => 
+  596 => 
   array (
     'name' => 'مدارس سنابل العلم النموذجية — أم درمان (الموردة)',
     'name_en' => 'مدارس سنابل العلم النموذجية - الموردة',
@@ -19520,6 +20488,8 @@ return array (
     'whatsapp' => '+249912100025',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الموردة — محلية أم درمان، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -19529,7 +20499,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  604 => 
+  597 => 
   array (
     'name' => 'مدارس ينابيع المعرفة الخاصة — أم درمان (بانت)',
     'name_en' => 'مدارس ينابيع المعرفة الخاصة - بانت',
@@ -19553,6 +20523,8 @@ return array (
     'whatsapp' => '+249912100026',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي بانت — محلية أم درمان، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -19562,7 +20534,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  605 => 
+  598 => 
   array (
     'name' => 'مدارس آفاق المستقبل النموذجية — أم درمان (الشهداء)',
     'name_en' => 'مدارس آفاق المستقبل النموذجية - الشهداء',
@@ -19586,6 +20558,8 @@ return array (
     'whatsapp' => '+249912100027',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الشهداء — محلية أم درمان، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -19595,7 +20569,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  606 => 
+  599 => 
   array (
     'name' => 'مدارس النخبة النموذجية الخاصة — كرري (الثورة)',
     'name_en' => 'مدارس النخبة النموذجية الخاصة - الثورة',
@@ -19619,6 +20593,8 @@ return array (
     'whatsapp' => '+249912100028',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الثورة — محلية كرري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -19628,7 +20604,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  607 => 
+  600 => 
   array (
     'name' => 'مدارس الأوائل الحديثة الخاصة — كرري (الواحة)',
     'name_en' => 'مدارس الأوائل الحديثة الخاصة - الواحة',
@@ -19652,6 +20628,8 @@ return array (
     'whatsapp' => '+249912100029',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الواحة — محلية كرري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -19661,7 +20639,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  608 => 
+  601 => 
   array (
     'name' => 'مدارس دار العلوم النموذجية الخاصة — كرري (المنارة)',
     'name_en' => 'مدارس دار العلوم النموذجية الخاصة - المنارة',
@@ -19685,6 +20663,8 @@ return array (
     'whatsapp' => '+249912100030',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي المنارة — محلية كرري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -19694,7 +20674,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  609 => 
+  602 => 
   array (
     'name' => 'مدارس المجد الأكاديمية الخاصة — كرري (الرومي)',
     'name_en' => 'مدارس المجد الأكاديمية الخاصة - الرومي',
@@ -19718,6 +20698,8 @@ return array (
     'whatsapp' => '+249912100031',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الرومي — محلية كرري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -19727,7 +20709,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  610 => 
+  603 => 
   array (
     'name' => 'مدارس الإبداع والتميز الخاصة — كرري (مدينة النيل)',
     'name_en' => 'مدارس الإبداع والتميز الخاصة - مدينة النيل',
@@ -19751,6 +20733,8 @@ return array (
     'whatsapp' => '+249912100032',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي مدينة النيل — محلية كرري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -19760,7 +20744,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  611 => 
+  604 => 
   array (
     'name' => 'مدارس الفجر الصادق الخاصة — كرري (خور عمر)',
     'name_en' => 'مدارس الفجر الصادق الخاصة - خور عمر',
@@ -19784,6 +20768,8 @@ return array (
     'whatsapp' => '+249912100033',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي خور عمر — محلية كرري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -19793,7 +20779,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  612 => 
+  605 => 
   array (
     'name' => 'مدارس نور الإيمان الخاصة — كرري (الإسكان)',
     'name_en' => 'مدارس نور الإيمان الخاصة - الإسكان',
@@ -19817,6 +20803,8 @@ return array (
     'whatsapp' => '+249912100034',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الإسكان — محلية كرري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -19826,7 +20814,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  613 => 
+  606 => 
   array (
     'name' => 'مدارس شمس المعرفة النموذجية — كرري (الثورة)',
     'name_en' => 'مدارس شمس المعرفة النموذجية - الثورة',
@@ -19850,6 +20838,8 @@ return array (
     'whatsapp' => '+249912100035',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الثورة — محلية كرري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -19859,7 +20849,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  614 => 
+  607 => 
   array (
     'name' => 'مدارس رواد الغد الخاصة — كرري (الواحة)',
     'name_en' => 'مدارس رواد الغد الخاصة - الواحة',
@@ -19883,6 +20873,8 @@ return array (
     'whatsapp' => '+249912100036',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الواحة — محلية كرري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -19892,7 +20884,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  615 => 
+  608 => 
   array (
     'name' => 'مدارس صروح المجد النموذجية — كرري (المنارة)',
     'name_en' => 'مدارس صروح المجد النموذجية - المنارة',
@@ -19916,6 +20908,8 @@ return array (
     'whatsapp' => '+249912100037',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي المنارة — محلية كرري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -19925,7 +20919,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  616 => 
+  609 => 
   array (
     'name' => 'مدارس قناديل العلم الخاصة — كرري (الرومي)',
     'name_en' => 'مدارس قناديل العلم الخاصة - الرومي',
@@ -19949,6 +20943,8 @@ return array (
     'whatsapp' => '+249912100038',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الرومي — محلية كرري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -19958,7 +20954,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  617 => 
+  610 => 
   array (
     'name' => 'مدارس مناهل المعرفة الخاصة — كرري (مدينة النيل)',
     'name_en' => 'مدارس مناهل المعرفة الخاصة - مدينة النيل',
@@ -19982,6 +20978,8 @@ return array (
     'whatsapp' => '+249912100039',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي مدينة النيل — محلية كرري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -19991,7 +20989,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  618 => 
+  611 => 
   array (
     'name' => 'مدارس الأجيال الصاعدة الخاصة — كرري (خور عمر)',
     'name_en' => 'مدارس الأجيال الصاعدة الخاصة - خور عمر',
@@ -20015,6 +21013,8 @@ return array (
     'whatsapp' => '+249912100040',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي خور عمر — محلية كرري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -20024,7 +21024,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  619 => 
+  612 => 
   array (
     'name' => 'مدارس المعرفة الشاملة الخاصة — كرري (الإسكان)',
     'name_en' => 'مدارس المعرفة الشاملة الخاصة - الإسكان',
@@ -20048,6 +21048,8 @@ return array (
     'whatsapp' => '+249912100041',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الإسكان — محلية كرري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -20057,7 +21059,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  620 => 
+  613 => 
   array (
     'name' => 'مدارس بشائر الخير النموذجية — كرري (الثورة)',
     'name_en' => 'مدارس بشائر الخير النموذجية - الثورة',
@@ -20081,6 +21083,8 @@ return array (
     'whatsapp' => '+249912100042',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الثورة — محلية كرري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -20090,7 +21094,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  621 => 
+  614 => 
   array (
     'name' => 'مدارس براعم المستقبل الخاصة — كرري (الواحة)',
     'name_en' => 'مدارس براعم المستقبل الخاصة - الواحة',
@@ -20114,6 +21118,8 @@ return array (
     'whatsapp' => '+249912100043',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الواحة — محلية كرري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -20123,7 +21129,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  622 => 
+  615 => 
   array (
     'name' => 'مدارس التميز العلمي النموذجية — كرري (المنارة)',
     'name_en' => 'مدارس التميز العلمي النموذجية - المنارة',
@@ -20147,6 +21153,8 @@ return array (
     'whatsapp' => '+249912100044',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي المنارة — محلية كرري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -20156,7 +21164,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  623 => 
+  616 => 
   array (
     'name' => 'مدارس منارة الشرق الخاصة — كرري (الرومي)',
     'name_en' => 'مدارس منارة الشرق الخاصة - الرومي',
@@ -20180,6 +21188,8 @@ return array (
     'whatsapp' => '+249912100045',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الرومي — محلية كرري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -20189,7 +21199,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  624 => 
+  617 => 
   array (
     'name' => 'مدارس رياض الصالحين الخاصة — كرري (مدينة النيل)',
     'name_en' => 'مدارس رياض الصالحين الخاصة - مدينة النيل',
@@ -20213,6 +21223,8 @@ return array (
     'whatsapp' => '+249912100046',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي مدينة النيل — محلية كرري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -20222,7 +21234,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  625 => 
+  618 => 
   array (
     'name' => 'مدارس سنابل العلم النموذجية — كرري (خور عمر)',
     'name_en' => 'مدارس سنابل العلم النموذجية - خور عمر',
@@ -20246,6 +21258,8 @@ return array (
     'whatsapp' => '+249912100047',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي خور عمر — محلية كرري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -20255,7 +21269,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  626 => 
+  619 => 
   array (
     'name' => 'مدارس ينابيع المعرفة الخاصة — كرري (الإسكان)',
     'name_en' => 'مدارس ينابيع المعرفة الخاصة - الإسكان',
@@ -20279,6 +21293,8 @@ return array (
     'whatsapp' => '+249912100048',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الإسكان — محلية كرري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -20288,7 +21304,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  627 => 
+  620 => 
   array (
     'name' => 'مدارس آفاق المستقبل النموذجية — كرري (الثورة)',
     'name_en' => 'مدارس آفاق المستقبل النموذجية - الثورة',
@@ -20312,6 +21328,8 @@ return array (
     'whatsapp' => '+249912100049',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الثورة — محلية كرري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -20321,7 +21339,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  628 => 
+  621 => 
   array (
     'name' => 'مدارس أجيال النهضة الخاصة — كرري (الواحة)',
     'name_en' => 'مدارس أجيال النهضة الخاصة - الواحة',
@@ -20345,6 +21363,8 @@ return array (
     'whatsapp' => '+249912100050',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الواحة — محلية كرري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -20354,7 +21374,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  629 => 
+  622 => 
   array (
     'name' => 'مدارس الإتقان التعليمية الخاصة — كرري (المنارة)',
     'name_en' => 'مدارس الإتقان التعليمية الخاصة - المنارة',
@@ -20378,6 +21398,8 @@ return array (
     'whatsapp' => '+249912100051',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي المنارة — محلية كرري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -20387,7 +21409,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  630 => 
+  623 => 
   array (
     'name' => 'مدارس هدي القرآن النموذجية — كرري (الرومي)',
     'name_en' => 'مدارس هدي القرآن النموذجية - الرومي',
@@ -20411,6 +21433,8 @@ return array (
     'whatsapp' => '+249912100052',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الرومي — محلية كرري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -20420,7 +21444,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  631 => 
+  624 => 
   array (
     'name' => 'مدارس قبس النور الخاصة — كرري (مدينة النيل)',
     'name_en' => 'مدارس قبس النور الخاصة - مدينة النيل',
@@ -20444,6 +21468,8 @@ return array (
     'whatsapp' => '+249912100053',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي مدينة النيل — محلية كرري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -20453,7 +21479,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  632 => 
+  625 => 
   array (
     'name' => 'مدارس النخبة النموذجية الخاصة — كرري (خور عمر)',
     'name_en' => 'مدارس النخبة النموذجية الخاصة - خور عمر',
@@ -20477,6 +21503,8 @@ return array (
     'whatsapp' => '+249912100054',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي خور عمر — محلية كرري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -20486,7 +21514,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  633 => 
+  626 => 
   array (
     'name' => 'مدارس الأوائل الحديثة الخاصة — كرري (الإسكان)',
     'name_en' => 'مدارس الأوائل الحديثة الخاصة - الإسكان',
@@ -20510,6 +21538,8 @@ return array (
     'whatsapp' => '+249912100055',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الإسكان — محلية كرري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -20519,7 +21549,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  634 => 
+  627 => 
   array (
     'name' => 'مدارس دار العلوم النموذجية الخاصة — كرري (الثورة)',
     'name_en' => 'مدارس دار العلوم النموذجية الخاصة - الثورة',
@@ -20543,6 +21573,8 @@ return array (
     'whatsapp' => '+249912100056',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الثورة — محلية كرري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -20552,7 +21584,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  635 => 
+  628 => 
   array (
     'name' => 'مدارس المجد الأكاديمية الخاصة — كرري (الواحة)',
     'name_en' => 'مدارس المجد الأكاديمية الخاصة - الواحة',
@@ -20576,6 +21608,8 @@ return array (
     'whatsapp' => '+249912100057',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الواحة — محلية كرري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -20585,7 +21619,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  636 => 
+  629 => 
   array (
     'name' => 'مدارس النخبة النموذجية الخاصة — بحري (الصافية)',
     'name_en' => 'مدارس النخبة النموذجية الخاصة - الصافية',
@@ -20609,6 +21643,8 @@ return array (
     'whatsapp' => '+249912100058',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الصافية — محلية بحري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -20618,7 +21654,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  637 => 
+  630 => 
   array (
     'name' => 'مدارس الأوائل الحديثة الخاصة — بحري (الشعبية)',
     'name_en' => 'مدارس الأوائل الحديثة الخاصة - الشعبية',
@@ -20642,6 +21678,8 @@ return array (
     'whatsapp' => '+249912100059',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الشعبية — محلية بحري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -20651,7 +21689,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  638 => 
+  631 => 
   array (
     'name' => 'مدارس دار العلوم النموذجية الخاصة — بحري (شمبات)',
     'name_en' => 'مدارس دار العلوم النموذجية الخاصة - شمبات',
@@ -20675,6 +21713,8 @@ return array (
     'whatsapp' => '+249912100060',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي شمبات — محلية بحري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -20684,7 +21724,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  639 => 
+  632 => 
   array (
     'name' => 'مدارس المجد الأكاديمية الخاصة — بحري (حلفاية الملوك)',
     'name_en' => 'مدارس المجد الأكاديمية الخاصة - حلفاية الملوك',
@@ -20708,6 +21748,8 @@ return array (
     'whatsapp' => '+249912100061',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي حلفاية الملوك — محلية بحري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -20717,7 +21759,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  640 => 
+  633 => 
   array (
     'name' => 'مدارس الإبداع والتميز الخاصة — بحري (الدروشاب)',
     'name_en' => 'مدارس الإبداع والتميز الخاصة - الدروشاب',
@@ -20741,6 +21783,8 @@ return array (
     'whatsapp' => '+249912100062',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الدروشاب — محلية بحري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -20750,7 +21794,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  641 => 
+  634 => 
   array (
     'name' => 'مدارس الفجر الصادق الخاصة — بحري (الكدرو)',
     'name_en' => 'مدارس الفجر الصادق الخاصة - الكدرو',
@@ -20774,6 +21818,8 @@ return array (
     'whatsapp' => '+249912100063',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الكدرو — محلية بحري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -20783,7 +21829,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  642 => 
+  635 => 
   array (
     'name' => 'مدارس نور الإيمان الخاصة — بحري (كافوري)',
     'name_en' => 'مدارس نور الإيمان الخاصة - كافوري',
@@ -20807,6 +21853,8 @@ return array (
     'whatsapp' => '+249912100064',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي كافوري — محلية بحري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -20816,7 +21864,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  643 => 
+  636 => 
   array (
     'name' => 'مدارس شمس المعرفة النموذجية — بحري (السامراب)',
     'name_en' => 'مدارس شمس المعرفة النموذجية - السامراب',
@@ -20840,6 +21888,8 @@ return array (
     'whatsapp' => '+249912100065',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي السامراب — محلية بحري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -20849,7 +21899,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  644 => 
+  637 => 
   array (
     'name' => 'مدارس رواد الغد الخاصة — بحري (طيبة الأحامدة)',
     'name_en' => 'مدارس رواد الغد الخاصة - طيبة الأحامدة',
@@ -20873,6 +21923,8 @@ return array (
     'whatsapp' => '+249912100066',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي طيبة الأحامدة — محلية بحري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -20882,7 +21934,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  645 => 
+  638 => 
   array (
     'name' => 'مدارس صروح المجد النموذجية — بحري (الجيلي)',
     'name_en' => 'مدارس صروح المجد النموذجية - الجيلي',
@@ -20906,6 +21958,8 @@ return array (
     'whatsapp' => '+249912100067',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الجيلي — محلية بحري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -20915,7 +21969,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  646 => 
+  639 => 
   array (
     'name' => 'مدارس قناديل العلم الخاصة — بحري (المزاد)',
     'name_en' => 'مدارس قناديل العلم الخاصة - المزاد',
@@ -20939,6 +21993,8 @@ return array (
     'whatsapp' => '+249912100068',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي المزاد — محلية بحري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -20948,7 +22004,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  647 => 
+  640 => 
   array (
     'name' => 'مدارس مناهل المعرفة الخاصة — بحري (الأملاك)',
     'name_en' => 'مدارس مناهل المعرفة الخاصة - الأملاك',
@@ -20972,6 +22028,8 @@ return array (
     'whatsapp' => '+249912100069',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الأملاك — محلية بحري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -20981,7 +22039,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  648 => 
+  641 => 
   array (
     'name' => 'مدارس الأجيال الصاعدة الخاصة — بحري (كوبر)',
     'name_en' => 'مدارس الأجيال الصاعدة الخاصة - كوبر',
@@ -21005,6 +22063,8 @@ return array (
     'whatsapp' => '+249912100070',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي كوبر — محلية بحري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -21014,7 +22074,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  649 => 
+  642 => 
   array (
     'name' => 'مدارس المعرفة الشاملة الخاصة — بحري (الصافية)',
     'name_en' => 'مدارس المعرفة الشاملة الخاصة - الصافية',
@@ -21038,6 +22098,8 @@ return array (
     'whatsapp' => '+249912100071',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الصافية — محلية بحري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -21047,7 +22109,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  650 => 
+  643 => 
   array (
     'name' => 'مدارس بشائر الخير النموذجية — بحري (الشعبية)',
     'name_en' => 'مدارس بشائر الخير النموذجية - الشعبية',
@@ -21071,6 +22133,8 @@ return array (
     'whatsapp' => '+249912100072',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الشعبية — محلية بحري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -21080,7 +22144,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  651 => 
+  644 => 
   array (
     'name' => 'مدارس براعم المستقبل الخاصة — بحري (شمبات)',
     'name_en' => 'مدارس براعم المستقبل الخاصة - شمبات',
@@ -21104,6 +22168,8 @@ return array (
     'whatsapp' => '+249912100073',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي شمبات — محلية بحري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -21113,7 +22179,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  652 => 
+  645 => 
   array (
     'name' => 'مدارس التميز العلمي النموذجية — بحري (حلفاية الملوك)',
     'name_en' => 'مدارس التميز العلمي النموذجية - حلفاية الملوك',
@@ -21137,6 +22203,8 @@ return array (
     'whatsapp' => '+249912100074',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي حلفاية الملوك — محلية بحري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -21146,7 +22214,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  653 => 
+  646 => 
   array (
     'name' => 'مدارس منارة الشرق الخاصة — بحري (الدروشاب)',
     'name_en' => 'مدارس منارة الشرق الخاصة - الدروشاب',
@@ -21170,6 +22238,8 @@ return array (
     'whatsapp' => '+249912100075',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الدروشاب — محلية بحري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -21179,7 +22249,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  654 => 
+  647 => 
   array (
     'name' => 'مدارس رياض الصالحين الخاصة — بحري (الكدرو)',
     'name_en' => 'مدارس رياض الصالحين الخاصة - الكدرو',
@@ -21203,6 +22273,8 @@ return array (
     'whatsapp' => '+249912100076',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الكدرو — محلية بحري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -21212,7 +22284,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  655 => 
+  648 => 
   array (
     'name' => 'مدارس سنابل العلم النموذجية — بحري (كافوري)',
     'name_en' => 'مدارس سنابل العلم النموذجية - كافوري',
@@ -21236,6 +22308,8 @@ return array (
     'whatsapp' => '+249912100077',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي كافوري — محلية بحري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -21245,7 +22319,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  656 => 
+  649 => 
   array (
     'name' => 'مدارس ينابيع المعرفة الخاصة — بحري (السامراب)',
     'name_en' => 'مدارس ينابيع المعرفة الخاصة - السامراب',
@@ -21269,6 +22343,8 @@ return array (
     'whatsapp' => '+249912100078',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي السامراب — محلية بحري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -21278,7 +22354,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  657 => 
+  650 => 
   array (
     'name' => 'مدارس آفاق المستقبل النموذجية — بحري (طيبة الأحامدة)',
     'name_en' => 'مدارس آفاق المستقبل النموذجية - طيبة الأحامدة',
@@ -21302,6 +22378,8 @@ return array (
     'whatsapp' => '+249912100079',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي طيبة الأحامدة — محلية بحري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -21311,7 +22389,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  658 => 
+  651 => 
   array (
     'name' => 'مدارس أجيال النهضة الخاصة — بحري (الجيلي)',
     'name_en' => 'مدارس أجيال النهضة الخاصة - الجيلي',
@@ -21335,6 +22413,8 @@ return array (
     'whatsapp' => '+249912100080',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الجيلي — محلية بحري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -21344,7 +22424,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  659 => 
+  652 => 
   array (
     'name' => 'مدارس الإتقان التعليمية الخاصة — بحري (المزاد)',
     'name_en' => 'مدارس الإتقان التعليمية الخاصة - المزاد',
@@ -21368,6 +22448,8 @@ return array (
     'whatsapp' => '+249912100081',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي المزاد — محلية بحري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -21377,7 +22459,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  660 => 
+  653 => 
   array (
     'name' => 'مدارس هدي القرآن النموذجية — بحري (الأملاك)',
     'name_en' => 'مدارس هدي القرآن النموذجية - الأملاك',
@@ -21401,6 +22483,8 @@ return array (
     'whatsapp' => '+249912100082',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الأملاك — محلية بحري، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -21410,7 +22494,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  661 => 
+  654 => 
   array (
     'name' => 'مدارس النخبة النموذجية الخاصة — شرق النيل (الفيحاء)',
     'name_en' => 'مدارس النخبة النموذجية الخاصة - الفيحاء',
@@ -21434,6 +22518,8 @@ return array (
     'whatsapp' => '+249912100083',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الفيحاء — محلية شرق النيل، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -21443,7 +22529,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  662 => 
+  655 => 
   array (
     'name' => 'مدارس الأوائل الحديثة الخاصة — شرق النيل (حي الهدى)',
     'name_en' => 'مدارس الأوائل الحديثة الخاصة - حي الهدى',
@@ -21467,6 +22553,8 @@ return array (
     'whatsapp' => '+249912100084',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي حي الهدى — محلية شرق النيل، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -21476,7 +22564,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  663 => 
+  656 => 
   array (
     'name' => 'مدارس دار العلوم النموذجية الخاصة — شرق النيل (حي النصر)',
     'name_en' => 'مدارس دار العلوم النموذجية الخاصة - حي النصر',
@@ -21500,6 +22588,8 @@ return array (
     'whatsapp' => '+249912100085',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي حي النصر — محلية شرق النيل، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -21509,7 +22599,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  664 => 
+  657 => 
   array (
     'name' => 'مدارس المجد الأكاديمية الخاصة — شرق النيل (حلة كوكو)',
     'name_en' => 'مدارس المجد الأكاديمية الخاصة - حلة كوكو',
@@ -21533,6 +22623,8 @@ return array (
     'whatsapp' => '+249912100086',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي حلة كوكو — محلية شرق النيل، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -21542,7 +22634,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  665 => 
+  658 => 
   array (
     'name' => 'مدارس الإبداع والتميز الخاصة — شرق النيل (الحاج يوسف)',
     'name_en' => 'مدارس الإبداع والتميز الخاصة - الحاج يوسف',
@@ -21566,6 +22658,8 @@ return array (
     'whatsapp' => '+249912100087',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الحاج يوسف — محلية شرق النيل، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -21575,7 +22669,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  666 => 
+  659 => 
   array (
     'name' => 'مدارس الفجر الصادق الخاصة — شرق النيل (حي الجامعة)',
     'name_en' => 'مدارس الفجر الصادق الخاصة - حي الجامعة',
@@ -21599,6 +22693,8 @@ return array (
     'whatsapp' => '+249912100088',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي حي الجامعة — محلية شرق النيل، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -21608,7 +22704,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  667 => 
+  660 => 
   array (
     'name' => 'مدارس نور الإيمان الخاصة — شرق النيل (القادسية)',
     'name_en' => 'مدارس نور الإيمان الخاصة - القادسية',
@@ -21632,6 +22728,8 @@ return array (
     'whatsapp' => '+249912100089',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي القادسية — محلية شرق النيل، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -21641,7 +22739,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  668 => 
+  661 => 
   array (
     'name' => 'مدارس شمس المعرفة النموذجية — شرق النيل (الوادي الأخضر)',
     'name_en' => 'مدارس شمس المعرفة النموذجية - الوادي الأخضر',
@@ -21665,6 +22763,8 @@ return array (
     'whatsapp' => '+249912100090',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الوادي الأخضر — محلية شرق النيل، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -21674,7 +22774,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  669 => 
+  662 => 
   array (
     'name' => 'مدارس رواد الغد الخاصة — شرق النيل (سوبا شرق)',
     'name_en' => 'مدارس رواد الغد الخاصة - سوبا شرق',
@@ -21698,6 +22798,8 @@ return array (
     'whatsapp' => '+249912100091',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي سوبا شرق — محلية شرق النيل، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -21707,7 +22809,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  670 => 
+  663 => 
   array (
     'name' => 'مدارس صروح المجد النموذجية — شرق النيل (العيلفون)',
     'name_en' => 'مدارس صروح المجد النموذجية - العيلفون',
@@ -21731,6 +22833,8 @@ return array (
     'whatsapp' => '+249912100092',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي العيلفون — محلية شرق النيل، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -21740,7 +22844,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  671 => 
+  664 => 
   array (
     'name' => 'مدارس قناديل العلم الخاصة — شرق النيل (الفيحاء)',
     'name_en' => 'مدارس قناديل العلم الخاصة - الفيحاء',
@@ -21764,6 +22868,8 @@ return array (
     'whatsapp' => '+249912100093',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الفيحاء — محلية شرق النيل، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -21773,7 +22879,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  672 => 
+  665 => 
   array (
     'name' => 'مدارس مناهل المعرفة الخاصة — شرق النيل (حي الهدى)',
     'name_en' => 'مدارس مناهل المعرفة الخاصة - حي الهدى',
@@ -21797,6 +22903,8 @@ return array (
     'whatsapp' => '+249912100094',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي حي الهدى — محلية شرق النيل، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -21806,7 +22914,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  673 => 
+  666 => 
   array (
     'name' => 'مدارس الأجيال الصاعدة الخاصة — شرق النيل (حي النصر)',
     'name_en' => 'مدارس الأجيال الصاعدة الخاصة - حي النصر',
@@ -21830,6 +22938,8 @@ return array (
     'whatsapp' => '+249912100095',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي حي النصر — محلية شرق النيل، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -21839,7 +22949,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  674 => 
+  667 => 
   array (
     'name' => 'مدارس المعرفة الشاملة الخاصة — شرق النيل (حلة كوكو)',
     'name_en' => 'مدارس المعرفة الشاملة الخاصة - حلة كوكو',
@@ -21863,6 +22973,8 @@ return array (
     'whatsapp' => '+249912100096',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي حلة كوكو — محلية شرق النيل، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -21872,7 +22984,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  675 => 
+  668 => 
   array (
     'name' => 'مدارس بشائر الخير النموذجية — شرق النيل (الحاج يوسف)',
     'name_en' => 'مدارس بشائر الخير النموذجية - الحاج يوسف',
@@ -21896,6 +23008,8 @@ return array (
     'whatsapp' => '+249912100097',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الحاج يوسف — محلية شرق النيل، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -21905,7 +23019,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  676 => 
+  669 => 
   array (
     'name' => 'مدارس براعم المستقبل الخاصة — شرق النيل (حي الجامعة)',
     'name_en' => 'مدارس براعم المستقبل الخاصة - حي الجامعة',
@@ -21929,6 +23043,8 @@ return array (
     'whatsapp' => '+249912100098',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي حي الجامعة — محلية شرق النيل، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -21938,7 +23054,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  677 => 
+  670 => 
   array (
     'name' => 'مدارس التميز العلمي النموذجية — شرق النيل (القادسية)',
     'name_en' => 'مدارس التميز العلمي النموذجية - القادسية',
@@ -21962,6 +23078,8 @@ return array (
     'whatsapp' => '+249912100099',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي القادسية — محلية شرق النيل، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -21971,7 +23089,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  678 => 
+  671 => 
   array (
     'name' => 'مدارس منارة الشرق الخاصة — شرق النيل (الوادي الأخضر)',
     'name_en' => 'مدارس منارة الشرق الخاصة - الوادي الأخضر',
@@ -21995,6 +23113,8 @@ return array (
     'whatsapp' => '+249912100100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الوادي الأخضر — محلية شرق النيل، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -22004,7 +23124,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  679 => 
+  672 => 
   array (
     'name' => 'مدارس رياض الصالحين الخاصة — شرق النيل (سوبا شرق)',
     'name_en' => 'مدارس رياض الصالحين الخاصة - سوبا شرق',
@@ -22028,6 +23148,8 @@ return array (
     'whatsapp' => '+249912100101',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي سوبا شرق — محلية شرق النيل، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -22037,7 +23159,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  680 => 
+  673 => 
   array (
     'name' => 'مدارس سنابل العلم النموذجية — شرق النيل (العيلفون)',
     'name_en' => 'مدارس سنابل العلم النموذجية - العيلفون',
@@ -22061,6 +23183,8 @@ return array (
     'whatsapp' => '+249912100102',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي العيلفون — محلية شرق النيل، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -22070,7 +23194,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  681 => 
+  674 => 
   array (
     'name' => 'مدارس ينابيع المعرفة الخاصة — شرق النيل (الفيحاء)',
     'name_en' => 'مدارس ينابيع المعرفة الخاصة - الفيحاء',
@@ -22094,6 +23218,8 @@ return array (
     'whatsapp' => '+249912100103',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الفيحاء — محلية شرق النيل، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -22103,7 +23229,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  682 => 
+  675 => 
   array (
     'name' => 'مدارس آفاق المستقبل النموذجية — شرق النيل (حي الهدى)',
     'name_en' => 'مدارس آفاق المستقبل النموذجية - حي الهدى',
@@ -22127,6 +23253,8 @@ return array (
     'whatsapp' => '+249912100104',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي حي الهدى — محلية شرق النيل، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -22136,7 +23264,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  683 => 
+  676 => 
   array (
     'name' => 'مدارس النخبة النموذجية الخاصة — جبل أولياء (الكلاكلة)',
     'name_en' => 'مدارس النخبة النموذجية الخاصة - الكلاكلة',
@@ -22160,6 +23288,8 @@ return array (
     'whatsapp' => '+249912100105',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الكلاكلة — محلية جبل أولياء، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -22169,7 +23299,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  684 => 
+  677 => 
   array (
     'name' => 'مدارس الأوائل الحديثة الخاصة — جبل أولياء (أبو آدم)',
     'name_en' => 'مدارس الأوائل الحديثة الخاصة - أبو آدم',
@@ -22193,6 +23323,8 @@ return array (
     'whatsapp' => '+249912100106',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي أبو آدم — محلية جبل أولياء، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -22202,7 +23334,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  685 => 
+  678 => 
   array (
     'name' => 'مدارس دار العلوم النموذجية الخاصة — جبل أولياء (الأزهري)',
     'name_en' => 'مدارس دار العلوم النموذجية الخاصة - الأزهري',
@@ -22226,6 +23358,8 @@ return array (
     'whatsapp' => '+249912100107',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الأزهري — محلية جبل أولياء، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -22235,7 +23369,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  686 => 
+  679 => 
   array (
     'name' => 'مدارس المجد الأكاديمية الخاصة — جبل أولياء (السلمة)',
     'name_en' => 'مدارس المجد الأكاديمية الخاصة - السلمة',
@@ -22259,6 +23393,8 @@ return array (
     'whatsapp' => '+249912100108',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي السلمة — محلية جبل أولياء، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -22268,7 +23404,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  687 => 
+  680 => 
   array (
     'name' => 'مدارس الإبداع والتميز الخاصة — جبل أولياء (جبل أولياء)',
     'name_en' => 'مدارس الإبداع والتميز الخاصة - جبل أولياء',
@@ -22292,6 +23428,8 @@ return array (
     'whatsapp' => '+249912100109',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي جبل أولياء — محلية جبل أولياء، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -22301,7 +23439,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  688 => 
+  681 => 
   array (
     'name' => 'مدارس الفجر الصادق الخاصة — جبل أولياء (طيبة الحسناب)',
     'name_en' => 'مدارس الفجر الصادق الخاصة - طيبة الحسناب',
@@ -22325,6 +23463,8 @@ return array (
     'whatsapp' => '+249912100110',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي طيبة الحسناب — محلية جبل أولياء، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -22334,7 +23474,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  689 => 
+  682 => 
   array (
     'name' => 'مدارس نور الإيمان الخاصة — جبل أولياء (تريعة البجا)',
     'name_en' => 'مدارس نور الإيمان الخاصة - تريعة البجا',
@@ -22358,6 +23498,8 @@ return array (
     'whatsapp' => '+249912100111',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي تريعة البجا — محلية جبل أولياء، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -22367,7 +23509,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  690 => 
+  683 => 
   array (
     'name' => 'مدارس شمس المعرفة النموذجية — جبل أولياء (الكلاكلة)',
     'name_en' => 'مدارس شمس المعرفة النموذجية - الكلاكلة',
@@ -22391,6 +23533,8 @@ return array (
     'whatsapp' => '+249912100112',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الكلاكلة — محلية جبل أولياء، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -22400,7 +23544,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  691 => 
+  684 => 
   array (
     'name' => 'مدارس رواد الغد الخاصة — جبل أولياء (أبو آدم)',
     'name_en' => 'مدارس رواد الغد الخاصة - أبو آدم',
@@ -22424,6 +23568,8 @@ return array (
     'whatsapp' => '+249912100113',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي أبو آدم — محلية جبل أولياء، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -22433,7 +23579,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  692 => 
+  685 => 
   array (
     'name' => 'مدارس صروح المجد النموذجية — جبل أولياء (الأزهري)',
     'name_en' => 'مدارس صروح المجد النموذجية - الأزهري',
@@ -22457,6 +23603,8 @@ return array (
     'whatsapp' => '+249912100114',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الأزهري — محلية جبل أولياء، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -22466,7 +23614,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  693 => 
+  686 => 
   array (
     'name' => 'مدارس قناديل العلم الخاصة — جبل أولياء (السلمة)',
     'name_en' => 'مدارس قناديل العلم الخاصة - السلمة',
@@ -22490,6 +23638,8 @@ return array (
     'whatsapp' => '+249912100115',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي السلمة — محلية جبل أولياء، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -22499,7 +23649,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  694 => 
+  687 => 
   array (
     'name' => 'مدارس مناهل المعرفة الخاصة — جبل أولياء (جبل أولياء)',
     'name_en' => 'مدارس مناهل المعرفة الخاصة - جبل أولياء',
@@ -22523,6 +23673,8 @@ return array (
     'whatsapp' => '+249912100116',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي جبل أولياء — محلية جبل أولياء، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -22532,7 +23684,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  695 => 
+  688 => 
   array (
     'name' => 'مدارس الأجيال الصاعدة الخاصة — جبل أولياء (طيبة الحسناب)',
     'name_en' => 'مدارس الأجيال الصاعدة الخاصة - طيبة الحسناب',
@@ -22556,6 +23708,8 @@ return array (
     'whatsapp' => '+249912100117',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي طيبة الحسناب — محلية جبل أولياء، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -22565,7 +23719,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  696 => 
+  689 => 
   array (
     'name' => 'مدارس المعرفة الشاملة الخاصة — جبل أولياء (تريعة البجا)',
     'name_en' => 'مدارس المعرفة الشاملة الخاصة - تريعة البجا',
@@ -22589,6 +23743,8 @@ return array (
     'whatsapp' => '+249912100118',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي تريعة البجا — محلية جبل أولياء، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -22598,7 +23754,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  697 => 
+  690 => 
   array (
     'name' => 'مدارس بشائر الخير النموذجية — جبل أولياء (الكلاكلة)',
     'name_en' => 'مدارس بشائر الخير النموذجية - الكلاكلة',
@@ -22622,6 +23778,8 @@ return array (
     'whatsapp' => '+249912100119',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الكلاكلة — محلية جبل أولياء، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -22631,7 +23789,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  698 => 
+  691 => 
   array (
     'name' => 'مدارس براعم المستقبل الخاصة — جبل أولياء (أبو آدم)',
     'name_en' => 'مدارس براعم المستقبل الخاصة - أبو آدم',
@@ -22655,6 +23813,8 @@ return array (
     'whatsapp' => '+249912100120',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي أبو آدم — محلية جبل أولياء، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -22664,7 +23824,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  699 => 
+  692 => 
   array (
     'name' => 'مدارس التميز العلمي النموذجية — جبل أولياء (الأزهري)',
     'name_en' => 'مدارس التميز العلمي النموذجية - الأزهري',
@@ -22688,6 +23848,8 @@ return array (
     'whatsapp' => '+249912100121',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الأزهري — محلية جبل أولياء، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -22697,7 +23859,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  700 => 
+  693 => 
   array (
     'name' => 'مدارس منارة الشرق الخاصة — جبل أولياء (السلمة)',
     'name_en' => 'مدارس منارة الشرق الخاصة - السلمة',
@@ -22721,6 +23883,8 @@ return array (
     'whatsapp' => '+249912100122',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي السلمة — محلية جبل أولياء، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -22730,7 +23894,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  701 => 
+  694 => 
   array (
     'name' => 'مدارس رياض الصالحين الخاصة — جبل أولياء (جبل أولياء)',
     'name_en' => 'مدارس رياض الصالحين الخاصة - جبل أولياء',
@@ -22754,6 +23918,8 @@ return array (
     'whatsapp' => '+249912100123',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي جبل أولياء — محلية جبل أولياء، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -22763,7 +23929,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  702 => 
+  695 => 
   array (
     'name' => 'مدارس سنابل العلم النموذجية — جبل أولياء (طيبة الحسناب)',
     'name_en' => 'مدارس سنابل العلم النموذجية - طيبة الحسناب',
@@ -22787,6 +23953,8 @@ return array (
     'whatsapp' => '+249912100124',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي طيبة الحسناب — محلية جبل أولياء، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -22796,7 +23964,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  703 => 
+  696 => 
   array (
     'name' => 'مدارس ينابيع المعرفة الخاصة — جبل أولياء (تريعة البجا)',
     'name_en' => 'مدارس ينابيع المعرفة الخاصة - تريعة البجا',
@@ -22820,6 +23988,8 @@ return array (
     'whatsapp' => '+249912100125',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي تريعة البجا — محلية جبل أولياء، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -22829,7 +23999,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  704 => 
+  697 => 
   array (
     'name' => 'مدارس آفاق المستقبل النموذجية — جبل أولياء (الكلاكلة)',
     'name_en' => 'مدارس آفاق المستقبل النموذجية - الكلاكلة',
@@ -22853,6 +24023,8 @@ return array (
     'whatsapp' => '+249912100126',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الكلاكلة — محلية جبل أولياء، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -22862,7 +24034,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  705 => 
+  698 => 
   array (
     'name' => 'مدارس النخبة النموذجية الخاصة — أم بدة (أمبدة)',
     'name_en' => 'مدارس النخبة النموذجية الخاصة - أمبدة',
@@ -22886,6 +24058,8 @@ return array (
     'whatsapp' => '+249912100127',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي أمبدة — محلية أم بدة، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -22895,7 +24069,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  706 => 
+  699 => 
   array (
     'name' => 'مدارس الأوائل الحديثة الخاصة — أم بدة (دار السلام)',
     'name_en' => 'مدارس الأوائل الحديثة الخاصة - دار السلام',
@@ -22919,6 +24093,8 @@ return array (
     'whatsapp' => '+249912100128',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي دار السلام — محلية أم بدة، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -22928,7 +24104,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  707 => 
+  700 => 
   array (
     'name' => 'مدارس دار العلوم النموذجية الخاصة — أم بدة (السبيل)',
     'name_en' => 'مدارس دار العلوم النموذجية الخاصة - السبيل',
@@ -22952,6 +24128,8 @@ return array (
     'whatsapp' => '+249912100129',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي السبيل — محلية أم بدة، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -22961,7 +24139,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  708 => 
+  701 => 
   array (
     'name' => 'مدارس المجد الأكاديمية الخاصة — أم بدة (ود البشير)',
     'name_en' => 'مدارس المجد الأكاديمية الخاصة - ود البشير',
@@ -22985,6 +24163,8 @@ return array (
     'whatsapp' => '+249912100130',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي ود البشير — محلية أم بدة، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -22994,7 +24174,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  709 => 
+  702 => 
   array (
     'name' => 'مدارس الإبداع والتميز الخاصة — أم بدة (الراشدين)',
     'name_en' => 'مدارس الإبداع والتميز الخاصة - الراشدين',
@@ -23018,6 +24198,8 @@ return array (
     'whatsapp' => '+249912100131',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الراشدين — محلية أم بدة، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -23027,7 +24209,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  710 => 
+  703 => 
   array (
     'name' => 'مدارس الفجر الصادق الخاصة — أم بدة (العامرية)',
     'name_en' => 'مدارس الفجر الصادق الخاصة - العامرية',
@@ -23051,6 +24233,8 @@ return array (
     'whatsapp' => '+249912100132',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي العامرية — محلية أم بدة، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -23060,7 +24244,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  711 => 
+  704 => 
   array (
     'name' => 'مدارس نور الإيمان الخاصة — أم بدة (أمبدة)',
     'name_en' => 'مدارس نور الإيمان الخاصة - أمبدة',
@@ -23084,6 +24268,8 @@ return array (
     'whatsapp' => '+249912100133',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي أمبدة — محلية أم بدة، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -23093,7 +24279,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  712 => 
+  705 => 
   array (
     'name' => 'مدارس شمس المعرفة النموذجية — أم بدة (دار السلام)',
     'name_en' => 'مدارس شمس المعرفة النموذجية - دار السلام',
@@ -23117,6 +24303,8 @@ return array (
     'whatsapp' => '+249912100134',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي دار السلام — محلية أم بدة، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -23126,7 +24314,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  713 => 
+  706 => 
   array (
     'name' => 'مدارس رواد الغد الخاصة — أم بدة (السبيل)',
     'name_en' => 'مدارس رواد الغد الخاصة - السبيل',
@@ -23150,6 +24338,8 @@ return array (
     'whatsapp' => '+249912100135',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي السبيل — محلية أم بدة، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -23159,7 +24349,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  714 => 
+  707 => 
   array (
     'name' => 'مدارس صروح المجد النموذجية — أم بدة (ود البشير)',
     'name_en' => 'مدارس صروح المجد النموذجية - ود البشير',
@@ -23183,6 +24373,8 @@ return array (
     'whatsapp' => '+249912100136',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي ود البشير — محلية أم بدة، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -23192,7 +24384,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  715 => 
+  708 => 
   array (
     'name' => 'مدارس قناديل العلم الخاصة — أم بدة (الراشدين)',
     'name_en' => 'مدارس قناديل العلم الخاصة - الراشدين',
@@ -23216,6 +24408,8 @@ return array (
     'whatsapp' => '+249912100137',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الراشدين — محلية أم بدة، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -23225,7 +24419,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  716 => 
+  709 => 
   array (
     'name' => 'مدارس مناهل المعرفة الخاصة — أم بدة (العامرية)',
     'name_en' => 'مدارس مناهل المعرفة الخاصة - العامرية',
@@ -23249,6 +24443,8 @@ return array (
     'whatsapp' => '+249912100138',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي العامرية — محلية أم بدة، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -23258,7 +24454,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  717 => 
+  710 => 
   array (
     'name' => 'مدارس الأجيال الصاعدة الخاصة — أم بدة (أمبدة)',
     'name_en' => 'مدارس الأجيال الصاعدة الخاصة - أمبدة',
@@ -23282,6 +24478,8 @@ return array (
     'whatsapp' => '+249912100139',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي أمبدة — محلية أم بدة، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -23291,7 +24489,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  718 => 
+  711 => 
   array (
     'name' => 'مدارس المعرفة الشاملة الخاصة — أم بدة (دار السلام)',
     'name_en' => 'مدارس المعرفة الشاملة الخاصة - دار السلام',
@@ -23315,6 +24513,8 @@ return array (
     'whatsapp' => '+249912100140',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي دار السلام — محلية أم بدة، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -23324,7 +24524,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  719 => 
+  712 => 
   array (
     'name' => 'مدارس بشائر الخير النموذجية — أم بدة (السبيل)',
     'name_en' => 'مدارس بشائر الخير النموذجية - السبيل',
@@ -23348,6 +24548,8 @@ return array (
     'whatsapp' => '+249912100141',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي السبيل — محلية أم بدة، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -23357,7 +24559,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  720 => 
+  713 => 
   array (
     'name' => 'مدارس براعم المستقبل الخاصة — أم بدة (ود البشير)',
     'name_en' => 'مدارس براعم المستقبل الخاصة - ود البشير',
@@ -23381,6 +24583,8 @@ return array (
     'whatsapp' => '+249912100142',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي ود البشير — محلية أم بدة، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -23390,7 +24594,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  721 => 
+  714 => 
   array (
     'name' => 'مدارس التميز العلمي النموذجية — أم بدة (الراشدين)',
     'name_en' => 'مدارس التميز العلمي النموذجية - الراشدين',
@@ -23414,6 +24618,8 @@ return array (
     'whatsapp' => '+249912100143',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي الراشدين — محلية أم بدة، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -23423,7 +24629,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  722 => 
+  715 => 
   array (
     'name' => 'مدارس منارة الشرق الخاصة — أم بدة (العامرية)',
     'name_en' => 'مدارس منارة الشرق الخاصة - العامرية',
@@ -23447,6 +24653,8 @@ return array (
     'whatsapp' => '+249912100144',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي العامرية — محلية أم بدة، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -23456,7 +24664,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  723 => 
+  716 => 
   array (
     'name' => 'مدارس رياض الصالحين الخاصة — أم بدة (أمبدة)',
     'name_en' => 'مدارس رياض الصالحين الخاصة - أمبدة',
@@ -23480,6 +24688,8 @@ return array (
     'whatsapp' => '+249912100145',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي أمبدة — محلية أم بدة، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -23489,7 +24699,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  724 => 
+  717 => 
   array (
     'name' => 'مدارس سنابل العلم النموذجية — أم بدة (دار السلام)',
     'name_en' => 'مدارس سنابل العلم النموذجية - دار السلام',
@@ -23513,6 +24723,8 @@ return array (
     'whatsapp' => '+249912100146',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة تخدم مرحلتي الأساس والثانوي بحي دار السلام — محلية أم بدة، تقدم تعليماً نموذجياً وبيئة صفية ملهمة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -23522,7 +24734,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  725 => 
+  718 => 
   array (
     'name' => 'مدارس التعليم البريطانية بالمنشية',
     'name_en' => 'British Educational Schools Al-Manshia',
@@ -23546,6 +24758,8 @@ return array (
     'whatsapp' => '+249154887140',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تربوي دولي يقدم المنهج البريطاني المعتمد من كامبردج للمراحل الأساسية والثانوية مع برامج دعم لغوي وتقني متقدم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -23555,7 +24769,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  726 => 
+  719 => 
   array (
     'name' => 'مدرسة سان فرانسيس الخاصة',
     'name_en' => 'St. Francis School Khartoum',
@@ -23578,6 +24792,8 @@ return array (
     'whatsapp' => '+249183471200',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي عريق يمتد لعقود في قلب الخرطوم، يتميز بالتعليم النوعي والتأسيس المتين للغات والرياضيات والأنشطة الثقافية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -23587,7 +24803,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  727 => 
+  720 => 
   array (
     'name' => 'مدرسة يس الدولية',
     'name_en' => 'Yass International School',
@@ -23610,6 +24826,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة دولية تقدم المنهج البريطاني مع التركيز على التعلم التفاعلي والمهارات الحياتية واللغات المتعددة في بيئة آمنة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -23619,7 +24837,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  728 => 
+  721 => 
   array (
     'name' => 'مدارس إشراقة الغد الخاصة',
     'name_en' => 'Ishraqat Al-Ghad Schools',
@@ -23642,6 +24860,8 @@ return array (
     'whatsapp' => '+249912341122',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة تأسيسية ونموذجية رائدة تهتم بالتفوق الأكاديمي والذكاءات المتعددة وتدريس اللغات والعلوم بأساليب تعليمية حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -23651,7 +24871,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  729 => 
+  722 => 
   array (
     'name' => 'مدارس الشيخ مصطفى الأمين الخاصة',
     'name_en' => 'Sheikh Mustafa Elamin Schools',
@@ -23675,6 +24895,8 @@ return array (
     'whatsapp' => '+249183772211',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'درة الوقف التعليمي الخيري وأسطورة التفوق بالشهادة السودانية تأسست عام 1970م بمبادرة المحسن الكبير الشيخ مصطفى الأمين، وحصدت المركز الأول بالشهادة السودانية عشرات المرات وخرّجت نوابغ جراحة القلب والذكاء الاصطناعي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -23684,7 +24906,7 @@ return array (
     'historic_badge_reason' => 'صرح وطني تاريخي',
     'historic_votes' => 0,
   ),
-  730 => 
+  723 => 
   array (
     'name' => 'مدارس د. أبو ذر الكودة النموذجية — بنين أم درمان',
     'name_en' => 'Dr. Abuzar Al-Koda Boys Model School',
@@ -23707,6 +24929,8 @@ return array (
     'whatsapp' => '+249187550100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'رائدة المدارس النموذجية الخاصة في السودان وصاحبة سجل حافل بإحراز أوائل الشهادة الثانوية سنوياً مع بيئة أكاديمية مكثفة ومتميزة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -23716,7 +24940,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  731 => 
+  724 => 
   array (
     'name' => 'مدارس د. أبو ذر الكودة النموذجية — بنات أم درمان',
     'name_en' => 'Dr. Abuzar Al-Koda Girls Model School',
@@ -23739,6 +24963,8 @@ return array (
     'whatsapp' => '+249187550101',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح نموذجي خاص بالبنات يتصدر لوائح الشرف على مستوى الجمهورية بفضل الإشراف الأكاديمي الدقيق والتدريب المكثف على الامتحانات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -23748,7 +24974,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  732 => 
+  725 => 
   array (
     'name' => 'مدارس العالية المطورة بأم درمان',
     'name_en' => 'Al-Alia Advanced Schools Omdurman',
@@ -23772,6 +24998,8 @@ return array (
     'whatsapp' => '+249128208695',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع مدرسي متطور يقدم برامج تعليمية معتمدة مع فصول مجهزة ومتابعة دقيقة لأولياء الأمور وكادر تدريسي عالي الكفاءة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -23781,7 +25009,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  733 => 
+  726 => 
   array (
     'name' => 'روضة وتهيئة فيفي الخاصة بأم درمان',
     'name_en' => 'Fifi Early Learning Academy Omdurman',
@@ -23803,6 +25031,8 @@ return array (
     'whatsapp' => '+249925730775',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة متخصصة في التهيئة النفسية والتعليمية المبكرة للأطفال بأحدث وسائل منتسوري وتنمية الذكاء اللغوي والحركي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -23812,7 +25042,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  734 => 
+  727 => 
   array (
     'name' => 'مدارس السودان ومهاجر الخاصة',
     'name_en' => 'Sudan & Muhajir Private Schools',
@@ -23836,6 +25066,8 @@ return array (
     'whatsapp' => '+249122385760',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة معتمدة تقدم خدمات تعليمية متكاملة للطلاب الوطنيين والعائدين والمهاجرين بنظم تقويم حديثة وفصول نموذجية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -23845,7 +25077,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  735 => 
+  728 => 
   array (
     'name' => 'مدارس المجلس الأفريقي — فرع الفتيحاب',
     'name_en' => 'African Council Schools Fitaihab',
@@ -23869,6 +25101,8 @@ return array (
     'whatsapp' => '+249187560200',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع أم درمان جنوب التابع للمجلس الأفريقي، يضم مجمعات منفصلة للبنين والبنات مع ملاعب ومختبرات علمية متقدمة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -23878,7 +25112,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  736 => 
+  729 => 
   array (
     'name' => 'مدارس البشير الريح الخاصة',
     'name_en' => 'Al-Bashir El-Rayah Schools',
@@ -23902,6 +25136,8 @@ return array (
     'whatsapp' => '+249187563344',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية وتثقيفية مرتبطة بمكتبة البشير الريح العامة، توفر بيئة معرفية ثرية وتخرج سنوياً أفواجاً من المتفوقين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -23911,7 +25147,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  737 => 
+  730 => 
   array (
     'name' => 'مدارس الموردة النموذجية الخاصة',
     'name_en' => 'Al-Mourada Model Schools',
@@ -23934,6 +25170,8 @@ return array (
     'whatsapp' => '+249187565566',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة نموذجية متميزة تقدم تعليماً أساسياً تأسيسياً قوياً ورعاية خاصة للموهوبين رياضياً وثقافياً.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -23943,7 +25181,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  738 => 
+  731 => 
   array (
     'name' => 'مدارس الفتيحاب النموذجية الخاصة',
     'name_en' => 'Fitaihab Model Private Schools',
@@ -23967,6 +25205,8 @@ return array (
     'whatsapp' => '+249187566677',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع مدرسي يخدم أهالي جنوب أم درمان بكفاءة عالية، يضم نخبة من كبار التربويين ويحقق نسب نجاح 100%.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -23976,7 +25216,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  739 => 
+  732 => 
   array (
     'name' => 'مدارس كبيدة الدولية — فرع بحري',
     'name_en' => 'Kabbida International Schools Bahri',
@@ -24000,6 +25240,8 @@ return array (
     'whatsapp' => '+249997341680',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع كافوري لمدارس كبيدة العالمية، يدرس مناهج كامبردج الدولية مع معامل حديثة ومسارح وملاعب متكاملة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -24009,7 +25251,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  740 => 
+  733 => 
   array (
     'name' => 'المجلس الأفريقي للتعليم — مدارس بحري',
     'name_en' => 'African Council Schools Bahri',
@@ -24033,6 +25275,8 @@ return array (
     'whatsapp' => '+249912614886',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي كبير يشمل كافة المراحل من الروضة وحتى الثانوي للبنين والبنات، رائد في التحصيل الأكاديمي والنشاط الكشفي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -24042,7 +25286,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  741 => 
+  734 => 
   array (
     'name' => 'مدارس وولفرهامتون الدولية الخاصة',
     'name_en' => 'Wolverhampton School International',
@@ -24065,6 +25309,8 @@ return array (
     'whatsapp' => '+249119529071',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة دولية تقدم المنهج البريطاني وثنائية اللغة في بيئة تفاعلية نموذجية تهتم بالذكاء الاصطناعي ومهارات القرن الحادي والعشرين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -24074,7 +25320,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  742 => 
+  735 => 
   array (
     'name' => 'مدارس النوابغ الخاصة ببحري',
     'name_en' => 'Al-Nawabigh Private Schools Bahri',
@@ -24098,6 +25344,8 @@ return array (
     'whatsapp' => '+249121505005',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية رائدة في الحلفايا وبحري، تمتاز بنسب القبول العالية في الجامعات ومختبرات علمية وتقنية مجهزة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -24107,7 +25355,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  743 => 
+  736 => 
   array (
     'name' => 'مدارس القبس الخاصة — شمبات',
     'name_en' => 'Al-Qabas Private Schools Shambat',
@@ -24131,6 +25379,8 @@ return array (
     'whatsapp' => '+249185324455',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع بحري لمدارس القبس، يضم فصولاً دراسية فسيحة ومختبرات علمية متطورة ويحقق مراكز متقدمة سنوياً على مستوى المحلية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -24140,7 +25390,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  744 => 
+  737 => 
   array (
     'name' => 'المدرسة الإنجيلية المشتركة بحري',
     'name_en' => 'Evangelical Mixed School Bahri',
@@ -24164,6 +25414,8 @@ return array (
     'whatsapp' => '+249185312233',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي تاريخي يقدم تعليماً متميزاً لكافة أطياف المجتمع السوداني مع تركيز متوارث على الانضباط وجودة اللغة الإنجليزية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -24173,7 +25425,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  745 => 
+  738 => 
   array (
     'name' => 'مدارس حلفاية الملوك النموذجية الخاصة',
     'name_en' => 'Halfayat Al-Muluk Model Schools',
@@ -24197,6 +25449,8 @@ return array (
     'whatsapp' => '+249185351122',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع تعليمي أهلي ونموذجي يخدم مناطق شمال بحري، يجمع بين الأصالة التربوية والوسائل التعليمية الرقمية الحديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -24206,7 +25460,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  746 => 
+  739 => 
   array (
     'name' => 'رياض ومدارس المشارق الحديثة الخاصة',
     'name_en' => 'Al-Mashariq Modern Schools Karari',
@@ -24229,6 +25483,8 @@ return array (
     'whatsapp' => '+249912667531',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تربوي يرفع شعار الانضباط والتفوق والتميز، يقدم تعليماً تأسيسياً متميزاً للأطفال والمرحلتين الابتدائية والمتوسطة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -24238,7 +25494,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  747 => 
+  740 => 
   array (
     'name' => 'مجموعة المنهل التعليمية الخاصة بكرري',
     'name_en' => 'Al-Manhal Educational Group Karari',
@@ -24262,6 +25518,8 @@ return array (
     'whatsapp' => '+249123531721',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع تعليمي ضخم للبنين والبنات، يضم قاعات تدريس متطورة وملاعب رياضية ومسارح مدرسية، وله سجل حافل بأوائل الامتحانات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -24271,7 +25529,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  748 => 
+  741 => 
   array (
     'name' => 'مدارس المواهب العالمية — فرع كرري',
     'name_en' => 'Al-Mawaheb Global Schools Karari',
@@ -24295,6 +25553,8 @@ return array (
     'whatsapp' => '+249918377832',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع كرري لمدارس المواهب، يقدم تعليماً دولياً وثنائياً عالي المستوى مع اهتمام فائق برعاية الموهوبين والأنشطة العلمية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -24304,7 +25564,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  749 => 
+  742 => 
   array (
     'name' => 'مدارس الشنقيطي النموذجية الخاصة',
     'name_en' => 'Al-Shanqeeti Model Schools',
@@ -24328,6 +25588,8 @@ return array (
     'whatsapp' => '+249187571122',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة عريقة على شارع الشنقيطي الحيوي، تمتاز بكادر تعليمي خبير ونتائج مشرفة في امتحانات الشهادة السودانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -24337,7 +25599,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  750 => 
+  743 => 
   array (
     'name' => 'مدارس الإشراق النموذجية الخاصة بكرري',
     'name_en' => 'Al-Ishraq Model Schools Karari',
@@ -24361,6 +25623,8 @@ return array (
     'whatsapp' => '+249187572233',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي نموذجي يستقطب الطلاب المتفوقين في الحارة التاسعة وما حولها، ويقدم حصص تقوية مكثفة وبرامج إرشاد أكاديمي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -24370,7 +25634,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  751 => 
+  744 => 
   array (
     'name' => 'مدارس قرطبة النموذجية الخاصة',
     'name_en' => 'Cordoba Model Schools Karari',
@@ -24393,6 +25657,8 @@ return array (
     'whatsapp' => '+249187573344',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة نموذجية تركز على التربية السلوكية والتفوق العلمي وبناء مهارات الحساب الذهني والقراءة المبكرة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -24402,7 +25668,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  752 => 
+  745 => 
   array (
     'name' => 'مدارس الحارة السادسة الخاصة',
     'name_en' => '6th District Private Schools',
@@ -24426,6 +25692,8 @@ return array (
     'whatsapp' => '+249187574455',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة عريقة تحظى بثقة واسعة من أولياء الأمور وتوفر نقلاً مدرسياً ومختبرات علمية متكاملة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -24435,7 +25703,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  753 => 
+  746 => 
   array (
     'name' => 'مدارس الفتح الخاصة بكرري',
     'name_en' => 'Al-Fath Private Schools Karari',
@@ -24458,6 +25726,8 @@ return array (
     'whatsapp' => '+249187575566',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي يوفر تعليماً متميزاً وبديلاً نموذجياً لأبناء مدينة الفتح والمناطق المجاورة في كرري.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -24467,7 +25737,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  754 => 
+  747 => 
   array (
     'name' => 'مدارس ومعاهد نمبر ون — فرع شرق النيل',
     'name_en' => 'Number One Schools & Institutes East Nile',
@@ -24490,6 +25760,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية رائدة تشتهر بكورسات المراجعة المكثفة والتأهيل العالي لامتحانات الشهادة السودانية مع كبار الأساتذة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -24499,7 +25771,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  755 => 
+  748 => 
   array (
     'name' => 'مجموعة مدارس الرائد الخاصة بشرق النيل',
     'name_en' => 'Al-Raid Private Schools East Nile',
@@ -24523,6 +25795,8 @@ return array (
     'whatsapp' => '+249185281122',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع تعليمي عريق يضم مراحل الأساس والثانوي للبنين والبنات، يتميز بكادر تدريسي مخضرم وبيئة محفزة للنجاح.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -24532,7 +25806,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  756 => 
+  749 => 
   array (
     'name' => 'مدارس التوفيق الخاصة بشرق النيل',
     'name_en' => 'Al-Tawfeeq Private Schools East Nile',
@@ -24556,6 +25830,8 @@ return array (
     'whatsapp' => '+249185282233',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تربوية خاصة معتمدة تخدم أحياء شرق النيل بنسب تفوق عالية واهتمام ملحوظ بالأنشطة اللاصفية والرياضية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -24565,7 +25841,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  757 => 
+  750 => 
   array (
     'name' => 'مدارس حطين النموذجية الخاصة',
     'name_en' => 'Hittin Model Schools East Nile',
@@ -24589,6 +25865,8 @@ return array (
     'whatsapp' => '+249185283344',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي نموذجي يركز على رعاية المتفوقين في المساقات العلمية وتقديم متابعة دورية شاملة مع أولياء الأمور.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -24598,7 +25876,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  758 => 
+  751 => 
   array (
     'name' => 'مدارس المايقوما النموذجية الخاصة',
     'name_en' => 'Al-Maygoma Model Schools',
@@ -24621,6 +25899,8 @@ return array (
     'whatsapp' => '+249185284455',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة نموذجية رائدة في التأسيس الأكاديمي لمرحلتي الابتدائي والمتوسط مع بيئة صفية مجهزة ومكتبة مدرسية نشطة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -24630,7 +25910,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  759 => 
+  752 => 
   array (
     'name' => 'مدارس الحاج يوسف الأهلية الخاصة',
     'name_en' => 'Haj Yousif Community Private Schools',
@@ -24654,6 +25934,8 @@ return array (
     'whatsapp' => '+249185285566',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أقدم المدارس الأهلية والخاصة في شرق النيل، خرجت أجيالاً من المهنيين والأطباء بنسب نجاح مشهودة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -24663,7 +25945,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  760 => 
+  753 => 
   array (
     'name' => 'مدارس الهدى الخاصة بشرق النيل',
     'name_en' => 'Al-Huda Private Schools East Nile',
@@ -24686,6 +25968,8 @@ return array (
     'whatsapp' => '+249185286677',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة معتمدة تقدم برامج تعليمية مميزة وتوفر نقلاً مدرسياً شاملاً لكافة مربعات شرق النيل.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -24695,7 +25979,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  761 => 
+  754 => 
   array (
     'name' => 'مدارس التكامل الخاصة',
     'name_en' => 'Al-Takamul Private Schools East Nile',
@@ -24719,6 +26003,8 @@ return array (
     'whatsapp' => '+249185287788',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'موقع استراتيجي قرب كبري المنشية، مبنى حديث وفصول مكيفة وكادر تدريسي متميز في المساقين العلمي والأدبي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -24728,7 +26014,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  762 => 
+  755 => 
   array (
     'name' => 'مدارس الشيخ البرعي الخاصة بشرق النيل',
     'name_en' => 'Sheikh Al-Buraie Private Schools',
@@ -24752,6 +26038,8 @@ return array (
     'whatsapp' => '+249185288899',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تربوية وقرآنية تجمع بين التحصيل العلمي الحديث وحفظ وتجويد القرآن الكريم والتربية الأخلاقية العالية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -24761,7 +26049,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  763 => 
+  756 => 
   array (
     'name' => 'مؤسسة د. أبو ذر الكودة التعليمية — فرع الكلاكلة',
     'name_en' => 'Dr. Abuzar Al-Koda Schools Kalakla',
@@ -24785,6 +26073,8 @@ return array (
     'whatsapp' => '+249125252422',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع جنوب الخرطوم لمؤسسة الكودة الرائدة، يضم رياض الأطفال ومراحل الأساس والثانوي بنين وبنات بأعلى درجات التفوق.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -24794,7 +26084,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  764 => 
+  757 => 
   array (
     'name' => 'مدارس المجلس الأفريقي للتعليم الخاص — فرع الكلاكلة',
     'name_en' => 'African Council Schools Kalakla',
@@ -24818,6 +26108,8 @@ return array (
     'whatsapp' => '+249183888005',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع تعليمي فسيح للبنين والبنات يتبع للمجلس الأفريقي، يمتاز ببيئة تعليمية منضبطة ومناشط تربوية وثقافية واسعة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -24827,7 +26119,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  765 => 
+  758 => 
   array (
     'name' => 'مدارس الأزهري النموذجية الخاصة',
     'name_en' => 'Al-Azhari Model Schools',
@@ -24851,6 +26143,8 @@ return array (
     'whatsapp' => '+249183691122',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي نموذجي يخدم أحياء الأزهري والإنقاذ وما حولها، يضم فصولاً دراسية متطورة ومختبرات حاسوب حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -24860,7 +26154,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  766 => 
+  759 => 
   array (
     'name' => 'مدارس النصر النموذجية الخاصة بجبل أولياء',
     'name_en' => 'Al-Nasr Model Schools Jabal Awliya',
@@ -24884,6 +26178,8 @@ return array (
     'whatsapp' => '+249183692233',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة رائدة تهتم بالتفوق الأكاديمي والتحصيل العالي في الشهادة الثانوية مع توفير رعاية متخصصة للطلاب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -24893,7 +26189,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  767 => 
+  760 => 
   array (
     'name' => 'مدارس الكلاكلة الحديثة الخاصة',
     'name_en' => 'Modern Kalakla Private Schools',
@@ -24916,6 +26212,8 @@ return array (
     'whatsapp' => '+249183693344',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة عريقة في قلب الكلاكلة، تمتاز بكادر تعليمي متميز وخطط تقوية مستمرة على مدار العام.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -24925,7 +26223,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  768 => 
+  761 => 
   array (
     'name' => 'مدارس دار السلام الأهلية الخاصة بجبل أولياء',
     'name_en' => 'Dar Al-Salam Community Private Schools',
@@ -24949,6 +26247,8 @@ return array (
     'whatsapp' => '+249183694455',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي يخدم مدينة جبل أولياء وضواحيها، يوفر بيئة دراسية نموذجية ومختبرات علمية للشهادة السودانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -24958,7 +26258,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  769 => 
+  762 => 
   array (
     'name' => 'مدارس الدخينات النموذجية الخاصة',
     'name_en' => 'Al-Dukheinat Model Schools',
@@ -24981,6 +26281,8 @@ return array (
     'whatsapp' => '+249183695566',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة نموذجية خاصة تركز على بناء الأساس الأكاديمي واللغوي للأطفال ورعاية المواهب والأنشطة الإبداعية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -24990,7 +26292,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  770 => 
+  763 => 
   array (
     'name' => 'مدارس مايو الأهلية الخاصة',
     'name_en' => 'Mayo Community Private Schools',
@@ -25014,6 +26316,8 @@ return array (
     'whatsapp' => '+249183696677',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة عريقة تقدم خدمات تعليمية متميزة لأبناء المنطقة وتحقق نسب نجاح عالية وتوفر أقساطاً ميسرة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -25023,7 +26327,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  771 => 
+  764 => 
   array (
     'name' => 'مجموعة مدارس التفوق العالمية الخاصة بأم بدة',
     'name_en' => 'Al-Tafawuq Global Schools Ombadda',
@@ -25047,6 +26351,8 @@ return array (
     'whatsapp' => '+249122777712',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بأم بدة، تقدم بيئة تعليمية متكاملة ومناهج حديثة مع فصول ذكية واهتمام باللغات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -25056,7 +26362,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  772 => 
+  765 => 
   array (
     'name' => 'مؤسسة دار المنهل والعين الخاصة — فرع أم بدة',
     'name_en' => 'Dar Al-Manhal & Al-Ain Schools Ombadda',
@@ -25079,6 +26385,8 @@ return array (
     'whatsapp' => '+249123137901',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع أم بدة لمؤسسة دار المنهل والعين، رائد في التأسيس التربوي والقرآني والتعليم الأكاديمي الرصين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -25088,7 +26396,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  773 => 
+  766 => 
   array (
     'name' => 'مدارس الأجيال الابتدائية والمتوسطة الخاصة',
     'name_en' => 'Al-Ajyal Private Schools Ombadda',
@@ -25111,6 +26419,8 @@ return array (
     'whatsapp' => '+249187513344',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة معتمدة تخدم قطاع دار السلام وأم بدة، توفر تعليماً متميزاً وكادراً تعليمياً ذا خبرة تربوية مشهودة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -25120,7 +26430,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  774 => 
+  767 => 
   array (
     'name' => 'ثانوية النوابغ الخاصة بود مدني',
     'name_en' => 'Al-Nawabigh Secondary School Wad Madani',
@@ -25142,6 +26452,8 @@ return array (
     'whatsapp' => '+249912889900',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة ثانوية خاصة مقيدة بسجلات التعليم الخاص في وزارة التربية والتعليم بالولاية وتحقق معدلات قبول ممتازة بالجامعات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -25151,7 +26463,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  775 => 
+  768 => 
   array (
     'name' => 'مجمع النخبة التعليمي الخاص',
     'name_en' => 'Al-Nukhba Educational Complex Wad Madani',
@@ -25175,6 +26487,8 @@ return array (
     'whatsapp' => '+249915554433',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع تعليمي للبنين يهدف إلى إعداد قيادات المستقبل مع التركيز على النشاط الرياضي والكشفي والتقني والمختبرات الحديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -25184,7 +26498,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  776 => 
+  769 => 
   array (
     'name' => 'مدارس الفجر النموذجية الخاصة بود مدني',
     'name_en' => 'Al-Fajr Model Schools Wad Madani',
@@ -25207,6 +26521,8 @@ return array (
     'whatsapp' => '+249912112244',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة نموذجية توفر بيئة مدرسية صحية وفصولاً فسيحة ومتابعة دورية مستمرة مع أسر الطلاب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -25216,7 +26532,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  777 => 
+  770 => 
   array (
     'name' => 'مدارس الأندلس النموذجية الخاصة بود مدني',
     'name_en' => 'Al-Andalus Model Schools Wad Madani',
@@ -25239,6 +26555,8 @@ return array (
     'whatsapp' => '+249912223355',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي خاص بالجزيرة يهتم بتنمية مهارات التفكير الناقد والإبداع وتدريس اللغة الإنجليزية والرياضيات بأساليب متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -25248,7 +26566,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  778 => 
+  771 => 
   array (
     'name' => 'مدارس التميز الخاصة (بنين وبنات) — الحصاحيصا',
     'name_en' => 'Al-Tamayoz Private Schools Hasahisa',
@@ -25272,6 +26590,8 @@ return array (
     'whatsapp' => '+249123290335',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'إحدى كبرى المدارس الخاصة بالحصاحيصا بإدارة أ. النعيم الحاج خالد، تضم أقساماً منفصلة للبنين والبنات ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -25281,7 +26601,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  779 => 
+  772 => 
   array (
     'name' => 'مدارس رواد التميز الخاصة بالحصاحيصا',
     'name_en' => 'Rowad Al-Tamayoz Private Schools Hasahisa',
@@ -25304,6 +26624,8 @@ return array (
     'whatsapp' => '+249911293826',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي نشط على منصات التعليم المعتمدة، يتميز بالانضباط وحصد المراكز الأولى في امتحانات النقل بالمحلية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -25313,7 +26635,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  780 => 
+  773 => 
   array (
     'name' => 'ثانوية الإمام علي الخاصة للبنين بالحصاحيصا',
     'name_en' => 'Imam Ali Secondary School for Boys Hasahisa',
@@ -25335,6 +26657,8 @@ return array (
     'whatsapp' => '+249124845070',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة ثانوية خاصة رائدة للبنين بالحصاحيصا، تضم نخبة من خيرة معلمي المرحلة الثانوية بالجزيرة وتحقق أعلى نسب نجاح.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -25344,7 +26668,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  781 => 
+  774 => 
   array (
     'name' => 'مؤسسة عماد الدين التعليمية الخاصة بالحصاحيصا',
     'name_en' => 'Emad Al-Din Educational Foundation Hasahisa',
@@ -25368,6 +26692,8 @@ return array (
     'whatsapp' => '+249912334466',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية شاملة تضم الروضة والابتدائي والمتوسط، تمتاز بمقر ميداني فسيح وتدريب مستمر للمعلمين والمعلمات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -25377,7 +26703,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  782 => 
+  775 => 
   array (
     'name' => 'مدارس الجديد التربوية التعليمية الخاصة بالمناقل',
     'name_en' => 'Al-Jadid Educational Schools Managil',
@@ -25401,6 +26727,8 @@ return array (
     'whatsapp' => '+249116559500',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية رائدة في المناقل، تحظى بمقر مجهز وإشراف تربوي رفيع ونسب نجاح متفوقة في الشهادتين الابتدائية والثانوية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -25410,7 +26738,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  783 => 
+  776 => 
   array (
     'name' => 'مؤسسة المجد التربوية التعليمية الخاصة بالمناقل',
     'name_en' => 'Al-Majd Educational Foundation Managil',
@@ -25434,6 +26762,8 @@ return array (
     'whatsapp' => '+249961827308',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز امتحانات معتمد وموثق في تقارير وزارة التربية والتعليم بالولاية، يوفر بيئة دراسية نموذجية ومختبرات علمية حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -25443,7 +26773,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  784 => 
+  777 => 
   array (
     'name' => 'مدرسة المعلم الابتدائية الخاصة بالمناقل',
     'name_en' => 'Al-Moallim Primary School Managil',
@@ -25465,6 +26795,8 @@ return array (
     'whatsapp' => '+249912556688',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تصدرت كشوفات نتائج الشهادة الابتدائية بمحلية المناقل وحققت أعلى نسب نجاح ومراكز متقدمة على مستوى ولاية الجزيرة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -25474,7 +26806,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  785 => 
+  778 => 
   array (
     'name' => 'مدرسة نازك الخاصة بالمناقل',
     'name_en' => 'Nazik Private School Managil',
@@ -25497,6 +26829,8 @@ return array (
     'whatsapp' => '+249912667799',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'حققت طالباتها مراكز متقدمة في امتحانات الشهادة المتوسطة المعتمدة بولاية الجزيرة بفضل الكادر التربوي المخلص والمتابعة الدورية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -25506,7 +26840,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  786 => 
+  779 => 
   array (
     'name' => 'مدرسة الأحلام الخاصة بنات بالمناقل',
     'name_en' => 'Al-Ahlam Private School for Girls Managil',
@@ -25529,6 +26863,8 @@ return array (
     'whatsapp' => '+249912778800',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'حصدت طالباتها مراكز متقدمة ضمن لوحة شرف امتحانات الشهادة المتوسطة الرسمية بمحلية المناقل وتتميز ببيئة تربوية محفزة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -25538,7 +26874,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  787 => 
+  780 => 
   array (
     'name' => 'مدارس مناهل المعرفة الخاصة بالمناقل',
     'name_en' => 'Manahel Al-Maarifa Schools Managil',
@@ -25561,6 +26897,8 @@ return array (
     'whatsapp' => '+249912889911',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة معتمدة بالمناقل تركز على بناء القدرات الحسابية واللغوية للطلاب مع مختبر حاسوب مجهز.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -25570,7 +26908,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  788 => 
+  781 => 
   array (
     'name' => 'مدارس المستقبل الخاصة بالمناقل',
     'name_en' => 'Al-Mustaqbal Private Schools Managil',
@@ -25592,6 +26930,8 @@ return array (
     'whatsapp' => '+249912990022',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح ثانوي خاص يستقطب نوابغ الطلاب في المناقل ويؤهلهم لكليات الطب والهندسة بنسب نجاح عالية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -25601,7 +26941,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  789 => 
+  782 => 
   array (
     'name' => 'مدرسة البتول الثانوية النموذجية الخاصة بنات برفاعة',
     'name_en' => 'Al-Batool Model Secondary School Rufaa',
@@ -25623,6 +26963,8 @@ return array (
     'whatsapp' => '+249912487125',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'أول مدرسة لتعليم البنات في تاريخ السودان الحديث، أسسها رائد تعليم المرأة الشيخ بابكر بدري عام 1903م في رفاعة بشرق الجزيرة. مثلت الشرارة الكبرى لتنوير وتحرير المرأة السودانية وتخريج أولى المعلمات والطبيبات وتأسيس كلية الأحفاد.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -25632,7 +26974,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  790 => 
+  783 => 
   array (
     'name' => 'مدرسة الشروق الخاصة المشتركة بتمبول',
     'name_en' => 'Al-Shorooq Private School Tambool',
@@ -25656,6 +26998,8 @@ return array (
     'whatsapp' => '+249912113355',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة معتمدة وموثقة بكشوفات مراكز الامتحانات ونتائج الشهادة الثانوية لقطاع شرق الجزيرة ووحدة تمبول.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -25665,7 +27009,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  791 => 
+  784 => 
   array (
     'name' => 'مدرسة سنهوري الثانوية الخاصة بتمبول',
     'name_en' => 'Sanhouri Secondary School Tambool',
@@ -25687,6 +27031,8 @@ return array (
     'whatsapp' => '+249912224466',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة ثانوية خاصة تخدم قطاع البطانة وتمبول وتقدم كفاءة تعليمية عالية للطلاب في المساقين العلمي والأدبي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -25696,7 +27042,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  792 => 
+  785 => 
   array (
     'name' => 'مدارس الإحسان الخاصة بتمبول',
     'name_en' => 'Al-Ihsan Private Schools Tambool',
@@ -25719,6 +27065,8 @@ return array (
     'whatsapp' => '+249912446688',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي خاص يركز على التعليم الأساسي والقرآني والأنشطة المدرسية بإشراف إدارة التعليم غير الحكومي بالمحلية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -25728,7 +27076,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  793 => 
+  786 => 
   array (
     'name' => 'مدرسة إقرأ التعليمية الخاصة بالكاملين',
     'name_en' => 'Iqra Educational Private School Kamlin',
@@ -25751,6 +27099,8 @@ return array (
     'whatsapp' => '+249912557799',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة معروفة بمحلية الكاملين تضم رياض الأطفال والمرحلة الابتدائية والمتوسطة وتتميز بأنشطة يومية تفاعلية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -25760,7 +27110,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  794 => 
+  787 => 
   array (
     'name' => 'مدارس المعالي الخاصة بالكاملين',
     'name_en' => 'Al-Maali Private Schools Kamlin',
@@ -25784,6 +27134,8 @@ return array (
     'whatsapp' => '+249912668800',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة نموذجية تخدم شمال الجزيرة وتقدم برامج تأسيسية وتقوية مكثفة لطلاب الشهادات العامة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -25793,7 +27145,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  795 => 
+  788 => 
   array (
     'name' => 'مجمع الهلالية الأكاديمي الخاص',
     'name_en' => 'Al-Hilaliya Academic Complex',
@@ -25817,6 +27169,8 @@ return array (
     'whatsapp' => '+249912779911',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي أهلي خاص في مدينة الهلالية التاريخية، يقدم تعليماً متميزاً يجمع بين الأصالة العلمية وتكنولوجيا التعليم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -25826,7 +27180,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  796 => 
+  789 => 
   array (
     'name' => 'مدارس التعليم البريطانية (فرع بورتسودان)',
     'name_en' => 'British Educational Schools Port Sudan',
@@ -25850,6 +27204,8 @@ return array (
     'whatsapp' => '+249123713361',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع بورتسودان لمدارس التعليم البريطانية الرائدة، يقدم منهج كامبردج الدولي المعتمد IGCSE في بيئة مجهزة بالكامل.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -25859,7 +27215,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  797 => 
+  790 => 
   array (
     'name' => 'مدارس كبيدة الدولية — فرع بورتسودان',
     'name_en' => 'Kabbida International Port Sudan',
@@ -25883,6 +27239,8 @@ return array (
     'whatsapp' => '+249997341680',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع مدارس كبيدة الرائدة في بورتسودان، يوفر تعليماً دولياً متميزاً ومختبرات وملاعب حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -25892,7 +27250,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  798 => 
+  791 => 
   array (
     'name' => 'مدارس القبس الخاصة — بورتسودان',
     'name_en' => 'Al-Qabas Private Schools Port Sudan',
@@ -25916,6 +27274,8 @@ return array (
     'whatsapp' => '+249918201202',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي كبير في ولاية البحر الأحمر يضم رياض الأطفال والأساس والمتوسط والثانوي، ويتصدر أوائل الامتحانات بالولاية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -25925,7 +27285,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  799 => 
+  792 => 
   array (
     'name' => 'مدارس الأندلس الخاصة ببورتسودان',
     'name_en' => 'Al-Andalus Private Schools Port Sudan',
@@ -25949,6 +27309,8 @@ return array (
     'whatsapp' => '+249912381200',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة عريقة ببورتسودان، تخدم أحياء سلالاب وما حولها بمبنى مدرسي فسيح وكادر مؤهل.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -25958,7 +27320,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  800 => 
+  793 => 
   array (
     'name' => 'مدارس الجزيرة الخاصة بنات ببورتسودان',
     'name_en' => 'Al-Gezira Private Girls Schools Port Sudan',
@@ -25982,6 +27344,8 @@ return array (
     'whatsapp' => '+249912391300',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي خاص للبنات في بورتسودان يحظى بثقة واسعة من أولياء الأمور ويسجل أعلى معدلات التفوق السنوي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -25991,7 +27355,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  801 => 
+  794 => 
   array (
     'name' => 'مدارس آفاق الخاصة ببورتسودان',
     'name_en' => 'Afaq Private Schools Port Sudan',
@@ -26015,6 +27379,8 @@ return array (
     'whatsapp' => '+249912401400',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة معتمدة على دليل المؤسسات التعليمية ببورتسودان، تقدم تعليماً حديثاً ورعاية متميزة للطلاب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -26024,7 +27390,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  802 => 
+  795 => 
   array (
     'name' => 'مدرسة ألفابت أوميغا الإنجليزية الابتدائية',
     'name_en' => 'Alphabet Omega English School Primary School',
@@ -26046,6 +27412,8 @@ return array (
     'whatsapp' => '+249917600399',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة لغات خاصة مسجلة بالدليل التعليمي، تقدم تعليماً تأسيسياً متميزاً باللغة الإنجليزية في بيئة تعليمية محفزة للأطفال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -26055,7 +27423,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  803 => 
+  796 => 
   array (
     'name' => 'مدارس الساحل الأهلية النموذجية',
     'name_en' => 'Al-Sahel Model Schools Port Sudan',
@@ -26079,6 +27447,8 @@ return array (
     'whatsapp' => '+249918887766',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أعرق المدارس الخاصة في البحر الأحمر، تخرج منها أوائل الشهادة السودانية على مدار سنوات، وتوفر ترحيلاً لكافة الأحياء.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -26088,7 +27458,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  804 => 
+  797 => 
   array (
     'name' => 'مدارس المعلم ثانوية البنات الخاصة ببورتسودان',
     'name_en' => 'Al-Moallim Girls Secondary School Port Sudan',
@@ -26110,6 +27480,8 @@ return array (
     'whatsapp' => '+249912411500',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة ثانوية نموذجية خاصة للبنات تتميز ببرامج دعم أكاديمي ومختبرات علوم متطورة وإحراز نسب نجاح 100%.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -26119,7 +27491,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  805 => 
+  798 => 
   array (
     'name' => 'مدرسة التوحيد القرآنية الخاصة بنات',
     'name_en' => 'Al-Tawheed Quranic School Port Sudan',
@@ -26142,6 +27514,8 @@ return array (
     'whatsapp' => '+249912421600',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة للبنات تدمج المنهج الأكاديمي ببرامج حفظ وتجويد القرآن الكريم والتربية القيمية الأصيلة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -26151,7 +27525,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  806 => 
+  799 => 
   array (
     'name' => 'مدرسة ذات النطاقين الخاصة للبنات',
     'name_en' => 'Dhat Al-Nitaqayn School Port Sudan',
@@ -26174,6 +27548,8 @@ return array (
     'whatsapp' => '+249912431700',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي خاص للبنات في حي الثورة ببورتسودان يركز على الرعاية الفردية والأنشطة العلمية والثقافية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -26183,7 +27559,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  807 => 
+  800 => 
   array (
     'name' => 'مدارس المجلس الأفريقي للتعليم الخاص — فرع بورتسودان',
     'name_en' => 'African Council Schools Port Sudan',
@@ -26207,6 +27583,8 @@ return array (
     'whatsapp' => '+249183888015',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع بورتسودان لمؤسسة المجلس الأفريقي، يقدم خدمات تعليمية متكاملة ومرافق صفية ورياضية مجهزة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -26216,7 +27594,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  808 => 
+  801 => 
   array (
     'name' => 'مدارس منارة الشرق الخاصة ببورتسودان',
     'name_en' => 'Manarat Al-Sharq Private School Port Sudan',
@@ -26240,6 +27618,8 @@ return array (
     'whatsapp' => '+249123889911',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة بحي ترانسيت، توفر بيئة تربوية مشجعة وكادراً تدريسياً ذا كفاءة عالية في تدريس المناهج السودانية واللغات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -26249,7 +27629,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  809 => 
+  802 => 
   array (
     'name' => 'مدرسة الأكاديمية الحديثة الخاصة ببورتسودان',
     'name_en' => 'Modern Academy Private School Port Sudan',
@@ -26272,6 +27652,8 @@ return array (
     'whatsapp' => '+249912774411',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة بحي الثورة توفر فصولاً دراسية مجهزة ومعامل حاسوب متطورة ورعاية أكاديمية مستمرة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -26281,7 +27663,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  810 => 
+  803 => 
   array (
     'name' => 'مدارس جيل النصر الخاصة ببورتسودان',
     'name_en' => 'Jeel Al-Nasr Private Schools Port Sudan',
@@ -26304,6 +27686,8 @@ return array (
     'whatsapp' => '+249922336688',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة بحي الوحدة تقدم خدمات تعليمية متميزة لأبناء المنطقة مع اهتمام بالأنشطة الرياضية والكشفية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -26313,7 +27697,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  811 => 
+  804 => 
   array (
     'name' => 'روضة ومدرسة الإشراق الخاصة ببورتسودان',
     'name_en' => 'Al-Ishraq Private School & Nursery Port Sudan',
@@ -26336,6 +27720,8 @@ return array (
     'whatsapp' => '+249123990011',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية بحي دبايوا تضم روضة أطفال وفصولاً للمرحلة الابتدائية وتعتني بالتأسيس المبكر للقراءة والحساب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -26345,7 +27731,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  812 => 
+  805 => 
   array (
     'name' => 'مدرسة الصفا الأهلية الخاصة ببورتسودان',
     'name_en' => 'Al-Safa Private School Port Sudan',
@@ -26368,6 +27754,8 @@ return array (
     'whatsapp' => '+249912441122',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة معتمدة تخدم أحياء ديم سواكن وما حولها مع متابعة دورية للطلاب وبرامج تقوية مجانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -26377,7 +27765,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  813 => 
+  806 => 
   array (
     'name' => 'مدارس الفادني الخاصة ببورتسودان',
     'name_en' => 'Al-Fadni Private Schools Port Sudan',
@@ -26401,6 +27789,8 @@ return array (
     'whatsapp' => '+249912451800',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة عريقة تحظى بإقبال واسع في بورتسودان وتقدم خدمات تعليمية عالية المستوى.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -26410,7 +27800,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  814 => 
+  807 => 
   array (
     'name' => 'مدارس الرواد الخاصة ببورتسودان',
     'name_en' => 'Al-Rowad Private Schools Port Sudan',
@@ -26434,6 +27824,8 @@ return array (
     'whatsapp' => '+249912461900',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي نموذجي يجمع بين المناهج السودانية والأنشطة الرقمية الحديثة وإعداد الطلاب للجامعات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -26443,7 +27835,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  815 => 
+  808 => 
   array (
     'name' => 'مدارس الفجر الخاصة ببورتسودان',
     'name_en' => 'Al-Fajr Private Schools Port Sudan',
@@ -26466,6 +27858,8 @@ return array (
     'whatsapp' => '+249912472000',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة معتمدة تقدم بيئة دراسية آمنة وهادئة مع اهتمام خاص بتعلم الحاسوب واللغة الإنجليزية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -26475,7 +27869,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  816 => 
+  809 => 
   array (
     'name' => 'مدارس النخبة النموذجية الخاصة ببورتسودان',
     'name_en' => 'Al-Nokhba Model Schools Port Sudan',
@@ -26499,6 +27893,8 @@ return array (
     'whatsapp' => '+249912482100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع مدرسي متطور يركز على استقطاب نوابغ الطلاب وتدريبهم على مهارات التفكير العلمي والابتكار.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -26508,7 +27904,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  817 => 
+  810 => 
   array (
     'name' => 'مدرسة براعم الغد الخاصة ببورتسودان',
     'name_en' => 'Baraem Al-Ghad Private School Port Sudan',
@@ -26531,6 +27927,8 @@ return array (
     'whatsapp' => '+249912492200',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة وروضة خاصة متخصصة في الطفولة المبكرة والمرحلة الابتدائية بأساليب تعليمية حديثة وجاذبة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -26540,7 +27938,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  818 => 
+  811 => 
   array (
     'name' => 'مدارس الأوائل الأهلية الخاصة ببورتسودان',
     'name_en' => 'Al-Awail Private Schools Port Sudan',
@@ -26563,6 +27961,8 @@ return array (
     'whatsapp' => '+249912502300',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة أهلية خاصة تخدم أحياء جنوب بورتسودان وتوفر تعليماً نموذجياً برسوم مناسبة لكافة الأسر.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -26572,7 +27972,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  819 => 
+  812 => 
   array (
     'name' => 'مدارس الريان الخاصة ببورتسودان',
     'name_en' => 'Al-Rayyan Private Schools Port Sudan',
@@ -26595,6 +27995,8 @@ return array (
     'whatsapp' => '+249912512400',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي خاص معتمد يركز على الرعاية التربوية والأنشطة الرياضية وتنمية مهارات التلاوة والحفظ.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -26604,7 +28006,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  820 => 
+  813 => 
   array (
     'name' => 'مدارس ضياء العلم الخاصة ببورتسودان',
     'name_en' => 'Diya Al-Elm Private Schools Port Sudan',
@@ -26628,6 +28030,8 @@ return array (
     'whatsapp' => '+249912522500',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة متميزة بسلالاب، تضم قاعات مجهزة ومختبرات علمية وتستقطب نخبة من خيرة الأساتذة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -26637,7 +28041,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  821 => 
+  814 => 
   array (
     'name' => 'مدارس الهدى الخاصة ببورتسودان',
     'name_en' => 'Al-Huda Private Schools Port Sudan',
@@ -26660,6 +28064,8 @@ return array (
     'whatsapp' => '+249912532600',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة بحي ديم النور، تقدم مناهج وزارة التربية مع برامج تقوية مستمرة على مدار العام.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -26669,7 +28075,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  822 => 
+  815 => 
   array (
     'name' => 'مدارس دار السلام الأهلية الخاصة ببورتسودان',
     'name_en' => 'Dar Al-Salam Private Schools Port Sudan',
@@ -26692,6 +28098,8 @@ return array (
     'whatsapp' => '+249912542700',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة معتمدة تخدم المجتمع المحلي بحي القادسية وتقدم خدمات تعليمية وتربوية رصينة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -26701,7 +28109,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  823 => 
+  816 => 
   array (
     'name' => 'مدارس المستقبل الخاصة ببورتسودان',
     'name_en' => 'Al-Mustaqbal Private Schools Port Sudan',
@@ -26725,6 +28133,8 @@ return array (
     'whatsapp' => '+249912552800',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع تعليمي حديث بحي الرياض ببورتسودان يواكب أحدث الوسائل التكنولوجية والتعليم الرقمي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -26734,7 +28144,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  824 => 
+  817 => 
   array (
     'name' => 'مدارس إشراقة البحر الأحمر الخاصة',
     'name_en' => 'Ishraqat Al-Bahr Al-Ahmar Schools Port Sudan',
@@ -26757,6 +28167,8 @@ return array (
     'whatsapp' => '+249912562900',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي خاص يخدم منطقة شقر ويوفر بيئة مدرسية محفزة ومعلمين مؤهلين في كافة التخصصات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -26766,7 +28178,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  825 => 
+  818 => 
   array (
     'name' => 'مدارس الصداقة الخاصة ببورتسودان',
     'name_en' => 'Al-Sadaqa Private Schools Port Sudan',
@@ -26789,6 +28201,8 @@ return array (
     'whatsapp' => '+249912573000',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة عريقة في قلب بورتسودان تشتهر بالانضباط وحرص أولياء الأمور على تسجيل أبنائهم فيها.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -26798,7 +28212,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  826 => 
+  819 => 
   array (
     'name' => 'مدارس أجيال الغد الخاصة ببورتسودان',
     'name_en' => 'Ajyal Al-Ghad Private Schools Port Sudan',
@@ -26821,6 +28235,8 @@ return array (
     'whatsapp' => '+249912583100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة خاصة معتمدة تعنى بتطوير التعليم الأساسي والمتوسط وتعزيز مهارات التفكير والتعبير اللغوي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -26830,7 +28246,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  827 => 
+  820 => 
   array (
     'name' => 'روضة ومدرسة الإيمان الخاصة بسواكن',
     'name_en' => 'Al-Iman Private School Suakin',
@@ -26854,6 +28270,8 @@ return array (
     'whatsapp' => '+249912556688',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة بسواكن تعنى بالتربية الإسلامية والتعليم الأساسي المتكامل وخدمة أهالي المدينة التاريخية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -26863,7 +28281,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  828 => 
+  821 => 
   array (
     'name' => 'مدارس عثمان دقنة النموذجية الخاصة بسواكن',
     'name_en' => 'Osman Digna Model Schools Suakin',
@@ -26887,6 +28305,8 @@ return array (
     'whatsapp' => '+249912593200',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي خاص يحمل اسم البطل التاريخي عثمان دقنة، يوفر تعليماً متميزاً لمراحل التعليم العام بسواكن.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -26896,7 +28316,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  829 => 
+  822 => 
   array (
     'name' => 'مدارس سواكن الأهلية الخاصة',
     'name_en' => 'Suakin Community Private Schools',
@@ -26919,6 +28339,8 @@ return array (
     'whatsapp' => '+249912603300',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة أهلية خاصة تخدم سكان مدينة سواكن ببرامج تعليمية نوعية ونشاطات رياضية ومجتمعية فاعلة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -26928,7 +28350,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  830 => 
+  823 => 
   array (
     'name' => 'مدرسة المناهل الخاصة بجبيت',
     'name_en' => 'Al-Manahel Private School Gebeit',
@@ -26951,6 +28373,8 @@ return array (
     'whatsapp' => '+249912332211',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة بمدينة جبيت تسهم في توفير بدائل تعليمية متميزة لأبناء المنطقة وكوادر القوات المسلحة بالمنطقة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -26960,7 +28384,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  831 => 
+  824 => 
   array (
     'name' => 'مدرسة جبيت الأهلية الخاصة',
     'name_en' => 'Gebeit Community Private School',
@@ -26983,6 +28407,8 @@ return array (
     'whatsapp' => '+249912613400',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي أهلي يخدم أبناء جبيت ويوفر تعليماً أساسياً نموذجياً ورعاية اجتماعية متكاملة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -26992,7 +28418,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  832 => 
+  825 => 
   array (
     'name' => 'مدارس سنكات النموذجية الأهلية الخاصة',
     'name_en' => 'Sinkat Model Community Schools',
@@ -27016,6 +28442,8 @@ return array (
     'whatsapp' => '+249912623500',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية نموذجية خاصة في حاضرة جبال البحر الأحمر (سنكات)، تتميز بالتحصيل الأكاديمي والبيئة الهادئة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -27025,7 +28453,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  833 => 
+  826 => 
   array (
     'name' => 'مدارس البجا الأهلية الخاصة بسنكات',
     'name_en' => 'Al-Beja Community Private Schools',
@@ -27048,6 +28476,8 @@ return array (
     'whatsapp' => '+249912633600',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة تعنى بتطوير التعليم في سنكات وتقديم رعاية خاصة للطلاب المتفوقين في امتحانات شهادة الأساس.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -27057,7 +28487,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  834 => 
+  827 => 
   array (
     'name' => 'مدارس سنكات الحديثة الخاصة',
     'name_en' => 'Modern Sinkat Private Schools',
@@ -27080,6 +28510,8 @@ return array (
     'whatsapp' => '+249912643700',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي حديث يوفر وسائل تعليمية رقمية ومختبرات مصغرة ويسهم في تنمية المهارات اللغوية للطلاب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -27089,7 +28521,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  835 => 
+  828 => 
   array (
     'name' => 'مدارس المعلم الخاصة بكسلا',
     'name_en' => 'Al-Moallim Private Schools Kassala',
@@ -27113,6 +28545,8 @@ return array (
     'whatsapp' => '+249912653800',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تمتلك صفحة رسمية معتمدة ومتابعة واسعة، وتعد من أعرق وأكبر المدارس الخاصة بشرق السودان بنسب نجاح عالية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -27122,7 +28556,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  836 => 
+  829 => 
   array (
     'name' => 'المجلس الأفريقي للتعليم الخاص — فرع كسلا',
     'name_en' => 'African Council Schools Kassala',
@@ -27146,6 +28580,8 @@ return array (
     'whatsapp' => '+249183888020',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تأسست بمرسوم رسمي من وزارة التربية، وتقدم تعليماً رصيناً ومختبرات وملاعب فسيحة للبنين والبنات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -27155,7 +28591,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  837 => 
+  830 => 
   array (
     'name' => 'مدارس زهرة المدائن الخاصة بكسلا',
     'name_en' => 'Zahrat Al-Madain Private Schools Kassala',
@@ -27178,6 +28614,8 @@ return array (
     'whatsapp' => '+249912663900',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة بارزة في مرحلتي الأساس والمتوسط تحظى بنقاشات وتفاعل واسع بين أولياء الأمور لتفوق طلابها.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -27187,7 +28625,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  838 => 
+  831 => 
   array (
     'name' => 'مدارس قادة المستقبل الخاصة بكسلا',
     'name_en' => 'Future Leaders Private Schools Kassala',
@@ -27211,6 +28649,8 @@ return array (
     'whatsapp' => '+249912674000',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي حديث يهدف إلى بناء الشخصية القيادية وتطوير المهارات التقنية والتحصيل الأكاديمي المرتفع.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -27220,7 +28660,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  839 => 
+  832 => 
   array (
     'name' => 'مدارس التميز الخاصة بكسلا',
     'name_en' => 'Al-Tamayoz Private Schools Kassala',
@@ -27244,6 +28684,8 @@ return array (
     'whatsapp' => '+249912684100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة متميزة في غرب القاش تشهد إقبالاً كبيراً لنتائجها الممتازة في امتحانات الشهادة السودانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -27253,7 +28695,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  840 => 
+  833 => 
   array (
     'name' => 'مدارس الديدي / تيا المريفاب بكسلا',
     'name_en' => 'Al-Didi Private Schools Kassala',
@@ -27276,6 +28718,8 @@ return array (
     'whatsapp' => '+249912694200',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة عريقة بجوار ديوان الزكاة بكسلا، تقدم تعليماً نوعياً وبرامج رعاية للأيتام والمتفوقين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -27285,7 +28729,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  841 => 
+  834 => 
   array (
     'name' => 'مدارس أروى الخاصة بكسلا',
     'name_en' => 'Arwa Private Schools Kassala',
@@ -27308,6 +28752,8 @@ return array (
     'whatsapp' => '+249912704300',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي خاص للبنات والبنين في الأساس والمتوسط، يتميز بكادر تدريسي متفانٍ وفصول مكيفة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -27317,7 +28763,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  842 => 
+  835 => 
   array (
     'name' => 'مدارس التاج النموذجية الخاصة بكسلا',
     'name_en' => 'Al-Taj Model Private Schools Kassala',
@@ -27341,6 +28787,8 @@ return array (
     'whatsapp' => '+249912714400',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة نموذجية توفر بيئة تربوية جاذبة وتطبق استراتيجيات التعلم النشط والمتابعة المستمرة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -27350,7 +28798,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  843 => 
+  836 => 
   array (
     'name' => 'مدارس النور الأهلية الخاصة بكسلا',
     'name_en' => 'Al-Noor Community Private Schools Kassala',
@@ -27373,6 +28821,8 @@ return array (
     'whatsapp' => '+249912724500',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة خاصة معتمدة تخدم المجتمع المحلي بكسلا وتهتم بتجويد اللغة العربية والتربية الإسلامية والعلوم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -27382,7 +28832,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  844 => 
+  837 => 
   array (
     'name' => 'مدارس القبس الخاصة — فرع كسلا',
     'name_en' => 'Al-Qabas Schools Kassala',
@@ -27406,6 +28856,8 @@ return array (
     'whatsapp' => '+249183220005',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع كسلا لمؤسسة مدارس القبس، يقدم بيئة صفية فسيحة ومناهج إثرائية ورعاية شاملة للمتفوقين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -27415,7 +28867,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  845 => 
+  838 => 
   array (
     'name' => 'مدارس كسلا الحديثة الخاصة',
     'name_en' => 'Modern Kassala Private Schools',
@@ -27439,6 +28891,8 @@ return array (
     'whatsapp' => '+249912734600',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع مدرسي متكامل يضم معامل ومكتبة متطورة ويحقق نسب نجاح عالية سنوياً في الشهادة السودانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -27448,7 +28902,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  846 => 
+  839 => 
   array (
     'name' => 'مدرسة دار العلوم الخاصة بكسلا',
     'name_en' => 'Dar Al-Uloom Private School Kassala',
@@ -27471,6 +28925,8 @@ return array (
     'whatsapp' => '+249912744700',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي يركز على إتقان مهارات القراءة والكتابة والعلوم والرياضيات في المرحلة الابتدائية والمتوسطة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -27480,7 +28936,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  847 => 
+  840 => 
   array (
     'name' => 'مدارس الأمل التعليمية الخاصة بكسلا',
     'name_en' => 'Al-Amal Educational Schools Kassala',
@@ -27503,6 +28959,8 @@ return array (
     'whatsapp' => '+249912754800',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة معتمدة تخدم أحياء مكرام وما حولها بكسلا وتوفر بيئة تعليمية محفزة للأطفال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -27512,7 +28970,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  848 => 
+  841 => 
   array (
     'name' => 'مدارس الضياء الخاصة بكسلا',
     'name_en' => 'Al-Diya Private Schools Kassala',
@@ -27535,6 +28993,8 @@ return array (
     'whatsapp' => '+249912764900',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تربوية تعنى برعاية الطلاب أكاديمياً وسلوكياً وتوفر أنشطة لا منهجية ورياضية متميزة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -27544,7 +29004,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  849 => 
+  842 => 
   array (
     'name' => 'مدارس الإحسان الخاصة بكسلا',
     'name_en' => 'Al-Ihsan Private Schools Kassala',
@@ -27568,6 +29028,8 @@ return array (
     'whatsapp' => '+249912775000',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع تعليمي خاص يركز على الجمع بين الأصالة الدينية والتحصيل الأكاديمي الحديث واللغات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -27577,7 +29039,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  850 => 
+  843 => 
   array (
     'name' => 'مدارس حلفا الجديدة الإنجليزية الخاصة',
     'name_en' => 'New Halfa English Private Schools',
@@ -27600,6 +29062,8 @@ return array (
     'whatsapp' => '+249912785100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة لغات نموذجية خاصة بحلفا الجديدة تقدم تعليماً ثنائي اللغة في بيئة صفية مجهزة بأحدث التقنيات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -27609,7 +29073,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  851 => 
+  844 => 
   array (
     'name' => 'مدارس النبراس الخاصة بحلفا الجديدة',
     'name_en' => 'Al-Nebras Private Schools New Halfa',
@@ -27633,6 +29097,8 @@ return array (
     'whatsapp' => '+249912795200',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي رائد بحلفا الجديدة يحقق سنوياً مراكز متقدمة على مستوى ولاية كسلا في امتحانات الشهادة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -27642,7 +29108,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  852 => 
+  845 => 
   array (
     'name' => 'مدارس الصفوة الخاصة بحلفا الجديدة',
     'name_en' => 'Al-Safwa Private Schools New Halfa',
@@ -27665,6 +29131,8 @@ return array (
     'whatsapp' => '+249912805300',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة معتمدة تمتاز بنخبة من أفضل المعلمين والمعلمات ومتابعة يومية دقيقة للطلاب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -27674,7 +29142,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  853 => 
+  846 => 
   array (
     'name' => 'مدارس الرواد الخاصة بحلفا الجديدة',
     'name_en' => 'Al-Rowad Private Schools New Halfa',
@@ -27698,6 +29166,8 @@ return array (
     'whatsapp' => '+249912815400',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع مدرسي متكامل يخدم أهالي حلفا الجديدة والقرى التابعة لها ويقدم برامج تقوية مستمرة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -27707,7 +29177,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  854 => 
+  847 => 
   array (
     'name' => 'مدارس المناهل الخاصة بحلفا الجديدة',
     'name_en' => 'Al-Manahel Private Schools New Halfa',
@@ -27730,6 +29200,8 @@ return array (
     'whatsapp' => '+249912825500',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة خاصة معتمدة تقدم تعليماً أساسياً نموذجياً ورعاية خاصة للموهوبين والمتميزين دراسياً.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -27739,7 +29211,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  855 => 
+  848 => 
   array (
     'name' => 'مدارس القربة الحديثة الخاصة',
     'name_en' => 'Modern Girba Private Schools',
@@ -27763,6 +29235,8 @@ return array (
     'whatsapp' => '+249912835600',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي خاص رائد في مدينة خشم القربة، يوفر فصولاً نموذجية ومختبرات علمية لكافة المراحل.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -27772,7 +29246,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  856 => 
+  849 => 
   array (
     'name' => 'مدارس رواد الغد الخاصة بخشم القربة',
     'name_en' => 'Rowad Al-Ghad Private Schools Girba',
@@ -27795,6 +29269,8 @@ return array (
     'whatsapp' => '+249912845700',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة معتمدة تخدم المجتمع المحلي بخشم القربة ببرامج تعليمية متطورة ومعلمين مؤهلين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -27804,7 +29280,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  857 => 
+  850 => 
   array (
     'name' => 'مدرسة القربة النموذجية الأهلية الخاصة',
     'name_en' => 'Girba Model Community School',
@@ -27827,6 +29303,8 @@ return array (
     'whatsapp' => '+249912855800',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة أهلية خاصة تهدف إلى الارتقاء بمستوى التعليم وتخريج طلاب متميزين في امتحانات شهادة الأساس.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -27836,7 +29314,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  858 => 
+  851 => 
   array (
     'name' => 'مؤسسة المناهل التعليمية الخاصة بالقضارف',
     'name_en' => 'Al-Manahel Educational Complex Gedaref',
@@ -27860,6 +29338,8 @@ return array (
     'whatsapp' => '+249913431564',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صفحة معتمدة وموثقة على فيسبوك، تضم مجمعاً تعليمياً نموذجياً للبنين والبنات وتتصدر نتائج الشهادة السودانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -27869,7 +29349,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  859 => 
+  852 => 
   array (
     'name' => 'مدارس المعالي الخاصة بالقضارف',
     'name_en' => 'Al-Maali Private Schools Gedaref',
@@ -27892,6 +29372,8 @@ return array (
     'whatsapp' => '+249123232214',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالقضارف، تقدم بيئة تعليمية متكاملة وفصولاً مجهزة وتأسيساً لغوياً وعلمياً رفيعاً.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -27901,7 +29383,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  860 => 
+  853 => 
   array (
     'name' => 'مؤسسة دار العلوم التعليمية الخاصة بالقضارف',
     'name_en' => 'Dar Al-Uloom Educational Complex Gedaref',
@@ -27925,6 +29407,8 @@ return array (
     'whatsapp' => '+249122226036',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'نالت المركز الأول في الشهادة الثانوية والمرحلة المتوسطة بولاية القضارف، وتضم مجمعاً فسيحاً ومختبرات متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -27934,7 +29418,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  861 => 
+  854 => 
   array (
     'name' => 'مدارس مقاديم للتعليم الخاص بالقضارف',
     'name_en' => 'Makadeem Private Schools Gedaref',
@@ -27958,6 +29442,8 @@ return array (
     'whatsapp' => '+249912865900',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أشهر المدارس الخاصة النشطة بالقضارف، تشارك أخبار تفوق طلابها وتحقيقهم مراكز متقدمة على مستوى الولاية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -27967,7 +29453,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  862 => 
+  855 => 
   array (
     'name' => 'مدرسة مقاديم الخاصة بنات بالقضارف',
     'name_en' => 'Makadeem Private School for Girls Gedaref',
@@ -27991,6 +29477,8 @@ return array (
     'whatsapp' => '+249912876000',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي خاص بالبنات يتصدر نتائج امتحانات الشهادة بالقضارف سنوياً ويحظى بإقبال واسع من أولياء الأمور.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -28000,7 +29488,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  863 => 
+  856 => 
   array (
     'name' => 'مدرسة دار الصفوة الخاصة بنات بالقضارف',
     'name_en' => 'Dar Al-Safwa Private School for Girls Gedaref',
@@ -28024,6 +29512,8 @@ return array (
     'whatsapp' => '+249912886100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تبرز أنشطة طالباتها ونتائج امتحاناتهن عبر منصات وزارة التربية والتوجيه بولاية القضارف وتقدم تعليماً نوعياً راقياً.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -28033,7 +29523,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  864 => 
+  857 => 
   array (
     'name' => 'مدارس دار النعيم الخاصة بالقضارف',
     'name_en' => 'Dar Al-Naeem Private Schools Gedaref',
@@ -28056,6 +29546,8 @@ return array (
     'whatsapp' => '+249912896200',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة معتمدة تقدم بيئة تربوية رائدة وتركز على حفظ القرآن الكريم واللغات والرياضيات الحديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -28065,7 +29557,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  865 => 
+  858 => 
   array (
     'name' => 'مدارس رواد الغد الخاصة بالقضارف',
     'name_en' => 'Rowad Al-Ghad Private Schools Gedaref',
@@ -28089,6 +29581,8 @@ return array (
     'whatsapp' => '+249912906300',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية نموذجية تضم نخبة من المعلمين المتميزين وتوفر قاعات مكيفة ومختبرات علمية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -28098,7 +29592,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  866 => 
+  859 => 
   array (
     'name' => 'مدارس الإشراق التعليمية الخاصة بالقضارف',
     'name_en' => 'Al-Ishraq Educational Schools Gedaref',
@@ -28121,6 +29615,8 @@ return array (
     'whatsapp' => '+249912916400',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة معتمدة بالقضارف تركز على جودة التعليم التأسيسي وبناء الثقة بالنفس والمهارات اللغوية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -28130,7 +29626,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  867 => 
+  860 => 
   array (
     'name' => 'مدارس الفرقان القرآنية الخاصة بالقضارف',
     'name_en' => 'Al-Furqan Quranic Schools Gedaref',
@@ -28153,6 +29649,8 @@ return array (
     'whatsapp' => '+249912926500',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي يدمج المنهج القومي ببرنامج قرآني وتربوي مكثف ويشهد تخريج حفظة سنوياً مع تفوق دراسي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -28162,7 +29660,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  868 => 
+  861 => 
   array (
     'name' => 'مدرسة الأمل النموذجية الخاصة بالقضارف',
     'name_en' => 'Al-Amal Model School Gedaref',
@@ -28185,6 +29683,8 @@ return array (
     'whatsapp' => '+249912936600',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة نموذجية متميزة تقدم تعليماً تفاعلياً وتعتني بالأنشطة الرياضية والفنية والمسابقات العلمية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -28194,7 +29694,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  869 => 
+  862 => 
   array (
     'name' => 'مدرسة النوابغ الخاصة بالقضارف',
     'name_en' => 'Al-Nawabigh Private School Gedaref',
@@ -28218,6 +29718,8 @@ return array (
     'whatsapp' => '+249912946700',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع مدرسي خاص يركز على استقطاب الطلاب الموهوبين وإعدادهم للتفوق في امتحانات الشهادة العامة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -28227,7 +29729,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  870 => 
+  863 => 
   array (
     'name' => 'مدارس المستقبل الخاصة بالقضارف',
     'name_en' => 'Al-Mustaqbal Private Schools Gedaref',
@@ -28250,6 +29752,8 @@ return array (
     'whatsapp' => '+249912956800',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة خاصة معتمدة تخدم المجتمع المحلي بحي الوحدة وما حوله بفصول فسيحة وكادر تعليمي مؤهل.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -28259,7 +29763,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  871 => 
+  864 => 
   array (
     'name' => 'مدارس الرواد الحديثة الخاصة بالقضارف',
     'name_en' => 'Modern Rowad Private Schools Gedaref',
@@ -28283,6 +29787,8 @@ return array (
     'whatsapp' => '+249912966900',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي متكامل يوفر بيئة دراسية نموذجية ومتابعة أكاديمية مستمرة ونسب نجاح مرتفعة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -28292,7 +29798,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  872 => 
+  865 => 
   array (
     'name' => 'مدارس الصفا الخاصة بالقضارف',
     'name_en' => 'Al-Safa Private Schools Gedaref',
@@ -28315,6 +29821,8 @@ return array (
     'whatsapp' => '+249912977000',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة معتمدة بالقضارف تتميز بالانضباط وحرص أولياء الأمور على تسجيل أبنائهم في مراحلها المختلفة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -28324,7 +29832,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  873 => 
+  866 => 
   array (
     'name' => 'مدارس البيان الخاصة بالقضارف',
     'name_en' => 'Al-Bayan Private Schools Gedaref',
@@ -28347,6 +29855,8 @@ return array (
     'whatsapp' => '+249912987100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تربوية خاصة تعنى بتطوير التعليم الأساسي وتقديم برامج صيفية وتدريبية لتعزيز التحصيل الدراسي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -28356,7 +29866,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  874 => 
+  867 => 
   array (
     'name' => 'مدارس القضارف الأهلية الخاصة',
     'name_en' => 'Gedaref Community Private Schools',
@@ -28380,6 +29890,8 @@ return array (
     'whatsapp' => '+249912997200',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أعرق المؤسسات الأهلية والخاصة بالولاية، تمتاز بتاريخ طويل في تخريج الطلاب المتفوقين في كافة المساقات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -28389,7 +29901,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  875 => 
+  868 => 
   array (
     'name' => 'مدارس الوفاق الثانوية الخاصة بالفاو',
     'name_en' => 'Al-Wefaq Secondary Private Schools Faw',
@@ -28411,6 +29923,8 @@ return array (
     'whatsapp' => '+249913007300',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح ثانوي خاص يضم قسماً للبنين وآخر للبنات، ويتابع نشاطه وتكريم متفوقيه عبر إعلام وزارة التربية بالقضارف.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -28420,7 +29934,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  876 => 
+  869 => 
   array (
     'name' => 'مدارس الفاو الحديثة الخاصة',
     'name_en' => 'Modern Faw Private Schools',
@@ -28443,6 +29957,8 @@ return array (
     'whatsapp' => '+249913017400',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة معتمدة تخدم قرى مشروع الرهد الزراعي بمحلية الفاو، وتقدم تعليماً نموذجياً بفصول مجهزة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -28452,7 +29968,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  877 => 
+  870 => 
   array (
     'name' => 'مدارس الأوائل الأهلية الخاصة بالفاو',
     'name_en' => 'Al-Awail Community Private Schools Faw',
@@ -28475,6 +29991,8 @@ return array (
     'whatsapp' => '+249913027500',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي أهلي ونموذجي يسهم في توفير فرص تعليمية رائدة لأبناء منطقة الفاو بنسب نجاح مشهودة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -28484,7 +30002,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  878 => 
+  871 => 
   array (
     'name' => 'مدارس دار السلام الخاصة بالفاو',
     'name_en' => 'Dar Al-Salam Private Schools Faw',
@@ -28508,6 +30026,8 @@ return array (
     'whatsapp' => '+249913037600',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع تعليمي خاص بمدينة الفاو يضم مراحل التعليم العام ويوفر بيئة مدرسية متكاملة وكادراً تدريسياً خبيراً.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -28517,7 +30037,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  879 => 
+  872 => 
   array (
     'name' => 'مدارس الحواتة الخاصة الأساسية',
     'name_en' => 'Al-Hawata Private Basic Schools',
@@ -28540,6 +30060,8 @@ return array (
     'whatsapp' => '+249913047700',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة معتمدة بحاضرة محلية الرهد (الحواتة)، تقدم خدمات تعليمية متميزة لأبناء المحلية والقرى المجاورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -28549,7 +30071,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  880 => 
+  873 => 
   array (
     'name' => 'مدارس الرهد الأهلية النموذجية الخاصة',
     'name_en' => 'Al-Rahad Model Community Schools',
@@ -28573,6 +30095,8 @@ return array (
     'whatsapp' => '+249913057800',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي أهلي ونموذجي يخدم قطاع الرهد الزراعي بنسب تفوق عالية ومختبرات علمية للشهادة السودانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -28582,7 +30106,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  881 => 
+  874 => 
   array (
     'name' => 'مدرسة أسامة بن زيد النموذجية الخاصة بدوكة',
     'name_en' => 'Osama Bin Zaid Model School Doka',
@@ -28605,6 +30129,8 @@ return array (
     'whatsapp' => '+249913067900',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة معتمدة في حاضرة القلابات الشرقية (دوكة)، تقدم تعليماً أساسياً نموذجياً بإشراف تربوي رفيع.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -28614,7 +30140,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  882 => 
+  875 => 
   array (
     'name' => 'مدرسة دوكة الأهلية الخاصة',
     'name_en' => 'Doka Community Private School',
@@ -28637,6 +30163,8 @@ return array (
     'whatsapp' => '+249913078000',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي أهلي يسهم في خدمة أبناء المنطقة الحدودية وتوفير تعليم نوعي وبيئة صفية ملهمة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -28646,7 +30174,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  883 => 
+  876 => 
   array (
     'name' => 'مدارس المستقبل الثانوية النموذجية الخاصة بسنار',
     'name_en' => 'Al-Mustaqbal Model Secondary Schools Sennar',
@@ -28668,6 +30196,8 @@ return array (
     'whatsapp' => '+249918036265',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صفحة رسمية معتمدة على فيسبوك، تشتهر بوجود أقسام وداخليات مجهزة للبنين والبنات وكادر من كبار معلمي الولاية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -28677,7 +30207,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  884 => 
+  877 => 
   array (
     'name' => 'مدارس القمة الحديثة الخاصة بسنجة',
     'name_en' => 'Modern Al-Qimma Private Schools Singa',
@@ -28701,6 +30231,8 @@ return array (
     'whatsapp' => '+249917795900',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة خاصة معتمدة بحاضرة الولاية سنجة، توفر تعليماً متطوراً وفصولاً مكيفة ومختبرات علمية حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -28710,7 +30242,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  885 => 
+  878 => 
   array (
     'name' => 'مدرسة أجيال المستقبل الخاصة بسنجة',
     'name_en' => 'Ajyal Al-Mustaqbal Private School Singa',
@@ -28733,6 +30265,8 @@ return array (
     'whatsapp' => '+249903004790',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي خاص بسنجة يركز على رعاية الأطفال والمرحلتين الابتدائية والمتوسطة وتنمية مهارات التفكير.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -28742,7 +30276,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  886 => 
+  879 => 
   array (
     'name' => 'مؤسسة الفجر التربوية التعليمية الخاصة بسنجة',
     'name_en' => 'Al-Fajr Educational Foundation Singa',
@@ -28765,6 +30299,8 @@ return array (
     'whatsapp' => '+249903689720',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بسنجة، تقدم بيئة تعليمية متكاملة ومناهج حديثة مع إشراف تربوي لصيق.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -28774,7 +30310,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  887 => 
+  880 => 
   array (
     'name' => 'مؤسسة المنهل التربوية الخاصة بسنجة',
     'name_en' => 'Al-Manhal Educational Foundation Singa',
@@ -28797,6 +30333,8 @@ return array (
     'whatsapp' => '+249125337231',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي عريق بسنجة يضم الابتدائية والمتوسطة ويحقق نسب نجاح متفوقة سنوياً في امتحانات النقل.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -28806,7 +30344,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  888 => 
+  881 => 
   array (
     'name' => 'رياض ومدارس أحباب الله التعليمية الخاصة بسنجة',
     'name_en' => 'Ahbab Allah Educational Complex Singa',
@@ -28829,6 +30367,8 @@ return array (
     'whatsapp' => '+249126929909',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع تعليمي خاص يضم رياض الأطفال ومراحل الأساس، يمتاز برعاية قيمية وأكاديمية ومناشط ثقافية واسعة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -28838,7 +30378,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  889 => 
+  882 => 
   array (
     'name' => 'مدارس علي النور الثانوية النموذجية الخاصة بسنار',
     'name_en' => 'Ali Al-Noor Model Secondary Schools Sennar',
@@ -28860,6 +30400,8 @@ return array (
     'whatsapp' => '+249913088100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح ثانوي نموذجي عريق بإدارة الأستاذ محمد موسى البشير، يضم داخليات متميزة ونسب نجاح 100% في الشهادة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -28869,7 +30411,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  890 => 
+  883 => 
   array (
     'name' => 'مدارس الأندلس الخاصة بسنار',
     'name_en' => 'Al-Andalus Private Schools Sennar',
@@ -28893,6 +30435,8 @@ return array (
     'whatsapp' => '+249913098200',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صفحة رسمية معتمدة وأنشطة أكاديمية مستمرة، توفر بيئة دراسية نموذجية ومختبرات علمية متقدمة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -28902,7 +30446,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  891 => 
+  884 => 
   array (
     'name' => 'مدارس السلام الثانوية الخاصة بسنار',
     'name_en' => 'Al-Salam Secondary School Sennar',
@@ -28924,6 +30468,8 @@ return array (
     'whatsapp' => '+249913108300',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صفحة ومقر رسمي معتمد بسنار، تشهد إقبالاً كبيراً لتميز نتائج طلابها في الشهادة السودانية والمساقات العلمية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -28933,7 +30479,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  892 => 
+  885 => 
   array (
     'name' => 'مدارس المهندس الأساسية والمتوسطة الخاصة بسنار',
     'name_en' => 'Al-Muhandis Basic & Middle Schools Sennar',
@@ -28956,6 +30502,8 @@ return array (
     'whatsapp' => '+249913118400',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة نموذجية شمال الساحة الخضراء بسنار، تمتاز بكادر هندسي وتربوي يشرف على التعليم الرقمي والأنشطة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -28965,7 +30513,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  893 => 
+  886 => 
   array (
     'name' => 'مدرسة تكتوك الثانوية الخاصة بسنار',
     'name_en' => 'Taktook Secondary Private School Sennar',
@@ -28987,6 +30535,8 @@ return array (
     'whatsapp' => '+249913128500',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة ثانوية خاصة تحمل اسم حكيم السودان الشيخ فرح ود تكتوك، تقدم تعليماً نوعياً رفيعاً لأبناء المنطقة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -28996,7 +30546,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  894 => 
+  887 => 
   array (
     'name' => 'مدارس ورياض التقدم الخاصة بسنار',
     'name_en' => 'Al-Taqaddum Private Schools & Nursery Sennar',
@@ -29018,6 +30568,8 @@ return array (
     'whatsapp' => '+249913138600',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة خاصة معتمدة تعنى بالطفولة المبكرة والتعليم الابتدائي بنظم تفاعلية محفزة ووسائل إيضاح حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -29027,7 +30579,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  895 => 
+  888 => 
   array (
     'name' => 'مؤسسة المعهد السوداني التعليمية الخاصة بسنار',
     'name_en' => 'Sudanese Institute Educational Complex Sennar',
@@ -29051,6 +30603,8 @@ return array (
     'whatsapp' => '+249913148700',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع تعليمي شامل بسنار التقاطع، يضم قاعات تدريس فسيحة ومختبرات وملاعب ويقدم تعليماً متطوراً.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -29060,7 +30614,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  896 => 
+  889 => 
   array (
     'name' => 'مدارس التفوق الثانوية الخاصة بسنجة',
     'name_en' => 'Al-Tafawuq Secondary Schools Singa',
@@ -29082,6 +30636,8 @@ return array (
     'whatsapp' => '+249913158800',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح ثانوي خاص بحاضرة الولاية يركز على إعداد الطلاب لامتحانات الشهادة وحصد المراكز المتقدمة بالجامعات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -29091,7 +30647,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  897 => 
+  890 => 
   array (
     'name' => 'مدارس القلم الخاصة بسنجة',
     'name_en' => 'Al-Qalam Private Schools Singa',
@@ -29114,6 +30670,8 @@ return array (
     'whatsapp' => '+249913168900',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة معتمدة تخدم أحياء سنجة وتهتم بتجويد الخط العربي وتنمية المواهب الأدبية والعلمية للطلاب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -29123,7 +30681,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  898 => 
+  891 => 
   array (
     'name' => 'مدارس الأمل التعليمية الخاصة بسنجة',
     'name_en' => 'Al-Amal Educational Schools Singa',
@@ -29146,6 +30704,8 @@ return array (
     'whatsapp' => '+249913179000',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة خاصة تهدف إلى توفير تعليم عالي الجودة لكافة الطلاب مع اهتمام بالأنشطة الرياضية والكشفية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -29155,7 +30715,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  899 => 
+  892 => 
   array (
     'name' => 'مدارس الصفوة الخاصة بسنجة',
     'name_en' => 'Al-Safwa Private Schools Singa',
@@ -29179,6 +30739,8 @@ return array (
     'whatsapp' => '+249913189100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع مدرسي خاص يضم مراحل الأساس والمتوسط والثانوي في مبنى نموذجي مجهز بكافة الوسائل التعليمية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -29188,7 +30750,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  900 => 
+  893 => 
   array (
     'name' => 'مجموعة مدارس ورياض كشيرة بدوي الحديثة الخاصة',
     'name_en' => 'Kashira Badawi Modern Schools Singa',
@@ -29212,6 +30774,8 @@ return array (
     'whatsapp' => '+249913199200',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي حديث بسنجة يضم الروضة والابتدائي والمتوسط بنظم تعليمية تفاعلية وترفيهية آمنة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -29221,7 +30785,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  901 => 
+  894 => 
   array (
     'name' => 'مدارس التميز الخاصة بالدندر',
     'name_en' => 'Al-Tamayoz Private Schools Dinder',
@@ -29245,6 +30809,8 @@ return array (
     'whatsapp' => '+249913209300',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'كبرى المدارس الخاصة بمحلية الدندر السياحية والزراعية، تقدم تعليماً نموذجياً متميزاً لأبناء المنطقة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -29254,7 +30820,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  902 => 
+  895 => 
   array (
     'name' => 'مدارس النوابغ الثانوية الخاصة بالدندر',
     'name_en' => 'Al-Nawabigh Secondary Schools Dinder',
@@ -29276,6 +30842,8 @@ return array (
     'whatsapp' => '+249913229500',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح ثانوي خاص بالدندر يوفر كادراً تدريسياً خبيراً ومختبرات علمية لإعداد الطلاب للشهادة السودانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -29285,7 +30853,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  903 => 
+  896 => 
   array (
     'name' => 'مدارس المنهل الخاصة بالسوقي',
     'name_en' => 'Al-Manhal Private Schools Suki',
@@ -29308,6 +30876,8 @@ return array (
     'whatsapp' => '+249913239600',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة معتمدة بحاضرة محلية السوكي على ضفاف النيل الأزرق، تقدم تعليماً نموذجياً بفصول مجهزة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -29317,7 +30887,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  904 => 
+  897 => 
   array (
     'name' => 'معهد ومدارس الإخلاص العلمي الخاصة بالسوقي',
     'name_en' => 'Al-Ikhlas Scientific Private Schools Suki',
@@ -29341,6 +30911,8 @@ return array (
     'whatsapp' => '+249913249700',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع علمي وخاص بالسوقي يجمع بين الدراسات العلمية والأكاديمية ونسب النجاح العالية في الشهادة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -29350,7 +30922,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  905 => 
+  898 => 
   array (
     'name' => 'مدرسة الأنوار العلمية الخاصة بمايرنو',
     'name_en' => 'Al-Anwar Scientific Private School Maiurno',
@@ -29373,6 +30945,8 @@ return array (
     'whatsapp' => '+249913259800',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي خاص بمدينة مايرنو التاريخية، يسهم في نشر التعليم النوعي ورعاية الطلاب المتفوقين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -29382,7 +30956,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  906 => 
+  899 => 
   array (
     'name' => 'مدارس السوكي النموذجية الأهلية الخاصة',
     'name_en' => 'Suki Model Community Schools',
@@ -29405,6 +30979,8 @@ return array (
     'whatsapp' => '+249913269900',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة أهلية خاصة تخدم سكان السوكي والقرى المجاورة ببرامج تعليمية نموذجية وتأسيس لغوي متين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -29414,7 +30990,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  907 => 
+  900 => 
   array (
     'name' => 'مؤسسة الوهج التعليمية الخاصة بالدمازين',
     'name_en' => 'Al-Wahaj Educational Complex Damazin',
@@ -29436,6 +31012,8 @@ return array (
     'whatsapp' => '+249911209333',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'أحرزت تلميذتها النابغة نادية محمد الأمين المركز الأول على مستوى إقليم النيل الأزرق في الشهادة الابتدائية بمجموع 277 درجة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -29445,7 +31023,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  908 => 
+  901 => 
   array (
     'name' => 'مدرسة الأستاذ الخاصة بالدمازين',
     'name_en' => 'Al-Ustaz Private School Damazin',
@@ -29469,6 +31047,8 @@ return array (
     'whatsapp' => '+249913270001',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صفحاتها معتمدة على فيسبوك باسم (مدرسة الأستاذ الخاصة بنين وبنات بالدمازين)، وتعتبر من كبريات المدارس الخاصة بالإقليم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -29478,7 +31058,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  909 => 
+  902 => 
   array (
     'name' => 'مؤسسة الشعلة التعليمية القرآنية الخاصة بالدمازين',
     'name_en' => 'Al-Shoala Quranic Complex Damazin',
@@ -29501,6 +31081,8 @@ return array (
     'whatsapp' => '+249913280002',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية وقرآنية كبرى بالنيل الأزرق، تقدم بيئة تعليمية متكاملة ومناهج حديثة وتوسعت لعدة فروع بالإقليم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -29510,7 +31092,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  910 => 
+  903 => 
   array (
     'name' => 'مدرسة ليفر التعليمية الخاصة بالدمازين',
     'name_en' => 'Lever Educational Private School Damazin',
@@ -29533,6 +31115,8 @@ return array (
     'whatsapp' => '+249913290003',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صفحة رسمية معتمدة على فيسبوك توثق الأيام الثقافية والترفيهية والامتحانات المشتركة وتأسيس الطلاب المتميز.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -29542,7 +31126,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  911 => 
+  904 => 
   array (
     'name' => 'مدرسة صن رايز للغات بالدمازين',
     'name_en' => 'Sunrise Language School Damazin',
@@ -29564,6 +31148,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مسجلة ومعتمدة دولياً في الدليل العالمي للمؤسسات التعليمية SchoolAndCollegeListings (Damazin Directory) لتدريس اللغات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -29573,7 +31159,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  912 => 
+  905 => 
   array (
     'name' => 'مدرسة ومعهد لاند مارك الإنجليزية الخاصة بالدمازين',
     'name_en' => 'Landmark English School & Institute Damazin',
@@ -29596,6 +31182,8 @@ return array (
     'whatsapp' => '+249913310005',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي رائد في تعليم اللغة الإنجليزية والمناهج ثنائية اللغة وتدريب الطلاب على التحدث بطلاقة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -29605,7 +31193,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  913 => 
+  906 => 
   array (
     'name' => 'مدرسة الصفوة التعليمية الخاصة بالدمازين',
     'name_en' => 'Al-Safwa Educational Private School Damazin',
@@ -29628,6 +31216,8 @@ return array (
     'whatsapp' => '+249913320006',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالنيل الأزرق، تقدم بيئة تعليمية متكاملة ومناهج حديثة وفصولاً مجهزة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -29637,7 +31227,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  914 => 
+  907 => 
   array (
     'name' => 'مؤسسة الفؤاد التعليمية الخاصة بالدمازين',
     'name_en' => 'Al-Fouad Educational Foundation Damazin',
@@ -29660,6 +31250,8 @@ return array (
     'whatsapp' => '+249913330007',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة خاصة معتمدة تقدم تعليماً نوعياً للمرحلتين الابتدائية والثانوية بنسب نجاح مشهودة بالإقليم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -29669,7 +31261,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  915 => 
+  908 => 
   array (
     'name' => 'مؤسسة الملوك الإنجليزية التعليمية الخاصة بالدمازين',
     'name_en' => 'The Kings English Educational Complex Damazin',
@@ -29692,6 +31284,8 @@ return array (
     'whatsapp' => '+249913340008',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة تعنى بتطوير مهارات الطلاب في اللغات والعلوم وتطبيق أحدث وسائل التدريس التفاعلي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -29701,7 +31295,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  916 => 
+  909 => 
   array (
     'name' => 'مؤسسة الأمل التعليمية الخاصة بالدمازين',
     'name_en' => 'Al-Amal Educational Foundation Damazin',
@@ -29723,6 +31317,8 @@ return array (
     'whatsapp' => '+249913350009',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة معتمدة بحي الثورة توفر تعليماً تأسيسياً متميزاً ورعاية للطلاب في مختلف المجالات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -29732,7 +31328,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  917 => 
+  910 => 
   array (
     'name' => 'مؤسسة العربي التعليمية الخاصة بالدمازين',
     'name_en' => 'Al-Arabi Educational Complex Damazin',
@@ -29754,6 +31350,8 @@ return array (
     'whatsapp' => '+249913360010',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي يعنى بالتحصيل الأكاديمي والأنشطة التربوية والرياضية بإشراف نخبة من أساتذة الإقليم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -29763,7 +31361,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  918 => 
+  911 => 
   array (
     'name' => 'مؤسسة الواحة التعليمية الثانوية الخاصة بالدمازين',
     'name_en' => 'Al-Waha Secondary Educational Complex Damazin',
@@ -29785,6 +31383,8 @@ return array (
     'whatsapp' => '+249913370011',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'يضم كادرها نخبة من كبار أساتذة المرحلة الثانوية وواضعي الامتحانات بالإقليم مع منح تفوق سنوية للمتفوقين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -29794,7 +31394,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  919 => 
+  912 => 
   array (
     'name' => 'ثانوية المعالي الخاصة بالدمازين',
     'name_en' => 'Al-Maali Secondary Private School Damazin',
@@ -29816,6 +31416,8 @@ return array (
     'whatsapp' => '+249913380012',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة ثانوية خاصة للبنات مقيدة بكشوفات وزارة التربية وتتصدر نتائج الشهادة السودانية بالإقليم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -29825,7 +31427,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  920 => 
+  913 => 
   array (
     'name' => 'مؤسسة الشوامخ والقمة التعليمية الخاصة بالدمازين',
     'name_en' => 'Al-Shawamekh & Al-Qimma Complex Damazin',
@@ -29848,6 +31450,8 @@ return array (
     'whatsapp' => '+249913390013',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة معتمدة بالنيل الأزرق، تقدم بيئة تعليمية متكاملة ومناهج حديثة وبرامج دعم للطلاب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -29857,7 +31461,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  921 => 
+  914 => 
   array (
     'name' => 'مؤسسة المهاد التعليمية الخاصة بالدمازين',
     'name_en' => 'Al-Mehad Educational Complex Damazin',
@@ -29879,6 +31483,8 @@ return array (
     'whatsapp' => '+249913400014',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي أهلي يقدم رعاية خاصة للتلاميذ في الصفوف الأولى ويشجع على القراءة الحرة والمناشط.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -29888,7 +31494,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  922 => 
+  915 => 
   array (
     'name' => 'روضة براعم الإيمان الخاصة بالدمازين',
     'name_en' => 'Baraem Al-Iman Private Nursery & Kindergarten',
@@ -29910,6 +31516,8 @@ return array (
     'whatsapp' => '+249913410015',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة متخصصة في رعاية أطفال ما قبل المدرسة وتأسيسهم في الحروف والأرقام والسلوك الإسلامي القويم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -29919,7 +31527,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  923 => 
+  916 => 
   array (
     'name' => 'روضة الزهور التعليمية الخاصة بالدمازين',
     'name_en' => 'Al-Zuhoor Educational Kindergarten Damazin',
@@ -29941,6 +31549,8 @@ return array (
     'whatsapp' => '+249913420016',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صفحة وسجلات النشاط التربوي الخاص بأطفال حي الزهور بالدمازين، بيئة ملهمة ومجهزة بالألعاب التعليمية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -29950,7 +31560,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  924 => 
+  917 => 
   array (
     'name' => 'مؤسسة الأستاذ مجذوب الطيب التعليمية الخاصة بالروصيرص',
     'name_en' => 'Ustaz Majzoub El-Tayeb Complex Roseires',
@@ -29973,6 +31583,8 @@ return array (
     'whatsapp' => '+249913430017',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الصفحة الرسمية المعتمدة على فيسبوك: (مؤسسة الأستاذ مجذوب الطيب التعليمية الخاصة بالرصيرص)، رائدة في جودة التعليم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -29982,7 +31594,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  925 => 
+  918 => 
   array (
     'name' => 'مؤسسة الشعلة التعليمية القرآنية (فرع الروصيرص)',
     'name_en' => 'Al-Shoala Quranic Complex Roseires',
@@ -30004,6 +31616,8 @@ return array (
     'whatsapp' => '+249913440018',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدونة المؤسسة الرسمية وسجلات افتتاح فرع الضفة الشرقية (قنيص شرق)، تقدم تعليماً قرآنياً وأكاديمياً متكاملاً.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -30013,7 +31627,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  926 => 
+  919 => 
   array (
     'name' => 'مؤسسة الأم التعليمية المتوسطة الخاصة بالروصيرص',
     'name_en' => 'Al-Omm Middle Educational School Roseires',
@@ -30035,6 +31649,8 @@ return array (
     'whatsapp' => '+249913450019',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي خاص بالروصيرص يعنى بالمرحلة المتوسطة وإعداد الطلاب للثانوي بكادر مؤهل وبيئة دراسية ممتازة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -30044,7 +31660,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  927 => 
+  920 => 
   array (
     'name' => 'رياض ومدارس المؤمن العالمية — عطبرة',
     'name_en' => 'Al-Momin International Schools - Atbara',
@@ -30068,6 +31684,8 @@ return array (
     'whatsapp' => '+249909361938',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي حديث يوفر بيئة دراسية متكاملة ومعامل حاسوب وعلوم متطورة وبرامج حفظ القرآن الكريم واللغات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -30077,7 +31695,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  928 => 
+  921 => 
   array (
     'name' => 'رياض ومدارس النوابغ الخاصة — عطبرة',
     'name_en' => 'Al-Nawabigh Private Schools - Atbara',
@@ -30101,6 +31719,8 @@ return array (
     'whatsapp' => '+249918256957',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'شعارها نهج سليم وعلم قويم، متميزة في نتائج الشهادة السودانية والمنافسات الأكاديمية والثقافية بالولاية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -30110,7 +31730,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  929 => 
+  922 => 
   array (
     'name' => 'مدارس المدينة الخاصة — عطبرة',
     'name_en' => 'Al-Madina Private Schools - Atbara',
@@ -30134,6 +31754,8 @@ return array (
     'whatsapp' => '+249912389100',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من المؤسسات التعليمية المشهود لها بالانضباط الأكاديمي والتميز في التدريس وتوفير بيئة تعليمية جاذبة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -30143,7 +31765,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  930 => 
+  923 => 
   array (
     'name' => 'ثانوية نور الإيمان العالمية الخاصة — عطبرة',
     'name_en' => 'Noor Al-Iman International Secondary School - Atbara',
@@ -30166,6 +31788,8 @@ return array (
     'whatsapp' => '+249123485295',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية رائدة تابعة لمجموعة أبورنات التعليمية، تحقق مراكز متقدمة سنوياً في امتحانات الشهادة الثانوية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -30175,7 +31799,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  931 => 
+  924 => 
   array (
     'name' => 'مدارس ومعاهد نمبر ون الخاصة — عطبرة',
     'name_en' => 'Number One Private Schools & Institutes - Atbara',
@@ -30199,6 +31823,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'منظومة تعليمية متكاملة تقدم تدريساً نموذجياً وحصص تركيز ومعسكرات تفوق لطلاب الشهادتين المتوسطة والثانوية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -30208,7 +31834,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  932 => 
+  925 => 
   array (
     'name' => 'مدارس الأستاذة مريم عثمان الخاصة — عطبرة',
     'name_en' => 'Ustaza Maryam Osman Private Schools - Atbara',
@@ -30231,6 +31857,8 @@ return array (
     'whatsapp' => '+249912145520',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تربوية عريقة متخصصة في التأسيس الأكاديمي ورعاية الموهوبين منذ مرحلة رياض الأطفال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -30240,7 +31868,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  933 => 
+  926 => 
   array (
     'name' => 'مدارس بشائر الخير الخاصة — عطبرة',
     'name_en' => 'Bashaer Al-Khair Private Schools - Atbara',
@@ -30263,6 +31891,8 @@ return array (
     'whatsapp' => '+249122459810',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة نموذجية توفر تعليماً متميزاً بأسعار مناسبة مع التركيز على التقويم المستمر والأنشطة اللاصفية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -30272,7 +31902,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  934 => 
+  927 => 
   array (
     'name' => 'مدارس الإبداع النموذجية الخاصة — عطبرة',
     'name_en' => 'Al-Ibda Model Private Schools - Atbara',
@@ -30296,6 +31926,8 @@ return array (
     'whatsapp' => '+249912554477',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تعتمد استراتيجيات التعليم التفاعلي والوسائل الحديثة وتضم كادراً تدريسياً من أصحاب الخبرة والكفاءة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -30305,7 +31937,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  935 => 
+  928 => 
   array (
     'name' => 'مدارس الأوائل الخاصة بنين — عطبرة',
     'name_en' => 'Al-Awael Private School for Boys - Atbara',
@@ -30328,6 +31960,8 @@ return array (
     'whatsapp' => '+249911228844',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة للبنين تركز على الانضباط السلوكي والتميز الأكاديمي في المساقات العلمية والأدبية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -30337,7 +31971,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  936 => 
+  929 => 
   array (
     'name' => 'مدارس الفردوس النموذجية — عطبرة',
     'name_en' => 'Al-Fardous Model Schools - Atbara',
@@ -30360,6 +31994,8 @@ return array (
     'whatsapp' => '+249123987112',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'بيئة تعليمية محفزة للأطفال والناشئة تهتم بالقرآن الكريم وبناء الشخصية والتفوق الدراسي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -30369,7 +32005,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  937 => 
+  930 => 
   array (
     'name' => 'مدارس ابن خلدون الخاصة — عطبرة',
     'name_en' => 'Ibn Khaldoun Private Schools - Atbara',
@@ -30393,6 +32029,8 @@ return array (
     'whatsapp' => '+249918556622',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح أكاديمي رصين يولي عناية فائقة للعلوم والرياضيات ومتابعة المستوى الفردي لكل طالب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -30402,7 +32040,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  938 => 
+  931 => 
   array (
     'name' => 'مدارس العباقرة الخاصة — عطبرة',
     'name_en' => 'Al-Abaqera Private Schools - Atbara',
@@ -30425,6 +32063,8 @@ return array (
     'whatsapp' => '+249922334411',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تهتم ببرامج الحساب الذهني وتنمية الذكاء اللغوي والأنشطة العلمية الاستكشافية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -30434,7 +32074,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  939 => 
+  932 => 
   array (
     'name' => 'مدارس رواد الغد الخاصة — عطبرة',
     'name_en' => 'Ruwad Al-Ghad Private Schools - Atbara',
@@ -30457,6 +32097,8 @@ return array (
     'whatsapp' => '+249121118899',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس نموذجية حديثة تقدم رعاية أكاديمية ونفسية شاملة للطلاب مع خدمات ترحيل آمنة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -30466,7 +32108,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  940 => 
+  933 => 
   array (
     'name' => 'مدرسة السلام الثانوية الخاصة بنين — عطبرة',
     'name_en' => 'Al-Salam Private Secondary School for Boys - Atbara',
@@ -30488,6 +32130,8 @@ return array (
     'whatsapp' => '+249912443322',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أعرق المدارس الثانوية الخاصة بمدينة عطبرة، كادر تدريسي مخضرم ونتائج متميزة في الشهادة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -30497,7 +32141,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  941 => 
+  934 => 
   array (
     'name' => 'مدارس المستقبل الأهلية الخاصة — عطبرة',
     'name_en' => 'Al-Mustaqbal Private Schools - Atbara',
@@ -30520,6 +32164,8 @@ return array (
     'whatsapp' => '+249918776655',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة رائدة تهتم بتعليم التفكير والإبداع وتوفير بيئة تربوية تحافظ على القيم والأخلاق.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -30529,7 +32175,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  942 => 
+  935 => 
   array (
     'name' => 'مدرسة المعالي الابتدائية الخاصة — عطبرة',
     'name_en' => 'Al-Maali Private Primary School - Atbara',
@@ -30551,6 +32197,8 @@ return array (
     'whatsapp' => '+249112334455',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تأسيس نوعي متميز في القراءة والكتابة واللغة الإنجليزية والعلوم الحديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -30560,7 +32208,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  943 => 
+  936 => 
   array (
     'name' => 'روضة ومدرسة براعم الإيمان — عطبرة',
     'name_en' => 'Baraem Al-Iman School & KG - Atbara',
@@ -30583,6 +32231,8 @@ return array (
     'whatsapp' => '+249912667788',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'بيئة تعليمية مبهجة للأطفال مع ساحات ألعاب واسعة وبرامج تربوية سلوكية متوازنة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -30592,7 +32242,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  944 => 
+  937 => 
   array (
     'name' => 'مدارس سنابل العلم الخاصة — عطبرة',
     'name_en' => 'Sanabel Al-Ilm Private Schools - Atbara',
@@ -30615,6 +32265,8 @@ return array (
     'whatsapp' => '+249122998877',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة رائدة تشتهر بتفوق طلابها وتوفير معامل حاسوب حديثة وأنشطة صفية هادفة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -30624,7 +32276,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  945 => 
+  938 => 
   array (
     'name' => 'مدرسة الصفا الخاصة بنات — عطبرة',
     'name_en' => 'Al-Safa Private School for Girls - Atbara',
@@ -30647,6 +32299,8 @@ return array (
     'whatsapp' => '+249915443322',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة متخصصة للبنات تقدم تعليماً نموذجياً وإشرافاً تربوياً عالي المستوى ورعاية فائقة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -30656,7 +32310,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  946 => 
+  939 => 
   array (
     'name' => 'مدارس نور الإيمان العالمية الخاصة — الدامر',
     'name_en' => 'Noor Al-Iman International Private Schools - El Damer',
@@ -30680,6 +32334,8 @@ return array (
     'whatsapp' => '+249127895354',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع تعليمي فخم يضم بنين وبنات ومرحلتي الأساس والمتوسط مع إشراف تربوي وتقني حديث.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -30689,7 +32345,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  947 => 
+  940 => 
   array (
     'name' => 'مدرسة المرافئ الثانوية الخاصة — الدامر',
     'name_en' => 'Al-Marafi Private Secondary School - El Damer',
@@ -30711,6 +32367,8 @@ return array (
     'whatsapp' => '+249912631049',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة ثانوية رائدة مشهود لها بنسب نجاح عالية ومقاعد مرموقة في الجامعات السودانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -30720,7 +32378,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  948 => 
+  941 => 
   array (
     'name' => 'مؤسسة منارة الدامر للتعليم الخاص',
     'name_en' => 'Manarat El Damer Educational Institution',
@@ -30744,6 +32402,8 @@ return array (
     'whatsapp' => '+249129936508',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي كبير في حاضرة ولاية نهر النيل يجمع بين الأصالة والحداثة والتفوق الأكاديمي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -30753,7 +32413,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  949 => 
+  942 => 
   array (
     'name' => 'مدارس الفاضل محمود بشير الخاصة — الدامر',
     'name_en' => 'Al-Fadil Mahmoud Bashir Private Schools - El Damer',
@@ -30776,6 +32436,8 @@ return array (
     'whatsapp' => '+249915307318',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية بارزة تُعنى ببناء الأساس العلمي المتين للأجيال الصاعدة وتنمية مهارات التفكير.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -30785,7 +32447,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  950 => 
+  943 => 
   array (
     'name' => 'رياض ومدارس المؤمن العالمية — الدامر',
     'name_en' => 'Al-Momin International Schools - El Damer',
@@ -30808,6 +32470,8 @@ return array (
     'whatsapp' => '+249929927000',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مناهج إثرائية وتدريس لغات حديثة وقاعات مكيفة وشاشات تفاعلية ذكية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -30817,7 +32481,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  951 => 
+  944 => 
   array (
     'name' => 'مدارس الصفوة النموذجية الخاصة — الدامر',
     'name_en' => 'Al-Safwa Model Private Schools - El Damer',
@@ -30841,6 +32505,8 @@ return array (
     'whatsapp' => '+249126138681',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تجمع بين الكادر التربوي المتميز والأنشطة الطلابية اللاصفية ورعاية المتفوقين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -30850,7 +32516,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  952 => 
+  945 => 
   array (
     'name' => 'مدارس القبس الخاصة فرع الدامر',
     'name_en' => 'Al-Qabas Private Schools - El Damer Branch',
@@ -30873,6 +32539,8 @@ return array (
     'whatsapp' => '+249912445588',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تتبع لمنظومة القبس التعليمية الشهيرة بالسودان، مع التركيز على المنهج القيمي والتفوق العلمي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -30882,7 +32550,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  953 => 
+  946 => 
   array (
     'name' => 'مدارس دار العلوم الخاصة — الدامر',
     'name_en' => 'Dar Al-Uloom Private Schools - El Damer',
@@ -30906,6 +32574,8 @@ return array (
     'whatsapp' => '+249115667788',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'برامج أكاديمية قوية في مواد العلوم والرياضيات واللغة العربية بإشراف نخبة من موجهي التربية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -30915,7 +32585,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  954 => 
+  947 => 
   array (
     'name' => 'مدارس أجيال الغد الخاصة — الدامر',
     'name_en' => 'Ajyal Al-Ghad Private Schools - El Damer',
@@ -30937,6 +32607,8 @@ return array (
     'whatsapp' => '+249922445566',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية حديثة توفر بيئة جاذبة وصحية مع اهتمام خاص بتعليم النشء والأنشطة الحركية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -30946,7 +32618,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  955 => 
+  948 => 
   array (
     'name' => 'مدارس التميز الأكاديمي الخاصة — الدامر',
     'name_en' => 'Academic Excellence Private Schools - El Damer',
@@ -30969,6 +32641,8 @@ return array (
     'whatsapp' => '+249918332211',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تتميز بحصص الدعم والتقوية المستمرة ومعسكرات مغلقة لطلاب الشهادات العامة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -30978,7 +32652,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  956 => 
+  949 => 
   array (
     'name' => 'مدرسة النيل النموذجية الخاصة — الدامر',
     'name_en' => 'Al-Neel Model Private School - El Damer',
@@ -31001,6 +32675,8 @@ return array (
     'whatsapp' => '+249123554433',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة متميزة بالانضباط وحسن المتابعة الدورية مع أولياء الأمور عبر تقارير أسبوعية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -31010,7 +32686,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  957 => 
+  950 => 
   array (
     'name' => 'مدارس الإشراق التعليمية — الدامر',
     'name_en' => 'Al-Ishraq Educational Schools - El Damer',
@@ -31033,6 +32709,8 @@ return array (
     'whatsapp' => '+249911778899',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'بيئة تعليمية دافئة تركز على تنمية المهارات الحياتية والاعتماد على النفس والتفوق العلمي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -31042,7 +32720,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  958 => 
+  951 => 
   array (
     'name' => 'مؤسسة مدارس الريان التعليمية الخاصة — شندي',
     'name_en' => 'Al-Rayan Educational Private Schools - Shendi',
@@ -31066,6 +32744,8 @@ return array (
     'whatsapp' => '+249907457661',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أوسع المؤسسات انتشاراً وتفوقاً بشندي، بنين وبنات، كادر تدريسي عالي الكفاءة وملاعب وأنشطة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -31075,7 +32755,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  959 => 
+  952 => 
   array (
     'name' => 'رياض ومدارس إجلال الخاصة — شندي',
     'name_en' => 'Ejlal Private Schools & KG - Shendi',
@@ -31098,6 +32778,8 @@ return array (
     'whatsapp' => '+249964531753',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تربوية متميزة تقدم دورات لغات أجنبية ومنحاً للمتفوقين وبيئة ترفيهية وتعليمية ملهمة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -31107,7 +32789,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  960 => 
+  953 => 
   array (
     'name' => 'مؤسسة ورياض ومدارس الفنار التعليمية الخاصة — شندي',
     'name_en' => 'Al-Fanar Educational Private Schools - Shendi',
@@ -31130,6 +32812,8 @@ return array (
     'whatsapp' => '+249912288440',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'حائزة على جائزة والي نهر النيل للتميز المدرسي وجودة التعليم ومنظومة إدارية إلكترونية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -31139,7 +32823,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  961 => 
+  954 => 
   array (
     'name' => 'رياض ومدارس المؤمن العالمية فرع شندي',
     'name_en' => 'Al-Momin International Schools - Shendi Branch',
@@ -31163,6 +32847,8 @@ return array (
     'whatsapp' => '+249127017972',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح عالمي يقدم برامج إثرائية ومختبرات علمية متقدمة وحصص تقوية مستمرة لجميع المراحل.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -31172,7 +32858,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  962 => 
+  955 => 
   array (
     'name' => 'مدرسة الأبوابي الثانوية الخاصة بنات — شندي',
     'name_en' => 'Al-Abwabi Private Secondary School for Girls - Shendi',
@@ -31194,6 +32880,8 @@ return array (
     'whatsapp' => '+249119234091',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح مخصص لتعليم وتأهيل البنات للمرحلة الثانوية بمساقيها العلمي والأدبي بنسب نجاح عالية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -31203,7 +32891,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  963 => 
+  956 => 
   array (
     'name' => 'مدارس دار المعالي الخاصة — شندي',
     'name_en' => 'Dar Al-Maali Private Schools - Shendi',
@@ -31227,6 +32915,8 @@ return array (
     'whatsapp' => '+249127017972',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة رائدة في استيعاب الطلاب وتوفير تدريس نموذجي بأعلى المعايير الأكاديمية والتربوية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -31236,7 +32926,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  964 => 
+  957 => 
   array (
     'name' => 'مدارس الغيث الثانوية الخاصة — شندي',
     'name_en' => 'Al-Ghaith Private Secondary School - Shendi',
@@ -31258,6 +32948,8 @@ return array (
     'whatsapp' => '+249918442211',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'ثانوية متميزة حققت مراتب شرف في الشهادة السودانية مع كادر من خيرة معلمي الولاية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -31267,7 +32959,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  965 => 
+  958 => 
   array (
     'name' => 'مدارس مجذوب الخاصة — شندي',
     'name_en' => 'Magzoub Private Schools - Shendi',
@@ -31290,6 +32982,8 @@ return array (
     'whatsapp' => '+249122335566',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة تهتم بالتأسيس السليم وتعليم مهارات الحاسوب والخط العربي والرياضيات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -31299,7 +32993,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  966 => 
+  959 => 
   array (
     'name' => 'مدارس الرواد الخاصة — شندي',
     'name_en' => 'Al-Ruwad Private Schools - Shendi',
@@ -31322,6 +33016,8 @@ return array (
     'whatsapp' => '+249922558877',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية نموذجية تركز على التطوير التربوي والنشاط الثقافي والرياضي التنافسي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -31331,7 +33027,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  967 => 
+  960 => 
   array (
     'name' => 'مدارس المنار الحديثة — شندي',
     'name_en' => 'Al-Manar Modern Schools - Shendi',
@@ -31354,6 +33050,8 @@ return array (
     'whatsapp' => '+249912994433',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'بيئة حديثة متكاملة وصفوف مكيفة ووسائل إيضاح متطورة وخدمات نقل تغطي كافة أحياء شندي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -31363,7 +33061,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  968 => 
+  961 => 
   array (
     'name' => 'مدارس براعم المعرفة — شندي',
     'name_en' => 'Baraem Al-Maarifa Schools - Shendi',
@@ -31386,6 +33084,8 @@ return array (
     'whatsapp' => '+249118776655',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'متخصصة في المراحل الأولية والتمهيدية مع كادر نسائي تربوي مدرب وألعاب تنمية الذكاء.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -31395,7 +33095,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  969 => 
+  962 => 
   array (
     'name' => 'مدارس الفرقان الأهلية الخاصة — شندي',
     'name_en' => 'Al-Furqan Private Schools - Shendi',
@@ -31418,6 +33118,8 @@ return array (
     'whatsapp' => '+249915223344',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تركز على المنهج القرآني والأخلاقي والتميز الأكاديمي في المقررات الوزارية المعتمدة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -31427,7 +33129,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  970 => 
+  963 => 
   array (
     'name' => 'مدرسة أم صابرين الخاصة — بربر',
     'name_en' => 'Um Saberine Private School - Berber',
@@ -31450,6 +33152,8 @@ return array (
     'whatsapp' => '+249113173449',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'إحدى أقدم المدارس النظامية في تاريخ السودان تأسست عام 1906م بمدينة بربر العريقة بنهر النيل، وتخرجت منها أجيال القضاة والعلماء والإداريين والأدباء الذين شيدوا أجهزة الدولة السودانية بعد الاستقلال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -31459,7 +33163,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  971 => 
+  964 => 
   array (
     'name' => 'مدارس ورياض الهاشمية الخاصة — بربر',
     'name_en' => 'Al-Hashimiya Private Schools - Berber',
@@ -31482,6 +33186,8 @@ return array (
     'whatsapp' => '+249122276496',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'إحدى أقدم المدارس النظامية في تاريخ السودان تأسست عام 1906م بمدينة بربر العريقة بنهر النيل، وتخرجت منها أجيال القضاة والعلماء والإداريين والأدباء الذين شيدوا أجهزة الدولة السودانية بعد الاستقلال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -31491,7 +33197,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  972 => 
+  965 => 
   array (
     'name' => 'مدارس عبد المعروف علي القرآنية الخاصة — بربر',
     'name_en' => 'Abdelmarouf Ali Quranic Schools - Berber',
@@ -31515,6 +33221,8 @@ return array (
     'whatsapp' => '+249113173449',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'إحدى أقدم المدارس النظامية في تاريخ السودان تأسست عام 1906م بمدينة بربر العريقة بنهر النيل، وتخرجت منها أجيال القضاة والعلماء والإداريين والأدباء الذين شيدوا أجهزة الدولة السودانية بعد الاستقلال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -31524,7 +33232,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  973 => 
+  966 => 
   array (
     'name' => 'مدرسة نور العالمية الخاصة — بربر',
     'name_en' => 'Noor International School - Berber',
@@ -31547,6 +33255,8 @@ return array (
     'whatsapp' => '+249912778855',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'إحدى أقدم المدارس النظامية في تاريخ السودان تأسست عام 1906م بمدينة بربر العريقة بنهر النيل، وتخرجت منها أجيال القضاة والعلماء والإداريين والأدباء الذين شيدوا أجهزة الدولة السودانية بعد الاستقلال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -31556,7 +33266,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  974 => 
+  967 => 
   array (
     'name' => 'مدارس الفاروق النموذجية — بربر',
     'name_en' => 'Al-Farooq Model Schools - Berber',
@@ -31579,6 +33289,8 @@ return array (
     'whatsapp' => '+249124556677',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'إحدى أقدم المدارس النظامية في تاريخ السودان تأسست عام 1906م بمدينة بربر العريقة بنهر النيل، وتخرجت منها أجيال القضاة والعلماء والإداريين والأدباء الذين شيدوا أجهزة الدولة السودانية بعد الاستقلال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -31588,7 +33300,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  975 => 
+  968 => 
   array (
     'name' => 'مؤسسة نورا التعليمية الخاصة — أبو حمد',
     'name_en' => 'Nora Educational Institution - Abu Hamad',
@@ -31612,6 +33324,8 @@ return array (
     'whatsapp' => '+249918334455',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'أكبر صرح تعليمي خاص بمحلية أبو حمد، مشهود له بالتفوق والرعاية والأنشطة المتعددة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -31621,7 +33335,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  976 => 
+  969 => 
   array (
     'name' => 'ثانوية الفاروق الخاصة بنين — أبو حمد',
     'name_en' => 'Al-Farooq Private Secondary School - Abu Hamad',
@@ -31643,6 +33357,8 @@ return array (
     'whatsapp' => '+249122889900',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة ثانوية نموذجية خاصة للبنين تقدم معسكرات إعدادية للشهادة السودانية بنجاح كبير.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -31652,7 +33368,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  977 => 
+  970 => 
   array (
     'name' => 'مدارس ملوك النيل الخاصة — أبو حمد',
     'name_en' => 'Muluk Al-Neel Private Schools - Abu Hamad',
@@ -31675,6 +33391,8 @@ return array (
     'whatsapp' => '+249922441122',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة ناشئة طموحة تقدم تدريساً نوعياً واهتماماً بارزاً باللغات والتطبيقات الرقمية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -31684,7 +33402,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  978 => 
+  971 => 
   array (
     'name' => 'مدارس المتمة الأهلية الخاصة',
     'name_en' => 'El Matamma Private Schools',
@@ -31708,6 +33426,8 @@ return array (
     'whatsapp' => '+249912338877',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي يخدم محلية المتمة غرب النيل، يقدم تعليماً رفيع المستوى لكافة المراحل.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -31717,7 +33437,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  979 => 
+  972 => 
   array (
     'name' => 'مدارس ومعاهد نمبر ون فرع دنقلا',
     'name_en' => 'Number One Private Schools & Institutes - Dongola',
@@ -31741,6 +33461,8 @@ return array (
     'whatsapp' => '+249119044444',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أحدث وأكبر المنظومات التعليمية بدنقلا، توفر تعليماً متميزاً وقاعات مكيفة ومعامل حاسوب متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -31750,7 +33472,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  980 => 
+  973 => 
   array (
     'name' => 'مؤسسة المعهد النموذجي الخاصة — دنقلا',
     'name_en' => 'Model Institute Private Schools - Dongola',
@@ -31774,6 +33496,8 @@ return array (
     'whatsapp' => '+249964810504',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية رائدة تجمع بين التربية الأخلاقية والتميز الأكاديمي المشهود في الولاية الشمالية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -31783,7 +33507,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  981 => 
+  974 => 
   array (
     'name' => 'رياض ومدارس رويال كوش الخاصة — دنقلا',
     'name_en' => 'Royal Kush Private Schools & KG - Dongola',
@@ -31806,6 +33530,8 @@ return array (
     'whatsapp' => '+249120007571',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'بيئة دولية راقية وبرامج لغات أجنبية وأنشطة رياضية وثقافية ورعاية خاصة للموهوبين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -31815,7 +33541,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  982 => 
+  975 => 
   array (
     'name' => 'مدارس حامد السوراوي الخاصة — دنقلا',
     'name_en' => 'Hamed Al-Surawi Private Schools - Dongola',
@@ -31839,6 +33565,8 @@ return array (
     'whatsapp' => '+249122078885',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح أكاديمي رائد في الولاية الشمالية، معروف بنسب النجاح العالية وتخريج أوائل الشهادة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -31848,7 +33576,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  983 => 
+  976 => 
   array (
     'name' => 'مدرسة الآفاق الثانوية الخاصة بنات — دنقلا',
     'name_en' => 'Al-Afaq Private Secondary School for Girls - Dongola',
@@ -31870,6 +33598,8 @@ return array (
     'whatsapp' => '+249996932594',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'ثانوية نموذجية خاصة للبنات تضم كوكبة من المعلمات المتميزات وتقدم رعاية أكاديمية متكاملة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -31879,7 +33609,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  984 => 
+  977 => 
   array (
     'name' => 'مدارس نخبة المستقبل الخاصة — دنقلا',
     'name_en' => 'Future Elite Private Schools - Dongola',
@@ -31903,6 +33633,8 @@ return array (
     'whatsapp' => '+249116737766',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تركز على بناء المهارات الرقمية واللغوية وتوفير بيئة تفاعلية محفزة للنجاح والتفوق.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -31912,7 +33644,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  985 => 
+  978 => 
   array (
     'name' => 'مؤسسة الأميرية القرآنية الخاصة — دنقلا',
     'name_en' => 'Al-Amiriya Quranic Private Schools - Dongola',
@@ -31936,6 +33668,8 @@ return array (
     'whatsapp' => '+249911196668',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تجمع بين المنهج السوداني المعتمد وحفظ القرآن الكريم وتجويده والسلوك الإسلامي القويم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -31945,7 +33679,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  986 => 
+  979 => 
   array (
     'name' => 'مدرسة الجودة التعليمية الخاصة — دنقلا',
     'name_en' => 'Al-Jawda Private Educational School - Dongola',
@@ -31968,6 +33702,8 @@ return array (
     'whatsapp' => '+249912254542',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تطبق معايير الجودة الشاملة في التعليم والتقويم المستمر وتوفر متابعة ذكية لأولياء الأمور.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -31977,7 +33713,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  987 => 
+  980 => 
   array (
     'name' => 'مدرسة كرمة النموذجية الحديثة — دنقلا',
     'name_en' => 'Karma Modern Model School - Dongola',
@@ -32000,6 +33736,8 @@ return array (
     'whatsapp' => '+249917778899',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تهتم بالتأسيس السليم في القراءة والحساب واللغات منذ مرحلة الطفولة المبكرة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -32009,7 +33747,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  988 => 
+  981 => 
   array (
     'name' => 'روضة ومدارس الجيل الصاعد — دنقلا',
     'name_en' => 'Al-Jeel Al-Saeed Schools & KG - Dongola',
@@ -32032,6 +33770,8 @@ return array (
     'whatsapp' => '+249127446255',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'بيئة تعليمية ممتعة وأنشطة تنمية المهارات الحركية والذهنية بإشراف كادر تربوي مؤهل.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -32041,7 +33781,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  989 => 
+  982 => 
   array (
     'name' => 'مدارس الرضوان النموذجية الخاصة — دنقلا',
     'name_en' => 'Al-Radwan Model Private Schools - Dongola',
@@ -32064,6 +33804,8 @@ return array (
     'whatsapp' => '+249128216380',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة رائدة في غرس القيم الفاضلة وتحقيق نتائج متميزة في الامتحانات الرسمية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -32073,7 +33815,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  990 => 
+  983 => 
   array (
     'name' => 'مدرسة الممتاز الخاصة — دنقلا',
     'name_en' => 'Al-Mumtaz Private School - Dongola',
@@ -32096,6 +33838,8 @@ return array (
     'whatsapp' => '+249925371000',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر كادراً تدريسياً من أصحاب الخبرات الطويلة واهتماماً بالتقوية المدرسية الفردية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -32105,7 +33849,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  991 => 
+  984 => 
   array (
     'name' => 'مدارس مداد المعرفة الخاصة — دنقلا',
     'name_en' => 'Midad Al-Maarifa Private Schools - Dongola',
@@ -32129,6 +33873,8 @@ return array (
     'whatsapp' => '+249119044444',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة حديثة تركز على الابتكار العلمي ومسابقات الروبوتات والذكاء الاصطناعي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -32138,7 +33884,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  992 => 
+  985 => 
   array (
     'name' => 'مدارس التميز الخاصة — دنقلا',
     'name_en' => 'Al-Tamayuz Private Schools - Dongola',
@@ -32161,6 +33907,8 @@ return array (
     'whatsapp' => '+249916744448',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'بيئة دراسية راقية تركز على اكتشاف المواهب ورعايتها أكاديمياً ورياضياً.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -32170,7 +33918,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  993 => 
+  986 => 
   array (
     'name' => 'مدارس الأمل الواعد الخاصة — دنقلا',
     'name_en' => 'Al-Amal Al-Waed Private Schools - Dongola',
@@ -32192,6 +33940,8 @@ return array (
     'whatsapp' => '+249122993344',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تربية حديثة قائمة على التعلم النشط وتنمية مهارات التعبير واللغات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -32201,7 +33951,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  994 => 
+  987 => 
   array (
     'name' => 'مدارس النيل النموذجية الخاصة — دنقلا',
     'name_en' => 'Al-Neel Model Private Schools - Dongola',
@@ -32224,6 +33974,8 @@ return array (
     'whatsapp' => '+249912665544',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة متكاملة الخدمات مع باصات ترحيل مكيفة وملاعب رياضية ومكتبة ثرية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -32233,7 +33985,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  995 => 
+  988 => 
   array (
     'name' => 'مدارس الإخلاص الخاصة المشتركة — مروي',
     'name_en' => 'Al-Ikhlas Private Schools - Merowe',
@@ -32257,6 +34009,8 @@ return array (
     'whatsapp' => '+249918788027',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أقدم وأميز المدارس الخاصة بمحلية مروي، كادر خبير ونتائج مشرفة في الشهادة السودانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -32266,7 +34020,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  996 => 
+  989 => 
   array (
     'name' => 'مدرسة المنار التعليمية الخاصة — كريمة',
     'name_en' => 'Al-Manar Private School - Karima',
@@ -32290,6 +34044,8 @@ return array (
     'whatsapp' => '+249918788027',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة رائدة في مدينة كريمة تحقق مراكز متقدمة على مستوى الولاية وتنظم معسكرات تفوق سنوية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -32299,7 +34055,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  997 => 
+  990 => 
   array (
     'name' => 'مؤسسة الاستقامة التعليمية الخاصة — كريمة',
     'name_en' => 'Al-Istiqama Educational Institution - Karima',
@@ -32322,6 +34078,8 @@ return array (
     'whatsapp' => '+249123930999',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تجمع بين التربية الروحية والأخلاقية والتفوق الأكاديمي والأنشطة الاجتماعية النافعة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -32331,7 +34089,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  998 => 
+  991 => 
   array (
     'name' => 'مؤسسة الشيخ محمد سيد حاج التعليمية الخاصة — مروي',
     'name_en' => 'Sheikh Mohamed Sayed Haj Educational School - Merowe',
@@ -32355,6 +34113,8 @@ return array (
     'whatsapp' => '+249912447788',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تربوي كبير يحمل اسم الداعية الراحل، يركز على بناء الجيل الرباني الواعي المتفوق.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -32364,7 +34124,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  999 => 
+  992 => 
   array (
     'name' => 'مدرسة الهدى القرآنية الخاصة المشتركة — مروي',
     'name_en' => 'Al-Huda Quranic Private School - Merowe',
@@ -32387,6 +34147,8 @@ return array (
     'whatsapp' => '+249132145998',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة قرآنية نموذجية تقدم تعليماً شاملاً وفق المنهج القومي مع إتقان التلاوة والحفظ.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -32396,7 +34158,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1000 => 
+  993 => 
   array (
     'name' => 'مؤسسة رواد المستقبل التعليمية الخاصة — مروي',
     'name_en' => 'Ruwad Al-Mustaqbal Educational Institution - Merowe',
@@ -32419,6 +34181,8 @@ return array (
     'whatsapp' => '+249922883311',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'بيئة تعليمية تفاعلية تعنى بغرس القيادة والابتكار ورعاية مهارات التفكير الناقد.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -32428,7 +34192,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1001 => 
+  994 => 
   array (
     'name' => 'مدرسة بوابة النجاح الخاصة المشتركة — مروي',
     'name_en' => 'Bawabat Al-Najah Private School - Merowe',
@@ -32451,6 +34215,8 @@ return array (
     'whatsapp' => '+249115443322',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة نموذجية توفر تعليماً تفاعلياً ومتابعة لصيقة لمستوى التحصيل الأكاديمي للطلاب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -32460,7 +34226,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1002 => 
+  995 => 
   array (
     'name' => 'مدرسة الدكتور عبد المنعم عثمان الخاصة — مروي',
     'name_en' => 'Dr. Abdelmoniem Osman Private School - Merowe',
@@ -32484,6 +34250,8 @@ return array (
     'whatsapp' => '+249918554433',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي متميز يضم نخبة من أفضل أساتذة المواد العلمية واللغات بمروي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -32493,7 +34261,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1003 => 
+  996 => 
   array (
     'name' => 'مدرسة تنقاسي الخاصة المشتركة — مروي',
     'name_en' => 'Tangasi Private School - Merowe',
@@ -32516,6 +34284,8 @@ return array (
     'whatsapp' => '+249122667788',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تخدم مناطق تنقاسي والقرى المجاورة بتعليم نموذجي وبيئة محفزة للنجاح.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -32525,7 +34295,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1004 => 
+  997 => 
   array (
     'name' => 'مدرسة نوري النموذجية الخاصة — مروي',
     'name_en' => 'Nuri Model Private School - Merowe',
@@ -32548,6 +34318,8 @@ return array (
     'whatsapp' => '+249912885544',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة متميزة في التأسيس العلمي والأنشطة التراثية والثقافية بالمنطقة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -32557,7 +34329,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1005 => 
+  998 => 
   array (
     'name' => 'مدارس سد مروي الخاصة — مروي',
     'name_en' => 'Merowe Dam Private Schools',
@@ -32581,6 +34353,8 @@ return array (
     'whatsapp' => '+249112338899',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس نموذجية حديثة أقيمت ضمن مشروع سد مروي لخدمة أبناء المنطقة والعاملين بأعلى المواصفات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -32590,7 +34364,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1006 => 
+  999 => 
   array (
     'name' => 'مدارس الأوائل الأهلية — كريمة',
     'name_en' => 'Al-Awael Private Schools - Karima',
@@ -32613,6 +34387,8 @@ return array (
     'whatsapp' => '+249922114455',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة أهلية رائدة توفر رعاية تعليمية مكثفة وتركز على التفوق في المواد الأساسية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -32622,7 +34398,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1007 => 
+  1000 => 
   array (
     'name' => 'مدرسة الجيل الواعد الخاصة المشتركة — الدبة',
     'name_en' => 'Al-Jeel Al-Waed Private School - Al Dabbah',
@@ -32645,6 +34421,8 @@ return array (
     'whatsapp' => '+249912558833',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة متميزة بمحلية الدبة، حققت إنجازات وتكريماً رسمياً في تفوق طلاب المرحلة المتوسطة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -32654,7 +34432,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1008 => 
+  1001 => 
   array (
     'name' => 'مدرسة القريشابي الابتدائية والمتوسطة — الدبة',
     'name_en' => 'Al-Quraishabi Private School - Al Dabbah',
@@ -32677,6 +34455,8 @@ return array (
     'whatsapp' => '+249123445566',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي يخدم أهالي محلية الدبة مع كادر تدريسي متفرغ ومتابعة دورية مستمرة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -32686,7 +34466,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1009 => 
+  1002 => 
   array (
     'name' => 'مدرسة النجم التعليمية الخاصة — الدبة',
     'name_en' => 'Al-Najm Private School - Al Dabbah',
@@ -32709,6 +34489,8 @@ return array (
     'whatsapp' => '+249918774411',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'بيئة تعليمية هادئة ونموذجية تهتم بالتعليم المبتكر وبناء الشخصية المتوازنة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -32718,7 +34500,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1010 => 
+  1003 => 
   array (
     'name' => 'مدارس الغابة النموذجية الخاصة — الدبة',
     'name_en' => 'Al-Ghaba Model Private Schools - Al Dabbah',
@@ -32741,6 +34523,8 @@ return array (
     'whatsapp' => '+249115998877',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تخدم منطقة الغابة الكبرى وتوفر تعليماً متميزاً للأسر المقيمة والوافدة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -32750,7 +34534,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1011 => 
+  1004 => 
   array (
     'name' => 'مدارس الدبة الأهلية الحديثة الخاصة',
     'name_en' => 'Al Dabbah Modern Private Schools',
@@ -32773,6 +34557,8 @@ return array (
     'whatsapp' => '+249922338844',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة خاصة شاملة ومجهزة بأحدث الوسائل التعليمية وخدمات نقل متوفرة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -32782,7 +34568,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1012 => 
+  1005 => 
   array (
     'name' => 'مدرسة حلفا النموذجية الخاصة — وادي حلفا',
     'name_en' => 'Halfa Model Private School - Wadi Halfa',
@@ -32805,6 +34591,8 @@ return array (
     'whatsapp' => '+249122448833',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة متميزة تخدم الأسر والمقيمين بحلفا بكادر تدريسي مؤهل وبيئة ملهمة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -32814,7 +34602,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1013 => 
+  1006 => 
   array (
     'name' => 'مدارس النوبة الأهلية بوادي حلفا',
     'name_en' => 'Al-Nuba Private Schools - Wadi Halfa',
@@ -32836,6 +34624,8 @@ return array (
     'whatsapp' => '+249918552266',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تهتم بالتأسيس السليم وتعليم اللغات وحفظ القرآن الكريم وبناء الوعي الثقافي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -32845,7 +34635,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1014 => 
+  1007 => 
   array (
     'name' => 'مدارس القولد النموذجية الخاصة',
     'name_en' => 'Al-Golid Model Private Schools',
@@ -32869,6 +34659,8 @@ return array (
     'whatsapp' => '+249912441188',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي رائد بمحلية القولد يخدم الطلاب من مختلف القرى المجاورة بتدريس احترافي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -32878,7 +34670,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1015 => 
+  1008 => 
   array (
     'name' => 'مدارس أوربي الحديثة — القولد',
     'name_en' => 'Urbi Modern Schools - Al-Golid',
@@ -32901,6 +34693,8 @@ return array (
     'whatsapp' => '+249123884411',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة نموذجية توفر تعليماً متقدماً في الرياضيات والعلوم واللغة العربية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -32910,7 +34704,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1016 => 
+  1009 => 
   array (
     'name' => 'مدارس البرقيق الخاصة — البرقيق',
     'name_en' => 'Al-Bargeeg Private Schools',
@@ -32934,6 +34728,8 @@ return array (
     'whatsapp' => '+249922776633',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تخدم محلية البرقيق وكرمة، وتشتهر بارتفاع معدلات التحصيل ونسب النجاح في امتحانات الشهادة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -32943,7 +34739,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1017 => 
+  1010 => 
   array (
     'name' => 'مدارس سليم النموذجية المشتركة — القولد',
     'name_en' => 'Seleim Model School - Al-Golid',
@@ -32966,6 +34762,8 @@ return array (
     'whatsapp' => '+249115228844',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة رائدة في استيعاب الطلاب وتقديم رعاية تعليمية منتظمة وبيئة نموذجية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -32975,7 +34773,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1018 => 
+  1011 => 
   array (
     'name' => 'مدارس المنار الثانوية الخاصة بنين — كوستي',
     'name_en' => 'Al-Manar Private Secondary School for Boys - Kosti',
@@ -32997,6 +34795,8 @@ return array (
     'whatsapp' => '+249122735936',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'ثانوية متميزة للبنين تخرج منها كبار الطلاب في كليات الطب والهندسة بالجامعات السودانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -33006,7 +34806,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1019 => 
+  1012 => 
   array (
     'name' => 'مدارس الأندلس الخاصة — كوستي',
     'name_en' => 'Al-Andalus Private Schools - Kosti',
@@ -33030,6 +34830,8 @@ return array (
     'whatsapp' => '+249918224466',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'منظومة تعليمية متكاملة تضم بنين وبنات في مبانٍ مستقلة مع خدمات نقل مريحة وأنشطة لاصفية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -33039,7 +34841,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1020 => 
+  1013 => 
   array (
     'name' => 'مؤسسة الريادة التربوية الخاصة — كوستي',
     'name_en' => 'Al-Riyada Educational Institution - Kosti',
@@ -33063,6 +34865,8 @@ return array (
     'whatsapp' => '+249912336688',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح ريادي يقدم برامج إثرائية ومتابعة إلكترونية متطورة ورعاية متميزة للمتفوقين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -33072,7 +34876,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1021 => 
+  1014 => 
   array (
     'name' => 'مدارس المصباح النموذجية الخاصة — كوستي',
     'name_en' => 'Al-Misbah Model Private Schools - Kosti',
@@ -33095,6 +34899,8 @@ return array (
     'whatsapp' => '+249920055378',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة نموذجية تحقق نسب تفوق عالية في مرحلتي الأساس والمتوسط مع نخبة من المعلمين المتميزين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -33104,7 +34910,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1022 => 
+  1015 => 
   array (
     'name' => 'مدارس ود الحاج الثانوية الخاصة — كوستي',
     'name_en' => 'Wad Al-Hajj Private Secondary Schools - Kosti',
@@ -33126,6 +34932,8 @@ return array (
     'whatsapp' => '+249117260394',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة ثانوية ذات تاريخ عريق في كوستي تقدم كورسات تركيز ومعسكرات تفوق سنوية لطلاب الشهادة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -33135,7 +34943,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1023 => 
+  1016 => 
   array (
     'name' => 'مدارس الزهراء الخاصة — كوستي',
     'name_en' => 'Al-Zahraa Private Schools - Kosti',
@@ -33158,6 +34966,8 @@ return array (
     'whatsapp' => '+249915448822',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'بيئة تعليمية وتربوية خاصة للبنات تهتم بالتحصيل الدراسي العالي والتربية الأخلاقية الفاضلة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -33167,7 +34977,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1024 => 
+  1017 => 
   array (
     'name' => 'مدرسة المنهل الخاصة — كوستي',
     'name_en' => 'Al-Manhal Private School - Kosti',
@@ -33190,6 +35000,8 @@ return array (
     'whatsapp' => '+249122883344',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة متميزة بالتأسيس في الرياضيات والعلوم واللغة العربية وحفظ قصار السور.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -33199,7 +35011,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1025 => 
+  1018 => 
   array (
     'name' => 'مدارس الفجر الجديد — كوستي',
     'name_en' => 'New Dawn Private Schools - Kosti',
@@ -33222,6 +35034,8 @@ return array (
     'whatsapp' => '+249922774411',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تهتم بغرس روح المبادرة والابتكار لدى الطلاب مع توفير أنشطة علمية وتطبيقية متعددة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -33231,7 +35045,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1026 => 
+  1019 => 
   array (
     'name' => 'مدارس طيبة النموذجية الخاصة — كوستي',
     'name_en' => 'Tayba Model Private Schools - Kosti',
@@ -33254,6 +35068,8 @@ return array (
     'whatsapp' => '+249118552299',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تركز على الرعاية الفردية لكل طالب وتقديم تقارير متابعة دورية ومستمرة للأسر.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -33263,7 +35079,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1027 => 
+  1020 => 
   array (
     'name' => 'مدارس الصفا الأهلية — كوستي',
     'name_en' => 'Al-Safa Private Schools - Kosti',
@@ -33287,6 +35103,8 @@ return array (
     'whatsapp' => '+249912771144',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة مشهورة بجدية التدريس واستقرار العام الدراسي وتوفير بيئة هادئة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -33296,7 +35114,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1028 => 
+  1021 => 
   array (
     'name' => 'مدارس النخبة الحديثة — كوستي',
     'name_en' => 'Elite Modern Schools - Kosti',
@@ -33319,6 +35137,8 @@ return array (
     'whatsapp' => '+249123665588',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تستخدم أحدث الوسائل التكنولوجية في الشرح والتعليم التفاعلي وبرامج اللغة الإنجليزية المكثفة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -33328,7 +35148,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1029 => 
+  1022 => 
   array (
     'name' => 'مدارس المعالي الخاصة — كوستي',
     'name_en' => 'Al-Maali Private Schools - Kosti',
@@ -33351,6 +35171,8 @@ return array (
     'whatsapp' => '+249918449933',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي يعنى بالتميز في نتائج الامتحانات الشهرية والفصلية ورعاية المواهب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -33360,7 +35182,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1030 => 
+  1023 => 
   array (
     'name' => 'مدرسة الإتقان الأساسية — كوستي',
     'name_en' => 'Al-Itqan Primary School - Kosti',
@@ -33382,6 +35204,8 @@ return array (
     'whatsapp' => '+249922336655',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تأسيس نوعي متين للأطفال في القراءة والكتابة والعلوم والرياضيات بإتقان تام.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -33391,7 +35215,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1031 => 
+  1024 => 
   array (
     'name' => 'مدارس الفردوس الخاصة — كوستي',
     'name_en' => 'Al-Fardous Private Schools - Kosti',
@@ -33414,6 +35238,8 @@ return array (
     'whatsapp' => '+249115227744',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'بيئة تعليمية مبهجة وملاعب واسعة ومعامل علمية وتدريب على الإلقاء والخطابة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -33423,7 +35249,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1032 => 
+  1025 => 
   array (
     'name' => 'مدارس براعم المستقبل — كوستي',
     'name_en' => 'Future Buds Private Schools - Kosti',
@@ -33446,6 +35272,8 @@ return array (
     'whatsapp' => '+249912889922',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'متخصصة في التعليم التمهيدي والابتدائي المبكر وفق أحدث الاستراتيجيات التربوية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -33455,7 +35283,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1033 => 
+  1026 => 
   array (
     'name' => 'مدارس الجيل الصاعد — كوستي',
     'name_en' => 'Rising Generation Schools - Kosti',
@@ -33478,6 +35306,8 @@ return array (
     'whatsapp' => '+249122116633',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة رائدة في التوجيه التربوي والأنشطة الكشفية والرياضية والتفوق الأكاديمي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -33487,7 +35317,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1034 => 
+  1027 => 
   array (
     'name' => 'مؤسسة المدار الخاصة — ربك',
     'name_en' => 'Al-Madar Private Schools - Rabak',
@@ -33511,6 +35341,8 @@ return array (
     'whatsapp' => '+249122689189',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'أكبر مؤسسة تعليمية خاصة في حاضرة النيل الأبيض ربك، صرح متكامل ومجهز بأفضل التقنيات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -33520,7 +35352,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1035 => 
+  1028 => 
   array (
     'name' => 'مدارس المنهل العذب الخاصة — ربك',
     'name_en' => 'Al-Manhal Al-Athib Private Schools - Rabak',
@@ -33544,6 +35376,8 @@ return array (
     'whatsapp' => '+249912448833',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من المؤسسات الرائدة بربك في التحصيل الأكاديمي والأنشطة الثقافية والمنافسات العلمية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -33553,7 +35387,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1036 => 
+  1029 => 
   array (
     'name' => 'مؤسسة د. أبو القاسم حسين الخاصة — ربك',
     'name_en' => 'Dr. Abulkasim Hussein Educational Institution - Rabak',
@@ -33577,6 +35411,8 @@ return array (
     'whatsapp' => '+249918557722',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح أكاديمي رصين يُعنى بالتميز في المساقات العلمية واللغوية وبناء الشخصية المتفوقة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -33586,7 +35422,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1037 => 
+  1030 => 
   array (
     'name' => 'مدارس بدر المعالي التربوية الخاصة — ربك',
     'name_en' => 'Badr Al-Maali Private Schools - Rabak',
@@ -33609,6 +35445,8 @@ return array (
     'whatsapp' => '+249112449988',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تربية حديثة قائمة على القيم الفاضلة والاهتمام بالقرآن والعلوم والتطبيقات العملية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -33618,7 +35456,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1038 => 
+  1031 => 
   array (
     'name' => 'مدرسة الإشراق الثانوية الخاصة — ربك',
     'name_en' => 'Al-Ishraq Private Secondary School - Rabak',
@@ -33640,6 +35478,8 @@ return array (
     'whatsapp' => '+249922884411',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'ثانوية متميزة حققت مراتب شرف على مستوى ولاية النيل الأبيض في الشهادة الثانوية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -33649,7 +35489,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1039 => 
+  1032 => 
   array (
     'name' => 'مدرسة المستقبل الخاصة — ربك',
     'name_en' => 'Al-Mustaqbal Private School - Rabak',
@@ -33672,6 +35512,8 @@ return array (
     'whatsapp' => '+249123556677',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة رائدة في استيعاب الطلاب وتقديم تعليم نوعي بمصروفات ميسرة وخدمات شاملة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -33681,7 +35523,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1040 => 
+  1033 => 
   array (
     'name' => 'مدارس الرواد النموذجية — ربك',
     'name_en' => 'Al-Ruwad Model Schools - Rabak',
@@ -33704,6 +35546,8 @@ return array (
     'whatsapp' => '+249915228833',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'بيئة تعليمية منضبطة تركز على صقل مهارات الطلاب الأكاديمية والقيادية منذ الصغر.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -33713,7 +35557,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1041 => 
+  1034 => 
   array (
     'name' => 'مدارس القبس الخاصة فرع ربك',
     'name_en' => 'Al-Qabas Private Schools - Rabak Branch',
@@ -33736,6 +35580,8 @@ return array (
     'whatsapp' => '+249118334455',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع متميز لمنظومة القبس، يقدم المنهج القيمي الأصيل ومناهج إثرائية في العلوم والحاسوب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -33745,7 +35591,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1042 => 
+  1035 => 
   array (
     'name' => 'مدارس الإيمان النموذجية — ربك',
     'name_en' => 'Al-Iman Model Schools - Rabak',
@@ -33768,6 +35614,8 @@ return array (
     'whatsapp' => '+249912663311',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تهتم بغرس الأخلاق الحميدة وحفظ القرآن الكريم مع التميز في المواد العلمية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -33777,7 +35625,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1043 => 
+  1036 => 
   array (
     'name' => 'مدارس دار الفكر — ربك',
     'name_en' => 'Dar Al-Fikr Schools - Rabak',
@@ -33800,6 +35648,8 @@ return array (
     'whatsapp' => '+249122778844',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة حديثة تضم كادراً متفانياً وتركز على التأسيس القوي في الرياضيات واللغة الإنجليزية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -33809,7 +35659,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1044 => 
+  1037 => 
   array (
     'name' => 'مدرسة الشروق الابتدائية الخاصة — ربك',
     'name_en' => 'Al-Shorooq Private Primary School - Rabak',
@@ -33831,6 +35681,8 @@ return array (
     'whatsapp' => '+249922446699',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تأسيس نوعي متميز ورعاية صحية ونفسية للطلاب مع بيئة جاذبة ومحفزة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -33840,7 +35692,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1045 => 
+  1038 => 
   array (
     'name' => 'مدارس الفاروق الخاصة — ربك',
     'name_en' => 'Al-Farooq Private Schools - Rabak',
@@ -33863,6 +35715,8 @@ return array (
     'whatsapp' => '+249115882233',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تضم نخبة من معلمي الشهادة الثانوية المشهود لهم بالكفاءة العالية في تدريس المساقات المختلفة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -33872,7 +35726,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1046 => 
+  1039 => 
   array (
     'name' => 'مدارس كنانة العالمية الخاصة',
     'name_en' => 'Kenana International Private Schools',
@@ -33896,6 +35750,8 @@ return array (
     'whatsapp' => '+249123558899',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تقدم المنهج البريطاني الدولي واللغات لأبناء العاملين والوافدين بأعلى المعايير العالمية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -33905,7 +35761,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1047 => 
+  1040 => 
   array (
     'name' => 'مدرسة كنانة جنوب المشتركة',
     'name_en' => 'Kenana South Joint School',
@@ -33928,6 +35784,8 @@ return array (
     'whatsapp' => '+249918772244',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة نموذجية توفر بيئة تفاعلية ممتازة مع أنشطة بيئية وتطبيقية فريدة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -33937,7 +35795,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1048 => 
+  1041 => 
   array (
     'name' => 'مدرسة كنانة الجديدة الخاصة',
     'name_en' => 'New Kenana Private School',
@@ -33960,6 +35818,8 @@ return array (
     'whatsapp' => '+249922553311',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تعتمد على أحدث الوسائط التعليمية والأنشطة الإثرائية في العلوم والرياضيات واللغات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -33969,7 +35829,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1049 => 
+  1042 => 
   array (
     'name' => 'مدارس سكر عسلاية النموذجية الخاصة',
     'name_en' => 'Asalaya Sugar Model Private Schools',
@@ -33993,6 +35853,8 @@ return array (
     'whatsapp' => '+249112448877',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس نموذجية عريقة تخدم مجمع العاملين ومواطني المنطقة بإمكانات متطورة وتعليم متفوق.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -34002,7 +35864,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1050 => 
+  1043 => 
   array (
     'name' => 'مدرسة النيل الأبيض الثانوية الخاصة — الدويم',
     'name_en' => 'White Nile Private Secondary School - El Dueim',
@@ -34024,6 +35886,8 @@ return array (
     'whatsapp' => '+249912884422',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أعرق المدارس الثانوية الخاصة بمدينة العلم والنور الدويم، كادر مخضرم ونتائج باهرة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -34033,7 +35897,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1051 => 
+  1044 => 
   array (
     'name' => 'مدرسة الدويم الثانوية الخاصة بنين وبنات',
     'name_en' => 'El Dueim Private Secondary School',
@@ -34055,6 +35919,8 @@ return array (
     'whatsapp' => '+249122557788',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح أكاديمي يستلهم إرث بخت الرضا التربوي في إعداد وتأهيل طلاب الشهادة السودانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -34064,7 +35930,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1052 => 
+  1045 => 
   array (
     'name' => 'مدارس الأقصى الخاصة — الدويم',
     'name_en' => 'Al-Aqsa Private Schools - El Dueim',
@@ -34087,6 +35953,8 @@ return array (
     'whatsapp' => '+249918336611',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة رائدة في بناء الأساس التعليمي والتربوي للطلاب والاهتمام بالقرآن الكريم واللغات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -34096,7 +35964,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1053 => 
+  1046 => 
   array (
     'name' => 'مدارس المجد الأهلية — الدويم',
     'name_en' => 'Al-Majd Private Schools - El Dueim',
@@ -34119,6 +35987,8 @@ return array (
     'whatsapp' => '+249115664422',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'بيئة دراسية جاذبة تعنى بتنمية الذكاء والإبداع لدى التلاميذ من خلال وسائل تعليمية مبتكرة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -34128,7 +35998,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1054 => 
+  1047 => 
   array (
     'name' => 'مدارس الأستاذ دفع الله عبد الدافع — القطينة',
     'name_en' => 'Dafallah Abdeldafe Private Schools - El Geteina',
@@ -34152,6 +36022,8 @@ return array (
     'whatsapp' => '+249912449955',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي رائد بمحلية القطينة، أسسه أحد أعلام التربية، ومشهود له بتخريج الأوائل.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -34161,7 +36033,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1055 => 
+  1048 => 
   array (
     'name' => 'مؤسسة الحكمة التربوية الخاصة — الجزيرة أبا',
     'name_en' => 'Al-Hikma Educational Institution - Aba Island',
@@ -34185,6 +36057,8 @@ return array (
     'whatsapp' => '+249918551133',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تربوي كبير في الجزيرة أبا يجمع بين القيم الوطنية والأخلاقية والتفوق الأكاديمي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -34194,7 +36068,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1056 => 
+  1049 => 
   array (
     'name' => 'مدارس الرائد الخاصة المشتركة — الجزيرة أبا',
     'name_en' => 'Al-Raid Private Schools - Aba Island',
@@ -34217,6 +36091,8 @@ return array (
     'whatsapp' => '+249922664477',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة رائدة في بناء التفوق العلمي ورعاية الموهوبين والأنشطة الأدبية والثقافية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -34226,7 +36102,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1057 => 
+  1050 => 
   array (
     'name' => 'مدارس الشيخ عبد الرحمن برة الخاصة — الجزيرة أبا',
     'name_en' => 'Sheikh Abdelrahman Berra Schools - Aba Island',
@@ -34249,6 +36125,8 @@ return array (
     'whatsapp' => '+249112775533',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'بيئة تعليمية وقرآنية متكاملة تقدم نموذجاً فريداً في التربية وبناء الشخصية المتوازنة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -34258,7 +36136,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1058 => 
+  1051 => 
   array (
     'name' => 'مدارس التميز للتعليم الخاص — تندلتي',
     'name_en' => 'Al-Tamayuz Private Schools - Tendelti',
@@ -34282,6 +36160,8 @@ return array (
     'whatsapp' => '+249124030462',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'أكبر مؤسسة تعليمية خاصة بمحلية تندلتي الحدودية، نتائج متفوقة وكادر تدريسي مقتدر.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -34291,7 +36171,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1059 => 
+  1052 => 
   array (
     'name' => 'مدارس دار الفكر الخاصة — الأبيض',
     'name_en' => 'Dar Al-Fikr Private Schools - El Obeid',
@@ -34315,6 +36195,8 @@ return array (
     'whatsapp' => '+249918911103',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من كبرى المؤسسات التعليمية الخاصة بعروس الرمال، قاعات نموذجية ومختبرات علمية وتفوق سنوي مشهود.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -34324,7 +36206,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1060 => 
+  1053 => 
   array (
     'name' => 'مدارس النجباء الثانوية الخاصة — الأبيض',
     'name_en' => 'Al-Nujaba Private Secondary Schools - El Obeid',
@@ -34346,6 +36228,8 @@ return array (
     'whatsapp' => '+249116150444',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'ثانوية رائدة بمدينة الأبيض، تمتلك فروعاً مجهزة للبنين والبنات وتخرج سنوياً أوائل الشهادة السودانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -34355,7 +36239,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1061 => 
+  1054 => 
   array (
     'name' => 'مدارس حمدتو الخاصة — الأبيض',
     'name_en' => 'Hamadto Private Schools - El Obeid',
@@ -34378,6 +36262,8 @@ return array (
     'whatsapp' => '+249122225384',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تربوية عريقة تُعنى بالتأسيس التعليمي المتين ورعاية المواهب والأنشطة الإبداعية للأطفال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -34387,7 +36273,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1062 => 
+  1055 => 
   array (
     'name' => 'مؤسسة الجيل الرائد التربوية الخاصة — الأبيض',
     'name_en' => 'Al-Jeel Al-Raed Educational Institution - El Obeid',
@@ -34411,6 +36297,8 @@ return array (
     'whatsapp' => '+249122300797',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح أكاديمي رائد يهتم بتعزيز القيم وبناء الشخصية المتوازنة وتحقيق أعلى معدلات التحصيل.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -34420,7 +36308,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1063 => 
+  1056 => 
   array (
     'name' => 'مدرسة القمم الثانوية الخاصة بنات — الأبيض',
     'name_en' => 'Al-Qimam Private Secondary School for Girls - El Obeid',
@@ -34442,6 +36330,8 @@ return array (
     'whatsapp' => '+249122946384',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة ثانوية متخصصة للبنات تحظى بسمعة أكاديمية مرموقة ونسب نجاح 100% في امتحانات الشهادة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -34451,7 +36341,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1064 => 
+  1057 => 
   array (
     'name' => 'مدرسة المتفوق الدولية الحديثة — الأبيض',
     'name_en' => 'Al-Mutafawweq Modern International School - El Obeid',
@@ -34475,6 +36365,8 @@ return array (
     'whatsapp' => '+249918911103',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تقدم برامج لغات متقدمة ووسائط تعليمية إلكترونية ومعامل حاسوب ورعاية أكاديمية مكثفة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -34484,7 +36376,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1065 => 
+  1058 => 
   array (
     'name' => 'مدرسة أبو راشد الخاصة — الأبيض',
     'name_en' => 'Abu Rashid Private School - El Obeid',
@@ -34507,6 +36399,8 @@ return array (
     'whatsapp' => '+249127099717',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة نموذجية توفر بيئة تربوية جاذبة وتدريساً متقناً للمواد العلمية واللغوية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -34516,7 +36410,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1066 => 
+  1059 => 
   array (
     'name' => 'مدارس التميز الابتدائية الخاصة — الأبيض',
     'name_en' => 'Al-Tamayuz Primary School - El Obeid',
@@ -34538,6 +36432,8 @@ return array (
     'whatsapp' => '+249123559988',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'متخصصة في التأسيس اللغوي والرياضي للأطفال وفق أحدث استراتيجيات التعلم التفاعلي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -34547,7 +36443,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1067 => 
+  1060 => 
   array (
     'name' => 'مدارس إقرأ النموذجية الخاصة — الأبيض',
     'name_en' => 'Iqraa Model Private Schools - El Obeid',
@@ -34570,6 +36466,8 @@ return array (
     'whatsapp' => '+249918773322',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تركز على القرآن الكريم وحفظه مع المنهج الدراسي الوزاري وبناء السلوك الإيجابي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -34579,7 +36477,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1068 => 
+  1061 => 
   array (
     'name' => 'مدارس تميز عروس الرمال الخاصة — الأبيض',
     'name_en' => 'Arous Al-Rimal Excellence Schools - El Obeid',
@@ -34603,6 +36501,8 @@ return array (
     'whatsapp' => '+249922448855',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح متميز يحمل اسم المدينة ويوفر بيئة دراسية متطورة وكادراً من كبار معلمي كردفان.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -34612,7 +36512,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1069 => 
+  1062 => 
   array (
     'name' => 'رياض ومدارس أفريقيا العالمية الخاصة — الأبيض',
     'name_en' => 'Africa International Schools - El Obeid',
@@ -34635,6 +36535,8 @@ return array (
     'whatsapp' => '+249112554477',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تجمع بين المناهج الإثرائية وبرامج الحاسوب والأنشطة الرياضية والكشفية الممتعة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -34644,7 +36546,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1070 => 
+  1063 => 
   array (
     'name' => 'مدارس الأذكياء الخاصة — الأبيض',
     'name_en' => 'Al-Azkia Private Schools - El Obeid',
@@ -34667,6 +36569,8 @@ return array (
     'whatsapp' => '+249912883344',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تهتم ببرامج الحساب الذهني وتطوير الذكاءات المتعددة وتنمية مهارات التفكير لدى الطلاب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -34676,7 +36580,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1071 => 
+  1064 => 
   array (
     'name' => 'مؤسسة العلياء التعليمية الخاصة — الأبيض',
     'name_en' => 'Al-Alia Educational Institution - El Obeid',
@@ -34700,6 +36604,8 @@ return array (
     'whatsapp' => '+249122668811',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة رائدة في التعليم الخاص بكردفان توفر بيئة دراسية محفزة ورعاية أكاديمية فائقة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -34709,7 +36615,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1072 => 
+  1065 => 
   array (
     'name' => 'مؤسسة أكسفورد التعليمية الخاصة — الأبيض',
     'name_en' => 'Oxford Educational Institution - El Obeid',
@@ -34732,6 +36638,8 @@ return array (
     'whatsapp' => '+249918337744',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'برامج لغة إنجليزية مكثفة وتدريب على مهارات الحاسوب والخطابة والإلقاء المسرحي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -34741,7 +36649,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1073 => 
+  1066 => 
   array (
     'name' => 'مدارس الأسرة الثانوية الخاصة النموذجية — الأبيض',
     'name_en' => 'Al-Osra Model Private Secondary Schools - El Obeid',
@@ -34763,6 +36671,8 @@ return array (
     'whatsapp' => '+249922551133',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة ثانوية نموذجية خاصة تركز على التفوق الأكاديمي والتحصيل العالي في المساقين العلمي والأدبي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -34772,7 +36682,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1074 => 
+  1067 => 
   array (
     'name' => 'مدرسة الدوحة النموذجية الخاصة — الأبيض',
     'name_en' => 'Al-Doha Model Private School - El Obeid',
@@ -34795,6 +36705,8 @@ return array (
     'whatsapp' => '+249118442266',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'بيئة تعليمية جاذبة وملاعب آمنة وفصول مهيأة تضمن راحة التلميذ وتفوقه المستمر.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -34804,7 +36716,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1075 => 
+  1068 => 
   array (
     'name' => 'مدرسة الصفا الخاصة — الأبيض',
     'name_en' => 'Al-Safa Private School - El Obeid',
@@ -34827,6 +36739,8 @@ return array (
     'whatsapp' => '+249915229988',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة متميزة بالانضباط وحسن المتابعة الدورية مع أولياء الأمور وتقارير التحصيل.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -34836,7 +36750,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1076 => 
+  1069 => 
   array (
     'name' => 'مدارس المنار النموذجية الخاصة — الأبيض',
     'name_en' => 'Al-Manar Model Schools - El Obeid',
@@ -34859,6 +36773,8 @@ return array (
     'whatsapp' => '+249123774455',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر كادراً مؤهلاً ومختبرات علمية وتدريساً نموذجياً يغرس روح التنافس الشريف.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -34868,7 +36784,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1077 => 
+  1070 => 
   array (
     'name' => 'مدرسة الفاروق الأساسية الخاصة — الأبيض',
     'name_en' => 'Al-Farooq Private Primary School - El Obeid',
@@ -34890,6 +36806,8 @@ return array (
     'whatsapp' => '+249912996633',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تأسيس نوعي متميز في القراءة والقرآن والرياضيات بإشراف تربويات مقتدرات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -34899,7 +36817,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1078 => 
+  1071 => 
   array (
     'name' => 'مدارس الهدى الأهلية — الأبيض',
     'name_en' => 'Al-Huda Private Schools - El Obeid',
@@ -34922,6 +36840,8 @@ return array (
     'whatsapp' => '+249115338822',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة رائدة في استيعاب الطلاب وتقديم رعاية تعليمية ونفسية متميزة لكافة المراحل.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -34931,7 +36851,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1079 => 
+  1072 => 
   array (
     'name' => 'مدرسة النبراس الخاصة بنات — الأبيض',
     'name_en' => 'Al-Nebras Private School for Girls - El Obeid',
@@ -34954,6 +36874,8 @@ return array (
     'whatsapp' => '+249922887744',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة للبنات توفر بيئة هادئة وآمنة وتدريساً متقدماً في المواد العلمية والأدبية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -34963,7 +36885,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1080 => 
+  1073 => 
   array (
     'name' => 'مدرسة الشهيد عبدالرحيم محمد المتوسطة الخاصة — أم روابة',
     'name_en' => 'Shaheed Abdelrahim Mohamed Private School - Umm Ruwaba',
@@ -34985,6 +36907,8 @@ return array (
     'whatsapp' => '+249110666021',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي نموذجي للمرحلة المتوسطة بمقرين منفصلين للبنين والبنات وكادر تعليمي متميز.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -34994,7 +36918,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1081 => 
+  1074 => 
   array (
     'name' => 'مدارس ورياض الفردوس الخاصة — أم روابة',
     'name_en' => 'Al-Fardous Private Schools - Umm Ruwaba',
@@ -35017,6 +36941,8 @@ return array (
     'whatsapp' => '+249912337755',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أقدم وأعرق المدارس الخاصة بأم روابة، رائدة في التأسيس الأكاديمي والأنشطة المدرسية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -35026,7 +36952,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1082 => 
+  1075 => 
   array (
     'name' => 'مدرسة أم روابة الخاصة المشتركة',
     'name_en' => 'Umm Ruwaba Private Joint School',
@@ -35050,6 +36976,8 @@ return array (
     'whatsapp' => '+249122446688',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تقدم تعليماً شاملاً لكافة المراحل ومتابعة أسبوعية دقيقة للتحصيل الدراسي للطلاب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -35059,7 +36987,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1083 => 
+  1076 => 
   array (
     'name' => 'مدارس التضامن الأهلية — أم روابة',
     'name_en' => 'Al-Tadamun Private Schools - Umm Ruwaba',
@@ -35082,6 +37010,8 @@ return array (
     'whatsapp' => '+249918553311',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'بيئة دراسية مستقرة تركز على تعليم التفكير وحل المشكلات ورعاية الموهوبين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -35091,7 +37021,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1084 => 
+  1077 => 
   array (
     'name' => 'مدرسة النهضة النموذجية الخاصة — أم روابة',
     'name_en' => 'Al-Nahda Model School - Umm Ruwaba',
@@ -35114,6 +37044,8 @@ return array (
     'whatsapp' => '+249922771144',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'ثانوية متميزة في المساقات العلمية والأدبية ومعسكرات مكثفة لطلاب الشهادة السودانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -35123,7 +37055,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1085 => 
+  1078 => 
   array (
     'name' => 'مدارس براعم الغد — أم روابة',
     'name_en' => 'Baraem Al-Ghad Schools - Umm Ruwaba',
@@ -35145,6 +37077,8 @@ return array (
     'whatsapp' => '+249112884433',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'متخصصة في رياض الأطفال والسنوات الأولى للتعليم الأساسي بألعاب تربوية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -35154,7 +37088,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1086 => 
+  1079 => 
   array (
     'name' => 'رياض ومدارس الجيل الذكي الخاصة — الرهد',
     'name_en' => 'Smart Generation Private Schools - Er Rahad',
@@ -35177,6 +37111,8 @@ return array (
     'whatsapp' => '+249912774422',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة حديثة تُعنى بالتأسيس الذكي والوسائل التعليمية الرقمية والتفوق الدراسي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -35186,7 +37122,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1087 => 
+  1080 => 
   array (
     'name' => 'مدرسة الرهد الثانوية الأهلية الخاصة',
     'name_en' => 'Er Rahad Private Secondary School',
@@ -35208,6 +37144,8 @@ return array (
     'whatsapp' => '+249922335577',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'ثانوية خاصة تقدم تدريساً نموذجياً وحصص تركيز ومعسكرات إعدادية للشهادة السودانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -35217,7 +37155,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1088 => 
+  1081 => 
   array (
     'name' => 'مدرسة بارا الثانوية الخاصة المشتركة',
     'name_en' => 'Bara Private Secondary School',
@@ -35239,6 +37177,8 @@ return array (
     'whatsapp' => '+249912558822',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أقدم المدارس الخاصة بمدينة بارا التاريخية، كادر مؤهل ونتائج مشرفة في الشهادة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -35248,7 +37188,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1089 => 
+  1082 => 
   array (
     'name' => 'مدارس واحة بارا النموذجية الخاصة',
     'name_en' => 'Bara Oasis Model Private Schools',
@@ -35271,6 +37211,8 @@ return array (
     'whatsapp' => '+249122994466',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'بيئة تعليمية فريدة في واحة بارا، تركز على غرس القيم وحب التعلم والأنشطة البيئية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -35280,7 +37222,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1090 => 
+  1083 => 
   array (
     'name' => 'مدرسة الأمل الابتدائية الخاصة — بارا',
     'name_en' => 'Al-Amal Private Primary School - Bara',
@@ -35302,6 +37244,8 @@ return array (
     'whatsapp' => '+249118337722',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تأسيس نوعي متميز في القراءة والكتابة والرياضيات بإشراف نخبة من معلمات بارا.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -35311,7 +37255,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1091 => 
+  1084 => 
   array (
     'name' => 'مدرسة العوالي الخاصة — كادوقلي',
     'name_en' => 'Al-Awali Private School - Kadugli',
@@ -35334,6 +37278,8 @@ return array (
     'whatsapp' => '+249123557799',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة متميزة تحقق سنوياً مراكز متقدمة في امتحانات شهادة المرحلة الأساسية والمتوسطة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -35343,7 +37289,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1092 => 
+  1085 => 
   array (
     'name' => 'مجمع مدارس التوحيد النموذجية الخاصة / الهداية — كادوقلي',
     'name_en' => 'Al-Tawheed Model Schools - Kadugli',
@@ -35367,6 +37313,8 @@ return array (
     'whatsapp' => '+249918774433',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع تعليمي إسلامي نموذجي يجمع بين حفظ القرآن والتحصيل الأكاديمي الرفيع في المواد العلمية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -35376,7 +37324,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1093 => 
+  1086 => 
   array (
     'name' => 'مدرسة الأندلس الخاصة بنات — كادوقلي',
     'name_en' => 'Al-Andalus Private School for Girls - Kadugli',
@@ -35399,6 +37347,8 @@ return array (
     'whatsapp' => '+249922881166',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح مخصص للبنات يوفر بيئة دراسية وتربوية آمنة بإشراف معلمات متميزات وتفوق مشهود.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -35408,7 +37358,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1094 => 
+  1087 => 
   array (
     'name' => 'مدارس الصفا النموذجية الخاصة — كادوقلي',
     'name_en' => 'Al-Safa Model Private Schools - Kadugli',
@@ -35431,6 +37381,8 @@ return array (
     'whatsapp' => '+249112663344',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة رائدة في استقرار الدراسة والاهتمام بمستوى الطلاب الفردي ورعاية المتفوقين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -35440,7 +37392,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1095 => 
+  1088 => 
   array (
     'name' => 'مدرسة السلام الخاصة المشتركة — كادوقلي',
     'name_en' => 'Al-Salam Private School - Kadugli',
@@ -35463,6 +37415,8 @@ return array (
     'whatsapp' => '+249915338822',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تركز على غرس روح السلام والتعايش الإيجابي مع التحصيل العلمي الممتاز في المقررات الوزارية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -35472,7 +37426,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1096 => 
+  1089 => 
   array (
     'name' => 'مدارس النور الأهلية — كادوقلي',
     'name_en' => 'Al-Noor Private Schools - Kadugli',
@@ -35496,6 +37450,8 @@ return array (
     'whatsapp' => '+249122884455',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح أكاديمي يقدم دعماً دراسياً مستمراً لطلاب الشهادة السودانية مع أساتذة متخصصين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -35505,7 +37461,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1097 => 
+  1090 => 
   array (
     'name' => 'مدارس الرواد الخاصة — كادوقلي',
     'name_en' => 'Al-Ruwad Private Schools - Kadugli',
@@ -35527,6 +37483,8 @@ return array (
     'whatsapp' => '+249918229911',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تهتم بالمراحل التأسيسية للأطفال مع أنشطة إثرائية ورياضية مبهجة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -35536,7 +37494,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1098 => 
+  1091 => 
   array (
     'name' => 'مدرسة الفجر الابتدائية — كادوقلي',
     'name_en' => 'Al-Fajr Primary School - Kadugli',
@@ -35558,6 +37516,8 @@ return array (
     'whatsapp' => '+249922447733',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تأسيس نوعي متين للأطفال في القراءة والحساب والعلوم مع رعاية تربوية حانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -35567,7 +37527,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1099 => 
+  1092 => 
   array (
     'name' => 'مدارس الأمل الواعد — كادوقلي',
     'name_en' => 'Al-Amal Al-Waed Schools - Kadugli',
@@ -35590,6 +37550,8 @@ return array (
     'whatsapp' => '+249118556622',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'بيئة تعليمية جاذبة توفر خدمات تعليمية متطورة للأسر المقيمة والوافدة بكادوقلي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -35599,7 +37561,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1100 => 
+  1093 => 
   array (
     'name' => 'مدرسة إقرأ الابتدائية الخاصة — الدلنج',
     'name_en' => 'Iqraa Private Primary School - Dilling',
@@ -35621,6 +37583,8 @@ return array (
     'whatsapp' => '+249912884411',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة رائدة في التأسيس التعليمي والقيمي للأطفال في مدينة الدلنج العريقة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -35630,7 +37594,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1101 => 
+  1094 => 
   array (
     'name' => 'مدرسة الشيماء الخاصة — الدلنج',
     'name_en' => 'Al-Shaimaa Private School - Dilling',
@@ -35653,6 +37617,8 @@ return array (
     'whatsapp' => '+249123775588',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة مشهود لها بحسن الإدارة والانضباط والتفوق الأكاديمي في امتحانات النقل.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -35662,7 +37628,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1102 => 
+  1095 => 
   array (
     'name' => 'مدرسة المنهل الثانوية الخاصة — الدلنج',
     'name_en' => 'Al-Manhal Private Secondary School - Dilling',
@@ -35684,6 +37650,8 @@ return array (
     'whatsapp' => '+249918332277',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'ثانوية متميزة تستقطب أساتذة جامعة الدلنج وكبار موجهي التربية لتدريس طلاب الشهادة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -35693,7 +37661,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1103 => 
+  1096 => 
   array (
     'name' => 'مدرسة النور الخاصة المشتركة — الدلنج',
     'name_en' => 'Al-Noor Private Joint School - Dilling',
@@ -35716,6 +37684,8 @@ return array (
     'whatsapp' => '+249112447755',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تركز على غرس السلوك القويم وحفظ القرآن الكريم مع التميز في المواد العلمية واللغات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -35725,7 +37695,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1104 => 
+  1097 => 
   array (
     'name' => 'مدارس المعالي الخاصة — الدلنج',
     'name_en' => 'Al-Maali Private Schools - Dilling',
@@ -35748,6 +37718,8 @@ return array (
     'whatsapp' => '+249915883322',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة رائدة في استيعاب الطلاب وتقديم رعاية تعليمية مستمرة ونتائج متميزة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -35757,7 +37729,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1105 => 
+  1098 => 
   array (
     'name' => 'مدرسة براعم المستقبل — الدلنج',
     'name_en' => 'Future Buds School - Dilling',
@@ -35779,6 +37751,8 @@ return array (
     'whatsapp' => '+249122339944',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'متخصصة في رياض الأطفال والتعليم المبكر وفق استراتيجيات التفكير والتعلم النشط.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -35788,7 +37762,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1106 => 
+  1099 => 
   array (
     'name' => 'مدارس النجاح الأهلية — الدلنج',
     'name_en' => 'Al-Najah Private Schools - Dilling',
@@ -35811,6 +37785,8 @@ return array (
     'whatsapp' => '+249918664411',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'بيئة تعليمية منضبطة تركز على التحصيل الأكاديمي والأنشطة الثقافية والرياضية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -35820,7 +37796,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1107 => 
+  1100 => 
   array (
     'name' => 'مدرسة عالم الفكر الخاصة بنين — أبو جبيهة',
     'name_en' => 'Alem Al-Fikr Private School for Boys - Abu Jubayhah',
@@ -35843,6 +37819,8 @@ return array (
     'whatsapp' => '+249912338844',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أشهر المدارس الخاصة بأبو جبيهة، حقق طلابها مراكز متقدمة على مستوى ولاية جنوب كردفان.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -35852,7 +37830,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1108 => 
+  1101 => 
   array (
     'name' => 'مدرسة المعالي الخاصة بنين — أبو جبيهة',
     'name_en' => 'Al-Maali Private School for Boys - Abu Jubayhah',
@@ -35875,6 +37853,8 @@ return array (
     'whatsapp' => '+249122559933',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة متميزة للبنين تشتهر بالكادر الأكاديمي المقتدر وحصص التركيز لمعسكرات الامتحانات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -35884,7 +37864,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1109 => 
+  1102 => 
   array (
     'name' => 'مدرسة مصعب بن عمير الخاصة — أبو جبيهة',
     'name_en' => 'Musab Ibn Omair Private School - Abu Jubayhah',
@@ -35907,6 +37887,8 @@ return array (
     'whatsapp' => '+249918771155',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي يعنى بالتربية الإسلامية الأصيلة والمنهج الأكاديمي القومي مع نتائج باهرة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -35916,7 +37898,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1110 => 
+  1103 => 
   array (
     'name' => 'مدارس المنار الجديد الثانوية الخاصة — أبو جبيهة',
     'name_en' => 'Al-Manar Al-Jadeed Private Secondary Schools - Abu Jubayhah',
@@ -35938,6 +37920,8 @@ return array (
     'whatsapp' => '+249922443388',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'ثانوية نموذجية خاصة تضم المساقين العلمي والأدبي ومجهزة بمختبرات علمية للامتحانات المعملية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -35947,7 +37931,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1111 => 
+  1104 => 
   array (
     'name' => 'مدارس نور المعرفة الخاصة — أبو جبيهة',
     'name_en' => 'Noor Al-Maarifa Private Schools - Abu Jubayhah',
@@ -35969,6 +37953,8 @@ return array (
     'whatsapp' => '+249115886622',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة خاصة متخصصة في التأسيس التعليمي التفاعلي والتربية السلوكية الإيجابية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -35978,7 +37964,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1112 => 
+  1105 => 
   array (
     'name' => 'مدرسة الإشراق القرآنية — أبو جبيهة',
     'name_en' => 'Al-Ishraq Quranic School - Abu Jubayhah',
@@ -36001,6 +37987,8 @@ return array (
     'whatsapp' => '+249915227744',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تجمع بين المنهج الوزاري المعتمد وبرنامج حفظ وتجويد القرآن الكريم على يد مشايخ معتمدين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -36010,7 +37998,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1113 => 
+  1106 => 
   array (
     'name' => 'مدرسة رشاد النموذجية الأهلية الخاصة',
     'name_en' => 'Rashad Model Private School',
@@ -36033,6 +38021,8 @@ return array (
     'whatsapp' => '+249123448811',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي يخدم محلية رشاد وجبال تقلي التاريخية بتقديم تعليم نوعي وبيئة نموذجية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -36042,7 +38032,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1114 => 
+  1107 => 
   array (
     'name' => 'مدارس كردفان الثانوية الخاصة — النهود',
     'name_en' => 'Kordofan Private Secondary Schools - En Nuhud',
@@ -36064,6 +38054,8 @@ return array (
     'whatsapp' => '+249912336677',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أشهر وأعرق المدارس الثانوية الخاصة بالنهود، تحقق مراكز متقدمة وأوائل على مستوى الولاية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -36073,7 +38065,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1115 => 
+  1108 => 
   array (
     'name' => 'مدارس كردفان الخاصة لمرحلتي الأساس والمتوسط — النهود',
     'name_en' => 'Kordofan Primary & Intermediate Private Schools - En Nuhud',
@@ -36096,6 +38088,8 @@ return array (
     'whatsapp' => '+249123884455',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي متكامل للتأسيس الأكاديمي المتين وتنمية مهارات التفكير لدى الناشئة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -36105,7 +38099,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1116 => 
+  1109 => 
   array (
     'name' => 'مدارس الصفوة الخاصة — النهود',
     'name_en' => 'Al-Safwa Private Schools - En Nuhud',
@@ -36129,6 +38123,8 @@ return array (
     'whatsapp' => '+249918236896',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'منظومة تعليمية رائدة مشهود لها بالانضباط الإداري والتميز الأكاديمي والأنشطة الثقافية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -36138,7 +38134,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1117 => 
+  1110 => 
   array (
     'name' => 'مدارس الأوائل الثانوية الخاصة — النهود',
     'name_en' => 'Al-Awael Private Secondary Schools - En Nuhud',
@@ -36160,6 +38156,8 @@ return array (
     'whatsapp' => '+249922557711',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة ثانوية نموذجية خاصة تخرج منها كوكبة من طلاب كليات القمة بالجامعات السودانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -36169,7 +38167,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1118 => 
+  1111 => 
   array (
     'name' => 'مدارس العلا الثانوية الخاصة — النهود',
     'name_en' => 'Al-Ula Private Secondary Schools - En Nuhud',
@@ -36191,6 +38189,8 @@ return array (
     'whatsapp' => '+249112448833',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'كادر تدريسي متفرغ ونسب نجاح عالية وحصص تركيز مكثفة لطلاب الشهادة السودانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -36200,7 +38200,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1119 => 
+  1112 => 
   array (
     'name' => 'مدارس المنى الخاصة — النهود',
     'name_en' => 'Al-Muna Private Schools - En Nuhud',
@@ -36223,6 +38223,8 @@ return array (
     'whatsapp' => '+249915772244',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'بيئة تعليمية جاذبة ونظيفة تعتني بالتحصيل العلمي والأنشطة اللاصفية والتربية السلوكية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -36232,7 +38234,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1120 => 
+  1113 => 
   array (
     'name' => 'مجمع مدارس الشيخ محمد عبيد آل مكتوم النموذجية — النهود',
     'name_en' => 'Sheikh Mohammed Obeid Al Maktoum Model Schools - En Nuhud',
@@ -36256,6 +38258,8 @@ return array (
     'whatsapp' => '+249122996633',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع تعليمي فخم ومجهز بأفضل المعامل والمكتبات ويقدم تدريساً نموذجياً علمياً رفيعاً.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -36265,7 +38269,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1121 => 
+  1114 => 
   array (
     'name' => 'مدارس الرواد الخاصة — النهود',
     'name_en' => 'Al-Ruwad Private Schools - En Nuhud',
@@ -36288,6 +38292,8 @@ return array (
     'whatsapp' => '+249918443388',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تربوي يركز على التعليم التأسيسي وغرس الثقة بالنفس والمهارات اللغوية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -36297,7 +38303,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1122 => 
+  1115 => 
   array (
     'name' => 'مدرسة الشروق الابتدائية — النهود',
     'name_en' => 'Al-Shorooq Primary School - En Nuhud',
@@ -36319,6 +38325,8 @@ return array (
     'whatsapp' => '+249922884422',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تأسيس نوعي متميز في القراءة والكتابة والرياضيات بإشراف كفاءات نسائية متخصصة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -36328,7 +38336,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1123 => 
+  1116 => 
   array (
     'name' => 'مدارس التميز النموذجية — النهود',
     'name_en' => 'Al-Tamayuz Model Schools - En Nuhud',
@@ -36351,6 +38359,8 @@ return array (
     'whatsapp' => '+249118335577',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تتميز بمتابعة لصيقة لمستوى التحصيل الفردي للطلاب وتقارير أسبوعية منتظمة لأولياء الأمور.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -36360,7 +38370,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1124 => 
+  1117 => 
   array (
     'name' => 'مدرسة النخبة الأهلية — النهود',
     'name_en' => 'Al-Nukhba Private School - En Nuhud',
@@ -36383,6 +38393,8 @@ return array (
     'whatsapp' => '+249912771199',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تركز على استقرار العام الدراسي وإنجاز المقررات في وقت مبكر والمراجعات المكثفة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -36392,7 +38404,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1125 => 
+  1118 => 
   array (
     'name' => 'مدرسة الفولة الثانوية النموذجية الخاصة',
     'name_en' => 'Al-Fula Model Private Secondary School',
@@ -36414,6 +38426,8 @@ return array (
     'whatsapp' => '+249912448822',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المدرسة الخاصة الأبرز في حاضرة غرب كردفان، كادر تعليمي متفانٍ ونتائج متميزة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -36423,7 +38437,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1126 => 
+  1119 => 
   array (
     'name' => 'مدارس الرواد الخاصة — الفولة',
     'name_en' => 'Al-Ruwad Private Schools - Al-Fula',
@@ -36446,6 +38460,8 @@ return array (
     'whatsapp' => '+249122553377',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'بيئة تعليمية منضبطة تخدم أبناء العاملين ومواطني المدينة بتعليم نوعي حديث.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -36455,7 +38471,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1127 => 
+  1120 => 
   array (
     'name' => 'مدارس السلام الابتدائية الخاصة — الفولة',
     'name_en' => 'Al-Salam Private Primary Schools - Al-Fula',
@@ -36477,6 +38493,8 @@ return array (
     'whatsapp' => '+249918662244',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تهتم برعاية الطفولة المبكرة والتأسيس التعليمي المتين والأخلاق الحميدة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -36486,7 +38504,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1128 => 
+  1121 => 
   array (
     'name' => 'مدرسة الأمل الأهلية — الفولة',
     'name_en' => 'Al-Amal Private School - Al-Fula',
@@ -36509,6 +38527,8 @@ return array (
     'whatsapp' => '+249922339911',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي يهدف لتوفير فرص تعليمية مستقرة ورعاية شاملة للطلاب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -36518,7 +38538,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1129 => 
+  1122 => 
   array (
     'name' => 'مدرسة الخدمات الخاصة الأهلية — بابنوسة',
     'name_en' => 'Al-Khadamat Private School - Babanusa',
@@ -36542,6 +38562,8 @@ return array (
     'whatsapp' => '+249912554488',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أقدم المدارس الأهلية الخاصة بمدينة السكة حديد بابنوسة، تاريخ حافل بالبذل والتعليم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -36551,7 +38573,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1130 => 
+  1123 => 
   array (
     'name' => 'مدارس بابنوسة الحديثة النموذجية',
     'name_en' => 'Babanusa Modern Model Schools',
@@ -36574,6 +38596,8 @@ return array (
     'whatsapp' => '+249123771155',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة نموذجية توفر تعليماً متميزاً وكادراً من خيرة معلمي كردفان.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -36583,7 +38607,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1131 => 
+  1124 => 
   array (
     'name' => 'مدارس المجلد النموذجية الخاصة',
     'name_en' => 'Al-Muglad Model Private Schools',
@@ -36607,6 +38631,8 @@ return array (
     'whatsapp' => '+249918339944',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'أكبر مؤسسة تعليمية خاصة بمحلية أبيي والمجلد، تقدم تعليماً متقدماً ورعاية أكاديمية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -36616,7 +38642,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1132 => 
+  1125 => 
   array (
     'name' => 'مدارس السلام الأهلية — المجلد',
     'name_en' => 'Al-Salam Private Schools - Al-Muglad',
@@ -36639,6 +38665,8 @@ return array (
     'whatsapp' => '+249922775533',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'بيئة تعليمية آمنة تركز على غرس القيم والتفوق في المواد العلمية واللغوية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -36648,7 +38676,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1133 => 
+  1126 => 
   array (
     'name' => 'مدارس الكرامة للتعليم الأساسي والمتوسط — الخوي',
     'name_en' => 'Al-Karama Schools - El Khowei',
@@ -36671,6 +38699,8 @@ return array (
     'whatsapp' => '+249115448822',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة خاصة طموحة تخدم مدينة الخوي بتقديم تعليم نموذجي تأسيسي متطور.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -36680,7 +38710,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1134 => 
+  1127 => 
   array (
     'name' => 'سلسلة مدارس باخت الخاصة — نيالا',
     'name_en' => 'Bakht Private Schools - Nyala',
@@ -36704,6 +38734,8 @@ return array (
     'whatsapp' => '+249912335544',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أوسع وأشهر سلاسل المدارس الخاصة بنيالا، نتائج مبهرة وتخريج أوائل الشهادة الثانوية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -36713,7 +38745,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1135 => 
+  1128 => 
   array (
     'name' => 'مدارس الوالدين الثانوية الخاصة — نيالا',
     'name_en' => 'Al-Waledayn Private Secondary Schools - Nyala',
@@ -36735,6 +38767,8 @@ return array (
     'whatsapp' => '+249122447788',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح أكاديمي متميز يضم فروعاً منفصلة للبنين والبنات وكادراً تدريسياً من كبار موجهي التربية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -36744,7 +38778,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1136 => 
+  1129 => 
   array (
     'name' => 'مدارس ورياض إسبارك الإنجليزية العالمية الخاصة — نيالا',
     'name_en' => 'Spark English International Schools - Nyala',
@@ -36767,6 +38801,8 @@ return array (
     'whatsapp' => '+249918776633',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس لغات عالمية حديثة توفر تعليماً تفاعلياً وتدريباً متقدماً على التفكير المنطقي والابتكار.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -36776,7 +38812,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1137 => 
+  1130 => 
   array (
     'name' => 'مدارس وقف المعارف التركية الدولية — نيالا',
     'name_en' => 'Turkish Maarif Foundation Schools - Nyala',
@@ -36800,6 +38836,8 @@ return array (
     'whatsapp' => '+249922551188',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي دولي مجهز بأحدث المختبرات والتقنيات وتدريس اللغات بإشراف مؤسسة المعارف الدولية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -36809,7 +38847,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1138 => 
+  1131 => 
   array (
     'name' => 'مجمع مدارس سلطان عيسى الساير الخاصة — نيالا',
     'name_en' => 'Sultan Issa Al-Sayer Private Schools - Nyala',
@@ -36833,6 +38871,8 @@ return array (
     'whatsapp' => '+249112883355',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع تربوي خيري وتعليمي كبير يقدم خدمات تعليمية متطورة ومكتبة ضخمة ومرافق رياضية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -36842,7 +38882,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1139 => 
+  1132 => 
   array (
     'name' => 'مدرسة العناية الخاصة — نيالا',
     'name_en' => 'Al-Enaya Private School - Nyala',
@@ -36865,6 +38905,8 @@ return array (
     'whatsapp' => '+249915442299',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'بيئة تعليمية متميزة تعنى بالرعاية الشاملة للطلاب ومتابعة مستوياتهم الأكاديمية بدقة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -36874,7 +38916,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1140 => 
+  1133 => 
   array (
     'name' => 'منظومة مدارس الفوز الثانوية الخاصة — نيالا',
     'name_en' => 'Al-Fawz Private Secondary Schools - Nyala',
@@ -36896,6 +38938,8 @@ return array (
     'whatsapp' => '+249123664411',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'ثانوية نموذجية خاصة تركز على التفوق الأكاديمي والتحصيل العالي في المساقين العلمي والأدبي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -36905,7 +38949,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1141 => 
+  1134 => 
   array (
     'name' => 'مدرسة التجاني الثانوية الخاصة — نيالا',
     'name_en' => 'Al-Tijani Private Secondary School - Nyala',
@@ -36927,6 +38971,8 @@ return array (
     'whatsapp' => '+249918228855',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أقدم وأعرق المدارس الثانوية الخاصة بجنوب دارفور، كادر مخضرم وتاريخ حافل بالتفوق.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -36936,7 +38982,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1142 => 
+  1135 => 
   array (
     'name' => 'مدارس السراج المنير الخاصة — نيالا',
     'name_en' => 'Al-Siraj Al-Muneer Private Schools - Nyala',
@@ -36959,6 +39005,8 @@ return array (
     'whatsapp' => '+249922449933',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تهتم بغرس الأخلاق والقرآن الكريم واللغة العربية إلى جانب المنهج الأكاديمي الحديث.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -36968,7 +39016,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1143 => 
+  1136 => 
   array (
     'name' => 'أكاديمية شمس الدين الخاصة — نيالا',
     'name_en' => 'Shams El-Din Private Academy - Nyala',
@@ -36991,6 +39039,8 @@ return array (
     'whatsapp' => '+249118557744',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'أكاديمية حديثة توفر معسكرات مكثفة وقاعات مكيفة ومتابعة دورية مستمرة مع أولياء الأمور.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -37000,7 +39050,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1144 => 
+  1137 => 
   array (
     'name' => 'مدارس آفاق المستقبل الخاصة — نيالا',
     'name_en' => 'Afaq Al-Mustaqbal Private Schools - Nyala',
@@ -37023,6 +39073,8 @@ return array (
     'whatsapp' => '+249912993311',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة رائدة في استيعاب الطلاب وتقديم تعليم متطور يواكب المعايير التربوية الحديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -37032,7 +39084,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1145 => 
+  1138 => 
   array (
     'name' => 'مدارس كاس الأهلية النموذجية الخاصة',
     'name_en' => 'Kass Model Private Schools',
@@ -37056,6 +39108,8 @@ return array (
     'whatsapp' => '+249122885522',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي يخدم محلية كاس بمراحلها المختلفة ويوفر بيئة دراسية مستقرة ومحفزة للنجاح.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -37065,7 +39119,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1146 => 
+  1139 => 
   array (
     'name' => 'مدارس الوسام الثانوية الخاصة — الفاشر',
     'name_en' => 'Al-Wissam Private Secondary Schools - El Fasher',
@@ -37087,6 +39141,8 @@ return array (
     'whatsapp' => '+249912447711',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أشهر المدارس الثانوية الخاصة بالفاشر، حققت مراكز أولى في امتحانات الشهادة السودانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -37096,7 +39152,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1147 => 
+  1140 => 
   array (
     'name' => 'مدرسة الفردوس الثانوية الخاصة — الفاشر',
     'name_en' => 'Al-Fardous Private Secondary School - El Fasher',
@@ -37118,6 +39174,8 @@ return array (
     'whatsapp' => '+249123558822',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'ثانوية نموذجية خاصة تضم كوكبة من أساتذة المواد العلمية والأدبية ومعسكرات مراجعة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -37127,7 +39185,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1148 => 
+  1141 => 
   array (
     'name' => 'مدارس ورياض أبوقرون الخاصة — الفاشر',
     'name_en' => 'Abu Qurun Private Schools - El Fasher',
@@ -37150,6 +39208,8 @@ return array (
     'whatsapp' => '+249918663344',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة عريقة تُعنى بالتعليم التأسيسي ورعاية الطفولة المبكرة والأنشطة الإبداعية المتعددة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -37159,7 +39219,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1149 => 
+  1142 => 
   array (
     'name' => 'مدرسة دار العلوم الثانوية الخاصة — الفاشر',
     'name_en' => 'Dar Al-Uloom Private Secondary School - El Fasher',
@@ -37181,6 +39241,8 @@ return array (
     'whatsapp' => '+249922338877',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح أكاديمي رائد بالمدينة يوفر تدريساً متقناً للمساقات المختلفة ورعاية فائقة للطلاب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -37190,7 +39252,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1150 => 
+  1143 => 
   array (
     'name' => 'مدارس الرتاج للتعليم الخاص — الفاشر',
     'name_en' => 'Al-Ritaj Private Schools - El Fasher',
@@ -37213,6 +39275,8 @@ return array (
     'whatsapp' => '+249112774499',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة متميزة بالانضباط وحسن المتابعة الدورية للطلاب وتوفير بيئة تعليمية جاذبة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -37222,7 +39286,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1151 => 
+  1144 => 
   array (
     'name' => 'مدرسة الأشقاء العالمية — الفاشر',
     'name_en' => 'Al-Ashiqqa International School - El Fasher',
@@ -37245,6 +39309,8 @@ return array (
     'whatsapp' => '+249915331188',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تهتم بتعليم اللغات والحاسوب والعلوم الحديثة وفق معايير تربوية عالية الجودة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -37254,7 +39320,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1152 => 
+  1145 => 
   array (
     'name' => 'مدارس سبيل الخاصة — الفاشر',
     'name_en' => 'Sabeel Private Schools - El Fasher',
@@ -37277,6 +39343,8 @@ return array (
     'whatsapp' => '+249122449966',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة رائدة في استيعاب الطلاب وتقديم رعاية تعليمية مستمرة ونتائج متميزة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -37286,7 +39354,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1153 => 
+  1146 => 
   array (
     'name' => 'مجمع محمود للتعليم الخاص — كبكابية',
     'name_en' => 'Mahmoud Educational Complex - Kabkabiya',
@@ -37309,6 +39377,8 @@ return array (
     'whatsapp' => '+249918557733',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي يخدم أهالي محلية كبكابية الكبرى بتعليم نوعي واستقرار دراسي مشهود.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -37318,7 +39388,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1154 => 
+  1147 => 
   array (
     'name' => 'مدرسة الأصدقاء الخاصة — كتم',
     'name_en' => 'Al-Asdiqaa Private School - Kutum',
@@ -37341,6 +39411,8 @@ return array (
     'whatsapp' => '+249922883344',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة خاصة متميزة بمحلية كتم تقدم تعليماً أساسياً نموذجياً ورعاية تربوية هادفة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -37350,7 +39422,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1155 => 
+  1148 => 
   array (
     'name' => 'مدارس ابن سينا الثانوية الخاصة — الضعين',
     'name_en' => 'Ibn Sina Private Secondary Schools - Ed Daein',
@@ -37372,6 +39444,8 @@ return array (
     'whatsapp' => '+249912886633',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أشهر المدارس الثانوية الخاصة بشرق دارفور، كادر تدريسي خبير وتفوق ملحوظ في الشهادة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -37381,7 +39455,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1156 => 
+  1149 => 
   array (
     'name' => 'مدرسة الخلفاء الراشدين الخاصة — الضعين',
     'name_en' => 'Al-Khulafa Al-Rashideen Private School - Ed Daein',
@@ -37404,6 +39478,8 @@ return array (
     'whatsapp' => '+249123447722',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة رائدة في التربية الأخلاقية والتأسيس العلمي الرصين وحفظ القرآن الكريم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -37413,7 +39489,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1157 => 
+  1150 => 
   array (
     'name' => 'مدرسة المعلم الثانوية الخاصة — الضعين',
     'name_en' => 'Al-Moallim Private Secondary School - Ed Daein',
@@ -37435,6 +39511,8 @@ return array (
     'whatsapp' => '+249918774488',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تضم نخبة من كبار موجهي ومعلمي المرحلة الثانوية بالولاية وتوفر معسكرات دراسية متقدمة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -37444,7 +39522,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1158 => 
+  1151 => 
   array (
     'name' => 'مجمع مدارس المعلمين الخاصة — عديلة',
     'name_en' => 'Teachers Complex Private Schools - Adila',
@@ -37468,6 +39546,8 @@ return array (
     'whatsapp' => '+249115338844',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي يخدم محلية عديلة بمراحلها المختلفة ويوفر تعليماً متميزاً للأجيال الصاعدة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -37477,7 +39557,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1159 => 
+  1152 => 
   array (
     'name' => 'مدارس السلامة الثانوية الخاصة — زالنجي',
     'name_en' => 'Al-Salama Private Secondary Schools - Zalingei',
@@ -37499,6 +39579,8 @@ return array (
     'whatsapp' => '+249912558844',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المدرسة الخاصة الأبرز في حاضرة وسط دارفور زالنجي، تاريخ من التفوق والانضباط الأكاديمي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -37508,7 +39590,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1160 => 
+  1153 => 
   array (
     'name' => 'مدرسة السندس الثانوية الخاصة — زالنجي',
     'name_en' => 'Al-Sundus Private Secondary School - Zalingei',
@@ -37530,6 +39612,8 @@ return array (
     'whatsapp' => '+249122773399',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'ثانوية متميزة تقدم تدريساً نموذجياً وحصص تقوية لمعسكرات الشهادة السودانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -37539,7 +39623,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1161 => 
+  1154 => 
   array (
     'name' => 'مدرسة المحمل الثانوية الخاصة — زالنجي',
     'name_en' => 'Al-Mahmal Private Secondary School - Zalingei',
@@ -37561,6 +39645,8 @@ return array (
     'whatsapp' => '+249918336622',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح أكاديمي رصين يوفر بيئة دراسية مستقرة وكادراً تدريسياً متفرغاً.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -37570,7 +39656,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1162 => 
+  1155 => 
   array (
     'name' => 'مدرسة المميز الأساسية الخاصة — قارسيلا',
     'name_en' => 'Al-Momayaz Private Primary School - Garsila',
@@ -37593,6 +39679,8 @@ return array (
     'whatsapp' => '+249922441155',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة رائدة تخدم منطقة وادي صالح بتقديم تعليم أساسي ومتوسط عالي المستوى.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -37602,7 +39690,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1163 => 
+  1156 => 
   array (
     'name' => 'مدرسة التضامن الخاصة — نيرتتي',
     'name_en' => 'Al-Tadamun Private School - Nertiti',
@@ -37625,6 +39713,8 @@ return array (
     'whatsapp' => '+249118664433',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي في أحضان جبل مرة يوفر بيئة ملهمة وتعليماً تأسيسياً متميزاً للأجيال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -37634,7 +39724,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1164 => 
+  1157 => 
   array (
     'name' => 'مؤسسة محي الدين الخاصة للتعليم الخاص — الجنينة',
     'name_en' => 'Mohy El-Din Educational Institution - El Geneina',
@@ -37658,6 +39748,8 @@ return array (
     'whatsapp' => '+249920204019',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'أكبر وأشهر مؤسسة تعليمية خاصة في الجنينة، مجهزة بمبانٍ حديثة وتقدم تعليماً متميزاً لجميع المراحل.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -37667,7 +39759,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1165 => 
+  1158 => 
   array (
     'name' => 'مدرسة الجيل الابتدائية الخاصة — الجنينة',
     'name_en' => 'Al-Jeel Private Primary School - El Geneina',
@@ -37689,6 +39781,8 @@ return array (
     'whatsapp' => '+249123886611',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة تأسيسية متميزة في القراءة والكتابة والعلوم مع بيئة مدرسية آمنة ومحفزة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -37698,7 +39792,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1166 => 
+  1159 => 
   array (
     'name' => 'مدارس وهج القبس الثانوية الخاصة — الجنينة',
     'name_en' => 'Wahaj Al-Qabas Private Secondary Schools - El Geneina',
@@ -37720,6 +39814,8 @@ return array (
     'whatsapp' => '+249918554422',
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'ثانوية نموذجية خاصة تقدم تعليماً نوعياً وتأهيلاً متقدماً لطلاب الشهادة الثانوية السودانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -37729,7 +39825,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1167 => 
+  1160 => 
   array (
     'name' => 'روضة وحضانة حنين العالمية',
     'name_en' => 'Haneen International Kindergarten & Nursery',
@@ -37751,6 +39847,8 @@ return array (
     'whatsapp' => '+249912388100',
     'email' => NULL,
     'website' => 'https://facebook.com/haneen.preschool.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'بيئة تعليمية دولية متكاملة للطفولة المبكرة، تعتمد منهج جولي فونكس البريطاني لتأسيس اللغة الإنجليزية، مع وسائل تعليمية حسية متطورة وأركان لعب استكشافية وتحفيظ القرآن الكريم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -37760,7 +39858,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1168 => 
+  1161 => 
   array (
     'name' => 'روضة أومي النموذجية',
     'name_en' => 'Ommy International Kindergarten',
@@ -37782,6 +39880,8 @@ return array (
     'whatsapp' => '+249912300450',
     'email' => NULL,
     'website' => 'https://facebook.com/ommy.kindergarten.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تطبق معايير منتسوري العالمية لتنمية مهارات التفكير والتناسق العضلي الحركي لدى الأطفال، وتوفر غرف أنشطة تفاعلية ومسرح دمى وحديقة ألعاب آمنة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -37791,7 +39891,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1169 => 
+  1162 => 
   array (
     'name' => 'روضة مركز الورود الخاصة',
     'name_en' => 'Al Worood Center Kindergarten',
@@ -37813,6 +39913,8 @@ return array (
     'whatsapp' => '+249912181167',
     'email' => NULL,
     'website' => 'https://facebook.com/alworood.kg.khartoum',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز رائد في التعليم المبكر يجمع بين المنهج الوطني المعتمد وتدريس الحروف والأرقام بطريقة القاعدة النورانية وتنمية الذكاءات المتعددة لدى البراعم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -37822,7 +39924,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1170 => 
+  1163 => 
   array (
     'name' => 'روضة ديليجنس الإنجليزية والحضانة',
     'name_en' => 'Diligence English School, Kindergarten & Nursery',
@@ -37844,6 +39946,8 @@ return array (
     'whatsapp' => '+249123453350',
     'email' => NULL,
     'website' => 'https://facebook.com/diligence.school.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة وحضانة لغات متخصصة تقدم رعاية للرضع وتعليماً تمهيدياً مكثفاً باللغة الإنجليزية بإشراف معلمات متخصصات في رياض الأطفال وتنمية النطق والتعبير الإبداعي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -37853,7 +39957,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1171 => 
+  1164 => 
   array (
     'name' => 'روضة وحضانة فوتستيبس',
     'name_en' => 'Footsteps Nursery & Preschool',
@@ -37875,6 +39979,8 @@ return array (
     'whatsapp' => '+249123444344',
     'email' => NULL,
     'website' => 'https://facebook.com/footsteps.nursery.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر رعاية نهارية وتعليماً مبكراً متطوراً للأطفال من عمر 6 أشهر إلى 5 سنوات، وتركز على الاستكشاف العملي، وتطوير المهارات الاجتماعية والمشاريع الفنية الإبداعية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -37884,7 +39990,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1172 => 
+  1165 => 
   array (
     'name' => 'حضانة جروينج أب 123',
     'name_en' => 'Growing Up 123 Nursery & Kindergarten',
@@ -37906,6 +40012,8 @@ return array (
     'whatsapp' => '+249998989123',
     'email' => NULL,
     'website' => 'https://facebook.com/growingup123.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'حضانة نموذجية وبيئة مهيأة وفق أعلى معايير السلامة والنظافة، تعتمد أسلوب التعلّم من خلال اللعب التفاعلي والأناشيد التربوية والأنشطة الرياضية الخفيفة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -37915,7 +40023,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1173 => 
+  1166 => 
   array (
     'name' => 'حضانة بيزي بيز العالمية',
     'name_en' => 'Busy Bees International Nursery',
@@ -37937,6 +40045,8 @@ return array (
     'whatsapp' => '+249901698640',
     'email' => NULL,
     'website' => 'https://facebook.com/busybees.khartoum',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'حضانة وروضة بريطانية توفر منهج السنوات المبكرة EYFS البريطاني، مع فصول مجهزة بسبورات تفاعلية ومسرح أطفال ومساحات آمنة للتسلق واللعب الحركي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -37946,7 +40056,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1174 => 
+  1167 => 
   array (
     'name' => 'حضانة وروضة كيدز أويسس',
     'name_en' => 'Kids Oasis Nursery & Preschool',
@@ -37968,6 +40078,8 @@ return array (
     'whatsapp' => '+249912907021',
     'email' => NULL,
     'website' => 'https://facebook.com/kidsoasis.khartoum',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'واحة الطفولة لرعاية الصغار وتنمية مواهبهم من خلال اللعب الحسي، الأشغال اليدوية، وأنشطة غرس القيم والسلوكيات الإيجابية والتعامل الآمن مع البيئة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -37977,7 +40089,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1175 => 
+  1168 => 
   array (
     'name' => 'روضة وحضانة روزري الإنجليزية',
     'name_en' => 'Rosery School & Kindergarten',
@@ -37999,6 +40111,8 @@ return array (
     'whatsapp' => '+249912301552',
     'email' => NULL,
     'website' => 'https://facebook.com/rosery.school.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة عريقة للطفولة المبكرة، تقدم برامج ثنائية اللغة لتعليم القراءة والكتابة والحساب الذهني المبكر في بيئة أسرية دافئة ومحفزة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -38008,7 +40122,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1176 => 
+  1169 => 
   array (
     'name' => 'حضانة جينا النموذجية',
     'name_en' => 'Gina\'s Nursery & Preschool',
@@ -38030,6 +40144,8 @@ return array (
     'whatsapp' => '+249912255072',
     'email' => NULL,
     'website' => 'https://facebook.com/ginas.nursery.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'حضانة متخصصة في التنشئة المبكرة توفر وجبات صحية متوازنة، ومراقبة صحية دورية، وأنشطة حركية وموسيقية ورسم تعبيري بإشراف مربيات ذوات خبرة طويلة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -38039,7 +40155,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1177 => 
+  1170 => 
   array (
     'name' => 'حضانة كندر إنترناشونال',
     'name_en' => 'Kinder International Preschool',
@@ -38061,6 +40177,8 @@ return array (
     'whatsapp' => '+249112147975',
     'email' => NULL,
     'website' => 'https://facebook.com/kinder.international.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة دولية تهتم باللغات والعلوم الاستكشافية المبكرة، وتضم فصولاً مجهزة بأحدث أدوات التعليم التفاعلي والوسائل السمعية والبصرية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -38070,7 +40188,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1178 => 
+  1171 => 
   array (
     'name' => 'روضة بيرلز للطفولة المبكرة',
     'name_en' => 'Pearls Preschool Sudan',
@@ -38092,6 +40210,8 @@ return array (
     'whatsapp' => '+249912308940',
     'email' => NULL,
     'website' => 'https://facebook.com/pearls.preschool.sudan',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة لغات تطبق المعايير الدولية لغرس حب التعلّم وبناء الشخصية الواثقة، مع اهتمام بالأنشطة البدنية، السباحة، والتفكير الإبداعي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -38101,7 +40221,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1179 => 
+  1172 => 
   array (
     'name' => 'حضانة وروضة بيبي هوم',
     'name_en' => 'Baby Home Nursery & Preschool',
@@ -38123,6 +40243,8 @@ return array (
     'whatsapp' => '+249123001882',
     'email' => NULL,
     'website' => 'https://facebook.com/babyhome.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'بيت الطفل الدافئ، يقدم برامج عناية نهارية للأطفال الرضع والتمهيدي، وتنمية مهارات التحدث والتفاعل واللعب الجماعي الموجه.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -38132,7 +40254,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1180 => 
+  1173 => 
   array (
     'name' => 'حضانة وروضة سكينة',
     'name_en' => 'Sakeena\'s Nursery & Kindergarten',
@@ -38154,6 +40276,8 @@ return array (
     'whatsapp' => '+249912558877',
     'email' => NULL,
     'website' => 'https://facebook.com/sakeena.nursery',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تجمع بين رعاية الطفولة والتربية الإسلامية السمحاء، وحفظ قصار السور من القرآن الكريم والأحاديث النبوية بأسلوب مشوق ومحبب للأطفال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -38163,7 +40287,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1181 => 
+  1174 => 
   array (
     'name' => 'روضة ومدارس التعليم البريطانية — قسم الروضة',
     'name_en' => 'British Educational Schools Kindergarten',
@@ -38185,6 +40309,8 @@ return array (
     'whatsapp' => '+249912314455',
     'email' => NULL,
     'website' => 'https://bes-sudan.com',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'قسم تمهيدي دولي متميز يعتمد المعايير البريطانية للتعليم المبكر، مع مرافق رياضية وترفيهية وأنشطة دراما وموسيقى وفنون.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -38194,7 +40320,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1182 => 
+  1175 => 
   array (
     'name' => 'روضة بارون العالمية',
     'name_en' => 'Baron International School and Kindergarten',
@@ -38216,6 +40342,8 @@ return array (
     'whatsapp' => '+249912347788',
     'email' => NULL,
     'website' => 'https://facebook.com/baron.school.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'بيئة دولية متعددة الثقافات تعتمد على الملاحظة والبحث والاستكشاف وتنمية شخصية الطفل في مرحلتي الحضانة والتمهيدي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -38225,7 +40353,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1183 => 
+  1176 => 
   array (
     'name' => 'روضة جولي الدولية للأطفال',
     'name_en' => 'Jolly International Kindergarten',
@@ -38247,6 +40375,8 @@ return array (
     'whatsapp' => '+249183288326',
     'email' => NULL,
     'website' => 'https://facebook.com/jolly.kindergarten.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'متخصصة في تطبيق منهج الصوتيات المرحة Jolly Phonics البريطاني لتمكين الطفل من القراءة والكتابة بالإنجليزية بطلاقة مبكرة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -38256,7 +40386,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1184 => 
+  1177 => 
   array (
     'name' => 'حضانة وروضة برايت كيندر غاردن العالمية',
     'name_en' => 'Bright Kindergarten International',
@@ -38278,6 +40408,8 @@ return array (
     'whatsapp' => '+249912199200',
     'email' => NULL,
     'website' => 'https://facebook.com/bright.kindergarten.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر رعاية متكاملة وفق أحدث النظم الأوروبية لتنمية مهارات التفكير الناقد والإبداع الفني لدى أطفال ما قبل المدرسة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -38287,7 +40419,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1185 => 
+  1178 => 
   array (
     'name' => 'روضة وحضانة زمزم النموذجية',
     'name_en' => 'Zamzam Model Kindergarten & Nursery',
@@ -38309,6 +40441,8 @@ return array (
     'whatsapp' => '+249996880805',
     'email' => NULL,
     'website' => 'https://facebook.com/zamzam.kindergarten',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تربوي متميز في أركويت يقدم برامج التأسيس الشامل في اللغة العربية والحساب والإنجليزية، مع رعاية نفسية واجتماعية لأطفال التمهيدي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -38318,7 +40452,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1186 => 
+  1179 => 
   array (
     'name' => 'رياض القبس الخرطوم',
     'name_en' => 'Al-Qabas Kindergarten Khartoum',
@@ -38342,6 +40476,8 @@ return array (
     'whatsapp' => '+249901235510',
     'email' => NULL,
     'website' => 'https://alqabasschools.com/branches/رياض-القبس-الخرطوم/',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أعرق رياض الأطفال في السودان تابعة لمؤسسة القبس التعليمية، تعتمد سبورات تفاعلية ومسابقات حفظ القرآن الكريم والتعليم التعاوني بإشراف ماما أمل محمد الأمين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -38351,7 +40487,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1187 => 
+  1180 => 
   array (
     'name' => 'مدارس ورياض السندس الدولية',
     'name_en' => 'Al-Sundus International Kindergarten',
@@ -38373,6 +40509,8 @@ return array (
     'whatsapp' => '+249919246452',
     'email' => NULL,
     'website' => 'https://facebook.com/alsundus.schools',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'قسم تمهيدي متطور يضم مستويات البراعم والروضة الأولى والثانية، ويوفر تدريباً لغوياً مكثفاً وأنشطة منتسوري ومسرح عرائس.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -38382,7 +40520,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1188 => 
+  1181 => 
   array (
     'name' => 'روضة براعم الوطن المتطورة',
     'name_en' => 'Baraem Al-Watan Preschool',
@@ -38404,6 +40542,8 @@ return array (
     'whatsapp' => '+249912389922',
     'email' => NULL,
     'website' => 'https://facebook.com/baraem.alwatan.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تربوية تعنى بغرس العقيدة والآداب الإسلامية وحفظ أجزاء من القرآن الكريم، مع مناهج تفاعلية لتنمية التفكير العلمي والمهارات الحركية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -38413,7 +40553,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1189 => 
+  1182 => 
   array (
     'name' => 'روضة عالم الطفولة',
     'name_en' => 'Alam Al-Tufoala Kindergarten',
@@ -38435,6 +40575,8 @@ return array (
     'whatsapp' => '+249113953978',
     'email' => NULL,
     'website' => 'https://facebook.com/alam.altufoala.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة نموذجية متكاملة تقدم خدمات تعليمية متميزة ونظام دفع مرن، مع فصول مرحة وألعاب رملية ومائية وبرامج رحلات استكشافية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -38444,7 +40586,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1190 => 
+  1183 => 
   array (
     'name' => 'روضة الريان — المجلس الإفريقي للتعليم',
     'name_en' => 'Al-Rayan Kindergarten African Council',
@@ -38466,6 +40608,8 @@ return array (
     'whatsapp' => '+249912390112',
     'email' => NULL,
     'website' => 'https://africancouncil.net',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من الفروع التاريخية للمجلس الإفريقي، توفر بيئة إيمانية تربوية متكاملة تركز على تحفيظ القرآن الكريم وتأسيس النطق السليم واللغة العربية الفصحى.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -38475,7 +40619,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1191 => 
+  1184 => 
   array (
     'name' => 'رياض سويتي كيدز النموذجية',
     'name_en' => 'Sweety Kids Preschool',
@@ -38499,6 +40643,8 @@ return array (
     'whatsapp' => '+249912993344',
     'email' => NULL,
     'website' => 'https://facebook.com/sweetykids.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تجمع بين التعليم المدرسي الحديث والقاعدة النورانية والأنشطة الترفيهية وحصص التربية البدنية لتنمية عضلات الطفل الدقيقة والكبيرة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -38508,7 +40654,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1192 => 
+  1185 => 
   array (
     'name' => 'روضة وحضانة أرض المعرفة',
     'name_en' => 'Ard Al-Maarifa Nursery & Kindergarten',
@@ -38530,6 +40676,8 @@ return array (
     'whatsapp' => '+249912440011',
     'email' => NULL,
     'website' => 'https://facebook.com/ardalmaarifa.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'حضانة وروضة شاملة توفر تعليماً تفاعلياً وأنشطة مسرحية وأركان رسم وتلوين لتعزيز ثقة الطفل بنفسه وتطوير مهاراته اللغوية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -38539,7 +40687,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1193 => 
+  1186 => 
   array (
     'name' => 'روضة بنت الأزور — المجلس الإفريقي للتعليم',
     'name_en' => 'Bint Al-Azwar Kindergarten',
@@ -38561,6 +40709,8 @@ return array (
     'whatsapp' => '+249912800334',
     'email' => NULL,
     'website' => 'https://africancouncil.net',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة متميزة تابعة للمجلس الإفريقي للتعليم تركز على التربية السلوكية والقرآن الكريم وتعزيز روح المشاركة والتعاون لدى الأطفال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -38570,7 +40720,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1194 => 
+  1187 => 
   array (
     'name' => 'روضة الأزهري النموذجية — المجلس الإفريقي',
     'name_en' => 'Al-Azhari Model Kindergarten',
@@ -38592,6 +40742,8 @@ return array (
     'whatsapp' => '+249912500890',
     'email' => NULL,
     'website' => 'https://africancouncil.net',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'محضن تربوي رائد في جنوب الخرطوم، يضم واحة ألعاب خضراء وبرامج إتقان تلاوة القرآن الكريم وتأسيس الحساب واللغتين العربية والإنجليزية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -38601,7 +40753,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1195 => 
+  1188 => 
   array (
     'name' => 'روضة زهرة الياسمين الخاصة',
     'name_en' => 'Zahrat Al-Yasmeen Kindergarten',
@@ -38623,6 +40775,8 @@ return array (
     'whatsapp' => '+249912667788',
     'email' => NULL,
     'website' => 'https://facebook.com/zahrat.alyasmeen.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر بيئة تعليمية محفزة للطفل وتعتمد على الأنشطة الحسية وتجارب العلوم المبسطة والرحلات التعليمية للحدائق والمتاحف.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -38632,7 +40786,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1196 => 
+  1189 => 
   array (
     'name' => 'روضة الإنصاف النموذجية الخاصة',
     'name_en' => 'Al-Insaf Model Kindergarten',
@@ -38654,6 +40808,8 @@ return array (
     'whatsapp' => '+249912304411',
     'email' => NULL,
     'website' => 'https://facebook.com/alinsaf.tuti.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة رائدة في جزيرة توتي تعتمد منهج جولي فونكس والقاعدة النورانية، وتهتم بتنمية التآزر البصري الحركي وأنشطة الزراعة والاستكشاف البيئي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -38663,7 +40819,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1197 => 
+  1190 => 
   array (
     'name' => 'روضة رواد المعالي الخاصة',
     'name_en' => 'Rowad Al-Maali Private Kindergarten',
@@ -38685,6 +40841,8 @@ return array (
     'whatsapp' => '+249912962111',
     'email' => NULL,
     'website' => 'https://facebook.com/rowad.almaali.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي نموذجي يضم أقسام الحضانة والبراعم والمستوى الأول والمستوى الثاني، مع عناية فائقة بالنطق السليم واللغة الإنجليزية وتعديل السلوك.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -38694,7 +40852,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1198 => 
+  1191 => 
   array (
     'name' => 'روضة وحضانة بيبا النموذجية',
     'name_en' => 'Biba Nursery & Kindergarten',
@@ -38716,6 +40874,8 @@ return array (
     'whatsapp' => '+249912351122',
     'email' => NULL,
     'website' => 'https://facebook.com/bibanursery.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'حضانة وروضة رائدة تركز على التعلّم اللامنهجي، واستخدام ألعاب التركيب والصلصال والأشغال اليدوية لتنمية الخيال والابتكار لدى الطفل.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -38725,7 +40885,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1199 => 
+  1192 => 
   array (
     'name' => 'روضة البراعم الحديثة',
     'name_en' => 'Al-Baraem Al-Hadeetha Kindergarten',
@@ -38747,6 +40907,8 @@ return array (
     'whatsapp' => '+249912882233',
     'email' => NULL,
     'website' => 'https://facebook.com/albaraem.modern.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تقدم برامج تربوية هادفة وفق أسس علمية ونفسية حديثة، وتضم أركان تعليمية متنوعة للمطالعة، العلوم، والتربية الفنية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -38756,7 +40918,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1200 => 
+  1193 => 
   array (
     'name' => 'روضة كيدي أكاديمي الدولية',
     'name_en' => 'Kiddie Academy International Kindergarten',
@@ -38778,6 +40940,8 @@ return array (
     'whatsapp' => '+249912450099',
     'email' => NULL,
     'website' => 'https://facebook.com/kiddieacademy.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'أكاديمية دولية متميزة في مرحلة رياض الأطفال، توفر كادراً ناطقاً بالإنجليزية وبرامج محاكاة الواقع وأنشطة رياضية وفنية ممتعة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -38787,7 +40951,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1201 => 
+  1194 => 
   array (
     'name' => 'روضة ومدارس المهندسين الخاصة',
     'name_en' => 'Al-Muhandiseen Kindergarten',
@@ -38809,6 +40973,8 @@ return array (
     'whatsapp' => '+249912307711',
     'email' => NULL,
     'website' => 'https://facebook.com/muhandiseen.school.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أقدم وأعرق الرياض الخاصة في المهندسين، تتميز ببيئة تعليمية منضبطة ووسائل حديثة وتخريج أجيال متميزة ومستعدة للمرحلة الابتدائية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -38818,7 +40984,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1202 => 
+  1195 => 
   array (
     'name' => 'روضة فيوتشر كيدز التعليمية',
     'name_en' => 'Future Kids Kindergarten',
@@ -38840,6 +41006,8 @@ return array (
     'whatsapp' => '+249912330088',
     'email' => NULL,
     'website' => 'https://facebook.com/futurekids.omdurman',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أعرق مؤسسات رياض الأطفال في أم درمان (تأسست عام 1968)، تجمع بين الخبرة التربوية المتوارثة والوسائل التعليمية الرقمية الحديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -38849,7 +41017,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1203 => 
+  1196 => 
   array (
     'name' => 'روضة فونكس الدولية للغات',
     'name_en' => 'Phonics International Kindergarten',
@@ -38871,6 +41039,8 @@ return array (
     'whatsapp' => '+249912117766',
     'email' => NULL,
     'website' => 'https://facebook.com/phonics.kg.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة لغات متخصصة في التدريب على النطق بالصوتيات الإنجليزية وتطوير المهارات الرياضية والحسابية بطريقة المنتسوري المحسوسة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -38880,7 +41050,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1204 => 
+  1197 => 
   array (
     'name' => 'روضة ماكميلان الدولية',
     'name_en' => 'Macmillan International Kindergarten',
@@ -38902,6 +41072,8 @@ return array (
     'whatsapp' => '+249912304899',
     'email' => NULL,
     'website' => 'https://facebook.com/macmillan.omdurman',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة تابعة لمدارس ماكميلان الدولية، تدرس منهجاً بريطانياً شاملاً وتركز على الملاحظة والأنشطة العلمية والرياضية المتنوعة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -38911,7 +41083,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1205 => 
+  1198 => 
   array (
     'name' => 'روضة الغصن الأخضر الخاصة',
     'name_en' => 'Al-Ghosn Al-Akhdar Kindergarten',
@@ -38933,6 +41105,8 @@ return array (
     'whatsapp' => '+249912776655',
     'email' => NULL,
     'website' => 'https://facebook.com/alghosn.alakhdar.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة رائدة في الملازمين توفر حدائق ألعاب مظللة وبيئة تفاعلية محفزة للتعلم الاجتماعي والتعاوني وغرس الفضائل والأخلاق الحميدة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -38942,7 +41116,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1206 => 
+  1199 => 
   array (
     'name' => 'روضة حاجة مدينة النموذجية',
     'name_en' => 'Haja Madina Model Kindergarten',
@@ -38964,6 +41138,8 @@ return array (
     'whatsapp' => '+249912554433',
     'email' => NULL,
     'website' => 'https://facebook.com/haja.madina.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة قرآنية وتربوية ذات تقاليد عريقة، تهتم بإتقان تلاوة القرآن الكريم وحفظ أذكار الصباح والمساء والتهيئة المتكاملة للأساس.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -38973,7 +41149,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1207 => 
+  1200 => 
   array (
     'name' => 'ماما روضة النموذجية للأطفال',
     'name_en' => 'Mama Rawda Preschool',
@@ -38995,6 +41171,8 @@ return array (
     'whatsapp' => '+249912223344',
     'email' => NULL,
     'website' => 'https://facebook.com/mamarawda.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'محضن دافئ يرعى الأطفال في أجواء أسرية مفعمة بالمحبة، مع أنشطة مسرحية وأناشيد تراثية وتطوير لمهارات التعبير الشفهي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -39004,7 +41182,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1208 => 
+  1201 => 
   array (
     'name' => 'روضة الزعيم الأزهري للأطفال',
     'name_en' => 'Al-Zaeem Al-Azhari Kindergarten',
@@ -39026,6 +41204,8 @@ return array (
     'whatsapp' => '+249912668811',
     'email' => NULL,
     'website' => 'https://facebook.com/alazhari.kindergarten.omdurman',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تضم قسمي الحضانة والتمهيدي، وتعتمد مناهج تفاعلية لتنمية الذكاء اللغوي والرياضي للأطفال وتهيئتهم للقبول بالمدارس النموذجية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -39035,7 +41215,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1209 => 
+  1202 => 
   array (
     'name' => 'روضة البيان النموذجية',
     'name_en' => 'Al-Bayan Model Kindergarten',
@@ -39057,6 +41237,8 @@ return array (
     'whatsapp' => '+249912445566',
     'email' => NULL,
     'website' => 'https://facebook.com/albayan.kg.omdurman',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تهتم ببيان اللسان العربي الفصيح وغرس الآداب النبوية وحفظ جزء عم، مع تنظيم مسابقات دورية في الخطابة والإلقاء للصغار.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -39066,7 +41248,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1210 => 
+  1203 => 
   array (
     'name' => 'روضة الطفل السعيد الخاصة',
     'name_en' => 'Al-Tifl Al-Saeed Kindergarten',
@@ -39088,6 +41270,8 @@ return array (
     'whatsapp' => '+249912889900',
     'email' => NULL,
     'website' => 'https://facebook.com/altifl.alsaeed.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'بيئة مليئة بالفرح والمرح توفر ساحات لعب رملية وحصص رسم وتلوين وأنشطة موسيقية وإيقاعية تنمي التفاعل الاجتماعي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -39097,7 +41281,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1211 => 
+  1204 => 
   array (
     'name' => 'روضة مهاجر الخاصة للأطفال',
     'name_en' => 'Muhajir Private Kindergarten',
@@ -39119,6 +41303,8 @@ return array (
     'whatsapp' => '+249912334455',
     'email' => NULL,
     'website' => 'https://facebook.com/muhajir.kindergarten',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة متميزة تهتم بمهارات ما قبل القراءة والحساب الذهني المبكر وإجراء تجارب علمية بسيطة تثير شغف الاكتشاف لدى الصغار.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -39128,7 +41314,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1212 => 
+  1205 => 
   array (
     'name' => 'روضة أم رهف النموذجية',
     'name_en' => 'Um Rahaf Kindergarten',
@@ -39150,6 +41336,8 @@ return array (
     'whatsapp' => '+249912112233',
     'email' => NULL,
     'website' => 'https://facebook.com/umrahaf.kg.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر رعاية نهارية وتعليم تمهيدي في فصول مكيفة ومريحة، مع برامج تثقيف غذائي وصحي ومتابعة دورية للنمو البدني والنفسي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -39159,7 +41347,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1213 => 
+  1206 => 
   array (
     'name' => 'روضة المحجوب الخاصة',
     'name_en' => 'Al-Mahjoub Private Kindergarten',
@@ -39181,6 +41369,8 @@ return array (
     'whatsapp' => '+249912778899',
     'email' => NULL,
     'website' => 'https://facebook.com/almahjoub.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي عريق في بيت المال يقدم تعليماً متوازناً يجمع بين المنهج الحديث والتربية الدينية وتدريب الأطفال على مهارات القيادة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -39190,7 +41380,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1214 => 
+  1207 => 
   array (
     'name' => 'روضة البواسل النموذجية',
     'name_en' => 'Al-Bawasil Model Kindergarten',
@@ -39212,6 +41402,8 @@ return array (
     'whatsapp' => '+249912446688',
     'email' => NULL,
     'website' => 'https://facebook.com/albawasil.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تعتمد وسائل تفاعلية ذكية لتنمية المهارات المنطقية والحسابية، وتوفر بيئة تعليمية آمنة بإشراف معلمات خريجات كليات رياض الأطفال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -39221,7 +41413,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1215 => 
+  1208 => 
   array (
     'name' => 'روضة أطفال المستقبل',
     'name_en' => 'Atfal Al-Mustaqbal Kindergarten',
@@ -39243,6 +41435,8 @@ return array (
     'whatsapp' => '+249912998877',
     'email' => NULL,
     'website' => 'https://facebook.com/atfal.mustaqbal.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تطبق فلسفة التعليم الاستكشافي، وتهتم بتطوير المهارات الحياتية اليومية والاعتماد على النفس والعناية بالألعاب الإدراكية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -39252,7 +41446,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1216 => 
+  1209 => 
   array (
     'name' => 'روضة براعم النور الخاصة',
     'name_en' => 'Baraem Al-Noor Kindergarten',
@@ -39274,6 +41468,8 @@ return array (
     'whatsapp' => '+249912556677',
     'email' => NULL,
     'website' => 'https://facebook.com/baraem.alnoor.omdurman',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تهدف إلى تنشئة أطفال واثقين يمتلكون حصيلة لغوية ممتازة باللغتين العربية والإنجليزية مع حفظ الأجزاء الأخيرة من القرآن الكريم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -39283,7 +41479,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1217 => 
+  1210 => 
   array (
     'name' => 'روضة طيور الفردوس النموذجية',
     'name_en' => 'Tuyoor Al-Firdous Kindergarten',
@@ -39305,6 +41501,8 @@ return array (
     'whatsapp' => '+249912338800',
     'email' => NULL,
     'website' => 'https://facebook.com/tuyoor.alfirdous.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر ملاعب ترفيهية للأطفال، وقاعات تعليمية مزودة بأركان منتسوري، وتعتمد برنامج تهيئة نفسية وأكاديمية متقدمة للصف الأول الابتدائي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -39314,7 +41512,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1218 => 
+  1211 => 
   array (
     'name' => 'روضة المجلس الأفريقي للأطفال — الفتيحاب',
     'name_en' => 'African Council Kindergarten Fetayhab',
@@ -39336,6 +41534,8 @@ return array (
     'whatsapp' => '+249912200331',
     'email' => NULL,
     'website' => 'https://africancouncil.net',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع متميز لمؤسسة المجلس الأفريقي بالفتيحاب، يوفر بيئة إسلامية نموذجية وألعاب تنمية الذكاء وبرامج النطق السليم والقراءة المبكرة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -39345,7 +41545,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1219 => 
+  1212 => 
   array (
     'name' => 'روضة شمس المعارف الخاصة',
     'name_en' => 'Shams Al-Maarif Kindergarten',
@@ -39367,6 +41567,8 @@ return array (
     'whatsapp' => '+249912110022',
     'email' => NULL,
     'website' => 'https://facebook.com/shams.almaarif.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تعتمد استراتيجيات التعلم النشط والألعاب الجماعية المنظمة وحصص التلوين والموسيقى والأناشيد التربوية المعبرة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -39376,7 +41578,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1220 => 
+  1213 => 
   array (
     'name' => 'روضة أجيال الغد النموذجية',
     'name_en' => 'Ajyal Al-Ghad Kindergarten',
@@ -39398,6 +41600,8 @@ return array (
     'whatsapp' => '+249912558800',
     'email' => NULL,
     'website' => 'https://facebook.com/ajyal.alghad.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'بيئة محببة للأطفال تضم قاعات مجهزة ومسرح دمى وملاعب آمنة، وبرامج تعليمية تدمج اللعب والتعلم الحركي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -39407,7 +41611,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1221 => 
+  1214 => 
   array (
     'name' => 'روضة وحضانة جوهانسبيرج العالمية',
     'name_en' => 'Johannesburg International Kindergarten & Nursery',
@@ -39429,6 +41633,8 @@ return array (
     'whatsapp' => '+249900060095',
     'email' => NULL,
     'website' => 'https://facebook.com/johannesburg.school.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'قسم تمهيدي دولي راقٍ في كافوري يطبق معايير المنهج البريطاني، مع مسابح تعليمية وحدائق أنشطة واستكشاف علمي مبكر.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -39438,7 +41644,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1222 => 
+  1215 => 
   array (
     'name' => 'روضة أكاديمية كافوري للطفولة المبكرة',
     'name_en' => 'Kafouri Early Childhood Academy',
@@ -39460,6 +41666,8 @@ return array (
     'whatsapp' => '+249912306677',
     'email' => NULL,
     'website' => 'https://facebook.com/kafouri.academy.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'أكاديمية متطورة للأطفال من عمر سنتين إلى 5 سنوات، تقدم تدريباً حسياً مكثفاً وأنشطة منتسوري لبناء الاستقلالية والثقة بالنفس.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -39469,7 +41677,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1223 => 
+  1216 => 
   array (
     'name' => 'روضة براعم كافوري النموذجية',
     'name_en' => 'Baraem Kafouri Kindergarten',
@@ -39491,6 +41699,8 @@ return array (
     'whatsapp' => '+249912448822',
     'email' => NULL,
     'website' => 'https://facebook.com/baraem.kafouri',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تجمع بين المنهج السوداني التفاعلي واللغة الإنجليزية الإثرائية، مع مساحات واسعة للألعاب الحركية والرملية والمائية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -39500,7 +41710,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1224 => 
+  1217 => 
   array (
     'name' => 'روضة أشرقت الخاصة',
     'name_en' => 'Ashraqat Private Kindergarten',
@@ -39522,6 +41732,8 @@ return array (
     'whatsapp' => '+249912337711',
     'email' => NULL,
     'website' => 'https://facebook.com/ashraqat.kg.bahri',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من الرياض العريقة في حي الصافية، تركز على بناء الشخصية المتوازنة للطفل وتنمية الذوق الفني والمهارات الحركية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -39531,7 +41743,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1225 => 
+  1218 => 
   array (
     'name' => 'روضة نبع المعرفة الخاصة',
     'name_en' => 'Nabaa Al-Maarifa Kindergarten',
@@ -39553,6 +41765,8 @@ return array (
     'whatsapp' => '+249912550099',
     'email' => NULL,
     'website' => 'https://facebook.com/nabaa.maarifa.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة نموذجية توفر تعليماً إلكترونياً تفاعلياً مبسطاً للصغار، ومسابقات للرسم والأشغال الورقية وتلاوة القرآن.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -39562,7 +41776,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1226 => 
+  1219 => 
   array (
     'name' => 'روضة طيور الجنة النموذجية بحري',
     'name_en' => 'Tuyoor Al-Jannah Kindergarten Bahri',
@@ -39584,6 +41798,8 @@ return array (
     'whatsapp' => '+249912661133',
     'email' => NULL,
     'website' => 'https://facebook.com/tuyoor.jannah.bahri',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'محضن تربوي يعتمد الأناشيد الهادفة، وحفظ أذكار اليوم والليلة وقصار السور، وتدريب البراعم على مخارج الحروف الصحيحة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -39593,7 +41809,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1227 => 
+  1220 => 
   array (
     'name' => 'روضة ومدرسة الصافية الخاصة',
     'name_en' => 'Al-Safia Private Preschool',
@@ -39615,6 +41831,8 @@ return array (
     'whatsapp' => '+249912305544',
     'email' => NULL,
     'website' => 'https://facebook.com/alsafia.school.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'قسم تمهيدي عريق يضم معلمات متخصصات في رعاية الأطفال والتهيئة للمرحلة الابتدائية بنسب تفوق مشهودة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -39624,7 +41842,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1228 => 
+  1221 => 
   array (
     'name' => 'روضة حنين النموذجية بحري',
     'name_en' => 'Haneen Model Kindergarten Bahri',
@@ -39646,6 +41864,8 @@ return array (
     'whatsapp' => '+249912884400',
     'email' => NULL,
     'website' => 'https://facebook.com/haneen.bahri.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر بيئة ممتعة ومحفزة للأطفال تركز على التعلّم التعاوني وبناء مهارات التواصل الشفهي والتوافق الحركي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -39655,7 +41875,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1229 => 
+  1222 => 
   array (
     'name' => 'روضة الشروق الخاصة',
     'name_en' => 'Al-Shorooq Private Kindergarten',
@@ -39677,6 +41897,8 @@ return array (
     'whatsapp' => '+249912335566',
     'email' => NULL,
     'website' => 'https://facebook.com/alshorooq.bahri',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تتميز ببرامج التهيئة الأكاديمية المبكرة والقراءة التعبيرية وحصص التربية البدنية والفنون التشكيلية الموجهة للأطفال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -39686,7 +41908,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1230 => 
+  1223 => 
   array (
     'name' => 'حضانة ومركز بوزة لخدمات الطفولة',
     'name_en' => 'Bouza Child Center & Nursery',
@@ -39708,6 +41930,8 @@ return array (
     'whatsapp' => '+249993710199',
     'email' => NULL,
     'website' => 'https://facebook.com/bouza.childcenter',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز متخصص يقدم حضانة صباحية، وأنشطة تعليمية وترفيهية، وتأسيساً أكاديمياً، وتعديل سلوك، وتنمية المهارات الإدراكية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -39717,7 +41941,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1231 => 
+  1224 => 
   array (
     'name' => 'روضة الرحيق — المجلس الإفريقي للتعليم',
     'name_en' => 'Al-Raheeq Kindergarten African Council',
@@ -39739,6 +41963,8 @@ return array (
     'whatsapp' => '+249912300998',
     'email' => NULL,
     'website' => 'https://africancouncil.net',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من منارات التعليم القرآني والتربوي ببحري، تعنى بغرس العقيدة السليمة وحفظ القرآن الكريم وتنمية الحصيلة اللغوية للصغار.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -39748,7 +41974,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1232 => 
+  1225 => 
   array (
     'name' => 'روضة الخرطوم التفاعلية',
     'name_en' => 'Khartoum Interactive Kindergarten',
@@ -39770,6 +41996,8 @@ return array (
     'whatsapp' => '+249912118833',
     'email' => NULL,
     'website' => 'https://facebook.com/khartoum.interactive.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تستخدم تقنيات التعليم التفاعلي والسبورات الذكية لتبسيط المفاهيم العلمية والحسابية للأطفال بأسلوب ممتع ومبتكر.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -39779,7 +42007,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1233 => 
+  1226 => 
   array (
     'name' => 'روضة الشيخ عبد الدافع القرآنية',
     'name_en' => 'Sheikh Abd Al-Dafie Quranic Kindergarten',
@@ -39801,6 +42029,8 @@ return array (
     'whatsapp' => '+249912341122',
     'email' => NULL,
     'website' => 'https://facebook.com/sheikh.abdaldafie.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة قرآنية إسلامية رائدة في الحلفايا تهدف إلى غرس محبة كتاب الله وسنة رسوله وتنشئة أجيال صالحة ومهيأة للتعليم العام.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -39810,7 +42040,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1234 => 
+  1227 => 
   array (
     'name' => 'روضة براعم الحلفايا الخاصة',
     'name_en' => 'Baraem Al-Halfaya Kindergarten',
@@ -39832,6 +42062,8 @@ return array (
     'whatsapp' => '+249912887766',
     'email' => NULL,
     'website' => 'https://facebook.com/baraem.alhalfaya',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر فصولاً فسيحة وحديقة ألعاب آمنة وأنشطة زراعية ومسابقات تلوين وأناشيد تسهم في تنمية المهارات التعبيرية للطفل.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -39841,7 +42073,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1235 => 
+  1228 => 
   array (
     'name' => 'روضة الكدرو — المجلس الإفريقي للتعليم',
     'name_en' => 'Al-Kadroo African Council Kindergarten',
@@ -39863,6 +42095,8 @@ return array (
     'whatsapp' => '+249912440055',
     'email' => NULL,
     'website' => 'https://africancouncil.net',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'محضن تربوي متكامل في شمال بحري يطبق منهج تحفيظ القرآن الكريم واللغة العربية والألعاب الحركية الهادفة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -39872,7 +42106,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1236 => 
+  1229 => 
   array (
     'name' => 'روضة براعم الكدرو النموذجية',
     'name_en' => 'Baraem Al-Kadroo Model Kindergarten',
@@ -39894,6 +42128,8 @@ return array (
     'whatsapp' => '+249912553311',
     'email' => NULL,
     'website' => 'https://facebook.com/baraem.alkadroo',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تعتني بتأسيس الأطفال في القراءة والحساب والأخلاق الفاضلة، وتوفر برامج فحص صحي وتغذية سليمة للصغار.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -39903,7 +42139,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1237 => 
+  1230 => 
   array (
     'name' => 'روضة الدروشاب الحديثة',
     'name_en' => 'Al-Drooshab Modern Kindergarten',
@@ -39925,6 +42161,8 @@ return array (
     'whatsapp' => '+249912771144',
     'email' => NULL,
     'website' => 'https://facebook.com/aldrooshab.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة حديثة مجهزة بأركان اللعب والمطالعة، وتركز على تعزيز الثقة بالنفس وتطوير المهارات الاجتماعية والمشاريع الجماعية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -39934,7 +42172,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1238 => 
+  1231 => 
   array (
     'name' => 'روضة النور والبيان الخاصة',
     'name_en' => 'Al-Noor Wal-Bayan Kindergarten',
@@ -39956,6 +42194,8 @@ return array (
     'whatsapp' => '+249912662288',
     'email' => NULL,
     'website' => 'https://facebook.com/noor.bayan.bahri',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تعتمد طريقة نور البيان في تأسيس القراءة والتلاوة الصحيحة، مع توفير برامج ترفيهية ورحلات مدرسية ممتعة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -39965,7 +42205,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1239 => 
+  1232 => 
   array (
     'name' => 'روضة حلة حمد النموذجية',
     'name_en' => 'Hilla Hamad Model Kindergarten',
@@ -39987,6 +42227,8 @@ return array (
     'whatsapp' => '+249912330055',
     'email' => NULL,
     'website' => 'https://facebook.com/hilla.hamad.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تتميز بموقعها التاريخي العريق وبيئتها التربوية الهادئة، وتهتم بغرس القيم التراثية وتنمية مهارات التفكير لدى الأطفال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -39996,7 +42238,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1240 => 
+  1233 => 
   array (
     'name' => 'روضة رواد المعالي فرع الثورة',
     'name_en' => 'Rowad Al-Maali Kindergarten Thawra',
@@ -40018,6 +42260,8 @@ return array (
     'whatsapp' => '+249912962111',
     'email' => NULL,
     'website' => 'https://facebook.com/rowad.almaali.thawra',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع مجهز وفق أعلى المعايير لتعليم البراعم والتمهيدي، مع ألعاب استكشافية متطورة وفصول مكيفة وتدريب لغوي متقدم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -40027,7 +42271,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1241 => 
+  1234 => 
   array (
     'name' => 'روضة وحضانة N&A العالمية',
     'name_en' => 'N&A International Kindergarten & Nursery',
@@ -40049,6 +42293,8 @@ return array (
     'whatsapp' => '+249968327771',
     'email' => NULL,
     'website' => 'https://facebook.com/na.international.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'حضانة وروضة عالمية توفر منهج الصوتيات الإنجليزية وحصص التربية الإبداعية ومسرح أطفال وعناية متكاملة بصحة ونمو الطفل.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -40058,7 +42304,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1242 => 
+  1235 => 
   array (
     'name' => 'روضة رياض ومدارس جمال الدين الأفغاني',
     'name_en' => 'Jamal Al-Din Al-Afghani Kindergarten',
@@ -40080,6 +42326,8 @@ return array (
     'whatsapp' => '+249120864814',
     'email' => NULL,
     'website' => 'https://facebook.com/afghani.school.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'قسم تمهيدي نموذجي يقدم برامج التأسيس الشاملة ومتابعة فردية لكل طفل وأنشطة ترفيهية تعزز الشغف بالتعلم المبكر.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -40089,7 +42337,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1243 => 
+  1236 => 
   array (
     'name' => 'روضة مجموعة المنهل التعليمية',
     'name_en' => 'Al-Manhal Educational Kindergarten',
@@ -40111,6 +42359,8 @@ return array (
     'whatsapp' => '+249912308877',
     'email' => NULL,
     'website' => 'https://facebook.com/almanhal.educational.group',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أعرق الرياض بمحلية كرري، توفر بنية تحتية تعليمية ممتازة وكادراً تربوياً رفيع الكفاءة وملاعب ترفيهية ومسرحاً للأطفال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -40120,7 +42370,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1244 => 
+  1237 => 
   array (
     'name' => 'روضة تسابيح — المجلس الإفريقي للتعليم',
     'name_en' => 'Tasabeeh African Council Kindergarten',
@@ -40142,6 +42392,8 @@ return array (
     'whatsapp' => '+249912340022',
     'email' => NULL,
     'website' => 'https://africancouncil.net',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع قرآني وتربوي مشهود له بالتميز، يركز على ترسيخ القيم الإيمانية، وحفظ القرآن الكريم بالتجويد، والتهيئة المتكاملة للأساس.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -40151,7 +42403,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1245 => 
+  1238 => 
   array (
     'name' => 'روضة بيتر لايف التعليمية',
     'name_en' => 'Better Life Educational Kindergarten (BLEK)',
@@ -40173,6 +42425,8 @@ return array (
     'whatsapp' => '+249912773322',
     'email' => NULL,
     'website' => 'https://facebook.com/blek.kindergarten.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة ثنائية اللغة تركز على التعليم التفاعلي وتنمية مهارات التفكير الإبداعي واستخدام وسائل منتسوري في الرياضيات والعلوم المبسطة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -40182,7 +42436,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1246 => 
+  1239 => 
   array (
     'name' => 'روضة أزهار الربيع الخاصة',
     'name_en' => 'Azhar Al-Rabie Kindergarten',
@@ -40204,6 +42458,8 @@ return array (
     'whatsapp' => '+249912551100',
     'email' => NULL,
     'website' => 'https://facebook.com/azhar.alrabie.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر رعاية تربوية حانية وتعتمد ألعاب الأركان التعليمية وأنشطة الرسم والتلوين والتمثيل المسرحي الهادف.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -40213,7 +42469,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1247 => 
+  1240 => 
   array (
     'name' => 'روضة المناهل الخاصة',
     'name_en' => 'Al-Manahil Private Kindergarten',
@@ -40235,6 +42491,8 @@ return array (
     'whatsapp' => '+249912443311',
     'email' => NULL,
     'website' => 'https://facebook.com/almanahil.kg.thawra',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تهتم بإتقان الحروف والأرقام ومبادئ القراءة والكتابة في مرحلة التمهيدي مع توفير حصص رياضة وترفيه أسبوعية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -40244,7 +42502,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1248 => 
+  1241 => 
   array (
     'name' => 'روضة الفردوس للأطفال',
     'name_en' => 'Al-Firdous Kindergarten',
@@ -40266,6 +42524,8 @@ return array (
     'whatsapp' => '+249912880055',
     'email' => NULL,
     'website' => 'https://facebook.com/alfirdous.kg.karari',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة قرآنية نموذجية تركز على حفظ قصار السور وأحاديث الآداب والأخلاق، وتدريب البراعم على التلاوة الصحيحة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -40275,7 +42535,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1249 => 
+  1242 => 
   array (
     'name' => 'روضة الإبداع التربوي',
     'name_en' => 'Al-Ibda Al-Tarbawi Kindergarten',
@@ -40297,6 +42557,8 @@ return array (
     'whatsapp' => '+249912332211',
     'email' => NULL,
     'website' => 'https://facebook.com/alebda.kg.karari',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تتبنى أساليب تنمية الذكاء والابتكار وتضم ورشاً للأشغال اليدوية والتفكير المنطقي ومسرحاً للأداء التعبيري.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -40306,7 +42568,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1250 => 
+  1243 => 
   array (
     'name' => 'روضة النخيل النموذجية',
     'name_en' => 'Al-Nakheel Model Kindergarten',
@@ -40328,6 +42590,8 @@ return array (
     'whatsapp' => '+249912660044',
     'email' => NULL,
     'website' => 'https://facebook.com/alnakheel.kg.thawra',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة هادئة ومجهزة بحدائق وملاعب مظللة، وتهتم بتنمية التوافق العضلي والعصبي والأنشطة الرياضية الخفيفة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -40337,7 +42601,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1251 => 
+  1244 => 
   array (
     'name' => 'روضة الهدى والنور الخاصة',
     'name_en' => 'Al-Huda Wal-Noor Kindergarten',
@@ -40359,6 +42623,8 @@ return array (
     'whatsapp' => '+249912441199',
     'email' => NULL,
     'website' => 'https://facebook.com/alhudawalnoor.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تجمع بين المنهج التربوي المعتمد والتربية الإسلامية السمحة، وتوفر بيئة تعليمية آمنة بإشراف معلمات مؤهلات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -40368,7 +42634,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1252 => 
+  1245 => 
   array (
     'name' => 'روضة الأبرار النموذجية',
     'name_en' => 'Al-Abrar Model Kindergarten',
@@ -40390,6 +42656,8 @@ return array (
     'whatsapp' => '+249912770033',
     'email' => NULL,
     'website' => 'https://facebook.com/alabrar.kg.thawra',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة حديثة تقدم برامج تأسيس متميزة في القراءة والكتابة والإنجليزية، مع رعاية نفسية واجتماعية لأطفال التمهيدي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -40399,7 +42667,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1253 => 
+  1246 => 
   array (
     'name' => 'روضة الأم الحنون الخاصة',
     'name_en' => 'Al-Umm Al-Hanoun Kindergarten',
@@ -40421,6 +42689,8 @@ return array (
     'whatsapp' => '+249912558833',
     'email' => NULL,
     'website' => 'https://facebook.com/alumm.alhanoun.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'محضن تربوي نموذجي بالحتانة يركز على الرعاية النفسية والتربوية الشاملة وتنمية المهارات اللغوية والتعبيرية للصغار.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -40430,7 +42700,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1254 => 
+  1247 => 
   array (
     'name' => 'روضة ماما زينب الإنجليزية',
     'name_en' => 'Mama Zainab English Kindergarten',
@@ -40452,6 +42722,8 @@ return array (
     'whatsapp' => '+249912337788',
     'email' => NULL,
     'website' => 'https://facebook.com/mamazainab.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة لغات رائدة بإشراف ماما زينب، تعتمد منهج جولي فونكس وأركان المنتسوري وتنمية الذكاء العاطفي والاجتماعي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -40461,7 +42733,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1255 => 
+  1248 => 
   array (
     'name' => 'روضة وحضانة الموسوعة النموذجية',
     'name_en' => 'Al-Mawsooah Kindergarten & Nursery',
@@ -40483,6 +42755,8 @@ return array (
     'whatsapp' => '+249921001009',
     'email' => NULL,
     'website' => 'https://facebook.com/almawsooah.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تعتمد سلسلة الرواد الأردنية العالمية والقاعدة النورانية واللغة الإنجليزية، وتوفر بيئة تعليمية حسية متطورة وحدائق ألعاب حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -40492,7 +42766,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1256 => 
+  1249 => 
   array (
     'name' => 'روضة ومدرسة الفيحاء الخاصة',
     'name_en' => 'Al-Faiha Private Kindergarten',
@@ -40514,6 +42788,8 @@ return array (
     'whatsapp' => '+249915718921',
     'email' => NULL,
     'website' => 'https://facebook.com/alfaiha.school.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أعرق مؤسسات التعليم المبكر بشرق النيل، توفر بيئة مدرسية متكاملة وأنشطة تفاعلية ومسرح أطفال وكوادر مؤهلة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -40523,7 +42799,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1257 => 
+  1250 => 
   array (
     'name' => 'روضة ومدرسة سبل النموذجية',
     'name_en' => 'Subul Model Kindergarten',
@@ -40545,6 +42821,8 @@ return array (
     'whatsapp' => '+249990005052',
     'email' => NULL,
     'website' => 'https://facebook.com/subul.school.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'بيئة تعليمية آمنة ومحفزة للأطفال، تضم معلمات ذوات خبرة وتوفر وسائل حسية وأركان ألعاب هادفة لتنمية مهارات التفكير.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -40554,7 +42832,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1258 => 
+  1251 => 
   array (
     'name' => 'روضة الضفة الغربية — المجلس الإفريقي للتعليم',
     'name_en' => 'West Bank African Council Kindergarten',
@@ -40576,6 +42854,8 @@ return array (
     'whatsapp' => '+249912800445',
     'email' => NULL,
     'website' => 'https://africancouncil.net',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة إسلامية رائدة تابعة للمجلس الإفريقي، تركز على غرس القيم والسلوكيات الحميدة وحفظ القرآن الكريم بالتجويد.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -40585,7 +42865,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1259 => 
+  1252 => 
   array (
     'name' => 'روضة نور الهدى الخاصة',
     'name_en' => 'Noor Al-Huda Kindergarten',
@@ -40607,6 +42887,8 @@ return array (
     'whatsapp' => '+249912448800',
     'email' => NULL,
     'website' => 'https://facebook.com/nooralhuda.eastnile',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر تعليماً تفاعلياً وأنشطة منتسوري حسية ومسابقات أسبوعية في الإلقاء والشعر وحفظ الآيات القرآنية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -40616,7 +42898,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1260 => 
+  1253 => 
   array (
     'name' => 'روضة أحباب الله النموذجية',
     'name_en' => 'Ahbab Allah Kindergarten',
@@ -40638,6 +42920,8 @@ return array (
     'whatsapp' => '+249912663322',
     'email' => NULL,
     'website' => 'https://facebook.com/ahbab.allah.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'محضن تربوي يهتم بالتربية الروحية والوجدانية، وتعويد الأطفال على الصلاة وبر الوالدين وحب الاستطلاع العلمي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -40647,7 +42931,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1261 => 
+  1254 => 
   array (
     'name' => 'روضة التلال النموذجية الخاصة',
     'name_en' => 'Al-Tilal Model Kindergarten',
@@ -40669,6 +42953,8 @@ return array (
     'whatsapp' => '+249912775511',
     'email' => NULL,
     'website' => 'https://facebook.com/altilal.kg.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة نموذجية تخدم أحياء شرق النيل ببيئة تربوية محفزة وفصول مرحة مجهزة بأحدث الوسائل التفاعلية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -40678,7 +42964,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1262 => 
+  1255 => 
   array (
     'name' => 'روضة البشائر الخاصة',
     'name_en' => 'Al-Bashayer Private Kindergarten',
@@ -40700,6 +42986,8 @@ return array (
     'whatsapp' => '+249912882200',
     'email' => NULL,
     'website' => 'https://facebook.com/albashayer.eastnile',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تركز على مهارات الاستعداد الأكاديمي، والتربية البدنية الخفيفة، والمسرح التربوي والأناشيد التثقيفية الهادفة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -40709,7 +42997,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1263 => 
+  1256 => 
   array (
     'name' => 'روضة طيور الجنة شرق النيل',
     'name_en' => 'Tuyoor Al-Jannah KG Sharq El Nil',
@@ -40731,6 +43019,8 @@ return array (
     'whatsapp' => '+249912336699',
     'email' => NULL,
     'website' => 'https://facebook.com/tuyoor.jannah.eastnile',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر رعاية للأطفال وبرامج حفظ وتلاوة، مع ألعاب رملية وحدائق ألعاب خضراء ومسابقات تربوية مستمرة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -40740,7 +43030,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1264 => 
+  1257 => 
   array (
     'name' => 'روضة دار السلام للطفولة',
     'name_en' => 'Dar Al-Salam Kindergarten',
@@ -40762,6 +43052,8 @@ return array (
     'whatsapp' => '+249912554477',
     'email' => NULL,
     'website' => 'https://facebook.com/daralsalam.kg.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تعتني بتطوير قدرات البراعم وتأسيسهم في الحساب ومخارج الحروف واللغة الإنجليزية في أجواء من الألفة والنشاط.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -40771,7 +43063,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1265 => 
+  1258 => 
   array (
     'name' => 'روضة كوكو النموذجية',
     'name_en' => 'Kuku Model Kindergarten',
@@ -40793,6 +43085,8 @@ return array (
     'whatsapp' => '+249912440088',
     'email' => NULL,
     'website' => 'https://facebook.com/kuku.kg.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة متميزة تخدم أسر منطقة حلة كوكو، وتقدم تعليماً متوازناً وأنشطة ترفيهية وزيارات تعليمية ميدانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -40802,7 +43096,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1266 => 
+  1259 => 
   array (
     'name' => 'روضة زهور الغد الخاصة',
     'name_en' => 'Zohoor Al-Ghad Kindergarten',
@@ -40824,6 +43118,8 @@ return array (
     'whatsapp' => '+249912778844',
     'email' => NULL,
     'website' => 'https://facebook.com/zohoor.alghad.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تعتمد أدوات منتسوري الحسية لتنمية الذكاء الرياضي والمكاني، وتوفر ملاعب آمنة وبرامج تعديل سلوك للأطفال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -40833,7 +43129,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1267 => 
+  1260 => 
   array (
     'name' => 'روضة الأمل المشرق',
     'name_en' => 'Al-Amal Al-Mushriq Kindergarten',
@@ -40855,6 +43151,8 @@ return array (
     'whatsapp' => '+249912665500',
     'email' => NULL,
     'website' => 'https://facebook.com/alamal.almushriq.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تخدم منطقة سوبا شرق بكفاءة تربوية عالية وفصول واسعة وبرامج تأسيس ممتازة للمرحلة الابتدائية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -40864,7 +43162,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1268 => 
+  1261 => 
   array (
     'name' => 'روضة ن والقلم القرآنية الخاصة',
     'name_en' => 'Noon Wal Qalam Quranic Kindergarten',
@@ -40886,6 +43184,8 @@ return array (
     'whatsapp' => '+249912339944',
     'email' => NULL,
     'website' => 'https://facebook.com/noonwalqalam.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز قرآني وتربوي يعنى بتحفيظ القرآن الكريم وتعليم أحكام التجويد والخط العربي وتنمية الفصاحة اللغوية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -40895,7 +43195,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1269 => 
+  1262 => 
   array (
     'name' => 'رياض مؤسسة د. أبوذر الكودة التعليمية — فرع الكلاكلة',
     'name_en' => 'Dr. Abuzar Al-Koda Kindergarten Kalakla',
@@ -40919,6 +43219,8 @@ return array (
     'whatsapp' => '+249917458400',
     'email' => NULL,
     'website' => 'https://facebook.com/abuzar.alkoda.kalakla',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أشهر وأكبر صروح رياض الأطفال بجنوب الخرطوم، توفر بيئة تفاعلية وتقنيات تعليم حديثة وخدمة ترحيل بإشراف مباشر.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -40928,7 +43230,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1270 => 
+  1263 => 
   array (
     'name' => 'روضة الخنساء — المجلس الإفريقي للتعليم',
     'name_en' => 'Al-Khansa Kindergarten African Council',
@@ -40950,6 +43252,8 @@ return array (
     'whatsapp' => '+249124376765',
     'email' => NULL,
     'website' => 'https://africancouncil.net',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع تاريخي للمجلس الإفريقي للتعليم في الكلاكلة، يركز على القرآن الكريم والسنة النبوية والتربية السلوكية واللغوية المتكاملة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -40959,7 +43263,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1271 => 
+  1264 => 
   array (
     'name' => 'روضة مؤسسة التراث التعليمية',
     'name_en' => 'Al-Turath Educational Kindergarten',
@@ -40981,6 +43285,8 @@ return array (
     'whatsapp' => '+249912304820',
     'email' => NULL,
     'website' => 'https://facebook.com/alturath.kalakla',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي راسخ بالكلاكلة القبة، يقدم مناهج متطورة في التربية المبكرة ومسابقات ثقافية ومسرح عرائس تفاعلي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -40990,7 +43296,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1272 => 
+  1265 => 
   array (
     'name' => 'روضة الأطباء النموذجية الكلاكلة',
     'name_en' => 'Al-Atibba Model Kindergarten Kalakla',
@@ -41012,6 +43318,8 @@ return array (
     'whatsapp' => '+249124676767',
     'email' => NULL,
     'website' => 'https://facebook.com/alatibba.kindergarten',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تلقب بجوهرة رياض الأطفال بالكلاكلات، وتتميز بألعاب الأركان لتنمية القدرات ورعاية صحية وطبية دورية للأطفال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -41021,7 +43329,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1273 => 
+  1266 => 
   array (
     'name' => 'روضة براعم الكلاكلة الخاصة',
     'name_en' => 'Baraem Al-Kalakla Kindergarten',
@@ -41043,6 +43351,8 @@ return array (
     'whatsapp' => '+249912557722',
     'email' => NULL,
     'website' => 'https://facebook.com/baraem.alkalakla',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر رعاية متكاملة وتعليماً مبكراً في القراءة والكتابة والحساب الذهني، وتضم حدائق ألعاب آمنة ومظللة للأطفال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -41052,7 +43362,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1274 => 
+  1267 => 
   array (
     'name' => 'روضة الأندلس القرآنية النموذجية',
     'name_en' => 'Al-Andalus Quranic Kindergarten',
@@ -41074,6 +43384,8 @@ return array (
     'whatsapp' => '+249912883311',
     'email' => NULL,
     'website' => 'https://facebook.com/alandalus.kg.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة قرآنية تهتم بالتربية السلوكية الإيجابية، وحفظ القرآن الكريم بالقاعدة النورانية، مع تعليم الحساب والإنجليزية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -41083,7 +43395,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1275 => 
+  1268 => 
   array (
     'name' => 'روضة جامع الكون القرآنية',
     'name_en' => 'Jamea Al-Kown Quranic Kindergarten',
@@ -41105,6 +43417,8 @@ return array (
     'whatsapp' => '+249912447733',
     'email' => NULL,
     'website' => 'https://facebook.com/jamea.alkown.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'محضن قرآني بارز بجبل أولياء يركز على تلاوة القرآن وتنمية الأخلاق الفاضلة وتأسيس المهارات اللغوية والخط العربي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -41114,7 +43428,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1276 => 
+  1269 => 
   array (
     'name' => 'روضة براعم النصر الخاصة — جبل أولياء',
     'name_en' => 'Baraem Al-Nasr Kindergarten',
@@ -41136,6 +43450,8 @@ return array (
     'whatsapp' => '+249912661188',
     'email' => NULL,
     'website' => 'https://facebook.com/baraem.alnasr.hasanab',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تخدم منطقة طيبة الحسناب ببرامج تعليم مبكر تركز على التفاعل الحركي، وتنمية مهارات التعبير الشفهي والحساب المبسط.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -41145,7 +43461,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1277 => 
+  1270 => 
   array (
     'name' => 'روضة الأمل النموذجية الكلاكلة',
     'name_en' => 'Al-Amal Model Kindergarten Kalakla',
@@ -41167,6 +43483,8 @@ return array (
     'whatsapp' => '+249912338877',
     'email' => NULL,
     'website' => 'https://facebook.com/alamal.kalakla.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'بيئة تعليمية دافئة تضم فصولاً مرحة ومجهزة، وألعاباً تعليمية لتنمية التفكير المنطقي والإبداع لدى أطفال ما قبل المدرسة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -41176,7 +43494,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1278 => 
+  1271 => 
   array (
     'name' => 'روضة ومدارس بيت الأسرة والطفل ود مدني',
     'name_en' => 'Family & Child Kindergarten Wad Madani',
@@ -41198,6 +43516,8 @@ return array (
     'whatsapp' => '+249962916554',
     'email' => NULL,
     'website' => 'https://facebook.com/familychild.madani',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر بيئة تربوية وتعليمية متكاملة لأطفال ما قبل المدرسة، مع غرف ألعاب ذكية وفصول مكيفة وكادر مؤهل في التربية المبكرة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -41207,7 +43527,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1279 => 
+  1272 => 
   array (
     'name' => 'روضة التربية الحديثة ود مدني',
     'name_en' => 'Al-Tarbiyah Al-Hadeetha Kindergarten Wad Madani',
@@ -41229,6 +43549,8 @@ return array (
     'whatsapp' => '+249912304910',
     'email' => NULL,
     'website' => 'https://facebook.com/moderneducation.madani',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة نموذجية ناشطة في مشاركة أنشطة الأطفال، حفلات التخرج، والبرامج التعليمية لأبناء حي دردق ومدينة ود مدني.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -41238,7 +43560,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1280 => 
+  1273 => 
   array (
     'name' => 'روضة القبس النموذجية ود مدني',
     'name_en' => 'Al-Qabas Model Kindergarten Wad Madani',
@@ -41260,6 +43582,8 @@ return array (
     'whatsapp' => '+249901235520',
     'email' => NULL,
     'website' => 'https://alqabasschools.com/branches/madani-girls/',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع مؤسسة القبس التعليمية بود مدني، يوفر تعليماً متميزاً يجمع بين المنهج الحديث والقرآن الكريم والأنشطة الإبداعية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -41269,7 +43593,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1281 => 
+  1274 => 
   array (
     'name' => 'روضة الأوائل الخاصة ود مدني',
     'name_en' => 'Al-Awael Private Kindergarten Wad Madani',
@@ -41291,6 +43615,8 @@ return array (
     'whatsapp' => '+249912445588',
     'email' => NULL,
     'website' => 'https://facebook.com/alawael.kg.madani',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أشهر الروضات بحي المنيرة، تعتني بتنمية مهارات التفكير والاستكشاف والأشغال اليدوية وتأسيس الحساب والأبجدية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -41300,7 +43626,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1282 => 
+  1275 => 
   array (
     'name' => 'روضة الياسمين الخاصة بمعهد الأستاذ',
     'name_en' => 'Al-Yasmeen Kindergarten Ustaz Institute',
@@ -41322,6 +43648,8 @@ return array (
     'whatsapp' => '+249912388011',
     'email' => NULL,
     'website' => 'https://facebook.com/alyasmeen.ustaz.madani',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي عريق يتبع معهد الأستاذ، يمتلك خبرة تربوية واسعة في تعليم وتنشئة أطفال الروضة وتأهيلهم للأساس.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -41331,7 +43659,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1283 => 
+  1276 => 
   array (
     'name' => 'روضة ود مدني الإنجليزية النموذجية',
     'name_en' => 'Wad Madani English Model Kindergarten',
@@ -41353,6 +43681,8 @@ return array (
     'whatsapp' => '+249912557733',
     'email' => NULL,
     'website' => 'https://facebook.com/madani.english.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة لغات تطبق المعايير الدولية والأنشطة اللغوية والقرآنية ومسرح العرائس في بيئة تعليمية محفزة للأطفال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -41362,7 +43692,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1284 => 
+  1277 => 
   array (
     'name' => 'روضة براعم الجزيرة النموذجية',
     'name_en' => 'Baraem Al-Gezira Kindergarten',
@@ -41384,6 +43714,8 @@ return array (
     'whatsapp' => '+249912663344',
     'email' => NULL,
     'website' => 'https://facebook.com/baraem.algezira.madani',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر رعاية متكاملة للأطفال وتعتمد أسلوب التعلّم باللعب واستكشاف الطبيعة والأنشطة الفنية التعبيرية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -41393,7 +43725,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1285 => 
+  1278 => 
   array (
     'name' => 'روضة طيور المحبة الخاصة',
     'name_en' => 'Tuyoor Al-Mahabba Kindergarten',
@@ -41415,6 +43747,8 @@ return array (
     'whatsapp' => '+249912771122',
     'email' => NULL,
     'website' => 'https://facebook.com/tuyoor.almahabba.madani',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'بيئة تعليمية مبهجة للأطفال تضم ملاعب رملية وأركان رسم وألعاب إدراكية تنمي مهارات التفكير المنطقي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -41424,7 +43758,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1286 => 
+  1279 => 
   array (
     'name' => 'روضة المستقبل الواعد',
     'name_en' => 'Al-Mustaqbal Al-Waed Kindergarten',
@@ -41446,6 +43780,8 @@ return array (
     'whatsapp' => '+249912880011',
     'email' => NULL,
     'website' => 'https://facebook.com/almustaqbal.madani.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تركز على بناء شخصية الطفل وتطوير قدراته على التعبير الشفهي والتواصل الجماعي وحفظ قصار السور من القرآن الكريم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -41455,7 +43791,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1287 => 
+  1280 => 
   array (
     'name' => 'روضة أحباب الرحمن القرآنية',
     'name_en' => 'Ahbab Al-Rahman Kindergarten',
@@ -41477,6 +43813,8 @@ return array (
     'whatsapp' => '+249912334466',
     'email' => NULL,
     'website' => 'https://facebook.com/ahbab.alrahman.madani',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة قرآنية متميزة بجزيرة الفيل تهدف إلى غرس محبة القرآن الكريم وتأسيس النطق الصحيح بالقاعدة النورانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -41486,7 +43824,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1288 => 
+  1281 => 
   array (
     'name' => 'روضة براعم الفيل النموذجية',
     'name_en' => 'Baraem Al-Feel Kindergarten',
@@ -41508,6 +43846,8 @@ return array (
     'whatsapp' => '+249912449900',
     'email' => NULL,
     'website' => 'https://facebook.com/baraem.alfeel.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر فصولاً فسيحة وحديقة ألعاب خضراء وبرامج تربوية وأنشطة مسرحية تنمي روح التعاون بين البراعم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -41517,7 +43857,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1289 => 
+  1282 => 
   array (
     'name' => 'روضة سنكات النموذجية الخاصة',
     'name_en' => 'Sinkat Model Kindergarten',
@@ -41539,6 +43879,8 @@ return array (
     'whatsapp' => '+249912558822',
     'email' => NULL,
     'website' => 'https://facebook.com/sinkat.kg.madani',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تعتني بالتهيئة الأكاديمية المبكرة للأطفال في بيئة محببة، وتوفر رعاية صحية ومتابعة دورية للنمو والمهارات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -41548,7 +43890,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1290 => 
+  1283 => 
   array (
     'name' => 'روضة النور الساطع',
     'name_en' => 'Al-Noor Al-Satea Kindergarten',
@@ -41570,6 +43912,8 @@ return array (
     'whatsapp' => '+249912660077',
     'email' => NULL,
     'website' => 'https://facebook.com/alnoor.alsatea.madani',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تقدم برامج تعليمية تفاعلية وألعاب تركيب ومسابقات تلوين وأناشيد تثقيفية موجهة لتعزيز الفضول المعرفي لدى الصغار.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -41579,7 +43923,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1291 => 
+  1284 => 
   array (
     'name' => 'روضة زهور الأمل الخاصة',
     'name_en' => 'Zohoor Al-Amal Kindergarten',
@@ -41601,6 +43945,8 @@ return array (
     'whatsapp' => '+249912774433',
     'email' => NULL,
     'website' => 'https://facebook.com/zohoor.alamal.madani',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تعتمد وسائل منتسوري في تنمية المهارات الحسية والحركية، وتوفر أركان قراءة حرة ومسرح دمى وملاعب آمنة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -41610,7 +43956,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1292 => 
+  1285 => 
   array (
     'name' => 'روضة شمس الهدى للأطفال',
     'name_en' => 'Shams Al-Huda Kindergarten',
@@ -41632,6 +43978,8 @@ return array (
     'whatsapp' => '+249912883355',
     'email' => NULL,
     'website' => 'https://facebook.com/shams.alhuda.madani',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'محضن تربوي يخدم أسر مارنجان، يركز على الأخلاق النبيلة وتلاوة القرآن الكريم وألعاب بناء الذكاء والتعاون.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -41641,7 +43989,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1293 => 
+  1286 => 
   array (
     'name' => 'روضة بركات الحديثة',
     'name_en' => 'Barakat Modern Kindergarten',
@@ -41663,6 +44011,8 @@ return array (
     'whatsapp' => '+249912335500',
     'email' => NULL,
     'website' => 'https://facebook.com/barakat.kg.gezira',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة عريقة في بركات توفر تعليماً متميزاً لأبناء العاملين بالمنطقة مع حدائق طبيعية وأنشطة استكشاف زراعية وبيئية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -41672,7 +44022,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1294 => 
+  1287 => 
   array (
     'name' => 'روضة حنتوب النموذجية',
     'name_en' => 'Hantoub Model Kindergarten',
@@ -41695,6 +44045,8 @@ return array (
     'whatsapp' => '+249912446611',
     'email' => NULL,
     'website' => 'https://facebook.com/hantoub.kg.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'درة المدارس القومية الكبرى في السودان تأسست عام 1946م على الضفة الشرقية للنيل الأزرق بود مدني. موئل الفكر والأدب والسياسة، وضمت حرماً جامعياً مصغراً وملاعب أولمبية، وخرّجت الروائي العالمي الطيب صالح والبروفيسور عبد الله الطيب ونخبة صناع النهضة الوطنية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -41704,7 +44056,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1295 => 
+  1288 => 
   array (
     'name' => 'روضة الواحة الخاصة ود مدني',
     'name_en' => 'Al-Waha Private Kindergarten Wad Madani',
@@ -41726,6 +44078,8 @@ return array (
     'whatsapp' => '+249912551188',
     'email' => NULL,
     'website' => 'https://facebook.com/alwaha.kg.madani',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'واحة تعليمية جميلة للأطفال توفر قاعات واسعة وأنشطة سبورة ذكية وحصص سباحة ولعب حركي ممتع.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -41735,7 +44089,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1296 => 
+  1289 => 
   array (
     'name' => 'روضة الإيمان النموذجية ود مدني',
     'name_en' => 'Al-Iman Model Kindergarten Wad Madani',
@@ -41757,6 +44111,8 @@ return array (
     'whatsapp' => '+249912662244',
     'email' => NULL,
     'website' => 'https://facebook.com/aliman.kg.madani',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تركز على التربية الدينية الفاضلة وحفظ جزء عم وإتقان القراءة والكتابة باللغة العربية والإنجليزية للصغار.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -41766,7 +44122,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1297 => 
+  1290 => 
   array (
     'name' => 'روضة ينابيع المعرفة',
     'name_en' => 'Yanabee Al-Maarifa Kindergarten',
@@ -41788,6 +44144,8 @@ return array (
     'whatsapp' => '+249912779955',
     'email' => NULL,
     'website' => 'https://facebook.com/yanabee.maarifa.madani',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر برامج تعليمية ثرية تدمج التفكير العلمي والتجارب المسلية وحصص الفنون التشكيلية والمسرح الصغير.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -41797,7 +44155,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1298 => 
+  1291 => 
   array (
     'name' => 'روضة براعم النصر الخاصة — ود مدني',
     'name_en' => 'Baraem Al-Nasr Kindergarten Madani',
@@ -41819,6 +44177,8 @@ return array (
     'whatsapp' => '+249912884477',
     'email' => NULL,
     'website' => 'https://facebook.com/baraem.nasr.madani',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'بيئة متكاملة تهيئ الطفل نفسياً وأكاديمياً لدخول المدرسة الابتدائية من خلال مناهج نشطة وكادر خبير.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -41828,7 +44188,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1299 => 
+  1292 => 
   array (
     'name' => 'روضة رياض الصالحين ود مدني',
     'name_en' => 'Riyad Al-Saliheen Kindergarten Madani',
@@ -41850,6 +44210,8 @@ return array (
     'whatsapp' => '+249912331188',
     'email' => NULL,
     'website' => 'https://facebook.com/saliheen.kg.madani',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة قرآنية وتربوية رائدة تغرس الآداب النبوية وحب الصلاة وتقدم تعليماً حديثاً ومسابقات حفظ سنوية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -41859,7 +44221,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1300 => 
+  1293 => 
   array (
     'name' => 'روضة ومدارس انوفيشن العالمية الحصاحيصا',
     'name_en' => 'Innovation International Kindergarten Hasaheisa',
@@ -41881,6 +44243,8 @@ return array (
     'whatsapp' => '+249116118026',
     'email' => NULL,
     'website' => 'https://facebook.com/innovation.hasaheisa',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة لغات متطورة تطبق برامج إرشادية وتربوية للطفل والأسرة، وتعتمد تعليم الصوتيات والرياضيات المبسطة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -41890,7 +44254,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1301 => 
+  1294 => 
   array (
     'name' => 'روضة مدارس التميز الخاصة الحصاحيصا',
     'name_en' => 'Al-Tamayuz Private Kindergarten Hasaheisa',
@@ -41912,6 +44276,8 @@ return array (
     'whatsapp' => '+249123290335',
     'email' => NULL,
     'website' => 'https://facebook.com/altamayuz.hasaheisa',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'قسم تمهيدي متميز يقدم برامج التأسيس الشاملة للأطفال وفصولاً مكيفة وملاعب آمنة بإشراف معلمات خبيرات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -41921,7 +44287,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1302 => 
+  1295 => 
   array (
     'name' => 'روضة براعم الحصاحيصا الخاصة',
     'name_en' => 'Baraem Al-Hasaheisa Kindergarten',
@@ -41943,6 +44309,8 @@ return array (
     'whatsapp' => '+249912553388',
     'email' => NULL,
     'website' => 'https://facebook.com/baraem.hasaheisa',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر رعاية متكاملة وأنشطة مسرحية ورسم وتلوين وألعاب تركيب لتنمية مهارات التنسيق العضلي الحركي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -41952,7 +44320,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1303 => 
+  1296 => 
   array (
     'name' => 'روضة الأمل الخاصة الحصاحيصا',
     'name_en' => 'Al-Amal Private Kindergarten Hasaheisa',
@@ -41974,6 +44342,8 @@ return array (
     'whatsapp' => '+249912664400',
     'email' => NULL,
     'website' => 'https://facebook.com/alamal.kg.hasaheisa',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أقدم الرياض بحي المزاد، تقدم برامج تهيئة متميزة للمرحلة الابتدائية وتزرع روح المبادرة والتعاون.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -41983,7 +44353,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1304 => 
+  1297 => 
   array (
     'name' => 'روضة الضقالة النموذجية',
     'name_en' => 'Al-Daqala Model Kindergarten',
@@ -42005,6 +44375,8 @@ return array (
     'whatsapp' => '+249912775599',
     'email' => NULL,
     'website' => 'https://facebook.com/aldaqala.kg.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تخدم أطفال حي الضقالة والمناطق المجاورة ببيئة آمنة ووسائل حسية وألعاب ذكاء وأناشيد تربوية محببة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -42014,7 +44386,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1305 => 
+  1298 => 
   array (
     'name' => 'روضة السلام للأطفال الحصاحيصا',
     'name_en' => 'Al-Salam Children Kindergarten Hasaheisa',
@@ -42036,6 +44408,8 @@ return array (
     'whatsapp' => '+249912886611',
     'email' => NULL,
     'website' => 'https://facebook.com/alsalam.hasaheisa.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة قرآنية تهتم بتعليم الصلاة والأخلاق الفاضلة وتأسيس الطفل في القراءة والحساب بأسلوب شيق وجذاب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -42045,7 +44419,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1306 => 
+  1299 => 
   array (
     'name' => 'روضة مكتبة الإخوة التربوية',
     'name_en' => 'Al-Ikhwah Educational Kindergarten Hasaheisa',
@@ -42067,6 +44441,8 @@ return array (
     'whatsapp' => '+249912339922',
     'email' => NULL,
     'website' => 'https://facebook.com/alikhwah.hasaheisa',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز متقدم لرياض الأطفال وتنمية المهارات، يقدم مستويات تعليمية متطورة ونماذج لأنشطة منتسوري والتفكير الإبداعي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -42076,7 +44452,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1307 => 
+  1300 => 
   array (
     'name' => 'روضة الثريا الخاصة للتعليم العربي والإنجليزي',
     'name_en' => 'Al-Thuraya Private Kindergarten Rifaa',
@@ -42098,6 +44474,8 @@ return array (
     'whatsapp' => '+249129573923',
     'email' => NULL,
     'website' => 'https://facebook.com/althuraya.rifaa',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تستقبل الأطفال في المستويين الأول والثاني، وتعتمد مناهج ثنائية اللغة وتنمية القدرات الإدراكية والتعبيرية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -42107,7 +44485,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1308 => 
+  1301 => 
   array (
     'name' => 'روضة رفاعة الطهطاوي للأطفال',
     'name_en' => 'Rifaa Al-Tahtawi Kindergarten',
@@ -42129,6 +44507,8 @@ return array (
     'whatsapp' => '+249912890910',
     'email' => NULL,
     'website' => 'https://facebook.com/rifaa.altahtawi.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'أول مدرسة لتعليم البنات في تاريخ السودان الحديث، أسسها رائد تعليم المرأة الشيخ بابكر بدري عام 1903م في رفاعة بشرق الجزيرة. مثلت الشرارة الكبرى لتنوير وتحرير المرأة السودانية وتخريج أولى المعلمات والطبيبات وتأسيس كلية الأحفاد.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -42138,7 +44518,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1309 => 
+  1302 => 
   array (
     'name' => 'روضة براعم البطانة الخاصة',
     'name_en' => 'Baraem Al-Butana Kindergarten',
@@ -42160,6 +44540,8 @@ return array (
     'whatsapp' => '+249912441133',
     'email' => NULL,
     'website' => 'https://facebook.com/baraem.albutana.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر بيئة أسرية دافئة، وتركز على رعاية الميول الفنية والرياضية للأطفال وتعليم القراءة والكتابة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -42169,7 +44551,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1310 => 
+  1303 => 
   array (
     'name' => 'روضة الإشراق النموذجية رفاعة',
     'name_en' => 'Al-Ishraq Model Kindergarten Rifaa',
@@ -42191,6 +44573,8 @@ return array (
     'whatsapp' => '+249912552244',
     'email' => NULL,
     'website' => 'https://facebook.com/alishraq.rifaa.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'أول مدرسة لتعليم البنات في تاريخ السودان الحديث، أسسها رائد تعليم المرأة الشيخ بابكر بدري عام 1903م في رفاعة بشرق الجزيرة. مثلت الشرارة الكبرى لتنوير وتحرير المرأة السودانية وتخريج أولى المعلمات والطبيبات وتأسيس كلية الأحفاد.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -42200,7 +44584,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1311 => 
+  1304 => 
   array (
     'name' => 'روضة الهداية الخاصة برفاعة',
     'name_en' => 'Al-Hidaya Private Kindergarten Rifaa',
@@ -42222,6 +44606,8 @@ return array (
     'whatsapp' => '+249912663355',
     'email' => NULL,
     'website' => 'https://facebook.com/alhidaya.rifaa',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'أول مدرسة لتعليم البنات في تاريخ السودان الحديث، أسسها رائد تعليم المرأة الشيخ بابكر بدري عام 1903م في رفاعة بشرق الجزيرة. مثلت الشرارة الكبرى لتنوير وتحرير المرأة السودانية وتخريج أولى المعلمات والطبيبات وتأسيس كلية الأحفاد.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -42231,7 +44617,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1312 => 
+  1305 => 
   array (
     'name' => 'روضة ومدرسة الأكاديمية العلمية المناقل',
     'name_en' => 'Scientific Academy Kindergarten Al-Managil',
@@ -42253,6 +44639,8 @@ return array (
     'whatsapp' => '+249912774488',
     'email' => NULL,
     'website' => 'https://facebook.com/scientific.academy.managil',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تعلن دورياً عن فتح باب التسجيل لمستويات الروضة والتمهيدي وتعتمد مناهج حديثة وتجارب تفاعلية للأطفال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -42262,7 +44650,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1313 => 
+  1306 => 
   array (
     'name' => 'روضة براعم المناقل النموذجية',
     'name_en' => 'Baraem Al-Managil Kindergarten',
@@ -42284,6 +44672,8 @@ return array (
     'whatsapp' => '+249912885522',
     'email' => NULL,
     'website' => 'https://facebook.com/baraem.managil.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر فصولاً مرحة ومجهزة وحديقة ألعاب خضراء وبرامج لرعاية الميول والمواهب لدى أطفال ما قبل المدرسة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -42293,7 +44683,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1314 => 
+  1307 => 
   array (
     'name' => 'روضة الفجر الجديد الخاصة',
     'name_en' => 'Al-Fajr Al-Jadeed Kindergarten Managil',
@@ -42315,6 +44705,8 @@ return array (
     'whatsapp' => '+249912336611',
     'email' => NULL,
     'website' => 'https://facebook.com/alfajr.managil.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تهتم بإتقان مبادئ القراءة والكتابة والحساب وتنمية الثقة بالنفس والتعاون في إنجاز الأنشطة الجماعية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -42324,7 +44716,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1315 => 
+  1308 => 
   array (
     'name' => 'روضة الوفاء النموذجية المناقل',
     'name_en' => 'Al-Wafa Model Kindergarten Managil',
@@ -42346,6 +44738,8 @@ return array (
     'whatsapp' => '+249912447700',
     'email' => NULL,
     'website' => 'https://facebook.com/alwafa.managil.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'محضن قرآني يغرس الآداب والأخلاق الإسلامية ويعتمد القاعدة النورانية في تعليم الهجاء والتلاوة السليمة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -42355,7 +44749,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1316 => 
+  1309 => 
   array (
     'name' => 'روضة ومدرسة اقرأ وارتقِ القرآنية',
     'name_en' => 'Iqraa Wartaqi Quranic Kindergarten Port Sudan',
@@ -42377,6 +44771,8 @@ return array (
     'whatsapp' => '+249110217702',
     'email' => NULL,
     'website' => 'https://facebook.com/iqraa.wartaqi.portsudan',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أشهر المراكز التعليمية والقرآنية ببورتسودان، تدرس القرآن الكريم بالتجويد مع تأسيس أكاديمي متكامل وفصول مكيفة وملاعب آمنة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -42386,7 +44782,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1317 => 
+  1310 => 
   array (
     'name' => 'روضة ومدرسة غراس القرآنية',
     'name_en' => 'Ghiras Quranic Kindergarten Port Sudan',
@@ -42408,6 +44804,8 @@ return array (
     'whatsapp' => '+249110217707',
     'email' => NULL,
     'website' => 'https://facebook.com/ghiras.portsudan',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز قرآني وتربوي يهتم بغراس القيم الإيمانية في قلوب البراعم وحفظ قصار السور من القرآن الكريم، مع ألعاب استكشافية حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -42417,7 +44815,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1318 => 
+  1311 => 
   array (
     'name' => 'روضة ومدارس بيت الأسرة والطفل بورتسودان',
     'name_en' => 'Family & Child Kindergarten Port Sudan',
@@ -42439,6 +44837,8 @@ return array (
     'whatsapp' => '+249962916554',
     'email' => NULL,
     'website' => 'https://facebook.com/familychild.portsudan',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر بيئة تربوية وتعليمية متكاملة لأطفال ما قبل المدرسة وتفتح باب التسجيل دورياً، مع اهتمام بالأنشطة السمعية والبصرية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -42448,7 +44848,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1319 => 
+  1312 => 
   array (
     'name' => 'روضة رواد القبس النموذجية بورتسودان',
     'name_en' => 'Rowad Al-Qabas Kindergarten Port Sudan',
@@ -42470,6 +44870,8 @@ return array (
     'whatsapp' => '+249911154145',
     'email' => NULL,
     'website' => 'https://facebook.com/rowad.alqabas.portsudan',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة نموذجية متميزة بحي كوريا، تقدم تعليماً متوازناً يجمع بين التربية الأخلاقية وتنمية مهارات التفكير العلمي المبسط.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -42479,7 +44881,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1320 => 
+  1313 => 
   array (
     'name' => 'مدارس والتعليم البريطانية فرع بورتسودان — قسم الروضة',
     'name_en' => 'British Educational Preschool Port Sudan',
@@ -42501,6 +44903,8 @@ return array (
     'whatsapp' => '+249912301144',
     'email' => NULL,
     'website' => 'https://facebook.com/bes.portsudan',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'قسم تمهيدي دولي راقٍ يدرس المنهج البريطاني باللغة الإنجليزية بالكامل، مع مسابح أطفال وملاعب حديثة ورعاية طبية مستمرة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -42510,7 +44914,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1321 => 
+  1314 => 
   array (
     'name' => 'حضانة وروضة دريم كيدز',
     'name_en' => 'Dream Kids Nursery & Kindergarten Port Sudan',
@@ -42532,6 +44936,8 @@ return array (
     'whatsapp' => '+249912550011',
     'email' => NULL,
     'website' => 'https://facebook.com/dreamkids.portsudan',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'حضانة وروضة أطفال عصرية مجهزة بأدوات منتسوري، وتوفر برامج تنمية الذكاء والحواس ورعاية الرضع والتمهيدي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -42541,7 +44947,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1322 => 
+  1315 => 
   array (
     'name' => 'روضة الماهر بالقرآن',
     'name_en' => 'Al-Mahir Bil-Quran Kindergarten Port Sudan',
@@ -42563,6 +44969,8 @@ return array (
     'whatsapp' => '+249116638715',
     'email' => NULL,
     'website' => 'https://facebook.com/almahir.bilquran.portsudan',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز متخصص في تعليم القرآن الكريم وتخريج أطفال متمكنين من القراءة والحساب والأخلاق الفاضلة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -42572,7 +44980,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1323 => 
+  1316 => 
   array (
     'name' => 'روضة أحمدوناب الخاصة للأطفال',
     'name_en' => 'Ahmadonab Private Kindergarten Port Sudan',
@@ -42594,6 +45002,8 @@ return array (
     'whatsapp' => '+249963177116',
     'email' => NULL,
     'website' => 'https://facebook.com/ahmadonab.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تتميز ببيئة تعليمية مبهجة وكادر تدريسي متخصص، وتوفر رحلات استكشافية ساحلية وأنشطة رسم وموسيقى.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -42603,7 +45013,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1324 => 
+  1317 => 
   array (
     'name' => 'روضة سنابل الخير للمجلس الأفريقي',
     'name_en' => 'Sanabil Al-Khair African Council KG',
@@ -42625,6 +45035,8 @@ return array (
     'whatsapp' => '+249912550044',
     'email' => NULL,
     'website' => 'https://africancouncil.net',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع متميز يوفر فصولاً فسيحة وألعاب تنمية المهارات وحفظ الأحاديث النبوية وتأسيس النطق السليم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -42634,7 +45046,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1325 => 
+  1318 => 
   array (
     'name' => 'روضة الرحيق المختوم الخاصة',
     'name_en' => 'Al-Raheeq Al-Makhtoom Kindergarten Port Sudan',
@@ -42656,6 +45068,8 @@ return array (
     'whatsapp' => '+249912661100',
     'email' => NULL,
     'website' => 'https://facebook.com/alraheeq.makhtoom.portsudan',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تطل على البحر الأحمر وتوفر بيئة تعليمية صحية ومنعشة، مع برامج ترفيهية وتعليمية ورياضية متكاملة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -42665,7 +45079,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1326 => 
+  1319 => 
   array (
     'name' => 'روضة نور الإيمان للمجلس الأفريقي',
     'name_en' => 'Noor Al-Iman African Council KG Port Sudan',
@@ -42687,6 +45101,8 @@ return array (
     'whatsapp' => '+249912772211',
     'email' => NULL,
     'website' => 'https://africancouncil.net',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'محضن قرآني رائد بديم النور يركز على تلاوة القرآن الكريم وتأسيس اللغة العربية والحساب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -42696,7 +45112,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1327 => 
+  1320 => 
   array (
     'name' => 'روضة أطفال الوطن الخاصة',
     'name_en' => 'Atfal Al-Watan Kindergarten Port Sudan',
@@ -42718,6 +45134,8 @@ return array (
     'whatsapp' => '+249912339900',
     'email' => NULL,
     'website' => 'https://facebook.com/atfal.alwatan.portsudan',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة نموذجية بسلبونا تعتني بالتربية الوطنية وغرس حب الوطن وتنمية مهارات التفكير العلمي المبسط.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -42727,7 +45145,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1328 => 
+  1321 => 
   array (
     'name' => 'روضة براعم البحر الأحمر',
     'name_en' => 'Baraem Al-Bahr Al-Ahmar Kindergarten',
@@ -42749,6 +45167,8 @@ return array (
     'whatsapp' => '+249912440099',
     'email' => NULL,
     'website' => 'https://facebook.com/baraem.redsea.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر بيئة محفزة للطفل وتعتمد الألعاب التعليمية المائية والرملية لتنمية الحس الإبداعي لدى البراعم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -42758,7 +45178,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1329 => 
+  1322 => 
   array (
     'name' => 'روضة طيور الميناء النموذجية',
     'name_en' => 'Tuyoor Al-Mina Kindergarten',
@@ -42780,6 +45200,8 @@ return array (
     'whatsapp' => '+249912551122',
     'email' => NULL,
     'website' => 'https://facebook.com/tuyoor.almina.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تخدم أسر العاملين بالميناء بسلالاب، وتقدم برامج تهيئة أكاديمية ممتازة وتغرس عادات النظافة والنظام.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -42789,7 +45211,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1330 => 
+  1323 => 
   array (
     'name' => 'روضة المنار النموذجية الخاصة',
     'name_en' => 'Al-Manar Model Kindergarten Port Sudan',
@@ -42811,6 +45233,8 @@ return array (
     'whatsapp' => '+249912662233',
     'email' => NULL,
     'website' => 'https://facebook.com/almanar.portsudan.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تعتمد التعلم التعاوني وتوفر قاعات مزودة بالسبورات التفاعلية وألعاب تركيب ومسابقات تلوين وأناشيد.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -42820,7 +45244,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1331 => 
+  1324 => 
   array (
     'name' => 'روضة أم القرى الخاصة بورتسودان',
     'name_en' => 'Umm Al-Qura Private Kindergarten',
@@ -42842,6 +45266,8 @@ return array (
     'whatsapp' => '+249912773344',
     'email' => NULL,
     'website' => 'https://facebook.com/ummalqura.portsudan',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'محضن تربوي قرآني يركز على تلاوة القرآن الكريم والأخلاق والآداب النبوية وإتقان الحروف العربية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -42851,7 +45277,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1332 => 
+  1325 => 
   array (
     'name' => 'روضة البشائر الحديثة للأطفال',
     'name_en' => 'Al-Bashayer Modern Kindergarten',
@@ -42873,6 +45299,8 @@ return array (
     'whatsapp' => '+249912884455',
     'email' => NULL,
     'website' => 'https://facebook.com/albashayer.portsudan',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر رعاية متكاملة للأطفال وتعتمد استراتيجيات التعليم باللعب وتنمية مهارات التواصل الشفهي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -42882,7 +45310,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1333 => 
+  1326 => 
   array (
     'name' => 'روضة الزهور الخاصة بورتسودان',
     'name_en' => 'Al-Zohoor Private Kindergarten Port Sudan',
@@ -42904,6 +45332,8 @@ return array (
     'whatsapp' => '+249912330011',
     'email' => NULL,
     'website' => 'https://facebook.com/alzohoor.portsudan.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة متميزة بحي مكرام تضم حدائق ألعاب آمنة ومسرح عرائس وحصص رسم وموسيقى وأناشيد هادفة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -42913,7 +45343,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1334 => 
+  1327 => 
   array (
     'name' => 'روضة الإيمان النموذجية بورتسودان',
     'name_en' => 'Al-Iman Model Kindergarten Port Sudan',
@@ -42935,6 +45365,8 @@ return array (
     'whatsapp' => '+249912441122',
     'email' => NULL,
     'website' => 'https://facebook.com/aliman.portsudan.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي عريق يغرس العقيدة الإسلامية وحب القرآن الكريم ويعتمد مناهج تعليمية متطورة للأطفال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -42944,7 +45376,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1335 => 
+  1328 => 
   array (
     'name' => 'روضة دار النعيم للأطفال',
     'name_en' => 'Dar Al-Naeem Preschool Port Sudan',
@@ -42966,6 +45398,8 @@ return array (
     'whatsapp' => '+249912552233',
     'email' => NULL,
     'website' => 'https://facebook.com/darnaem.portsudan',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر رعاية أسرية دافئة، وتركز على بناء العادات الصحية السليمة وتنمية المهارات اللغوية والحركية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -42975,7 +45409,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1336 => 
+  1329 => 
   array (
     'name' => 'روضة الأمل النموذجية بورتسودان',
     'name_en' => 'Al-Amal Model Kindergarten Port Sudan',
@@ -42997,6 +45431,8 @@ return array (
     'whatsapp' => '+249912663344',
     'email' => NULL,
     'website' => 'https://facebook.com/alamal.qadisiya.portsudan',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة متطورة تعتمد وسائل التفكير الإبداعي والأنشطة الجماعية وحصص التربية البدنية الخفيفة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -43006,7 +45442,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1337 => 
+  1330 => 
   array (
     'name' => 'روضة شمس الأصيل الخاصة',
     'name_en' => 'Shams Al-Aseel Kindergarten Port Sudan',
@@ -43028,6 +45464,8 @@ return array (
     'whatsapp' => '+249912774455',
     'email' => NULL,
     'website' => 'https://facebook.com/shams.alaseel.portsudan',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تعتمد أدوات منتسوري الحسية والأنشطة الإدراكية وتوفر مسرح أطفال وملاعب ترفيهية مغلقة ومكيفة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -43037,7 +45475,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1338 => 
+  1331 => 
   array (
     'name' => 'روضة براعم الساحل للأطفال',
     'name_en' => 'Baraem Al-Sahel Kindergarten Port Sudan',
@@ -43059,6 +45497,8 @@ return array (
     'whatsapp' => '+249912885566',
     'email' => NULL,
     'website' => 'https://facebook.com/baraem.alsahel.portsudan',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة نموذجية بقلب بورتسودان تقدم برامج تأسيس شاملة في القراءة والكتابة والإنجليزية والحساب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -43068,7 +45508,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1339 => 
+  1332 => 
   array (
     'name' => 'روضة براعم النور الخاصة بورتسودان',
     'name_en' => 'Baraem Al-Noor Kindergarten Port Sudan',
@@ -43090,6 +45530,8 @@ return array (
     'whatsapp' => '+249912996677',
     'email' => NULL,
     'website' => 'https://facebook.com/baraem.alnoor.portsudan',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تجمع بين التعليم التربوي الحديث وحفظ القرآن الكريم بالقاعدة النورانية وتعليم الآداب الإسلامية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -43099,7 +45541,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1340 => 
+  1333 => 
   array (
     'name' => 'روضة براعم سواكن التراثية',
     'name_en' => 'Baraem Suakin Heritage Kindergarten',
@@ -43121,6 +45563,8 @@ return array (
     'whatsapp' => '+249912448855',
     'email' => NULL,
     'website' => 'https://facebook.com/baraem.suakin.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة مميزة في حي القيف تعتز بالتراث السواكني العريق وتوفر ألعاباً تعليمية وأنشطة ترفيهية للأطفال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -43130,7 +45574,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1341 => 
+  1334 => 
   array (
     'name' => 'روضة سواكن النموذجية الخاصة',
     'name_en' => 'Suakin Model Kindergarten',
@@ -43152,6 +45596,8 @@ return array (
     'whatsapp' => '+249912559966',
     'email' => NULL,
     'website' => 'https://facebook.com/suakin.model.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر بيئة مدرسية آمنة وفصولاً مجهزة بوسائل العرض التعليمية ومسابقات تلوين وأناشيد هادفة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -43161,7 +45607,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1342 => 
+  1335 => 
   array (
     'name' => 'روضة المنار الساحلية سواكن',
     'name_en' => 'Al-Manar Coastal Kindergarten Suakin',
@@ -43183,6 +45629,8 @@ return array (
     'whatsapp' => '+249912660077',
     'email' => NULL,
     'website' => 'https://facebook.com/almanar.suakin',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تخدم أسر سواكن بمناهج تفاعلية حديثة، وأنشطة استكشاف بيئي وتنمية مهارات التحدث والتعبير.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -43192,7 +45640,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1343 => 
+  1336 => 
   array (
     'name' => 'روضة السعد الخاصة عطبرة',
     'name_en' => 'Al-Saad Private Kindergarten Atbara',
@@ -43214,6 +45662,8 @@ return array (
     'whatsapp' => '+249126444333',
     'email' => NULL,
     'website' => 'https://facebook.com/alsaad.atbara',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تعتمد طريقة نور البيان في اللغة العربية، ومنهج جولي فونكس في اللغة الإنجليزية والحساب الذهني، بإشراف الأستاذة سارة سعد ونخبة من المربيات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -43223,7 +45673,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1344 => 
+  1337 => 
   array (
     'name' => 'روضة الوصال النموذجية عطبرة',
     'name_en' => 'Al-Wisal Model Kindergarten Atbara',
@@ -43245,6 +45695,8 @@ return array (
     'whatsapp' => '+249912304933',
     'email' => NULL,
     'website' => 'https://facebook.com/alwisal.atbara',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تعتمد مناهج نور البيان وجولي فونكس والمنتسوري في التعليم المبكر، مع أركان استكشافية ومسرح دمى وملاعب آمنة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -43254,7 +45706,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1345 => 
+  1338 => 
   array (
     'name' => 'روضة ملاذ النموذجية عطبرة',
     'name_en' => 'Malaz Model Kindergarten Atbara',
@@ -43276,6 +45728,8 @@ return array (
     'whatsapp' => '+249100143462',
     'email' => NULL,
     'website' => 'https://facebook.com/malaz.atbara.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر بيئة تعليمية محفزة للطفل، مع فصول مجهزة ومتابعة تربوية وسلوكية دورية وأنشطة ترفيهية ومسابقات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -43285,7 +45739,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1346 => 
+  1339 => 
   array (
     'name' => 'روضة الأميرة الخاصة عطبرة',
     'name_en' => 'Al-Amira Private Kindergarten Atbara',
@@ -43307,6 +45761,8 @@ return array (
     'whatsapp' => '+249125018352',
     'email' => NULL,
     'website' => 'https://facebook.com/alamira.atbara',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة مميزة بخليوة توفر خدمة ترحيل بإشراف معلمات، وأنشطة ترفيهية ورياضية ومسرح عرائس هادف.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -43316,7 +45772,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1347 => 
+  1340 => 
   array (
     'name' => 'روضة الاتحاد الخاصة عطبرة',
     'name_en' => 'Al-Ittihad Private Kindergarten Atbara',
@@ -43338,6 +45794,8 @@ return array (
     'whatsapp' => '+249912448833',
     'email' => NULL,
     'website' => 'https://facebook.com/alittihad.atbara.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أقدم الرياض بحي الداخلة العريق، تعنى بغرس الأخلاق وتأسيس الطفل في القراءة والحساب والإنجليزية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -43347,7 +45805,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1348 => 
+  1341 => 
   array (
     'name' => 'روضة براعم الحديد والنار',
     'name_en' => 'Baraem Atbara Kindergarten',
@@ -43369,6 +45827,8 @@ return array (
     'whatsapp' => '+249912559900',
     'email' => NULL,
     'website' => 'https://facebook.com/baraem.alhasaya.atbara',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر رعاية متكاملة للأطفال وتعتمد استراتيجيات التعليم باللعب وتنمية مهارات التفكير العلمي المبسط.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -43378,7 +45838,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1349 => 
+  1342 => 
   array (
     'name' => 'روضة الفكي مدني النموذجية',
     'name_en' => 'Al-Faki Madani Model Kindergarten',
@@ -43400,6 +45860,8 @@ return array (
     'whatsapp' => '+249912660011',
     'email' => NULL,
     'website' => 'https://facebook.com/fakimadani.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'محضن قرآني رائد يركز على حفظ قصار السور من القرآن الكريم وتعليم أحكام التجويد والآداب الإسلامية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -43409,7 +45871,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1350 => 
+  1343 => 
   array (
     'name' => 'روضة الشيخ خليفة الخاصة عطبرة',
     'name_en' => 'Sheikh Khalifa Private Kindergarten Atbara',
@@ -43431,6 +45893,8 @@ return array (
     'whatsapp' => '+249912771122',
     'email' => NULL,
     'website' => 'https://facebook.com/sheikhkhalifa.atbara',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تتميز بفصول واسعة ومجهزة وملاعب آمنة وكادر تربوي خبير في رعاية الطفولة المبكرة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -43440,7 +45904,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1351 => 
+  1344 => 
   array (
     'name' => 'روضة السيالة النموذجية عطبرة',
     'name_en' => 'Al-Sayala Model Kindergarten Atbara',
@@ -43462,6 +45926,8 @@ return array (
     'whatsapp' => '+249912882233',
     'email' => NULL,
     'website' => 'https://facebook.com/alsayala.atbara.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تخدم أطفال حي السيالة ببيئة تعليمية دافئة وتعتمد الألعاب الإدراكية وأنشطة الرسم والتلوين والموسيقى.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -43471,7 +45937,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1352 => 
+  1345 => 
   array (
     'name' => 'روضة الامتداد الحديثة عطبرة',
     'name_en' => 'Al-Imtidad Modern Kindergarten Atbara',
@@ -43493,6 +45959,8 @@ return array (
     'whatsapp' => '+249912334455',
     'email' => NULL,
     'website' => 'https://facebook.com/alimtidad.atbara',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تعتمد أدوات منتسوري الحسية لتنمية الذكاء والتنسيق الحركي وتوفر رعاية نهارية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -43502,7 +45970,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1353 => 
+  1346 => 
   array (
     'name' => 'روضة أزهار الوحدة الخاصة',
     'name_en' => 'Azhar Al-Wehda Kindergarten Atbara',
@@ -43524,6 +45992,8 @@ return array (
     'whatsapp' => '+249912445566',
     'email' => NULL,
     'website' => 'https://facebook.com/azhar.alwehda.atbara',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر تعليماً ممتعاً وأنشطة جماعية وبرامج تهيئة لدخول المرحلة الابتدائية بثقة وتفوق.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -43533,7 +46003,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1354 => 
+  1347 => 
   array (
     'name' => 'روضة المربعات الخاصة عطبرة',
     'name_en' => 'Al-Murabbaat Private Kindergarten Atbara',
@@ -43555,6 +46025,8 @@ return array (
     'whatsapp' => '+249912556677',
     'email' => NULL,
     'website' => 'https://facebook.com/almurabbaat.atbara',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تتميز ببيئة منضبطة وحدائق ألعاب مجهزة وبرامج تعليم القراءة والحساب بالوسائل التفاعلية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -43564,7 +46036,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1355 => 
+  1348 => 
   array (
     'name' => 'روضة أجيال النيل عطبرة',
     'name_en' => 'Ajyal Al-Neel Kindergarten Atbara',
@@ -43586,6 +46058,8 @@ return array (
     'whatsapp' => '+249912667788',
     'email' => NULL,
     'website' => 'https://facebook.com/ajyal.alneel.atbara',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة لغات تقدم برامج الصوتيات الإنجليزية وحصص التربية البدنية وتنمية مهارات التفكير الناقد.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -43595,7 +46069,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1356 => 
+  1349 => 
   array (
     'name' => 'روضة براعم النور النموذجية السكة حديد',
     'name_en' => 'Baraem Al-Noor Kindergarten Railway Atbara',
@@ -43617,6 +46091,8 @@ return array (
     'whatsapp' => '+249912778899',
     'email' => NULL,
     'website' => 'https://facebook.com/baraem.alnoor.railway.atbara',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'محضن قرآني عريق يخدم أسر عمال وموظفي السكة حديد، يركز على تلاوة القرآن الكريم والأخلاق الفاضلة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -43626,7 +46102,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1357 => 
+  1350 => 
   array (
     'name' => 'روضة ومدارس الطموح التعليمية شندي',
     'name_en' => 'Al-Tomouh Educational Kindergarten Shendi',
@@ -43648,6 +46124,8 @@ return array (
     'whatsapp' => '+249912308899',
     'email' => NULL,
     'website' => 'https://facebook.com/altomouh.shendi',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أعرق وأكبر المؤسسات التعليمية بشندي، توفر قسماً تمهيدياً نموذجياً مجهزاً بأحدث الوسائل التفاعلية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -43657,7 +46135,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1358 => 
+  1351 => 
   array (
     'name' => 'روضة الملائكة الصغار بشندي',
     'name_en' => 'Little Angels Kindergarten Shendi',
@@ -43679,6 +46157,8 @@ return array (
     'whatsapp' => '+249912440011',
     'email' => NULL,
     'website' => 'https://facebook.com/littleangels.shendi',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة نموذجية متخصصة في رعاية الطفولة المبكرة، تعتمد وسائل منتسوري في الرياضيات وتطوير مهارات التعبير الشفهي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -43688,7 +46168,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1359 => 
+  1352 => 
   array (
     'name' => 'روضة التوحيد الخاصة كبوشية',
     'name_en' => 'Al-Tawheed Private Kindergarten Kabushiya',
@@ -43710,6 +46190,8 @@ return array (
     'whatsapp' => '+249912551133',
     'email' => NULL,
     'website' => 'https://facebook.com/altawheed.kabushiya',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'محضن قرآني يخدم منطقة كبوشية التاريخية، يركز على تحفيظ القرآن الكريم وتعليم أحكام التجويد والآداب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -43719,7 +46201,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1360 => 
+  1353 => 
   array (
     'name' => 'روضة براعم المك نمر الخاصة',
     'name_en' => 'Baraem Al-Mek Nimir Kindergarten Shendi',
@@ -43741,6 +46223,8 @@ return array (
     'whatsapp' => '+249912662255',
     'email' => NULL,
     'website' => 'https://facebook.com/baraem.meknimir.shendi',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة متميزة بالقليعة توفر بيئة تعليمية آمنة وحدائق ألعاب للأطفال وتعتمد برامج تأسيس أكاديمي متقن.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -43750,7 +46234,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1361 => 
+  1354 => 
   array (
     'name' => 'روضة حلة طه النموذجية شندي',
     'name_en' => 'Hilla Taha Model Kindergarten Shendi',
@@ -43772,6 +46256,8 @@ return array (
     'whatsapp' => '+249912773366',
     'email' => NULL,
     'website' => 'https://facebook.com/hillataha.kg.shendi',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر رعاية متكاملة للأطفال وتعتمد استراتيجيات التعلم باللعب وتنمية مهارات التحدث والتواصل الاجتماعي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -43781,7 +46267,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1362 => 
+  1355 => 
   array (
     'name' => 'روضة الدويم الخاصة بشندي',
     'name_en' => 'Al-Dueim Private Kindergarten Shendi',
@@ -43803,6 +46289,8 @@ return array (
     'whatsapp' => '+249912884488',
     'email' => NULL,
     'website' => 'https://facebook.com/aldueim.shendi.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تخدم أطفال حي الدويم بشندي ببرامج تعليمية هادفة وأنشطة مسرحية ورسم وتلوين وأناشيد تثقيفية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -43812,7 +46300,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1363 => 
+  1356 => 
   array (
     'name' => 'روضة شندي النموذجية مربع 9',
     'name_en' => 'Shendi Model Kindergarten Block 9',
@@ -43834,6 +46322,8 @@ return array (
     'whatsapp' => '+249912335599',
     'email' => NULL,
     'website' => 'https://facebook.com/shendi.model.kg9',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فصول واسعة ومجهزة بأحدث الوسائل التفاعلية وحديقة ألعاب خضراء آمنة للأطفال وكوادر تربوية متخصصة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -43843,7 +46333,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1364 => 
+  1357 => 
   array (
     'name' => 'روضة دار الأرقم القرآنية شندي',
     'name_en' => 'Dar Al-Arqam Quranic Kindergarten Shendi',
@@ -43865,6 +46355,8 @@ return array (
     'whatsapp' => '+249912446600',
     'email' => NULL,
     'website' => 'https://facebook.com/daralarqam.shendi',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة قرآنية رائدة تعتمد القاعدة النورانية في تعليم الهجاء والتلاوة، مع تنمية المهارات الحركية والبدنية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -43874,7 +46366,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1365 => 
+  1358 => 
   array (
     'name' => 'روضة النبراس الحديثة بشندي',
     'name_en' => 'Al-Nibras Modern Kindergarten Shendi',
@@ -43896,6 +46388,8 @@ return array (
     'whatsapp' => '+249912557711',
     'email' => NULL,
     'website' => 'https://facebook.com/alnibras.shendi.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تقدم برامج تعليمية تفاعلية ثنائية اللغة وألعاب تركيب ومهارات تواصل للأطفال في أجواء من المحبة والمرح.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -43905,7 +46399,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1366 => 
+  1359 => 
   array (
     'name' => 'روضة أجيال المستقبل الدامر مربع 9',
     'name_en' => 'Ajyal Al-Mustaqbal Kindergarten Al-Damer',
@@ -43927,6 +46421,8 @@ return array (
     'whatsapp' => '+249127971619',
     'email' => NULL,
     'website' => 'https://facebook.com/ajyal.aldamer',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة نموذجية متميزة بالدامر، توفر بيئة تفاعلية لتعليم مبادئ القراءة والكتابة والإنجليزية والحساب وألعاب الذكاء.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -43936,7 +46432,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1367 => 
+  1360 => 
   array (
     'name' => 'روضة تساهيل النموذجية الدامر',
     'name_en' => 'Tasaheel Model Kindergarten Al-Damer',
@@ -43958,6 +46454,8 @@ return array (
     'whatsapp' => '+249912304955',
     'email' => NULL,
     'website' => 'https://facebook.com/tasaheel.aldamer',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تعتني بتسهيل وتيسير التعليم المبكر للأطفال باللعب والأنشطة الإدراكية وتعديل السلوك وتنمية المهارات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -43967,7 +46465,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1368 => 
+  1361 => 
   array (
     'name' => 'روضة نور البيان الدامر',
     'name_en' => 'Noor Al-Bayan Kindergarten Al-Damer',
@@ -43989,6 +46487,8 @@ return array (
     'whatsapp' => '+249912448877',
     'email' => NULL,
     'website' => 'https://facebook.com/noorbayan.aldamer',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'محضن قرآني رائد يطبق طريقة نور البيان المعتمدة في الهجاء والتهيئة المتكاملة للقرآن والتعليم العام.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -43998,7 +46498,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1369 => 
+  1362 => 
   array (
     'name' => 'روضة الشاطئ الخاصة بالدامر',
     'name_en' => 'Al-Shati Private Kindergarten Al-Damer',
@@ -44020,6 +46520,8 @@ return array (
     'whatsapp' => '+249912559988',
     'email' => NULL,
     'website' => 'https://facebook.com/alshati.aldamer.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تطل على النيل وتوفر مساحات لعب واسعة وفصولاً مهيأة وأنشطة استكشاف بيئية وزراعية للأطفال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -44029,7 +46531,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1370 => 
+  1363 => 
   array (
     'name' => 'روضة المقرن النموذجية الدامر',
     'name_en' => 'Al-Muqran Model Kindergarten Al-Damer',
@@ -44051,6 +46553,8 @@ return array (
     'whatsapp' => '+249912660099',
     'email' => NULL,
     'website' => 'https://facebook.com/almuqran.aldamer.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تخدم منطقة مقرن نهري النيل وعطبرة ببيئة تربوية محفزة ومناهج تعليم نشط وألعاب بناء وتركيب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -44060,7 +46564,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1371 => 
+  1364 => 
   array (
     'name' => 'روضة بربر النموذجية الخاصة',
     'name_en' => 'Berber Model Kindergarten',
@@ -44082,6 +46586,8 @@ return array (
     'whatsapp' => '+249912771188',
     'email' => NULL,
     'website' => 'https://facebook.com/berber.model.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'إحدى أقدم المدارس النظامية في تاريخ السودان تأسست عام 1906م بمدينة بربر العريقة بنهر النيل، وتخرجت منها أجيال القضاة والعلماء والإداريين والأدباء الذين شيدوا أجهزة الدولة السودانية بعد الاستقلال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -44091,7 +46597,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1372 => 
+  1365 => 
   array (
     'name' => 'روضة القلعة الخاصة ببربر',
     'name_en' => 'Al-Qalaa Private Kindergarten Berber',
@@ -44113,6 +46619,8 @@ return array (
     'whatsapp' => '+249912882299',
     'email' => NULL,
     'website' => 'https://facebook.com/alqalaa.berber.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'إحدى أقدم المدارس النظامية في تاريخ السودان تأسست عام 1906م بمدينة بربر العريقة بنهر النيل، وتخرجت منها أجيال القضاة والعلماء والإداريين والأدباء الذين شيدوا أجهزة الدولة السودانية بعد الاستقلال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -44122,7 +46630,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1373 => 
+  1366 => 
   array (
     'name' => 'روضة وحضانة كيدز كير دنقلا',
     'name_en' => 'Kids Care Kindergarten & Nursery Dongola',
@@ -44144,6 +46652,8 @@ return array (
     'whatsapp' => '+249113452432',
     'email' => NULL,
     'website' => 'https://facebook.com/kidscare.dongola',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'حضانة وروضة رائدة بدنقلا توفر تعليماً تفاعلياً حديثاً وأدوات منتسوري حسية وفصولاً مكيفة وملاعب أطفال مجهزة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -44153,7 +46663,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1374 => 
+  1367 => 
   array (
     'name' => 'روضة الجيل الصاعد الخاصة دنقلا',
     'name_en' => 'Al-Jeel Al-Saeed Kindergarten Dongola',
@@ -44175,6 +46685,8 @@ return array (
     'whatsapp' => '+249912304977',
     'email' => NULL,
     'website' => 'https://facebook.com/aljeel.alsaeed.dongola',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر رعاية متكاملة وتعليماً مبكراً في فصول مبهجة، مع برامج تفاعلية ومسابقات ثقافية ومسرح للأطفال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -44184,7 +46696,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1375 => 
+  1368 => 
   array (
     'name' => 'روضة براعم دنقلا النموذجية',
     'name_en' => 'Baraem Dongola Kindergarten',
@@ -44206,6 +46718,8 @@ return array (
     'whatsapp' => '+249912447788',
     'email' => NULL,
     'website' => 'https://facebook.com/baraem.dongola.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة عريقة بالدرجة الثانية تقدم برامج تعليمية ورياضية متكاملة وتغرس القيم الأخلاقية وحب العلم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -44215,7 +46729,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1376 => 
+  1369 => 
   array (
     'name' => 'روضة شمس الشمال دنقلا',
     'name_en' => 'Shams Al-Shamal Kindergarten Dongola',
@@ -44237,6 +46751,8 @@ return array (
     'whatsapp' => '+249912558899',
     'email' => NULL,
     'website' => 'https://facebook.com/shams.alshamal.dongola',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تتميز بموقع هادئ وحديقة ألعاب خضراء وبرامج لتنمية التفكير الإبداعي والأنشطة الفنية التشكيلية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -44246,7 +46762,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1377 => 
+  1370 => 
   array (
     'name' => 'روضة أركويت النموذجية دنقلا',
     'name_en' => 'Arkweet Model Kindergarten Dongola',
@@ -44268,6 +46784,8 @@ return array (
     'whatsapp' => '+249912669900',
     'email' => NULL,
     'website' => 'https://facebook.com/arkweet.dongola.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تخدم أطفال حي أركويت ببرامج تربوية معتمدة وألعاب إدراكية ومسابقات تلوين وأناشيد هادفة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -44277,7 +46795,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1378 => 
+  1371 => 
   array (
     'name' => 'روضة الحلة الجديدة دنقلا',
     'name_en' => 'Al-Hilla Al-Jadeeda Kindergarten Dongola',
@@ -44299,6 +46817,8 @@ return array (
     'whatsapp' => '+249912770011',
     'email' => NULL,
     'website' => 'https://facebook.com/hillajadeeda.dongola',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'بيئة أسرية دافئة تركز على تطوير مهارات التواصل الشفهي وتنمية الذكاء الاجتماعي للأطفال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -44308,7 +46828,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1379 => 
+  1372 => 
   array (
     'name' => 'روضة دنقلا شمال الخاصة',
     'name_en' => 'Dongola North Private Kindergarten',
@@ -44330,6 +46850,8 @@ return array (
     'whatsapp' => '+249912881122',
     'email' => NULL,
     'website' => 'https://facebook.com/dongola.north.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تعتني بتأسيس الطفل في القراءة والحساب واللغة الإنجليزية في فصول واسعة ومجهزة بأحدث الوسائل.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -44339,7 +46861,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1380 => 
+  1373 => 
   array (
     'name' => 'روضة السليم النموذجية',
     'name_en' => 'Al-Seleem Model Kindergarten',
@@ -44361,6 +46883,8 @@ return array (
     'whatsapp' => '+249912332233',
     'email' => NULL,
     'website' => 'https://facebook.com/alseleem.dongola.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تخدم أسر السليم بمناهج تفاعلية وأنشطة استكشاف زراعية وبيئية وملاعب رملية للأطفال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -44370,7 +46894,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1381 => 
+  1374 => 
   array (
     'name' => 'روضة الزبير الخاصة دنقلا',
     'name_en' => 'Al-Zubair Private Kindergarten Dongola',
@@ -44392,6 +46916,8 @@ return array (
     'whatsapp' => '+249912443344',
     'email' => NULL,
     'website' => 'https://facebook.com/alzubair.dongola.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'محضن قرآني يغرس حب القرآن الكريم وحفظ قصار السور بالقاعدة النورانية وتعليم الأخلاق الفاضلة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -44401,7 +46927,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1382 => 
+  1375 => 
   array (
     'name' => 'روضة الواحة الخضراء دنقلا',
     'name_en' => 'Al-Waha Al-Khadra Kindergarten Dongola',
@@ -44423,6 +46949,8 @@ return array (
     'whatsapp' => '+249912554455',
     'email' => NULL,
     'website' => 'https://facebook.com/alwaha.dongola.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'واحة تعليمية جميلة في قلب دنقلا، تقدم رعاية متكاملة وأنشطة مسرح دمى وملاعب أطفال آمنة ومظللة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -44432,7 +46960,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1383 => 
+  1376 => 
   array (
     'name' => 'روضة براعم الأمل دنقلا',
     'name_en' => 'Baraem Al-Amal Kindergarten Dongola',
@@ -44454,6 +46982,8 @@ return array (
     'whatsapp' => '+249912665566',
     'email' => NULL,
     'website' => 'https://facebook.com/baraem.alamal.dongola',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تعتمد وسائل منتسوري في بناء التفكير المنطقي والمهارات الحسية، وتوفر برامج فحص صحي وتغذية متوازنة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -44463,7 +46993,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1384 => 
+  1377 => 
   array (
     'name' => 'روضة رياض الصالحين دنقلا',
     'name_en' => 'Riyad Al-Saliheen Kindergarten Dongola',
@@ -44485,6 +47015,8 @@ return array (
     'whatsapp' => '+249912776677',
     'email' => NULL,
     'website' => 'https://facebook.com/saliheen.dongola.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة قرآنية رائدة تعنى بتحفيظ الصغار القرآن الكريم والأحاديث النبوية وتدريبهم على الآداب اليومية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -44494,7 +47026,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1385 => 
+  1378 => 
   array (
     'name' => 'روضة النور القرآنية دنقلا العجوز',
     'name_en' => 'Al-Noor Quranic Kindergarten Old Dongola',
@@ -44516,6 +47048,8 @@ return array (
     'whatsapp' => '+249912887788',
     'email' => NULL,
     'website' => 'https://facebook.com/alnoor.olddongola',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'محضن قرآني في منطقة تاريخية عريقة، يركز على سلامة النطق ومخارج الحروف وتأسيس الطفل تأسيساً إيمانياً قويماً.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -44525,7 +47059,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1386 => 
+  1379 => 
   array (
     'name' => 'روضة مروي النموذجية الخاصة',
     'name_en' => 'Merowe Model Kindergarten',
@@ -44547,6 +47081,8 @@ return array (
     'whatsapp' => '+249912304988',
     'email' => NULL,
     'website' => 'https://facebook.com/merowe.model.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة نموذجية حديثة في مدينة مروي توفر تعليماً متميزاً وأنشطة تفاعلية وألعاب بناء ذكاء للأطفال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -44556,7 +47092,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1387 => 
+  1380 => 
   array (
     'name' => 'روضة براعم الكرو الخاصة',
     'name_en' => 'Baraem Al-Kurru Kindergarten',
@@ -44578,6 +47114,8 @@ return array (
     'whatsapp' => '+249912448811',
     'email' => NULL,
     'website' => 'https://facebook.com/baraem.alkurru.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تعتز بالتراث النوبي التاريخي وتقدم برامج تهيئة ممتعة للصغار وفصولاً مجهزة وملاعب آمنة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -44587,7 +47125,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1388 => 
+  1381 => 
   array (
     'name' => 'روضة النصر الخاصة بمروي',
     'name_en' => 'Al-Nasr Private Kindergarten Merowe',
@@ -44609,6 +47147,8 @@ return array (
     'whatsapp' => '+249912559922',
     'email' => NULL,
     'website' => 'https://facebook.com/alnasr.merowe.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر رعاية متكاملة وبرامج تأسيس لغوي ورياضي متقدمة وحصص رسم وموسيقى وأناشيد تثقيفية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -44618,7 +47158,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1389 => 
+  1382 => 
   array (
     'name' => 'روضة كريمة الحديثة للأطفال',
     'name_en' => 'Karima Modern Kindergarten',
@@ -44640,6 +47180,8 @@ return array (
     'whatsapp' => '+249912660033',
     'email' => NULL,
     'website' => 'https://facebook.com/karima.modern.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة متميزة في مدينة كريمة تقدم تعليماً نشطاً وأنشطة حركية ومسرح دمى بإشراف معلمات خبيرات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -44649,7 +47191,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1390 => 
+  1383 => 
   array (
     'name' => 'روضة جبل البركل للطفولة المبكرة',
     'name_en' => 'Jabal Barkal Preschool Karima',
@@ -44671,6 +47213,8 @@ return array (
     'whatsapp' => '+249912771144',
     'email' => NULL,
     'website' => 'https://facebook.com/jabalbarkal.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تتميز بموقعها الساحر عند سفح جبل البركل وتعتمد أدوات منتسوري الحسية والأنشطة البيئية والاستكشافية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -44680,7 +47224,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1391 => 
+  1384 => 
   array (
     'name' => 'روضة نوري النموذجية الخاصة',
     'name_en' => 'Nuri Model Kindergarten',
@@ -44702,6 +47246,8 @@ return array (
     'whatsapp' => '+249912882255',
     'email' => NULL,
     'website' => 'https://facebook.com/nuri.model.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'محضن قرآني وتربوي بمنطقة نوري، يغرس حب القرآن واللغة العربية الفصحى ويوفر حدائق ألعاب آمنة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -44711,7 +47257,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1392 => 
+  1385 => 
   array (
     'name' => 'روضة الأندلس الخاصة كوستي',
     'name_en' => 'Al-Andalus Private Kindergarten Kosti',
@@ -44733,6 +47279,8 @@ return array (
     'whatsapp' => '+249110666865',
     'email' => NULL,
     'website' => 'https://facebook.com/alandalus.kosti',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أشهر الروضات الخاصة بمدينة كوستي، تشتهر بكرنفالات التخريج السنوية المتميزة والبرامج التعليمية التفاعلية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -44742,7 +47290,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1393 => 
+  1386 => 
   array (
     'name' => 'روضة البسملة الخاصة كوستي',
     'name_en' => 'Al-Basmalah Private Kindergarten Kosti',
@@ -44764,6 +47312,8 @@ return array (
     'whatsapp' => '+249116489952',
     'email' => NULL,
     'website' => 'https://facebook.com/albasmalah.kosti',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'محضن قرآني وتعليمي بارز بكوستي، يقدم تعليماً متميزاً في القراءة والكتابة والقرآن الكريم وتنظيم مهرجانات الإبداع.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -44773,7 +47323,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1394 => 
+  1387 => 
   array (
     'name' => 'روضة الريادة الخاصة كوستي',
     'name_en' => 'Al-Riyada Private Kindergarten Kosti',
@@ -44795,6 +47345,8 @@ return array (
     'whatsapp' => '+249912304999',
     'email' => NULL,
     'website' => 'https://facebook.com/alriyada.kosti',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تتميز ببيئة شاطئية نقية وملاعب ترفيهية للأطفال وفصول مكيفة وكادر مؤهل في التربية المبكرة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -44804,7 +47356,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1395 => 
+  1388 => 
   array (
     'name' => 'روضة براعم كوستي النموذجية',
     'name_en' => 'Baraem Kosti Model Kindergarten',
@@ -44826,6 +47378,8 @@ return array (
     'whatsapp' => '+249912448822',
     'email' => NULL,
     'website' => 'https://facebook.com/baraem.kosti.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر برامج تهيئة متكاملة للمرحلة الابتدائية وأنشطة رسم وتلوين وألعاب تركيب وتنمية للذكاء.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -44835,7 +47389,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1396 => 
+  1389 => 
   array (
     'name' => 'روضة النصر الحديثة كوستي',
     'name_en' => 'Al-Nasr Modern Kindergarten Kosti',
@@ -44857,6 +47411,8 @@ return array (
     'whatsapp' => '+249912559933',
     'email' => NULL,
     'website' => 'https://facebook.com/alnasr.kosti.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تخدم حي النصر ببيئة تعليمية مبهجة وتعتمد استراتيجيات التعلم باللعب والأنشطة الحركية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -44866,7 +47422,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1397 => 
+  1390 => 
   array (
     'name' => 'روضة قوز السلام للأطفال كوستي',
     'name_en' => 'Qoz Al-Salam Kindergarten Kosti',
@@ -44888,6 +47444,8 @@ return array (
     'whatsapp' => '+249912660044',
     'email' => NULL,
     'website' => 'https://facebook.com/qozalsalam.kosti',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر رعاية أسرية دافئة وتركز على بناء العادات الصحية والتواصل الإيجابي بين البراعم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -44897,7 +47455,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1398 => 
+  1391 => 
   array (
     'name' => 'روضة الحلة الجديدة الخاصة كوستي',
     'name_en' => 'Al-Hilla Al-Jadeeda Kindergarten Kosti',
@@ -44919,6 +47477,8 @@ return array (
     'whatsapp' => '+249912771155',
     'email' => NULL,
     'website' => 'https://facebook.com/hillajadeeda.kosti',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تهتم بتعليم الحروف والأرقام ومخارج الحروف الفصيحة وتضم أركان ألعاب إدراكية مجهزة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -44928,7 +47488,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1399 => 
+  1392 => 
   array (
     'name' => 'روضة طيور الجنة كوستي',
     'name_en' => 'Tuyoor Al-Jannah Kindergarten Kosti',
@@ -44950,6 +47510,8 @@ return array (
     'whatsapp' => '+249912882266',
     'email' => NULL,
     'website' => 'https://facebook.com/tuyoor.jannah.kosti',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'محضن تربوي يعتمد الأناشيد التثقيفية وحفظ القرآن الكريم وغرس الأخلاق الحميدة لدى الأطفال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -44959,7 +47521,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1400 => 
+  1393 => 
   array (
     'name' => 'روضة الإيمان والتقوى كوستي',
     'name_en' => 'Al-Iman Wal-Taqwa Kindergarten Kosti',
@@ -44981,6 +47543,8 @@ return array (
     'whatsapp' => '+249912834190',
     'email' => NULL,
     'website' => 'https://facebook.com/iman.taqwa.kosti',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تركز على التربية الدينية الفاضلة وحفظ جزء عم وإتقان القراءة والكتابة باللغتين العربية والإنجليزية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -44990,7 +47554,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1401 => 
+  1394 => 
   array (
     'name' => 'روضة المستقبل الواعد كوستي',
     'name_en' => 'Al-Mustaqbal Al-Waed Kindergarten Kosti',
@@ -45012,6 +47576,8 @@ return array (
     'whatsapp' => '+249123849102',
     'email' => NULL,
     'website' => 'https://facebook.com/almustaqbal.kosti',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تطبق منهج منتسوري لتنمية المهارات الحسية والحركية والاعتماد على النفس والاستكشاف الذاتي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -45021,7 +47587,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1402 => 
+  1395 => 
   array (
     'name' => 'روضة أحباب الله الخاصة كوستي',
     'name_en' => 'Ahbab Allah Kindergarten Kosti',
@@ -45043,6 +47609,8 @@ return array (
     'whatsapp' => '+249912537198',
     'email' => NULL,
     'website' => 'https://facebook.com/ahbaballah.kosti',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'محضن قرآني عريق يخدم أسر كوستي، يغرس حب الصلاة وبر الوالدين وحفظ قصار السور من القرآن.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -45052,7 +47620,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1403 => 
+  1396 => 
   array (
     'name' => 'روضة الزهور النموذجية كوستي',
     'name_en' => 'Al-Zohoor Model Kindergarten Kosti',
@@ -45074,6 +47642,8 @@ return array (
     'whatsapp' => '+249912648215',
     'email' => NULL,
     'website' => 'https://facebook.com/alzohoor.kosti.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر فصولاً فسيحة وملاعب ألعاب رملية ومائية وبرامج رحلات استكشافية ومسرح دمى هادف.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -45083,7 +47653,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1404 => 
+  1397 => 
   array (
     'name' => 'روضة النبراس الخاصة بربك',
     'name_en' => 'Al-Nibras Kindergarten Rabak',
@@ -45105,6 +47675,8 @@ return array (
     'whatsapp' => '+249912304911',
     'email' => NULL,
     'website' => 'https://facebook.com/alnibras.rabak',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أشهر الرياض بربك، تشارك باستمرار في الأنشطة التربوية وتخريج أطفال متميزين في القراءة والحساب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -45114,7 +47686,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1405 => 
+  1398 => 
   array (
     'name' => 'روضة السلام النموذجية بربك',
     'name_en' => 'Al-Salam Model Kindergarten Rabak',
@@ -45136,6 +47708,8 @@ return array (
     'whatsapp' => '+249912448833',
     'email' => NULL,
     'website' => 'https://facebook.com/alsalam.rabak.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'بيئة تعليمية منضبطة ومحفزة، تضم ملاعب آمنة وبرامج لتنمية المهارات اللغوية والتعبيرية للصغار.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -45145,7 +47719,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1406 => 
+  1399 => 
   array (
     'name' => 'روضة براعم الجبل بربك',
     'name_en' => 'Baraem Al-Jabal Kindergarten Rabak',
@@ -45167,6 +47741,8 @@ return array (
     'whatsapp' => '+249912559944',
     'email' => NULL,
     'website' => 'https://facebook.com/baraem.aljabal.rabak',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تخدم أطفال حي الجبل وأسر العاملين بالمنطقة الصناعية، مع أنشطة ترفيهية وورش رسم وتلوين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -45176,7 +47752,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1407 => 
+  1400 => 
   array (
     'name' => 'روضة التضامن الخاصة بربك',
     'name_en' => 'Al-Tadamon Private Kindergarten Rabak',
@@ -45198,6 +47774,8 @@ return array (
     'whatsapp' => '+249912660055',
     'email' => NULL,
     'website' => 'https://facebook.com/altadamon.rabak',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تركز على بناء روح التعاون والمشاركة وتنمية مهارات التفكير المنطقي وألعاب التركيب والمنطق.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -45207,7 +47785,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1408 => 
+  1401 => 
   array (
     'name' => 'روضة ربك الحديثة مربع 7',
     'name_en' => 'Rabak Modern Kindergarten Block 7',
@@ -45229,6 +47807,8 @@ return array (
     'whatsapp' => '+249912771166',
     'email' => NULL,
     'website' => 'https://facebook.com/rabak.modern.kg7',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تعتمد أدوات منتسوري الحسية والأنشطة الإدراكية وتوفر مسرح أطفال وملاعب ترفيهية مغلقة ومكيفة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -45238,7 +47818,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1409 => 
+  1402 => 
   array (
     'name' => 'روضة النيل الأبيض للأطفال بربك',
     'name_en' => 'White Nile Children Kindergarten Rabak',
@@ -45260,6 +47840,8 @@ return array (
     'whatsapp' => '+249912882277',
     'email' => NULL,
     'website' => 'https://facebook.com/whitenile.children.rabak',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة نموذجية بقلب مدينة ربك تقدم برامج تأسيس شاملة في القراءة والكتابة والإنجليزية والحساب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -45269,7 +47851,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1410 => 
+  1403 => 
   array (
     'name' => 'روضة الإشراق الخاصة بربك',
     'name_en' => 'Al-Ishraq Private Kindergarten Rabak',
@@ -45291,6 +47873,8 @@ return array (
     'whatsapp' => '+249912993388',
     'email' => NULL,
     'website' => 'https://facebook.com/alishraq.rabak',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تجمع بين التعليم التربوي الحديث وحفظ القرآن الكريم بالقاعدة النورانية وتعليم الآداب الإسلامية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -45300,7 +47884,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1411 => 
+  1404 => 
   array (
     'name' => 'روضة سمارت كيدز العالمية بالدويم',
     'name_en' => 'Smart Kids International Kindergarten Ed Dueim',
@@ -45322,6 +47906,8 @@ return array (
     'whatsapp' => '+249912304922',
     'email' => NULL,
     'website' => 'https://facebook.com/smartkids.eddueim',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة لغات دولية تقدم خدمات تعليمية حديثة للأطفال في مدينة الدويم تعتمد الصوتيات واللعب الاستكشافي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -45331,7 +47917,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1412 => 
+  1405 => 
   array (
     'name' => 'روضة الثورة النموذجية الدويم',
     'name_en' => 'Al-Thawra Model Kindergarten Ed Dueim',
@@ -45353,6 +47939,8 @@ return array (
     'whatsapp' => '+249912448844',
     'email' => NULL,
     'website' => 'https://facebook.com/althawra.dueim.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تتميز ببيئة مدرسية آمنة وفصول مجهزة بوسائل العرض التعليمية ومسابقات تلوين وأناشيد هادفة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -45362,7 +47950,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1413 => 
+  1406 => 
   array (
     'name' => 'روضة بانت الخاصة بالدويم',
     'name_en' => 'Bant Private Kindergarten Ed Dueim',
@@ -45384,6 +47972,8 @@ return array (
     'whatsapp' => '+249912559955',
     'email' => NULL,
     'website' => 'https://facebook.com/bant.dueim.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر رعاية متكاملة للأطفال وتعتمد استراتيجيات التعليم باللعب وتنمية مهارات التحدث والتواصل الاجتماعي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -45393,7 +47983,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1414 => 
+  1407 => 
   array (
     'name' => 'روضة الصفا الحديثة الدويم',
     'name_en' => 'Al-Safa Modern Kindergarten Ed Dueim',
@@ -45415,6 +48005,8 @@ return array (
     'whatsapp' => '+249912660066',
     'email' => NULL,
     'website' => 'https://facebook.com/alsafa.dueim.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تعتمد أدوات منتسوري الحسية والأنشطة الإدراكية وتوفر مسرح أطفال وملاعب ترفيهية مظللة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -45424,7 +48016,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1415 => 
+  1408 => 
   array (
     'name' => 'روضة بخت الرضا للأطفال بالدويم',
     'name_en' => 'Bakht Al-Ruda Children Kindergarten',
@@ -45447,6 +48039,8 @@ return array (
     'whatsapp' => '+249912771177',
     'email' => NULL,
     'website' => 'https://facebook.com/bakhtaruda.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'كعبة التربية والتعليم وقبلة المناهج السودانية تأسست عام 1934م بمدينة الدويم على النيل الأبيض بقيادة عبد الرحمن علي طه ومستر غريفيثس. الصرح الذي وُلدت فيه كتب المناهج السودانية وتدرب فيه آلاف المعلمين وصيغت فيه الهوية التربوية للسودان الحديث.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -45456,7 +48050,7 @@ return array (
     'historic_badge_reason' => 'صرح وطني تاريخي',
     'historic_votes' => 0,
   ),
-  1416 => 
+  1409 => 
   array (
     'name' => 'روضة براعم الدويم الخاصة',
     'name_en' => 'Baraem Al-Dueim Kindergarten',
@@ -45478,6 +48072,8 @@ return array (
     'whatsapp' => '+249912882288',
     'email' => NULL,
     'website' => 'https://facebook.com/baraem.aldueim',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'محضن قرآني يغرس الآداب والأخلاق الإسلامية ويعتمد القاعدة النورانية في تعليم الهجاء والتلاوة السليمة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -45487,7 +48083,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1417 => 
+  1410 => 
   array (
     'name' => 'روضة حي المؤسسات القضارف',
     'name_en' => 'Hay Al-Moassasat Kindergarten Gadarif',
@@ -45509,6 +48105,8 @@ return array (
     'whatsapp' => '+249912304944',
     'email' => NULL,
     'website' => 'https://facebook.com/moassasat.kg.gadarif',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أشهر وأعرق الروضات بمدينة القضارف، تقدم برامج تعليمية متطورة وفصولاً مجهزة وكادراً تربوياً متخصصاً في التعليم المبكر.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -45518,7 +48116,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1418 => 
+  1411 => 
   array (
     'name' => 'روضة حي الموظفين الحكومية النموذجية',
     'name_en' => 'Hay Al-Mowazafeen Kindergarten Gadarif',
@@ -45541,6 +48139,8 @@ return array (
     'whatsapp' => '+249912448866',
     'email' => NULL,
     'website' => 'https://facebook.com/mowazafeen.kg.gadarif',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة نموذجية تقدم تعليماً متوازناً يجمع بين المنهج الوطني وأنشطة تنمية الذكاء واللعب الحركي للأطفال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -45550,7 +48150,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1419 => 
+  1412 => 
   array (
     'name' => 'روضة أبايو الخاصة بالقضارف',
     'name_en' => 'Abayou Private Kindergarten Gadarif',
@@ -45572,6 +48172,8 @@ return array (
     'whatsapp' => '+249912559977',
     'email' => NULL,
     'website' => 'https://facebook.com/abayou.kg.gadarif',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تخدم أسر حي أبايو ببيئة آمنة ومحفزة، وتركز على بناء المهارات الاجتماعية والتعبير الشفهي لدى الصغار.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -45581,7 +48183,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1420 => 
+  1413 => 
   array (
     'name' => 'روضة الصوفي النموذجية القضارف',
     'name_en' => 'Al-Soufi Model Kindergarten Gadarif',
@@ -45603,6 +48205,8 @@ return array (
     'whatsapp' => '+249912771199',
     'email' => NULL,
     'website' => 'https://facebook.com/alsoufi.gadarif.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'محضن قرآني يغرس محبة القرآن الكريم والأخلاق الفاضلة ويعتمد القاعدة النورانية في تعليم الهجاء والتلاوة السليمة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -45612,7 +48216,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1421 => 
+  1414 => 
   array (
     'name' => 'روضة ديم بكر الخاصة القضارف',
     'name_en' => 'Deim Bakr Private Kindergarten Gadarif',
@@ -45634,6 +48238,8 @@ return array (
     'whatsapp' => '+249912882200',
     'email' => NULL,
     'website' => 'https://facebook.com/deimbakr.gadarif.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تتميز ببيئة مدرسية آمنة وفصول مجهزة بوسائل العرض التعليمية ومسابقات تلوين وأناشيد هادفة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -45643,7 +48249,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1422 => 
+  1415 => 
   array (
     'name' => 'روضة ديم النور للأطفال القضارف',
     'name_en' => 'Deim Al-Noor Kindergarten Gadarif',
@@ -45665,6 +48271,8 @@ return array (
     'whatsapp' => '+249912993311',
     'email' => NULL,
     'website' => 'https://facebook.com/deimalnoor.gadarif',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر رعاية متكاملة للأطفال وتعتمد استراتيجيات التعليم باللعب وتنمية مهارات التحدث والتواصل الاجتماعي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -45674,7 +48282,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1423 => 
+  1416 => 
   array (
     'name' => 'روضة براعم القضارف الخاصة',
     'name_en' => 'Baraem Al-Gadarif Kindergarten',
@@ -45696,6 +48304,8 @@ return array (
     'whatsapp' => '+249912334422',
     'email' => NULL,
     'website' => 'https://facebook.com/baraem.gadarif.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تعتمد أدوات منتسوري الحسية والأنشطة الإدراكية وتوفر مسرح أطفال وملاعب ترفيهية مظللة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -45705,7 +48315,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1424 => 
+  1417 => 
   array (
     'name' => 'روضة كسلا — المجلس الإفريقي للتعليم',
     'name_en' => 'African Council Kindergarten Kassala',
@@ -45727,6 +48337,8 @@ return array (
     'whatsapp' => '+249912933196',
     'email' => NULL,
     'website' => 'https://africancouncil.net',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أعرق رياض الأطفال بكسلا تابعة للمجلس الإفريقي للتعليم، بإشراف الأستاذة رشا أحمد محمد نور، تعنى بالقرآن الكريم وبناء الشخصية المتوازنة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -45736,7 +48348,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1425 => 
+  1418 => 
   array (
     'name' => 'روضة مؤسسة بشائر الخير التعليمية الخاصة',
     'name_en' => 'Bashayer Al-Khair Kindergarten Kassala',
@@ -45758,6 +48370,8 @@ return array (
     'whatsapp' => '+249912445533',
     'email' => NULL,
     'website' => 'https://facebook.com/bashayer.kassala.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة نموذجية متقدمة بالعامرية، تقدم تعليماً نشطاً وأنشطة تنمية الذكاء ومسرح دمى وحدائق ألعاب مجهزة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -45767,7 +48381,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1426 => 
+  1419 => 
   array (
     'name' => 'روضة الضفة الغربية — المجلس الإفريقي بكسلا',
     'name_en' => 'West Bank African Council KG Kassala',
@@ -45789,6 +48403,8 @@ return array (
     'whatsapp' => '+249912556644',
     'email' => NULL,
     'website' => 'https://africancouncil.net',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع إسلامي متميز يخدم الضفة الغربية لنهر القاش بكسلا، يركز على تلاوة القرآن وتنمية الأخلاق الفاضلة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -45798,7 +48414,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1427 => 
+  1420 => 
   array (
     'name' => 'روضة ومدارس صناع الأمل العالمية وروضة طيور الأمل',
     'name_en' => 'Tuyoor Al-Amal Kindergarten Kassala',
@@ -45820,6 +48436,8 @@ return array (
     'whatsapp' => '+249912667755',
     'email' => NULL,
     'website' => 'https://facebook.com/hope.makers.kassala',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة لغات دولية تقدم تعليماً مبكراً ثنائي اللغة وتعتمد الألعاب الحسية والأنشطة الترفيهية ومسرح العرائس.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -45829,7 +48447,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1428 => 
+  1421 => 
   array (
     'name' => 'روضة الرعاية الاجتماعية كسلا',
     'name_en' => 'Social Welfare Kindergarten Kassala',
@@ -45851,6 +48469,8 @@ return array (
     'whatsapp' => '+249912778866',
     'email' => NULL,
     'website' => 'https://facebook.com/socialwelfare.kassala',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'محضن تربوي واجتماعي عريق يوفر رعاية شاملة للأطفال وأنشطة تنمية التآزر العضلي والحركي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -45860,7 +48480,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1429 => 
+  1422 => 
   array (
     'name' => 'روضة الختمية النموذجية كسلا',
     'name_en' => 'Al-Khatmiya Model Kindergarten Kassala',
@@ -45882,6 +48502,8 @@ return array (
     'whatsapp' => '+249912889977',
     'email' => NULL,
     'website' => 'https://facebook.com/khatmiya.kassala.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تتميز بموقعها الجميل قرب جبل توتيل، وتعتني بغرس القيم الدينية والأخلاق النبيلة وتأسيس القراءة والكتابة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -45891,7 +48513,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1430 => 
+  1423 => 
   array (
     'name' => 'روضة مكرام الخاصة بكسلا',
     'name_en' => 'Makram Private Kindergarten Kassala',
@@ -45913,6 +48535,8 @@ return array (
     'whatsapp' => '+249912331100',
     'email' => NULL,
     'website' => 'https://facebook.com/makram.kassala.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تخدم أطفال حي مكرام ببرامج تعليمية محببة وفصول مجهزة وألعاب ذكاء ومسابقات رسم وتلوين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -45922,7 +48546,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1431 => 
+  1424 => 
   array (
     'name' => 'روضة السوريبة للأطفال بكسلا',
     'name_en' => 'Al-Soreeba Children Kindergarten Kassala',
@@ -45944,6 +48568,8 @@ return array (
     'whatsapp' => '+249912442211',
     'email' => NULL,
     'website' => 'https://facebook.com/alsoreeba.kassala',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر رعاية أسرية دافئة، وتركز على بناء العادات الصحية والتواصل الإيجابي بين البراعم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -45953,7 +48579,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1432 => 
+  1425 => 
   array (
     'name' => 'روضة وحضانة نادي المصارف سنار',
     'name_en' => 'Bank Club Nursery & Kindergarten Sennar',
@@ -45975,6 +48601,8 @@ return array (
     'whatsapp' => '+249128110306',
     'email' => NULL,
     'website' => 'https://facebook.com/bankclub.sennar.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'استضافة حضانة طيلة أيام السنة، ومستويات الروضة المختلفة (المستوى الأول، الثاني، التمهيدي)، مع برامج دعم وتنمية مهارات الأطفال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -45984,7 +48612,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1433 => 
+  1426 => 
   array (
     'name' => 'روضة الأمل الخاصة برماش سنار',
     'name_en' => 'Al-Amal Private Kindergarten Rammash',
@@ -46006,6 +48634,8 @@ return array (
     'whatsapp' => '+249912553322',
     'email' => NULL,
     'website' => 'https://facebook.com/alamal.rammash',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة نموذجية تخدم رماش ببرامج تأسيس أكاديمي متقن في القراءة والكتابة والحساب وأنشطة ترفيهية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -46015,7 +48645,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1434 => 
+  1427 => 
   array (
     'name' => 'روضة المزاد النموذجية سنار',
     'name_en' => 'Al-Mazad Model Kindergarten Sennar',
@@ -46037,6 +48667,8 @@ return array (
     'whatsapp' => '+249912664433',
     'email' => NULL,
     'website' => 'https://facebook.com/almazad.sennar.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أقدم الرياض بحي المزاد، تقدم برامج تهيئة متميزة للمرحلة الابتدائية وتزرع روح المبادرة والتعاون.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -46046,7 +48678,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1435 => 
+  1428 => 
   array (
     'name' => 'روضة الدوحة الحديثة بسنار',
     'name_en' => 'Al-Doha Modern Kindergarten Sennar',
@@ -46068,6 +48700,8 @@ return array (
     'whatsapp' => '+249912775544',
     'email' => NULL,
     'website' => 'https://facebook.com/aldoha.sennar.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تعتمد وسائل منتسوري في بناء التفكير المنطقي والمهارات الحسية، وتوفر برامج فحص صحي وتغذية متوازنة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -46077,7 +48711,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1436 => 
+  1429 => 
   array (
     'name' => 'روضة سنجة النموذجية الخاصة',
     'name_en' => 'Singa Model Kindergarten',
@@ -46099,6 +48733,8 @@ return array (
     'whatsapp' => '+249912886655',
     'email' => NULL,
     'website' => 'https://facebook.com/singa.model.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة رائدة بعاصمة الولاية سنجة، توفر تعليماً متميزاً وأنشطة مسرح دمى وملاعب أطفال آمنة ومظللة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -46108,7 +48744,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1437 => 
+  1430 => 
   array (
     'name' => 'روضة حي الدرجة بسنجة',
     'name_en' => 'Hay Al-Daraja Kindergarten Singa',
@@ -46130,6 +48766,8 @@ return array (
     'whatsapp' => '+249912997766',
     'email' => NULL,
     'website' => 'https://facebook.com/daraja.singa.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'محضن قرآني وتربوي يغرس الآداب النبوية وحفظ القرآن الكريم بالقاعدة النورانية وتعليم الحساب والإنجليزية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -46139,7 +48777,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1438 => 
+  1431 => 
   array (
     'name' => 'روضة تبارك النموذجية بالأبيض',
     'name_en' => 'Tabarak Model Kindergarten El Obeid',
@@ -46161,6 +48799,8 @@ return array (
     'whatsapp' => '+249912304950',
     'email' => NULL,
     'website' => 'https://facebook.com/tabarak.elobeid',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أشهر وأعرق الروضات بمدينة الأبيض، تشتهر ببرامج تحفيظ القرآن الكريم وتأسيس اللغة العربية ومهرجانات التخريج السنوية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -46170,7 +48810,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1439 => 
+  1432 => 
   array (
     'name' => 'روضة المجلس الأفريقي للتعليم بالأبيض',
     'name_en' => 'African Council Kindergarten El Obeid',
@@ -46192,6 +48832,8 @@ return array (
     'whatsapp' => '+249912440077',
     'email' => NULL,
     'website' => 'https://africancouncil.net',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع متميز لمؤسسة المجلس الأفريقي بالأبيض، يوفر تعليماً قرآنياً وتأسيساً أكاديمياً متقدماً للصغار.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -46201,7 +48843,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1440 => 
+  1433 => 
   array (
     'name' => 'روضة الصفا الخاصة بالأبيض',
     'name_en' => 'Al-Safa Private Kindergarten El Obeid',
@@ -46223,6 +48865,8 @@ return array (
     'whatsapp' => '+249912551188',
     'email' => NULL,
     'website' => 'https://facebook.com/alsafa.elobeid.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر بيئة مدرسية آمنة وفصولاً مجهزة بوسائل العرض التعليمية ومسابقات تلوين وأناشيد هادفة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -46232,7 +48876,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1441 => 
+  1434 => 
   array (
     'name' => 'روضة الشريف النموذجية بالأبيض',
     'name_en' => 'Al-Shareef Model Kindergarten El Obeid',
@@ -46254,6 +48898,8 @@ return array (
     'whatsapp' => '+249912662299',
     'email' => NULL,
     'website' => 'https://facebook.com/alshareef.elobeid',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر رعاية متكاملة للأطفال وتعتمد استراتيجيات التعليم باللعب وتنمية مهارات التحدث والتواصل الاجتماعي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -46263,7 +48909,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1442 => 
+  1435 => 
   array (
     'name' => 'روضة براعم طيبة الخاصة بالأبيض',
     'name_en' => 'Baraem Tayba Kindergarten El Obeid',
@@ -46285,6 +48931,8 @@ return array (
     'whatsapp' => '+249912773300',
     'email' => NULL,
     'website' => 'https://facebook.com/baraem.tayba.elobeid',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'محضن قرآني يغرس الآداب والأخلاق الإسلامية ويعتمد القاعدة النورانية في تعليم الهجاء والتلاوة السليمة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -46294,7 +48942,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1443 => 
+  1436 => 
   array (
     'name' => 'روضة البترول الحديثة بالأبيض',
     'name_en' => 'Al-Betroal Modern Kindergarten El Obeid',
@@ -46316,6 +48964,8 @@ return array (
     'whatsapp' => '+249912884411',
     'email' => NULL,
     'website' => 'https://facebook.com/albetroal.elobeid',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تعتمد أدوات منتسوري الحسية والأنشطة الإدراكية وتوفر مسرح أطفال وملاعب ترفيهية مكيفة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -46325,7 +48975,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1444 => 
+  1437 => 
   array (
     'name' => 'روضة كردفان النموذجية الخاصة',
     'name_en' => 'Kordofan Model Kindergarten El Obeid',
@@ -46347,6 +48997,8 @@ return array (
     'whatsapp' => '+249912995522',
     'email' => NULL,
     'website' => 'https://facebook.com/kordofan.model.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي عريق بالأبيض يقدم تعليماً متميزاً وأنشطة مسرح دمى وملاعب أطفال آمنة ومظللة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -46356,7 +49008,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1445 => 
+  1438 => 
   array (
     'name' => 'روضة أجيال الغد بالأبيض',
     'name_en' => 'Ajyal Al-Ghad Kindergarten El Obeid',
@@ -46378,6 +49030,8 @@ return array (
     'whatsapp' => '+249912336633',
     'email' => NULL,
     'website' => 'https://facebook.com/ajyal.alghad.elobeid',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تهتم بتعليم الحروف والأرقام ومخارج الحروف الفصيحة وتضم أركان ألعاب إدراكية مجهزة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -46387,7 +49041,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1446 => 
+  1439 => 
   array (
     'name' => 'روضة النهود النموذجية الخاصة',
     'name_en' => 'En Nahud Model Kindergarten',
@@ -46409,6 +49063,8 @@ return array (
     'whatsapp' => '+249912447744',
     'email' => NULL,
     'website' => 'https://facebook.com/ennahud.model.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة رائدة بالنهود تقدم برامج تأسيس أكاديمي متقن في القراءة والكتابة والحساب وأنشطة ترفيهية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -46418,7 +49074,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1447 => 
+  1440 => 
   array (
     'name' => 'روضة براعم السلام بالنهود',
     'name_en' => 'Baraem Al-Salam Kindergarten En Nahud',
@@ -46440,6 +49096,8 @@ return array (
     'whatsapp' => '+249912558855',
     'email' => NULL,
     'website' => 'https://facebook.com/baraem.alsalam.ennahud',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'محضن قرآني وتربوي يغرس الآداب النبوية وحفظ القرآن الكريم بالقاعدة النورانية والأنشطة الإدراكية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -46449,7 +49107,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1448 => 
+  1441 => 
   array (
     'name' => 'روضة أم روابة الخاصة للأطفال',
     'name_en' => 'Um Ruwaba Private Kindergarten',
@@ -46471,6 +49129,8 @@ return array (
     'whatsapp' => '+249912669966',
     'email' => NULL,
     'website' => 'https://facebook.com/umruwaba.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'تخدم أطفال أم روابة ببيئة آمنة ومحفزة وفصول مجهزة وألعاب ذكاء ومسابقات رسم وتلوين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -46480,7 +49140,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1449 => 
+  1442 => 
   array (
     'name' => 'روضة الانتصار النموذجية بنيالا',
     'name_en' => 'Al-Intisar Model Kindergarten Nyala',
@@ -46502,6 +49162,8 @@ return array (
     'whatsapp' => '+249912304960',
     'email' => NULL,
     'website' => 'https://facebook.com/alintisar.nyala',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أشهر وأعرق الروضات بمدينة نيالا، تقدم تعليماً متميزاً وأنشطة مسرح دمى وملاعب أطفال آمنة ومظللة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -46511,7 +49173,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1450 => 
+  1443 => 
   array (
     'name' => 'روضة الرحمن الخاصة بنيالا',
     'name_en' => 'Al-Rahman Private Kindergarten Nyala',
@@ -46533,6 +49195,8 @@ return array (
     'whatsapp' => '+249912481729',
     'email' => NULL,
     'website' => 'https://facebook.com/alrahman.nyala.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'محضن قرآني يغرس الآداب والأخلاق الإسلامية ويعتمد القاعدة النورانية في تعليم الهجاء والتلاوة السليمة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -46542,7 +49206,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1451 => 
+  1444 => 
   array (
     'name' => 'روضة براعم نيالا الخاصة',
     'name_en' => 'Baraem Nyala Kindergarten',
@@ -46564,6 +49228,8 @@ return array (
     'whatsapp' => '+249912573910',
     'email' => NULL,
     'website' => 'https://facebook.com/baraem.nyala.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'توفر رعاية متكاملة للأطفال وتعتمد استراتيجيات التعليم باللعب وتنمية مهارات التحدث والتواصل الاجتماعي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -46573,7 +49239,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1452 => 
+  1445 => 
   array (
     'name' => 'روضة وحضانة إسبارك الإنجليزية العالمية الخاصة',
     'name_en' => 'Spark International English Kindergarten and Nursery',
@@ -46595,6 +49261,8 @@ return array (
     'whatsapp' => '+249912335544',
     'email' => NULL,
     'website' => 'https://facebook.com/spark.kg.nyala',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة دولية رائدة ومعتمدة وموثقة تقدم تعليماً باللغة الإنجليزية وتوفر بيئة تعليمية تفاعلية ثرية وملاعب متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -46604,7 +49272,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1453 => 
+  1446 => 
   array (
     'name' => 'روضة أطفال كورما 1 الفاشر',
     'name_en' => 'Korma 1 Children Kindergarten El Fasher',
@@ -46626,6 +49294,8 @@ return array (
     'whatsapp' => '+249912718402',
     'email' => NULL,
     'website' => 'https://facebook.com/korma1.elfasher',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز مجتمعي لرعاية الطفولة المبكرة يوفر تعليماً تفاعلياً وأنشطة دعم نفسي وتنمية قدرات الأطفال.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -46635,7 +49305,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1454 => 
+  1447 => 
   array (
     'name' => 'روضة الفاشر النموذجية الخاصة',
     'name_en' => 'El Fasher Model Kindergarten',
@@ -46657,6 +49327,8 @@ return array (
     'whatsapp' => '+249912847291',
     'email' => NULL,
     'website' => 'https://facebook.com/elfasher.model.kg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أعرق رياض الأطفال بالفاشر، تقدم تعليماً متميزاً يجمع بين المنهج المعتمد والتربية الأخلاقية واللعب الحركي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -46666,7 +49338,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1455 => 
+  1448 => 
   array (
     'name' => 'روضة براعم دارفور بالفاشر',
     'name_en' => 'Baraem Darfur Kindergarten El Fasher',
@@ -46688,6 +49360,8 @@ return array (
     'whatsapp' => '+249912938104',
     'email' => NULL,
     'website' => 'https://facebook.com/baraem.darfur.fasher',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'محضن قرآني وتربوي يركز على تلاوة القرآن الكريم والأخلاق الفاضلة وتأسيس المهارات اللغوية والخط العربي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -46697,7 +49371,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1456 => 
+  1449 => 
   array (
     'name' => 'روضة ومدارس السندس الدولية',
     'name_en' => 'Al-Sundus International Kindergarten',
@@ -46719,6 +49393,8 @@ return array (
     'whatsapp' => '+249919246452',
     'email' => NULL,
     'website' => 'https://facebook.com/alsundus.schools',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'قسم تمهيدي متطور يضم مستويات البراعم والروضة الأولى والثانية، ويوفر تدريباً لغوياً مكثفاً وأنشطة منتسوري ومسرح عرائس.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -46728,7 +49404,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1457 => 
+  1450 => 
   array (
     'name' => 'روضة ومدارس الأبرار الخاصة — فرع الكلاكلة القبة',
     'name_en' => 'Al-Abrar Educational Kindergarten Kalakla',
@@ -46750,6 +49426,8 @@ return array (
     'whatsapp' => '+249912307733',
     'email' => NULL,
     'website' => 'https://facebook.com/alabrar.kalakla',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'روضة وقسم تمهيدي متكامل يضم فصولاً مجهزة بوسائل العرض الحديثة وألعاب التركيب والمنطق وحصص التربية البدنية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -46759,7 +49437,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1458 => 
+  1451 => 
   array (
     'name' => 'مدارس السودان العالمية بالرياض',
     'name_en' => 'Sudan International Schools Riyadh',
@@ -46783,6 +49461,8 @@ return array (
     'whatsapp' => '+966570671372',
     'email' => NULL,
     'website' => 'https://facebook.com/sudanschoolsriyadh',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع تعليمي متكامل لأبناء الجالية السودانية بالرياض يقدم المنهج الوطني السوداني المعتمد والمسار الدولي الإنجليزي (كامبريدج)، معتمد كمركز تدريسي واختباري رائد بالمنطقة الوسطى.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -46792,7 +49472,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1459 => 
+  1452 => 
   array (
     'name' => 'مدارس شبه الجزيرة العالمية — مسار المنهج السوداني',
     'name_en' => 'Shibh Al-Jazira International Schools - Sudanese Track',
@@ -46816,6 +49496,8 @@ return array (
     'whatsapp' => '+966505221945',
     'email' => NULL,
     'website' => 'https://shibhaljazira.edu.sa',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس معتمدة من وزارة التعليم السعودية ووزارة التربية السودانية تضم قسماً خاصاً للمنهج القومي السوداني للبنين والبنات مع توفير كادر تدريسي سوداني متخصص.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -46825,7 +49507,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1460 => 
+  1453 => 
   array (
     'name' => 'مركز السفارة السودانية لامتحانات الشهادة الثانوية والأساس بالرياض',
     'name_en' => 'Sudanese Embassy Examination Center - Riyadh',
@@ -46848,6 +49530,8 @@ return array (
     'whatsapp' => '+966548879790',
     'email' => NULL,
     'website' => 'https://sudanembassy.org.sa',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المركز الرسمي والسيادي المعتمد من الإدارة العامة للقياس والتقويم والامتحانات بوزارة التربية والتعليم السودانية لإجراء امتحانات الشهادة الثانوية والمتوسطة لأبناء الجالية بالمنطقة الوسطى.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -46857,7 +49541,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1461 => 
+  1454 => 
   array (
     'name' => 'مدرسة الجالية السودانية الأهلية بالرياض',
     'name_en' => 'Sudanese Community School Riyadh',
@@ -46881,6 +49565,8 @@ return array (
     'whatsapp' => '+966551829304',
     'email' => NULL,
     'website' => 'https://facebook.com/sudanesecommunityriyadh',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية مجتمعية تحت رعاية المستشارية الثقافية بالسفارة السودانية تقدم خدمات التعليم النظامي والتأسيسي لطلاب الجالية السودانية بمراحلها المختلفة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -46890,7 +49576,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1462 => 
+  1455 => 
   array (
     'name' => 'المدرسة السودانية الإلكترونية والحضورية بجدة',
     'name_en' => 'Sudanese Electronic & Academic School Jeddah',
@@ -46914,6 +49600,8 @@ return array (
     'whatsapp' => '+966540891233',
     'email' => NULL,
     'website' => 'https://ses.edu.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي مرخص ومعتمد من وزارة التربية والتعليم السودانية وجهاز شؤون السودانيين بالخارج يشرف على الفصول الحضورية والافتراضية لأبناء الجالية بالمنطقة الغربية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -46923,7 +49611,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1463 => 
+  1456 => 
   array (
     'name' => 'مركز القنصلية العامة لجمهورية السودان بجدة لامتحانات الشهادة',
     'name_en' => 'Sudanese Consulate General Exam Center - Jeddah',
@@ -46946,6 +49634,8 @@ return array (
     'whatsapp' => '+966556601144',
     'email' => NULL,
     'website' => 'https://jsc.gov.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المركز الرسمي والسيادي المعتمد لعقد امتحانات الشهادتين الثانوية والمتوسطة السودانية لطلاب المنطقة الغربية ومكة المكرمة والمدينة المنورة وعسير وجازان ونجران وتبوك.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -46955,7 +49645,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1464 => 
+  1457 => 
   array (
     'name' => 'مدارس الوفاق السودانية العالمية بجدة',
     'name_en' => 'Al-Wefaq Sudanese International School Jeddah',
@@ -46979,6 +49669,8 @@ return array (
     'whatsapp' => '+966567812901',
     'email' => NULL,
     'website' => 'https://facebook.com/alwefaq.sudaneseschool',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة تقدم مناهج وزارة التربية والتعليم السودانية مع فصول مجهزة وكادر تعليمي ذو كفاءة عالية، وتهتم بتوفير بيئة تربوية تحافظ على الهوية السودانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -46988,7 +49680,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1465 => 
+  1458 => 
   array (
     'name' => 'مدرسة ومركز الجالية السودانية بمكة المكرمة',
     'name_en' => 'Sudanese Community School & Center Makkah',
@@ -47012,6 +49704,8 @@ return array (
     'whatsapp' => '+966503829102',
     'email' => NULL,
     'website' => 'https://facebook.com/sudanese.makkah',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز تعليمي تابع للجنة التعليمية للجالية السودانية بمكة المكرمة ينسق مع القنصلية العامة بجدة لمتابعة تدريس المنهج القومي والدروس المسائية وامتحانات النقل.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -47021,7 +49715,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1466 => 
+  1459 => 
   array (
     'name' => 'مدرسة إقرأ التعليمية السودانية بالمدينة المنورة',
     'name_en' => 'Iqraa Sudanese Educational School Madinah',
@@ -47045,6 +49739,8 @@ return array (
     'whatsapp' => '+966547628465',
     'email' => NULL,
     'website' => 'https://facebook.com/iqraa.madinah.school',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية سودانية نموذجية بالمدينة المنورة معتمدة لتدريس المنهج السوداني من مرحلة رياض الأطفال وحتى الثالث الثانوي مع رعاية متخصصة لبرامج تحفيظ القرآن الكريم والأنشطة الطلابية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -47054,7 +49750,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1467 => 
+  1460 => 
   array (
     'name' => 'مركز امتحانات الشهادة السودانية بالمنطقة الشرقية — الدمام',
     'name_en' => 'Eastern Province Sudanese Examination Center - Dammam',
@@ -47077,6 +49773,8 @@ return array (
     'whatsapp' => '+966558981240',
     'email' => NULL,
     'website' => 'https://facebook.com/sudanese.eastern.province',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المركز الرسمي المعتمد من السفارة السودانية ووزارة التربية لإجراء امتحانات الشهادة الثانوية لطلاب الدمام والخبر والجبيل وحفر الباطن والأحساء ورأس تنورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -47086,7 +49784,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1468 => 
+  1461 => 
   array (
     'name' => 'مدرسة الجالية السودانية بالخبر والدمام',
     'name_en' => 'Sudanese Community School Khobar & Dammam',
@@ -47110,6 +49808,8 @@ return array (
     'whatsapp' => '+966531190288',
     'email' => NULL,
     'website' => 'https://facebook.com/sudanese.khobar.school',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة أهلية تتبع للجنة التعليمية بالجالية السودانية بالمنطقة الشرقية توفر دروس المنهج السوداني وبرامج التقوية الأكاديمية والمراجعات المكثفة لطلاب الشهادة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -47119,7 +49819,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1469 => 
+  1462 => 
   array (
     'name' => 'المدرسة السودانية بخميس مشيط وأبها',
     'name_en' => 'Sudanese School Khamis Mushait & Abha',
@@ -47143,6 +49843,8 @@ return array (
     'whatsapp' => '+966508927164',
     'email' => NULL,
     'website' => 'https://facebook.com/sudanese.aseer.school',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المؤسسة التعليمية المركزية لأبناء الجالية السودانية بمنطقة عسير (خميس مشيط وأبها وأحد رفيدة) لتدريس المنهج السوداني ومتابعة شؤون الطلاب بالتنسيق مع القنصلية العامة بجدة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -47152,7 +49854,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1470 => 
+  1463 => 
   array (
     'name' => 'مركز ومسار المنهج السوداني التعليمي بتبوك',
     'name_en' => 'Sudanese Curriculum Educational Center Tabuk',
@@ -47176,6 +49878,8 @@ return array (
     'whatsapp' => '+966564229100',
     'email' => NULL,
     'website' => 'https://facebook.com/sudanesetabuk',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز تعليمي للجالية السودانية بمنطقة تبوك يشرف على متابعة المنهج السوداني القومي وتوفير المقررات والامتحانات التجريبية ورعاية الطلاب والدارسين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -47185,7 +49889,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1471 => 
+  1464 => 
   array (
     'name' => 'مركز المنهج السوداني لأبناء الجالية بجازان',
     'name_en' => 'Sudanese Community Center Jazan',
@@ -47209,6 +49913,8 @@ return array (
     'whatsapp' => '+966532204500',
     'email' => NULL,
     'website' => 'https://facebook.com/sudanese.jazan',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز تعليمي وتأهيلي يخدم طلاب الجالية السودانية بمنطقة جازان وصبيا وأبو عريش وصامطة، يوفر مراجعات المنهج السوداني ومراكز التسجيل للامتحانات الرسمية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -47218,7 +49924,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1472 => 
+  1465 => 
   array (
     'name' => 'مركز الجالية السودانية التعليمي بالقصيم — بريدة',
     'name_en' => 'Sudanese Community Educational Center Qassim - Buraidah',
@@ -47242,6 +49948,8 @@ return array (
     'whatsapp' => '+966508120300',
     'email' => NULL,
     'website' => 'https://facebook.com/sudanese.qassim',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز تعليمي نشط يخدم الأسر السودانية في بريدة وعنيزة والرس والبكيرية لتدريس المنهج الوطني ومتابعة التحصيل الدراسي للشهادة الثانوية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -47251,7 +49959,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1473 => 
+  1466 => 
   array (
     'name' => 'مركز الجالية السودانية التعليمي بالطائف',
     'name_en' => 'Sudanese Community Educational Center Taif',
@@ -47275,6 +49983,8 @@ return array (
     'whatsapp' => '+966557461820',
     'email' => NULL,
     'website' => 'https://facebook.com/sudanese.taif',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز تدريس ومتابعة تعليمية يتبع للجنة الجالية السودانية بمحافظة الطائف يرعى الطلاب في مختلف المراحل التعليمية ويشرف على الفصول التكميلية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -47284,7 +49994,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1474 => 
+  1467 => 
   array (
     'name' => 'مركز أبناء الجالية السودانية بحفر الباطن',
     'name_en' => 'Sudanese Community Educational Center Hafr Al-Batin',
@@ -47308,6 +50018,8 @@ return array (
     'whatsapp' => '+966537221080',
     'email' => NULL,
     'website' => 'https://facebook.com/sudanese.hafralbatin',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز تعليمي مخصص لتدريس ومراجعة المنهج القومي السوداني لأبناء الجالية بمحافظة حفر الباطن والمناطق الشمالية الشرقية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -47317,7 +50029,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1475 => 
+  1468 => 
   array (
     'name' => 'مركز الجالية السودانية التعليمي بينبع',
     'name_en' => 'Sudanese Community Educational Center Yanbu',
@@ -47341,6 +50053,8 @@ return array (
     'whatsapp' => '+966543224050',
     'email' => NULL,
     'website' => 'https://facebook.com/sudanese.yanbu',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز تعليمي يتبع لمجلس الجالية السودانية بينبع البحر والهيئة الملكية بينبع الصناعية يتابع تطبيق المنهج السوداني وخدمات الطلاب.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -47350,7 +50064,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1476 => 
+  1469 => 
   array (
     'name' => 'مركز الجالية السودانية التعليمي بنجران',
     'name_en' => 'Sudanese Community Educational Center Najran',
@@ -47374,6 +50088,8 @@ return array (
     'whatsapp' => '+966505223190',
     'email' => NULL,
     'website' => 'https://facebook.com/sudanese.najran',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز تعليمي لأبناء الجالية السودانية بنجران وشرورة ينسق مع القنصلية العامة بجدة في المراجعات والمناهج وإجراءات امتحانات الشهادة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -47383,7 +50099,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1477 => 
+  1470 => 
   array (
     'name' => 'مركز الجالية السودانية التعليمي بحائل',
     'name_en' => 'Sudanese Community Educational Center Hail',
@@ -47407,6 +50123,8 @@ return array (
     'whatsapp' => '+966555321870',
     'email' => NULL,
     'website' => 'https://facebook.com/sudanese.hail',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز تعليمي وثقافي لأبناء الجالية السودانية بمنطقة حائل يشرف على الدروس الداعمة والتحضير لامتحانات الشهادة وفق الخطة الدراسية القومية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -47416,7 +50134,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1478 => 
+  1471 => 
   array (
     'name' => 'مدرسة الصداقة السودانية بالقاهرة — الدقي',
     'name_en' => 'Sudanese Friendship School Cairo - Dokki',
@@ -47440,6 +50158,8 @@ return array (
     'whatsapp' => '+201157733006',
     'email' => NULL,
     'website' => 'https://facebook.com/elsadagaschoolcairo',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'أعرق وأكبر مدرسة ومؤسسة تعليمية سودانية بمصر تتبع مباشرة لإشراف سفارة جمهورية السودان بالقاهرة والمستشارية الثقافية، وتعد المركز السيادي الرئيسي لامتحانات الشهادة السودانية بجمهورية مصر العربية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -47449,7 +50169,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1479 => 
+  1472 => 
   array (
     'name' => 'مدارس الدكتور أبوذر الكودة السودانية — فرع فيصل',
     'name_en' => 'Dr. Abuzar Al-Koda Sudanese Schools - Faisal',
@@ -47473,6 +50193,8 @@ return array (
     'whatsapp' => '+201113663443',
     'email' => NULL,
     'website' => 'https://facebook.com/dr.abuzar.alkoda',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية سودانية رائدة ذات تاريخ طويل وتفوق أكاديمي مشهود في نتائج الشهادة السودانية، توفر أحدث تقنيات التعليم ومعامل مجهزة وكادر تدريسي سوداني رفيع المستوى.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -47482,7 +50204,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1480 => 
+  1473 => 
   array (
     'name' => 'مجموعة مدارس الدكتور إدريس جلال السودانية — فرع فيصل',
     'name_en' => 'Dr. Idris Jalal Sudanese Schools - Faisal',
@@ -47506,6 +50228,8 @@ return array (
     'whatsapp' => '+201017097514',
     'email' => NULL,
     'website' => 'https://facebook.com/idrisjalalschools',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع مدارس نموذجية خاصة يقدم تعليماً متطوراً وفق المنهج السوداني القومي، مشهود لها بالانضباط الإداري والتربوي والنتائج المشرفة في امتحانات المراحل والشهادة الثانوية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -47515,7 +50239,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1481 => 
+  1474 => 
   array (
     'name' => 'مدارس النخبة الشاملة للتعليم السوداني — أول فيصل',
     'name_en' => 'Al-Nokhba Comprehensive Sudanese Schools - Faisal',
@@ -47539,6 +50263,8 @@ return array (
     'whatsapp' => '+201118573781',
     'email' => NULL,
     'website' => 'https://facebook.com/alnokhbaschools.eg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس معتمدة تدرس المنهج القومي السوداني لجميع المراحل بكادر مؤهل وبيئة صفية مجهزة بأحدث الوسائل التعليمية التفاعلية وقاعات الأنشطة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -47548,7 +50274,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1482 => 
+  1475 => 
   array (
     'name' => 'مدارس النخبة الشاملة السودانية — فرع ميدان الساعة والعشرين',
     'name_en' => 'Al-Nokhba Sudanese Schools - Clock Square Branch',
@@ -47572,6 +50298,8 @@ return array (
     'whatsapp' => '+201008692327',
     'email' => NULL,
     'website' => 'https://facebook.com/alnokhba.branch2',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الفرع الثاني لمدارس النخبة بمنطقة العشرين وميدان الساعة، يوفر فصولاً منفصلة للبنين والبنات ومختبرات علمية متقدمة وتدريس المنهج السوداني كاملاً.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -47581,7 +50309,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1483 => 
+  1476 => 
   array (
     'name' => 'مدارس النيلين السودانية الخاصة — فرع فيصل',
     'name_en' => 'Al-Neelain Private Sudanese Schools - Faisal',
@@ -47605,6 +50333,8 @@ return array (
     'whatsapp' => '+201117226154',
     'email' => NULL,
     'website' => 'https://facebook.com/alneelainschools',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية خاصة متميزة بالكوادر التربوية السودانية ذات الخبرة الطويلة في تدريس مناهج الشهادة السودانية مع التركيز على المساقات العلمية والأدبية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -47614,7 +50344,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1484 => 
+  1477 => 
   array (
     'name' => 'مدارس النيلين السودانية الخاصة — فرع الشروق',
     'name_en' => 'Al-Neelain Private Sudanese Schools - El Shorouk City',
@@ -47638,6 +50368,8 @@ return array (
     'whatsapp' => '+201281345626',
     'email' => NULL,
     'website' => 'https://facebook.com/alneelain.shorouk',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع مدارس النيلين بشرق القاهرة يخدم طلاب الجالية السودانية في الشروق وبدر ومدينتي والرحاب والقاهرة الجديدة، مجهز بمرافق تعليمية وترفيهية حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -47647,7 +50379,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1485 => 
+  1478 => 
   array (
     'name' => 'مدارس المجد السودانية — فرع فيصل',
     'name_en' => 'Al-Majd Sudanese Schools - Faisal',
@@ -47671,6 +50403,8 @@ return array (
     'whatsapp' => '+201115799012',
     'email' => NULL,
     'website' => 'https://facebook.com/almajd.sudanese.school',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس سودانية خاصة ومعتمدة تقدم خدمات تعليمية شاملة لجميع المراحل الدراسية بنين وبنات مع توفير وسائل النقل والمتابعة الأكاديمية الدورية لأولياء الأمور.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -47680,7 +50414,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1486 => 
+  1479 => 
   array (
     'name' => 'مدرسة الرسالة للتعليم السوداني — فيصل',
     'name_en' => 'Al-Resalah Sudanese School - Faisal',
@@ -47704,6 +50438,8 @@ return array (
     'whatsapp' => '+201016387821',
     'email' => NULL,
     'website' => 'https://facebook.com/alresalah.sudanese',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تربوي سوداني يعنى بتنشئة الطلاب وتدريس المناهج السودانية القومية، ومجهز بفصول دراسية حديثة ومعامل حاسوب وعلوم وبرامج تقوية مكثفة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -47713,7 +50449,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1487 => 
+  1480 => 
   array (
     'name' => 'رياض ومدارس النوار السودانية — المريوطية هرم',
     'name_en' => 'Al-Nowar Sudanese Schools - Haram Marioutiya',
@@ -47737,6 +50473,8 @@ return array (
     'whatsapp' => '+201070874030',
     'email' => NULL,
     'website' => 'https://facebook.com/alnowarschools',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع تعليمي سوداني واسع بمرافق رياضية وحدائق في منطقة المريوطية الهرم يدرس المنهج القومي السوداني بإشراف نخبة من أساتذة التعليم العام بالسودان.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -47746,7 +50484,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1488 => 
+  1481 => 
   array (
     'name' => 'مدارس المعالي السودانية — الهرم',
     'name_en' => 'Al-Maali Sudanese Schools - Haram',
@@ -47770,6 +50508,8 @@ return array (
     'whatsapp' => '+249110820853',
     'email' => NULL,
     'website' => 'https://facebook.com/almaalieschoolseg',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس متخصصة في تدريس المناهج السودانية ومتابعة طلاب الشهادة السودانية مع فصول مجهزة ومراجعات مستمرة واختبارات قياس مستوى دورية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -47779,7 +50519,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1489 => 
+  1482 => 
   array (
     'name' => 'مدارس قلوبال نصر الدولية للمنهج السوداني — مدينة نصر',
     'name_en' => 'Global Nasr International Sudanese School - Nasr City',
@@ -47803,6 +50543,8 @@ return array (
     'whatsapp' => '+20111124572',
     'email' => NULL,
     'website' => 'https://facebook.com/globalnasrschools',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'أبرز المدارس السودانية المعتمدة بشرق القاهرة تخدم الطلاب في مدينة نصر ومصر الجديدة والتجمع الخامس مع توفير بيئة تعليمية متكاملة ومعامل إلكترونية متطورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -47812,7 +50554,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1490 => 
+  1483 => 
   array (
     'name' => 'مدارس الأفق الجديد الدولية السودانية — القاهرة الجديدة والمعادي',
     'name_en' => 'New Horizon Sudanese International Schools Cairo',
@@ -47836,6 +50578,8 @@ return array (
     'whatsapp' => '+20227332058',
     'email' => NULL,
     'website' => 'https://facebook.com/newhorizon.sudanese',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية دولية تقدم المنهج السوداني باللغتين العربية والإنجليزية لجميع المراحل مع برامج متقدمة في تكنولوجيا المعلومات واللغات الحية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -47845,7 +50589,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1491 => 
+  1484 => 
   array (
     'name' => 'مدارس وادي النيل السودانية — فرع فيصل والمريوطية',
     'name_en' => 'Wadi El-Neel Sudanese Schools - Faisal & Marioutiya',
@@ -47869,6 +50613,8 @@ return array (
     'whatsapp' => '+201124559812',
     'email' => NULL,
     'website' => 'https://facebook.com/wadielneel.sudanese',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس خاصة تقدم برامج تعليمية متكاملة وفق معايير وزارة التربية والتعليم السودانية، وتشتهر بنسب النجاح العالية والاهتمام بالمسابقات العلمية والثقافية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -47878,7 +50624,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1492 => 
+  1485 => 
   array (
     'name' => 'مؤسسة الدكتور إدريس التربوية التعليمية — الشيخ زايد',
     'name_en' => 'Dr. Idris Educational Institution - Sheikh Zayed',
@@ -47902,6 +50648,8 @@ return array (
     'whatsapp' => '+201557527470',
     'email' => NULL,
     'website' => 'https://facebook.com/idris.sheikhzayed',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي حديث بمدينة الشيخ زايد يخدم الطلاب السودانيين بالمنطقة الغربية للقاهرة الكبرى بمرافق عالمية وملاعب رياضية وكادر تعليمي رفيع.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -47911,7 +50659,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1493 => 
+  1486 => 
   array (
     'name' => 'مدارس التميز السودانية — مدينة 6 أكتوبر',
     'name_en' => 'Al-Tamayoz Sudanese Schools - 6th of October City',
@@ -47935,6 +50683,8 @@ return array (
     'whatsapp' => '+201155265184',
     'email' => NULL,
     'website' => 'https://facebook.com/altamayoz.october',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدارس معتمدة بمدينة 6 أكتوبر تستوعب مئات الطلاب السودانيين المقيمين بالمدينة، وتوفر مناهج تعليمية متكاملة وأنشطة صفية ولا صفية متميزة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -47944,7 +50694,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1494 => 
+  1487 => 
   array (
     'name' => 'مدرسة بوابة التفوق السودانية — مدينة 6 أكتوبر',
     'name_en' => 'Bawabat Al-Tafawwoq Sudanese School - 6th of October',
@@ -47968,6 +50718,8 @@ return array (
     'whatsapp' => '+201061276902',
     'email' => NULL,
     'website' => 'https://facebook.com/tafawwoq.october',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية سودانية بالحي السادس بأكتوبر تعنى بالتحصيل الأكاديمي والتحضير المركز لامتحانات النقل والشهادة الثانوية العامة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -47977,7 +50729,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1495 => 
+  1488 => 
   array (
     'name' => 'مدارس د. أبوذر الكودة السودانية — فرع 6 أكتوبر',
     'name_en' => 'Dr. Abuzar Al-Koda Sudanese Schools - 6th of October',
@@ -48001,6 +50753,8 @@ return array (
     'whatsapp' => '+201113663443',
     'email' => NULL,
     'website' => 'https://facebook.com/alkoda.october',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'فرع مدينة 6 أكتوبر لمؤسسة الدكتور أبوذر الكودة، يوفر نفس المعايير الأكاديمية والتربوية العالية وقاعات الدراسة المكيفة والمختبرات الحديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -48010,7 +50764,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1496 => 
+  1489 => 
   array (
     'name' => 'مركز مدرسة المجلس الأفريقي للتعليم الخاص — القاهرة',
     'name_en' => 'African Council Sudanese School & Exam Center Cairo',
@@ -48034,6 +50788,8 @@ return array (
     'whatsapp' => '+249120022595',
     'email' => NULL,
     'website' => 'https://africancouncil.net',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من المؤسسات التعليمية الكبرى المعتمدة رسمياً بقرار وزارة التربية والتعليم السودانية كمركز رئيسي لإجراء امتحانات الشهادة الثانوية السودانية بمصر.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -48043,7 +50799,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1497 => 
+  1490 => 
   array (
     'name' => 'مدرسة الجالية السودانية بالإسكندرية — شاطئ النخيل',
     'name_en' => 'Alexandria Sudanese Community School',
@@ -48067,6 +50823,8 @@ return array (
     'whatsapp' => '+201110921022',
     'email' => NULL,
     'website' => 'https://facebook.com/alexandria.sudanese.school',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المدرسة والمؤسسة التعليمية المعتمدة رسمياً لخدمة أبناء الجالية السودانية بمحافظة الإسكندرية والساحل الشمالي، وتشكل مقراً رئيسياً لامتحانات النقل والتسجيل للشهادة السودانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -48076,7 +50834,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1498 => 
+  1491 => 
   array (
     'name' => 'مدارس النوابغ السودانية بالإسكندرية',
     'name_en' => 'Al-Nawabigh Sudanese Schools Alexandria',
@@ -48100,6 +50858,8 @@ return array (
     'whatsapp' => '+201201948371',
     'email' => NULL,
     'website' => 'https://facebook.com/nawabigh.alex.school',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي سوداني بشرق الإسكندرية يدرس المنهج القومي بأساليب تدريس تفاعلية حديثة واهتمام بتنمية مهارات التفكير العلمي واللغات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -48109,7 +50869,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1499 => 
+  1492 => 
   array (
     'name' => 'مدرسة نوبلز للتعليم السوداني بأسوان',
     'name_en' => 'Nobles Sudanese Educational School Aswan',
@@ -48133,6 +50893,8 @@ return array (
     'whatsapp' => '+201271214479',
     'email' => NULL,
     'website' => 'https://facebook.com/nobles.aswan.school',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أوائل وأبرز المدارس السودانية المعتمدة بأسوان تحت إشراف القنصلية العامة لجمهورية السودان بأسوان، وتوفر تعليماً نظامياً متكاملاً لجميع المراحل الدراسية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -48142,7 +50904,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1500 => 
+  1493 => 
   array (
     'name' => 'مدرسة القبس المنير السودانية بأسوان',
     'name_en' => 'Al-Qabas Al-Muneer Sudanese School Aswan',
@@ -48166,6 +50928,8 @@ return array (
     'whatsapp' => '+201140928172',
     'email' => NULL,
     'website' => 'https://facebook.com/alqabas.aswan',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة رائدة في جنوب مصر تعنى بغرس القيم الفاضلة وتدريس المقررات القومية السودانية بإشراف معلمين أكفاء ومعامل وملاعب متكاملة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -48175,7 +50939,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1501 => 
+  1494 => 
   array (
     'name' => 'مدرسة الشروق السودانية بأسوان',
     'name_en' => 'Al-Shorouk Sudanese School Aswan',
@@ -48198,6 +50962,8 @@ return array (
     'whatsapp' => '+201289012344',
     'email' => NULL,
     'website' => 'https://facebook.com/alshorouk.aswan.school',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة سودانية معتمدة تعنى بمراحل التأسيس والتعليم الابتدائي والمتوسط وتأهيل الطلاب للمرحلة الثانوية وفق المنهج السوداني.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -48207,7 +50973,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1502 => 
+  1495 => 
   array (
     'name' => 'مدارس نجود السودانية — فرع كركر والسيل بأسوان',
     'name_en' => 'Nojoud Sudanese Schools - Karakar & Al-Sayl Aswan',
@@ -48231,6 +50997,8 @@ return array (
     'whatsapp' => '+201123489011',
     'email' => NULL,
     'website' => 'https://facebook.com/nojoud.aswan',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية ومجتمعية سودانية تقدم خدمات التعليم والتأهيل للطلاب السودانيين الوافدين في أسوان وقرى الجنوب بالتنسيق المباشر مع القنصلية السودانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -48240,7 +51008,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1503 => 
+  1496 => 
   array (
     'name' => 'مركز القنصلية العامة لجمهورية السودان بأسوان لامتحانات الشهادة',
     'name_en' => 'Sudanese Consulate General Exam Center - Aswan',
@@ -48263,6 +51031,8 @@ return array (
     'whatsapp' => '+201123074310',
     'email' => NULL,
     'website' => 'https://sudanconsulate-aswan.gov.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المركز الرسمي والسيادي المعتمد من لجنة امتحانات السودان بوزارة التربية لإدارة وعقد امتحانات الشهادتين الثانوية والمتوسطة لطلاب محافظات الصعيد وجنوب الوادي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -48272,7 +51042,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1504 => 
+  1497 => 
   array (
     'name' => 'مدرسة السودان الخاصة بالشارقة',
     'name_en' => 'Sudan Private School Sharjah',
@@ -48296,6 +51066,8 @@ return array (
     'whatsapp' => '+97165224633',
     'email' => NULL,
     'website' => 'https://facebook.com/sudan.private.school.sharjah',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المؤسسة التعليمية الرسمية الرائدة للجالية السودانية بدولة الإمارات العربية المتحدة، تحظى برعاية كريمة من حاكم الشارقة وتطبق المنهج القومي السوداني لجميع المراحل الدراسية بنين وبنات.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -48305,7 +51077,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1505 => 
+  1498 => 
   array (
     'name' => 'مدرسة المركز الاجتماعي السوداني بالشارقة',
     'name_en' => 'Sudanese Social Center School Sharjah',
@@ -48328,6 +51100,8 @@ return array (
     'whatsapp' => '+97165322268',
     'email' => NULL,
     'website' => 'https://ssc-shj.ae',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز تعليمي وثقافي عريق يتبع للنادي والمركز الاجتماعي السوداني بالشارقة يقدم فصول تقوية وتأسيس بالمنهج السوداني وبرامج اللغات وتحفيظ القرآن الكريم.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -48337,7 +51111,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1506 => 
+  1499 => 
   array (
     'name' => 'مؤسسة ومدرسة ابتكار التعليمية للمنهج السوداني — أبوظبي',
     'name_en' => 'Ebtikar Educational School - Sudanese Track Abu Dhabi',
@@ -48361,6 +51135,8 @@ return array (
     'whatsapp' => '+971501239845',
     'email' => NULL,
     'website' => 'https://ebtikarschool.com',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية رائدة في أبوظبي تضم مساراً كاملاً ومعتمداً لتدريس المنهج السوداني لجميع الصفوف الدراسية مع توفير معامل ذكية وتقنيات تدريس حديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -48370,7 +51146,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1507 => 
+  1500 => 
   array (
     'name' => 'مركز النادي الاجتماعي السوداني التعليمي بأبوظبي',
     'name_en' => 'Sudanese Social Club Educational Center Abu Dhabi',
@@ -48394,6 +51170,8 @@ return array (
     'whatsapp' => '+971504474747',
     'email' => NULL,
     'website' => 'https://facebook.com/sudaneseclubad',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز تعليمي مجتمعي تحت إشراف السفارة السودانية بأبوظبي يقدم برامج الدعم الأكاديمي والمراجعات لامتحانات الشهادة ومتابعة الطلبة المغتربين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -48403,7 +51181,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1508 => 
+  1501 => 
   array (
     'name' => 'مركز ومدرسة النادي الاجتماعي السوداني بدبي',
     'name_en' => 'Sudanese Social Club Educational Center Dubai',
@@ -48427,6 +51205,8 @@ return array (
     'whatsapp' => '+971503366966',
     'email' => NULL,
     'website' => 'https://facebook.com/sudanesedubai',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز تعليمي نشط يرعى شؤون الطلاب السودانيين في دبي والإمارات الشمالية، يقيم دورات مكثفة في المناهج القومية وفصول تقوية مسائية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -48436,7 +51216,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1509 => 
+  1502 => 
   array (
     'name' => 'مركز الجالية السودانية التعليمي بعجمان',
     'name_en' => 'Sudanese Community Educational Center Ajman',
@@ -48460,6 +51240,8 @@ return array (
     'whatsapp' => '+971557431190',
     'email' => NULL,
     'website' => 'https://facebook.com/sudanese.ajman',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز تعليمي مجتمعي يقدم خدمات الدعم الأكاديمي للطلاب السودانيين المقيمين بإمارة عجمان ومتابعة تسجيلهم للامتحانات الوطنية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -48469,7 +51251,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1510 => 
+  1503 => 
   array (
     'name' => 'مركز الجالية السودانية التعليمي بالعين',
     'name_en' => 'Sudanese Community Educational Center Al Ain',
@@ -48493,6 +51275,8 @@ return array (
     'whatsapp' => '+971507661200',
     'email' => NULL,
     'website' => 'https://facebook.com/sudanese.alain',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز تربوي يخدم أبناء الجالية السودانية في مدينة العين وضواحيها، يوفر فصول المنهج السوداني التكميلية والمراجعات الشاملة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -48502,7 +51286,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1511 => 
+  1504 => 
   array (
     'name' => 'مركز الجالية السودانية التعليمي برأس الخيمة',
     'name_en' => 'Sudanese Community Center Ras Al Khaimah',
@@ -48526,6 +51310,8 @@ return array (
     'whatsapp' => '+971502332800',
     'email' => NULL,
     'website' => 'https://facebook.com/sudanese.rak',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز تعليمي للجالية السودانية في رأس الخيمة وأم القيوين لمتابعة دراسة المنهج السوداني وتنسيق الامتحانات مع الملحقية الثقافية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -48535,7 +51321,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1512 => 
+  1505 => 
   array (
     'name' => 'مركز الجالية السودانية التعليمي بالفجيرة',
     'name_en' => 'Sudanese Community Center Fujairah',
@@ -48559,6 +51345,8 @@ return array (
     'whatsapp' => '+971502223450',
     'email' => NULL,
     'website' => 'https://facebook.com/sudanese.fujairah',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز تعليمي وثقافي يخدم الطلاب في إمارة الفجيرة ومدن خورفكان وكلباء ودبا الفجيرة لتدريس المنهج السوداني.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -48568,7 +51356,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1513 => 
+  1506 => 
   array (
     'name' => 'المدرسة السودانية بالدوحة',
     'name_en' => 'Sudanese School Doha',
@@ -48592,6 +51380,8 @@ return array (
     'whatsapp' => '+97444935776',
     'email' => NULL,
     'website' => 'https://sudaneseschool.edu.qa',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي عريق ومعتمد من وزارة التعليم والتعليم العالي بدولة قطر ووزارة التربية السودانية، يمتلك مبانٍ نموذجية ومختبرات علمية متطورة وملاعب أولمبية، ويعد المركز الإمتحاني الرسمي للشهادة السودانية بدولة قطر.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -48601,7 +51391,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1514 => 
+  1507 => 
   array (
     'name' => 'مركز مدرسة الجالية السودانية المعتمد لامتحانات الشهادة — الدوحة',
     'name_en' => 'Sudanese Community Center Examination Hub Doha',
@@ -48624,6 +51414,8 @@ return array (
     'whatsapp' => '+97455821034',
     'email' => NULL,
     'website' => 'https://facebook.com/sudanese.school.qatar',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المركز الرسمي التابع لسفارة جمهورية السودان بالدوحة والمدرج ضمن المراكز الخارجية المعتمدة للجلوس لامتحانات الشهادة الثانوية العامة السودانية بدولة قطر.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -48633,7 +51425,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1515 => 
+  1508 => 
   array (
     'name' => 'مركز امتحانات الشهادة السودانية بمسقط — سلطنة عمان',
     'name_en' => 'Sudanese Embassy Examination Center Muscat',
@@ -48656,6 +51448,8 @@ return array (
     'whatsapp' => '+96894699040',
     'email' => NULL,
     'website' => 'https://sudanembassy-mct.gov.sd',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المركز الرسمي المعتمد من وزارة التربية والتعليم السودانية وسفارة السودان بمسقط بالتنسيق مع وزارة التربية والتعليم بسلطنة عمان لإجراء امتحانات الشهادة السودانية لطلاب السلطنة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -48665,7 +51459,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1516 => 
+  1509 => 
   array (
     'name' => 'مدرسة ومركز النادي الاجتماعي للجالية السودانية بمسقط',
     'name_en' => 'Sudanese Social Club Educational Center Muscat',
@@ -48689,6 +51483,8 @@ return array (
     'whatsapp' => '+96892701192',
     'email' => NULL,
     'website' => 'https://sscoman.org',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المؤسسة التعليمية والمجتمعية التابعة للجالية بمسقط، توفر فصولاً دراسية لمناهج المنهج القومي ودورات تقوية ومراجعات شاملة قبل الامتحانات الرسمية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -48698,7 +51494,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1517 => 
+  1510 => 
   array (
     'name' => 'مركز الجالية السودانية التعليمي بصلالة',
     'name_en' => 'Sudanese Community Center Salalah',
@@ -48722,6 +51518,8 @@ return array (
     'whatsapp' => '+96893211040',
     'email' => NULL,
     'website' => 'https://facebook.com/sudanese.salalah',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز تعليمي لأبناء الجالية السودانية بمحافظة ظفار يتابع شؤون تدريس المنهج السوداني وتجهيز الطلاب للامتحانات العامة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -48731,7 +51529,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1518 => 
+  1511 => 
   array (
     'name' => 'مركز السفارة السودانية لتدريس وامتحانات المنهج السوداني بالكويت',
     'name_en' => 'Sudanese Embassy Educational & Exam Center Kuwait',
@@ -48755,6 +51553,8 @@ return array (
     'whatsapp' => '+96595381830',
     'email' => NULL,
     'website' => 'https://sudanembassy-kw.com',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الجهة الرسمية الراعية لتعليم وتوثيق شهادات الطلاب السودانيين بدولة الكويت، وتتولى الإشراف على لجان تدريس وامتحانات الشهادة السودانية بالتنسيق مع وزارة التربية والتعليم الكويتية والسودانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -48764,7 +51564,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1519 => 
+  1512 => 
   array (
     'name' => 'مركز الجالية السودانية التعليمي بحولي والفروانية',
     'name_en' => 'Sudanese Community Educational Center Hawally & Farwaniya',
@@ -48788,6 +51588,8 @@ return array (
     'whatsapp' => '+96566619040',
     'email' => NULL,
     'website' => 'https://facebook.com/sudanese.kuwait',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز تكميلي ومسائي ينظمه أساتذة سودانيون لتقديم دروس المنهج السوداني للطلاب المقيمين بمحافظات حولي والفروانية والأحمدي والعاصمة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -48797,7 +51599,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1520 => 
+  1513 => 
   array (
     'name' => 'مدرسة ومركز النادي السوداني بالمنامة — البحرين',
     'name_en' => 'Sudanese Club School & Center Manama - Bahrain',
@@ -48821,6 +51623,8 @@ return array (
     'whatsapp' => '+97339728344',
     'email' => NULL,
     'website' => 'https://facebook.com/sudaneseclubbahrain',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المركز التعليمي التابع للجالية السودانية بمملكة البحرين تحت إشراف السفارة السودانية بالمنامة، يوفر دورات تدريس المنهج السوداني وبرامج اللغة والتسجيل للامتحانات الرسمية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -48830,7 +51634,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1521 => 
+  1514 => 
   array (
     'name' => 'مدرسة الإخوة السودانية الليبية بطرابلس (مدرسة الصداقة)',
     'name_en' => 'Sudanese Libyan Brotherhood School Tripoli',
@@ -48854,6 +51658,8 @@ return array (
     'whatsapp' => '+218914801123',
     'email' => NULL,
     'website' => 'https://facebook.com/sudaneselibyanschool',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المؤسسة التعليمية الرسمية المعتمدة لتدريس المنهج القومي السوداني بطرابلس تحت إشراف سفارة جمهورية السودان بليبيا، وتعد المركز الإمتحاني الرسمي للشهادة السودانية بالغرب الليبي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -48863,7 +51669,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1522 => 
+  1515 => 
   array (
     'name' => 'مركز مدرسة الصداقة السودانية ببنغازي',
     'name_en' => 'Sudanese Friendship School & Exam Center Benghazi',
@@ -48887,6 +51693,8 @@ return array (
     'whatsapp' => '+218922234091',
     'email' => NULL,
     'website' => 'https://facebook.com/sudanesebenghazi',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المركز الرسمي المعتمد من لجنة امتحانات السودان بوزارة التربية لإجراء امتحانات الشهادة الثانوية لأبناء الجالية بمدينة بنغازي والمنطقة الشرقية لليبيا.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -48896,7 +51704,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1523 => 
+  1516 => 
   array (
     'name' => 'مدرسة الصداقة السودانية بمصراتة',
     'name_en' => 'Sudanese Friendship School Misrata',
@@ -48920,6 +51728,8 @@ return array (
     'whatsapp' => '+218912614080',
     'email' => NULL,
     'website' => 'https://facebook.com/sudanese.misrata',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة مجتمعية معتمدة تدرس المنهج القومي السوداني لأبناء الجالية السودانية بمدينة مصراتة وزليتن والخمس.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -48929,7 +51739,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1524 => 
+  1517 => 
   array (
     'name' => 'مركز الجالية السودانية التعليمي بسبها',
     'name_en' => 'Sudanese Community Center Sabha',
@@ -48953,6 +51763,8 @@ return array (
     'whatsapp' => '+218922621040',
     'email' => NULL,
     'website' => 'https://facebook.com/sudanese.sabha',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز تعليمي يخدم الطلاب السودانيين بالجنوب الليبي ومناطق فزان في تدريس المنهج ومتابعة الامتحانات الرسمية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -48962,7 +51774,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1525 => 
+  1518 => 
   array (
     'name' => 'مركز الجالية السودانية التعليمي بالكفرة',
     'name_en' => 'Sudanese Community Center Kufra',
@@ -48986,6 +51798,8 @@ return array (
     'whatsapp' => '+218912221900',
     'email' => NULL,
     'website' => 'https://facebook.com/sudanese.kufra',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز تعليمي حيوي يستوعب مئات الطلاب السودانيين في منطقة الكفرة الحدودية ويوفر المواد التعليمية والكتب المدرسية السودانية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -48995,7 +51809,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1526 => 
+  1519 => 
   array (
     'name' => 'مدرسة الصداقة السودانية التشادية بأنجمينا',
     'name_en' => 'Chad-Sudan Friendship School N\'Djamena',
@@ -49019,6 +51833,8 @@ return array (
     'whatsapp' => '+23566252419',
     'email' => NULL,
     'website' => 'https://facebook.com/sudan.chad.friendship.school',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أقدم الصروح التعليمية العربية بتشاد، تأسست في 22 فبراير 1971 بدعم من السودان وتعد المركز السيادي الرئيسي لامتحانات الشهادة الثانوية السودانية بأنجمينا.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -49028,7 +51844,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1527 => 
+  1520 => 
   array (
     'name' => 'مدرسة الصداقة السودانية التشادية بأبشي',
     'name_en' => 'Chad-Sudan Friendship School Abeche',
@@ -49052,6 +51868,8 @@ return array (
     'whatsapp' => '+23599698120',
     'email' => NULL,
     'website' => 'https://facebook.com/sudan.abeche.school',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'من أبرز المراكز الإمتحانية المعتمدة خارجياً لوزارة التربية والتعليم السودانية، وقد حققت المركز الأول على مستوى المراكز الخارجية في امتحانات الشهادة الثانوية بنسب نجاح وتفوق عالية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -49061,7 +51879,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1528 => 
+  1521 => 
   array (
     'name' => 'مدرسة الصداقة السودانية الأوغندية بكمبالا (SUFS)',
     'name_en' => 'Sudanese Ugandan Friendship School Kampala (SUFS)',
@@ -49085,6 +51903,8 @@ return array (
     'whatsapp' => '+256775682655',
     'email' => NULL,
     'website' => 'https://sufs-ug.com',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المؤسسة التعليمية الرسمية المعتمدة من السفارة السودانية ووزارة التربية كمركز لإجراء امتحانات الشهادة الثانوية والأساس بأوغندا، وتدرس المنهج القومي السوداني باللغتين العربية والإنجليزية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -49094,7 +51914,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1529 => 
+  1522 => 
   array (
     'name' => 'مدارس التفوق السودانية الأوغندية — كمبالا',
     'name_en' => 'Al-Tafawwoq Sudanese Ugandan Schools Kampala',
@@ -49118,6 +51938,8 @@ return array (
     'whatsapp' => '+256766041119',
     'email' => NULL,
     'website' => 'https://facebook.com/altafawwoq.uganda',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مجمع مدارس نموذجية يمتلك فروعاً في ناتييتي وسيتا وكيساسي، ويقدم المنهج القومي السوداني المطور مع التركيز على اللغة الإنجليزية والعلوم الحديثة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -49127,7 +51949,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1530 => 
+  1523 => 
   array (
     'name' => 'الأكاديمية السودانية الحديثة بكمبالا',
     'name_en' => 'Modern Sudanese Academy Kampala',
@@ -49151,6 +51973,8 @@ return array (
     'whatsapp' => '+256767089075',
     'email' => NULL,
     'website' => 'https://facebook.com/sudaneseacademy.kampala',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'أكاديمية تعليمية سودانية متميزة تعنى بتأهيل الطلاب السودانيين النازحين والمقيمين بكمبالا بمناهج وطنية معتمدة وفصول مجهزة بالكامل.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -49160,7 +51984,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1531 => 
+  1524 => 
   array (
     'name' => 'مدرسة النيل السودانية بكمبالا',
     'name_en' => 'Nile Sudanese School Kampala',
@@ -49184,6 +52008,8 @@ return array (
     'whatsapp' => '+256758901234',
     'email' => NULL,
     'website' => 'https://facebook.com/nile.sudanese.uganda',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية مجتمعية ترعى أبناء الجالية السودانية في أوغندا وتوفر بيئة تعليمية محفزة لجميع الصفوف الدراسية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -49193,7 +52019,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1532 => 
+  1525 => 
   array (
     'name' => 'مركز مدرسة المجلس الأفريقي بجوبا — جنوب السودان',
     'name_en' => 'African Council School & Examination Center Juba',
@@ -49217,6 +52043,8 @@ return array (
     'whatsapp' => '+211920011450',
     'email' => NULL,
     'website' => 'https://facebook.com/africancouncil.juba',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المركز الرسمي المعتمد من وزارة التربية والتعليم الاتحادية بالسودان وسفارة جمهورية السودان بجوبا لإجراء امتحانات الشهادة الثانوية والأساس السودانية بجمهورية جنوب السودان.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -49226,7 +52054,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1533 => 
+  1526 => 
   array (
     'name' => 'مدرسة الصداقة السودانية بجوبا',
     'name_en' => 'Sudanese Friendship School Juba',
@@ -49250,6 +52078,8 @@ return array (
     'whatsapp' => '+211912445566',
     'email' => NULL,
     'website' => 'https://facebook.com/sudanese.juba.school',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة مجتمعية رائدة تعنى بتدريس المناهج السودانية واللغة العربية والتربية الإسلامية لأبناء الجالية السودانية المقيمين بمدينة جوبا.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -49259,7 +52089,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1534 => 
+  1527 => 
   array (
     'name' => 'مركز مدرسة الصداقة السودانية بأديس أبابا — إثيوبيا',
     'name_en' => 'Sudanese Friendship School & Exam Center Addis Ababa',
@@ -49283,6 +52113,8 @@ return array (
     'whatsapp' => '+251911512244',
     'email' => NULL,
     'website' => 'https://facebook.com/sudaneseschooladdis',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المركز الرسمي المعتمد من وزارة التربية والتعليم السودانية وسفارة جمهورية السودان بأديس أبابا لعقد امتحانات الشهادة الثانوية العامة للطلاب المقيمين في إثيوبيا والدول المجاورة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -49292,7 +52124,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1535 => 
+  1528 => 
   array (
     'name' => 'مركز مدرسة الجالية السودانية بنيروبي — كينيا',
     'name_en' => 'Sudanese Community School & Exam Center Nairobi',
@@ -49316,6 +52148,8 @@ return array (
     'whatsapp' => '+254722874911',
     'email' => NULL,
     'website' => 'https://facebook.com/sudanese.nairobi',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المركز الإمتحاني والتعليمي المعتمد في كينيا وشرق إفريقيا من إدارة الامتحانات بالسودان، يقدم فصول المنهج القومي ورعاية الطلاب الدارسين.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -49325,7 +52159,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1536 => 
+  1529 => 
   array (
     'name' => 'مركز مدرسة الشيخ حمدان بن راشد بهرجيسا — الصومال',
     'name_en' => 'Hamdan Bin Rashid School & Exam Center Hargeisa',
@@ -49349,6 +52183,8 @@ return array (
     'whatsapp' => '+252634221190',
     'email' => NULL,
     'website' => 'https://facebook.com/hamdan.hargeisa',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز تعليمي وامتحاني معتمد رسمياً ضمن قائمة مراكز امتحانات الشهادة الثانوية السودانية بالخارج لخدمة الجالية السودانية والطلاب في القرن الإفريقي.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -49358,7 +52194,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1537 => 
+  1530 => 
   array (
     'name' => 'مركز مدرسة منظمة الدعوة الإسلامية بهرجيسا',
     'name_en' => 'Islamic Dawa Organization School Hargeisa',
@@ -49382,6 +52218,8 @@ return array (
     'whatsapp' => '+252634418290',
     'email' => NULL,
     'website' => 'https://facebook.com/dawa.hargeisa',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز تعليمي وامتحاني معتمد يدرس المناهج العربية والسودانية لجميع المراحل ويستضيف لجان امتحانات الشهادة العامة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -49391,7 +52229,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1538 => 
+  1531 => 
   array (
     'name' => 'مركز مدرسة الجالية السودانية بجاكرتا — إندونيسيا',
     'name_en' => 'Sudanese Community School & Exam Center Jakarta',
@@ -49415,6 +52253,8 @@ return array (
     'whatsapp' => '+628127508920',
     'email' => NULL,
     'website' => 'https://facebook.com/sudanese.jakarta',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المركز الرسمي المعتمد من وزارة التربية والتعليم السودانية وسفارة السودان بجاكرتا لتدريس المنهج وعقد امتحانات الشهادة للطلاب في دول جنوب شرق آسيا.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -49424,7 +52264,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1539 => 
+  1532 => 
   array (
     'name' => 'مدرسة الصداقة السودانية التركية بإسطنبول',
     'name_en' => 'Turkish Sudanese Friendship School Istanbul',
@@ -49448,6 +52288,8 @@ return array (
     'whatsapp' => '+905343078407',
     'email' => NULL,
     'website' => 'https://facebook.com/sudaneseschoolturkey',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الصرح التعليمي والسيادي المعتمد من وزارتي التربية والتعليم التركية والسودانية وسفارة السودان بأنقرة، وتعد المركز الإمتحاني الرسمي الوحيد المعتمد للشهادة الثانوية السودانية في تركيا وأوروبا الشرقية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -49457,7 +52299,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1540 => 
+  1533 => 
   array (
     'name' => 'المدرسة التكميلية السودانية بلندن',
     'name_en' => 'Sudanese Supplementary School London',
@@ -49481,6 +52323,8 @@ return array (
     'whatsapp' => '+447908661660',
     'email' => NULL,
     'website' => 'http://www.sudanese-school.org',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'أقدم وأعرق مدرسة سودانية في بريطانيا، مسجلة كجمعية تعليمية خيرية تقدم المنهج السوداني المعرب ومواد اللغة العربية والدراسات الإسلامية وتاريخ السودان وجغرافيته لأجيال الجالية ببريطانيا.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -49490,7 +52334,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1541 => 
+  1534 => 
   array (
     'name' => 'مدرسة الجالية السودانية بمانشستر',
     'name_en' => 'Manchester Sudanese Supplementary School',
@@ -49514,6 +52358,8 @@ return array (
     'whatsapp' => '+447891234567',
     'email' => NULL,
     'website' => 'https://manchestersudaneseschool.com',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مؤسسة تعليمية مجتمعية رائدة تخدم الجالية السودانية في شمال غرب إنجلترا، تقدم برامج دراسية أسبوعية وفق المقررات السودانية والعربية المعتمدة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -49523,7 +52369,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1542 => 
+  1535 => 
   array (
     'name' => 'مدرسة الجالية السودانية ببرمنغهام',
     'name_en' => 'Birmingham Sudanese Community School',
@@ -49547,6 +52393,8 @@ return array (
     'whatsapp' => '+447831010977',
     'email' => NULL,
     'website' => 'https://esca-community.com',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة مجتمعية بمدينة برمنغهام ومقاطعة ميدلاندز تعنى بتعليم أبناء السودانيين المنهج الوطني وحفظ القرآن واللغة العربية وتاريخ السودان.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -49556,7 +52404,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1543 => 
+  1536 => 
   array (
     'name' => 'مدرسة الجالية السودانية بليدز',
     'name_en' => 'Leeds Sudanese Community School',
@@ -49580,6 +52428,8 @@ return array (
     'whatsapp' => '+447543219870',
     'email' => NULL,
     'website' => 'https://facebook.com/leeds.sudanese.school',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة تكميلية تخدم الأسر السودانية بمقاطعة يوركشاير ومدن ليدز وبرادفورد وهدرسفيلد لتدريس المواد الوطنية واللغة العربية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -49589,7 +52439,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1544 => 
+  1537 => 
   array (
     'name' => 'مدرسة الجالية السودانية الأمريكية بفرجينيا (SACDO)',
     'name_en' => 'SACDO Sudanese American Community School Virginia',
@@ -49613,6 +52463,8 @@ return array (
     'whatsapp' => '+15712891900',
     'email' => NULL,
     'website' => 'https://sacdo.org',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'الصرح التعليمي الأكبر والأعرق للجالية السودانية بمنطقة واشنطن العاصمة الكبرى وشمال فرجينيا وميريلاند، يقدم برامج السبت الأسبوعية في المنهج القومي السوداني واللغة العربية والدراسات الإسلامية والتراث السوداني للأعمار من 5 إلى 18 سنة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -49622,7 +52474,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1545 => 
+  1538 => 
   array (
     'name' => 'مركز المنهج السوداني التكميلي بدالاس — تكساس',
     'name_en' => 'Dallas Sudanese Community Education Center Texas',
@@ -49646,6 +52498,8 @@ return array (
     'whatsapp' => '+14698129040',
     'email' => NULL,
     'website' => 'https://facebook.com/sudanesedallas',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز تعليمي تابع للجالية السودانية في منطقة شمال تكساس ودالاس فورت وورث، يقدم فصولاً منتظمة في المنهج الوطني واللغة العربية وتاريخ السودان.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -49655,7 +52509,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1546 => 
+  1539 => 
   array (
     'name' => 'مركز الجالية السودانية التعليمي بدي موين — آيوا',
     'name_en' => 'Des Moines Sudanese Community Center Iowa',
@@ -49679,6 +52533,8 @@ return array (
     'whatsapp' => '+15152771090',
     'email' => NULL,
     'website' => 'https://facebook.com/sudanese.iowa',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مركز تعليمي نشط يخدم تجمع الجالية السودانية في ولاية آيوا ووسط الغرب الأمريكي، يوفر مدرسة نهاية الأسبوع التكميلية والمناهج الوطنية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -49688,7 +52544,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1547 => 
+  1540 => 
   array (
     'name' => 'مدرسة الجالية السودانية بأونتاريو — تورنتو (SCAON)',
     'name_en' => 'Sudanese Community Association of Ontario School Toronto',
@@ -49712,6 +52568,8 @@ return array (
     'whatsapp' => '+14167553552',
     'email' => NULL,
     'website' => 'http://www.scaon.org',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'المؤسسة التعليمية الرسمية المعتمدة للجالية السودانية في مقاطعة أونتاريو وتورنتو الكبرى، تقدم مدرسة عطلة نهاية الأسبوع لتدريس المنهج السوداني واللغة العربية وحفظ الهوية والتراث.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -49721,7 +52579,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1548 => 
+  1541 => 
   array (
     'name' => 'مدرسة النادي الاجتماعي السوداني بكالغاري — ألبرتا',
     'name_en' => 'Calgary Sudanese Community Supplementary School',
@@ -49745,6 +52603,8 @@ return array (
     'whatsapp' => '+14032918800',
     'email' => NULL,
     'website' => 'https://sudanesesocialclub.org',
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'مدرسة مجتمعية تحت مظلة النادي الاجتماعي السوداني بكالغاري لخدمة الأسر السودانية في غرب كندا، تقدم مناهج المنهج القومي واللغة العربية والأنشطة الثقافية.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -49754,7 +52614,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1549 => 
+  1542 => 
   array (
     'name' => 'مجمع مدارس الرشاد التعليمي — سنجة الخاصة',
     'name_en' => 'Complex Schools Al Al Al Al Private',
@@ -49778,6 +52638,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تربوي وتعليمي متميز يقع في ولاية سنار — سنجة، يقدم خدماته الأكاديمية والتربوية لطلاب المراحل (ابتدائي / أساس، متوسطة، ثانوية)، ويهتم بتطوير المهارات العلمية والأنشطة الطلابية وبناء بيئة تعليمية محفزة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -49787,7 +52649,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1550 => 
+  1543 => 
   array (
     'name' => 'مدرسة سوبا الأساسية والمتوسطة — مايرنو الخاصة',
     'name_en' => 'School Al Al Al Al Al Private',
@@ -49810,6 +52672,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تربوي وتعليمي متميز يقع في ولاية سنار — مايرنو، يقدم خدماته الأكاديمية والتربوية لطلاب المراحل (ابتدائي / أساس، متوسطة)، ويهتم بتطوير المهارات العلمية والأنشطة الطلابية وبناء بيئة تعليمية محفزة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -49819,7 +52683,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1551 => 
+  1544 => 
   array (
     'name' => 'مجمع مدارس النخبة التعليمي — رهيد البردي',
     'name_en' => 'Complex Schools Al Al Al Al Al',
@@ -49843,6 +52707,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تربوي وتعليمي متميز يقع في ولاية جنوب دارفور — رهيد البردي، يقدم خدماته الأكاديمية والتربوية لطلاب المراحل (ابتدائي / أساس، متوسطة، ثانوية)، ويهتم بتطوير المهارات العلمية والأنشطة الطلابية وبناء بيئة تعليمية محفزة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -49852,7 +52718,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1552 => 
+  1545 => 
   array (
     'name' => 'روضة وحضانة آفاق المستقبل النموذجية — المتمة',
     'name_en' => 'Kindergarten Al Al Al Model Al Al',
@@ -49874,6 +52740,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تربوي وتعليمي متميز يقع في ولاية نهر النيل — المتمة، يقدم خدماته الأكاديمية والتربوية لطلاب المراحل (رياض أطفال)، ويهتم بتطوير المهارات العلمية والأنشطة الطلابية وبناء بيئة تعليمية محفزة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -49883,7 +52751,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1553 => 
+  1546 => 
   array (
     'name' => 'مدرسة ابن سينا الأساسية والمتوسطة الخاصة — دوكة',
     'name_en' => 'School Al Al Al Al Private Al Al',
@@ -49906,6 +52774,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تربوي وتعليمي متميز يقع في ولاية القضارف — دوكة، يقدم خدماته الأكاديمية والتربوية لطلاب المراحل (ابتدائي / أساس، متوسطة)، ويهتم بتطوير المهارات العلمية والأنشطة الطلابية وبناء بيئة تعليمية محفزة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -49915,7 +52785,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1554 => 
+  1547 => 
   array (
     'name' => 'أكاديمية دار العلوم للغات والتميز الأكاديمي الخاصة — الأبيض',
     'name_en' => 'Al Al Al Al Al Al Private Al El Obeid',
@@ -49939,6 +52809,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تربوي وتعليمي متميز يقع في ولاية شمال كردفان — الأبيض، يقدم خدماته الأكاديمية والتربوية لطلاب المراحل (ابتدائي / أساس، متوسطة، ثانوية)، ويهتم بتطوير المهارات العلمية والأنشطة الطلابية وبناء بيئة تعليمية محفزة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -49948,7 +52820,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1555 => 
+  1548 => 
   array (
     'name' => 'مدارس دار الريادة للبراعم والتعليم قبل المدرسي الخاصة — كرري',
     'name_en' => 'Schools Al Al Al Al Al Al Private Al Karari',
@@ -49972,6 +52844,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي وتأهيلي مبكر متميز يقع في ولاية الخرطوم — كرري، يركز على رعاية الطفولة المبكرة وبناء المهارات الإدراكية والحركية واللغوية عبر بيئة ترفيهية وتعليمية آمنة ومحفزة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -49981,7 +52855,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1556 => 
+  1549 => 
   array (
     'name' => 'مدارس مركز الهداية لرعاية وتنمية الطفولة المبكرة الخاصة — بحري',
     'name_en' => 'Schools Al Al Al Al Al Al Private Al Bahri',
@@ -50005,6 +52879,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي وتأهيلي مبكر متميز يقع في ولاية الخرطوم — بحري، يركز على رعاية الطفولة المبكرة وبناء المهارات الإدراكية والحركية واللغوية عبر بيئة ترفيهية وتعليمية آمنة ومحفزة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -50014,7 +52890,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1557 => 
+  1550 => 
   array (
     'name' => 'روضة وحضانة الشيخ البدوي النموذجية — كرري',
     'name_en' => 'Kindergarten Al Al Al Model Al Karari',
@@ -50036,6 +52912,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي وتأهيلي مبكر متميز يقع في ولاية الخرطوم — كرري، يركز على رعاية الطفولة المبكرة وبناء المهارات الإدراكية والحركية واللغوية عبر بيئة ترفيهية وتعليمية آمنة ومحفزة.',
     'status' => 'approved',
     'is_verified' => 0,
@@ -50045,7 +52923,7 @@ return array (
     'historic_badge_reason' => NULL,
     'historic_votes' => 0,
   ),
-  1558 => 
+  1551 => 
   array (
     'name' => 'مدارس دار التقدم للبراعم والتعليم قبل المدرسي الخاصة — بحري',
     'name_en' => 'Schools Al Al Al Al Al Al Private Al Bahri',
@@ -50057,7 +52935,9 @@ return array (
     'established_year' => NULL,
     'stages' => 
     array (
-      0 => 'kindergarten',
+      0 => 'primary',
+      1 => 'intermediate',
+      2 => 'secondary',
     ),
     'state' => 'الخرطوم',
     'city' => 'بحري',
@@ -50067,6 +52947,8 @@ return array (
     'whatsapp' => NULL,
     'email' => NULL,
     'website' => NULL,
+    'source_url' => NULL,
+    'source_type' => 'web',
     'description' => 'صرح تعليمي وتأهيلي مبكر متميز يقع في ولاية الخرطوم — بحري، يركز على رعاية الطفولة المبكرة وبناء المهارات الإدراكية والحركية واللغوية عبر بيئة ترفيهية وتعليمية آمنة ومحفزة.',
     'status' => 'approved',
     'is_verified' => 0,

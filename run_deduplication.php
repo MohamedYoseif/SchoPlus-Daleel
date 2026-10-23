@@ -174,6 +174,8 @@ function runDaleelDeduplication(PDO $pdo): array {
         4094 => 4989,
         4766 => 4043,
         4383 => 5119,
+        4015 => 1,
+        4016 => 2,
     ];
     foreach ($specificMerges as $sDel => $sKeep) {
         if (!isset($confirmedDuplicates[$sDel])) {
@@ -284,7 +286,40 @@ function runDaleelDeduplication(PDO $pdo): array {
         $pdo->exec("UPDATE daleel_schools SET slug = 'مدرسة-العوالي-الخاصة-كادوقلي' WHERE id = 5119");
     } catch (Throwable $e) {}
 
-    // 4. Recalculate directory_rank and state_rank for all approved schools
+    // 4. Self-healing for legacy encoding artifacts (? in address or district)
+    try {
+        $replacements = [
+            '?لدية' => 'بلدية', '?القرب' => 'بالقرب', '?برة' => 'جبرة', '?لمطار' => 'المطار',
+            '?نوب' => 'جنوب', '?لكلاكلة' => 'الكلاكلة', '?لمعمورة' => 'المعمورة', '?لثورة' => 'الثورة',
+            '?لصافية' => 'الصافية', '?رق' => 'شرق', '?لقطاع' => 'القطاع', '?لرياض' => 'الرياض',
+            '?قليم' => 'إقليم', '?لسوق' => 'السوق', '?لمنشية' => 'المنشية', '?لعمارات' => 'العمارات',
+            '?ركويت' => 'أركويت', '?لطائف' => 'الطائف', '?لامتداد' => 'الامتداد', '?لصحافة' => 'الصحافة',
+            '?لمهندسين' => 'المهندسين', '?لملازمين' => 'الملازمين', '?لوادي' => 'الوادي', '?ار السلام' => 'دار السلام',
+            '?حري' => 'بحري', '?مبات' => 'شمبات', '?لفاية' => 'الحلفايا', '?لدروشاب' => 'الدروشاب',
+            '?لكدرو' => 'الكدرو', '?لفيحاء' => 'الفيحاء', '?لنصر' => 'النصر', '?لهدى' => 'الهدى',
+            '?لشرقي' => 'الشرقي', '?لريان' => 'الريان', '?لسعدابية' => 'السعدابية', '?لنهضة' => 'النهضة',
+            '?بن عوف' => 'ابن عوف', '?لمجمعات' => 'المجمعات', '?لنيل' => 'النيل', '?لمزاد' => 'المزاد',
+            '?لحاضرة' => 'الحاضرة', '?لصفا' => 'الصفا', '?يدانقا' => 'ميدانقا', '?م دخن' => 'أم دخن',
+            '?لحريكة' => 'الحريكة', '?لكفاح' => 'الكفاح'
+        ];
+        $qRows = $pdo->query("SELECT id, district, address FROM daleel_schools WHERE address LIKE '%?%' OR district LIKE '%?%'")->fetchAll(PDO::FETCH_ASSOC);
+        $upQ = $pdo->prepare("UPDATE daleel_schools SET district = ?, address = ? WHERE id = ?");
+        foreach ($qRows as $qr) {
+            $d = $qr['district'] ?? '';
+            $a = $qr['address'] ?? '';
+            foreach ($replacements as $f => $rp) {
+                $d = str_replace($f, $rp, $d);
+                $a = str_replace($f, $rp, $a);
+            }
+            $d = preg_replace('/(\s|^)\?ل(\s|\.|$)/u', '$1المدينة$2', $d);
+            $a = preg_replace('/(\s|^)\?ل(\s|\.|$)/u', '$1المدينة$2', $a);
+            $d = preg_replace('/\s+/', ' ', trim(str_replace('?', '', $d)));
+            $a = preg_replace('/\s+/', ' ', trim(str_replace('?', '', $a)));
+            $upQ->execute([$d, $a, (int)$qr['id']]);
+        }
+    } catch (Throwable $e) {}
+
+    // 5. Recalculate directory_rank and state_rank for all approved schools
     $remCount = recalculateDaleelRanks($pdo);
 
     return [
