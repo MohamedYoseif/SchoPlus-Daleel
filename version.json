@@ -1,7 +1,7 @@
 {
-    "version": "3.8.22",
+    "version": "3.8.23",
     "release_date": "2026-10-23",
     "version_type": "enterprise",
     "min_php_version": "8.2",
-    "release_notes": "دليل المدارس السودانية (daleel.schoplus.sd) — ترقية وتطوير تصميم بطاقات المدارس في العرضين الشبكي والقائمة (Grid & List Views) وفق نظام SchoPlus Ocean Brand Style F v2 مع تحسين التجاوب والأزرار والأختام التراثية v3.8.22"
+    "release_notes": "دليل المدارس السودانية (daleel.schoplus.sd) — معالجة ظهور شعار المدرسة بالبطاقات الشبكية بنقله خارج غلاف الغلاف لمنع الاقتطاع (Overflow Clip Fix) وتوسيع مساحة العنوان ورقم ترتيب الولاية v3.8.23"
 }

@@ -436,32 +436,35 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
                     <i class="fas fa-award"></i> #<?= $sRank ?>
                 </span>
             </div>
+        </div>
 
-            <!-- Logo Badge with Golden Seal for Historic -->
-            <div class="card-logo-badge">
-                <img src="<?= $logo ?>" alt="<?= e($s['name']) ?>" loading="lazy">
-                <?php if ($isHistoric): ?>
-                    <span class="historic-logo-seal" title="صرح وطني عريق"><i class="fas fa-crown"></i></span>
-                <?php endif; ?>
-            </div>
+        <!-- Logo Badge (Outside cover wrap with z-index 5, completely unclipped) -->
+        <div class="card-logo-badge">
+            <img src="<?= $logo ?>" alt="<?= e($s['name']) ?>" loading="lazy">
+            <?php if ($isHistoric): ?>
+                <span class="historic-logo-seal" title="صرح وطني عريق"><i class="fas fa-crown"></i></span>
+            <?php endif; ?>
         </div>
 
         <div class="luxury-card-body d-flex flex-column flex-grow-1 position-relative">
             
-            <!-- Title & State Rank -->
-            <div class="d-flex justify-content-between align-items-start gap-2 mb-1.5">
-                <div class="flex-grow-1 min-w-0">
-                    <a href="<?= $schoolUrl ?>" class="luxury-card-title text-decoration-none d-block" onclick="event.stopPropagation();">
-                        <?php if ($isHistoric): ?>
-                            <i class="fas fa-landmark text-warning ms-1" style="color: #D97706 !important; font-size: 0.85rem;" title="صرح وطني عريق"></i>
-                        <?php endif; ?>
-                        <?= e($s['name']) ?>
-                    </a>
-                    <?php if (!empty($s['name_en'])): ?>
-                        <div class="luxury-card-subtitle text-truncate"><?= e($s['name_en']) ?></div>
-                    <?php endif; ?>
-                </div>
+            <!-- Top Utility Row: Reserves space for logo on right, shows State Rank Pill on left -->
+            <div class="d-flex justify-content-between align-items-center mb-2" style="min-height: 26px;">
+                <div style="width: 65px;"><!-- spacer for logo --></div>
                 <span class="badge-state-rank-tag flex-shrink-0" title="الترتيب في ولاية <?= e($s['state']) ?>">#<?= $sStateRank ?> <?= e($s['state']) ?></span>
+            </div>
+
+            <!-- Title & Subtitle -->
+            <div class="mb-1.5">
+                <a href="<?= $schoolUrl ?>" class="luxury-card-title text-decoration-none d-block" onclick="event.stopPropagation();">
+                    <?php if ($isHistoric): ?>
+                        <i class="fas fa-landmark text-warning ms-1" style="color: #D97706 !important; font-size: 0.85rem;" title="صرح وطني عريق"></i>
+                    <?php endif; ?>
+                    <?= e($s['name']) ?>
+                </a>
+                <?php if (!empty($s['name_en'])): ?>
+                    <div class="luxury-card-subtitle text-truncate"><?= e($s['name_en']) ?></div>
+                <?php endif; ?>
             </div>
 
             <!-- Location Line -->
@@ -2151,17 +2154,17 @@ require_once __DIR__ . '/header.php';
     transform: rotate(-10deg);
 }
 .card-logo-badge {
-    width: 58px;
-    height: 58px;
-    border-radius: 13px;
+    width: 60px;
+    height: 60px;
+    border-radius: 14px;
     background: #FFFFFF;
     padding: 3px;
-    box-shadow: 0 5px 16px rgba(11,42,82,0.16);
-    border: 2px solid #FFFFFF;
+    box-shadow: 0 6px 18px rgba(11,42,82,0.16);
+    border: 2.5px solid #FFFFFF;
     position: absolute;
-    bottom: -20px;
+    top: 108px;
     right: 16px;
-    z-index: 3;
+    z-index: 5;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2188,7 +2191,7 @@ require_once __DIR__ . '/header.php';
 
 /* Luxury Card Body & Typography */
 .luxury-card-body {
-    padding: 26px 16px 14px 16px;
+    padding: 10px 16px 14px 16px;
 }
 .luxury-card-title {
     font-size: 0.95rem;

@@ -614,17 +614,17 @@ $isDaleelMobile = (
         }
 
         .card-logo-badge {
-            width: 58px;
-            height: 58px;
-            border-radius: 13px;
+            width: 60px;
+            height: 60px;
+            border-radius: 14px;
             background: #FFFFFF;
             padding: 3px;
-            box-shadow: 0 5px 16px rgba(11,42,82,0.16);
-            border: 2px solid #FFFFFF;
+            box-shadow: 0 6px 18px rgba(11,42,82,0.16);
+            border: 2.5px solid #FFFFFF;
             position: absolute;
-            bottom: -20px;
+            top: 108px;
             right: 16px;
-            z-index: 3;
+            z-index: 5;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -654,7 +654,7 @@ $isDaleelMobile = (
         }
 
         .luxury-card-body {
-            padding: 26px 16px 14px 16px;
+            padding: 10px 16px 14px 16px;
         }
 
         .luxury-card-title {
