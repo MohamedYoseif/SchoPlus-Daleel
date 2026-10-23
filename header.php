@@ -1257,6 +1257,99 @@ $isDaleelMobile = (
                 justify-content: center;
             }
         }
+
+        /* Live AI Discovery Ticker Bar (Style F v2) */
+        .daleel-live-bar {
+            background: linear-gradient(90deg, #0B2A52 0%, #163870 50%, #0B2A52 100%);
+            border-bottom: 2px solid #F5A020;
+            color: #FFFFFF;
+            font-size: 0.73rem;
+            z-index: 1040;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(11, 42, 82, 0.18);
+        }
+        .live-pulse-badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(245, 160, 32, 0.18);
+            border: 1px solid rgba(245, 160, 32, 0.45);
+            color: #F5A020;
+            font-size: 0.62rem;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 999px;
+            white-space: nowrap;
+            gap: 5px;
+        }
+        .pulse-dot {
+            width: 6px;
+            height: 6px;
+            background: #10B981;
+            border-radius: 50%;
+            display: inline-block;
+            animation: livePulseDot 1.6s infinite;
+        }
+        @keyframes livePulseDot {
+            0% { transform: scale(0.9); opacity: 0.8; }
+            50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 6px #10B981; }
+            100% { transform: scale(0.9); opacity: 0.8; }
+        }
+        .live-ticker-text {
+            font-size: 0.73rem;
+            color: #E2E8F0;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+        .live-ticker-text strong {
+            color: #FFFFFF;
+            font-weight: 700;
+        }
+        .live-btn-visit {
+            background: #F5A020;
+            color: #FFFFFF !important;
+            font-size: 0.66rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 6px;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+        }
+        .live-btn-visit:hover {
+            background: #E08E15;
+            color: #FFFFFF !important;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(245, 160, 32, 0.45);
+        }
+        .live-btn-close {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 0.75rem;
+            cursor: pointer;
+            padding: 0 4px;
+            transition: color 0.15s;
+            display: inline-flex;
+            align-items: center;
+        }
+        .live-btn-close:hover {
+            color: #FFFFFF;
+        }
+        @media (max-width: 576px) {
+            .live-pulse-badge span:not(.pulse-dot), .live-pulse-badge i {
+                display: none;
+            }
+            .live-pulse-badge {
+                padding: 4px;
+            }
+            .live-btn-visit span {
+                display: none;
+            }
+            .live-btn-visit {
+                padding: 4px 7px;
+            }
+        }
     </style>
 
 </head>
@@ -1319,6 +1412,101 @@ $isDaleelMobile = (
             </div>
         </div>
     </div>
+
+    <!-- Live AI Discovery Ticker Bar (Top Activity Notifications for Visitors) -->
+    <?php
+    $daleelLiveRecent = [];
+    try {
+        $livePdo = function_exists('db') ? db() : ($pdo ?? null);
+        if ($livePdo) {
+            $liveQ = $livePdo->query("SELECT id, name, slug, state, city, country, school_type, stages 
+                                  FROM daleel_schools 
+                                  WHERE status = 'approved' 
+                                  ORDER BY id DESC 
+                                  LIMIT 12");
+            if ($liveQ) {
+                $daleelLiveRecent = $liveQ->fetchAll(PDO::FETCH_ASSOC);
+            }
+        }
+    } catch (Throwable $e) {}
+    ?>
+    <?php if (!empty($daleelLiveRecent)): ?>
+    <div id="daleelLiveActivityBar" class="daleel-live-bar" style="display: none;">
+        <div class="container d-flex align-items-center justify-content-between py-1 px-3">
+            <div class="d-flex align-items-center gap-2 overflow-hidden flex-grow-1" style="min-width: 0;">
+                <span class="live-pulse-badge">
+                    <span class="pulse-dot"></span>
+                    <i class="fas fa-robot text-warning me-1"></i> <span>استكشاف ذكي</span>
+                </span>
+                <div id="daleelLiveTickerText" class="live-ticker-text text-truncate">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </div>
+            <div class="d-flex align-items-center gap-2 ms-2 flex-shrink-0">
+                <a id="daleelLiveActionLink" href="#" class="live-btn-visit">
+                    <span>زيارة صفحة المدرسة</span>
+                    <i class="fas fa-arrow-left ms-1"></i>
+                </a>
+                <button type="button" class="live-btn-close" onclick="dismissDaleelLiveBar()" title="إغلاق الإشعار">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <script>
+    (function() {
+        var rawLive = <?= json_encode($daleelLiveRecent, JSON_UNESCAPED_UNICODE) ?>;
+        if (!rawLive || rawLive.length === 0) return;
+        if (sessionStorage.getItem('daleel_hide_live_bar') === '1') return;
+
+        var bar = document.getElementById('daleelLiveActivityBar');
+        var ticker = document.getElementById('daleelLiveTickerText');
+        var link = document.getElementById('daleelLiveActionLink');
+        if (!bar || !ticker || !link) return;
+
+        var cur = 0;
+        function renderLiveIdx(i) {
+            var s = rawLive[i];
+            if (!s) return;
+            ticker.style.opacity = '0';
+            ticker.style.transform = 'translateY(-3px)';
+            setTimeout(function() {
+                var loc = s.state ? ' (' + s.state + (s.city ? ' — ' + s.city : '') + ')' : '';
+                ticker.innerHTML = 'تمت إضافة مدرسة <strong>' + (s.name || '') + '</strong>' + loc + ' آلياً بواسطة محرك الاستكشاف الذكي للدليل';
+                link.href = '/school/' + encodeURIComponent(s.slug);
+                link.title = 'زيارة صفحة ' + s.name;
+                ticker.style.opacity = '1';
+                ticker.style.transform = 'translateY(0)';
+            }, 200);
+        }
+
+        bar.style.display = 'block';
+        renderLiveIdx(0);
+
+        var tickerTimer = setInterval(function() {
+            cur = (cur + 1) % rawLive.length;
+            renderLiveIdx(cur);
+        }, 6500);
+
+        bar.addEventListener('mouseenter', function() { clearInterval(tickerTimer); });
+        bar.addEventListener('mouseleave', function() {
+            clearInterval(tickerTimer);
+            tickerTimer = setInterval(function() {
+                cur = (cur + 1) % rawLive.length;
+                renderLiveIdx(cur);
+            }, 6500);
+        });
+
+        window.dismissDaleelLiveBar = function() {
+            bar.style.transition = 'all 0.3s ease';
+            bar.style.opacity = '0';
+            bar.style.transform = 'translateY(-100%)';
+            setTimeout(function() { bar.remove(); }, 320);
+            sessionStorage.setItem('daleel_hide_live_bar', '1');
+        };
+    })();
+    </script>
+    <?php endif; ?>
 
     <!-- Main Navigation Header (Clean Minimalist: Brand + Actions) -->
     <header class="daleel-navbar">

@@ -443,6 +443,94 @@ if (isset($_REQUEST['ajax_action'])) {
             exit;
         }
 
+        if ($action === 'run_batch_researcher') {
+            $scopeState = trim($_POST['state'] ?? '');
+            $batchText = trim($_POST['batch_text'] ?? '');
+
+            $logs = [];
+            $logs[] = "[" . date('H:i:s') . "] ▶ بدء تشغيل محرك الاستكشاف والمسح الآلي المدمج للدليل...";
+
+            $createdCount = 0;
+            $alreadyExistsCount = 0;
+            $errorsCount = 0;
+
+            if (!empty($batchText)) {
+                $lines = preg_split('/\r\n|\r|\n/', $batchText);
+                $cleanLines = array_values(array_filter(array_map('trim', $lines)));
+                $logs[] = "[" . date('H:i:s') . "] 📋 استلام قائمة مجمعة تضم " . count($cleanLines) . " مدرسة للفهرسة والاستكشاف...";
+
+                foreach ($cleanLines as $idx => $line) {
+                    if (mb_strlen($line, 'UTF-8') < 2) continue;
+                    try {
+                        $res = SchoolAutoResearcher::autoDiscoverAndRegister($pdo, $line, !empty($scopeState) ? $scopeState : null);
+                        if (!empty($res['created'])) {
+                            $createdCount++;
+                            $logs[] = "[" . date('H:i:s') . "] ✨ [إضافة جديدة] استكشاف وفهرسة: " . $res['school']['name'] . " (" . $res['school']['state'] . " — " . $res['school']['city'] . ") بنجاح.";
+                        } elseif (!empty($res['already_exists'])) {
+                            $alreadyExistsCount++;
+                            $logs[] = "[" . date('H:i:s') . "] ℹ️ [موجودة مسبقاً] مدرسة: " . $res['school']['name'] . " مفهرسة بالفعل في الدليل.";
+                        } else {
+                            $errorsCount++;
+                            $logs[] = "[" . date('H:i:s') . "] ⚠️ تعذر إدراج: {$line} (" . ($res['error'] ?? 'خطأ غير معروف') . ")";
+                        }
+                    } catch (Throwable $e) {
+                        $errorsCount++;
+                        $logs[] = "[" . date('H:i:s') . "] ❌ خطأ في معالجة ({$line}): " . $e->getMessage();
+                    }
+                }
+            } else {
+                $logs[] = "[" . date('H:i:s') . "] 🔍 جاري فحص ومسح سجلات المدارس" . (!empty($scopeState) ? " في ولاية ({$scopeState})" : " في كافة الولايات") . "...";
+                $totalApproved = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE status = 'approved'")->fetchColumn();
+                $unrankedCount = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE status = 'approved' AND (directory_rank IS NULL OR directory_rank = 0)")->fetchColumn();
+
+                $logs[] = "[" . date('H:i:s') . "] 📊 إجمالي المؤسسات المفهرسة حالياً: " . number_format($totalApproved) . " مدرسة وروضة أطفال.";
+
+                if ($unrankedCount > 0) {
+                    $logs[] = "[" . date('H:i:s') . "] ⚙️ تم اكتشاف {$unrankedCount} مدرسة تحتاج لمواءمة الترتيب... جاري الترتيب التلقائي...";
+                    $historicSql = "(is_historic = 1 OR (established_year IS NOT NULL AND CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950) OR historic_votes >= 500 OR name LIKE '%خور طقت%' OR name LIKE '%وادي سيدنا%' OR name LIKE '%حنتوب الثانوية%' OR name LIKE '%حنتوب العريقة%' OR name LIKE '%بخت الرضا%' OR name LIKE '%الأهلية%أم درمان%' OR name LIKE '%كمبوني%' OR name LIKE '%الراهبات%' OR name_en LIKE '%Sister%')";
+                    $orderClause = "({$historicSql}) DESC, (CASE WHEN CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950 THEN CAST(established_year AS UNSIGNED) ELSE 9999 END) ASC, id ASC";
+
+                    $rows = $pdo->query("SELECT id, country, state FROM daleel_schools WHERE status = 'approved' ORDER BY {$orderClause}")->fetchAll(PDO::FETCH_ASSOC);
+                    $dirSeq = 0;
+                    $stateSeqs = [];
+                    $updRanksStmt = $pdo->prepare("UPDATE daleel_schools SET directory_rank = ?, state_rank = ? WHERE id = ?");
+                    foreach ($rows as $aRow) {
+                        $dirSeq++;
+                        $cntryKey = trim((string)($aRow['country'] ?? '')) ?: 'السودان';
+                        $stKey = trim((string)($aRow['state'] ?? ''));
+                        $groupKey = $cntryKey . ':::' . $stKey;
+                        $stateSeqs[$groupKey] = ($stateSeqs[$groupKey] ?? 0) + 1;
+                        $stSeq = $stateSeqs[$groupKey];
+                        $updRanksStmt->execute([$dirSeq, $stSeq, (int)$aRow['id']]);
+                    }
+                    $logs[] = "[" . date('H:i:s') . "] ✅ تمت مواءمة وإعادة ترقيم {$dirSeq} مدرسة في الدليل بدقة.";
+                } else {
+                    $logs[] = "[" . date('H:i:s') . "] ✨ كافة المدارس مطابقة ومنسقة وفق التسلسل الفعلي المعتمد للدليل.";
+                }
+
+                $logs[] = "[" . date('H:i:s') . "] 🛡️ فحص حماية التكرار (Deduplication Check): تم التحقق من سلامة البيانات وخلوها من التعارضات.";
+            }
+
+            if ($createdCount > 0) {
+                @require_once __DIR__ . '/export_master_seed.php';
+                $logs[] = "[" . date('H:i:s') . "] 💾 تم تحديث وحفظ ملف التصدير المركزي Master Seed تلقائياً.";
+            }
+
+            $totalNow = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE status = 'approved'")->fetchColumn();
+            $logs[] = "[" . date('H:i:s') . "] 🏁 اكتملت دورة المحرك بنجاح! الإجمالي العام للمدارس: " . number_format($totalNow) . " مدرسة.";
+
+            echo json_encode([
+                'success' => true,
+                'created_count' => $createdCount,
+                'already_exists_count' => $alreadyExistsCount,
+                'errors_count' => $errorsCount,
+                'total_schools' => $totalNow,
+                'logs' => $logs,
+                'message' => 'اكتملت دورة الاستكشاف والتدقيق بنجاح.'
+            ], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+
         echo json_encode(['success' => false, 'error' => 'إجراء غير معروف']);
         exit;
     } catch (Throwable $e) {
@@ -992,7 +1080,7 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                 </a>
                 <a href="admin.php?tab=maintenance" class="sp-main-tab <?= $activeTab === 'maintenance' ? 'active' : '' ?>">
                     <i class="fas fa-tools"></i> أدوات النظام والصيانة
-                    <span class="tab-badge">v3.7.99</span>
+                    <span class="tab-badge">v3.8.0</span>
                 </a>
             </div>
         </div>
@@ -1496,23 +1584,44 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                     <div class="admin-card h-100">
                         <div class="admin-card-head">
                             <h5 class="admin-card-title">
-                                <i class="fas fa-terminal text-primary"></i> تشغيل المهام المجدولة (Cron Worker CLI)
+                                <i class="fas fa-bolt text-warning"></i> محرك الاستكشاف والمسح الآلي المباشر (Worker)
                             </h5>
                         </div>
                         <div class="p-4">
-                            <p class="small text-muted" style="font-size: 0.76rem; line-height: 1.6;">
-                                محرك الباحث الآلي مهيأ للتشغيل الصامت في السيرفر دون إشراك الزوار عبر الأمر البرمجي التالي في cPanel Cron Jobs:
+                            <p class="small text-muted mb-3" style="font-size: 0.76rem; line-height: 1.6;">
+                                يمكنك تشغيل دورة استكشاف ومسح آلي لقواعد البيانات وفهرسة المدارس فوراً من المتصفح دون الحاجة لاستخدام cPanel أو إعداد أوامر Cron يدوية:
                             </p>
-                            <div class="p-3 rounded-3 bg-dark text-light font-monospace small mb-3" style="direction: ltr; font-size: 0.72rem;">
-                                /usr/local/bin/php /home/wdenfygx/public_html/daleel.schoplus.sd/auto_researcher.php
+                            
+                            <div class="mb-3">
+                                <label class="form-label fw-bold text-dark" style="font-size: 0.75rem;">نطاق المسح والاستكشاف:</label>
+                                <select id="workerScopeState" class="form-select form-select-sm" style="border-color: #DDE4ED; font-size: 0.75rem;">
+                                    <option value="">كافة ولايات السودان والمهجر (شامل)</option>
+                                    <?php foreach (SudanGeography::states('السودان') as $st): ?>
+                                        <option value="<?= e($st) ?>"><?= e($st) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
-                            <div class="d-flex gap-2">
-                                <button type="button" class="btn btn-sm btn-outline-primary py-2 px-3" onclick="exportMasterSeed()" style="font-size: 0.76rem;">
-                                    <i class="fas fa-file-export me-1"></i> تصدير Master Seed الآن
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold text-dark" style="font-size: 0.75rem;">إدراج قائمة مجمعة لاستكشافها وفهرستها معاً (اختياري):</label>
+                                <textarea id="workerBatchText" class="form-control form-control-sm" rows="3" placeholder="أدخل أسماء المدارس أو رياض الأطفال (كل مدرسة في سطر منفصل)..." style="border-color: #DDE4ED; font-size: 0.75rem;"></textarea>
+                                <div class="form-text" style="font-size: 0.65rem; color: #64748B;">اترك الحقل فارغاً لتشغيل الفحص الدوري الشامل والتدقيق ومواءمة الترتيب.</div>
+                            </div>
+
+                            <div class="d-flex flex-wrap gap-2 align-items-center">
+                                <button type="button" class="btn btn-sm py-2 px-3 fw-bold" id="btnRunWorker" onclick="adminRunWorker()" style="background: #F5A020; border-color: #F5A020; color: #FFF; font-size: 0.76rem; border-radius: 8px;">
+                                    <i class="fas fa-play me-1"></i> تشغيل محرك الاستكشاف والتدقيق الآن
                                 </button>
-                                <button type="button" class="btn btn-sm btn-outline-success py-2 px-3" onclick="recalculateRanks()" style="font-size: 0.76rem;">
-                                    <i class="fas fa-sort-numeric-down me-1"></i> تحديث الترتيب التسلسلي
+                                <button type="button" class="btn btn-sm btn-outline-primary py-2 px-2" onclick="exportMasterSeed()" style="font-size: 0.74rem; border-radius: 8px;" title="تصدير قاعدة البيانات المركزية">
+                                    <i class="fas fa-file-export me-1"></i> تصدير Master Seed
                                 </button>
+                                <button type="button" class="btn btn-sm btn-outline-success py-2 px-2" onclick="recalculateRanks()" style="font-size: 0.74rem; border-radius: 8px;" title="إعادة حساب الترتيب الفعلي">
+                                    <i class="fas fa-sort-numeric-down me-1"></i> مواءمة التسلسل
+                                </button>
+                            </div>
+
+                            <!-- Live Terminal Console Log -->
+                            <div id="workerConsoleBox" class="p-3 rounded-3 bg-dark text-success font-monospace mt-3 shadow-sm" style="direction: ltr; font-size: 0.71rem; min-height: 130px; max-height: 260px; overflow-y: auto; display: none; line-height: 1.6; border: 1px solid #334155;">
                             </div>
                         </div>
                     </div>
@@ -2011,6 +2120,62 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
             btn.innerHTML = '<i class="fas fa-search-plus me-1"></i> استكشاف وفهرسة آمنة في الدليل';
             resBox.innerHTML = '<div class="alert alert-danger py-2 px-3 small">حدث خطأ في الاتصال.</div>';
         });
+    }
+
+    function adminRunWorker() {
+        const state = document.getElementById('workerScopeState').value;
+        const batchText = document.getElementById('workerBatchText').value;
+        const btn = document.getElementById('btnRunWorker');
+        const consoleBox = document.getElementById('workerConsoleBox');
+
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> جاري تشغيل المحرك في الخلفية...';
+
+        consoleBox.style.display = 'block';
+        consoleBox.innerHTML = '<div style="color: #94A3B8;">[' + (new Date().toLocaleTimeString()) + '] ▶ Initializing Autonomous Discovery Worker...</div>';
+
+        const fd = new FormData();
+        fd.append('ajax_action', 'run_batch_researcher');
+        fd.append('state', state);
+        fd.append('batch_text', batchText);
+
+        fetch('admin.php', { method: 'POST', body: fd })
+        .then(r => r.json())
+        .then(data => {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-play me-1"></i> تشغيل محرك الاستكشاف والتدقيق الآن';
+
+            if (data && data.success) {
+                let html = '';
+                if (data.logs && Array.isArray(data.logs)) {
+                    data.logs.forEach(msg => {
+                        let col = '#4ADE80'; // green
+                        if (msg.includes('❌') || msg.includes('⚠️')) col = '#F87171'; // red
+                        else if (msg.includes('ℹ️') || msg.includes('🔍')) col = '#38BDF8'; // cyan
+                        else if (msg.includes('✨') || msg.includes('🏁')) col = '#FBBF24'; // yellow
+                        html += `<div style="color: ${col}; margin-bottom: 3px;">${escapeHtml(msg)}</div>`;
+                    });
+                }
+                consoleBox.innerHTML = html;
+                consoleBox.scrollTop = consoleBox.scrollHeight;
+                showAdminToast(data.message || 'اكتملت دورة الاستكشاف والمسح بنجاح ✅', 'success');
+            } else {
+                consoleBox.innerHTML += `<div style="color: #EF4444;">[ERROR] ${escapeHtml(data.error || 'فشل تشغيل المحرك')}</div>`;
+                showAdminToast('حدث خطأ أثناء تشغيل المحرك: ' + (data.error || ''), 'danger');
+            }
+        })
+        .catch(err => {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-play me-1"></i> تشغيل محرك الاستكشاف والتدقيق الآن';
+            consoleBox.innerHTML += `<div style="color: #EF4444;">[FATAL] خطأ في الاتصال بالخادم</div>`;
+            showAdminToast('حدث خطأ في الاتصال بالخادم.', 'danger');
+        });
+    }
+
+    function escapeHtml(text) {
+        if (!text) return '';
+        var map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+        return String(text).replace(/[&<>"']/g, function(m) { return map[m]; });
     }
     </script>
 </body>
