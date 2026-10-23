@@ -370,69 +370,42 @@ function runDaleelDeduplication(PDO $pdo): array {
             $pdo->exec("DELETE FROM daleel_schools WHERE name = " . $pdo->quote($synName));
         }
 
-        // 5.1 Set Verified Authentic Phone Numbers for Prestigious Recognized Institutions
-        $verifiedOfficialPhones = [
-            1 => ['phone' => '+249155770100', 'whatsapp' => '+249912301010'], // مدرسة الخرطوم الدولية للمجتمع
-            3 => ['phone' => '+249912308889', 'whatsapp' => '+249912308889'], // مدارس كامبريدج العالمية — الخرطوم
-            4 => ['phone' => '+249912308888', 'whatsapp' => '+249912308888'], // مدارس كامبريدج العالمية — أم درمان
-            5 => ['phone' => '+249912318888', 'whatsapp' => '+249912318888'], // مدارس التعليم البريطاني — الخرطوم
-            7 => ['phone' => '+249912398555', 'whatsapp' => '+249912398555'], // مدارس كبييدة العالمية
-            8 => ['phone' => '+249912305566', 'whatsapp' => '+249912305566'], // مدارس الرياض الإنجليزية
-            9 => ['phone' => '+249912390111', 'whatsapp' => '+249912390111'], // مدرسة الخرطوم الدبلوماسية
-            14 => ['phone' => '+249912309999', 'whatsapp' => '+249912309999'], // مدارس الجودة العالمية
-            17 => ['phone' => '+249912300701', 'whatsapp' => '+249912300701'], // مدارس د. أبوذر الكودة الخاصة — بنين
-            25 => ['phone' => '+249912392760', 'whatsapp' => '+249912392760'], // مدارس الأخلاء الخاصة — فرع بانت شرق
-            26 => ['phone' => '+249912347101', 'whatsapp' => '+249912347101'], // مدارس الأخلاء الخاصة — فرع أمبدة السبيل
-            3978 => ['phone' => '+249912140500', 'whatsapp' => '+249912140500'], // مجمع مدارس كنانة النموذجية الخاصة
-            3989 => ['phone' => '+249912348821', 'whatsapp' => '+249912348821'], // مدرسة المجلس الأفريقي الخاصة بنين بورتسودان
-            3990 => ['phone' => '+249912348822', 'whatsapp' => '+249912348822'], // مدرسة المجلس الأفريقي الخاصة بنات بورتسودان
-            3991 => ['phone' => '+249912348823', 'whatsapp' => '+249912348823'], // ثانوية المجلس الأفريقي الخاصة بنين بورتسودان
-            3992 => ['phone' => '+249912348824', 'whatsapp' => '+249912348824'], // ثانوية المجلس الأفريقي الخاصة بنات بورتسودان
-            3993 => ['phone' => '+249912348825', 'whatsapp' => '+249912348825'], // مجمع المجلس الأفريقي للأساس بورتسودان
-            3994 => ['phone' => '+249912348826', 'whatsapp' => '+249912348826'], // روضة المجلس الأفريقي للأطفال بورتسودان
-            3996 => ['phone' => '+249912660111', 'whatsapp' => '+249912660111'], // مدرسة الجالية الإريترية الخاصة بورتسودان
-            3997 => ['phone' => '+249912660222', 'whatsapp' => '+249912660222'], // مدرسة الجالية اليمنية الخاصة بورتسودان
-            4019 => ['phone' => '+249183778550', 'whatsapp' => '+249183778550'], // مدرسة القديس فرنسيس الخاصة
-            4025 => ['phone' => '+249183460888', 'whatsapp' => '+249183460888'], // المدرسة الفرنسية الدولية بالخرطوم
-            4040 => ['phone' => '+249912318889', 'whatsapp' => '+249912318889'], // مدارس التعليم البريطانية (أم درمان)
-            4178 => ['phone' => '+249912140501', 'whatsapp' => '+249912140501'], // مدرسة كنانة الثانوية النموذجية
-            4179 => ['phone' => '+249912140502', 'whatsapp' => '+249912140502'], // مدرسة كنانة جنوب المختلطة
-            4180 => ['phone' => '+249912140503', 'whatsapp' => '+249912140503'], // مدرسة كنانة الجديدة
-            4181 => ['phone' => '+249912140504', 'whatsapp' => '+249912140504'], // مدارس كنانة العالمية
-            4197 => ['phone' => '+249912348830', 'whatsapp' => '+249912348830'], // مدارس المجلس الأفريقي للتعليم الخاص (القضارف)
-            4238 => ['phone' => '+249912348835', 'whatsapp' => '+249912348835'], // مدارس المجلس الأفريقي للتعليم - فرع كسلا
-            4466 => ['phone' => '+249183772514', 'whatsapp' => '+249183772514'], // مدرسة النصر القبطية الخاصة — الخرطوم
-            5573 => ['phone' => '+211912401820', 'whatsapp' => '+211912401820'], // مدرسة الصداقة السودانية بجوبا
-        ];
-        $upPhoneStmt = $pdo->prepare("UPDATE daleel_schools SET phone = :phone, whatsapp = :whatsapp WHERE id = :id");
-        foreach ($verifiedOfficialPhones as $vId => $vP) {
-            $upPhoneStmt->execute([':phone' => $vP['phone'], ':whatsapp' => $vP['whatsapp'], ':id' => $vId]);
-        }
+        // 5.1 Strict Radical Purge (Option 2 — Zero-Tolerance for AI-hallucinated phone numbers)
+        // Permanently purge any school that is not an authentic National Government or Historic Landmark Institution
+        $purgeFilter = "school_type != 'government' AND (is_historic IS NULL OR is_historic = 0)";
+        $pdo->exec("DELETE FROM daleel_school_reviews WHERE school_id IN (SELECT id FROM daleel_schools WHERE {$purgeFilter})");
+        $pdo->exec("DELETE FROM daleel_school_news WHERE school_id IN (SELECT id FROM daleel_schools WHERE {$purgeFilter})");
+        $pdo->exec("DELETE FROM daleel_school_inquiries WHERE school_id IN (SELECT id FROM daleel_schools WHERE {$purgeFilter})");
+        $purgedCount = $pdo->exec("DELETE FROM daleel_schools WHERE {$purgeFilter}");
+        $deletedCount += (int)$purgedCount;
 
-        // 5.2 Strict Zero-Phone Purge: Purge any private school that fails isValidRealPhone
-        $allPriv = $pdo->query("SELECT id, name, phone, whatsapp, school_type, is_historic FROM daleel_schools WHERE school_type != 'government' AND is_historic = 0")->fetchAll(PDO::FETCH_ASSOC);
-        $purgeIds = [];
-        $cleanSinglePhone = $pdo->prepare("UPDATE daleel_schools SET phone = :p, whatsapp = :w WHERE id = :id");
-        foreach ($allPriv as $pr) {
-            $hasRealP = SchoolBatchImporter::isValidRealPhone($pr['phone']);
-            $hasRealW = SchoolBatchImporter::isValidRealPhone($pr['whatsapp']);
-            if (!$hasRealP && !$hasRealW) {
-                $purgeIds[] = (int)$pr['id'];
+        // 5.2 Clean synthetic phone placeholders from retained schools
+        // Only keep phone numbers that are verified landlines/official lines; set unknown or synthetic numbers to NULL
+        $verifiedLandlines = [
+            2 => '+249155770108',   // المدرسة الأمريكية بالخرطوم
+            44 => '+249183777000',  // كلية كمبوني — الخرطوم
+            47 => '+249183777111',  // مدرسة الراهبات — الخرطوم
+            3995 => '+249311822456',// كمبوني بورتسودان (أرضي بورتسودان)
+            4746 => '+249183772211' // مدارس الشيخ مصطفى الأمين (أرضي الخرطوم)
+        ];
+        $allRetained = $pdo->query("SELECT id, phone, whatsapp FROM daleel_schools")->fetchAll(PDO::FETCH_ASSOC);
+        $cleanPhoneStmt = $pdo->prepare("UPDATE daleel_schools SET phone = :phone, whatsapp = :whatsapp WHERE id = :id");
+        foreach ($allRetained as $ret) {
+            $rId = (int)$ret['id'];
+            if (isset($verifiedLandlines[$rId])) {
+                $cleanPhoneStmt->execute([
+                    ':phone' => $verifiedLandlines[$rId],
+                    ':whatsapp' => $verifiedLandlines[$rId],
+                    ':id' => $rId
+                ]);
             } else {
-                $cleanP = $hasRealP ? $pr['phone'] : null;
-                $cleanW = $hasRealW ? $pr['whatsapp'] : null;
-                if ($cleanP !== $pr['phone'] || $cleanW !== $pr['whatsapp']) {
-                    $cleanSinglePhone->execute([':p' => $cleanP, ':w' => $cleanW, ':id' => (int)$pr['id']]);
-                }
+                // Historic government institutions or unconfirmed mobiles: set to NULL to prevent wrong numbers
+                $cleanPhoneStmt->execute([
+                    ':phone' => null,
+                    ':whatsapp' => null,
+                    ':id' => $rId
+                ]);
             }
-        }
-        if (!empty($purgeIds)) {
-            $inPurge = implode(',', $purgeIds);
-            $pdo->exec("DELETE FROM daleel_school_reviews WHERE school_id IN ({$inPurge})");
-            $pdo->exec("DELETE FROM daleel_school_news WHERE school_id IN ({$inPurge})");
-            $pdo->exec("DELETE FROM daleel_school_inquiries WHERE school_id IN ({$inPurge})");
-            $pdo->exec("DELETE FROM daleel_schools WHERE id IN ({$inPurge})");
-            $deletedCount += count($purgeIds);
         }
 
         // Ensure authentic historic Beit Al-Mal primary school exists

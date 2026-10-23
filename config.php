@@ -1248,8 +1248,10 @@ function ensureTablesExist(PDO $pdo): void {
             }
         } catch (Throwable $e) {}
 
-        // Zero-Skip Production Auto-Seed: Ensure 100% data parity across cloud nodes
-        // Initial Master Seed Check: only on clean empty database
+        // Zero-Skip Production Auto-Seed: PERMANENTLY DISABLED
+        // Enforce Strict Real-Phone Requirement (Rule 6.1):
+        // Never auto-seed AI synthetic schools or unverified batches. Only verified institutions are permitted.
+        /*
         try {
             $currCount = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE status = 'approved'")->fetchColumn();
             $seedFile = __DIR__ . '/seed_schools_data.php';
@@ -1263,7 +1265,6 @@ function ensureTablesExist(PDO $pdo): void {
             }
         } catch (Throwable $e) {}
 
-        // Dedicated Diaspora Seed Check: Ensure international diaspora schools parity
         try {
             $diasporaCount = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE country != 'السودان'")->fetchColumn();
             $diasporaSeedFile = __DIR__ . '/seed_diaspora_schools_data.php';
@@ -1276,12 +1277,13 @@ function ensureTablesExist(PDO $pdo): void {
                 }
             }
         } catch (Throwable $e) {}
+        */
 
-        // Self-healing Daleel Deduplication & Branch Normalization Routine
+        // Self-healing Daleel Deduplication & Radical Unverified Purge Routine
         try {
-            $apprCount = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE status = 'approved'")->fetchColumn();
+            $unverifiedCount = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE school_type != 'government' AND (is_historic IS NULL OR is_historic = 0)")->fetchColumn();
             $dupCheck = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE name = 'مدارس القبس الخاصة' AND city = 'عطبرة'")->fetchColumn();
-            if ($apprCount > 1560 || $dupCheck > 0) {
+            if ($unverifiedCount > 0 || $dupCheck > 0) {
                 require_once __DIR__ . '/run_deduplication.php';
                 runDaleelDeduplication($pdo);
             }
