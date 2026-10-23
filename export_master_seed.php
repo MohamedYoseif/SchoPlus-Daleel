@@ -39,6 +39,16 @@ if (!function_exists('exportMasterSeed')) {
         }
 
         $count = count($schools);
+        $targetFile = __DIR__ . '/seed_schools_data.php';
+
+        // Guard against accidentally overwriting production master seed with small local database
+        if ($count < 500 && file_exists($targetFile)) {
+            $existingData = @include $targetFile;
+            if (is_array($existingData) && count($existingData) > $count) {
+                return count($existingData);
+            }
+        }
+
         $dateStr = date('Y-m-d H:i:s');
 
         $header = "<?php\n\n/**\n * SchoPlus Daleel - Comprehensive Global Sudanese Schools Directory Dataset\n * Total Institutions: {$count}\n * Coverage: All 18 States of Sudan + 19 Diaspora Countries Worldwide\n * Updated: {$dateStr}\n */\n\nreturn ";

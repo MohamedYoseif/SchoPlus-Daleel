@@ -8,6 +8,7 @@
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/SudanGeography.php';
 require_once __DIR__ . '/SchoolAutoResearcher.php';
+require_once __DIR__ . '/DaleelWhatsAppService.php';
 
 $pdo = db();
 
@@ -344,6 +345,111 @@ if (isset($_REQUEST['ajax_action'])) {
             exit;
         }
 
+        if ($action === 'send_school_whatsapp') {
+            $id = (int)($_POST['id'] ?? 0);
+            $stmt = $pdo->prepare("SELECT * FROM daleel_schools WHERE id = ? LIMIT 1");
+            $stmt->execute([$id]);
+            $sch = $stmt->fetch(PDO::FETCH_ASSOC);
+            if (!$sch) {
+                echo json_encode(['success' => false, 'error' => 'المدرسة غير موجودة']);
+                exit;
+            }
+            $phone = trim((string)($sch['whatsapp'] ?: $sch['phone']));
+            if ($phone === '') {
+                echo json_encode(['success' => false, 'error' => 'لا يوجد رقم هاتف مسجل لهذه المدرسة']);
+                exit;
+            }
+            $msg = buildWhatsAppMessageText($sch['name'], $sch['slug'] ?? '');
+            $res = DaleelWhatsAppService::sendMessage($phone, $msg);
+            if (!empty($res['success'])) {
+                $now = date('Y-m-d H:i:s');
+                $pdo->prepare("UPDATE daleel_schools SET whatsapp_sent = 1, whatsapp_sent_at = ? WHERE id = ?")->execute([$now, $id]);
+                DaleelWhatsAppService::logMessage($id, 'out', $phone, $res['chatId'] ?? null, $msg, 'school_outreach');
+                echo json_encode([
+                    'success' => true,
+                    'id' => $id,
+                    'sent_at' => date('j/n H:i', strtotime($now)),
+                    'message' => 'تم إرسال رسالة الواتساب بنجاح إلى ' . htmlspecialchars($sch['name']) . ' 📲'
+                ]);
+            } else {
+                echo json_encode([
+                    'success' => false,
+                    'error' => $res['error'] ?? 'تعذر إرسال الرسالة، تأكد من اتصال خادم الواتساب (Port 8085)'
+                ]);
+            }
+            exit;
+        }
+
+        if ($action === 'check_school_whatsapp') {
+            $id = (int)($_POST['id'] ?? 0);
+            $stmt = $pdo->prepare("SELECT id, name, phone, whatsapp FROM daleel_schools WHERE id = ? LIMIT 1");
+            $stmt->execute([$id]);
+            $sch = $stmt->fetch(PDO::FETCH_ASSOC);
+            if (!$sch) {
+                echo json_encode(['success' => false, 'error' => 'المدرسة غير موجودة']);
+                exit;
+            }
+            $phone = trim((string)($sch['whatsapp'] ?: $sch['phone']));
+            if ($phone === '') {
+                echo json_encode(['success' => false, 'error' => 'لا يوجد رقم هاتف مسجل لهذه المدرسة']);
+                exit;
+            }
+            $res = DaleelWhatsAppService::checkNumber($phone);
+            if (isset($res['exists'])) {
+                $exists = (bool)$res['exists'];
+                echo json_encode([
+                    'success' => true,
+                    'id' => $id,
+                    'phone' => $phone,
+                    'exists' => $exists,
+                    'jid' => $res['jid'] ?? null,
+                    'message' => $exists ? 'الرقم مسجل في الواتساب ولديه حساب نشط 🟢' : 'الرقم ليس لديه حساب واتساب (هاتف أرضي أو غير مفعل) 🔴'
+                ]);
+            } else {
+                echo json_encode([
+                    'success' => false,
+                    'error' => $res['error'] ?? 'تعذر فحص الرقم من خادم الواتساب'
+                ]);
+            }
+            exit;
+        }
+
+        if ($action === 'get_whatsapp_server_status') {
+            $status = DaleelWhatsAppService::getStatus();
+            echo json_encode($status);
+            exit;
+        }
+
+        if ($action === 'restart_whatsapp_server') {
+            $res = DaleelWhatsAppService::restart();
+            echo json_encode($res);
+            exit;
+        }
+
+        if ($action === 'logout_whatsapp_server') {
+            $res = DaleelWhatsAppService::logout();
+            echo json_encode($res);
+            exit;
+        }
+
+        if ($action === 'send_direct_whatsapp') {
+            $phone = trim($_POST['phone'] ?? '');
+            $message = trim($_POST['message'] ?? '');
+            if ($phone === '' || $message === '') {
+                echo json_encode(['success' => false, 'error' => 'يرجى إدخال رقم الهاتف ونص الرسالة']);
+                exit;
+            }
+            $res = DaleelWhatsAppService::sendMessage($phone, $message);
+            if (!empty($res['success'])) {
+                DaleelWhatsAppService::logMessage(null, 'out', $phone, $res['chatId'] ?? null, $message, 'direct_admin');
+                echo json_encode(['success' => true, 'message' => 'تم إرسال الرسالة بنجاح 📲']);
+            } else {
+                echo json_encode(['success' => false, 'error' => $res['error'] ?? 'فشل الإرسال']);
+            }
+            exit;
+        }
+
+
         if ($action === 'update_rank') {
             $id = (int)($_POST['id'] ?? 0);
             $dirRank = (int)($_POST['directory_rank'] ?? 0);
@@ -445,6 +551,68 @@ if (isset($_REQUEST['ajax_action'])) {
             require_once __DIR__ . '/export_master_seed.php';
             $cnt = exportMasterSeed($pdo);
             echo json_encode(['success' => true, 'count' => $cnt, 'message' => "تم تصدير قاعدة البيانات المركزية ({$cnt} مؤسسة) إلى seed_schools_data.php بنجاح."]);
+            exit;
+        }
+
+        if ($action === 'run_autonomous_maps_worker') {
+            @set_time_limit(180);
+            @ini_set('memory_limit', '512M');
+
+            $scopeState = trim($_POST['state'] ?? '');
+            $scopeType = trim($_POST['school_type'] ?? 'all');
+            $targetCount = (int)($_POST['target_count'] ?? 20);
+            $schoolName = trim($_POST['school_name'] ?? '');
+            $autoRegister = !empty($_POST['auto_register']) && $_POST['auto_register'] !== '0' && $_POST['auto_register'] !== 'false';
+
+            $result = SchoolAutoResearcher::runAutonomousMapsDiscovery(
+                $pdo,
+                !empty($scopeState) ? $scopeState : null,
+                $targetCount,
+                $scopeType,
+                !empty($schoolName) ? $schoolName : null,
+                $autoRegister
+            );
+
+            echo json_encode($result, JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+
+        if ($action === 'quick_approve_discovered_school') {
+            $rawPayload = file_get_contents('php://input');
+            $data = json_decode($rawPayload, true) ?: $_POST;
+
+            $name = trim($data['name'] ?? '');
+            $state = trim($data['state'] ?? '');
+            $city = trim($data['city'] ?? '');
+            $district = trim($data['district'] ?? '');
+            $schoolType = trim($data['school_type'] ?? 'private');
+            $phone = trim($data['phone'] ?? '');
+            $gmap = trim($data['google_map_url'] ?? '');
+            $fb = trim($data['facebook_url'] ?? ($data['facebook'] ?? ''));
+            $desc = trim($data['description'] ?? '');
+
+            $res = SchoolAutoResearcher::autoDiscoverAndRegister(
+                $pdo,
+                $name,
+                !empty($state) ? $state : null,
+                !empty($city) ? $city : null,
+                !empty($schoolType) ? $schoolType : null,
+                !empty($phone) ? $phone : null,
+                !empty($phone) ? $phone : null,
+                !empty($gmap) ? $gmap : null,
+                !empty($district) ? $district : null,
+                null,
+                !empty($desc) ? $desc : null,
+                !empty($fb) ? $fb : null
+            );
+
+            if (!empty($res['created'])) {
+                recalculateDaleelRanks($pdo);
+                require_once __DIR__ . '/export_master_seed.php';
+                exportMasterSeed($pdo);
+            }
+
+            echo json_encode($res, JSON_UNESCAPED_UNICODE);
             exit;
         }
 
@@ -1026,6 +1194,12 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
             </div>
 
             <div class="d-flex align-items-center gap-2">
+                <!-- WHATSAPP GATEWAY STATUS WIDGET -->
+                <button type="button" id="btnWaGatewayWidget" onclick="openWaGatewayModal()" class="btn btn-sm text-white d-inline-flex align-items-center gap-2" style="background: rgba(15,92,62,0.85); border: 1px solid rgba(255,255,255,0.25); font-size: 0.72rem; border-radius: 8px;" title="حالة خادم واتساب الدليل ورمز QR">
+                    <i class="fab fa-whatsapp text-warning fs-6"></i>
+                    <span id="waWidgetStatusText">جاري فحص الواتساب...</span>
+                </button>
+
                 <a href="/" target="_blank" class="btn btn-sm btn-outline-light" style="font-size: 0.72rem; border-radius: 8px;">
                     <i class="fas fa-external-link-alt me-1"></i> عرض الدليل الحي
                 </a>
@@ -1106,6 +1280,10 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                 <a href="admin.php?tab=ads" class="sp-main-tab <?= $activeTab === 'ads' ? 'active' : '' ?>">
                     <i class="fas fa-ad"></i> المساحة الإعلانية
                     <span class="tab-badge"><?= !empty($adConfig['enabled']) ? 'نشطة' : 'متوقفة' ?></span>
+                </a>
+                <a href="admin.php?tab=whatsapp" class="sp-main-tab <?= $activeTab === 'whatsapp' ? 'active' : '' ?>">
+                    <i class="fab fa-whatsapp text-success"></i> مركز الواتساب والرد الذكي
+                    <span class="tab-badge" id="tabWaMainBadge">خادم الواتساب</span>
                 </a>
                 <a href="admin.php?tab=maintenance" class="sp-main-tab <?= $activeTab === 'maintenance' ? 'active' : '' ?>">
                     <i class="fas fa-tools"></i> أدوات النظام والصيانة
@@ -1460,19 +1638,32 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                                                             </span>
                                                         <?php endif; ?>
                                                     </div>
-                                                    <div class="d-flex align-items-center gap-1 mt-1">
+                                                    <div class="d-flex flex-wrap align-items-center gap-1 mt-1">
+                                                        <?php if ($phoneVal !== ''): ?>
+                                                            <!-- زر الإرسال المباشر الآلي عبر سيرفر الواتساب المستقل (بنقرة واحدة) -->
+                                                            <button type="button" id="btn-wa-auto-<?= $sch['id'] ?>" class="btn btn-sm text-white d-inline-flex align-items-center gap-1 py-0 px-2" style="font-size: 0.65rem; height: 23px; border-radius: 6px; background-color: #0F5C3E; border-color: #0F5C3E;" onclick="sendAutoWhatsApp(<?= $sch['id'] ?>, this)" title="إرسال رسالة التعريف والدعوة آلياً وفورياً بنقرة واحدة عبر خادم الواتساب">
+                                                                <i class="fab fa-whatsapp"></i> <span>إرسال آلي</span>
+                                                            </button>
+
+                                                            <!-- زر فحص توفر حساب واتساب للرقم -->
+                                                            <button type="button" id="btn-wa-check-<?= $sch['id'] ?>" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center justify-content-center p-0" style="width: 23px; height: 23px; border-radius: 6px;" onclick="checkSchoolWhatsApp(<?= $sch['id'] ?>, this)" title="فحص هل الرقم يملك حساب واتساب نشط؟">
+                                                                <i class="fas fa-search" style="font-size: 0.6rem;"></i>
+                                                            </button>
+                                                        <?php endif; ?>
+
                                                         <?php if ($waUrl): ?>
-                                                            <a href="<?= e($waUrl) ?>" target="_blank" class="btn btn-sm text-white d-inline-flex align-items-center gap-1 py-0 px-2" style="font-size: 0.68rem; height: 23px; border-radius: 6px; background-color: #25D366; border-color: #25D366;" title="مراسلة واتساب بالرسالة الترحيبية والتعريفية">
-                                                                <i class="fab fa-whatsapp"></i> <span>واتساب</span>
+                                                            <!-- فتح واتساب ويب يدوياً كخيار بديل -->
+                                                            <a href="<?= e($waUrl) ?>" target="_blank" class="btn btn-sm btn-outline-success d-inline-flex align-items-center justify-content-center p-0" style="width: 23px; height: 23px; border-radius: 6px;" title="فتح واتساب ويب يدوياً">
+                                                                <i class="fab fa-whatsapp" style="font-size: 0.68rem;"></i>
                                                             </a>
-                                                            <button type="button" class="btn btn-sm btn-outline-success d-inline-flex align-items-center justify-content-center p-0" style="width: 23px; height: 23px; border-radius: 6px;" onclick="copySchoolMessage(<?= $sch['id'] ?>)" title="نسخ نص الرسالة الترحيبية للحافظة">
-                                                                <i class="fas fa-copy" style="font-size: 0.65rem;"></i>
+                                                            <button type="button" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center justify-content-center p-0" style="width: 23px; height: 23px; border-radius: 6px;" onclick="copySchoolMessage(<?= $sch['id'] ?>)" title="نسخ نص الرسالة الترحيبية للحافظة">
+                                                                <i class="fas fa-copy" style="font-size: 0.62rem;"></i>
                                                             </button>
                                                             <div id="msg-text-<?= $sch['id'] ?>" style="display: none;"><?= e(buildWhatsAppMessageText($sch['name'], $sch['slug'] ?? '')) ?></div>
                                                         <?php endif; ?>
                                                         <a href="tel:<?= e($phoneVal) ?>" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center justify-content-center p-0" style="width: 23px; height: 23px; border-radius: 6px;" title="اتصال هاتفي">
-                                                            <i class="fas fa-phone-alt" style="font-size: 0.65rem;"></i>
-                                                        </a>
+                                                            <i class="fas fa-phone-alt" style="font-size: 0.62rem;"></i>
+                                                         </a>
                                                     </div>
                                                 </div>
                                             <?php else: ?>
@@ -1707,10 +1898,10 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                             <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 w-100">
                                 <div>
                                     <h5 class="admin-card-title text-white mb-1" style="font-size: 1.05rem;">
-                                        <i class="fas fa-bolt text-warning me-1"></i> محرك الاستكشاف والمسح الآلي المباشر (Autonomous Worker)
+                                        <i class="fas fa-bolt text-warning me-1"></i> محرك الاستكشاف والمسح الآلي المباشر (Autonomous Maps Worker)
                                     </h5>
                                     <div class="small text-white-50" style="font-size: 0.72rem;">
-                                        البحث والاستقصاء الرقمي الشامل لمدارس ورياض الأطفال بالسودان — فحص خرائط جوجل والمنصات الرقمية واعتمادها بالدليل.
+                                        مسح واستكشاف المدارس ورياض الأطفال ميدانياً عبر خرائط جوجل والمنصات الرقمية واعتمادها بالدليل.
                                     </div>
                                 </div>
                                 <div class="d-flex gap-2">
@@ -1725,49 +1916,142 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                         </div>
 
                         <div class="p-3.5 p-md-4 bg-white">
-                            <!-- SECTION 1: SEARCH BY SCHOOL NAME (Primary & Direct via Google Maps) -->
+                            <!-- HERO ENGINE CONTROL: AUTONOMOUS MAPS DISCOVERY -->
                             <div class="p-3.5 rounded-3 border mb-4" style="background: #F8FAFC; border-color: #E2E8F0 !important;">
-                                <label class="form-label fw-bold text-dark mb-2 d-flex align-items-center justify-content-between" style="font-size: 0.88rem;">
-                                    <span><i class="fas fa-map-marked-alt text-success me-1"></i> البحث في خرائط جوجل (Google Maps) واستكشاف المدرسة:</span>
-                                    <span class="badge bg-success text-white" style="font-size: 0.65rem;"><i class="fas fa-check-circle me-1"></i> فحص خرائط جوجل + المنصات</span>
-                                </label>
+                                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                                    <label class="form-label fw-bold text-dark mb-0 d-flex align-items-center gap-2" style="font-size: 0.88rem;">
+                                        <i class="fas fa-satellite-dish text-success fs-5"></i>
+                                        <span>إعدادات المسح والاستكشاف الآلي لخرائط جوجل والمنصات الرقمية:</span>
+                                    </label>
+                                    <span class="badge bg-success text-white py-1.5 px-2.5" style="font-size: 0.68rem;">
+                                        <i class="fas fa-map-marked-alt me-1"></i> Google Maps Grounding المعتمد
+                                    </span>
+                                </div>
 
-                                <div class="row g-2 align-items-center">
-                                    <div class="col-lg-7 col-12">
-                                        <div class="input-group">
-                                            <span class="input-group-text bg-white" style="border-color: #CBD5E1;"><i class="fas fa-school text-muted"></i></span>
-                                            <input type="text" id="studioQuery" class="form-control" placeholder="اكتب اسم المدرسة للبحث عنها في خرائط جوجل (مثال: مدارس القبس، مدارس المنار، روضة المستقبل...)" style="font-size: 0.85rem; border-color: #CBD5E1; padding: 10px 14px;" onkeydown="if(event.key==='Enter') runStudioResearch();">
-                                        </div>
-                                    </div>
+                                <div class="row g-2.5 align-items-end">
+                                    <!-- 1. State Selector -->
                                     <div class="col-lg-3 col-sm-6 col-12">
-                                        <div class="input-group">
-                                            <span class="input-group-text bg-white" style="border-color: #CBD5E1;"><i class="fas fa-map-marker-alt text-danger"></i></span>
-                                            <input type="text" id="studioCity" class="form-control" placeholder="المدينة (اختياري: الخرطوم، بورتسودان...)" style="font-size: 0.85rem; border-color: #CBD5E1; padding: 10px 14px;" onkeydown="if(event.key==='Enter') runStudioResearch();">
-                                        </div>
+                                        <label class="form-label small fw-bold text-dark mb-1">
+                                            <i class="fas fa-map-marker-alt text-danger me-1"></i> الولاية المستهدفة:
+                                        </label>
+                                        <select id="workerState" class="form-select form-select-sm" style="font-size: 0.8rem; border-color: #CBD5E1; padding: 8px 12px;">
+                                            <option value="">🌐 كافة ولايات السودان (مسح قومي شامل)</option>
+                                            <optgroup label="الولايات (18 ولاية)">
+                                                <option value="الخرطوم">ولاية الخرطوم</option>
+                                                <option value="الجزيرة">ولاية الجزيرة</option>
+                                                <option value="البحر الأحمر">ولاية البحر الأحمر</option>
+                                                <option value="نهر النيل">ولاية نهر النيل</option>
+                                                <option value="الشمالية">الولاية الشمالية</option>
+                                                <option value="النيل الأبيض">ولاية النيل الأبيض</option>
+                                                <option value="سنار">ولاية سنار</option>
+                                                <option value="القضارف">ولاية القضارف</option>
+                                                <option value="كسلا">ولاية كسلا</option>
+                                                <option value="شمال كردفان">ولاية شمال كردفان</option>
+                                                <option value="جنوب كردفان">ولاية جنوب كردفان</option>
+                                                <option value="غرب كردفان">ولاية غرب كردفان</option>
+                                                <option value="شمال دارفور">ولاية شمال دارفور</option>
+                                                <option value="جنوب دارفور">ولاية جنوب دارفور</option>
+                                                <option value="غرب دارفور">ولاية غرب دارفور</option>
+                                                <option value="وسط دارفور">ولاية وسط دارفور</option>
+                                                <option value="شرق دارفور">ولاية شرق دارفور</option>
+                                                <option value="النيل الأزرق">ولاية النيل الأزرق</option>
+                                            </optgroup>
+                                            <optgroup label="خارج السودان">
+                                                <option value="دول المهجر">دول المهجر والشتات (المدارس بالخارج)</option>
+                                            </optgroup>
+                                        </select>
                                     </div>
+
+                                    <!-- 2. Institution Type -->
+                                    <div class="col-lg-3 col-sm-6 col-12">
+                                        <label class="form-label small fw-bold text-dark mb-1">
+                                            <i class="fas fa-shapes text-primary me-1"></i> تصنيف المؤسسات:
+                                        </label>
+                                        <select id="workerSchoolType" class="form-select form-select-sm" style="font-size: 0.8rem; border-color: #CBD5E1; padding: 8px 12px;">
+                                            <option value="all">كافة المؤسسات (شامل ومتنوع)</option>
+                                            <option value="kindergarten">رياض الأطفال والحضانات (Early Childhood)</option>
+                                            <option value="private">المدارس الخاصة والدولية (Private Schools)</option>
+                                            <option value="government">المدارس الحكومية القومية (Public Schools)</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- 3. Target Count -->
                                     <div class="col-lg-2 col-sm-6 col-12">
-                                        <button type="button" id="btnRunStudio" class="btn w-100 fw-bold py-2 shadow-sm text-white" onclick="runStudioResearch()" style="background: #10B981; border-color: #10B981; font-size: 0.85rem; border-radius: 8px;">
-                                            <i class="fas fa-map-search me-1"></i> ابحث في الخرائط
+                                        <label class="form-label small fw-bold text-dark mb-1">
+                                            <i class="fas fa-bullseye text-warning me-1"></i> العدد المستهدف:
+                                        </label>
+                                        <select id="workerTargetCount" class="form-select form-select-sm" style="font-size: 0.8rem; border-color: #CBD5E1; padding: 8px 12px;">
+                                            <option value="10">10 مؤسسات</option>
+                                            <option value="20" selected>20 مؤسسة (موصى به)</option>
+                                            <option value="50">50 مؤسسة</option>
+                                            <option value="100">100 مؤسسة</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- 4. Optional School Name Query -->
+                                    <div class="col-lg-4 col-sm-6 col-12">
+                                        <label class="form-label small fw-bold text-dark mb-1 d-flex justify-content-between">
+                                            <span><i class="fas fa-search text-muted me-1"></i> اسم مدرسة محددة:</span>
+                                            <span class="text-muted fw-normal" style="font-size: 0.68rem;">(اختياري — فارغ للمسح الشامل)</span>
+                                        </label>
+                                        <input type="text" id="workerSchoolName" class="form-control form-control-sm" placeholder="فارغ لمسح واستكشاف الولاية بالكامل..." style="font-size: 0.8rem; border-color: #CBD5E1; padding: 8px 12px;" onkeydown="if(event.key==='Enter') runAutonomousWorker();">
+                                    </div>
+
+                                    <!-- 5. Options and Action Button Row -->
+                                    <div class="col-12 mt-2 d-flex flex-wrap justify-content-between align-items-center gap-2 pt-2 border-top">
+                                        <div class="form-check form-switch m-0">
+                                            <input class="form-check-input" type="checkbox" id="workerAutoRegister" checked>
+                                            <label class="form-check-label small fw-bold text-dark" for="workerAutoRegister" style="font-size: 0.74rem;">
+                                                اعتماد وإدراج المدارس الجديدة فوراً في الدليل (Auto-Register) وتوليد الرتب والروابط
+                                            </label>
+                                        </div>
+
+                                        <button type="button" id="btnRunAutonomousWorker" class="btn fw-bold px-4 py-2 text-white shadow-sm" onclick="runAutonomousWorker()" style="background: linear-gradient(135deg, #10B981, #059669); border: none; font-size: 0.85rem; border-radius: 8px;">
+                                            <i class="fas fa-map-marked-alt me-1.5"></i> بدء الاستكشاف والمسح الآلي من خرائط جوجل
                                         </button>
                                     </div>
                                 </div>
                                 <div class="form-text small text-muted mt-2" style="font-size: 0.72rem;">
-                                    <i class="fas fa-info-circle text-info me-1"></i> يبحث المحرك مباشرة في <strong>خرائط جوجل</strong> لإظهار موقع المدرسة الحي وإحداثياتها، واستقصاء فيسبوك ويوتيوب وتيك توك والمراجع الحكومية لجلب الهواتف الحقيقية والنبذة.
+                                    <i class="fas fa-info-circle text-info me-1"></i> <strong>قاعدة الاعتماد الجغرافي:</strong> وجود المدرسة في خرائط جوجل مع عنوان حقيقي يؤهلها للاعتماد بالدليل حتى في حال عدم توفر هاتف مسجل في الخريطة، مع ربط مباشر بفيسبوك ويوتيوب وتيك توك والمراجع الحكومية.
                                 </div>
                             </div>
 
-                            <!-- Visual Search Results Dossier (Instead of Terminal Console) -->
-                            <div id="studioDossierBox" style="display: none;" class="mb-4"></div>
+                            <!-- VISUAL INTERACTIVE RESULTS DASHBOARD -->
+                            <div id="workerResultsContainer" style="display: none;" class="mb-4"></div>
 
-                            <!-- ADDITIONAL OPTIONS (Batch & Direct Entry Collapsible) -->
+                            <!-- ADDITIONAL OPTIONS (Single School Dossier Studio & Batch Ingest Collapsible) -->
                             <div class="border-top pt-3 mt-4">
                                 <div class="d-flex flex-wrap gap-2">
+                                    <button class="btn btn-sm btn-outline-secondary py-1.5 px-3 fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSingleStudio" aria-expanded="false" style="font-size: 0.76rem; border-radius: 8px;">
+                                        <i class="fas fa-search-plus me-1"></i> استوديو الاستقصاء المفصل لمدرسة واحدة (Single Studio)
+                                    </button>
                                     <button class="btn btn-sm btn-outline-secondary py-1.5 px-3 fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBatchIngest" aria-expanded="false" style="font-size: 0.76rem; border-radius: 8px;">
                                         <i class="fas fa-layer-group me-1"></i> استكشاف وإدراج قائمة مدارس بالدفعات (Batch)
                                     </button>
                                     <button class="btn btn-sm btn-outline-secondary py-1.5 px-3 fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseManualDirect" aria-expanded="false" style="font-size: 0.76rem; border-radius: 8px;">
                                         <i class="fas fa-plus-circle me-1"></i> إدخال بيانات مدرسة يدوياً
                                     </button>
+                                </div>
+
+                                <!-- Collapsible 0: Single School Studio -->
+                                <div class="collapse mt-3" id="collapseSingleStudio">
+                                    <div class="p-3 bg-light rounded-3 border">
+                                        <h6 class="fw-bold text-dark mb-2" style="font-size: 0.82rem;"><i class="fas fa-search text-primary me-1"></i> فحص واستقصاء مدرسة واحدة بمفردها:</h6>
+                                        <div class="row g-2 align-items-center mb-2">
+                                            <div class="col-lg-7 col-12">
+                                                <input type="text" id="studioQuery" class="form-control form-control-sm" placeholder="اسم المدرسة (مثال: مدارس القبس، روضة الإيمان...)" style="font-size: 0.78rem;" onkeydown="if(event.key==='Enter') runStudioResearch();">
+                                            </div>
+                                            <div class="col-lg-3 col-sm-6 col-12">
+                                                <input type="text" id="studioCity" class="form-control form-control-sm" placeholder="المدينة (اختياري: الخرطوم، بورتسودان...)" style="font-size: 0.78rem;" onkeydown="if(event.key==='Enter') runStudioResearch();">
+                                            </div>
+                                            <div class="col-lg-2 col-sm-6 col-12">
+                                                <button type="button" id="btnRunStudio" class="btn btn-sm btn-success w-100 fw-bold text-white shadow-sm" onclick="runStudioResearch()" style="font-size: 0.78rem;">
+                                                    <i class="fas fa-search me-1"></i> فحص المنصات
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div id="studioDossierBox" style="display: none;" class="mt-3"></div>
+                                    </div>
                                 </div>
 
                                 <!-- Collapsible 1: Batch List -->
@@ -1943,6 +2227,192 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                                     <i class="fas fa-file-export me-1"></i> تصدير Master Seed
                                 </button>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <!-- TAB CONTENT: 6. WHATSAPP CENTER & SMART BOT -->
+        <?php elseif ($activeTab === 'whatsapp'): ?>
+            <?php
+            $waSentCount = (int)$pdo->query("SELECT COUNT(*) FROM daleel_schools WHERE whatsapp_sent = 1")->fetchColumn();
+            $waSchoolsWithPhone = (int)$pdo->query("SELECT COUNT(*) FROM daleel_schools WHERE phone IS NOT NULL AND phone != ''")->fetchColumn();
+            $waMessagesCount = 0;
+            $recentMessages = [];
+            try {
+                $waMessagesCount = (int)$pdo->query("SELECT COUNT(*) FROM daleel_whatsapp_messages")->fetchColumn();
+                $recentMessages = $pdo->query("SELECT * FROM daleel_whatsapp_messages ORDER BY id DESC LIMIT 15")->fetchAll(PDO::FETCH_ASSOC);
+            } catch (Throwable $e) {}
+            ?>
+            <div class="row g-4">
+                <!-- METRIC CARDS -->
+                <div class="col-xl-3 col-md-6 col-12">
+                    <div class="metric-card m-green">
+                        <div class="metric-lbl">حالة جلسة الواتساب</div>
+                        <div class="metric-val" id="waTabStatusVal" style="font-size: 1.15rem;">جاري الفحص...</div>
+                        <div class="small text-muted" id="waTabPhoneVal">منفذ 8085 مستقل</div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 col-12">
+                    <div class="metric-card m-blue">
+                        <div class="metric-lbl">المدارس التي تم مراسلتها</div>
+                        <div class="metric-val"><?= number_format($waSentCount) ?> <span style="font-size: 0.8rem; font-weight: 500;">/ <?= number_format($waSchoolsWithPhone) ?></span></div>
+                        <div class="small text-muted"><?= round(($waSchoolsWithPhone > 0 ? ($waSentCount / $waSchoolsWithPhone * 100) : 0), 1) ?>% نسبة التغطية</div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 col-12">
+                    <div class="metric-card m-orange">
+                        <div class="metric-lbl">إجمالي المحادثات والرسائل</div>
+                        <div class="metric-val"><?= number_format($waMessagesCount) ?></div>
+                        <div class="small text-muted">رسائل واردة وصادرة</div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 col-12">
+                    <div class="metric-card m-purple">
+                        <div class="metric-lbl">وكيل الرد الآلي والخدمة</div>
+                        <div class="metric-val" style="color: #059669; font-size: 1.15rem;">نشط 24/7 🤖</div>
+                        <div class="small text-muted">بحث + توثيق + تعديل</div>
+                    </div>
+                </div>
+
+                <!-- SECTION 1: QR & SESSION MANAGEMENT -->
+                <div class="col-lg-5 col-12">
+                    <div class="admin-card h-100">
+                        <div class="admin-card-head" style="background: linear-gradient(135deg, #0F5C3E, #0A3E2A);">
+                            <h5 class="admin-card-title text-white">
+                                <i class="fab fa-whatsapp text-warning"></i> جلسة واتساب الدليل (QR Code)
+                            </h5>
+                            <button type="button" class="btn btn-sm btn-outline-light py-0 px-2" style="font-size: 0.68rem;" onclick="refreshTabWaStatus()">
+                                <i class="fas fa-sync-alt"></i> تحديث
+                            </button>
+                        </div>
+                        <div class="p-4 text-center">
+                            <div id="waTabStatusBadge" class="p-3 rounded-3 mb-3 fw-bold" style="background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D;">
+                                ⏳ جاري فحص حالة الاتصال...
+                            </div>
+                            <div id="waTabDevicePhone" class="fw-bold text-dark mb-3" style="font-size: 0.95rem;"></div>
+
+                            <div id="waTabQrWrap" class="p-3 bg-white rounded-3 border mb-3 mx-auto" style="min-height: 230px; max-width: 260px; display: flex; align-items: center; justify-content: center;">
+                                <span class="text-muted small">جاري جلب رمز الاستجابة...</span>
+                            </div>
+
+                            <div class="d-flex flex-wrap gap-2 justify-content-center mt-3">
+                                <button type="button" class="btn btn-sm btn-outline-warning fw-bold px-3" onclick="restartWaGatewaySession()">
+                                    <i class="fas fa-redo me-1"></i> إعادة تشغيل الجلسة
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-danger fw-bold px-3" onclick="logoutWaSession()">
+                                    <i class="fas fa-sign-out-alt me-1"></i> فصل الرقم
+                                </button>
+                            </div>
+                            <div class="text-muted small mt-3" style="font-size: 0.7rem;">
+                                يعمل على سيرفر محلي مستقل (Port 8085) وجلسة معزولة تماماً عن نظام SchoPlus.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 2: NUMBER CHECKER & QUICK SENDER -->
+                <div class="col-lg-7 col-12">
+                    <div class="admin-card mb-4">
+                        <div class="admin-card-head">
+                            <h5 class="admin-card-title">
+                                <i class="fas fa-search-dollar text-primary"></i> أداة فحص وتدقيق أرقام الواتساب
+                            </h5>
+                        </div>
+                        <div class="p-4">
+                            <p class="text-muted small mb-3">
+                                يمكنك فحص أي رقم هاتف لمعرفة هل لديه حساب واتساب نشط لتجنب المراسلة العشوائية للأرقام الأرضية أو غير المفعلة:
+                            </p>
+                            <div class="row g-2 align-items-center">
+                                <div class="col-sm-8 col-12">
+                                    <input type="text" id="checkSinglePhoneInput" class="form-control" placeholder="أدخل الرقم (مثال: 0912345678 أو 249912345678)">
+                                </div>
+                                <div class="col-sm-4 col-12">
+                                    <button type="button" class="btn btn-primary w-100 fw-bold" onclick="runSinglePhoneCheck()">
+                                        <i class="fas fa-check-circle me-1"></i> فحص الرقم
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="checkSingleResultBox" class="mt-3 p-3 rounded-3" style="display: none; font-size: 0.85rem;"></div>
+                        </div>
+                    </div>
+
+                    <div class="admin-card">
+                        <div class="admin-card-head">
+                            <h5 class="admin-card-title">
+                                <i class="fas fa-paper-plane text-success"></i> إرسال رسالة مباشرة تجريبية
+                            </h5>
+                        </div>
+                        <div class="p-4">
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold">رقم المستلم:</label>
+                                <input type="text" id="tabSendPhone" class="form-control" placeholder="09xxxxxxxx أو 249xxxxxxxxx">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold">نص الرسالة:</label>
+                                <textarea id="tabSendMessage" class="form-control" rows="3" placeholder="اكتب نص الرسالة هنا..."></textarea>
+                            </div>
+                            <button type="button" class="btn btn-success fw-bold px-4" onclick="runTabSendMessage()">
+                                <i class="fab fa-whatsapp me-1"></i> إرسال الآن 📲
+                            </button>
+                            <div id="tabSendResultBox" class="mt-3 p-3 rounded-3" style="display: none; font-size: 0.85rem;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 3: RECENT MESSAGES LOG -->
+                <div class="col-12">
+                    <div class="admin-card">
+                        <div class="admin-card-head">
+                            <h5 class="admin-card-title">
+                                <i class="fas fa-comments text-primary"></i> سجل المحادثات والرسائل التفاعلية الحية
+                            </h5>
+                            <span class="badge bg-light text-dark border">آخر 15 رسالة</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table admin-table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>الاتجاه</th>
+                                        <th>رقم الهاتف</th>
+                                        <th>نص الرسالة</th>
+                                        <th>نوع الاستفسار / الإجراء</th>
+                                        <th>التاريخ والوقت</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php if (empty($recentMessages)): ?>
+                                        <tr>
+                                            <td colspan="6" class="text-center py-4 text-muted">
+                                                <i class="fas fa-inbox fa-2x mb-2 text-muted opacity-50"></i>
+                                                <div>لا توجد رسائل مسجلة حتى الآن. ستظهر هنا المحادثات الواردة من المدارس والردود التلقائية فوراً.</div>
+                                            </td>
+                                        </tr>
+                                    <?php else: ?>
+                                        <?php foreach ($recentMessages as $m): ?>
+                                            <tr>
+                                                <td class="text-muted fw-bold">#<?= $m['id'] ?></td>
+                                                <td>
+                                                    <?php if ($m['direction'] === 'in'): ?>
+                                                        <span class="badge bg-info-subtle text-info border border-info-subtle"><i class="fas fa-arrow-down me-1"></i>وارد</span>
+                                                    <?php else: ?>
+                                                        <span class="badge bg-success-subtle text-success border border-success-subtle"><i class="fas fa-arrow-up me-1"></i>صادر</span>
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td class="fw-bold dir-ltr text-end" style="font-family: monospace;"><?= e($m['phone']) ?></td>
+                                                <td style="max-width: 400px; white-space: normal; line-height: 1.5;">
+                                                    <?= nl2br(e(mb_substr($m['message'], 0, 150))) ?><?= mb_strlen($m['message']) > 150 ? '...' : '' ?>
+                                                </td>
+                                                <td>
+                                                    <span class="badge bg-light text-dark border"><?= e($m['intent'] ?: 'عام') ?></span>
+                                                </td>
+                                                <td class="text-muted small"><?= e(date('Y-m-d H:i', strtotime($m['created_at']))) ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -2338,6 +2808,355 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
         bStudio.className = (tab === 'studio') ? 'btn btn-sm px-3 py-1.5 fw-bold btn-primary text-white' : 'btn btn-sm px-3 py-1.5 fw-bold btn-outline-secondary';
         bSingle.className = (tab === 'single') ? 'btn btn-sm px-3 py-1.5 fw-bold btn-primary text-white' : 'btn btn-sm px-3 py-1.5 fw-bold btn-outline-secondary';
         bBatch.className = (tab === 'batch') ? 'btn btn-sm px-3 py-1.5 fw-bold btn-primary text-white' : 'btn btn-sm px-3 py-1.5 fw-bold btn-outline-secondary';
+    }
+
+    let currentWorkerDiscoveredSchools = [];
+    let currentWorkerActiveFilter = 'all';
+
+    function runAutonomousWorker() {
+        const st = document.getElementById('workerState').value.trim();
+        const typ = document.getElementById('workerSchoolType').value.trim();
+        const cnt = document.getElementById('workerTargetCount').value.trim();
+        const nameQ = document.getElementById('workerSchoolName').value.trim();
+        const autoReg = document.getElementById('workerAutoRegister').checked ? 1 : 0;
+
+        const btn = document.getElementById('btnRunAutonomousWorker');
+        const container = document.getElementById('workerResultsContainer');
+
+        btn.disabled = true;
+        const oldHtml = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1.5"></i> جاري مسح خرائط جوجل والمنصات...';
+
+        container.style.display = 'block';
+        container.innerHTML = `
+            <div class="card border-0 shadow-sm rounded-3 p-4 text-center bg-white" style="border: 1px solid #DDE4ED !important;">
+                <div class="spinner-border text-success mb-3" role="status" style="width: 2.4rem; height: 2.4rem;"></div>
+                <h6 class="fw-bold text-dark mb-1" style="font-size: 0.96rem;">
+                    جاري تشغيل محرك الاستكشاف والمسح الآلي في خرائط جوجل ${st ? 'لولاية (' + escapeHtml(st) + ')' : 'لكافة الولايات'}...
+                </h6>
+                <div class="text-muted small" style="font-size: 0.74rem;">
+                    يتم مطابقة السجلات الميدانية، التدقيق من عدم التكرار، فحص روابط خرائط جوجل واستقصاء فيسبوك ويوتيوب وتيك توك...
+                </div>
+            </div>
+        `;
+
+        const fd = new FormData();
+        fd.append('ajax_action', 'run_autonomous_maps_worker');
+        fd.append('state', st);
+        fd.append('school_type', typ);
+        fd.append('target_count', cnt);
+        fd.append('school_name', nameQ);
+        fd.append('auto_register', autoReg);
+
+        fetch('admin.php', { method: 'POST', body: fd })
+        .then(r => r.json())
+        .then(data => {
+            btn.disabled = false;
+            btn.innerHTML = oldHtml;
+
+            if (!data || !data.success) {
+                container.innerHTML = `
+                    <div class="alert alert-danger p-3 rounded-3 shadow-sm border">
+                        <i class="fas fa-exclamation-triangle text-danger me-1"></i> ${escapeHtml(data.error || 'تعذر استكمال المسح الآلي.')}
+                    </div>
+                `;
+                return;
+            }
+
+            currentWorkerDiscoveredSchools = data.schools || [];
+            currentWorkerActiveFilter = 'all';
+            renderWorkerResults(data);
+            showAdminToast(data.message || 'اكتملت دورة الاستكشاف والمسح بنجاح ✅', 'success');
+        })
+        .catch(err => {
+            btn.disabled = false;
+            btn.innerHTML = oldHtml;
+            container.innerHTML = `
+                <div class="alert alert-danger p-3 rounded-3 shadow-sm border">
+                    <i class="fas fa-exclamation-triangle text-danger me-1"></i> حدث خطأ أثناء الاتصال بالخادم.
+                </div>
+            `;
+            showAdminToast('حدث خطأ في الاتصال بالخادم.', 'danger');
+        });
+    }
+
+    function renderWorkerResults(data) {
+        const container = document.getElementById('workerResultsContainer');
+        const schools = currentWorkerDiscoveredSchools;
+        const total = schools.length;
+        const newCount = schools.filter(s => s.is_new).length;
+        const existCount = schools.filter(s => !s.is_new).length;
+        const unapprovedNewCount = schools.filter(s => s.is_new && !s.registered).length;
+
+        let html = `
+            <div class="card border-0 shadow-sm rounded-3 overflow-hidden" style="border: 1px solid #DDE4ED !important;">
+                <!-- Header Stats & Action Bar -->
+                <div class="card-header bg-white p-3 border-bottom d-flex flex-wrap justify-content-between align-items-center gap-2">
+                    <div>
+                        <div class="d-flex align-items-center gap-2 mb-1">
+                            <span class="badge bg-success text-white py-1 px-2.5" style="font-size: 0.72rem;">
+                                <i class="fas fa-satellite me-1"></i> نتائج الاستكشاف الميداني (${total} مؤسسة)
+                            </span>
+                            <span class="text-muted small" style="font-size: 0.72rem;">
+                                نطاق المسح: <strong>${escapeHtml(data.state || '')}</strong> | الإجمالي العام بالدليل: <strong>${Number(data.total_schools || 0).toLocaleString()}</strong>
+                            </span>
+                        </div>
+                        <div class="d-flex flex-wrap gap-1.5 align-items-center">
+                            <button type="button" class="btn btn-sm ${currentWorkerActiveFilter === 'all' ? 'btn-dark' : 'btn-outline-secondary'} py-0.5 px-2.5" onclick="filterWorkerCards('all')" style="font-size: 0.72rem; border-radius: 6px;">
+                                كافة النتائج (${total})
+                            </button>
+                            <button type="button" class="btn btn-sm ${currentWorkerActiveFilter === 'new' ? 'btn-success text-white' : 'btn-outline-success'} py-0.5 px-2.5" onclick="filterWorkerCards('new')" style="font-size: 0.72rem; border-radius: 6px;">
+                                ✨ مؤسسات جديدة (${newCount})
+                            </button>
+                            <button type="button" class="btn btn-sm ${currentWorkerActiveFilter === 'existing' ? 'btn-secondary text-white' : 'btn-outline-secondary'} py-0.5 px-2.5" onclick="filterWorkerCards('existing')" style="font-size: 0.72rem; border-radius: 6px;">
+                                🛡️ مطابقة مسبقاً (${existCount})
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-wrap gap-2 align-items-center">
+                        ${unapprovedNewCount > 0 ? `
+                            <button type="button" id="btnBulkApproveNew" class="btn btn-sm btn-success fw-bold py-1.5 px-3 shadow-sm text-white" onclick="bulkApproveNewDiscovered()" style="font-size: 0.76rem; border-radius: 8px;">
+                                <i class="fas fa-check-double me-1"></i> اعتماد وإدراج كافة المدارس الجديدة (${unapprovedNewCount})
+                            </button>
+                        ` : `
+                            <span class="badge bg-success-subtle text-success border border-success-subtle py-1.5 px-2.5" style="font-size: 0.72rem;">
+                                <i class="fas fa-check-circle me-1"></i> كافة المدارس الجديدة مفهرسة بالدليل
+                            </span>
+                        `}
+                    </div>
+                </div>
+
+                <div class="card-body p-3 p-md-3.5 bg-light">
+                    <div class="row g-3" id="workerCardsGrid">
+        `;
+
+        if (total === 0) {
+            html += `
+                <div class="col-12 text-center py-4 text-muted small">
+                    لم يتم العثور على مؤسسات مطابقة لمعايير البحث المحددة في هذا النطاق.
+                </div>
+            `;
+        } else {
+            schools.forEach((s, idx) => {
+                const sTypeBadge = (s.school_type === 'kindergarten') ? 'روضة / حضانة' : ((s.school_type === 'government') ? 'حكومية' : 'خاصة');
+                const sTypeColor = (s.school_type === 'kindergarten') ? '#8B5CF6' : ((s.school_type === 'government') ? '#0B2A52' : '#1E5FA8');
+
+                let statusBadge = '';
+                let actionBtn = '';
+
+                if (s.registered) {
+                    statusBadge = `<span class="badge bg-success text-white py-1 px-2" style="font-size: 0.68rem;"><i class="fas fa-check-circle me-1"></i> معتمدة بالدليل</span>`;
+                    actionBtn = `<a href="/school/${encodeURIComponent(s.slug)}" target="_blank" class="btn btn-sm btn-outline-primary py-1 px-2.5 fw-bold" style="font-size: 0.72rem; border-radius: 6px;"><i class="fas fa-external-link-alt me-1"></i> عرض بالدليل ↗</a>`;
+                } else if (s.is_new) {
+                    statusBadge = `<span class="badge bg-success text-white py-1 px-2" style="font-size: 0.68rem;"><i class="fas fa-sparkles me-1"></i> جديدة ومكتشفة</span>`;
+                    actionBtn = `<button type="button" class="btn btn-sm btn-success text-white fw-bold py-1 px-3 shadow-2xs" onclick="quickApproveCard(this, ${idx})" style="font-size: 0.72rem; border-radius: 6px;"><i class="fas fa-plus me-1"></i> اعتماد بالدليل فوراً</button>`;
+                } else {
+                    statusBadge = `<span class="badge bg-secondary text-white py-1 px-2" style="font-size: 0.68rem;"><i class="fas fa-shield-alt me-1"></i> مسجلة ومطابقة مسبقاً</span>`;
+                    actionBtn = `<a href="/school/${encodeURIComponent(s.slug)}" target="_blank" class="btn btn-sm btn-outline-secondary py-1 px-2.5" style="font-size: 0.72rem; border-radius: 6px;"><i class="fas fa-external-link-alt me-1"></i> عرض بالدليل ↗</a>`;
+                }
+
+                html += `
+                    <div class="col-lg-6 col-12 worker-card-item" data-is-new="${s.is_new ? '1' : '0'}" id="worker-card-${idx}">
+                        <div class="card h-100 border-0 shadow-sm rounded-3 bg-white p-3" style="border: 1px solid #E2E8F0 !important;">
+                            <!-- Top Info -->
+                            <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+                                <div>
+                                    <div class="d-flex align-items-center gap-1.5 mb-1">
+                                        <span class="badge text-white" style="background: ${sTypeColor}; font-size: 0.64rem;">${sTypeBadge}</span>
+                                        <span class="badge bg-light text-dark border" style="font-size: 0.64rem;">${s.curriculum === 'british' ? 'بريطاني' : 'سوداني'}</span>
+                                        ${statusBadge}
+                                    </div>
+                                    <h6 class="fw-bold text-dark mb-0" style="font-size: 0.92rem;">${escapeHtml(s.name)}</h6>
+                                    <div class="text-muted small" style="font-size: 0.7rem;">${escapeHtml(s.name_en || '')}</div>
+                                </div>
+                                <div class="text-end">
+                                    ${actionBtn}
+                                </div>
+                            </div>
+
+                            <!-- Geography & Contact -->
+                            <div class="p-2 rounded-2 mb-2" style="background: #F8FAFC; border: 1px solid #F1F5F9; font-size: 0.72rem;">
+                                <div class="d-flex flex-wrap justify-content-between align-items-center gap-1 mb-1">
+                                    <span class="text-dark"><i class="fas fa-map-marker-alt text-danger me-1"></i> ${escapeHtml(s.state)} — ${escapeHtml(s.city)} (${escapeHtml(s.district)})</span>
+                                    ${s.has_phone ? `
+                                        <span class="badge bg-success-subtle text-success border border-success-subtle"><i class="fas fa-phone-alt me-1"></i> ${escapeHtml(s.phone)}</span>
+                                    ` : `
+                                        <span class="badge bg-light text-muted border"><i class="fas fa-map-marked-alt text-success me-1"></i> معتمدة جغرافياً (بدون هاتف)</span>
+                                    `}
+                                </div>
+                                <div class="text-muted small text-truncate" title="${escapeHtml(s.address)}">
+                                    <i class="fas fa-location-arrow text-primary me-1"></i> ${escapeHtml(s.address)}
+                                </div>
+                            </div>
+
+                            <!-- Platform Links Toolbar -->
+                            <div class="d-flex flex-wrap gap-1 mb-2">
+                                <a href="${s.google_map_url}" target="_blank" class="btn btn-sm btn-light border py-1 px-2 text-success fw-bold d-flex align-items-center gap-1" style="font-size: 0.68rem;" title="فتح في خرائط جوجل">
+                                    <i class="fas fa-map-marked-alt"></i> خرائط جوجل ↗
+                                </a>
+                                <a href="${s.facebook_url}" target="_blank" class="btn btn-sm btn-light border py-1 px-2 text-primary fw-bold d-flex align-items-center gap-1" style="font-size: 0.68rem;" title="بحث فيسبوك">
+                                    <i class="fab fa-facebook"></i> فيسبوك ↗
+                                </a>
+                                <a href="${s.youtube_url}" target="_blank" class="btn btn-sm btn-light border py-1 px-2 text-danger fw-bold d-flex align-items-center gap-1" style="font-size: 0.68rem;" title="بحث يوتيوب">
+                                    <i class="fab fa-youtube"></i> يوتيوب ↗
+                                </a>
+                                <a href="${s.tiktok_url}" target="_blank" class="btn btn-sm btn-light border py-1 px-2 text-dark fw-bold d-flex align-items-center gap-1" style="font-size: 0.68rem;" title="بحث تيك توك">
+                                    <i class="fab fa-tiktok"></i> تيك توك ↗
+                                </a>
+                                <a href="${s.google_records_url}" target="_blank" class="btn btn-sm btn-light border py-1 px-2 text-info fw-bold d-flex align-items-center gap-1" style="font-size: 0.68rem;" title="بحث مراجع جوجل">
+                                    <i class="fas fa-globe"></i> مراجع جوجل ↗
+                                </a>
+                            </div>
+
+                            <!-- Description Synopsis -->
+                            <div class="text-muted small mt-auto" style="font-size: 0.7rem; line-height: 1.45; max-height: 38px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+                                ${escapeHtml(s.description || '')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        html += `
+                    </div>
+                </div>
+            </div>
+        `;
+
+        container.innerHTML = html;
+    }
+
+    function filterWorkerCards(type) {
+        currentWorkerActiveFilter = type;
+        const items = document.querySelectorAll('.worker-card-item');
+        items.forEach(el => {
+            const isNew = el.getAttribute('data-is-new') === '1';
+            if (type === 'all') {
+                el.style.display = 'block';
+            } else if (type === 'new') {
+                el.style.display = isNew ? 'block' : 'none';
+            } else if (type === 'existing') {
+                el.style.display = !isNew ? 'block' : 'none';
+            }
+        });
+
+        // Re-render header counts and active classes
+        renderWorkerResults({
+            state: document.getElementById('workerState').value.trim() || 'كافة الولايات',
+            total_schools: parseInt(document.getElementById('sp-live-total-schools')?.innerText || 0)
+        });
+    }
+
+    function quickApproveCard(btn, idx) {
+        const s = currentWorkerDiscoveredSchools[idx];
+        if (!s) return;
+
+        btn.disabled = true;
+        const oldHtml = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+
+        fetch('admin.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                ajax_action: 'quick_approve_discovered_school',
+                name: s.name,
+                state: s.state,
+                city: s.city,
+                district: s.district,
+                school_type: s.school_type,
+                phone: s.phone,
+                google_map_url: s.google_map_url,
+                facebook: s.facebook_url,
+                description: s.description
+            })
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data && data.success) {
+                s.registered = true;
+                s.slug = data.school?.slug || s.slug;
+                showAdminToast(`تم اعتماد وتوثيق "${s.name}" بالدليل بنجاح ✅`, 'success');
+                renderWorkerResults({
+                    state: document.getElementById('workerState').value.trim() || 'كافة الولايات',
+                    total_schools: data.total_now || 0
+                });
+            } else {
+                btn.disabled = false;
+                btn.innerHTML = oldHtml;
+                showAdminToast('فشل الاعتماد: ' + (data.error || 'خطأ غير معروف'), 'danger');
+            }
+        })
+        .catch(err => {
+            btn.disabled = false;
+            btn.innerHTML = oldHtml;
+            showAdminToast('حدث خطأ في الاتصال بالخادم.', 'danger');
+        });
+    }
+
+    function bulkApproveNewDiscovered() {
+        const pending = currentWorkerDiscoveredSchools.filter(s => s.is_new && !s.registered);
+        if (pending.length === 0) {
+            alert('كافة المدارس الجديدة معتمدة بالفعل.');
+            return;
+        }
+
+        if (!confirm(`هل أنت متأكد من اعتماد وإدراج كافة المدارس الجديدة (${pending.length} مدرسة) في الدليل دفعة واحدة؟`)) {
+            return;
+        }
+
+        const btn = document.getElementById('btnBulkApproveNew');
+        if (btn) {
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> جاري اعتماد الدفعة...';
+        }
+
+        fetch('api_auto_discover.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                action: 'batch',
+                schools: pending.map(s => ({
+                    name: s.name,
+                    state: s.state,
+                    city: s.city,
+                    district: s.district,
+                    school_type: s.school_type,
+                    phone: s.phone || '',
+                    google_map_url: s.google_map_url || '',
+                    facebook: s.facebook_url || '',
+                    description: s.description || ''
+                }))
+            })
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data && data.success) {
+                pending.forEach(s => {
+                    s.registered = true;
+                });
+                showAdminToast(`تم اعتماد وإدراج ${data.created || pending.length} مدرسة جديدة بنجاح في الدليل ✅`, 'success');
+                renderWorkerResults({
+                    state: document.getElementById('workerState').value.trim() || 'كافة الولايات',
+                    total_schools: data.total_now || 0
+                });
+            } else {
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fas fa-check-double me-1"></i> إعادة المحاولة';
+                }
+                showAdminToast('فشل الاعتماد الجماعي: ' + (data.error || ''), 'danger');
+            }
+        })
+        .catch(err => {
+            if (btn) {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-check-double me-1"></i> إعادة المحاولة';
+            }
+            showAdminToast('حدث خطأ في الاتصال بالخادم.', 'danger');
+        });
     }
 
     function runStudioResearch() {
@@ -2891,6 +3710,374 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
         var map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
         return String(text).replace(/[&<>"']/g, function(m) { return map[m]; });
     }
+
+    // ─── WHATSAPP GATEWAY JS INTEGRATION ────────────────────────────
+    function updateWaWidgetStatus() {
+        const fd = new FormData();
+        fd.append('ajax_action', 'get_whatsapp_server_status');
+        fetch('admin.php', { method: 'POST', body: fd })
+        .then(r => r.json())
+        .then(data => {
+            const btn = document.getElementById('btnWaGatewayWidget');
+            const txt = document.getElementById('waWidgetStatusText');
+            if (btn && txt) {
+                if (data.status === 'connected') {
+                    btn.style.background = '#0F5C3E';
+                    btn.style.borderColor = '#166534';
+                    txt.innerHTML = `🟢 واتساب متصل ${data.phone ? '(+' + data.phone + ')' : ''}`;
+                } else if (data.status === 'qr_waiting') {
+                    btn.style.background = '#D97706';
+                    btn.style.borderColor = '#B45309';
+                    txt.innerHTML = '⏳ امسح رمز QR للربط';
+                } else {
+                    btn.style.background = '#991B1B';
+                    btn.style.borderColor = '#7F1D1D';
+                    txt.innerHTML = '🔴 سيرفر الواتساب غير متصل';
+                }
+            }
+
+            // تحديث عناصر تبويب الواتساب المدمج داخل لوحة التحكم إن كان مفتوحاً
+            renderTabWaStatus(data);
+        })
+        .catch(err => {
+            const txt = document.getElementById('waWidgetStatusText');
+            if (txt) txt.innerHTML = '🔴 تعذر الاتصال بالسيرفر';
+        });
+    }
+
+    function renderTabWaStatus(data) {
+        const val = document.getElementById('waTabStatusVal');
+        const phoneVal = document.getElementById('waTabPhoneVal');
+        const badge = document.getElementById('waTabStatusBadge');
+        const devPhone = document.getElementById('waTabDevicePhone');
+        const qrWrap = document.getElementById('waTabQrWrap');
+
+        if (!val || !qrWrap) return;
+
+        if (data.status === 'connected') {
+            val.style.color = '#059669';
+            val.innerHTML = '🟢 متصل ونشط';
+            if (phoneVal) phoneVal.innerHTML = data.phone ? ('+' + data.phone) : 'حساب نشط';
+            if (badge) {
+                badge.style.background = '#DCFCE7';
+                badge.style.color = '#166534';
+                badge.innerHTML = '✅ متصل وجاهز للإرسال والرد التفاعلي 24/7';
+            }
+            if (devPhone) devPhone.innerHTML = 'رقم الحساب المتصل: <b>+' + (data.phone || 'نشط') + '</b>';
+            qrWrap.innerHTML = '<div class="py-4 text-success fw-bold"><i class="fas fa-check-circle fa-4x mb-2 text-success"></i><br>حساب الواتساب مربوط بنجاح</div>';
+        } else if (data.status === 'qr_waiting' && data.qrcode) {
+            val.style.color = '#D97706';
+            val.innerHTML = '⏳ بانتظار مسح QR';
+            if (phoneVal) phoneVal.innerHTML = 'افتح واتساب لمسح الكود';
+            if (badge) {
+                badge.style.background = '#FEF3C7';
+                badge.style.color = '#92400E';
+                badge.innerHTML = '⏳ امسح رمز الاستجابة السريعة (QR Code) أدناه بهاتفك:';
+            }
+            if (devPhone) devPhone.innerHTML = 'واتساب > الأجهزة المرتبطة > ربط جهاز';
+            qrWrap.innerHTML = '<img src="' + data.qrcode + '" style="max-width: 220px; border-radius: 10px; border: 2px dashed #CBD5E1; padding: 6px;">';
+        } else {
+            val.style.color = '#DC2626';
+            val.innerHTML = '🔴 غير متصل';
+            if (phoneVal) phoneVal.innerHTML = 'تحقق من تشغيل الخادم';
+            if (badge) {
+                badge.style.background = '#FEE2E2';
+                badge.style.color = '#991B1B';
+                badge.innerHTML = '❌ خادم الواتساب غير متصل (' + (data.status || 'غير متاح') + ')';
+            }
+            if (devPhone) devPhone.innerHTML = '';
+            qrWrap.innerHTML = '<div class="text-muted small py-3">يرجى تشغيل `start_whatsapp.bat`</div>';
+        }
+    }
+
+    function refreshTabWaStatus() {
+        updateWaWidgetStatus();
+    }
+
+    function runSinglePhoneCheck() {
+        const inp = document.getElementById('checkSinglePhoneInput');
+        const box = document.getElementById('checkSingleResultBox');
+        if (!inp || !inp.value.trim()) {
+            alert('يرجى إدخال رقم الهاتف');
+            return;
+        }
+        const phone = inp.value.trim();
+        box.style.display = 'block';
+        box.style.background = '#F1F5F9';
+        box.style.color = '#334155';
+        box.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> جاري فحص الرقم عبر سيرفرات واتساب...';
+
+        const fd = new FormData();
+        fd.append('ajax_action', 'check_school_whatsapp');
+        fd.append('id', 0);
+        // Direct post
+        fetch('DaleelWhatsAppService.php') // verify
+        const fd2 = new FormData();
+        fd2.append('ajax_action', 'check_school_whatsapp');
+        fetch('http://localhost:8085/api/daleel_session/check-number', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({phone})
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data && data.success && data.exists) {
+                box.style.background = '#DCFCE7';
+                box.style.color = '#166534';
+                box.innerHTML = '🟢 <b>الرقم مسجل في الواتساب ونشط!</b><br>المعرف: ' + data.jid;
+            } else {
+                box.style.background = '#FEE2E2';
+                box.style.color = '#991B1B';
+                box.innerHTML = '🔴 <b>الرقم ليس لديه حساب واتساب</b> (هاتف أرضي أو غير مفعل).';
+            }
+        })
+        .catch(err => {
+            box.style.background = '#FEE2E2';
+            box.style.color = '#991B1B';
+            box.innerHTML = 'خطأ في الاتصال بالخادم: ' + err.message;
+        });
+    }
+
+    function runTabSendMessage() {
+        const pInp = document.getElementById('tabSendPhone');
+        const mInp = document.getElementById('tabSendMessage');
+        const box = document.getElementById('tabSendResultBox');
+        if (!pInp || !pInp.value.trim() || !mInp || !mInp.value.trim()) {
+            alert('يرجى كتابة رقم الهاتف ونص الرسالة');
+            return;
+        }
+
+        box.style.display = 'block';
+        box.style.background = '#F1F5F9';
+        box.style.color = '#334155';
+        box.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> جاري إرسال الرسالة عبر الخادم...';
+
+        const fd = new FormData();
+        fd.append('ajax_action', 'send_direct_whatsapp');
+        fd.append('phone', pInp.value.trim());
+        fd.append('message', mInp.value.trim());
+
+        fetch('admin.php', { method: 'POST', body: fd })
+        .then(r => r.json())
+        .then(data => {
+            if (data && data.success) {
+                box.style.background = '#DCFCE7';
+                box.style.color = '#166534';
+                box.innerHTML = '✅ ' + data.message;
+                mInp.value = '';
+            } else {
+                box.style.background = '#FEE2E2';
+                box.style.color = '#991B1B';
+                box.innerHTML = '❌ ' + (data.error || 'فشل الإرسال');
+            }
+        })
+        .catch(err => {
+            box.style.background = '#FEE2E2';
+            box.style.color = '#991B1B';
+            box.innerHTML = 'خطأ في الاتصال بالخادم.';
+        });
+    }
+
+    function logoutWaSession() {
+        if (!confirm('هل أنت متأكد من فصل رقم الهاتف وتسجيل الخروج من الجلسة؟')) return;
+        const fd = new FormData();
+        fd.append('ajax_action', 'logout_whatsapp_server');
+        fetch('admin.php', { method: 'POST', body: fd })
+        .then(r => r.json())
+        .then(data => {
+            alert('تم تسجيل الخروج وفصل الرقم.');
+            updateWaWidgetStatus();
+        });
+    }
+
+    function openWaGatewayModal() {
+        const modal = document.getElementById('modalWaGateway');
+        if (modal) modal.style.display = 'block';
+        refreshWaGatewayStatus();
+    }
+
+    function closeWaGatewayModal() {
+        const modal = document.getElementById('modalWaGateway');
+        if (modal) modal.style.display = 'none';
+    }
+
+    function refreshWaGatewayStatus() {
+        const b = document.getElementById('waModalStatusBadge');
+        const p = document.getElementById('waModalPhoneInfo');
+        const q = document.getElementById('waModalQrWrap');
+        if (!b || !q) return;
+
+        b.className = 'p-3 rounded-3 text-center mb-3 fw-bold';
+        b.style.background = '#F1F5F9';
+        b.style.color = '#334155';
+        b.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> جاري فحص حالة الخادم...';
+
+        const fd = new FormData();
+        fd.append('ajax_action', 'get_whatsapp_server_status');
+        fetch('admin.php', { method: 'POST', body: fd })
+        .then(r => r.json())
+        .then(data => {
+            if (data.status === 'connected') {
+                b.style.background = '#DCFCE7';
+                b.style.color = '#166534';
+                b.innerHTML = '✅ متصل وجاهز للإرسال والرد الآلي على الاستفسارات';
+                p.innerHTML = 'رقم الحساب المتصل: <b>+' + (data.phone || 'نشط') + '</b>';
+                q.innerHTML = '<div class="py-4 text-success fw-bold"><i class="fas fa-check-circle fa-3x mb-2 text-success"></i><br>جلسة الواتساب نشطة ومربوطة بنجاح</div>';
+            } else if (data.status === 'qr_waiting' && data.qrcode) {
+                b.style.background = '#FEF3C7';
+                b.style.color = '#92400E';
+                b.innerHTML = '⏳ امسح رمز الاستجابة السريعة (QR Code) من تطبيق الواتساب بهاتفك';
+                p.innerHTML = 'واتساب > الأجهزة المرتبطة > ربط جهاز';
+                q.innerHTML = '<img src="' + data.qrcode + '" style="max-width: 210px; border-radius: 8px; border: 2px dashed #CBD5E1; padding: 6px;">';
+            } else {
+                b.style.background = '#FEE2E2';
+                b.style.color = '#991B1B';
+                b.innerHTML = '❌ الخادم غير متصل (' + (data.status || 'غير متاح') + ')';
+                p.innerHTML = '';
+                q.innerHTML = '<div class="text-muted small py-3">يرجى التأكد من تشغيل start_whatsapp.bat أو فحص المنفذ 8085</div>';
+            }
+        })
+        .catch(err => {
+            b.style.background = '#FEE2E2';
+            b.style.color = '#991B1B';
+            b.innerHTML = '❌ فشل الاتصال بخادم الواتساب';
+        });
+    }
+
+    function restartWaGatewaySession() {
+        if (!confirm('هل تريد إعادة تشغيل جلسة واتساب الدليل؟')) return;
+        const fd = new FormData();
+        fd.append('ajax_action', 'restart_whatsapp_server');
+        fetch('admin.php', { method: 'POST', body: fd })
+        .then(r => r.json())
+        .then(data => {
+            alert(data.message || 'تم طلب إعادة التشغيل');
+            setTimeout(refreshWaGatewayStatus, 1500);
+            setTimeout(updateWaWidgetStatus, 2000);
+        });
+    }
+
+    // إرسال آلي مباشر بنقرة واحدة
+    function sendAutoWhatsApp(schoolId, btn) {
+        if (!confirm('هل تريد إرسال رسالة التعريف والدعوة الرسمية إلى هذه المدرسة آلياً الآن؟')) return;
+
+        const oldHtml = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>جاري الإرسال...</span>';
+
+        const fd = new FormData();
+        fd.append('ajax_action', 'send_school_whatsapp');
+        fd.append('id', schoolId);
+
+        fetch('admin.php', { method: 'POST', body: fd })
+        .then(r => r.json())
+        .then(data => {
+            btn.disabled = false;
+            if (data && data.success) {
+                btn.innerHTML = '<i class="fas fa-check"></i> <span>تم الإرسال</span>';
+                btn.style.backgroundColor = '#166534';
+                showAdminToast(data.message, 'success');
+
+                const row = document.getElementById('row-school-' + schoolId);
+                if (row) {
+                    const togglePill = row.querySelector('.sp-toggle-pill[onclick*="toggle_whatsapp_sent"]');
+                    if (togglePill) {
+                        togglePill.className = 'sp-toggle-pill toggle-on-green is-success-pulse';
+                        togglePill.innerHTML = '<i class="fab fa-whatsapp"></i> <span>تم الإرسال</span>';
+                    }
+                }
+            } else {
+                btn.innerHTML = oldHtml;
+                alert('فشل الإرسال: ' + (data.error || 'حدث خطأ'));
+                showAdminToast('فشل الإرسال: ' + (data.error || ''), 'danger');
+            }
+        })
+        .catch(err => {
+            btn.disabled = false;
+            btn.innerHTML = oldHtml;
+            alert('حدث خطأ في الاتصال بالخادم.');
+        });
+    }
+
+    // فحص هل الرقم يملك حساب واتساب نشط
+    function checkSchoolWhatsApp(schoolId, btn) {
+        const oldHtml = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin" style="font-size: 0.6rem;"></i>';
+
+        const fd = new FormData();
+        fd.append('ajax_action', 'check_school_whatsapp');
+        fd.append('id', schoolId);
+
+        fetch('admin.php', { method: 'POST', body: fd })
+        .then(r => r.json())
+        .then(data => {
+            btn.disabled = false;
+            btn.innerHTML = oldHtml;
+            if (data && data.success) {
+                if (data.exists) {
+                    btn.className = 'btn btn-sm btn-success d-inline-flex align-items-center justify-content-center p-0';
+                    btn.innerHTML = '<i class="fas fa-check" style="font-size: 0.6rem;"></i>';
+                    showAdminToast('🟢 ' + data.phone + ' مسجل في الواتساب ونشط!', 'success');
+                } else {
+                    btn.className = 'btn btn-sm btn-danger d-inline-flex align-items-center justify-content-center p-0';
+                    btn.innerHTML = '<i class="fas fa-times" style="font-size: 0.6rem;"></i>';
+                    showAdminToast('🔴 ' + data.phone + ' ليس لديه حساب واتساب (هاتف أرضي أو غير مفعل)', 'danger');
+                }
+            } else {
+                alert(data.error || 'فشل الفحص');
+            }
+        })
+        .catch(err => {
+            btn.disabled = false;
+            btn.innerHTML = oldHtml;
+            alert('خطأ في الاتصال بخادم الواتساب');
+        });
+    }
+
+    // بدء فحص دوري لحالة سيرفر الواتساب كل 8 ثوان
+    setInterval(updateWaWidgetStatus, 8000);
+    setTimeout(updateWaWidgetStatus, 1000);
     </script>
+
+    <!-- MODAL: WHATSAPP SERVER & QR DASHBOARD -->
+    <div class="modal fade show" id="modalWaGateway" tabindex="-1" aria-hidden="true" style="display: none; background: rgba(0,0,0,0.65); z-index: 99999;">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 580px;">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 16px; overflow: hidden;">
+                <div class="modal-header text-white" style="background: linear-gradient(135deg, #0F5C3E, #0A3E2A); padding: 18px 24px;">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="fab fa-whatsapp fs-4 text-warning"></i>
+                        <div>
+                            <h5 class="modal-title fw-bold mb-0" style="font-size: 1.05rem;">خادم واتساب دليل المدارس السودانية</h5>
+                            <div class="small opacity-75" style="font-size: 0.72rem;">Port 8085 — جلسة daleel_session المستقلة</div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" onclick="closeWaGatewayModal()"></button>
+                </div>
+                <div class="modal-body p-4" style="background: #F8FAFC;">
+                    <div id="waModalStatusBadge" class="p-3 rounded-3 text-center mb-3 fw-bold" style="background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D;">
+                        ⏳ جاري فحص حالة الاتصال...
+                    </div>
+                    <div id="waModalPhoneInfo" class="text-center fw-bold mb-3 text-secondary" style="font-size: 0.85rem;"></div>
+
+                    <div id="waModalQrWrap" class="text-center p-3 bg-white rounded-3 border mb-3" style="min-height: 200px; display: flex; align-items: center; justify-content: center;">
+                        <span class="text-muted small">جاري جلب رمز الاستجابة السريعة...</span>
+                    </div>
+
+                    <div class="d-flex flex-wrap gap-2 justify-content-center">
+                        <button type="button" class="btn btn-sm btn-outline-success fw-bold px-3" onclick="refreshWaGatewayStatus()">
+                            <i class="fas fa-sync-alt me-1"></i> تحديث الحالة
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-warning fw-bold px-3" onclick="restartWaGatewaySession()">
+                            <i class="fas fa-redo me-1"></i> إعادة تشغيل الجلسة
+                        </button>
+                        <a href="http://localhost:8085/" target="_blank" class="btn btn-sm btn-success fw-bold px-3">
+                            <i class="fas fa-external-link-alt me-1"></i> فتح لوحة السيرفر المباشرة
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
