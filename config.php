@@ -652,6 +652,8 @@ function ensureTablesExist(PDO $pdo): void {
             'is_historic'            => "ALTER TABLE daleel_schools ADD COLUMN is_historic TINYINT(1) NOT NULL DEFAULT 0 AFTER is_verified",
             'historic_votes'         => "ALTER TABLE daleel_schools ADD COLUMN historic_votes INT UNSIGNED NOT NULL DEFAULT 0 AFTER is_historic",
             'historic_badge_reason'  => "ALTER TABLE daleel_schools ADD COLUMN historic_badge_reason VARCHAR(255) NULL AFTER historic_votes",
+            'whatsapp_sent'          => "ALTER TABLE daleel_schools ADD COLUMN whatsapp_sent TINYINT(1) NOT NULL DEFAULT 0 AFTER whatsapp",
+            'whatsapp_sent_at'       => "ALTER TABLE daleel_schools ADD COLUMN whatsapp_sent_at TIMESTAMP NULL DEFAULT NULL AFTER whatsapp_sent",
         ];
         foreach ($alterStatements as $colName => $sql) {
             if (!isset($existingCols[$colName])) {

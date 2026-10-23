@@ -108,6 +108,28 @@ if (!function_exists('formatWhatsAppUrl')) {
     }
 }
 
+if (!function_exists('getSchoolTypeLabel')) {
+    function getSchoolTypeLabel(?string $type, ?string $stages, ?string $name): array {
+        $type = strtolower(trim((string)$type));
+        $stages = (string)$stages;
+        $name = (string)$name;
+        
+        if (strpos($stages, 'kindergarten') !== false || $type === 'kindergarten' || mb_strpos($name, 'روضة') !== false || mb_strpos($name, 'حضانة') !== false) {
+            return ['label' => 'روضة / حضانة', 'badge' => 'bg-warning-subtle text-warning border border-warning-subtle', 'icon' => 'fa-shapes'];
+        }
+        if ($type === 'government' || mb_strpos($name, 'حكومية') !== false || mb_strpos($name, 'حكومي') !== false) {
+            return ['label' => 'حكومية', 'badge' => 'bg-secondary-subtle text-secondary border border-secondary-subtle', 'icon' => 'fa-building-columns'];
+        }
+        if ($type === 'international') {
+            return ['label' => 'عالمية / دولية', 'badge' => 'bg-primary-subtle text-primary border border-primary-subtle', 'icon' => 'fa-globe'];
+        }
+        if ($type === 'community') {
+            return ['label' => 'جالية / مهجر', 'badge' => 'bg-info-subtle text-info border border-info-subtle', 'icon' => 'fa-users'];
+        }
+        return ['label' => 'خاصة', 'badge' => 'bg-success-subtle text-success border border-success-subtle', 'icon' => 'fa-school'];
+    }
+}
+
 // Handle Logout
 if (isset($_GET['action']) && $_GET['action'] === 'logout') {
     unset($_SESSION['daleel_master_admin']);
@@ -290,6 +312,21 @@ if (isset($_REQUEST['ajax_action'])) {
             exit;
         }
 
+        if ($action === 'toggle_whatsapp_sent') {
+            $id = (int)($_POST['id'] ?? 0);
+            $val = (int)($_POST['value'] ?? 0);
+            $sentAt = $val ? date('Y-m-d H:i:s') : null;
+            $pdo->prepare("UPDATE daleel_schools SET whatsapp_sent = ?, whatsapp_sent_at = ? WHERE id = ?")->execute([$val, $sentAt, $id]);
+            echo json_encode([
+                'success' => true,
+                'id' => $id,
+                'whatsapp_sent' => $val,
+                'whatsapp_sent_at' => $sentAt ? date('j/n H:i', strtotime($sentAt)) : null,
+                'message' => $val ? 'تم تحديد المدرسة: تم إرسال رسالة الواتساب بنجاح 📲' : 'تم إلغاء علامة إرسال الواتساب للمدرسة ℹ️'
+            ]);
+            exit;
+        }
+
         if ($action === 'update_rank') {
             $id = (int)($_POST['id'] ?? 0);
             $dirRank = (int)($_POST['directory_rank'] ?? 0);
@@ -425,11 +462,15 @@ $historicCount = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE sta
 $claimsCount = (int)$pdo->query("SELECT count(*) FROM daleel_school_claims WHERE status = 'pending'")->fetchColumn();
 $reviewsCount = (int)$pdo->query("SELECT count(*) FROM daleel_school_reviews")->fetchColumn();
 $inquiriesCount = (int)$pdo->query("SELECT count(*) FROM daleel_school_inquiries")->fetchColumn();
+$waSentCount = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE status = 'approved' AND whatsapp_sent = 1")->fetchColumn();
+$waUnsentCount = max(0, $totalCount - $waSentCount);
+$waPercent = $totalCount > 0 ? round(($waSentCount / $totalCount) * 100, 1) : 0;
 
 // Filters for Schools Table
 $filterCountry = trim($_GET['country'] ?? '');
 $filterState = trim($_GET['state'] ?? '');
 $filterType = trim($_GET['type'] ?? '');
+$filterWaStatus = trim($_GET['wa_status'] ?? '');
 $filterStatus = trim($_GET['status'] ?? '');
 $filterSearch = trim($_GET['search'] ?? '');
 $filterSort = trim($_GET['sort'] ?? 'catalog_rank');
@@ -448,6 +489,31 @@ if ($filterState !== '') {
     $whereClauses[] = "state = ?";
     $whereParams[] = $filterState;
 }
+
+// Educational Category Filter: الحكومية، الخاصة، رياض الأطفال والحضانات، العالمية، الجاليات
+if ($filterType === 'government') {
+    $whereClauses[] = "(school_type = 'government' OR name LIKE '%حكومية%' OR name LIKE '%حكومي%')";
+} elseif ($filterType === 'private') {
+    $whereClauses[] = "(school_type = 'private' AND stages != '[\"kindergarten\"]' AND name NOT LIKE '%روضة%' AND name NOT LIKE '%حضانة%')";
+} elseif ($filterType === 'kindergarten') {
+    $whereClauses[] = "(school_type = 'kindergarten' OR stages LIKE '%kindergarten%' OR name LIKE '%روضة%' OR name LIKE '%حضانة%' OR name LIKE '%براعم%')";
+} elseif ($filterType === 'international') {
+    $whereClauses[] = "school_type = 'international'";
+} elseif ($filterType === 'community') {
+    $whereClauses[] = "(school_type = 'community' OR country != 'السودان')";
+}
+
+// WhatsApp Outreach Status Filter: تم الإرسال، لم يتم الإرسال، يتوفر هاتف، بدون هاتف
+if ($filterWaStatus === 'sent') {
+    $whereClauses[] = "whatsapp_sent = 1";
+} elseif ($filterWaStatus === 'unsent') {
+    $whereClauses[] = "whatsapp_sent = 0";
+} elseif ($filterWaStatus === 'has_phone') {
+    $whereClauses[] = "(phone IS NOT NULL AND phone != '')";
+} elseif ($filterWaStatus === 'no_phone') {
+    $whereClauses[] = "(phone IS NULL OR phone = '')";
+}
+
 if ($filterStatus === 'verified') {
     $whereClauses[] = "is_verified = 1";
 } elseif ($filterStatus === 'unverified') {
@@ -492,8 +558,8 @@ if ($filterSort === 'id_asc') {
     $orderSql = $catalogOrderSql;
 }
 
-// Fetch filtered rows with country, phone, whatsapp, established_year
-$querySql = "SELECT id, name, name_en, slug, country, state, city, district, address, phone, whatsapp, stages, is_verified, is_schoplus_client, is_historic, directory_rank, state_rank, established_year, created_at 
+// Fetch filtered rows with country, phone, whatsapp, whatsapp_sent, whatsapp_sent_at, school_type
+$querySql = "SELECT id, name, name_en, slug, school_type, country, state, city, district, address, phone, whatsapp, whatsapp_sent, whatsapp_sent_at, stages, is_verified, is_schoplus_client, is_historic, directory_rank, state_rank, established_year, created_at 
              FROM daleel_schools 
              WHERE {$whereSql} 
              ORDER BY {$orderSql} 
@@ -894,11 +960,13 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                 </div>
             </div>
             <div class="col-xl-2 col-md-4 col-6">
-                <div class="metric-card m-blue">
-                    <div class="metric-lbl">التقييمات والاستفسارات</div>
-                    <div class="metric-val"><?= number_format($reviewsCount + $inquiriesCount) ?></div>
-                    <div class="small text-muted" style="font-size: 0.62rem;">تفاعل أولياء الأمور</div>
-                </div>
+                <a href="admin.php?tab=schools&wa_status=sent" class="text-decoration-none">
+                    <div class="metric-card m-green">
+                        <div class="metric-lbl"><i class="fab fa-whatsapp me-1 text-success"></i>حملة مراسلة الواتساب</div>
+                        <div class="metric-val text-success"><?= number_format($waSentCount) ?></div>
+                        <div class="small text-muted" style="font-size: 0.62rem;"><?= number_format($waUnsentCount) ?> متبقية (<?= $waPercent ?>%)</div>
+                    </div>
+                </a>
             </div>
         </div>
 
@@ -924,7 +992,7 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                 </a>
                 <a href="admin.php?tab=maintenance" class="sp-main-tab <?= $activeTab === 'maintenance' ? 'active' : '' ?>">
                     <i class="fas fa-tools"></i> أدوات النظام والصيانة
-                    <span class="tab-badge">v3.7.90</span>
+                    <span class="tab-badge">v3.7.99</span>
                 </a>
             </div>
         </div>
@@ -950,15 +1018,38 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                     <form method="GET" action="admin.php" class="row g-2 align-items-center">
                         <input type="hidden" name="tab" value="schools">
                         
-                        <div class="col-lg-3 col-12">
+                        <div class="col-lg-3 col-md-6 col-12">
                             <div class="input-group input-group-sm">
                                 <span class="input-group-text bg-white" style="border-color: #DDE4ED;"><i class="fas fa-search text-muted"></i></span>
                                 <input type="text" name="search" class="form-control" placeholder="ابحث بالاسم، الحي، الهاتف، المدينة..." value="<?= e($filterSearch) ?>" style="border-color: #DDE4ED; font-size: 0.75rem;">
                             </div>
                         </div>
 
+                        <!-- CATEGORY / SCHOOL TYPE FILTER -->
+                        <div class="col-lg-2 col-md-3 col-sm-6 col-12">
+                            <select name="type" class="form-select form-select-sm" style="border-color: #DDE4ED; font-size: 0.75rem;" onchange="this.form.submit()">
+                                <option value="">كافة التصنيفات التعليمية</option>
+                                <option value="private" <?= $filterType === 'private' ? 'selected' : '' ?>>مدارس خاصة (أساس / ثانوي)</option>
+                                <option value="government" <?= $filterType === 'government' ? 'selected' : '' ?>>مدارس حكومية</option>
+                                <option value="kindergarten" <?= $filterType === 'kindergarten' ? 'selected' : '' ?>>رياض أطفال وحضانات</option>
+                                <option value="international" <?= $filterType === 'international' ? 'selected' : '' ?>>مدارس عالمية ودولية</option>
+                                <option value="community" <?= $filterType === 'community' ? 'selected' : '' ?>>مدارس الجاليات والمهجر</option>
+                            </select>
+                        </div>
+
+                        <!-- WHATSAPP OUTREACH STATUS FILTER -->
+                        <div class="col-lg-2 col-md-3 col-sm-6 col-12">
+                            <select name="wa_status" class="form-select form-select-sm" style="border-color: #DDE4ED; font-size: 0.75rem;" onchange="this.form.submit()">
+                                <option value="">حالة مراسلة الواتساب (الكل)</option>
+                                <option value="sent" <?= $filterWaStatus === 'sent' ? 'selected' : '' ?>>✅ تم إرسال الرسالة فقط</option>
+                                <option value="unsent" <?= $filterWaStatus === 'unsent' ? 'selected' : '' ?>>⏳ لم يتم الإرسال بعد (المتبقي)</option>
+                                <option value="has_phone" <?= $filterWaStatus === 'has_phone' ? 'selected' : '' ?>>📞 يتوفر رقم هاتف / واتساب</option>
+                                <option value="no_phone" <?= $filterWaStatus === 'no_phone' ? 'selected' : '' ?>>⚠️ بدون رقم هاتف</option>
+                            </select>
+                        </div>
+
                         <!-- COUNTRY FILTER -->
-                        <div class="col-lg-2 col-sm-6 col-12">
+                        <div class="col-lg-2 col-md-3 col-sm-6 col-12">
                             <select name="country" class="form-select form-select-sm" style="border-color: #DDE4ED; font-size: 0.75rem;" onchange="this.form.submit()">
                                 <option value="">كافة الدول (المهجر والسودان)</option>
                                 <?php foreach ($countriesList as $cntry): ?>
@@ -968,7 +1059,7 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                         </div>
 
                         <!-- STATE FILTER -->
-                        <div class="col-lg-2 col-sm-6 col-12">
+                        <div class="col-lg-2 col-md-3 col-sm-6 col-12">
                             <select name="state" class="form-select form-select-sm" style="border-color: #DDE4ED; font-size: 0.75rem;" onchange="this.form.submit()">
                                 <option value="">كافة الولايات والمناطق</option>
                                 <?php foreach (SudanGeography::states('السودان') as $st): ?>
@@ -978,9 +1069,9 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                         </div>
 
                         <!-- STATUS FILTER -->
-                        <div class="col-lg-2 col-sm-6 col-12">
+                        <div class="col-lg-2 col-md-3 col-sm-6 col-12">
                             <select name="status" class="form-select form-select-sm" style="border-color: #DDE4ED; font-size: 0.75rem;" onchange="this.form.submit()">
-                                <option value="">كافة الحالات</option>
+                                <option value="">حالة التوثيق والشارات</option>
                                 <option value="verified" <?= $filterStatus === 'verified' ? 'selected' : '' ?>>موثقة فقط (Verified)</option>
                                 <option value="unverified" <?= $filterStatus === 'unverified' ? 'selected' : '' ?>>عامة غير موثقة (Unverified)</option>
                                 <option value="smart" <?= $filterStatus === 'smart' ? 'selected' : '' ?>>مدارس SchoPlus الذكية</option>
@@ -989,7 +1080,7 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                         </div>
 
                         <!-- SORT FILTER -->
-                        <div class="col-lg-2 col-sm-6 col-12">
+                        <div class="col-lg-2 col-md-3 col-sm-6 col-12">
                             <select name="sort" class="form-select form-select-sm" style="border-color: #DDE4ED; font-size: 0.75rem;" onchange="this.form.submit()">
                                 <option value="catalog_rank" <?= $filterSort === 'catalog_rank' ? 'selected' : '' ?>>الترتيب الفعلي بالدليل (افتراضي)</option>
                                 <option value="id_asc" <?= $filterSort === 'id_asc' ? 'selected' : '' ?>>المعرف #ID تصاعدي</option>
@@ -1000,12 +1091,12 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                             </select>
                         </div>
 
-                        <div class="col-lg-1 col-12 d-flex gap-1">
-                            <button type="submit" class="btn btn-sm btn-primary w-100 py-1" style="font-size: 0.74rem;" title="تطبيق الفلترة">
-                                <i class="fas fa-filter"></i>
+                        <div class="col-lg-2 col-md-3 col-sm-6 col-12 d-flex gap-1">
+                            <button type="submit" class="btn btn-sm btn-primary flex-grow-1 py-1" style="font-size: 0.74rem;" title="تطبيق الفلترة">
+                                <i class="fas fa-filter me-1"></i> فلترة
                             </button>
-                            <?php if ($filterSearch || $filterCountry || $filterState || $filterStatus || ($filterSort && $filterSort !== 'catalog_rank')): ?>
-                                <a href="admin.php?tab=schools" class="btn btn-sm btn-light border py-1" title="مسح الفلاتر">
+                            <?php if ($filterSearch || $filterCountry || $filterState || $filterType || $filterWaStatus || $filterStatus || ($filterSort && $filterSort !== 'catalog_rank')): ?>
+                                <a href="admin.php?tab=schools" class="btn btn-sm btn-light border py-1 px-2" title="مسح كافة الفلاتر">
                                     <i class="fas fa-undo"></i>
                                 </a>
                             <?php endif; ?>
@@ -1020,9 +1111,11 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                             <tr>
                                 <th style="width: 50px;">#ID</th>
                                 <th>اسم المدرسة والمراحل</th>
+                                <th>التصنيف</th>
                                 <th>الدولة</th>
                                 <th>الموقع (الولاية / المدينة / الحي)</th>
-                                <th style="min-width: 145px;">الهاتف والواتساب</th>
+                                <th style="min-width: 145px;">الهاتف والتواصل</th>
+                                <th class="text-center" style="width: 105px;">إرسال الواتساب</th>
                                 <th class="text-center">التوثيق</th>
                                 <th class="text-center">SchoPlus</th>
                                 <th class="text-center">صرح عريق</th>
@@ -1033,12 +1126,13 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                         <tbody>
                             <?php if (empty($schoolsList)): ?>
                                 <tr>
-                                    <td colspan="10" class="text-center py-5 text-muted">لم يتم العثور على أي مدارس مطابقة لشروط البحث.</td>
+                                    <td colspan="12" class="text-center py-5 text-muted">لم يتم العثور على أي مدارس مطابقة لشروط البحث.</td>
                                 </tr>
                             <?php else: ?>
                                 <?php foreach ($schoolsList as $sch): ?>
                                     <?php 
                                     $actualDirRank = getSchoolDirectoryRank($pdo, (int)$sch['id'], !empty($sch['directory_rank']) ? (int)$sch['directory_rank'] : null);
+                                    $typeMeta = getSchoolTypeLabel($sch['school_type'] ?? '', $sch['stages'] ?? '', $sch['name'] ?? '');
                                     $phoneVal = trim((string)($sch['whatsapp'] ?: $sch['phone']));
                                     $waUrl = formatWhatsAppUrl($phoneVal, $sch['name'], $sch['slug'] ?? '', $sch['country'] ?? 'السودان');
 
@@ -1072,6 +1166,12 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                                                     <?php endif; ?>
                                                 </div>
                                             </div>
+                                        </td>
+                                        <!-- CLASSIFICATION -->
+                                        <td class="text-nowrap">
+                                            <span class="badge <?= $typeMeta['badge'] ?> px-2 py-1" style="font-size: 0.65rem;">
+                                                <i class="fas <?= $typeMeta['icon'] ?> me-1"></i><?= $typeMeta['label'] ?>
+                                            </span>
                                         </td>
                                         <!-- COUNTRY -->
                                         <td>
@@ -1140,6 +1240,21 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                                             <?php endif; ?>
                                         </td>
                                         
+                                        <!-- WHATSAPP OUTREACH STATUS TOGGLE -->
+                                        <td class="text-center">
+                                            <span class="sp-toggle-pill <?= !empty($sch['whatsapp_sent']) ? 'toggle-on-green' : 'toggle-off-gray' ?>" 
+                                                  onclick="toggleSchoolMeta(<?= $sch['id'] ?>, 'toggle_whatsapp_sent', <?= !empty($sch['whatsapp_sent']) ? 0 : 1 ?>, this)"
+                                                  title="<?= !empty($sch['whatsapp_sent']) ? 'تم إرسال الرسالة ' . (!empty($sch['whatsapp_sent_at']) ? 'بتاريخ ' . e(arabicDate($sch['whatsapp_sent_at'])) : '') . ' - انقر لإلغاء العلامة' : 'لم يتم إرسال الرسالة بعد - انقر لتحديد أنه تم الإرسال' ?>">
+                                                <i class="fab fa-whatsapp"></i>
+                                                <span><?= !empty($sch['whatsapp_sent']) ? 'تم الإرسال' : 'لم يُرسل' ?></span>
+                                            </span>
+                                            <?php if (!empty($sch['whatsapp_sent']) && !empty($sch['whatsapp_sent_at'])): ?>
+                                                <div class="text-muted" style="font-size: 0.58rem; margin-top: 2px;" title="<?= e($sch['whatsapp_sent_at']) ?>">
+                                                    <?= e(date('j/n H:i', strtotime($sch['whatsapp_sent_at']))) ?>
+                                                </div>
+                                            <?php endif; ?>
+                                        </td>
+
                                         <!-- VERIFIED TOGGLE -->
                                         <td class="text-center">
                                             <span class="sp-toggle-pill <?= $sch['is_verified'] ? 'toggle-on-green' : 'toggle-off-gray' ?>" 
@@ -1217,6 +1332,18 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
 
                 <!-- Pagination -->
                 <?php if ($totalPages > 1): ?>
+                    <?php 
+                    $pageParams = http_build_query(array_filter([
+                        'tab' => 'schools',
+                        'search' => $filterSearch,
+                        'type' => $filterType,
+                        'wa_status' => $filterWaStatus,
+                        'country' => $filterCountry,
+                        'state' => $filterState,
+                        'status' => $filterStatus,
+                        'sort' => $filterSort
+                    ]));
+                    ?>
                     <div class="p-3 border-top d-flex justify-content-between align-items-center flex-wrap gap-2">
                         <div class="small text-muted" style="font-size: 0.7rem;">
                             عرض الصفحة <strong><?= $page ?></strong> من أصل <strong><?= $totalPages ?></strong> (إجمالي <?= number_format($totalFiltered) ?> مدرسة)
@@ -1224,13 +1351,13 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                         <nav aria-label="تنقل الصفحات">
                             <ul class="pagination pagination-sm mb-0">
                                 <?php if ($page > 1): ?>
-                                    <li class="page-item"><a class="page-link" href="admin.php?tab=schools&page=<?= $page - 1 ?>&search=<?= urlencode($filterSearch) ?>&country=<?= urlencode($filterCountry) ?>&state=<?= urlencode($filterState) ?>&status=<?= urlencode($filterStatus) ?>&sort=<?= urlencode($filterSort) ?>">السابقة</a></li>
+                                    <li class="page-item"><a class="page-link" href="admin.php?page=<?= $page - 1 ?>&<?= $pageParams ?>">السابقة</a></li>
                                 <?php endif; ?>
                                 
                                 <li class="page-item active"><span class="page-link" style="background: var(--navy); border-color: var(--navy);"><?= $page ?></span></li>
 
                                 <?php if ($page < $totalPages): ?>
-                                    <li class="page-item"><a class="page-link" href="admin.php?tab=schools&page=<?= $page + 1 ?>&search=<?= urlencode($filterSearch) ?>&country=<?= urlencode($filterCountry) ?>&state=<?= urlencode($filterState) ?>&status=<?= urlencode($filterStatus) ?>&sort=<?= urlencode($filterSort) ?>">التالية</a></li>
+                                    <li class="page-item"><a class="page-link" href="admin.php?page=<?= $page + 1 ?>&<?= $pageParams ?>">التالية</a></li>
                                 <?php endif; ?>
                             </ul>
                         </nav>
@@ -1569,6 +1696,20 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                         el.innerHTML = '<i class="fas fa-landmark"></i> <span>حديث</span>';
                         el.setAttribute('onclick', `toggleSchoolMeta(${schoolId}, 'toggle_historic', 1, this)`);
                         showAdminToast('تم إلغاء شارة الصرح العريق ℹ️', 'warning');
+                    }
+                } else if (action === 'toggle_whatsapp_sent') {
+                    if (newVal === 1) {
+                        el.className = 'sp-toggle-pill toggle-on-green is-success-pulse';
+                        el.innerHTML = '<i class="fab fa-whatsapp"></i> <span>تم الإرسال</span>';
+                        el.setAttribute('onclick', `toggleSchoolMeta(${schoolId}, 'toggle_whatsapp_sent', 0, this)`);
+                        el.setAttribute('title', 'تم إرسال الرسالة - انقر لإلغاء العلامة');
+                        showAdminToast('تم تحديد المدرسة: تم إرسال رسالة الواتساب بنجاح 📲', 'success');
+                    } else {
+                        el.className = 'sp-toggle-pill toggle-off-gray is-success-pulse';
+                        el.innerHTML = '<i class="fab fa-whatsapp"></i> <span>لم يُرسل</span>';
+                        el.setAttribute('onclick', `toggleSchoolMeta(${schoolId}, 'toggle_whatsapp_sent', 1, this)`);
+                        el.setAttribute('title', 'لم يتم إرسال الرسالة بعد - انقر لتحديد أنه تم الإرسال');
+                        showAdminToast('تم إلغاء علامة إرسال الواتساب للمدرسة ℹ️', 'warning');
                     }
                 }
                 setTimeout(() => el.classList.remove('is-success-pulse'), 1200);
