@@ -17,6 +17,55 @@ $pdo = db();
 $masterSecretKey = "schoplus_daleel_deploy_sec_4412f";
 $defaultAdminUser = "admin@schoplus.sd";
 
+if (!function_exists('getCountryBadge')) {
+    function getCountryBadge(?string $country): string {
+        $country = trim((string)$country) ?: 'السودان';
+        $flags = [
+            'السودان' => '🇸🇩',
+            'مصر' => '🇪🇬',
+            'المملكة العربية السعودية' => '🇸🇦',
+            'السعودية' => '🇸🇦',
+            'الإمارات العربية المتحدة' => '🇦🇪',
+            'الإمارات' => '🇦🇪',
+            'قطر' => '🇶🇦',
+            'سلطنة عمان' => '🇴🇲',
+            'عمان' => '🇴🇲',
+            'الكويت' => '🇰🇼',
+            'البحرين' => '🇧🇭',
+            'تركيا' => '🇹🇷',
+            'أوغندا' => '🇺🇬',
+            'تشاد' => '🇹🇩',
+            'جنوب السودان' => '🇸🇸',
+            'إثيوبيا' => '🇪🇹',
+            'ليبيا' => '🇱🇾',
+            'المملكة المتحدة' => '🇬🇧',
+            'بريطانيا' => '🇬🇧',
+            'أمريكا' => '🇺🇸',
+        ];
+        $flag = $flags[$country] ?? '🌐';
+        return "{$flag} {$country}";
+    }
+}
+
+if (!function_exists('formatWhatsAppUrl')) {
+    function formatWhatsAppUrl(?string $phone, string $schoolName, string $country = 'السودان'): ?string {
+        $raw = trim((string)$phone);
+        if ($raw === '') return null;
+        $digits = preg_replace('/[^0-9]/', '', $raw);
+        if (empty($digits)) return null;
+
+        // Normalize Sudanese numbers
+        if (str_starts_with($digits, '0') && ($country === 'السودان' || empty($country))) {
+            $digits = '249' . substr($digits, 1);
+        } elseif ((str_starts_with($digits, '9') || str_starts_with($digits, '1')) && strlen($digits) === 9 && ($country === 'السودان' || empty($country))) {
+            $digits = '249' . $digits;
+        }
+
+        $msg = "مرحباً إدارة {$schoolName}، نتواصل معكم من إدارة دليل المدارس السودانية (SchoPlus).";
+        return "https://wa.me/{$digits}?text=" . urlencode($msg);
+    }
+}
+
 // Handle Logout
 if (isset($_GET['action']) && $_GET['action'] === 'logout') {
     unset($_SESSION['daleel_master_admin']);
@@ -280,7 +329,10 @@ if (isset($_REQUEST['ajax_action'])) {
         }
 
         if ($action === 'recalculate_ranks') {
-            $approvedRows = $pdo->query("SELECT id, country, state FROM daleel_schools WHERE status = 'approved' ORDER BY id ASC")->fetchAll(PDO::FETCH_ASSOC);
+            $historicSql = "(is_historic = 1 OR (established_year IS NOT NULL AND CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950) OR historic_votes >= 500 OR name LIKE '%خور طقت%' OR name LIKE '%وادي سيدنا%' OR name LIKE '%حنتوب الثانوية%' OR name LIKE '%حنتوب العريقة%' OR name LIKE '%بخت الرضا%' OR name LIKE '%الأهلية%أم درمان%' OR name LIKE '%كمبوني%' OR name LIKE '%الراهبات%' OR name_en LIKE '%Sister%')";
+            $orderClause = "({$historicSql}) DESC, (CASE WHEN CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950 THEN CAST(established_year AS UNSIGNED) ELSE 9999 END) ASC, id ASC";
+
+            $approvedRows = $pdo->query("SELECT id, country, state FROM daleel_schools WHERE status = 'approved' ORDER BY {$orderClause}")->fetchAll(PDO::FETCH_ASSOC);
             $dirSeq = 0;
             $stateSeqs = [];
             $updRanksStmt = $pdo->prepare("UPDATE daleel_schools SET directory_rank = ?, state_rank = ? WHERE id = ?");
@@ -293,7 +345,7 @@ if (isset($_REQUEST['ajax_action'])) {
                 $stSeq = $stateSeqs[$groupKey];
                 $updRanksStmt->execute([$dirSeq, $stSeq, (int)$aRow['id']]);
             }
-            echo json_encode(['success' => true, 'count' => count($approvedRows), 'message' => 'تمت إعادة حساب الترتيب التسلسلي بنجاح لكافة المدارس.']);
+            echo json_encode(['success' => true, 'count' => count($approvedRows), 'message' => "تمت إعادة حساب الترتيب التسلسلي الفعلي بنجاح لـ {$dirSeq} مدرسة في الدليل (الصروح العريقة أولاً ثم بالتتابع)."]);
             exit;
         }
 
@@ -324,10 +376,12 @@ $reviewsCount = (int)$pdo->query("SELECT count(*) FROM daleel_school_reviews")->
 $inquiriesCount = (int)$pdo->query("SELECT count(*) FROM daleel_school_inquiries")->fetchColumn();
 
 // Filters for Schools Table
+$filterCountry = trim($_GET['country'] ?? '');
 $filterState = trim($_GET['state'] ?? '');
 $filterType = trim($_GET['type'] ?? '');
 $filterStatus = trim($_GET['status'] ?? '');
 $filterSearch = trim($_GET['search'] ?? '');
+$filterSort = trim($_GET['sort'] ?? 'catalog_rank');
 $page = max(1, (int)($_GET['page'] ?? 1));
 $perPage = 25;
 $offset = ($page - 1) * $perPage;
@@ -335,6 +389,10 @@ $offset = ($page - 1) * $perPage;
 $whereClauses = ["status = 'approved'"];
 $whereParams = [];
 
+if ($filterCountry !== '') {
+    $whereClauses[] = "country = ?";
+    $whereParams[] = $filterCountry;
+}
 if ($filterState !== '') {
     $whereClauses[] = "state = ?";
     $whereParams[] = $filterState;
@@ -364,15 +422,37 @@ $cntStmt->execute($whereParams);
 $totalFiltered = (int)$cntStmt->fetchColumn();
 $totalPages = max(1, ceil($totalFiltered / $perPage));
 
-// Fetch filtered rows
-$querySql = "SELECT id, name, name_en, slug, state, city, district, address, phone, stages, is_verified, is_schoplus_client, is_historic, directory_rank, state_rank, created_at 
+// Dynamic Sorting Order matching Public Catalog
+$historicSql = "(is_historic = 1 OR (established_year IS NOT NULL AND CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950) OR historic_votes >= 500 OR name LIKE '%خور طقت%' OR name LIKE '%وادي سيدنا%' OR name LIKE '%حنتوب الثانوية%' OR name LIKE '%حنتوب العريقة%' OR name LIKE '%بخت الرضا%' OR name LIKE '%الأهلية%أم درمان%' OR name LIKE '%كمبوني%' OR name LIKE '%الراهبات%' OR name_en LIKE '%Sister%')";
+$catalogOrderSql = "({$historicSql}) DESC, (CASE WHEN CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950 THEN CAST(established_year AS UNSIGNED) ELSE 9999 END) ASC, id ASC";
+
+if ($filterSort === 'id_asc') {
+    $orderSql = "id ASC";
+} elseif ($filterSort === 'id_desc') {
+    $orderSql = "id DESC";
+} elseif ($filterSort === 'name') {
+    $orderSql = "name ASC";
+} elseif ($filterSort === 'views') {
+    $orderSql = "views_count DESC, id ASC";
+} elseif ($filterSort === 'schoplus') {
+    $orderSql = "is_schoplus_client DESC, is_verified DESC, id ASC";
+} else {
+    // Default: Exact actual directory rank order
+    $orderSql = $catalogOrderSql;
+}
+
+// Fetch filtered rows with country, phone, whatsapp, established_year
+$querySql = "SELECT id, name, name_en, slug, country, state, city, district, address, phone, whatsapp, stages, is_verified, is_schoplus_client, is_historic, directory_rank, state_rank, established_year, created_at 
              FROM daleel_schools 
              WHERE {$whereSql} 
-             ORDER BY id ASC 
+             ORDER BY {$orderSql} 
              LIMIT {$perPage} OFFSET {$offset}";
 $stmt = $pdo->prepare($querySql);
 $stmt->execute($whereParams);
 $schoolsList = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Distinct countries list for filter
+$countriesList = $pdo->query("SELECT DISTINCT country FROM daleel_schools WHERE status = 'approved' AND country IS NOT NULL AND country != '' ORDER BY (country = 'السودان') DESC, country ASC")->fetchAll(PDO::FETCH_COLUMN);
 
 // Claims List
 $pendingClaims = $pdo->query("SELECT c.*, s.name as school_name, s.slug as school_slug, s.state, s.city 
@@ -555,7 +635,7 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
             gap: 8px;
         }
 
-        /* Interactive Toggles */
+        /* Interactive Toggles & Loading States */
         .sp-toggle-pill {
             cursor: pointer;
             padding: 3px 8px;
@@ -566,12 +646,29 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
             align-items: center;
             gap: 5px;
             border: 1px solid transparent;
-            transition: all 0.2s;
+            transition: all 0.2s ease;
             user-select: none;
+            position: relative;
         }
         .sp-toggle-pill:hover {
             transform: translateY(-1px);
             box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+        .sp-toggle-pill.is-loading {
+            opacity: 0.7;
+            pointer-events: none;
+            cursor: wait !important;
+            background: #E2E8F0 !important;
+            color: #475569 !important;
+            border-color: #CBD5E1 !important;
+        }
+        .sp-toggle-pill.is-success-pulse {
+            animation: spPillPulse 1.1s ease-out;
+        }
+        @keyframes spPillPulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            50% { transform: scale(1.08); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
         .toggle-on-green {
             background: #ECFDF5;
@@ -592,6 +689,41 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
             background: #FFFBEB;
             color: #D97706;
             border-color: #FDE68A;
+        }
+
+        /* Toast Notifications */
+        .sp-admin-toast-container {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            z-index: 999999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+        .sp-admin-toast {
+            background: #0B2A52;
+            color: #FFFFFF;
+            padding: 10px 18px;
+            border-radius: 10px;
+            border-right: 4px solid #F5A020;
+            box-shadow: 0 10px 30px rgba(11, 42, 82, 0.28);
+            font-size: 0.76rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            pointer-events: auto;
+            animation: toastSlideIn 0.3s ease-out;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .sp-admin-toast.toast-success { border-right-color: #10B981; }
+        .sp-admin-toast.toast-danger { border-right-color: #EF4444; }
+        .sp-admin-toast.toast-warning { border-right-color: #F5A020; }
+        @keyframes toastSlideIn {
+            from { transform: translateX(-40px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
 
         /* Action Buttons */
@@ -767,23 +899,35 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                     <form method="GET" action="admin.php" class="row g-2 align-items-center">
                         <input type="hidden" name="tab" value="schools">
                         
-                        <div class="col-lg-4 col-12">
+                        <div class="col-lg-3 col-12">
                             <div class="input-group input-group-sm">
                                 <span class="input-group-text bg-white" style="border-color: #DDE4ED;"><i class="fas fa-search text-muted"></i></span>
                                 <input type="text" name="search" class="form-control" placeholder="ابحث بالاسم، الحي، الهاتف، المدينة..." value="<?= e($filterSearch) ?>" style="border-color: #DDE4ED; font-size: 0.75rem;">
                             </div>
                         </div>
 
-                        <div class="col-lg-3 col-sm-6 col-12">
+                        <!-- COUNTRY FILTER -->
+                        <div class="col-lg-2 col-sm-6 col-12">
+                            <select name="country" class="form-select form-select-sm" style="border-color: #DDE4ED; font-size: 0.75rem;" onchange="this.form.submit()">
+                                <option value="">كافة الدول (المهجر والسودان)</option>
+                                <?php foreach ($countriesList as $cntry): ?>
+                                    <option value="<?= e($cntry) ?>" <?= $filterCountry === $cntry ? 'selected' : '' ?>><?= getCountryBadge($cntry) ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+
+                        <!-- STATE FILTER -->
+                        <div class="col-lg-2 col-sm-6 col-12">
                             <select name="state" class="form-select form-select-sm" style="border-color: #DDE4ED; font-size: 0.75rem;" onchange="this.form.submit()">
-                                <option value="">كافة الولايات (18 ولاية)</option>
+                                <option value="">كافة الولايات والمناطق</option>
                                 <?php foreach (SudanGeography::states('السودان') as $st): ?>
                                     <option value="<?= e($st) ?>" <?= $filterState === $st ? 'selected' : '' ?>><?= e($st) ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
 
-                        <div class="col-lg-3 col-sm-6 col-12">
+                        <!-- STATUS FILTER -->
+                        <div class="col-lg-2 col-sm-6 col-12">
                             <select name="status" class="form-select form-select-sm" style="border-color: #DDE4ED; font-size: 0.75rem;" onchange="this.form.submit()">
                                 <option value="">كافة الحالات</option>
                                 <option value="verified" <?= $filterStatus === 'verified' ? 'selected' : '' ?>>موثقة فقط (Verified)</option>
@@ -793,12 +937,24 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                             </select>
                         </div>
 
-                        <div class="col-lg-2 col-12 d-flex gap-2">
-                            <button type="submit" class="btn btn-sm btn-primary w-100 py-1" style="font-size: 0.74rem;">
-                                <i class="fas fa-filter me-1"></i> تصفية
+                        <!-- SORT FILTER -->
+                        <div class="col-lg-2 col-sm-6 col-12">
+                            <select name="sort" class="form-select form-select-sm" style="border-color: #DDE4ED; font-size: 0.75rem;" onchange="this.form.submit()">
+                                <option value="catalog_rank" <?= $filterSort === 'catalog_rank' ? 'selected' : '' ?>>الترتيب الفعلي بالدليل (افتراضي)</option>
+                                <option value="id_asc" <?= $filterSort === 'id_asc' ? 'selected' : '' ?>>المعرف #ID تصاعدي</option>
+                                <option value="id_desc" <?= $filterSort === 'id_desc' ? 'selected' : '' ?>>المعرف #ID تنازلي</option>
+                                <option value="name" <?= $filterSort === 'name' ? 'selected' : '' ?>>أبجدياً باسم المدرسة</option>
+                                <option value="views" <?= $filterSort === 'views' ? 'selected' : '' ?>>الأكثر مشاهدة وزيارة</option>
+                                <option value="schoplus" <?= $filterSort === 'schoplus' ? 'selected' : '' ?>>عملاء SchoPlus أولاً</option>
+                            </select>
+                        </div>
+
+                        <div class="col-lg-1 col-12 d-flex gap-1">
+                            <button type="submit" class="btn btn-sm btn-primary w-100 py-1" style="font-size: 0.74rem;" title="تطبيق الفلترة">
+                                <i class="fas fa-filter"></i>
                             </button>
-                            <?php if ($filterSearch || $filterState || $filterStatus): ?>
-                                <a href="admin.php?tab=schools" class="btn btn-sm btn-light border" title="مسح الفلاتر">
+                            <?php if ($filterSearch || $filterCountry || $filterState || $filterStatus || ($filterSort && $filterSort !== 'catalog_rank')): ?>
+                                <a href="admin.php?tab=schools" class="btn btn-sm btn-light border py-1" title="مسح الفلاتر">
                                     <i class="fas fa-undo"></i>
                                 </a>
                             <?php endif; ?>
@@ -813,21 +969,28 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                             <tr>
                                 <th style="width: 50px;">#ID</th>
                                 <th>اسم المدرسة والمراحل</th>
+                                <th>الدولة</th>
                                 <th>الموقع (الولاية / المدينة / الحي)</th>
+                                <th style="min-width: 145px;">الهاتف والواتساب</th>
                                 <th class="text-center">التوثيق</th>
                                 <th class="text-center">SchoPlus</th>
                                 <th class="text-center">صرح عريق</th>
-                                <th class="text-center" style="width: 130px;">الترتيب (عام / ولاية)</th>
+                                <th class="text-center" style="width: 140px;">الترتيب الفعلي بالدليل</th>
                                 <th class="text-center pe-3" style="width: 100px;">إجراءات</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php if (empty($schoolsList)): ?>
                                 <tr>
-                                    <td colspan="8" class="text-center py-5 text-muted">لم يتم العثور على أي مدارس مطابقة لشروط البحث.</td>
+                                    <td colspan="10" class="text-center py-5 text-muted">لم يتم العثور على أي مدارس مطابقة لشروط البحث.</td>
                                 </tr>
                             <?php else: ?>
                                 <?php foreach ($schoolsList as $sch): ?>
+                                    <?php 
+                                    $actualDirRank = getSchoolDirectoryRank($pdo, (int)$sch['id'], !empty($sch['directory_rank']) ? (int)$sch['directory_rank'] : null);
+                                    $phoneVal = trim((string)($sch['whatsapp'] ?: $sch['phone']));
+                                    $waUrl = formatWhatsAppUrl($phoneVal, $sch['name'], $sch['country'] ?? 'السودان');
+                                    ?>
                                     <tr id="row-school-<?= $sch['id'] ?>">
                                         <td class="fw-bold text-muted ps-3">#<?= $sch['id'] ?></td>
                                         <td>
@@ -839,9 +1002,21 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                                                     <?php if (!empty($sch['name_en'])): ?>
                                                         <div class="text-muted" style="font-size: 0.65rem;"><?= e($sch['name_en']) ?></div>
                                                     <?php endif; ?>
+                                                    <?php if (!empty($sch['established_year']) && (int)$sch['established_year'] <= 1950): ?>
+                                                        <span class="badge bg-info-subtle text-info border border-info mt-1" style="font-size: 0.6rem;">
+                                                            <i class="fas fa-landmark me-1"></i>تأسست <?= e($sch['established_year']) ?>
+                                                        </span>
+                                                    <?php endif; ?>
                                                 </div>
                                             </div>
                                         </td>
+                                        <!-- COUNTRY -->
+                                        <td>
+                                            <span class="badge bg-light text-dark border px-2 py-1" style="font-size: 0.72rem;">
+                                                <?= getCountryBadge($sch['country'] ?? 'السودان') ?>
+                                            </span>
+                                        </td>
+                                        <!-- LOCATION -->
                                         <td>
                                             <div class="d-flex flex-wrap gap-1 align-items-center">
                                                 <span class="badge bg-light text-dark border" style="font-size: 0.65rem;"><?= e($sch['state']) ?></span>
@@ -850,6 +1025,31 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                                                     <span class="text-muted small" style="font-size: 0.68rem;">— حي <?= e($sch['district']) ?></span>
                                                 <?php endif; ?>
                                             </div>
+                                        </td>
+
+                                        <!-- PHONE & WHATSAPP -->
+                                        <td>
+                                            <?php if ($phoneVal !== ''): ?>
+                                                <div class="d-flex flex-column gap-1">
+                                                    <div class="fw-bold text-dark dir-ltr" style="font-size: 0.72rem; font-family: monospace;">
+                                                        <i class="fas fa-phone text-muted me-1"></i><?= e($phoneVal) ?>
+                                                    </div>
+                                                    <div class="d-flex align-items-center gap-1">
+                                                        <?php if ($waUrl): ?>
+                                                            <a href="<?= e($waUrl) ?>" target="_blank" class="btn btn-sm text-white d-inline-flex align-items-center gap-1 py-0 px-2" style="font-size: 0.68rem; height: 23px; border-radius: 6px; background-color: #25D366; border-color: #25D366;" title="مراسلة واتساب فورية">
+                                                                <i class="fab fa-whatsapp"></i> <span>واتساب</span>
+                                                            </a>
+                                                        <?php endif; ?>
+                                                        <a href="tel:<?= e($phoneVal) ?>" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center justify-content-center p-0" style="width: 23px; height: 23px; border-radius: 6px;" title="اتصال هاتفي">
+                                                            <i class="fas fa-phone-alt" style="font-size: 0.65rem;"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            <?php else: ?>
+                                                <span class="badge bg-light text-muted border" style="font-size: 0.65rem;">
+                                                    <i class="fas fa-phone-slash me-1"></i>غير متوفر
+                                                </span>
+                                            <?php endif; ?>
                                         </td>
                                         
                                         <!-- VERIFIED TOGGLE -->
@@ -882,17 +1082,22 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                                             </span>
                                         </td>
 
-                                        <!-- RANKS INPUTS -->
+                                        <!-- ACTUAL CATALOG RANK & MANUAL OVERRIDE -->
                                         <td class="text-center">
-                                            <div class="d-flex align-items-center justify-content-center gap-1">
-                                                <input type="number" class="form-control form-control-sm text-center px-1" style="width: 55px; font-size: 0.7rem; height: 26px;" 
-                                                       id="dir-rank-<?= $sch['id'] ?>" value="<?= $sch['directory_rank'] ?: $sch['id'] ?>" title="الترتيب العام">
-                                                <span class="text-muted">/</span>
-                                                <input type="number" class="form-control form-control-sm text-center px-1" style="width: 48px; font-size: 0.7rem; height: 26px;" 
-                                                       id="state-rank-<?= $sch['id'] ?>" value="<?= $sch['state_rank'] ?: 1 ?>" title="الترتيب بالولاية">
-                                                <button type="button" class="btn btn-sm btn-light border p-0" style="width: 24px; height: 24px;" onclick="saveRanks(<?= $sch['id'] ?>)" title="حفظ الترتيب">
-                                                    <i class="fas fa-save" style="font-size: 0.65rem;"></i>
-                                                </button>
+                                            <div class="d-flex flex-column align-items-center justify-content-center">
+                                                <span class="badge" style="background: linear-gradient(135deg, #0B2A52, #1E5FA8); color: #FFF; font-size: 0.72rem; padding: 4px 8px;" title="الترتيب الفعلي في الدليل">
+                                                    #<?= $actualDirRank ?> في الدليل
+                                                </span>
+                                                <div class="d-flex align-items-center justify-content-center gap-1 mt-1">
+                                                    <input type="number" class="form-control form-control-sm text-center px-1" style="width: 50px; font-size: 0.68rem; height: 24px;" 
+                                                           id="dir-rank-<?= $sch['id'] ?>" value="<?= (int)($sch['directory_rank'] ?: $actualDirRank) ?>" title="الترتيب العام المخصص">
+                                                    <span class="text-muted" style="font-size: 0.65rem;">/</span>
+                                                    <input type="number" class="form-control form-control-sm text-center px-1" style="width: 44px; font-size: 0.68rem; height: 24px;" 
+                                                           id="state-rank-<?= $sch['id'] ?>" value="<?= (int)($sch['state_rank'] ?: 1) ?>" title="الترتيب بالولاية">
+                                                    <button type="button" class="btn btn-sm btn-light border p-0 btn-save-rank-<?= $sch['id'] ?>" style="width: 24px; height: 24px;" onclick="saveRanks(<?= $sch['id'] ?>)" title="حفظ الترتيب">
+                                                        <i class="fas fa-save text-primary" style="font-size: 0.65rem;"></i>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </td>
 
@@ -926,13 +1131,13 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                         <nav aria-label="تنقل الصفحات">
                             <ul class="pagination pagination-sm mb-0">
                                 <?php if ($page > 1): ?>
-                                    <li class="page-item"><a class="page-link" href="admin.php?tab=schools&page=<?= $page - 1 ?>&search=<?= urlencode($filterSearch) ?>&state=<?= urlencode($filterState) ?>&status=<?= urlencode($filterStatus) ?>">السابقة</a></li>
+                                    <li class="page-item"><a class="page-link" href="admin.php?tab=schools&page=<?= $page - 1 ?>&search=<?= urlencode($filterSearch) ?>&country=<?= urlencode($filterCountry) ?>&state=<?= urlencode($filterState) ?>&status=<?= urlencode($filterStatus) ?>&sort=<?= urlencode($filterSort) ?>">السابقة</a></li>
                                 <?php endif; ?>
                                 
                                 <li class="page-item active"><span class="page-link" style="background: var(--navy); border-color: var(--navy);"><?= $page ?></span></li>
 
                                 <?php if ($page < $totalPages): ?>
-                                    <li class="page-item"><a class="page-link" href="admin.php?tab=schools&page=<?= $page + 1 ?>&search=<?= urlencode($filterSearch) ?>&state=<?= urlencode($filterState) ?>&status=<?= urlencode($filterStatus) ?>">التالية</a></li>
+                                    <li class="page-item"><a class="page-link" href="admin.php?tab=schools&page=<?= $page + 1 ?>&search=<?= urlencode($filterSearch) ?>&country=<?= urlencode($filterCountry) ?>&state=<?= urlencode($filterState) ?>&status=<?= urlencode($filterStatus) ?>&sort=<?= urlencode($filterSort) ?>">التالية</a></li>
                                 <?php endif; ?>
                             </ul>
                         </nav>
@@ -1195,7 +1400,37 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
 
     <!-- JAVASCRIPT MASTER HANDLER -->
     <script>
+    function showAdminToast(message, type = 'success') {
+        let container = document.getElementById('spToastContainer');
+        if (!container) {
+            container = document.createElement('div');
+            container.id = 'spToastContainer';
+            container.className = 'sp-admin-toast-container';
+            document.body.appendChild(container);
+        }
+        const toast = document.createElement('div');
+        toast.className = `sp-admin-toast toast-${type}`;
+        let icon = 'check-circle';
+        if (type === 'danger') icon = 'exclamation-circle';
+        if (type === 'warning') icon = 'info-circle';
+        toast.innerHTML = `<i class="fas fa-${icon}"></i> <span>${message}</span>`;
+        container.appendChild(toast);
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateY(-15px)';
+            setTimeout(() => toast.remove(), 350);
+        }, 2800);
+    }
+
     function toggleSchoolMeta(schoolId, action, newVal, el) {
+        if (el.classList.contains('is-loading')) return;
+
+        const prevHtml = el.innerHTML;
+        const prevClass = el.className;
+
+        el.classList.add('is-loading');
+        el.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>جاري...</span>';
+
         const fd = new FormData();
         fd.append('ajax_action', action);
         fd.append('id', schoolId);
@@ -1204,48 +1439,71 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
         fetch('admin.php', { method: 'POST', body: fd })
         .then(r => r.json())
         .then(data => {
+            el.classList.remove('is-loading');
             if (data && data.success) {
                 if (action === 'toggle_verified') {
                     if (newVal === 1) {
-                        el.className = 'sp-toggle-pill toggle-on-green';
+                        el.className = 'sp-toggle-pill toggle-on-green is-success-pulse';
                         el.innerHTML = '<i class="fas fa-check-circle"></i> <span>موثقة</span>';
                         el.setAttribute('onclick', `toggleSchoolMeta(${schoolId}, 'toggle_verified', 0, this)`);
+                        showAdminToast('تم اعتماد وتوثيق المدرسة بنجاح ✅', 'success');
                     } else {
-                        el.className = 'sp-toggle-pill toggle-off-gray';
+                        el.className = 'sp-toggle-pill toggle-off-gray is-success-pulse';
                         el.innerHTML = '<i class="fas fa-circle-xmark"></i> <span>عامة</span>';
                         el.setAttribute('onclick', `toggleSchoolMeta(${schoolId}, 'toggle_verified', 1, this)`);
+                        showAdminToast('تم تحويل المدرسة إلى عامة (غير موثقة) ℹ️', 'warning');
                     }
                 } else if (action === 'toggle_schoplus') {
                     if (newVal === 1) {
-                        el.className = 'sp-toggle-pill toggle-on-orange';
+                        el.className = 'sp-toggle-pill toggle-on-orange is-success-pulse';
                         el.innerHTML = '<i class="fas fa-award"></i> <span>ذكي</span>';
                         el.setAttribute('onclick', `toggleSchoolMeta(${schoolId}, 'toggle_schoplus', 0, this)`);
+                        showAdminToast('تم تفعيل شارة عميل SchoPlus الذكي 🌟', 'success');
                     } else {
-                        el.className = 'sp-toggle-pill toggle-off-gray';
+                        el.className = 'sp-toggle-pill toggle-off-gray is-success-pulse';
                         el.innerHTML = '<i class="fas fa-award"></i> <span>عادي</span>';
                         el.setAttribute('onclick', `toggleSchoolMeta(${schoolId}, 'toggle_schoplus', 1, this)`);
+                        showAdminToast('تم إلغاء شارة SchoPlus الذكي ℹ️', 'warning');
                     }
                 } else if (action === 'toggle_historic') {
                     if (newVal === 1) {
-                        el.className = 'sp-toggle-pill toggle-on-blue';
+                        el.className = 'sp-toggle-pill toggle-on-blue is-success-pulse';
                         el.innerHTML = '<i class="fas fa-landmark"></i> <span>عريق</span>';
                         el.setAttribute('onclick', `toggleSchoolMeta(${schoolId}, 'toggle_historic', 0, this)`);
+                        showAdminToast('تم اعتماد المدرسة كصرح وطني عريق 🏛️', 'success');
                     } else {
-                        el.className = 'sp-toggle-pill toggle-off-gray';
+                        el.className = 'sp-toggle-pill toggle-off-gray is-success-pulse';
                         el.innerHTML = '<i class="fas fa-landmark"></i> <span>حديث</span>';
                         el.setAttribute('onclick', `toggleSchoolMeta(${schoolId}, 'toggle_historic', 1, this)`);
+                        showAdminToast('تم إلغاء شارة الصرح العريق ℹ️', 'warning');
                     }
                 }
+                setTimeout(() => el.classList.remove('is-success-pulse'), 1200);
             } else {
-                alert('فشل التعديل: ' + (data.error || 'خطأ غير معروف'));
+                el.className = prevClass;
+                el.innerHTML = prevHtml;
+                showAdminToast('فشل التعديل: ' + (data.error || 'خطأ غير معروف'), 'danger');
             }
         })
-        .catch(err => alert('حدث خطأ في الاتصال بالخادم.'));
+        .catch(err => {
+            el.classList.remove('is-loading');
+            el.className = prevClass;
+            el.innerHTML = prevHtml;
+            showAdminToast('حدث خطأ في الاتصال بالخادم.', 'danger');
+        });
     }
 
     function saveRanks(schoolId) {
+        const btn = document.querySelector('.btn-save-rank-' + schoolId);
         const dirRank = document.getElementById('dir-rank-' + schoolId).value;
         const stateRank = document.getElementById('state-rank-' + schoolId).value;
+
+        let prevBtnHtml = '';
+        if (btn) {
+            prevBtnHtml = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin" style="font-size: 0.65rem;"></i>';
+        }
 
         const fd = new FormData();
         fd.append('ajax_action', 'update_rank');
@@ -1256,11 +1514,46 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
         fetch('admin.php', { method: 'POST', body: fd })
         .then(r => r.json())
         .then(data => {
-            if (data && data.success) {
-                alert('تم حفظ الترتيب بنجاح.');
-            } else {
-                alert('فشل الحفظ: ' + (data.error || 'خطأ غير معروف'));
+            if (btn) {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-check text-success" style="font-size: 0.65rem;"></i>';
+                setTimeout(() => { btn.innerHTML = prevBtnHtml; }, 1800);
             }
+            if (data && data.success) {
+                showAdminToast(`تم حفظ ترتيب المدرسة (الدليل: #${dirRank} | الولاية: #${stateRank}) بنجاح`, 'success');
+            } else {
+                showAdminToast('فشل الحفظ: ' + (data.error || 'خطأ غير معروف'), 'danger');
+            }
+        })
+        .catch(err => {
+            if (btn) {
+                btn.disabled = false;
+                btn.innerHTML = prevBtnHtml;
+            }
+            showAdminToast('حدث خطأ في الاتصال بالخادم.', 'danger');
+        });
+    }
+
+    function recalculateRanks() {
+        if (!confirm('هل تريد إعادة حساب الترتيب التسلسلي لكافة المدارس بالدليل وفق نظام الترتيب الفعلي المعتمد (المدارس العريقة أولاً ثم بالتتابع)؟')) return;
+
+        showAdminToast('جاري إعادة حساب الترتيب الفعلي لكافة المدارس...', 'warning');
+
+        const fd = new FormData();
+        fd.append('ajax_action', 'recalculate_ranks');
+
+        fetch('admin.php', { method: 'POST', body: fd })
+        .then(r => r.json())
+        .then(data => {
+            if (data && data.success) {
+                showAdminToast(data.message, 'success');
+                setTimeout(() => location.reload(), 1200);
+            } else {
+                showAdminToast('حدث خطأ أثناء إعادة الحساب: ' + (data.error || ''), 'danger');
+            }
+        })
+        .catch(err => {
+            showAdminToast('حدث خطأ في الاتصال.', 'danger');
         });
     }
 
