@@ -290,7 +290,7 @@ if (isset($_REQUEST['ajax_action'])) {
         if ($action === 'toggle_verified') {
             $id = (int)($_POST['id'] ?? 0);
             $val = (int)($_POST['value'] ?? 0);
-            $pdo->prepare("UPDATE daleel_schools SET is_verified = ? WHERE id = ?")->execute([$val, $id]);
+            $pdo->prepare("UPDATE daleel_schools SET is_verified = ?, updated_at = NOW() WHERE id = ?")->execute([$val, $id]);
             echo json_encode(['success' => true, 'id' => $id, 'is_verified' => $val]);
             exit;
         }
