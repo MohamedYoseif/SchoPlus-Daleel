@@ -2897,6 +2897,15 @@ $totalRev = max(1, count($reviewsList));
                             <span class="badge" style="background: #FEF3C7; color: #92400E; font-size: 0.65rem; font-weight: 700; border: 1px solid #FCD34D;">بانتظار إثبات الملكية</span>
                         </div>
                         تم إدراج وفهرسة بيانات هذه المدرسة تلقائياً عبر <strong>خوارزميات الذكاء الاصطناعي والمصادر والمؤشرات العامة</strong> لتسهيل وصول أولياء الأمور والطلاب. إذا كنت ممثلاً رسمياً للمدرسة يمكنك <a href="#claimSchoolModal" data-bs-toggle="modal" class="fw-bold text-decoration-underline" style="color: #F5A020;">إثبات الملكية وتوثيق الصفحة الآن مجاناً</a> للتحكم بكافة البيانات واستقبال طلبات القبول.
+                        <?php 
+                        $srcMeta = getSchoolVerificationSourceUrl($school);
+                        ?>
+                        <div class="mt-2 pt-2 border-top d-flex align-items-center justify-content-between flex-wrap gap-1">
+                            <span class="text-muted" style="font-size: 0.68rem;"><i class="fas fa-info-circle me-1"></i> مصدر الاستكشاف والتحقق:</span>
+                            <a href="<?= e($srcMeta['url']) ?>" target="_blank" rel="noopener" class="badge bg-light text-primary border text-decoration-none hover-primary px-2 py-1" style="font-size: 0.65rem;">
+                                <i class="<?= e($srcMeta['icon']) ?> me-1"></i><?= e($srcMeta['label']) ?> <i class="fas fa-external-link-alt ms-1" style="font-size: 0.55rem;"></i>
+                            </a>
+                        </div>
                     </div>
                 <?php endif; ?>
 

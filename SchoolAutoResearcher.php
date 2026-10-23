@@ -323,17 +323,19 @@ class SchoolAutoResearcher {
         }
 
         $googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=' . urlencode($formattedName . ' ' . $city . ' ' . $state);
+        $sourceUrl = 'https://www.google.com/search?q=' . urlencode('مدرسة ' . $formattedName . ' ' . $city . ' ' . $state);
+        $sourceType = 'google_search';
         $randomPasswordHash = password_hash(bin2hex(random_bytes(6)), PASSWORD_BCRYPT);
 
         // 3. Insert as Approved, Unverified Public School (is_verified = 0)
         $ins = $pdo->prepare("INSERT INTO daleel_schools (
             name, name_en, slug, school_type, gender_type, curriculum, country, established_year,
-            stages, state, city, district, address, google_map_url, phone, whatsapp, email, website,
+            stages, state, city, district, address, google_map_url, phone, whatsapp, email, website, source_url, source_type,
             description, status, is_verified, is_schoplus_client, rating_avg, reviews_count, views_count,
             owner_name, owner_title, owner_phone, password, created_at, updated_at
         ) VALUES (
             :name, :name_en, :slug, :school_type, :gender_type, :curriculum, 'السودان', NULL,
-            :stages, :state, :city, :district, :address, :google_map_url, NULL, NULL, NULL, NULL,
+            :stages, :state, :city, :district, :address, :google_map_url, NULL, NULL, NULL, NULL, :source_url, :source_type,
             :description, 'approved', 0, 0, 5.00, 0, 1,
             :owner_name, 'مدير المدرسة / المفوض', NULL, :password, NOW(), NOW()
         )");
@@ -351,6 +353,8 @@ class SchoolAutoResearcher {
             ':district' => $district,
             ':address' => $fullAddress,
             ':google_map_url' => $googleMapsUrl,
+            ':source_url' => $sourceUrl,
+            ':source_type' => $sourceType,
             ':description' => $description,
             ':owner_name' => 'إدارة ' . $formattedName,
             ':password' => $randomPasswordHash
@@ -383,6 +387,8 @@ class SchoolAutoResearcher {
                 'district' => $district,
                 'stages' => $stages,
                 'address' => $fullAddress,
+                'source_url' => $sourceUrl,
+                'source_type' => $sourceType,
                 'url' => '/school/' . urlencode($slug),
                 'google_maps_url' => $googleMapsUrl,
                 'is_verified' => false
@@ -517,7 +523,7 @@ class SchoolAutoResearcher {
             $matchReason = '';
 
             // Check 1: Exact Name Match
-            $chkExact = $pdo->prepare("SELECT id, name, school_type, state, city, district, address, phone, whatsapp FROM daleel_schools WHERE name = ? LIMIT 1");
+            $chkExact = $pdo->prepare("SELECT id, name, slug, school_type, state, city, district, address, phone, whatsapp, website, facebook, source_url, source_type FROM daleel_schools WHERE name = ? LIMIT 1");
             $chkExact->execute([$candidateName]);
             $matchedSchool = $chkExact->fetch(PDO::FETCH_ASSOC);
             if ($matchedSchool) {
@@ -526,7 +532,7 @@ class SchoolAutoResearcher {
 
             // Check 2: Core Stem Token + State & City Match
             if (!$matchedSchool) {
-                $chkSeed = $pdo->prepare("SELECT id, name, school_type, state, city, district, address, phone, whatsapp FROM daleel_schools WHERE (name LIKE ? OR address LIKE ?) AND state = ? LIMIT 1");
+                $chkSeed = $pdo->prepare("SELECT id, name, slug, school_type, state, city, district, address, phone, whatsapp, website, facebook, source_url, source_type FROM daleel_schools WHERE (name LIKE ? OR address LIKE ?) AND state = ? LIMIT 1");
                 $chkSeed->execute(['%' . $seed . '%', '%' . $seed . '%', $st]);
                 $matchedSchool = $chkSeed->fetch(PDO::FETCH_ASSOC);
                 if ($matchedSchool) {
@@ -539,7 +545,9 @@ class SchoolAutoResearcher {
                 $skippedCount++;
                 $exPhone = !empty($matchedSchool['phone']) ? $matchedSchool['phone'] : (!empty($matchedSchool['whatsapp']) ? $matchedSchool['whatsapp'] : 'غير مسجل');
                 $exAddr = !empty($matchedSchool['address']) ? $matchedSchool['address'] : ($matchedSchool['state'] . ' — ' . $matchedSchool['city']);
-                $logs[] = "[" . date('H:i:s') . "] 🛡️ [مطابقة وموجودة مسبقاً] فحص: \"{$candidateName}\" ← مطابقة مدرسة قائمة: \"{$matchedSchool['name']}\" ({$matchedSchool['state']} — {$matchedSchool['city']}) | سبب المطابقة: {$matchReason} | الهاتف: {$exPhone} | العنوان: {$exAddr} — [تم التجاهل لمنع التكرار Deduplicated]";
+                $srcMeta = getSchoolVerificationSourceUrl($matchedSchool);
+                $schoolUrl = '/school/' . urlencode($matchedSchool['slug'] ?? '');
+                $logs[] = "[" . date('H:i:s') . "] 🛡️ [مطابقة وموجودة مسبقاً] فحص: \"{$candidateName}\" ← مطابقة مدرسة قائمة: \"{$matchedSchool['name']}\" ({$matchedSchool['state']} — {$matchedSchool['city']}) | سبب المطابقة: {$matchReason} | الهاتف: {$exPhone} | العنوان: {$exAddr} — [تم التجاهل لمنع التكرار Deduplicated] [SOURCE_LINK|{$schoolUrl}|عرض بالدليل ↗] [SOURCE_LINK|{$srcMeta['url']}|{$srcMeta['label']} ↗]";
                 continue;
             }
 
@@ -554,13 +562,16 @@ class SchoolAutoResearcher {
                     $sch = $res['school'];
                     $sTyp = $sch['school_type'] ?? ($forcedType ?: 'private');
                     $tLbl = ($sTyp === 'kindergarten') ? 'روضة / حضانة' : (($sTyp === 'government') ? 'حكومية' : 'خاصة');
-                    $logs[] = "[" . date('H:i:s') . "] ✨ [مؤسسة جديدة مؤكدة #{$createdCount}] استكشاف وفهرسة: \"{$sch['name']}\" — التصنيف: [{$tLbl}] — الموقع: ({$sch['state']} — {$sch['city']}) بنجاح.";
+                    $srcMeta = getSchoolVerificationSourceUrl($sch);
+                    $logs[] = "[" . date('H:i:s') . "] ✨ [مؤسسة جديدة مؤكدة #{$createdCount}] استكشاف وفهرسة: \"{$sch['name']}\" — التصنيف: [{$tLbl}] — الموقع: ({$sch['state']} — {$sch['city']}) بنجاح. [SOURCE_LINK|{$srcMeta['url']}|{$srcMeta['label']} ↗] [SOURCE_LINK|{$sch['url']}|معاينة بالدليل ↗]";
                 } elseif (!empty($res['already_exists'])) {
                     $skippedCount++;
                     $ex = $res['school'];
                     $exPhone = !empty($ex['phone']) ? $ex['phone'] : (!empty($ex['whatsapp']) ? $ex['whatsapp'] : 'غير مسجل');
                     $exAddr = !empty($ex['address']) ? $ex['address'] : ($ex['state'] . ' — ' . $ex['city']);
-                    $logs[] = "[" . date('H:i:s') . "] 🛡️ [مطابقة وموجودة مسبقاً] فحص: \"{$candidateName}\" ← مطابقة مدرسة قائمة: \"{$ex['name']}\" ({$ex['state']} — {$ex['city']}) | الهاتف: {$exPhone} | العنوان: {$exAddr} — [تم التجاهل لمنع التكرار Deduplicated]";
+                    $srcMeta = getSchoolVerificationSourceUrl($ex);
+                    $schoolUrl = '/school/' . urlencode($ex['slug'] ?? '');
+                    $logs[] = "[" . date('H:i:s') . "] 🛡️ [مطابقة وموجودة مسبقاً] فحص: \"{$candidateName}\" ← مطابقة مدرسة قائمة: \"{$ex['name']}\" ({$ex['state']} — {$ex['city']}) | الهاتف: {$exPhone} | العنوان: {$exAddr} — [تم التجاهل لمنع التكرار Deduplicated] [SOURCE_LINK|{$schoolUrl}|عرض بالدليل ↗] [SOURCE_LINK|{$srcMeta['url']}|{$srcMeta['label']} ↗]";
                 }
             } catch (Throwable $e) {
                 // Skip errors gracefully

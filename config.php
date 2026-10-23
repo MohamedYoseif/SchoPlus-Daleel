@@ -257,6 +257,63 @@ if (!function_exists('getSchoolStateRank')) {
     }
 }
 
+if (!function_exists('getSchoolVerificationSourceUrl')) {
+    function getSchoolVerificationSourceUrl(array $school): array {
+        // 1. Custom or stored source_url
+        if (!empty($school['source_url'])) {
+            $type = $school['source_type'] ?? 'custom';
+            $icon = 'fas fa-external-link-alt';
+            $lbl = 'المصدر المعتمد';
+            if ($type === 'facebook' || str_contains($school['source_url'], 'facebook.com')) {
+                $icon = 'fab fa-facebook text-primary';
+                $lbl = 'صفحة فيسبوك';
+            } elseif ($type === 'google_search' || str_contains($school['source_url'], 'google.com/search')) {
+                $icon = 'fab fa-google text-danger';
+                $lbl = 'توثيق Google';
+            }
+            return [
+                'url' => $school['source_url'],
+                'label' => $lbl,
+                'icon' => $icon,
+                'type' => $type
+            ];
+        }
+
+        // 2. Official Website
+        if (!empty($school['website'])) {
+            return [
+                'url' => $school['website'],
+                'label' => 'الموقع الرسمي',
+                'icon' => 'fas fa-globe text-primary',
+                'type' => 'website'
+            ];
+        }
+
+        // 3. Official Facebook
+        if (!empty($school['facebook'])) {
+            return [
+                'url' => $school['facebook'],
+                'label' => 'صفحة فيسبوك',
+                'icon' => 'fab fa-facebook text-primary',
+                'type' => 'facebook'
+            ];
+        }
+
+        // 4. Fallback Google Search Knowledge query
+        $q = ($school['name'] ?? '');
+        if (!empty($school['city'])) $q .= ' ' . $school['city'];
+        if (!empty($school['state'])) $q .= ' ' . $school['state'];
+        $searchUrl = 'https://www.google.com/search?q=' . urlencode('مدرسة ' . $q);
+
+        return [
+            'url' => $searchUrl,
+            'label' => 'بحث وتوثيق Google',
+            'icon' => 'fab fa-google text-danger',
+            'type' => 'google_search'
+        ];
+    }
+}
+
 if (!function_exists('arabicDate')) {
     function arabicDate(?string $datetime): string {
         if (!$datetime) return '';
@@ -654,6 +711,8 @@ function ensureTablesExist(PDO $pdo): void {
             'historic_badge_reason'  => "ALTER TABLE daleel_schools ADD COLUMN historic_badge_reason VARCHAR(255) NULL AFTER historic_votes",
             'whatsapp_sent'          => "ALTER TABLE daleel_schools ADD COLUMN whatsapp_sent TINYINT(1) NOT NULL DEFAULT 0 AFTER whatsapp",
             'whatsapp_sent_at'       => "ALTER TABLE daleel_schools ADD COLUMN whatsapp_sent_at TIMESTAMP NULL DEFAULT NULL AFTER whatsapp_sent",
+            'source_url'             => "ALTER TABLE daleel_schools ADD COLUMN source_url VARCHAR(500) NULL AFTER website",
+            'source_type'            => "ALTER TABLE daleel_schools ADD COLUMN source_type VARCHAR(50) NULL DEFAULT 'web' AFTER source_url",
         ];
         foreach ($alterStatements as $colName => $sql) {
             if (!isset($existingCols[$colName])) {

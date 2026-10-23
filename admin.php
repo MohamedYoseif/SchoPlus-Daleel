@@ -473,13 +473,16 @@ if (isset($_REQUEST['ajax_action'])) {
                         if (!empty($res['created'])) {
                             $createdCount++;
                             $sch = $res['school'];
-                            $logs[] = "[" . date('H:i:s') . "] ✨ [مؤسسة جديدة مؤكدة #{$createdCount}] استكشاف وفهرسة: \"{$sch['name']}\" ({$sch['state']} — {$sch['city']}) بنجاح.";
+                            $srcMeta = getSchoolVerificationSourceUrl($sch);
+                            $logs[] = "[" . date('H:i:s') . "] ✨ [مؤسسة جديدة مؤكدة #{$createdCount}] استكشاف وفهرسة: \"{$sch['name']}\" ({$sch['state']} — {$sch['city']}) بنجاح. [SOURCE_LINK|{$srcMeta['url']}|{$srcMeta['label']} ↗] [SOURCE_LINK|{$sch['url']}|معاينة بالدليل ↗]";
                         } elseif (!empty($res['already_exists'])) {
                             $alreadyExistsCount++;
                             $ex = $res['school'];
                             $exPhone = !empty($ex['phone']) ? $ex['phone'] : (!empty($ex['whatsapp']) ? $ex['whatsapp'] : 'غير مسجل');
                             $exAddr = !empty($ex['address']) ? $ex['address'] : ($ex['state'] . ' — ' . $ex['city']);
-                            $logs[] = "[" . date('H:i:s') . "] 🛡️ [مطابقة وموجودة مسبقاً] فحص: \"{$line}\" ← مطابقة مدرسة قائمة: \"{$ex['name']}\" ({$ex['state']} — {$ex['city']}) | الهاتف: {$exPhone} | العنوان: {$exAddr} — [تم التجاهل لمنع التكرار Deduplicated]";
+                            $srcMeta = getSchoolVerificationSourceUrl($ex);
+                            $schoolUrl = '/school/' . urlencode($ex['slug'] ?? '');
+                            $logs[] = "[" . date('H:i:s') . "] 🛡️ [مطابقة وموجودة مسبقاً] فحص: \"{$line}\" ← مطابقة مدرسة قائمة: \"{$ex['name']}\" ({$ex['state']} — {$ex['city']}) | الهاتف: {$exPhone} | العنوان: {$exAddr} — [تم التجاهل لمنع التكرار Deduplicated] [SOURCE_LINK|{$schoolUrl}|عرض بالدليل ↗] [SOURCE_LINK|{$srcMeta['url']}|{$srcMeta['label']} ↗]";
                         } else {
                             $errorsCount++;
                             $logs[] = "[" . date('H:i:s') . "] ⚠️ تعذر إدراج: {$line} (" . ($res['error'] ?? 'خطأ غير معروف') . ")";
@@ -1247,6 +1250,12 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                                                             <i class="fas fa-landmark me-1"></i>تأسست <?= e($sch['established_year']) ?>
                                                         </span>
                                                     <?php endif; ?>
+                                                    <?php $srcMeta = getSchoolVerificationSourceUrl($sch); ?>
+                                                    <div class="mt-1 d-flex align-items-center gap-1">
+                                                        <a href="<?= e($srcMeta['url']) ?>" target="_blank" rel="noopener" class="badge bg-light text-primary border py-0 px-1 text-decoration-none hover-primary" style="font-size: 0.6rem;" title="فتح مصدر النتيجة والتحقق الخارجي">
+                                                            <i class="<?= e($srcMeta['icon']) ?> me-1"></i><?= e($srcMeta['label']) ?> <i class="fas fa-external-link-alt ms-1" style="font-size: 0.55rem;"></i>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </td>
@@ -2171,7 +2180,11 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                         else if (msg.includes('ℹ️') || msg.includes('🔍')) col = '#38BDF8'; // cyan
                         else if (msg.includes('✨') || msg.includes('جديدة')) col = '#34D399'; // emerald green for new additions
                         else if (msg.includes('🏁') || msg.includes('🎯') || msg.includes('📊') || msg.includes('✅')) col = '#FBBF24'; // amber
-                        html += `<div style="color: ${col}; margin-bottom: 3px;">${escapeHtml(msg)}</div>`;
+                        let safeMsg = escapeHtml(msg);
+                        safeMsg = safeMsg.replace(/\[SOURCE_LINK\|([^\|]+)\|([^\]]+)\]/g, function(match, url, label) {
+                            return `<a href="${url}" target="_blank" rel="noopener" class="badge bg-primary text-white text-decoration-none py-0 px-2 ms-1 shadow-2xs" style="font-size: 0.65rem; border-radius: 4px; font-weight: 500; vertical-align: middle;"><i class="fas fa-external-link-alt me-1" style="font-size: 0.55rem;"></i>${label}</a>`;
+                        });
+                        html += `<div style="color: ${col}; margin-bottom: 4px; line-height: 1.6;">${safeMsg}</div>`;
                     });
                 }
                 consoleBox.innerHTML = html;

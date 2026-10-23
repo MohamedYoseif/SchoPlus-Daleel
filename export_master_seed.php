@@ -14,7 +14,7 @@ if (!function_exists('exportMasterSeed')) {
 
         $stmt = $pdo->query("SELECT 
             name, name_en, slug, school_type, gender_type, curriculum, country, established_year,
-            stages, state, city, district, address, phone, whatsapp, email, website, description,
+            stages, state, city, district, address, phone, whatsapp, email, website, source_url, source_type, description,
             status, is_verified, is_schoplus_client, rating_avg, is_historic, historic_badge_reason, historic_votes
             FROM daleel_schools 
             WHERE status = 'approved' 
