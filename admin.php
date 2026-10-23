@@ -48,7 +48,7 @@ if (!function_exists('getCountryBadge')) {
 }
 
 if (!function_exists('formatWhatsAppUrl')) {
-    function formatWhatsAppUrl(?string $phone, string $schoolName, string $country = 'السودان'): ?string {
+    function formatWhatsAppUrl(?string $phone, string $schoolName, string $schoolSlug = '', string $country = 'السودان'): ?string {
         $raw = trim((string)$phone);
         if ($raw === '') return null;
         $digits = preg_replace('/[^0-9]/', '', $raw);
@@ -61,7 +61,22 @@ if (!function_exists('formatWhatsAppUrl')) {
             $digits = '249' . $digits;
         }
 
-        $msg = "مرحباً إدارة {$schoolName}، نتواصل معكم من إدارة دليل المدارس السودانية (SchoPlus).";
+        $schoolUrl = !empty($schoolSlug) ? "https://daleel.schoplus.sd/school/" . urlencode($schoolSlug) : "https://daleel.schoplus.sd";
+
+        $msg = "السلام عليكم ورحمة الله وبركاته،\n"
+             . "إدارة مدرسة *{$schoolName}* الموقرة،\n"
+             . "تحية طيبة لكم من منصة *دليل المدارس السودانية (SchoPlus Daleel)* 🇸🇩.\n\n"
+             . "يسرنا إحاطتكم بأنه تم إدراج مدرستكم ضمن الدليل الوطني الشامل للمدارس السودانية، وهي منصة رسمية تتيح لآلاف أولياء الأمور والطلاب استكشاف المدارس والتواصل معها يومياً.\n\n"
+             . "🔗 *رابط صفحة مدرستكم في الدليل:*\n"
+             . "{$schoolUrl}\n\n"
+             . "🌟 *المزايا والخيارات المتاحة لمدرستكم:*\n"
+             . "1️⃣ *توثيق المدرسة واستلام لوحة الإدارة مجاناً*: لإضافة شعار المدرسة، المراحل الدراسية، الرسوم، وصور المباني وأرقام التواصل المباشرة.\n"
+             . "2️⃣ *تحديث أو تصحيح أي بيانات*: لضمان دقة ومصداقية المعلومات المعروضة لأولياء الأمور.\n"
+             . "3️⃣ *طلب الحذف*: في حال رغبتم بعدم إدراج المدرسة في الدليل يمكنكم طلب الحذف فوراً دون أي شروط أو قيود.\n\n"
+             . "للتوثيق أو التحديث أو طلب الحذف، يمكنكم زيارة الرابط أعلاه والضغط على زر *\"إثبات ملكية المدرسة\"*، أو الرد مباشرة على هذه المحادثة بالواتساب وسيسعد فريقنا بخدمتكم.\n\n"
+             . "مع خالص الشكر والتقدير،\n"
+             . "فريق عمل SchoPlus — دليل المدارس السودانية";
+
         return "https://wa.me/{$digits}?text=" . urlencode($msg);
     }
 }
@@ -254,6 +269,15 @@ if (isset($_REQUEST['ajax_action'])) {
             $stRank = (int)($_POST['state_rank'] ?? 0);
             $pdo->prepare("UPDATE daleel_schools SET directory_rank = ?, state_rank = ? WHERE id = ?")->execute([$dirRank, $stRank, $id]);
             echo json_encode(['success' => true, 'id' => $id, 'directory_rank' => $dirRank, 'state_rank' => $stRank]);
+            exit;
+        }
+
+        if ($action === 'update_phone') {
+            $id = (int)($_POST['id'] ?? 0);
+            $phone = trim($_POST['phone'] ?? '');
+            $whatsapp = trim($_POST['whatsapp'] ?? '');
+            $pdo->prepare("UPDATE daleel_schools SET phone = ?, whatsapp = ? WHERE id = ?")->execute([$phone ?: null, $whatsapp ?: null, $id]);
+            echo json_encode(['success' => true, 'id' => $id, 'phone' => $phone, 'whatsapp' => $whatsapp, 'message' => 'تم تحديث رقم الهاتف والواتساب بنجاح.']);
             exit;
         }
 
@@ -975,7 +999,7 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                                 <th class="text-center">التوثيق</th>
                                 <th class="text-center">SchoPlus</th>
                                 <th class="text-center">صرح عريق</th>
-                                <th class="text-center" style="width: 140px;">الترتيب الفعلي بالدليل</th>
+                                <th class="text-center" style="width: 145px;" title="الترتيب الفعلي التلقائي في الدليل مع حقول لتخصيص الترتيب العام والولائي">الترتيب الفعلي (عام / ولائي)</th>
                                 <th class="text-center pe-3" style="width: 100px;">إجراءات</th>
                             </tr>
                         </thead>
@@ -989,7 +1013,19 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                                     <?php 
                                     $actualDirRank = getSchoolDirectoryRank($pdo, (int)$sch['id'], !empty($sch['directory_rank']) ? (int)$sch['directory_rank'] : null);
                                     $phoneVal = trim((string)($sch['whatsapp'] ?: $sch['phone']));
-                                    $waUrl = formatWhatsAppUrl($phoneVal, $sch['name'], $sch['country'] ?? 'السودان');
+                                    $waUrl = formatWhatsAppUrl($phoneVal, $sch['name'], $sch['slug'] ?? '', $sch['country'] ?? 'السودان');
+
+                                    // Line type detection: Mobile vs Landline
+                                    $cleanDigits = preg_replace('/[^0-9]/', '', $phoneVal);
+                                    $isMobile = false;
+                                    if (str_starts_with($cleanDigits, '249')) {
+                                        $local = substr($cleanDigits, 3);
+                                        $isMobile = (str_starts_with($local, '9') || str_starts_with($local, '1')) && strlen($local) === 9;
+                                    } elseif (str_starts_with($cleanDigits, '0')) {
+                                        $isMobile = (str_starts_with($cleanDigits, '09') || str_starts_with($cleanDigits, '01')) && strlen($cleanDigits) === 10;
+                                    } elseif (str_starts_with($cleanDigits, '9665') || str_starts_with($cleanDigits, '201') || str_starts_with($cleanDigits, '9715') || str_starts_with($cleanDigits, '974')) {
+                                        $isMobile = true;
+                                    }
                                     ?>
                                     <tr id="row-school-<?= $sch['id'] ?>">
                                         <td class="fw-bold text-muted ps-3">#<?= $sch['id'] ?></td>
@@ -1031,12 +1067,28 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                                         <td>
                                             <?php if ($phoneVal !== ''): ?>
                                                 <div class="d-flex flex-column gap-1">
-                                                    <div class="fw-bold text-dark dir-ltr" style="font-size: 0.72rem; font-family: monospace;">
-                                                        <i class="fas fa-phone text-muted me-1"></i><?= e($phoneVal) ?>
-                                                    </div>
                                                     <div class="d-flex align-items-center gap-1">
+                                                        <span class="fw-bold text-dark dir-ltr" style="font-size: 0.72rem; font-family: monospace;">
+                                                            <?= e($phoneVal) ?>
+                                                        </span>
+                                                        <button type="button" class="btn btn-sm btn-link p-0 text-muted hover-primary" onclick="editSchoolPhone(<?= $sch['id'] ?>, '<?= e(addslashes($sch['name'])) ?>', '<?= e(addslashes($sch['phone'] ?? '')) ?>', '<?= e(addslashes($sch['whatsapp'] ?? '')) ?>')" title="تعديل الهاتف أو الواتساب">
+                                                            <i class="fas fa-pencil-alt" style="font-size: 0.62rem;"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div>
+                                                        <?php if ($isMobile): ?>
+                                                            <span class="badge bg-success-subtle text-success border border-success-subtle py-0 px-1" style="font-size: 0.58rem;">
+                                                                <i class="fab fa-whatsapp me-1"></i>موبايل مهيأ لواتساب
+                                                            </span>
+                                                        <?php else: ?>
+                                                            <span class="badge bg-light text-secondary border py-0 px-1" style="font-size: 0.58rem;">
+                                                                <i class="fas fa-phone-office me-1"></i>هاتف أرضي/ثابت
+                                                            </span>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                    <div class="d-flex align-items-center gap-1 mt-1">
                                                         <?php if ($waUrl): ?>
-                                                            <a href="<?= e($waUrl) ?>" target="_blank" class="btn btn-sm text-white d-inline-flex align-items-center gap-1 py-0 px-2" style="font-size: 0.68rem; height: 23px; border-radius: 6px; background-color: #25D366; border-color: #25D366;" title="مراسلة واتساب فورية">
+                                                            <a href="<?= e($waUrl) ?>" target="_blank" class="btn btn-sm text-white d-inline-flex align-items-center gap-1 py-0 px-2" style="font-size: 0.68rem; height: 23px; border-radius: 6px; background-color: #25D366; border-color: #25D366;" title="مراسلة واتساب بالرسالة الترحيبية والتعريفية">
                                                                 <i class="fab fa-whatsapp"></i> <span>واتساب</span>
                                                             </a>
                                                         <?php endif; ?>
@@ -1046,9 +1098,14 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                                                     </div>
                                                 </div>
                                             <?php else: ?>
-                                                <span class="badge bg-light text-muted border" style="font-size: 0.65rem;">
-                                                    <i class="fas fa-phone-slash me-1"></i>غير متوفر
-                                                </span>
+                                                <div class="d-flex align-items-center gap-1">
+                                                    <span class="badge bg-light text-muted border" style="font-size: 0.65rem;">
+                                                        <i class="fas fa-phone-slash me-1"></i>غير متوفر
+                                                    </span>
+                                                    <button type="button" class="btn btn-sm btn-link p-0 text-primary" onclick="editSchoolPhone(<?= $sch['id'] ?>, '<?= e(addslashes($sch['name'])) ?>', '', '')" title="إضافة رقم هاتف للمدرسة">
+                                                        <i class="fas fa-plus-circle" style="font-size: 0.72rem;"></i>
+                                                    </button>
+                                                </div>
                                             <?php endif; ?>
                                         </td>
                                         
@@ -1082,21 +1139,26 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                                             </span>
                                         </td>
 
-                                        <!-- ACTUAL CATALOG RANK & MANUAL OVERRIDE -->
+                                        <!-- ACTUAL CATALOG RANK & MANUAL OVERRIDE (EXPLICIT LABELS) -->
                                         <td class="text-center">
                                             <div class="d-flex flex-column align-items-center justify-content-center">
-                                                <span class="badge" style="background: linear-gradient(135deg, #0B2A52, #1E5FA8); color: #FFF; font-size: 0.72rem; padding: 4px 8px;" title="الترتيب الفعلي في الدليل">
+                                                <span class="badge mb-1" style="background: linear-gradient(135deg, #0B2A52, #1E5FA8); color: #FFF; font-size: 0.72rem; padding: 4px 8px;" title="الترتيب الفعلي التلقائي في الدليل">
                                                     #<?= $actualDirRank ?> في الدليل
                                                 </span>
-                                                <div class="d-flex align-items-center justify-content-center gap-1 mt-1">
-                                                    <input type="number" class="form-control form-control-sm text-center px-1" style="width: 50px; font-size: 0.68rem; height: 24px;" 
-                                                           id="dir-rank-<?= $sch['id'] ?>" value="<?= (int)($sch['directory_rank'] ?: $actualDirRank) ?>" title="الترتيب العام المخصص">
-                                                    <span class="text-muted" style="font-size: 0.65rem;">/</span>
-                                                    <input type="number" class="form-control form-control-sm text-center px-1" style="width: 44px; font-size: 0.68rem; height: 24px;" 
-                                                           id="state-rank-<?= $sch['id'] ?>" value="<?= (int)($sch['state_rank'] ?: 1) ?>" title="الترتيب بالولاية">
-                                                    <button type="button" class="btn btn-sm btn-light border p-0 btn-save-rank-<?= $sch['id'] ?>" style="width: 24px; height: 24px;" onclick="saveRanks(<?= $sch['id'] ?>)" title="حفظ الترتيب">
-                                                        <i class="fas fa-save text-primary" style="font-size: 0.65rem;"></i>
-                                                    </button>
+                                                <div class="d-flex flex-column gap-1 p-1 bg-light rounded border" style="font-size: 0.65rem; min-width: 125px;">
+                                                    <div class="d-flex align-items-center justify-content-between gap-1">
+                                                        <span class="text-muted fw-bold" style="font-size: 0.62rem;" title="الترتيب العام المخصص للمدرسة في الدليل">العام:</span>
+                                                        <input type="number" class="form-control form-control-sm text-center px-1 py-0 bg-white" style="width: 48px; font-size: 0.68rem; height: 21px;" 
+                                                               id="dir-rank-<?= $sch['id'] ?>" value="<?= (int)($sch['directory_rank'] ?: $actualDirRank) ?>" title="أولوية الترتيب العام المخصص">
+                                                    </div>
+                                                    <div class="d-flex align-items-center justify-content-between gap-1">
+                                                        <span class="text-muted fw-bold" style="font-size: 0.62rem;" title="ترتيب المدرسة داخل ولايتها">الولائي:</span>
+                                                        <input type="number" class="form-control form-control-sm text-center px-1 py-0 bg-white" style="width: 48px; font-size: 0.68rem; height: 21px;" 
+                                                               id="state-rank-<?= $sch['id'] ?>" value="<?= (int)($sch['state_rank'] ?: 1) ?>" title="أولوية الترتيب داخل الولاية">
+                                                        <button type="button" class="btn btn-sm btn-primary p-0 btn-save-rank-<?= $sch['id'] ?>" style="width: 22px; height: 21px; border-radius: 4px;" onclick="saveRanks(<?= $sch['id'] ?>)" title="حفظ الترتيب المخصص">
+                                                            <i class="fas fa-save" style="font-size: 0.6rem;"></i>
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </td>
@@ -1595,6 +1657,32 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                 alert('فشل تعيين كلمة المرور.');
             }
         });
+    }
+
+    function editSchoolPhone(schoolId, schoolName, currentPhone, currentWa) {
+        const newPhone = prompt(`تعديل رقم الهاتف الأساسي لمدرسة "${schoolName}":`, currentPhone || '');
+        if (newPhone === null) return;
+
+        const newWa = prompt(`تعديل رقم الواتساب لمدرسة "${schoolName}" (يمكنك تركه مطابقاً للهاتف أو كتابة رقم منفصل):`, currentWa || newPhone);
+        if (newWa === null) return;
+
+        const fd = new FormData();
+        fd.append('ajax_action', 'update_phone');
+        fd.append('id', schoolId);
+        fd.append('phone', newPhone.trim());
+        fd.append('whatsapp', newWa.trim());
+
+        fetch('admin.php', { method: 'POST', body: fd })
+        .then(r => r.json())
+        .then(data => {
+            if (data && data.success) {
+                showAdminToast(data.message, 'success');
+                setTimeout(() => location.reload(), 900);
+            } else {
+                showAdminToast('فشل التعديل: ' + (data.error || 'خطأ غير معروف'), 'danger');
+            }
+        })
+        .catch(err => showAdminToast('حدث خطأ في الاتصال بالخادم.', 'danger'));
     }
 
     function approveClaim(claimId) {
