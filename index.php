@@ -7,6 +7,56 @@ $isAjax = (!empty($_GET['ajax']) && $_GET['ajax'] == '1') ||
 
 $pdo = db();
 
+// Fast Live Autocomplete Suggestions Endpoint (Hero Search)
+if (!empty($_GET['suggest']) && $_GET['suggest'] == '1') {
+    header('Content-Type: application/json; charset=UTF-8');
+    $sq = trim($_GET['q'] ?? '');
+    if (mb_strlen($sq, 'UTF-8') < 2) {
+        echo json_encode(['schools' => [], 'total' => 0, 'q' => $sq], JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
+    list($searchClause, $searchParams) = buildUniversalSchoolSearchClause($sq);
+    $suggestWhere = "status = 'approved'";
+    if ($searchClause !== '') {
+        $suggestWhere .= " AND " . $searchClause;
+    }
+
+    $cleanSq = addcslashes($sq, '%_');
+    $suggestOrder = "(CASE 
+        WHEN name = ? THEN 1 
+        WHEN name LIKE ? THEN 2 
+        WHEN name LIKE ? THEN 3 
+        WHEN name_en LIKE ? THEN 4
+        ELSE 5 
+    END) ASC, is_schoplus_client DESC, is_verified DESC, rating_avg DESC, id ASC";
+
+    $orderParams = [$sq, $cleanSq . '%', '%' . $cleanSq . '%', '%' . $cleanSq . '%'];
+    $allParams = array_merge($searchParams, $orderParams);
+
+    $countStmt = $pdo->prepare("SELECT COUNT(*) FROM daleel_schools WHERE {$suggestWhere}");
+    $countStmt->execute($searchParams);
+    $totalFound = (int)$countStmt->fetchColumn();
+
+    $stmt = $pdo->prepare("SELECT id, name, name_en, slug, logo_path, state, city, school_type, rating_avg, is_schoplus_client, is_verified FROM daleel_schools WHERE {$suggestWhere} ORDER BY {$suggestOrder} LIMIT 6");
+    $stmt->execute($allParams);
+    $schools = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($schools as &$s) {
+        $s['logo_url'] = !empty($s['logo_path']) ? assetUrl($s['logo_path']) : '/assets/images/default-school-logo.svg';
+        $s['url'] = '/school/' . ($s['slug'] ?: $s['id']);
+        $s['rating_avg'] = round((float)($s['rating_avg'] ?? 0), 1);
+        $s['type_label'] = $s['school_type'] === 'government' ? 'حكومية' : ($s['school_type'] === 'private' ? 'خاصة' : ($s['school_type'] === 'international' ? 'دولية' : 'مدرسة'));
+    }
+
+    echo json_encode([
+        'schools' => $schools,
+        'total' => $totalFound,
+        'q' => $sq
+    ], JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
 // Filter Inputs
 $q = trim($_GET['q'] ?? '');
 $country = trim($_GET['country'] ?? '');
@@ -211,10 +261,22 @@ if ($isSearching) {
 
     $whereClause = implode(' AND ', $where);
 
-    // Default sorting order: Historic schools FIRST (ordered by established year oldest first), then sequential directory order (id ASC)
-    $historicYearOrder = "(CASE WHEN CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950 THEN CAST(established_year AS UNSIGNED) ELSE 9999 END) ASC";
-    $orderBy = "{$historicWhereSql} DESC, {$historicYearOrder}, id ASC";
-    if ($view === 'historic') $orderBy = "{$historicWhereSql} DESC, {$historicYearOrder}, id ASC";
+    // Default sorting order: If user entered text search $q, prioritize name relevance first!
+    if ($q !== '') {
+        $cleanQ = addcslashes($q, '%_');
+        $qRelevanceSql = "(CASE 
+            WHEN name = " . $pdo->quote($q) . " THEN 1 
+            WHEN name LIKE " . $pdo->quote($cleanQ . '%') . " THEN 2 
+            WHEN name LIKE " . $pdo->quote('%' . $cleanQ . '%') . " THEN 3 
+            WHEN name_en LIKE " . $pdo->quote('%' . $cleanQ . '%') . " THEN 4 
+            ELSE 5 
+        END) ASC";
+        $orderBy = "{$qRelevanceSql}, is_schoplus_client DESC, is_verified DESC, rating_avg DESC, id ASC";
+    } else {
+        $historicYearOrder = "(CASE WHEN CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950 THEN CAST(established_year AS UNSIGNED) ELSE 9999 END) ASC";
+        $orderBy = "{$historicWhereSql} DESC, {$historicYearOrder}, id ASC";
+        if ($view === 'historic') $orderBy = "{$historicWhereSql} DESC, {$historicYearOrder}, id ASC";
+    }
     if ($sort === 'rating' || $view === 'top_rated') $orderBy = "rating_avg DESC, reviews_count DESC, id ASC";
     if ($sort === 'reviews') $orderBy = "reviews_count DESC, id ASC";
     if ($sort === 'views') $orderBy = "views_count DESC, id ASC";
@@ -792,6 +854,126 @@ require_once __DIR__ . '/header.php';
 .sp-search-input-box input::placeholder {
     color: #94A3B8;
     font-weight: 500;
+}
+
+/* ===== INSTANT AUTOCOMPLETE SEARCH SUGGESTIONS DROPDOWN ===== */
+.sp-search-suggestions-dropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    left: 0;
+    background: #FFFFFF;
+    border-radius: 14px;
+    border: 1.5px solid #1E5FA8;
+    box-shadow: 0 18px 40px rgba(11, 42, 82, 0.16);
+    z-index: 1060;
+    max-height: 400px;
+    overflow-y: auto;
+    text-align: right;
+    animation: spFadeInDown 0.18s ease-out;
+}
+@keyframes spFadeInDown {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.sp-suggest-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 9px 14px;
+    background: #F8FAFC;
+    border-bottom: 1px solid #E2E8F0;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #475569;
+}
+.sp-suggest-count-badge {
+    background: #EFF6FF;
+    color: #1E5FA8;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 0.65rem;
+}
+.sp-suggest-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-bottom: 1px solid #F1F5F9;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.15s ease;
+    cursor: pointer;
+}
+.sp-suggest-item:hover,
+.sp-suggest-item.is-active {
+    background: #F0F6FC;
+    padding-right: 18px;
+    border-right: 3px solid #F5A020;
+}
+.sp-suggest-logo {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    object-fit: contain;
+    background: #FFFFFF;
+    border: 1px solid #DDE4ED;
+    padding: 2px;
+    flex-shrink: 0;
+}
+.sp-suggest-info {
+    flex-grow: 1;
+    min-width: 0;
+}
+.sp-suggest-title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #0B2A52;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.sp-suggest-meta {
+    font-size: 0.68rem;
+    color: #64748B;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.sp-suggest-meta-tag {
+    background: #F1F5F9;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.62rem;
+    font-weight: 600;
+    color: #334155;
+}
+.sp-suggest-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    background: #FAFCFF;
+    font-size: 0.73rem;
+    font-weight: 700;
+    color: #1E5FA8;
+    cursor: pointer;
+    transition: background 0.15s;
+    text-decoration: none;
+    border-top: 1px solid #E2E8F0;
+}
+.sp-suggest-footer:hover,
+.sp-suggest-footer.is-active {
+    background: #EFF6FF;
+    color: #0B2A52;
+}
+.sp-suggest-empty {
+    padding: 20px 16px;
+    text-align: center;
+    color: #64748B;
+    font-size: 0.74rem;
 }
 
 /* ===== LUXURY SEARCHABLE DROPDOWN COMPONENT (HERO CONSOLE) ===== */
@@ -1827,13 +2009,18 @@ require_once __DIR__ . '/header.php';
                 <form action="/" method="GET" class="sp-search-card" id="smartFilterForm">
                     <input type="hidden" name="type" id="filterTypeHidden" value="<?= e($schoolType) ?>">
                     
-                    <!-- 1. Main Search Bar Input -->
-                    <div class="sp-search-input-box">
-                        <i class="fas fa-search"></i>
-                        <input type="text" name="q" value="<?= e($q) ?>" placeholder="ابحث باسم المدرسة، الحي، أو المنطقة..." autocomplete="off">
-                        <?php if ($q !== ''): ?>
-                            <a href="/" class="text-muted small text-decoration-none px-1" title="مسح"><i class="fas fa-times-circle"></i></a>
-                        <?php endif; ?>
+                    <!-- 1. Main Search Bar Input with Instant Autocomplete Suggestions -->
+                    <div class="sp-search-input-wrap position-relative mb-2">
+                        <div class="sp-search-input-box mb-0">
+                            <i class="fas fa-search sp-search-icon" id="heroSearchIcon"></i>
+                            <input type="text" name="q" id="heroSearchInput" value="<?= e($q) ?>" placeholder="ابحث باسم المدرسة، الحي، أو المنطقة..." autocomplete="off">
+                            <span class="sp-search-spinner d-none" id="heroSearchSpinner"><i class="fas fa-circle-notch fa-spin text-primary"></i></span>
+                            <button type="button" class="sp-search-clear-btn border-0 bg-transparent text-muted small px-1 <?= $q !== '' ? '' : 'd-none' ?>" id="heroSearchClearBtn" title="مسح">
+                                <i class="fas fa-times-circle"></i>
+                            </button>
+                        </div>
+                        <!-- Live Autocomplete Suggestions Dropdown -->
+                        <div id="heroSearchSuggestions" class="sp-search-suggestions-dropdown" style="display: none;"></div>
                     </div>
 
                     <!-- 2. Structured Filter Grid (Country, State, City, Stage with Searchable Dropdowns) -->
@@ -2097,9 +2284,10 @@ require_once __DIR__ . '/header.php';
 
 <?php
 $jsonAllGeo = json_encode($countriesWithStates, JSON_UNESCAPED_UNICODE);
-$extraScripts = <<<JS
+ob_start();
+?>
 <script>
-    const allGeoMap = {$jsonAllGeo};
+    const allGeoMap = <?= $jsonAllGeo ?>;
 
     // Sidebar State instant search filter
     window.filterSidebarStates = function(query) {
@@ -2573,7 +2761,11 @@ $extraScripts = <<<JS
                     if (pushToHistory) {
                         const cleanUrl = new URL(url, window.location.origin);
                         cleanUrl.searchParams.delete('ajax');
-                        window.history.pushState({ path: cleanUrl.toString() }, '', cleanUrl.toString());
+                        if (pushToHistory === 'replace') {
+                            window.history.replaceState({ path: cleanUrl.toString() }, '', cleanUrl.toString());
+                        } else {
+                            window.history.pushState({ path: cleanUrl.toString() }, '', cleanUrl.toString());
+                        }
                     }
 
                     // Smooth scroll to catalog section if user submitted hero form or requested
@@ -2681,6 +2873,7 @@ $extraScripts = <<<JS
         if (smartFilterForm) {
             smartFilterForm.addEventListener('submit', function(e) {
                 e.preventDefault();
+                closeSuggestions();
                 const formData = new FormData(smartFilterForm);
                 const params = new URLSearchParams();
                 for (const [k, v] of formData.entries()) {
@@ -2694,13 +2887,87 @@ $extraScripts = <<<JS
                 loadCatalogAjax(targetUrl, true, true);
             });
 
-            // Instant live debounced search on typing
-            const searchInput = smartFilterForm.querySelector('input[name="q"]');
-            if (searchInput) {
-                let debounceTimer = null;
-                searchInput.addEventListener('input', function() {
-                    clearTimeout(debounceTimer);
-                    debounceTimer = setTimeout(() => {
+            // Instant Live Autocomplete Suggestions & Debounced Search
+            const heroSearchInput = document.getElementById('heroSearchInput');
+            const heroSuggestionsBox = document.getElementById('heroSearchSuggestions');
+            const heroSearchIcon = document.getElementById('heroSearchIcon');
+            const heroSearchSpinner = document.getElementById('heroSearchSpinner');
+            const heroSearchClearBtn = document.getElementById('heroSearchClearBtn');
+            let suggestTimer = null;
+            let catalogLiveTimer = null;
+            let activeSuggestController = null;
+            let activeSuggestIndex = -1;
+
+            window.closeSuggestions = function() {
+                if (heroSuggestionsBox) {
+                    heroSuggestionsBox.style.display = 'none';
+                    heroSuggestionsBox.innerHTML = '';
+                }
+                activeSuggestIndex = -1;
+            };
+
+            if (heroSearchInput && heroSuggestionsBox) {
+                heroSearchInput.addEventListener('input', function() {
+                    const query = this.value.trim();
+                    
+                    if (heroSearchClearBtn) {
+                        heroSearchClearBtn.classList.toggle('d-none', query === '');
+                    }
+
+                    clearTimeout(suggestTimer);
+                    clearTimeout(catalogLiveTimer);
+
+                    if (query.length < 2) {
+                        closeSuggestions();
+                        if (heroSearchSpinner) heroSearchSpinner.classList.add('d-none');
+                        if (heroSearchIcon) heroSearchIcon.classList.remove('d-none');
+                        
+                        // If input completely cleared, refresh catalog
+                        if (query.length === 0) {
+                            catalogLiveTimer = setTimeout(() => {
+                                const formData = new FormData(smartFilterForm);
+                                const params = new URLSearchParams();
+                                for (const [k, v] of formData.entries()) {
+                                    const val = (v || '').trim();
+                                    if (val !== '') params.set(k, val);
+                                }
+                                const qs = params.toString();
+                                loadCatalogAjax(qs ? '/?' + qs : '/', 'replace', false);
+                            }, 250);
+                        }
+                        return;
+                    }
+
+                    // Show search spinner
+                    if (heroSearchSpinner) heroSearchSpinner.classList.remove('d-none');
+                    if (heroSearchIcon) heroSearchIcon.classList.add('d-none');
+
+                    // 1. Fetch live suggestions for dropdown
+                    suggestTimer = setTimeout(async () => {
+                        if (activeSuggestController) {
+                            activeSuggestController.abort();
+                        }
+                        activeSuggestController = new AbortController();
+
+                        try {
+                            const res = await fetch('/?suggest=1&q=' + encodeURIComponent(query), {
+                                signal: activeSuggestController.signal
+                            });
+                            if (!res.ok) throw new Error('HTTP ' + res.status);
+                            const data = await res.json();
+                            renderSuggestions(data, query);
+                        } catch (err) {
+                            if (err.name !== 'AbortError') {
+                                console.warn('Suggest error:', err);
+                            }
+                        } finally {
+                            if (heroSearchSpinner) heroSearchSpinner.classList.add('d-none');
+                            if (heroSearchIcon) heroSearchIcon.classList.remove('d-none');
+                        }
+                    }, 180);
+
+                    // 2. Debounced background catalog update without scrolling
+                    catalogLiveTimer = setTimeout(() => {
                         const formData = new FormData(smartFilterForm);
                         const params = new URLSearchParams();
                         for (const [k, v] of formData.entries()) {
@@ -2708,13 +2975,160 @@ $extraScripts = <<<JS
                             if (val !== '') params.set(k, val);
                         }
                         const qs = params.toString();
-                        const targetUrl = qs ? '/?' + qs : '/';
-                        loadCatalogAjax(targetUrl, true, false);
-                    }, 380);
+                        loadCatalogAjax(qs ? '/?' + qs : '/', 'replace', false);
+                    }, 450);
                 });
+
+                // Keyboard Navigation in suggestions
+                heroSearchInput.addEventListener('keydown', function(e) {
+                    if (!heroSuggestionsBox || heroSuggestionsBox.style.display === 'none') return;
+                    
+                    const items = heroSuggestionsBox.querySelectorAll('.sp-suggest-item, .sp-suggest-footer');
+                    if (!items.length) return;
+
+                    if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        activeSuggestIndex = (activeSuggestIndex + 1) % items.length;
+                        highlightSuggestItem(items);
+                    } else if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        activeSuggestIndex = (activeSuggestIndex - 1 + items.length) % items.length;
+                        highlightSuggestItem(items);
+                    } else if (e.key === 'Enter') {
+                        if (activeSuggestIndex >= 0 && items[activeSuggestIndex]) {
+                            e.preventDefault();
+                            items[activeSuggestIndex].click();
+                        } else {
+                            closeSuggestions();
+                        }
+                    } else if (e.key === 'Escape') {
+                        closeSuggestions();
+                    }
+                });
+
+                // Close on click outside
+                document.addEventListener('click', function(e) {
+                    if (!e.target.closest('.sp-search-input-wrap')) {
+                        closeSuggestions();
+                    }
+                });
+
+                // Clear button click
+                if (heroSearchClearBtn) {
+                    heroSearchClearBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        heroSearchInput.value = '';
+                        heroSearchClearBtn.classList.add('d-none');
+                        closeSuggestions();
+                        heroSearchInput.focus();
+                        if (smartFilterForm) {
+                            const formData = new FormData(smartFilterForm);
+                            const params = new URLSearchParams();
+                            for (const [k, v] of formData.entries()) {
+                                const val = (v || '').trim();
+                                if (val !== '') params.set(k, val);
+                            }
+                            const qs = params.toString();
+                            loadCatalogAjax(qs ? '/?' + qs : '/', 'replace', false);
+                        }
+                    });
+                }
             }
 
-            // Auto-trigger filter on native select changes (with smooth auto-scroll to results)
+            function highlightSuggestItem(items) {
+                items.forEach((it, idx) => {
+                    it.classList.toggle('is-active', idx === activeSuggestIndex);
+                });
+                if (activeSuggestIndex >= 0 && items[activeSuggestIndex]) {
+                    items[activeSuggestIndex].scrollIntoView({ block: 'nearest' });
+                }
+            }
+
+            function escapeHtml(str) {
+                return (str || '').replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[m]);
+            }
+
+            function highlightMatch(text, q) {
+                if (!text || !q) return escapeHtml(text);
+                const safeQ = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                const regex = new RegExp('(' + safeQ + ')', 'gi');
+                return escapeHtml(text).replace(regex, '<span style="color:#F5A020;font-weight:900;">$1</span>');
+            }
+
+            function renderSuggestions(data, query) {
+                if (!heroSuggestionsBox) return;
+                const schools = data.schools || [];
+                const total = data.total || 0;
+
+                if (schools.length === 0) {
+                    heroSuggestionsBox.innerHTML = `
+                        <div class="sp-suggest-empty">
+                            <i class="fas fa-search me-1 text-muted"></i>
+                            لم نعثر على مدرسة باسم "<strong>${escapeHtml(query)}</strong>" مباشرة.
+                            <div class="mt-2">
+                                <button type="button" class="btn btn-sm btn-primary rounded-pill px-3 py-1" style="font-size: 0.72rem; background: #0B2A52; border-color: #0B2A52;" onclick="submitHeroSearch('${escapeHtml(query)}')">
+                                    بحث شامل في كافة البيانات ↵
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    heroSuggestionsBox.style.display = 'block';
+                    return;
+                }
+
+                let html = `
+                    <div class="sp-suggest-header">
+                        <span><i class="fas fa-school text-primary me-1"></i> مقترحات المدارس المطابقة</span>
+                        <span class="sp-suggest-count-badge">${total} مدرسة</span>
+                    </div>
+                    <div class="sp-suggest-list">
+                `;
+
+                schools.forEach(s => {
+                    const ratingBadge = s.rating_avg > 0 ? `<span class="badge bg-warning text-dark"><i class="fas fa-star" style="font-size:0.6rem"></i> ${s.rating_avg}</span>` : '';
+                    const verifiedIcon = s.is_verified || s.is_schoplus_client ? `<i class="fas fa-check-circle text-primary" title="مدرسة موثقة" style="font-size:0.7rem"></i>` : '';
+                    const loc = [s.state, s.city].filter(Boolean).join(' • ');
+
+                    html += `
+                        <a href="${s.url}" class="sp-suggest-item">
+                            <img src="${s.logo_url}" alt="${escapeHtml(s.name)}" class="sp-suggest-logo" onerror="this.src='/assets/images/default-school-logo.svg'">
+                            <div class="sp-suggest-info">
+                                <div class="sp-suggest-title">
+                                    ${highlightMatch(s.name, query)} ${verifiedIcon}
+                                </div>
+                                <div class="sp-suggest-meta">
+                                    <span class="sp-suggest-meta-tag">${escapeHtml(s.type_label)}</span>
+                                    <span><i class="fas fa-map-marker-alt text-danger me-1"></i> ${escapeHtml(loc || 'السودان')}</span>
+                                    ${ratingBadge}
+                                </div>
+                            </div>
+                            <i class="fas fa-arrow-left text-muted" style="font-size: 0.75rem;"></i>
+                        </a>
+                    `;
+                });
+
+                html += `
+                    </div>
+                    <a href="javascript:void(0)" class="sp-suggest-footer" onclick="submitHeroSearch('${escapeHtml(query)}')">
+                        <span><i class="fas fa-list-ul me-1"></i> عرض كافة النتائج المطابقة (${total} مدرسة)</span>
+                        <span class="badge bg-white text-dark border">Enter ↵</span>
+                    </a>
+                `;
+
+                heroSuggestionsBox.innerHTML = html;
+                heroSuggestionsBox.style.display = 'block';
+                activeSuggestIndex = -1;
+            }
+
+            window.submitHeroSearch = function(query) {
+                if (heroSearchInput) heroSearchInput.value = query;
+                closeSuggestions();
+                if (smartFilterForm) {
+                    smartFilterForm.dispatchEvent(new Event('submit', { cancelable: true }));
+                }
+            };
+
+            // Auto-trigger filter on native select changes (DO NOT aggressively scroll down!)
             smartFilterForm.addEventListener('change', function(e) {
                 if (e.target && e.target.tagName === 'SELECT') {
                     const formData = new FormData(smartFilterForm);
@@ -2725,7 +3139,7 @@ $extraScripts = <<<JS
                     }
                     const qs = params.toString();
                     const targetUrl = qs ? '/?' + qs : '/';
-                    loadCatalogAjax(targetUrl, true, true);
+                    loadCatalogAjax(targetUrl, 'replace', false);
                 }
             });
         }
@@ -2837,5 +3251,6 @@ $extraScripts = <<<JS
         });
     });
 </script>
-JS;
+<?php
+$extraScripts = ob_get_clean();
 require_once __DIR__ . '/footer.php';

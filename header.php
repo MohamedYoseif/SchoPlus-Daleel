@@ -1344,10 +1344,6 @@ $isDaleelMobile = (
                         <i class="fas fa-sign-out-alt"></i>
                     </a>
                 <?php else: ?>
-                    <a href="/#app-download" class="btn-luxury-outline d-none d-md-inline-flex" style="border-radius: 8px; padding: 7px 14px; gap: 6px;">
-                        <i class="fas fa-mobile-alt text-success"></i>
-                        <span>تطبيق الهاتف</span>
-                    </a>
                     <a href="/login.php" class="btn-luxury-outline d-none d-sm-inline-flex" style="border-radius: 8px; padding: 7px 16px;">
                         <i class="fas fa-user-tie text-secondary"></i>
                         <span>دخول أصحاب المدارس</span>

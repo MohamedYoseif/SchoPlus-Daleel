@@ -373,7 +373,19 @@ if (!function_exists('renderCatalogPagination')) {
                         تم العثور على <strong><?= number_format($totalMatching) ?></strong> مدرسة مطابقة لمعايير البحث.
                     </p>
                 </div>
-                <div class="mt-2 mt-md-0 d-flex gap-2 align-items-center">
+                <div class="mt-2 mt-md-0 d-flex flex-wrap gap-2 align-items-center">
+                    <form action="/" method="GET" class="d-inline-flex align-items-center position-relative" onsubmit="event.preventDefault(); const q = this.q.value.trim(); const url = new URL(window.location.href); if (q) { url.searchParams.set('q', q); } else { url.searchParams.delete('q'); } url.searchParams.delete('page'); if (typeof loadCatalogAjax === 'function') { loadCatalogAjax(url.pathname + url.search, true, false); } else { window.location.href = url.pathname + url.search; }">
+                        <?php if ($state !== ''): ?><input type="hidden" name="state" value="<?= e($state) ?>"><?php endif; ?>
+                        <?php if ($city !== ''): ?><input type="hidden" name="city" value="<?= e($city) ?>"><?php endif; ?>
+                        <?php if ($stage !== ''): ?><input type="hidden" name="stage" value="<?= e($stage) ?>"><?php endif; ?>
+                        <?php if ($schoolType !== ''): ?><input type="hidden" name="type" value="<?= e($schoolType) ?>"><?php endif; ?>
+                        <div class="input-group input-group-sm" style="min-width: 240px;">
+                            <input type="text" name="q" class="form-control" style="font-size: 0.74rem; border-color: #CBD5E1; border-radius: 8px 0 0 8px;" placeholder="تعديل أو تخصيص البحث..." value="<?= e($q) ?>">
+                            <button class="btn btn-primary btn-sm px-3" type="submit" style="background: #1E5FA8; border-color: #1E5FA8; border-radius: 0 8px 8px 0;" title="تحديث نتائج البحث">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
                     <a href="/" class="btn-luxury-outline btn-sm">
                         <i class="fas fa-arrow-right"></i>
                         <span>عرض كافة المدارس</span>
