@@ -2,9 +2,9 @@
 
 /**
  * SchoPlus Daleel - Comprehensive Global Sudanese Schools Directory Dataset
- * Total Institutions: 1555
+ * Total Institutions: 1559
  * Coverage: All 18 States of Sudan + 19 Diaspora Countries Worldwide
- * Updated: 2026-10-23 12:27:33
+ * Updated: 2026-10-23 12:44:27
  */
 
 return array (
@@ -49943,6 +49943,135 @@ return array (
     'email' => NULL,
     'website' => NULL,
     'description' => 'صرح تربوي وتعليمي متميز يقع في ولاية سنار — مايرنو، يقدم خدماته الأكاديمية والتربوية لطلاب المراحل (ابتدائي / أساس، متوسطة)، ويهتم بتطوير المهارات العلمية والأنشطة الطلابية وبناء بيئة تعليمية محفزة.',
+    'status' => 'approved',
+    'is_verified' => 0,
+    'is_schoplus_client' => 0,
+    'rating_avg' => '5.00',
+    'is_historic' => 0,
+    'historic_badge_reason' => NULL,
+    'historic_votes' => 0,
+  ),
+  1555 => 
+  array (
+    'name' => 'مجمع مدارس النخبة التعليمي — رهيد البردي',
+    'name_en' => 'Complex Schools Al Al Al Al Al',
+    'slug' => 'مجمع-مدارس-النخبة-التعليمي-رهيد-البردي',
+    'school_type' => 'private',
+    'gender_type' => 'mixed',
+    'curriculum' => 'sudanese',
+    'country' => 'السودان',
+    'established_year' => NULL,
+    'stages' => 
+    array (
+      0 => 'primary',
+      1 => 'intermediate',
+      2 => 'secondary',
+    ),
+    'state' => 'جنوب دارفور',
+    'city' => 'رهيد البردي',
+    'district' => 'رهيد البردي',
+    'address' => 'ولاية جنوب دارفور — رهيد البردي',
+    'phone' => NULL,
+    'whatsapp' => NULL,
+    'email' => NULL,
+    'website' => NULL,
+    'description' => 'صرح تربوي وتعليمي متميز يقع في ولاية جنوب دارفور — رهيد البردي، يقدم خدماته الأكاديمية والتربوية لطلاب المراحل (ابتدائي / أساس، متوسطة، ثانوية)، ويهتم بتطوير المهارات العلمية والأنشطة الطلابية وبناء بيئة تعليمية محفزة.',
+    'status' => 'approved',
+    'is_verified' => 0,
+    'is_schoplus_client' => 0,
+    'rating_avg' => '5.00',
+    'is_historic' => 0,
+    'historic_badge_reason' => NULL,
+    'historic_votes' => 0,
+  ),
+  1556 => 
+  array (
+    'name' => 'روضة وحضانة آفاق المستقبل النموذجية — المتمة',
+    'name_en' => 'Kindergarten Al Al Al Model Al Al',
+    'slug' => 'روضة-وحضانة-آفاق-المستقبل-النموذجية-المتمة',
+    'school_type' => 'private',
+    'gender_type' => 'mixed',
+    'curriculum' => 'sudanese',
+    'country' => 'السودان',
+    'established_year' => NULL,
+    'stages' => 
+    array (
+      0 => 'kindergarten',
+    ),
+    'state' => 'نهر النيل',
+    'city' => 'المتمة',
+    'district' => 'المتمة',
+    'address' => 'ولاية نهر النيل — المتمة',
+    'phone' => NULL,
+    'whatsapp' => NULL,
+    'email' => NULL,
+    'website' => NULL,
+    'description' => 'صرح تربوي وتعليمي متميز يقع في ولاية نهر النيل — المتمة، يقدم خدماته الأكاديمية والتربوية لطلاب المراحل (رياض أطفال)، ويهتم بتطوير المهارات العلمية والأنشطة الطلابية وبناء بيئة تعليمية محفزة.',
+    'status' => 'approved',
+    'is_verified' => 0,
+    'is_schoplus_client' => 0,
+    'rating_avg' => '5.00',
+    'is_historic' => 0,
+    'historic_badge_reason' => NULL,
+    'historic_votes' => 0,
+  ),
+  1557 => 
+  array (
+    'name' => 'مدرسة ابن سينا الأساسية والمتوسطة الخاصة — دوكة',
+    'name_en' => 'School Al Al Al Al Private Al Al',
+    'slug' => 'مدرسة-ابن-سينا-الأساسية-والمتوسطة-الخاصة-دوكة',
+    'school_type' => 'private',
+    'gender_type' => 'mixed',
+    'curriculum' => 'sudanese',
+    'country' => 'السودان',
+    'established_year' => NULL,
+    'stages' => 
+    array (
+      0 => 'primary',
+      1 => 'intermediate',
+    ),
+    'state' => 'القضارف',
+    'city' => 'دوكة',
+    'district' => 'دوكة',
+    'address' => 'ولاية القضارف — دوكة',
+    'phone' => NULL,
+    'whatsapp' => NULL,
+    'email' => NULL,
+    'website' => NULL,
+    'description' => 'صرح تربوي وتعليمي متميز يقع في ولاية القضارف — دوكة، يقدم خدماته الأكاديمية والتربوية لطلاب المراحل (ابتدائي / أساس، متوسطة)، ويهتم بتطوير المهارات العلمية والأنشطة الطلابية وبناء بيئة تعليمية محفزة.',
+    'status' => 'approved',
+    'is_verified' => 0,
+    'is_schoplus_client' => 0,
+    'rating_avg' => '5.00',
+    'is_historic' => 0,
+    'historic_badge_reason' => NULL,
+    'historic_votes' => 0,
+  ),
+  1558 => 
+  array (
+    'name' => 'أكاديمية دار العلوم للغات والتميز الأكاديمي الخاصة — الأبيض',
+    'name_en' => 'Al Al Al Al Al Al Private Al El Obeid',
+    'slug' => 'أكاديمية-دار-العلوم-للغات-والتميز-الأكاديمي-الخاصة-الأبيض',
+    'school_type' => 'language',
+    'gender_type' => 'mixed',
+    'curriculum' => 'sudanese',
+    'country' => 'السودان',
+    'established_year' => NULL,
+    'stages' => 
+    array (
+      0 => 'primary',
+      1 => 'intermediate',
+      2 => 'secondary',
+    ),
+    'state' => 'شمال كردفان',
+    'city' => 'الأبيض',
+    'district' => 'الأبيض',
+    'address' => 'ولاية شمال كردفان — الأبيض',
+    'phone' => NULL,
+    'whatsapp' => NULL,
+    'email' => NULL,
+    'website' => NULL,
+    'description' => 'صرح تربوي وتعليمي متميز يقع في ولاية شمال كردفان — الأبيض، يقدم خدماته الأكاديمية والتربوية لطلاب المراحل (ابتدائي / أساس، متوسطة، ثانوية)، ويهتم بتطوير المهارات العلمية والأنشطة الطلابية وبناء بيئة تعليمية محفزة.',
     'status' => 'approved',
     'is_verified' => 0,
     'is_schoplus_client' => 0,

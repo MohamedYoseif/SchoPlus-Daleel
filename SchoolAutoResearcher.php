@@ -369,6 +369,9 @@ class SchoolAutoResearcher {
      * Run Autonomous Batch Exploration Engine targeting a specific count of new institutions
      */
     public static function runAutonomousExploration(PDO $pdo, ?string $scopeState = null, int $targetCount = 20, ?array &$logs = null): array {
+        @set_time_limit(180);
+        @ini_set('memory_limit', '512M');
+
         if ($logs === null) {
             $logs = [];
         }
@@ -462,6 +465,8 @@ class SchoolAutoResearcher {
             $dirSeq = 0;
             $stateSeqs = [];
             $updRanksStmt = $pdo->prepare("UPDATE daleel_schools SET directory_rank = ?, state_rank = ? WHERE id = ?");
+            
+            $pdo->beginTransaction();
             foreach ($rows as $aRow) {
                 $dirSeq++;
                 $cntryKey = trim((string)($aRow['country'] ?? '')) ?: 'السودان';
@@ -471,9 +476,12 @@ class SchoolAutoResearcher {
                 $stSeq = $stateSeqs[$groupKey];
                 $updRanksStmt->execute([$dirSeq, $stSeq, (int)$aRow['id']]);
             }
+            $pdo->commit();
+
             $logs[] = "[" . date('H:i:s') . "] ✅ تمت مواءمة وإعادة ترقيم {$dirSeq} مدرسة في الدليل بدقة.";
 
-            @require_once __DIR__ . '/export_master_seed.php';
+            require_once __DIR__ . '/export_master_seed.php';
+            exportMasterSeed($pdo);
             $logs[] = "[" . date('H:i:s') . "] 💾 تم تحديث وحفظ ملف التصدير المركزي Master Seed تلقائياً.";
         }
 

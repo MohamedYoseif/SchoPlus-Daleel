@@ -439,11 +439,15 @@ if (isset($_REQUEST['ajax_action'])) {
 
         if ($action === 'export_seed') {
             require_once __DIR__ . '/export_master_seed.php';
-            echo json_encode(['success' => true, 'message' => 'تم تصدير قاعدة البيانات المركزية إلى seed_schools_data.php بنجاح.']);
+            $cnt = exportMasterSeed($pdo);
+            echo json_encode(['success' => true, 'count' => $cnt, 'message' => "تم تصدير قاعدة البيانات المركزية ({$cnt} مؤسسة) إلى seed_schools_data.php بنجاح."]);
             exit;
         }
 
         if ($action === 'run_batch_researcher') {
+            @set_time_limit(180);
+            @ini_set('memory_limit', '512M');
+
             $scopeState = trim($_POST['state'] ?? '');
             $targetCount = (int)($_POST['target_count'] ?? 20);
             $batchText = trim($_POST['batch_text'] ?? '');
@@ -481,7 +485,8 @@ if (isset($_REQUEST['ajax_action'])) {
                 }
 
                 if ($createdCount > 0) {
-                    @require_once __DIR__ . '/export_master_seed.php';
+                    require_once __DIR__ . '/export_master_seed.php';
+                    exportMasterSeed($pdo);
                     $logs[] = "[" . date('H:i:s') . "] 💾 تم تحديث وحفظ ملف التصدير المركزي Master Seed تلقائياً.";
                 }
 
@@ -2112,7 +2117,17 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
         fd.append('batch_text', batchText);
 
         fetch('admin.php', { method: 'POST', body: fd })
-        .then(r => r.json())
+        .then(async r => {
+            const rawText = await r.text();
+            let data;
+            try {
+                data = JSON.parse(rawText);
+            } catch (e) {
+                console.error("Server raw response:", rawText);
+                throw new Error("استجابة غير متوقعة من الخادم: " + (rawText.length > 200 ? rawText.substring(0, 200) + '...' : rawText));
+            }
+            return data;
+        })
         .then(data => {
             btn.disabled = false;
             btn.innerHTML = '<i class="fas fa-play me-1"></i> تشغيل محرك الاستكشاف والتدقيق الآن';
@@ -2139,8 +2154,8 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
         .catch(err => {
             btn.disabled = false;
             btn.innerHTML = '<i class="fas fa-play me-1"></i> تشغيل محرك الاستكشاف والتدقيق الآن';
-            consoleBox.innerHTML += `<div style="color: #EF4444;">[FATAL] خطأ في الاتصال بالخادم</div>`;
-            showAdminToast('حدث خطأ في الاتصال بالخادم.', 'danger');
+            consoleBox.innerHTML += `<div style="color: #EF4444;">[FATAL] ${escapeHtml(err.message || 'خطأ في الاتصال بالخادم')}</div>`;
+            showAdminToast('خطأ: ' + (err.message || 'فشل الاتصال بالخادم'), 'danger');
         });
     }
 
