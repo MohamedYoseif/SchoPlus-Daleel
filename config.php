@@ -30,6 +30,22 @@ if (!function_exists('assetUrl')) {
     }
 }
 
+if (!function_exists('getSystemVersion')) {
+    function getSystemVersion(): string {
+        static $ver = null;
+        if ($ver === null) {
+            $ver = '3.8.11';
+            $vFile = __DIR__ . '/version.json';
+            if (file_exists($vFile)) {
+                $vData = json_decode(@file_get_contents($vFile), true);
+                if (!empty($vData['version'])) $ver = $vData['version'];
+            }
+        }
+        return $ver;
+    }
+}
+$systemVersion = getSystemVersion();
+
 if (!function_exists('defaultSchoolLogo')) {
     function defaultSchoolLogo(?string $path): string {
         $path = trim((string)($path ?? ''));
@@ -172,13 +188,13 @@ if (!function_exists('buildUniversalSchoolSearchClause')) {
 }
 
 if (!function_exists('getSchoolDirectoryRank')) {
-    function getSchoolDirectoryRank(PDO $pdo, int $schoolId, ?int $customRank = null): int {
+    function getSchoolDirectoryRank(PDO $pdo, int $schoolId, ?int $customRank = null, bool $refresh = false): int {
         static $cachedRanks = null;
-        if ($cachedRanks === null) {
+        if ($refresh || $cachedRanks === null) {
             try {
-                // ترتيب الدليل: الصروح والمدارس العريقة أولاً (حسب سنة التأسيس الأقدم)، ثم بقية المدارس المعتمدة
+                // ترتيب الدليل: الصروح والمدارس العريقة أولاً (حسب سنة التأسيس الأقدم)، ثم المدارس الموثقة والذكية، ثم بقية المدارس المعتمدة
                 $historicSql = "(is_historic = 1 OR (established_year IS NOT NULL AND CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950) OR historic_votes >= 500 OR name LIKE '%خور طقت%' OR name LIKE '%وادي سيدنا%' OR name LIKE '%حنتوب الثانوية%' OR name LIKE '%حنتوب العريقة%' OR name LIKE '%بخت الرضا%' OR name LIKE '%الأهلية%أم درمان%' OR name LIKE '%كمبوني%' OR name LIKE '%الراهبات%' OR name_en LIKE '%Sister%')";
-                $orderClause = "({$historicSql}) DESC, (CASE WHEN CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950 THEN CAST(established_year AS UNSIGNED) ELSE 9999 END) ASC, id ASC";
+                $orderClause = "({$historicSql}) DESC, (CASE WHEN CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950 THEN CAST(established_year AS UNSIGNED) ELSE 9999 END) ASC, (is_verified = 1 OR is_schoplus_client = 1) DESC, is_featured DESC, rating_avg DESC, id ASC";
 
                 $stmt = $pdo->query("SELECT id FROM daleel_schools WHERE status = 'approved' ORDER BY {$orderClause}");
                 $cachedRanks = [];
@@ -207,14 +223,14 @@ if (!function_exists('getSchoolDirectoryRank')) {
 }
 
 if (!function_exists('getSchoolStateRank')) {
-    function getSchoolStateRank(PDO $pdo, int $schoolId, ?string $state = null, ?int $customStateRank = null, ?string $country = null): int {
+    function getSchoolStateRank(PDO $pdo, int $schoolId, ?string $state = null, ?int $customStateRank = null, ?string $country = null, bool $refresh = false): int {
         static $cachedStateRanks = null;
         static $cachedStateCounts = null;
-        if ($cachedStateRanks === null) {
+        if ($refresh || $cachedStateRanks === null) {
             try {
-                // الترتيب داخل الولاية: الصروح العريقة أولاً، ثم حسب أسبقية التسجيل والاعتماد
+                // الترتيب داخل الولاية: الصروح العريقة أولاً، ثم المدارس الموثقة والذكية، ثم بقية المدارس
                 $historicSql = "(is_historic = 1 OR (established_year IS NOT NULL AND CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950) OR historic_votes >= 500 OR name LIKE '%خور طقت%' OR name LIKE '%وادي سيدنا%' OR name LIKE '%حنتوب الثانوية%' OR name LIKE '%حنتوب العريقة%' OR name LIKE '%بخت الرضا%' OR name LIKE '%الأهلية%أم درمان%' OR name LIKE '%كمبوني%' OR name LIKE '%الراهبات%' OR name_en LIKE '%Sister%')";
-                $orderClause = "({$historicSql}) DESC, (CASE WHEN CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950 THEN CAST(established_year AS UNSIGNED) ELSE 9999 END) ASC, id ASC";
+                $orderClause = "({$historicSql}) DESC, (CASE WHEN CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950 THEN CAST(established_year AS UNSIGNED) ELSE 9999 END) ASC, (is_verified = 1 OR is_schoplus_client = 1) DESC, is_featured DESC, rating_avg DESC, id ASC";
 
                 $stmt = $pdo->query("SELECT id, country, state FROM daleel_schools WHERE status = 'approved' ORDER BY {$orderClause}");
                 $cachedStateRanks = [];
@@ -254,6 +270,56 @@ if (!function_exists('getSchoolStateRank')) {
         // إذا كانت المدرسة قيد المراجعة أو جديدة، ترتيبها المتوقع في الولاية عند الاعتماد هو (حصر المدارس المعتمدة بالولاية + 1)
         $approvedInState = ($stKey !== '' && isset($cachedStateCounts[$fullKey])) ? (int)$cachedStateCounts[$fullKey] : 0;
         return max(1, $approvedInState + 1);
+    }
+}
+
+if (!function_exists('recalculateDaleelRanks')) {
+    /**
+     * Recalculates and re-sequences directory_rank and state_rank for all approved schools
+     * Canonical order:
+     * 1. Historic schools (oldest established year first)
+     * 2. Verified & Smart SchoPlus institutions (is_verified = 1 OR is_schoplus_client = 1)
+     * 3. General unverified schools (id ASC)
+     */
+    function recalculateDaleelRanks(PDO $pdo): int {
+        $historicSql = "(is_historic = 1 OR (established_year IS NOT NULL AND CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950) OR historic_votes >= 500 OR name LIKE '%خور طقت%' OR name LIKE '%وادي سيدنا%' OR name LIKE '%حنتوب الثانوية%' OR name LIKE '%حنتوب العريقة%' OR name LIKE '%بخت الرضا%' OR name LIKE '%الأهلية%أم درمان%' OR name LIKE '%كمبوني%' OR name LIKE '%الراهبات%' OR name_en LIKE '%Sister%')";
+        $orderClause = "({$historicSql}) DESC, (CASE WHEN CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950 THEN CAST(established_year AS UNSIGNED) ELSE 9999 END) ASC, (is_verified = 1 OR is_schoplus_client = 1) DESC, is_featured DESC, rating_avg DESC, id ASC";
+
+        $approvedRows = $pdo->query("SELECT id, country, state FROM daleel_schools WHERE status = 'approved' ORDER BY {$orderClause}")->fetchAll(PDO::FETCH_ASSOC);
+        if (empty($approvedRows)) return 0;
+
+        $dirSeq = 0;
+        $stateSeqs = [];
+        $updRanksStmt = $pdo->prepare("UPDATE daleel_schools SET directory_rank = ?, state_rank = ? WHERE id = ?");
+
+        $alreadyInTx = false;
+        try {
+            $alreadyInTx = $pdo->inTransaction();
+        } catch (Throwable $e) {}
+
+        if (!$alreadyInTx) {
+            $pdo->beginTransaction();
+        }
+
+        foreach ($approvedRows as $aRow) {
+            $dirSeq++;
+            $cntryKey = trim((string)($aRow['country'] ?? '')) ?: 'السودان';
+            $stKey = trim((string)($aRow['state'] ?? ''));
+            $groupKey = $cntryKey . ':::' . $stKey;
+            $stateSeqs[$groupKey] = ($stateSeqs[$groupKey] ?? 0) + 1;
+            $stSeq = $stateSeqs[$groupKey];
+            $updRanksStmt->execute([$dirSeq, $stSeq, (int)$aRow['id']]);
+        }
+
+        if (!$alreadyInTx) {
+            $pdo->commit();
+        }
+
+        // Invalidate in-memory cached ranks
+        getSchoolDirectoryRank($pdo, 0, null, true);
+        getSchoolStateRank($pdo, 0, null, null, null, true);
+
+        return $dirSeq;
     }
 }
 
@@ -1098,23 +1164,7 @@ function ensureTablesExist(PDO $pdo): void {
         // Sync default country and sequential directory_rank and state_rank for approved schools
         try {
             $pdo->exec("UPDATE daleel_schools SET country = 'السودان' WHERE country IS NULL OR country = ''");
-            $approvedRows = $pdo->query("SELECT id, country, state, directory_rank, state_rank FROM daleel_schools WHERE status = 'approved' ORDER BY id ASC")->fetchAll(PDO::FETCH_ASSOC);
-            if (!empty($approvedRows)) {
-                $dirSeq = 0;
-                $stateSeqs = [];
-                $updRanksStmt = $pdo->prepare("UPDATE daleel_schools SET directory_rank = ?, state_rank = ? WHERE id = ?");
-                foreach ($approvedRows as $aRow) {
-                    $dirSeq++;
-                    $cntryKey = trim((string)($aRow['country'] ?? '')) ?: 'السودان';
-                    $stKey = trim((string)($aRow['state'] ?? ''));
-                    $groupKey = $cntryKey . ':::' . $stKey;
-                    $stateSeqs[$groupKey] = ($stateSeqs[$groupKey] ?? 0) + 1;
-                    $stSeq = $stateSeqs[$groupKey];
-                    if ((int)($aRow['directory_rank'] ?? 0) !== $dirSeq || (int)($aRow['state_rank'] ?? 0) !== $stSeq) {
-                        $updRanksStmt->execute([$dirSeq, $stSeq, (int)$aRow['id']]);
-                    }
-                }
-            }
+            recalculateDaleelRanks($pdo);
         } catch (Throwable $e) {}
     } catch (Exception $e) {}
 

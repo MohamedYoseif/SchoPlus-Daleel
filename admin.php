@@ -291,7 +291,20 @@ if (isset($_REQUEST['ajax_action'])) {
             $id = (int)($_POST['id'] ?? 0);
             $val = (int)($_POST['value'] ?? 0);
             $pdo->prepare("UPDATE daleel_schools SET is_verified = ?, updated_at = NOW() WHERE id = ?")->execute([$val, $id]);
-            echo json_encode(['success' => true, 'id' => $id, 'is_verified' => $val]);
+            
+            // Recalculate ranks so verified schools are promoted right after historic schools
+            recalculateDaleelRanks($pdo);
+            $newDirRank = getSchoolDirectoryRank($pdo, $id);
+
+            echo json_encode([
+                'success' => true,
+                'id' => $id,
+                'is_verified' => $val,
+                'new_rank' => $newDirRank,
+                'message' => $val 
+                    ? "تم توثيق المدرسة وترقية ترتيبها في الدليل مباشرة بعد الصروح العريقة (#{$newDirRank}) بنجاح ⭐" 
+                    : "تم إلغاء توثيق المدرسة وإعادة ضبط ترتيبها في الدليل (#{$newDirRank}) ℹ️"
+            ]);
             exit;
         }
 
@@ -299,7 +312,9 @@ if (isset($_REQUEST['ajax_action'])) {
             $id = (int)($_POST['id'] ?? 0);
             $val = (int)($_POST['value'] ?? 0);
             $pdo->prepare("UPDATE daleel_schools SET is_schoplus_client = ? WHERE id = ?")->execute([$val, $id]);
-            echo json_encode(['success' => true, 'id' => $id, 'is_schoplus_client' => $val]);
+            recalculateDaleelRanks($pdo);
+            $newDirRank = getSchoolDirectoryRank($pdo, $id);
+            echo json_encode(['success' => true, 'id' => $id, 'is_schoplus_client' => $val, 'new_rank' => $newDirRank]);
             exit;
         }
 
@@ -308,7 +323,9 @@ if (isset($_REQUEST['ajax_action'])) {
             $val = (int)($_POST['value'] ?? 0);
             $badge = $val ? 'صرح وطني عريق' : null;
             $pdo->prepare("UPDATE daleel_schools SET is_historic = ?, historic_badge_reason = ? WHERE id = ?")->execute([$val, $badge, $id]);
-            echo json_encode(['success' => true, 'id' => $id, 'is_historic' => $val]);
+            recalculateDaleelRanks($pdo);
+            $newDirRank = getSchoolDirectoryRank($pdo, $id);
+            echo json_encode(['success' => true, 'id' => $id, 'is_historic' => $val, 'new_rank' => $newDirRank]);
             exit;
         }
 
@@ -383,7 +400,9 @@ if (isset($_REQUEST['ajax_action'])) {
                     ->execute([$claim['claimant_name'], $claim['claimant_title'], $claim['claimant_phone'], $claim['claimant_email'], $schoolId]);
 
                 $pdo->prepare("UPDATE daleel_school_claims SET status = 'approved', reviewed_by = 'Super Admin', reviewed_at = NOW() WHERE id = ?")->execute([$claimId]);
-                echo json_encode(['success' => true, 'claim_id' => $claimId, 'message' => 'تم اعتماد التوثيق ونقل ملكية المدرسة بنجاح!']);
+                recalculateDaleelRanks($pdo);
+                $newDirRank = getSchoolDirectoryRank($pdo, $schoolId);
+                echo json_encode(['success' => true, 'claim_id' => $claimId, 'new_rank' => $newDirRank, 'message' => "تم اعتماد التوثيق ونقل ملكية المدرسة وترقية ترتيبها في الدليل مباشرة بعد الصروح العريقة (#{$newDirRank}) بنجاح!"]);
                 exit;
             }
         }
@@ -417,23 +436,8 @@ if (isset($_REQUEST['ajax_action'])) {
         }
 
         if ($action === 'recalculate_ranks') {
-            $historicSql = "(is_historic = 1 OR (established_year IS NOT NULL AND CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950) OR historic_votes >= 500 OR name LIKE '%خور طقت%' OR name LIKE '%وادي سيدنا%' OR name LIKE '%حنتوب الثانوية%' OR name LIKE '%حنتوب العريقة%' OR name LIKE '%بخت الرضا%' OR name LIKE '%الأهلية%أم درمان%' OR name LIKE '%كمبوني%' OR name LIKE '%الراهبات%' OR name_en LIKE '%Sister%')";
-            $orderClause = "({$historicSql}) DESC, (CASE WHEN CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950 THEN CAST(established_year AS UNSIGNED) ELSE 9999 END) ASC, id ASC";
-
-            $approvedRows = $pdo->query("SELECT id, country, state FROM daleel_schools WHERE status = 'approved' ORDER BY {$orderClause}")->fetchAll(PDO::FETCH_ASSOC);
-            $dirSeq = 0;
-            $stateSeqs = [];
-            $updRanksStmt = $pdo->prepare("UPDATE daleel_schools SET directory_rank = ?, state_rank = ? WHERE id = ?");
-            foreach ($approvedRows as $aRow) {
-                $dirSeq++;
-                $cntryKey = trim((string)($aRow['country'] ?? '')) ?: 'السودان';
-                $stKey = trim((string)($aRow['state'] ?? ''));
-                $groupKey = $cntryKey . ':::' . $stKey;
-                $stateSeqs[$groupKey] = ($stateSeqs[$groupKey] ?? 0) + 1;
-                $stSeq = $stateSeqs[$groupKey];
-                $updRanksStmt->execute([$dirSeq, $stSeq, (int)$aRow['id']]);
-            }
-            echo json_encode(['success' => true, 'count' => count($approvedRows), 'message' => "تمت إعادة حساب الترتيب التسلسلي الفعلي بنجاح لـ {$dirSeq} مدرسة في الدليل (الصروح العريقة أولاً ثم بالتتابع)."]);
+            $dirSeq = recalculateDaleelRanks($pdo);
+            echo json_encode(['success' => true, 'count' => $dirSeq, 'message' => "تمت إعادة حساب الترتيب التسلسلي الفعلي بنجاح لـ {$dirSeq} مدرسة في الدليل (الصروح العريقة أولاً، ثم المدارس الموثقة والذكية، ثم بقية المدارس)."]);
             exit;
         }
 
@@ -564,6 +568,24 @@ $page = max(1, (int)($_GET['page'] ?? 1));
 $perPage = 25;
 $offset = ($page - 1) * $perPage;
 
+$hasActiveFilters = ($filterSearch !== '' || $filterCountry !== '' || $filterState !== '' || $filterType !== '' || $filterWaStatus !== '' || $filterStatus !== '' || ($filterSort !== '' && $filterSort !== 'catalog_rank'));
+
+if (!function_exists('buildAdminFilterUrl')) {
+    function buildAdminFilterUrl(array $overrides = []): string {
+        $params = $_GET;
+        $params['tab'] = 'schools';
+        foreach ($overrides as $k => $v) {
+            if ($v === null || $v === '') {
+                unset($params[$k]);
+            } else {
+                $params[$k] = $v;
+            }
+        }
+        unset($params['page']);
+        return 'admin.php?' . http_build_query($params);
+    }
+}
+
 $whereClauses = ["status = 'approved'"];
 $whereParams = [];
 
@@ -627,7 +649,7 @@ $totalPages = max(1, ceil($totalFiltered / $perPage));
 
 // Dynamic Sorting Order matching Public Catalog
 $historicSql = "(is_historic = 1 OR (established_year IS NOT NULL AND CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950) OR historic_votes >= 500 OR name LIKE '%خور طقت%' OR name LIKE '%وادي سيدنا%' OR name LIKE '%حنتوب الثانوية%' OR name LIKE '%حنتوب العريقة%' OR name LIKE '%بخت الرضا%' OR name LIKE '%الأهلية%أم درمان%' OR name LIKE '%كمبوني%' OR name LIKE '%الراهبات%' OR name_en LIKE '%Sister%')";
-$catalogOrderSql = "({$historicSql}) DESC, (CASE WHEN CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950 THEN CAST(established_year AS UNSIGNED) ELSE 9999 END) ASC, id ASC";
+$catalogOrderSql = "({$historicSql}) DESC, (CASE WHEN CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950 THEN CAST(established_year AS UNSIGNED) ELSE 9999 END) ASC, (is_verified = 1 OR is_schoplus_client = 1) DESC, is_featured DESC, rating_avg DESC, id ASC";
 
 if ($filterSort === 'id_asc') {
     $orderSql = "id ASC";
@@ -1078,7 +1100,7 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                 </a>
                 <a href="admin.php?tab=maintenance" class="sp-main-tab <?= $activeTab === 'maintenance' ? 'active' : '' ?>">
                     <i class="fas fa-tools"></i> أدوات النظام والصيانة
-                    <span class="tab-badge">v3.8.0</span>
+                    <span class="tab-badge">v<?= e($systemVersion) ?></span>
                 </a>
             </div>
         </div>
@@ -1104,89 +1126,213 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                     <form method="GET" action="admin.php" class="row g-2 align-items-center">
                         <input type="hidden" name="tab" value="schools">
                         
-                        <div class="col-lg-3 col-md-6 col-12">
+                        <!-- 1. SEARCH INPUT -->
+                        <div class="col-xl-3 col-md-6 col-12">
                             <div class="input-group input-group-sm">
-                                <span class="input-group-text bg-white" style="border-color: #DDE4ED;"><i class="fas fa-search text-muted"></i></span>
-                                <input type="text" name="search" class="form-control" placeholder="ابحث بالاسم، الحي، الهاتف، المدينة..." value="<?= e($filterSearch) ?>" style="border-color: #DDE4ED; font-size: 0.75rem;">
+                                <span class="input-group-text bg-white" style="border-color: #DDE4ED; width: 36px; justify-content: center;"><i class="fas fa-search text-muted"></i></span>
+                                <input type="text" name="search" class="form-control" placeholder="ابحث بالاسم، الحي، الهاتف، المدينة..." value="<?= e($filterSearch) ?>" style="border-color: #DDE4ED; font-size: 0.75rem; height: 34px;">
                             </div>
                         </div>
 
-                        <!-- CATEGORY / SCHOOL TYPE FILTER -->
-                        <div class="col-lg-2 col-md-3 col-sm-6 col-12">
-                            <select name="type" class="form-select form-select-sm" style="border-color: #DDE4ED; font-size: 0.75rem;" onchange="this.form.submit()">
-                                <option value="">كافة التصنيفات التعليمية</option>
-                                <option value="private" <?= $filterType === 'private' ? 'selected' : '' ?>>مدارس خاصة (أساس / ثانوي)</option>
-                                <option value="government" <?= $filterType === 'government' ? 'selected' : '' ?>>مدارس حكومية</option>
-                                <option value="kindergarten" <?= $filterType === 'kindergarten' ? 'selected' : '' ?>>رياض أطفال وحضانات</option>
-                                <option value="international" <?= $filterType === 'international' ? 'selected' : '' ?>>مدارس عالمية ودولية</option>
-                                <option value="community" <?= $filterType === 'community' ? 'selected' : '' ?>>مدارس الجاليات والمهجر</option>
-                            </select>
+                        <!-- 2. CATEGORY / SCHOOL TYPE FILTER -->
+                        <div class="col-xl-3 col-md-6 col-12">
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-text bg-white" style="border-color: #DDE4ED; width: 36px; justify-content: center;"><i class="fas fa-graduation-cap text-muted"></i></span>
+                                <select name="type" class="form-select form-select-sm" style="border-color: #DDE4ED; font-size: 0.75rem; height: 34px;" onchange="this.form.submit()">
+                                    <option value="">كافة التصنيفات التعليمية</option>
+                                    <option value="private" <?= $filterType === 'private' ? 'selected' : '' ?>>مدارس خاصة (أساس / ثانوي)</option>
+                                    <option value="government" <?= $filterType === 'government' ? 'selected' : '' ?>>مدارس حكومية</option>
+                                    <option value="kindergarten" <?= $filterType === 'kindergarten' ? 'selected' : '' ?>>رياض أطفال وحضانات</option>
+                                    <option value="international" <?= $filterType === 'international' ? 'selected' : '' ?>>مدارس عالمية ودولية</option>
+                                    <option value="community" <?= $filterType === 'community' ? 'selected' : '' ?>>مدارس الجاليات والمهجر</option>
+                                </select>
+                            </div>
                         </div>
 
-                        <!-- WHATSAPP OUTREACH STATUS FILTER -->
-                        <div class="col-lg-2 col-md-3 col-sm-6 col-12">
-                            <select name="wa_status" class="form-select form-select-sm" style="border-color: #DDE4ED; font-size: 0.75rem;" onchange="this.form.submit()">
-                                <option value="">حالة مراسلة الواتساب (الكل)</option>
-                                <option value="sent" <?= $filterWaStatus === 'sent' ? 'selected' : '' ?>>✅ تم إرسال الرسالة فقط</option>
-                                <option value="unsent" <?= $filterWaStatus === 'unsent' ? 'selected' : '' ?>>⏳ لم يتم الإرسال بعد (المتبقي)</option>
-                                <option value="has_phone" <?= $filterWaStatus === 'has_phone' ? 'selected' : '' ?>>📞 يتوفر رقم هاتف / واتساب</option>
-                                <option value="no_phone" <?= $filterWaStatus === 'no_phone' ? 'selected' : '' ?>>⚠️ بدون رقم هاتف</option>
-                            </select>
+                        <!-- 3. COUNTRY FILTER -->
+                        <div class="col-xl-3 col-md-6 col-12">
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-text bg-white" style="border-color: #DDE4ED; width: 36px; justify-content: center;"><i class="fas fa-globe text-muted"></i></span>
+                                <select name="country" class="form-select form-select-sm" style="border-color: #DDE4ED; font-size: 0.75rem; height: 34px;" onchange="this.form.submit()">
+                                    <option value="">كافة الدول (المهجر والسودان)</option>
+                                    <?php foreach ($countriesList as $cntry): ?>
+                                        <option value="<?= e($cntry) ?>" <?= $filterCountry === $cntry ? 'selected' : '' ?>><?= getCountryBadge($cntry) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
                         </div>
 
-                        <!-- COUNTRY FILTER -->
-                        <div class="col-lg-2 col-md-3 col-sm-6 col-12">
-                            <select name="country" class="form-select form-select-sm" style="border-color: #DDE4ED; font-size: 0.75rem;" onchange="this.form.submit()">
-                                <option value="">كافة الدول (المهجر والسودان)</option>
-                                <?php foreach ($countriesList as $cntry): ?>
-                                    <option value="<?= e($cntry) ?>" <?= $filterCountry === $cntry ? 'selected' : '' ?>><?= getCountryBadge($cntry) ?></option>
-                                <?php endforeach; ?>
-                            </select>
+                        <!-- 4. STATE FILTER -->
+                        <div class="col-xl-3 col-md-6 col-12">
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-text bg-white" style="border-color: #DDE4ED; width: 36px; justify-content: center;"><i class="fas fa-map-marker-alt text-muted"></i></span>
+                                <select name="state" class="form-select form-select-sm" style="border-color: #DDE4ED; font-size: 0.75rem; height: 34px;" onchange="this.form.submit()">
+                                    <option value="">كافة الولايات والمناطق</option>
+                                    <?php foreach (SudanGeography::states('السودان') as $st): ?>
+                                        <option value="<?= e($st) ?>" <?= $filterState === $st ? 'selected' : '' ?>><?= e($st) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
                         </div>
 
-                        <!-- STATE FILTER -->
-                        <div class="col-lg-2 col-md-3 col-sm-6 col-12">
-                            <select name="state" class="form-select form-select-sm" style="border-color: #DDE4ED; font-size: 0.75rem;" onchange="this.form.submit()">
-                                <option value="">كافة الولايات والمناطق</option>
-                                <?php foreach (SudanGeography::states('السودان') as $st): ?>
-                                    <option value="<?= e($st) ?>" <?= $filterState === $st ? 'selected' : '' ?>><?= e($st) ?></option>
-                                <?php endforeach; ?>
-                            </select>
+                        <!-- 5. STATUS / VERIFICATION FILTER -->
+                        <div class="col-xl-3 col-md-6 col-12">
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-text bg-white" style="border-color: #DDE4ED; width: 36px; justify-content: center;"><i class="fas fa-shield-alt text-muted"></i></span>
+                                <select name="status" class="form-select form-select-sm" style="border-color: #DDE4ED; font-size: 0.75rem; height: 34px;" onchange="this.form.submit()">
+                                    <option value="">حالة التوثيق والشارات (الكل)</option>
+                                    <option value="verified" <?= $filterStatus === 'verified' ? 'selected' : '' ?>>موثقة فقط (Verified)</option>
+                                    <option value="unverified" <?= $filterStatus === 'unverified' ? 'selected' : '' ?>>عامة غير موثقة (Unverified)</option>
+                                    <option value="smart" <?= $filterStatus === 'smart' ? 'selected' : '' ?>>مدارس SchoPlus الذكية</option>
+                                    <option value="historic" <?= $filterStatus === 'historic' ? 'selected' : '' ?>>صروح وطنية عريقة</option>
+                                </select>
+                            </div>
                         </div>
 
-                        <!-- STATUS FILTER -->
-                        <div class="col-lg-2 col-md-3 col-sm-6 col-12">
-                            <select name="status" class="form-select form-select-sm" style="border-color: #DDE4ED; font-size: 0.75rem;" onchange="this.form.submit()">
-                                <option value="">حالة التوثيق والشارات</option>
-                                <option value="verified" <?= $filterStatus === 'verified' ? 'selected' : '' ?>>موثقة فقط (Verified)</option>
-                                <option value="unverified" <?= $filterStatus === 'unverified' ? 'selected' : '' ?>>عامة غير موثقة (Unverified)</option>
-                                <option value="smart" <?= $filterStatus === 'smart' ? 'selected' : '' ?>>مدارس SchoPlus الذكية</option>
-                                <option value="historic" <?= $filterStatus === 'historic' ? 'selected' : '' ?>>صروح وطنية عريقة</option>
-                            </select>
+                        <!-- 6. WHATSAPP OUTREACH STATUS FILTER -->
+                        <div class="col-xl-3 col-md-6 col-12">
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-text bg-white" style="border-color: #DDE4ED; width: 36px; justify-content: center;"><i class="fab fa-whatsapp text-success"></i></span>
+                                <select name="wa_status" class="form-select form-select-sm" style="border-color: #DDE4ED; font-size: 0.75rem; height: 34px;" onchange="this.form.submit()">
+                                    <option value="">حالة مراسلة الواتساب (الكل)</option>
+                                    <option value="sent" <?= $filterWaStatus === 'sent' ? 'selected' : '' ?>>✅ تم إرسال الرسالة فقط</option>
+                                    <option value="unsent" <?= $filterWaStatus === 'unsent' ? 'selected' : '' ?>>⏳ لم يتم الإرسال بعد (المتبقي)</option>
+                                    <option value="has_phone" <?= $filterWaStatus === 'has_phone' ? 'selected' : '' ?>>📞 يتوفر رقم هاتف / واتساب</option>
+                                    <option value="no_phone" <?= $filterWaStatus === 'no_phone' ? 'selected' : '' ?>>⚠️ بدون رقم هاتف</option>
+                                </select>
+                            </div>
                         </div>
 
-                        <!-- SORT FILTER -->
-                        <div class="col-lg-2 col-md-3 col-sm-6 col-12">
-                            <select name="sort" class="form-select form-select-sm" style="border-color: #DDE4ED; font-size: 0.75rem;" onchange="this.form.submit()">
-                                <option value="catalog_rank" <?= $filterSort === 'catalog_rank' ? 'selected' : '' ?>>الترتيب الفعلي بالدليل (افتراضي)</option>
-                                <option value="id_asc" <?= $filterSort === 'id_asc' ? 'selected' : '' ?>>المعرف #ID تصاعدي</option>
-                                <option value="id_desc" <?= $filterSort === 'id_desc' ? 'selected' : '' ?>>المعرف #ID تنازلي</option>
-                                <option value="name" <?= $filterSort === 'name' ? 'selected' : '' ?>>أبجدياً باسم المدرسة</option>
-                                <option value="views" <?= $filterSort === 'views' ? 'selected' : '' ?>>الأكثر مشاهدة وزيارة</option>
-                                <option value="schoplus" <?= $filterSort === 'schoplus' ? 'selected' : '' ?>>عملاء SchoPlus أولاً</option>
-                            </select>
+                        <!-- 7. SORT FILTER -->
+                        <div class="col-xl-3 col-md-6 col-12">
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-text bg-white" style="border-color: #DDE4ED; width: 36px; justify-content: center;"><i class="fas fa-sort-amount-down text-muted"></i></span>
+                                <select name="sort" class="form-select form-select-sm" style="border-color: #DDE4ED; font-size: 0.75rem; height: 34px;" onchange="this.form.submit()">
+                                    <option value="catalog_rank" <?= $filterSort === 'catalog_rank' ? 'selected' : '' ?>>الترتيب الفعلي بالدليل (افتراضي)</option>
+                                    <option value="id_asc" <?= $filterSort === 'id_asc' ? 'selected' : '' ?>>المعرف #ID تصاعدي</option>
+                                    <option value="id_desc" <?= $filterSort === 'id_desc' ? 'selected' : '' ?>>المعرف #ID تنازلي</option>
+                                    <option value="name" <?= $filterSort === 'name' ? 'selected' : '' ?>>أبجدياً باسم المدرسة</option>
+                                    <option value="views" <?= $filterSort === 'views' ? 'selected' : '' ?>>الأكثر مشاهدة وزيارة</option>
+                                    <option value="schoplus" <?= $filterSort === 'schoplus' ? 'selected' : '' ?>>عملاء SchoPlus أولاً</option>
+                                </select>
+                            </div>
                         </div>
 
-                        <div class="col-lg-2 col-md-3 col-sm-6 col-12 d-flex gap-1">
-                            <button type="submit" class="btn btn-sm btn-primary flex-grow-1 py-1" style="font-size: 0.74rem;" title="تطبيق الفلترة">
-                                <i class="fas fa-filter me-1"></i> فلترة
-                            </button>
-                            <?php if ($filterSearch || $filterCountry || $filterState || $filterType || $filterWaStatus || $filterStatus || ($filterSort && $filterSort !== 'catalog_rank')): ?>
-                                <a href="admin.php?tab=schools" class="btn btn-sm btn-light border py-1 px-2" title="مسح كافة الفلاتر">
-                                    <i class="fas fa-undo"></i>
+                        <!-- 8. ACTIONS: FILTER & RESET -->
+                        <div class="col-xl-3 col-md-6 col-12">
+                            <div class="d-flex align-items-center gap-1" style="height: 34px;">
+                                <button type="submit" class="btn btn-sm btn-primary flex-grow-1 d-flex align-items-center justify-content-center gap-1" style="height: 34px; font-size: 0.74rem; font-weight: 600; border-radius: 6px;" title="تطبيق الفلترة">
+                                    <i class="fas fa-filter"></i> تطبيق الفلترة
+                                </button>
+                                <?php if ($hasActiveFilters): ?>
+                                    <a href="admin.php?tab=schools" class="btn btn-sm btn-outline-danger px-3 d-flex align-items-center justify-content-center gap-1" style="height: 34px; font-size: 0.74rem; font-weight: 600; border-radius: 6px;" title="مسح كافة الفلاتر">
+                                        <i class="fas fa-undo"></i> مسح
+                                    </a>
+                                <?php else: ?>
+                                    <button type="button" class="btn btn-sm btn-light border px-3 text-muted" style="height: 34px; font-size: 0.74rem; border-radius: 6px;" disabled title="لا توجد فلاتر نشطة">
+                                        <i class="fas fa-undo"></i>
+                                    </button>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+
+                        <!-- ACTIVE FILTER CHIPS -->
+                        <?php if ($hasActiveFilters): ?>
+                            <div class="col-12 mt-2 pt-2 border-top d-flex flex-wrap align-items-center gap-2">
+                                <span class="text-muted fw-bold" style="font-size: 0.7rem;"><i class="fas fa-sliders-h text-primary me-1"></i> الفلاتر النشطة:</span>
+                                
+                                <?php if ($filterSearch !== ''): ?>
+                                    <span class="badge bg-white text-dark border d-inline-flex align-items-center gap-1 py-1 px-2" style="font-size: 0.72rem;">
+                                        <i class="fas fa-search text-muted"></i> "<?= e($filterSearch) ?>"
+                                        <a href="<?= e(buildAdminFilterUrl(['search' => ''])) ?>" class="text-danger ms-1 text-decoration-none fw-bold" title="إزالة">&times;</a>
+                                    </span>
+                                <?php endif; ?>
+
+                                <?php if ($filterType !== ''): ?>
+                                    <span class="badge bg-white text-dark border d-inline-flex align-items-center gap-1 py-1 px-2" style="font-size: 0.72rem;">
+                                        <i class="fas fa-graduation-cap text-muted"></i>
+                                        <?php 
+                                            $typeLabels = [
+                                                'private' => 'خاصة',
+                                                'government' => 'حكومية',
+                                                'kindergarten' => 'رياض أطفال',
+                                                'international' => 'دولية وعالمية',
+                                                'community' => 'جاليات ومهجر'
+                                            ];
+                                            echo e($typeLabels[$filterType] ?? $filterType);
+                                        ?>
+                                        <a href="<?= e(buildAdminFilterUrl(['type' => ''])) ?>" class="text-danger ms-1 text-decoration-none fw-bold" title="إزالة">&times;</a>
+                                    </span>
+                                <?php endif; ?>
+
+                                <?php if ($filterCountry !== ''): ?>
+                                    <span class="badge bg-white text-dark border d-inline-flex align-items-center gap-1 py-1 px-2" style="font-size: 0.72rem;">
+                                        <i class="fas fa-globe text-muted"></i> <?= e($filterCountry) ?>
+                                        <a href="<?= e(buildAdminFilterUrl(['country' => ''])) ?>" class="text-danger ms-1 text-decoration-none fw-bold" title="إزالة">&times;</a>
+                                    </span>
+                                <?php endif; ?>
+
+                                <?php if ($filterState !== ''): ?>
+                                    <span class="badge bg-white text-dark border d-inline-flex align-items-center gap-1 py-1 px-2" style="font-size: 0.72rem;">
+                                        <i class="fas fa-map-marker-alt text-muted"></i> <?= e($filterState) ?>
+                                        <a href="<?= e(buildAdminFilterUrl(['state' => ''])) ?>" class="text-danger ms-1 text-decoration-none fw-bold" title="إزالة">&times;</a>
+                                    </span>
+                                <?php endif; ?>
+
+                                <?php if ($filterStatus !== ''): ?>
+                                    <span class="badge bg-white text-dark border d-inline-flex align-items-center gap-1 py-1 px-2" style="font-size: 0.72rem;">
+                                        <i class="fas fa-shield-alt text-muted"></i>
+                                        <?php
+                                            $statusLabels = [
+                                                'verified' => 'موثقة فقط',
+                                                'unverified' => 'عامة غير موثقة',
+                                                'smart' => 'عملاء SchoPlus',
+                                                'historic' => 'صروح عريقة'
+                                            ];
+                                            echo e($statusLabels[$filterStatus] ?? $filterStatus);
+                                        ?>
+                                        <a href="<?= e(buildAdminFilterUrl(['status' => ''])) ?>" class="text-danger ms-1 text-decoration-none fw-bold" title="إزالة">&times;</a>
+                                    </span>
+                                <?php endif; ?>
+
+                                <?php if ($filterWaStatus !== ''): ?>
+                                    <span class="badge bg-white text-dark border d-inline-flex align-items-center gap-1 py-1 px-2" style="font-size: 0.72rem;">
+                                        <i class="fab fa-whatsapp text-success"></i>
+                                        <?php
+                                            $waLabels = [
+                                                'sent' => 'تم إرسال الواتساب',
+                                                'unsent' => 'لم يُرسل بعد',
+                                                'has_phone' => 'يتوفر هاتف',
+                                                'no_phone' => 'بدون هاتف'
+                                            ];
+                                            echo e($waLabels[$filterWaStatus] ?? $filterWaStatus);
+                                        ?>
+                                        <a href="<?= e(buildAdminFilterUrl(['wa_status' => ''])) ?>" class="text-danger ms-1 text-decoration-none fw-bold" title="إزالة">&times;</a>
+                                    </span>
+                                <?php endif; ?>
+
+                                <?php if ($filterSort !== '' && $filterSort !== 'catalog_rank'): ?>
+                                    <span class="badge bg-white text-dark border d-inline-flex align-items-center gap-1 py-1 px-2" style="font-size: 0.72rem;">
+                                        <i class="fas fa-sort text-muted"></i>
+                                        <?php
+                                            $sortLabels = [
+                                                'id_asc' => 'المعرف تصاعدي',
+                                                'id_desc' => 'المعرف تنازلي',
+                                                'name' => 'أبجدياً',
+                                                'views' => 'الأكثر مشاهدة',
+                                                'schoplus' => 'عملاء SchoPlus'
+                                            ];
+                                            echo e($sortLabels[$filterSort] ?? $filterSort);
+                                        ?>
+                                        <a href="<?= e(buildAdminFilterUrl(['sort' => 'catalog_rank'])) ?>" class="text-danger ms-1 text-decoration-none fw-bold" title="إزالة">&times;</a>
+                                    </span>
+                                <?php endif; ?>
+
+                                <a href="admin.php?tab=schools" class="badge bg-danger-subtle text-danger border border-danger-subtle text-decoration-none py-1 px-2 ms-auto" style="font-size: 0.7rem;">
+                                    <i class="fas fa-times-circle me-1"></i> مسح كافة الفلاتر
                                 </a>
-                            <?php endif; ?>
-                        </div>
+                            </div>
+                        <?php endif; ?>
                     </form>
                 </div>
 
@@ -1380,7 +1526,7 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                                         <!-- ACTUAL CATALOG RANK & MANUAL OVERRIDE (EXPLICIT LABELS) -->
                                         <td class="text-center">
                                             <div class="d-flex flex-column align-items-center justify-content-center">
-                                                <span class="badge mb-1" style="background: linear-gradient(135deg, #0B2A52, #1E5FA8); color: #FFF; font-size: 0.72rem; padding: 4px 8px;" title="الترتيب الفعلي التلقائي في الدليل">
+                                                <span class="badge mb-1 actual-rank-badge" style="background: linear-gradient(135deg, #0B2A52, #1E5FA8); color: #FFF; font-size: 0.72rem; padding: 4px 8px;" title="الترتيب الفعلي التلقائي في الدليل">
                                                     #<?= $actualDirRank ?> في الدليل
                                                 </span>
                                                 <div class="d-flex flex-column gap-1 p-1 bg-light rounded border" style="font-size: 0.65rem; min-width: 125px;">
@@ -1773,36 +1919,54 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                         el.className = 'sp-toggle-pill toggle-on-green is-success-pulse';
                         el.innerHTML = '<i class="fas fa-check-circle"></i> <span>موثقة</span>';
                         el.setAttribute('onclick', `toggleSchoolMeta(${schoolId}, 'toggle_verified', 0, this)`);
-                        showAdminToast('تم اعتماد وتوثيق المدرسة بنجاح ✅', 'success');
+                        showAdminToast(data.message || 'تم اعتماد وتوثيق المدرسة وترقية ترتيبها في الدليل بنجاح ✅', 'success');
                     } else {
                         el.className = 'sp-toggle-pill toggle-off-gray is-success-pulse';
                         el.innerHTML = '<i class="fas fa-circle-xmark"></i> <span>عامة</span>';
                         el.setAttribute('onclick', `toggleSchoolMeta(${schoolId}, 'toggle_verified', 1, this)`);
-                        showAdminToast('تم تحويل المدرسة إلى عامة (غير موثقة) ℹ️', 'warning');
+                        showAdminToast(data.message || 'تم تحويل المدرسة إلى عامة (غير موثقة) ℹ️', 'warning');
+                    }
+                    if (data.new_rank) {
+                        const rankInput = document.getElementById('dir-rank-' + schoolId);
+                        if (rankInput) rankInput.value = data.new_rank;
+                        const rankBadge = el.closest('tr')?.querySelector('.actual-rank-badge');
+                        if (rankBadge) rankBadge.textContent = `#${data.new_rank} في الدليل`;
                     }
                 } else if (action === 'toggle_schoplus') {
                     if (newVal === 1) {
                         el.className = 'sp-toggle-pill toggle-on-orange is-success-pulse';
                         el.innerHTML = '<i class="fas fa-award"></i> <span>ذكي</span>';
                         el.setAttribute('onclick', `toggleSchoolMeta(${schoolId}, 'toggle_schoplus', 0, this)`);
-                        showAdminToast('تم تفعيل شارة عميل SchoPlus الذكي 🌟', 'success');
+                        showAdminToast('تم تفعيل شارة عميل SchoPlus وترقية ترتيب المدرسة 🌟', 'success');
                     } else {
                         el.className = 'sp-toggle-pill toggle-off-gray is-success-pulse';
                         el.innerHTML = '<i class="fas fa-award"></i> <span>عادي</span>';
                         el.setAttribute('onclick', `toggleSchoolMeta(${schoolId}, 'toggle_schoplus', 1, this)`);
                         showAdminToast('تم إلغاء شارة SchoPlus الذكي ℹ️', 'warning');
                     }
+                    if (data.new_rank) {
+                        const rankInput = document.getElementById('dir-rank-' + schoolId);
+                        if (rankInput) rankInput.value = data.new_rank;
+                        const rankBadge = el.closest('tr')?.querySelector('.actual-rank-badge');
+                        if (rankBadge) rankBadge.textContent = `#${data.new_rank} في الدليل`;
+                    }
                 } else if (action === 'toggle_historic') {
                     if (newVal === 1) {
                         el.className = 'sp-toggle-pill toggle-on-blue is-success-pulse';
                         el.innerHTML = '<i class="fas fa-landmark"></i> <span>عريق</span>';
                         el.setAttribute('onclick', `toggleSchoolMeta(${schoolId}, 'toggle_historic', 0, this)`);
-                        showAdminToast('تم اعتماد المدرسة كصرح وطني عريق 🏛️', 'success');
+                        showAdminToast('تم اعتماد المدرسة كصرح وطني عريق وترقيتها لصدارة الدليل 🏛️', 'success');
                     } else {
                         el.className = 'sp-toggle-pill toggle-off-gray is-success-pulse';
                         el.innerHTML = '<i class="fas fa-landmark"></i> <span>حديث</span>';
                         el.setAttribute('onclick', `toggleSchoolMeta(${schoolId}, 'toggle_historic', 1, this)`);
                         showAdminToast('تم إلغاء شارة الصرح العريق ℹ️', 'warning');
+                    }
+                    if (data.new_rank) {
+                        const rankInput = document.getElementById('dir-rank-' + schoolId);
+                        if (rankInput) rankInput.value = data.new_rank;
+                        const rankBadge = el.closest('tr')?.querySelector('.actual-rank-badge');
+                        if (rankBadge) rankBadge.textContent = `#${data.new_rank} في الدليل`;
                     }
                 } else if (action === 'toggle_whatsapp_sent') {
                     if (newVal === 1) {

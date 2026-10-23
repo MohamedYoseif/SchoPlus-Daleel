@@ -257,22 +257,6 @@ class SchoolBatchImporter
      */
     public function recalculateRanks(): void
     {
-        $approvedRows = $this->pdo->query("SELECT id, country, state FROM daleel_schools WHERE status = 'approved' ORDER BY id ASC")->fetchAll(PDO::FETCH_ASSOC);
-        if (empty($approvedRows)) return;
-
-        $dirSeq = 0;
-        $stateSeqs = [];
-        $upd = $this->pdo->prepare("UPDATE daleel_schools SET directory_rank = ?, state_rank = ? WHERE id = ?");
-
-        foreach ($approvedRows as $row) {
-            $dirSeq++;
-            $cntry = trim((string)($row['country'] ?? '')) ?: 'السودان';
-            $st = trim((string)($row['state'] ?? ''));
-            $key = $cntry . ':::' . $st;
-            $stateSeqs[$key] = ($stateSeqs[$key] ?? 0) + 1;
-            $stSeq = $stateSeqs[$key];
-
-            $upd->execute([$dirSeq, $stSeq, (int)$row['id']]);
-        }
+        recalculateDaleelRanks($this->pdo);
     }
 }

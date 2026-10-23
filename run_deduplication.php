@@ -285,24 +285,12 @@ function runDaleelDeduplication(PDO $pdo): array {
     } catch (Throwable $e) {}
 
     // 4. Recalculate directory_rank and state_rank for all approved schools
-    $approvedRows = $pdo->query("SELECT id, country, state FROM daleel_schools WHERE status = 'approved' ORDER BY id ASC")->fetchAll(PDO::FETCH_ASSOC);
-    $dirSeq = 0;
-    $stateSeqs = [];
-    $upRanksStmt = $pdo->prepare("UPDATE daleel_schools SET directory_rank = ?, state_rank = ? WHERE id = ?");
-    foreach ($approvedRows as $row) {
-        $dirSeq++;
-        $cntryKey = trim((string)($row['country'] ?? '')) ?: 'السودان';
-        $stKey = trim((string)($row['state'] ?? ''));
-        $groupKey = $cntryKey . ':::' . $stKey;
-        $stateSeqs[$groupKey] = ($stateSeqs[$groupKey] ?? 0) + 1;
-        $stSeq = $stateSeqs[$groupKey];
-        $upRanksStmt->execute([$dirSeq, $stSeq, (int)$row['id']]);
-    }
+    $remCount = recalculateDaleelRanks($pdo);
 
     return [
         'renamed' => count($branchRenames),
         'deleted' => $deletedCount,
-        'remaining' => count($approvedRows)
+        'remaining' => $remCount
     ];
 }
 

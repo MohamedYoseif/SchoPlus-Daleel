@@ -580,26 +580,7 @@ class SchoolAutoResearcher {
 
         if ($createdCount > 0) {
             $logs[] = "[" . date('H:i:s') . "] ⚙️ جاري تحديث ومواءمة الترتيب الفعلي لكافة المدارس...";
-            $historicSql = "(is_historic = 1 OR (established_year IS NOT NULL AND CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950) OR historic_votes >= 500 OR name LIKE '%خور طقت%' OR name LIKE '%وادي سيدنا%' OR name LIKE '%حنتوب الثانوية%' OR name LIKE '%حنتوب العريقة%' OR name LIKE '%بخت الرضا%' OR name LIKE '%الأهلية%أم درمان%' OR name LIKE '%كمبوني%' OR name LIKE '%الراهبات%' OR name_en LIKE '%Sister%')";
-            $orderClause = "({$historicSql}) DESC, (CASE WHEN CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950 THEN CAST(established_year AS UNSIGNED) ELSE 9999 END) ASC, id ASC";
-
-            $rows = $pdo->query("SELECT id, country, state FROM daleel_schools WHERE status = 'approved' ORDER BY {$orderClause}")->fetchAll(PDO::FETCH_ASSOC);
-            $dirSeq = 0;
-            $stateSeqs = [];
-            $updRanksStmt = $pdo->prepare("UPDATE daleel_schools SET directory_rank = ?, state_rank = ? WHERE id = ?");
-            
-            $pdo->beginTransaction();
-            foreach ($rows as $aRow) {
-                $dirSeq++;
-                $cntryKey = trim((string)($aRow['country'] ?? '')) ?: 'السودان';
-                $stKey = trim((string)($aRow['state'] ?? ''));
-                $groupKey = $cntryKey . ':::' . $stKey;
-                $stateSeqs[$groupKey] = ($stateSeqs[$groupKey] ?? 0) + 1;
-                $stSeq = $stateSeqs[$groupKey];
-                $updRanksStmt->execute([$dirSeq, $stSeq, (int)$aRow['id']]);
-            }
-            $pdo->commit();
-
+            $dirSeq = recalculateDaleelRanks($pdo);
             $logs[] = "[" . date('H:i:s') . "] ✅ تمت مواءمة وإعادة ترقيم {$dirSeq} مدرسة في الدليل بدقة.";
 
             require_once __DIR__ . '/export_master_seed.php';
