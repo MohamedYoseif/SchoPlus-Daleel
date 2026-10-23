@@ -30,9 +30,9 @@ if (!$isAuthAdmin && $providedKey !== $secretKey && php_sapi_name() !== 'cli') {
     exit;
 }
 
-$query = trim((string)($_POST['query'] ?? ($inputData['query'] ?? '')));
-$state = trim((string)($_POST['state'] ?? ($inputData['state'] ?? '')));
-$city = trim((string)($_POST['city'] ?? ($inputData['city'] ?? '')));
+$query = trim((string)($_POST['query'] ?? ($_GET['query'] ?? ($_GET['q'] ?? ($inputData['query'] ?? '')))));
+$state = trim((string)($_POST['state'] ?? ($_GET['state'] ?? ($inputData['state'] ?? ''))));
+$city = trim((string)($_POST['city'] ?? ($_GET['city'] ?? ($inputData['city'] ?? ''))));
 
 if (empty($query)) {
     echo json_encode([
