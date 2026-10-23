@@ -1223,7 +1223,14 @@ $totalRev = max(1, count($reviewsList));
                         <?php endif; ?>
                         <div class="sp-cover-school-meta">
                             <i class="fas fa-map-marker-alt text-warning"></i>
-                            <span><?= e($school['country'] ?? 'السودان') ?> — <?= e($school['state']) ?> — <?= e($school['city']) ?><?= !empty($school['district']) ? ' (' . e($school['district']) . ')' : '' ?></span>
+                            <?php if (!empty($school['google_map_url'])): ?>
+                                <a href="<?= e($school['google_map_url']) ?>" target="_blank" rel="noopener" class="text-white text-decoration-none d-inline-flex align-items-center gap-1" title="انقر لفتح موقع المدرسة على خرائط Google" style="cursor: pointer;">
+                                    <span><?= e($school['country'] ?? 'السودان') ?> — <?= e($school['state']) ?> — <?= e($school['city']) ?><?= !empty($school['district']) ? ' (' . e($school['district']) . ')' : '' ?></span>
+                                    <i class="fas fa-external-link-alt ms-1" style="font-size: 0.65rem; opacity: 0.85;"></i>
+                                </a>
+                            <?php else: ?>
+                                <span><?= e($school['country'] ?? 'السودان') ?> — <?= e($school['state']) ?> — <?= e($school['city']) ?><?= !empty($school['district']) ? ' (' . e($school['district']) . ')' : '' ?></span>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -1693,10 +1700,20 @@ $totalRev = max(1, count($reviewsList));
                                 </div>
                             </div>
                             <?php if (!empty($school['address'])): ?>
-                                <div class="p-2 px-3 rounded-3 bg-light border mb-2 d-flex align-items-center gap-2">
-                                    <i class="fas fa-map-pin text-danger"></i>
-                                    <small class="text-dark fw-bold"><?= e($school['address']) ?></small>
-                                </div>
+                                <?php if (!empty($school['google_map_url'])): ?>
+                                    <a href="<?= e($school['google_map_url']) ?>" target="_blank" rel="noopener" class="p-2 px-3 rounded-3 bg-light border mb-2 d-flex align-items-center justify-content-between text-decoration-none text-dark hover-shadow-sm transition-all" title="انقر لفتح العنوان في خرائط Google" style="cursor: pointer;">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <i class="fas fa-map-pin text-danger"></i>
+                                            <small class="text-dark fw-bold"><?= e($school['address']) ?></small>
+                                        </div>
+                                        <i class="fas fa-external-link-alt text-muted small"></i>
+                                    </a>
+                                <?php else: ?>
+                                    <div class="p-2 px-3 rounded-3 bg-light border mb-2 d-flex align-items-center gap-2">
+                                        <i class="fas fa-map-pin text-danger"></i>
+                                        <small class="text-dark fw-bold"><?= e($school['address']) ?></small>
+                                    </div>
+                                <?php endif; ?>
                             <?php endif; ?>
                             <?php if (!empty($school['google_map_url'])): ?>
                                 <a href="<?= e($school['google_map_url']) ?>" target="_blank" class="btn btn-outline-secondary btn-sm w-100 rounded-3 py-2 fw-bold mb-2">
@@ -2395,7 +2412,14 @@ $totalRev = max(1, count($reviewsList));
                                                 <?php if (!empty($br['address'])): ?>
                                                     <p class="mb-2 d-flex align-items-start gap-2" style="font-size: 0.75rem; color: var(--text-body);">
                                                         <i class="fas fa-map-marker-alt text-danger mt-1"></i>
-                                                        <span><?= e($br['address']) ?></span>
+                                                        <?php if (!empty($br['map_url'])): ?>
+                                                            <a href="<?= e($br['map_url']) ?>" target="_blank" rel="noopener" class="text-decoration-none text-dark hover-primary" title="انقر لفتح الموقع في خرائط Google">
+                                                                <span><?= e($br['address']) ?></span>
+                                                                <i class="fas fa-external-link-alt text-muted ms-1" style="font-size: 0.65rem;"></i>
+                                                            </a>
+                                                        <?php else: ?>
+                                                            <span><?= e($br['address']) ?></span>
+                                                        <?php endif; ?>
                                                     </p>
                                                 <?php endif; ?>
                                             </div>
@@ -2802,14 +2826,27 @@ $totalRev = max(1, count($reviewsList));
                                 </div>
                             </a>
                         <?php endif; ?>
-                        <?php if (!empty($school['address'])): ?>
-                            <div class="sp-contact-row">
-                                <div class="sp-contact-icon" style="background: #FFF1F2; color: #e11d48;"><i class="fas fa-map-pin"></i></div>
-                                <div>
-                                    <span style="font-size: 0.68rem; color: var(--text-muted); display: block; font-weight: 700;">العنوان الفعلي</span>
-                                    <span style="color: var(--text-body); font-size: 0.78rem;"><?= e($school['address']) ?></span>
+                        <?php if (!empty($school['address']) || !empty($school['google_map_url'])): ?>
+                            <?php if (!empty($school['google_map_url'])): ?>
+                                <a href="<?= e($school['google_map_url']) ?>" target="_blank" rel="noopener" class="sp-contact-row text-decoration-none" title="انقر لفتح العنوان في خرائط Google" style="cursor: pointer;">
+                                    <div class="sp-contact-icon" style="background: #FFF1F2; color: #e11d48;"><i class="fas fa-map-pin"></i></div>
+                                    <div class="flex-grow-1">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <span style="font-size: 0.68rem; color: var(--text-muted); font-weight: 700;">العنوان الفعلي</span>
+                                            <i class="fas fa-external-link-alt text-muted" style="font-size: 0.65rem;" title="فتح في الخريطة"></i>
+                                        </div>
+                                        <span style="color: var(--text-body); font-size: 0.78rem; text-decoration: underline dotted #cbd5e1;"><?= e(!empty($school['address']) ? $school['address'] : 'الموقع المعتمد على الخريطة') ?></span>
+                                    </div>
+                                </a>
+                            <?php else: ?>
+                                <div class="sp-contact-row">
+                                    <div class="sp-contact-icon" style="background: #FFF1F2; color: #e11d48;"><i class="fas fa-map-pin"></i></div>
+                                    <div>
+                                        <span style="font-size: 0.68rem; color: var(--text-muted); display: block; font-weight: 700;">العنوان الفعلي</span>
+                                        <span style="color: var(--text-body); font-size: 0.78rem;"><?= e($school['address']) ?></span>
+                                    </div>
                                 </div>
-                            </div>
+                            <?php endif; ?>
                         <?php endif; ?>
                     </div>
                     <?php if (!empty($school['google_map_url'])): ?>

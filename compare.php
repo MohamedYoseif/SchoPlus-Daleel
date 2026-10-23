@@ -542,7 +542,16 @@ $genderTypes = SudanGeography::genderTypes();
                                 <?php foreach ($schools as $s): ?>
                                     <td class="compare-school-col">
                                         <?php if (!empty($s['address'])): ?>
-                                            <div class="small mb-1"><?= e($s['address']) ?></div>
+                                            <?php if (!empty($s['google_map_url'])): ?>
+                                                <div class="small mb-1">
+                                                    <a href="<?= e($s['google_map_url']) ?>" target="_blank" rel="noopener" class="text-decoration-none text-dark fw-bold hover-primary" title="انقر لفتح العنوان في خرائط Google">
+                                                        <i class="fas fa-map-pin text-danger me-1"></i><?= e($s['address']) ?>
+                                                        <i class="fas fa-external-link-alt text-muted ms-1" style="font-size: 0.65rem;"></i>
+                                                    </a>
+                                                </div>
+                                            <?php else: ?>
+                                                <div class="small mb-1"><?= e($s['address']) ?></div>
+                                            <?php endif; ?>
                                         <?php endif; ?>
                                         <?php if (!empty($s['google_map_url'])): ?>
                                             <a href="<?= e($s['google_map_url']) ?>" target="_blank" class="btn btn-sm btn-light border py-0 px-2" style="font-size: 0.68rem;">
