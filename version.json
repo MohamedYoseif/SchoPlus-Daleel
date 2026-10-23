@@ -1,7 +1,7 @@
 {
-    "version": "3.8.24",
+    "version": "3.8.25",
     "release_date": "2026-10-23",
     "version_type": "enterprise",
     "min_php_version": "8.2",
-    "release_notes": "دليل المدارس السودانية (daleel.schoplus.sd) — إزالة قيد الارتفاع الصلب لوصف المدرسة (school-card-desc max-height removal) وضبط تباعد الأسطر (line-height: 1.6) لمنع قص الأحرف في السطر الثاني v3.8.24"
+    "release_notes": "دليل المدارس السودانية (daleel.schoplus.sd) — اختصار وتبسيط عنوان الصفحة الرئيسي في شريط المتصفح (Browser Tab Title) من 70+ حرفاً متكرراً إلى عنوان مقتضب وأنيق يطابق معايير تجربة المستخدم 'دليل المدارس السودانية | SchoPlus' v3.8.25"
 }

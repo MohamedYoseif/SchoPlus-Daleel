@@ -3,7 +3,7 @@
  * School Side-by-Side Comparison (SchoPlus Style F v2)
  */
 
-$pageTitle = 'مقارنة المدارس جنباً إلى جنب';
+$pageTitle = 'مقارنة المدارس';
 require_once __DIR__ . '/header.php';
 
 $pdo = db();

@@ -61,7 +61,19 @@ $isDaleelMobile = (
 
     <link rel="icon" type="image/png" href="/assets/images/favicon.png?v=3.7.84">
     <link rel="apple-touch-icon" href="/assets/images/logo-icon.png?v=3.7.84">
-    <title><?= isset($pageTitle) ? e($pageTitle) . ' | دليل المدارس السودانية' : 'دليل المدارس السودانية — دليلك الشامل لاختيار أفضل المدارس في السودان' ?></title>
+    <?php
+    $siteBrand = 'دليل المدارس السودانية';
+    if (!empty($pageTitle)) {
+        if (mb_stripos($pageTitle, $siteBrand) !== false) {
+            $browserTitle = $pageTitle . ' | SchoPlus';
+        } else {
+            $browserTitle = $pageTitle . ' | ' . $siteBrand;
+        }
+    } else {
+        $browserTitle = $siteBrand . ' | SchoPlus';
+    }
+    ?>
+    <title><?= e($browserTitle) ?></title>
     
     <!-- Meta Description (SEO) -->
     <meta name="description" content="<?= isset($pageDescription) ? e($pageDescription) : (isset($ogDesc) && !empty($ogDesc) && $ogDesc !== 'دليلك الشامل لاختيار أفضل المدارس في السودان — تصفح الرسوم والمرافق وتواصل مباشرة.' ? e($ogDesc) : 'دليل المدارس السودانية — المنصة الوطنية الأولى والذكية الشاملة لاستكشاف ومقارنة المدارس ورياض الأطفال والمراكز التعليمية في ولايات السودان ودول المهجر.') ?>">
@@ -73,7 +85,7 @@ $isDaleelMobile = (
     
     <!-- Open Graph / WhatsApp / Facebook Meta Tags -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="<?= isset($ogTitle) ? e($ogTitle) : (isset($pageTitle) ? e($pageTitle) . ' | دليل المدارس السودانية' : 'دليل المدارس السودانية — منصة الاستكشاف والقبول الذكي') ?>">
+    <meta property="og:title" content="<?= isset($ogTitle) ? e($ogTitle) : e($browserTitle) ?>">
     <meta property="og:description" content="<?= isset($ogDesc) ? e($ogDesc) : 'دليلك الشامل لاختيار أفضل المدارس في السودان — تصفح الرسوم والمرافق وتواصل مباشرة.' ?>">
     <meta property="og:image" content="<?= isset($ogImage) ? e($ogImage) : 'https://daleel.schoplus.sd/assets/images/logo.png?v=3.7.84' ?>">
     <meta property="og:url" content="<?= isset($ogUrl) ? e($ogUrl) : 'https://daleel.schoplus.sd' ?>">
@@ -81,7 +93,7 @@ $isDaleelMobile = (
 
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="<?= isset($ogTitle) ? e($ogTitle) : (isset($pageTitle) ? e($pageTitle) : 'دليل المدارس السودانية — منصة الاستكشاف والقبول الذكي') ?>">
+    <meta name="twitter:title" content="<?= isset($ogTitle) ? e($ogTitle) : e($browserTitle) ?>">
     <meta name="twitter:description" content="<?= isset($ogDesc) ? e($ogDesc) : 'دليلك الشامل لاختيار أفضل المدارس في السودان' ?>">
     <meta name="twitter:image" content="<?= isset($ogImage) ? e($ogImage) : 'https://daleel.schoplus.sd/assets/images/logo.png?v=3.7.84' ?>">
 

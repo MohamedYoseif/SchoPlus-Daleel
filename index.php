@@ -720,22 +720,22 @@ $renderSchoolRow = function($s) use ($pdo, $schoolStages, $schoolTypes, $q) {
 <?php
 };
 
-// Dynamic Title Resolution
-$dynamicTitle = 'دليل المدارس — دليلك الشامل لاختيار أفضل المدارس';
-if ($schoolType === 'government') {
-    $dynamicTitle = !empty($state) ? "المدارس الحكومية في ولاية {$state} — دليل المدارس" : "المدارس الحكومية في السودان — دليل المدارس";
+// Dynamic Title Resolution (Compact & Tab-friendly for Browser Header)
+$dynamicTitle = 'دليل المدارس السودانية';
+if (!empty($q)) {
+    $dynamicTitle = "بحث: {$q}";
+} elseif ($schoolType === 'government') {
+    $dynamicTitle = !empty($state) ? "المدارس الحكومية — {$state}" : "المدارس الحكومية";
 } elseif ($schoolType === 'private') {
-    $dynamicTitle = !empty($state) ? "المدارس الخاصة والدولية في ولاية {$state} — دليل المدارس" : "المدارس الخاصة والدولية في السودان — دليل المدارس";
+    $dynamicTitle = !empty($state) ? "المدارس الخاصة — {$state}" : "المدارس الخاصة والدولية";
 } elseif (!empty($state)) {
-    $dynamicTitle = "مدارس ولاية {$state} — دليل المدارس الذكي";
+    $dynamicTitle = "مدارس ولاية {$state}";
 } elseif ($view === 'schoplus' || $schoplusOnly) {
-    $dynamicTitle = 'مدارس SchoPlus الذكية — دليل المدارس';
+    $dynamicTitle = 'المدارس الذكية';
 } elseif ($view === 'top_rated' || $sort === 'rating') {
-    $dynamicTitle = 'المدارس الأعلى تقييماً — دليل المدارس';
+    $dynamicTitle = 'المدارس الأعلى تقييماً';
 } elseif ($view === 'latest' || $sort === 'latest') {
-    $dynamicTitle = 'أحدث المدارس المنضمة — دليل المدارس';
-} elseif (!empty($q)) {
-    $dynamicTitle = "نتائج البحث عن '{$q}' — دليل المدارس";
+    $dynamicTitle = 'أحدث المدارس المنضمة';
 }
 
 // Handle AJAX Partial Response
@@ -745,9 +745,11 @@ if ($isAjax) {
     require __DIR__ . '/_catalog_content.php';
     $catalogHtml = ob_get_clean();
 
+    $ajaxDocTitle = ($dynamicTitle === 'دليل المدارس السودانية') ? 'دليل المدارس السودانية | SchoPlus' : ($dynamicTitle . ' | دليل المدارس السودانية');
+
     echo json_encode([
         'success' => true,
-        'title' => $dynamicTitle,
+        'title' => $ajaxDocTitle,
         'html' => $catalogHtml,
         'total' => $isSearching ? $totalMatching : $statTotal,
         'state' => $state,
