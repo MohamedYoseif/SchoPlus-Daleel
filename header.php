@@ -1285,10 +1285,6 @@ $isDaleelMobile = (
                     <i class="fas fa-satellite-dish text-primary" style="width:18px"></i> فحص الوجود الرقمي
                     <span class="badge bg-warning text-dark ms-auto" style="font-size: 0.62rem; padding: 2px 6px;">جديد</span>
                 </a>
-                <a href="/auto_researcher.php" class="offcanvas-nav-link">
-                    <i class="fas fa-robot text-primary" style="width:18px"></i> الباحث الآلي للمدارس
-                    <span class="badge bg-primary text-white ms-auto" style="font-size: 0.62rem; padding: 2px 6px;">ذكاء اصطناعي</span>
-                </a>
                 <a href="/#app-download" class="offcanvas-nav-link">
                     <i class="fas fa-mobile-alt text-success" style="width:18px"></i> تطبيق الهاتف (أندرويد وآيفون)
                 </a>
@@ -1340,10 +1336,6 @@ $isDaleelMobile = (
                         <i class="fas fa-sign-out-alt"></i>
                     </a>
                 <?php else: ?>
-                    <a href="/auto_researcher.php" class="btn-luxury-outline d-none d-lg-inline-flex" style="border-radius: 8px; padding: 7px 14px; gap: 6px;">
-                        <i class="fas fa-robot text-primary"></i>
-                        <span>الباحث الآلي</span>
-                    </a>
                     <a href="/#app-download" class="btn-luxury-outline d-none d-md-inline-flex" style="border-radius: 8px; padding: 7px 14px; gap: 6px;">
                         <i class="fas fa-mobile-alt text-success"></i>
                         <span>تطبيق الهاتف</span>

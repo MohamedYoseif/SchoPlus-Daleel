@@ -1,7 +1,8 @@
 <?php
 /**
  * SchoPlus Daleel — Autonomous School Discovery & Research Engine
- * صفحة الباحث الآلي المدمج لاستكشاف وفهرسة المدارس
+ * محرك الباحث الآلي للمدارس — يعمل في الخلفية (Background Engine / Admin Automation)
+ * غير متاح للزوار العاديين
  */
 
 require_once __DIR__ . '/config.php';
@@ -10,7 +11,46 @@ require_once __DIR__ . '/SchoolAutoResearcher.php';
 
 $pdo = db();
 
-$pageTitle = 'الباحث الآلي المدمج للمدارس — دليل المدارس السودانية';
+// =========================================================================
+// 1. CLI EXECUTION SUPPORT (FOR CRON JOBS & BACKGROUND WORKERS)
+// =========================================================================
+$isCli = (php_sapi_name() === 'cli');
+
+if ($isCli) {
+    echo "=== SchoPlus Daleel Autonomous Background Researcher ===\n";
+    $options = getopt('', ['query:', 'state:', 'city:', 'scan']);
+    $query = $options['query'] ?? null;
+    $state = $options['state'] ?? null;
+    $city = $options['city'] ?? null;
+
+    if (!empty($query)) {
+        echo "Discovering single school: {$query}...\n";
+        $res = SchoolAutoResearcher::autoDiscoverAndRegister($pdo, $query, $state, $city);
+        print_r($res);
+        exit(0);
+    }
+
+    echo "Running background locality check...\n";
+    $total = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE status = 'approved'")->fetchColumn();
+    echo "Current approved institutions: {$total}\n";
+    echo "=== Background Run Completed ===\n";
+    exit(0);
+}
+
+// =========================================================================
+// 2. SECURITY GATE FOR WEB ACCESS (ADMIN / BACKGROUND SECRET ONLY)
+// =========================================================================
+$adminSecretKey = "schoplus_daleel_deploy_sec_4412f";
+$providedKey = $_GET['key'] ?? ($_POST['key'] ?? '');
+$isAuthAdmin = (!empty($_SESSION['school_id']));
+
+if (!$isAuthAdmin && $providedKey !== $adminSecretKey) {
+    http_response_code(403);
+    header('Location: /');
+    exit;
+}
+
+$pageTitle = 'الباحث الآلي المدمج للمدارس — لوحة التحكم بالخلفية';
 $pageDesc = 'النظام الذاتي للبحث والاستكشاف الذكي لمدارس ورياض الأطفال بالسودان وفهرستها في الدليل آلياً.';
 
 // Metrics

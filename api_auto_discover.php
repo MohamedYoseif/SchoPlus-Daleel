@@ -10,8 +10,22 @@ require_once __DIR__ . '/SchoolAutoResearcher.php';
 
 $pdo = db();
 
+// Background / Admin Security Check (Not accessible to public visitors)
+$secretKey = "schoplus_daleel_deploy_sec_4412f";
 $rawInput = file_get_contents('php://input');
 $inputData = json_decode($rawInput, true);
+
+$providedKey = $_GET['key'] ?? ($_POST['key'] ?? ($inputData['key'] ?? ''));
+$isAuthAdmin = (!empty($_SESSION['school_id']));
+
+if (!$isAuthAdmin && $providedKey !== $secretKey && php_sapi_name() !== 'cli') {
+    http_response_code(403);
+    echo json_encode([
+        'success' => false,
+        'error' => 'هذه الخدمة مخصصة للاستخدام الآلي في الخلفية فقط وغير متاحة للزوار.'
+    ], JSON_UNESCAPED_UNICODE);
+    exit;
+}
 
 $query = trim((string)($_POST['query'] ?? ($inputData['query'] ?? '')));
 $state = trim((string)($_POST['state'] ?? ($inputData['state'] ?? '')));

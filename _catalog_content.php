@@ -376,74 +376,16 @@ if (!function_exists('renderCatalogPagination')) {
                             <h4 class="fw-bold text-dark" style="font-size: 1.05rem;">لم نعثر على مدرسة مطابقة للبحث</h4>
                             <?php if (!empty($q)): ?>
                                 <p class="text-muted small" style="font-size: 0.76rem; line-height: 1.6; margin-bottom: 18px;">
-                                    هل تبحث عن مدرسة <strong class="text-dark">"<?= e($q) ?>"</strong>؟ يمكنك فحص حضورها الرقمي أو استخدام <strong>الباحث الآلي المدمج</strong> لاستكشافها وفهرستها فوراً في الدليل!
+                                    هل تبحث عن مدرسة <strong class="text-dark">"<?= e($q) ?>"</strong>؟ قد لا تكون مسجلة بعد في الدليل، ولكن يمكنك فحص حضورها الرقمي الشامل على جوجل وخرائط جوجل وشبكات التواصل بنقرة واحدة!
                                 </p>
                                 <div class="d-flex flex-wrap align-items-center justify-content-center gap-2 mb-2">
-                                    <button type="button" class="btn-luxury-primary btn-sm py-2 px-3 text-white fw-bold shadow-sm" id="btnAutoDiscoverInline" style="background: #F5A020; border-color: #F5A020; font-size: 0.78rem;" onclick="triggerAutoDiscover(<?= htmlspecialchars(json_encode($q, JSON_UNESCAPED_UNICODE)) ?>, <?= htmlspecialchars(json_encode($state ?? '', JSON_UNESCAPED_UNICODE)) ?>, <?= htmlspecialchars(json_encode($city ?? '', JSON_UNESCAPED_UNICODE)) ?>)">
-                                        <i class="fas fa-robot me-1"></i> استكشاف وإدراج "<?= e($q) ?>" آلياً
-                                    </button>
-                                    <a href="/presence-audit.php?school=<?= urlencode($q) ?>&country=<?= urlencode($country) ?>&state=<?= urlencode($state) ?>&auto=1" class="btn-luxury-outline btn-sm py-2 px-3" style="font-size: 0.78rem;">
-                                        <i class="fas fa-satellite-dish me-1"></i> فحص الوجود الرقمي
+                                    <a href="/presence-audit.php?school=<?= urlencode($q) ?>&country=<?= urlencode($country) ?>&state=<?= urlencode($state) ?>&auto=1" class="btn-luxury-primary btn-sm py-2 px-3" style="font-size: 0.78rem;">
+                                        <i class="fas fa-satellite-dish me-1"></i> فحص الوجود الرقمي لـ "<?= e($q) ?>"
                                     </a>
                                     <a href="/" class="btn-luxury-outline btn-sm py-2 px-3" style="font-size: 0.78rem;">
                                         <i class="fas fa-undo me-1"></i> عرض كافة المدارس
                                     </a>
                                 </div>
-                                <div id="autoDiscoverInlineStatus" class="mt-3 text-center" style="display: none;"></div>
-                                <script>
-                                function triggerAutoDiscover(query, state, city) {
-                                    const btn = document.getElementById('btnAutoDiscoverInline');
-                                    const statusBox = document.getElementById('autoDiscoverInlineStatus');
-                                    if (!btn || !query) return;
-
-                                    btn.disabled = true;
-                                    const oldHtml = btn.innerHTML;
-                                    btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> جاري استكشاف وفهرسة المدرسة آلياً...';
-
-                                    if (statusBox) {
-                                        statusBox.style.display = 'block';
-                                        statusBox.innerHTML = '<div class="alert alert-info py-2 px-3 small d-inline-flex align-items-center gap-2 mb-0" style="font-size: 0.76rem;"><i class="fas fa-robot text-primary"></i> يقوم الباحث الذكي الآن بتحليل موقع المدرسة والمراحل وتوليد بطاقتها...</div>';
-                                    }
-
-                                    const formData = new FormData();
-                                    formData.append('query', query);
-                                    formData.append('state', state || '');
-                                    formData.append('city', city || '');
-
-                                    fetch('/api_auto_discover.php', {
-                                        method: 'POST',
-                                        body: formData
-                                    })
-                                    .then(r => r.json())
-                                    .then(data => {
-                                        if (data && data.success) {
-                                            if (statusBox) {
-                                                statusBox.innerHTML = `<div class="alert alert-success py-2 px-3 small d-inline-flex align-items-center gap-2 mb-0" style="font-size: 0.76rem;"><i class="fas fa-check-circle text-success"></i> ${data.message || 'تم إدراج المدرسة بنجاح!'} جاري نقلك إليها...</div>`;
-                                            }
-                                            setTimeout(() => {
-                                                if (data.school && data.school.url) {
-                                                    window.location.href = data.school.url;
-                                                } else {
-                                                    window.location.reload();
-                                                }
-                                            }, 1200);
-                                        } else {
-                                            btn.disabled = false;
-                                            btn.innerHTML = oldHtml;
-                                            if (statusBox) {
-                                                statusBox.innerHTML = `<div class="alert alert-danger py-2 px-3 small d-inline-flex align-items-center gap-2 mb-0" style="font-size: 0.76rem;"><i class="fas fa-exclamation-triangle text-danger"></i> ${data.error || 'تعذر استكشاف المدرسة آلياً حالياً.'}</div>`;
-                                            }
-                                        }
-                                    })
-                                    .catch(err => {
-                                        btn.disabled = false;
-                                        btn.innerHTML = oldHtml;
-                                        if (statusBox) {
-                                            statusBox.innerHTML = '<div class="alert alert-danger py-2 px-3 small d-inline-flex align-items-center gap-2 mb-0" style="font-size: 0.76rem;"><i class="fas fa-exclamation-triangle text-danger"></i> حدث خطأ أثناء الاتصال بالباحث الآلي.</div>';
-                                        }
-                                    });
-                                }
-                                </script>
                             <?php else: ?>
                                 <p class="text-muted small" style="font-size: 0.74rem;">جرب تغيير شروط الفلترة أو تصفح ولاية أخرى لاكتشاف خيارات أوسع.</p>
                                 <a href="/" class="btn-luxury-primary btn-sm mt-2">

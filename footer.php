@@ -86,9 +86,6 @@
                     <a href="/compare.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">
                         <i class="fas fa-balance-scale me-1 text-muted" style="font-size: 0.68rem;"></i> مقارنة المدارس
                     </a>
-                    <a href="/auto_researcher.php" class="d-block text-secondary text-decoration-none mb-2" style="font-size: 0.74rem;">
-                        <i class="fas fa-robot me-1 text-primary" style="font-size: 0.68rem;"></i> الباحث الآلي للمدارس (ذكاء اصطناعي)
-                    </a>
                 </div>
 
                 <!-- Col 3: School Administration (Management Only) -->

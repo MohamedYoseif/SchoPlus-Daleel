@@ -1,7 +1,7 @@
 {
-    "version": "3.7.89",
+    "version": "3.7.90",
     "release_date": "2026-10-23",
     "version_type": "enterprise",
     "min_php_version": "8.2",
-    "release_notes": "دليل المدارس السودانية (daleel.schoplus.sd) — إطلاق الباحث الآلي المدمج للمدارس (SchoolAutoResearcher) لاستكشاف وفهرسة المدارس آلياً عبر الويب والبحث التفاعلي v3.7.89"
+    "release_notes": "دليل المدارس السودانية (daleel.schoplus.sd) — ضبط الباحث الآلي للمدارس ليعمل بصمت في الخلفية وعبر المهام المجدولة وحجبه تماماً عن الزوار العاديين v3.7.90"
 }
