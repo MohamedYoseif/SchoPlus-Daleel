@@ -449,6 +449,7 @@ if (isset($_REQUEST['ajax_action'])) {
             @ini_set('memory_limit', '512M');
 
             $scopeState = trim($_POST['state'] ?? '');
+            $scopeType = trim($_POST['school_type'] ?? 'all');
             $targetCount = (int)($_POST['target_count'] ?? 20);
             $batchText = trim($_POST['batch_text'] ?? '');
 
@@ -458,7 +459,7 @@ if (isset($_REQUEST['ajax_action'])) {
                 $logs[] = "[" . date('H:i:s') . "] ▶ بدء تشغيل محرك الاستكشاف والمسح الآلي المدمج للدليل...";
                 $lines = preg_split('/\r\n|\r|\n/', $batchText);
                 $cleanLines = array_values(array_filter(array_map('trim', $lines)));
-                $logs[] = "[" . date('H:i:s') . "] 📋 استلام قائمة مجمعة تضم " . count($cleanLines) . " مدرسة للفهرسة والاستكشاف...";
+                $logs[] = "[" . date('H:i:s') . "] 📋 استلام قائمة مجمعة تضم " . count($cleanLines) . " مدرسة للفهرسة والاستكشاف والتدقيق...";
 
                 $createdCount = 0;
                 $alreadyExistsCount = 0;
@@ -467,13 +468,18 @@ if (isset($_REQUEST['ajax_action'])) {
                 foreach ($cleanLines as $idx => $line) {
                     if (mb_strlen($line, 'UTF-8') < 2) continue;
                     try {
-                        $res = SchoolAutoResearcher::autoDiscoverAndRegister($pdo, $line, !empty($scopeState) ? $scopeState : null);
+                        $forcedType = ($scopeType !== 'all') ? $scopeType : null;
+                        $res = SchoolAutoResearcher::autoDiscoverAndRegister($pdo, $line, !empty($scopeState) ? $scopeState : null, null, $forcedType);
                         if (!empty($res['created'])) {
                             $createdCount++;
-                            $logs[] = "[" . date('H:i:s') . "] ✨ [إضافة جديدة] استكشاف وفهرسة: " . $res['school']['name'] . " (" . $res['school']['state'] . " — " . $res['school']['city'] . ") بنجاح.";
+                            $sch = $res['school'];
+                            $logs[] = "[" . date('H:i:s') . "] ✨ [مؤسسة جديدة مؤكدة #{$createdCount}] استكشاف وفهرسة: \"{$sch['name']}\" ({$sch['state']} — {$sch['city']}) بنجاح.";
                         } elseif (!empty($res['already_exists'])) {
                             $alreadyExistsCount++;
-                            $logs[] = "[" . date('H:i:s') . "] ℹ️ [موجودة مسبقاً] مدرسة: " . $res['school']['name'] . " مفهرسة بالفعل في الدليل.";
+                            $ex = $res['school'];
+                            $exPhone = !empty($ex['phone']) ? $ex['phone'] : (!empty($ex['whatsapp']) ? $ex['whatsapp'] : 'غير مسجل');
+                            $exAddr = !empty($ex['address']) ? $ex['address'] : ($ex['state'] . ' — ' . $ex['city']);
+                            $logs[] = "[" . date('H:i:s') . "] 🛡️ [مطابقة وموجودة مسبقاً] فحص: \"{$line}\" ← مطابقة مدرسة قائمة: \"{$ex['name']}\" ({$ex['state']} — {$ex['city']}) | الهاتف: {$exPhone} | العنوان: {$exAddr} — [تم التجاهل لمنع التكرار Deduplicated]";
                         } else {
                             $errorsCount++;
                             $logs[] = "[" . date('H:i:s') . "] ⚠️ تعذر إدراج: {$line} (" . ($res['error'] ?? 'خطأ غير معروف') . ")";
@@ -491,7 +497,7 @@ if (isset($_REQUEST['ajax_action'])) {
                 }
 
                 $totalNow = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE status = 'approved'")->fetchColumn();
-                $logs[] = "[" . date('H:i:s') . "] 🏁 اكتملت دورة المحرك بنجاح! الإجمالي العام للمدارس: " . number_format($totalNow) . " مدرسة.";
+                $logs[] = "[" . date('H:i:s') . "] 🏁 اكتملت دورة المحرك بنجاح! مضاف جديد: {$createdCount} | مطابق ومتجاهل: {$alreadyExistsCount} | الإجمالي العام: " . number_format($totalNow) . " مؤسسة.";
 
                 echo json_encode([
                     'success' => true,
@@ -500,20 +506,21 @@ if (isset($_REQUEST['ajax_action'])) {
                     'errors_count' => $errorsCount,
                     'total_schools' => $totalNow,
                     'logs' => $logs,
-                    'message' => "تم استكشاف وإدراج {$createdCount} مدرسة جديدة بنجاح في الدليل ✅"
+                    'message' => "تم استكشاف {$createdCount} مدرسة جديدة، ومطابقة وتجاهل {$alreadyExistsCount} مدرسة قائمة لمنع التكرار ✅"
                 ], JSON_UNESCAPED_UNICODE);
                 exit;
             } else {
-                // Autonomous exploration based on Target Count
-                $res = SchoolAutoResearcher::runAutonomousExploration($pdo, !empty($scopeState) ? $scopeState : null, $targetCount, $logs);
+                // Autonomous exploration based on Target Count and Scope Type
+                $res = SchoolAutoResearcher::runAutonomousExploration($pdo, !empty($scopeState) ? $scopeState : null, $targetCount, $logs, $scopeType);
                 echo json_encode([
                     'success' => true,
                     'created_count' => $res['created_count'],
-                    'already_exists_count' => 0,
+                    'already_exists_count' => $res['skipped_count'],
+                    'scanned_count' => $res['scanned_count'],
                     'errors_count' => 0,
                     'total_schools' => $res['total_now'],
                     'logs' => $res['logs'],
-                    'message' => "تم استكشاف وفهرسة {$res['created_count']} مدرسة جديدة بنجاح في الدليل ✅"
+                    'message' => "تم استكشاف {$res['created_count']} مؤسسة جديدة، ومطابقة وتجاهل {$res['skipped_count']} مؤسسة قائمة لمنع التكرار ✅"
                 ], JSON_UNESCAPED_UNICODE);
                 exit;
             }
@@ -1543,29 +1550,40 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                             </p>
                             
                             <div class="row g-3 mb-3">
-                                <div class="col-md-6 col-12">
+                                <div class="col-md-4 col-12">
+                                    <label class="form-label fw-bold text-dark" style="font-size: 0.75rem;">
+                                        <i class="fas fa-shapes text-info me-1"></i> تصنيف المؤسسات المستهدفة:
+                                    </label>
+                                    <select id="workerSchoolType" class="form-select form-select-sm" style="border-color: #DDE4ED; font-size: 0.78rem;">
+                                        <option value="all">كافة المؤسسات (شامل ومتنوع)</option>
+                                        <option value="kindergarten">رياض الأطفال والحضانات (Kindergarten)</option>
+                                        <option value="private">المدارس الخاصة (Private Schools)</option>
+                                        <option value="government">المدارس الحكومية (Public Schools)</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 col-12">
                                     <label class="form-label fw-bold text-dark" style="font-size: 0.75rem;">
                                         <i class="fas fa-map-marker-alt text-primary me-1"></i> نطاق المسح والاستكشاف:
                                     </label>
                                     <select id="workerScopeState" class="form-select form-select-sm" style="border-color: #DDE4ED; font-size: 0.78rem;">
-                                        <option value="">كافة ولايات السودان والمهجر (شامل ومتنوع)</option>
+                                        <option value="">كافة ولايات السودان والمهجر (شامل)</option>
                                         <?php foreach (SudanGeography::states('السودان') as $st): ?>
                                             <option value="<?= e($st) ?>"><?= e($st) ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
-                                <div class="col-md-6 col-12">
+                                <div class="col-md-4 col-12">
                                     <label class="form-label fw-bold text-dark" style="font-size: 0.75rem;">
-                                        <i class="fas fa-bullseye text-warning me-1"></i> العدد المستهدف للبحث والاستكشاف:
+                                        <i class="fas fa-bullseye text-warning me-1"></i> العدد المستهدف للبحث:
                                     </label>
                                     <div class="d-flex gap-2">
                                         <select id="workerTargetCount" class="form-select form-select-sm" style="border-color: #DDE4ED; font-size: 0.78rem;">
-                                            <option value="10">10 مدارس جديدة</option>
-                                            <option value="20" selected>20 مدرسة جديدة (موصى به)</option>
-                                            <option value="50">50 مدرسة جديدة (دفعة موسعة)</option>
-                                            <option value="100">100 مدرسة جديدة (مسح شامل)</option>
+                                            <option value="10">10 مؤسسات جديدة</option>
+                                            <option value="20" selected>20 مؤسسة (موصى به)</option>
+                                            <option value="50">50 مؤسسة (دفعة موسعة)</option>
+                                            <option value="100">100 مؤسسة (مسح شامل)</option>
                                         </select>
-                                        <input type="number" id="workerCustomCount" class="form-control form-control-sm" placeholder="عدد مخصص" min="1" max="100" style="width: 110px; border-color: #DDE4ED; font-size: 0.78rem;" title="أدخل عدداً مخصصاً إن رغبت">
+                                        <input type="number" id="workerCustomCount" class="form-control form-control-sm" placeholder="مخصص" min="1" max="100" style="width: 80px; border-color: #DDE4ED; font-size: 0.78rem;" title="أدخل عدداً مخصصاً">
                                     </div>
                                 </div>
                             </div>
@@ -2094,6 +2112,8 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
     }
 
     function adminRunWorker() {
+        const typeElem = document.getElementById('workerSchoolType');
+        const schoolType = typeElem ? typeElem.value : 'all';
         const stateElem = document.getElementById('workerScopeState');
         const state = stateElem ? stateElem.value : '';
         const targetSelect = document.getElementById('workerTargetCount') ? parseInt(document.getElementById('workerTargetCount').value, 10) : 20;
@@ -2105,13 +2125,22 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
         const consoleBox = document.getElementById('workerConsoleBox');
 
         btn.disabled = true;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> جاري استكشاف وفهرسة المدارس في الخلفية...';
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> جاري استكشاف وفهرسة وتدقيق المدارس...';
+
+        const typeLabels = {
+            'all': 'كافة المؤسسات',
+            'kindergarten': 'رياض الأطفال والحضانات',
+            'private': 'المدارس الخاصة',
+            'government': 'المدارس الحكومية'
+        };
+        const typeLbl = typeLabels[schoolType] || 'كافة المؤسسات';
 
         consoleBox.style.display = 'block';
-        consoleBox.innerHTML = '<div style="color: #94A3B8;">[' + (new Date().toLocaleTimeString()) + '] ▶ Initializing Autonomous Discovery Worker (Target: ' + targetCount + ' schools)...</div>';
+        consoleBox.innerHTML = '<div style="color: #94A3B8;">[' + (new Date().toLocaleTimeString()) + '] ▶ Initializing Autonomous Discovery Worker (Target: ' + targetCount + ' | Category: ' + typeLbl + ')...</div>';
 
         const fd = new FormData();
         fd.append('ajax_action', 'run_batch_researcher');
+        fd.append('school_type', schoolType);
         fd.append('state', state);
         fd.append('target_count', targetCount);
         fd.append('batch_text', batchText);
@@ -2136,10 +2165,12 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                 let html = '';
                 if (data.logs && Array.isArray(data.logs)) {
                     data.logs.forEach(msg => {
-                        let col = '#4ADE80'; // green
+                        let col = '#4ADE80'; // default green
                         if (msg.includes('❌') || msg.includes('⚠️')) col = '#F87171'; // red
+                        else if (msg.includes('🛡️') || msg.includes('مطابقة') || msg.includes('تجاهل')) col = '#94A3B8'; // gray for deduplicated
                         else if (msg.includes('ℹ️') || msg.includes('🔍')) col = '#38BDF8'; // cyan
-                        else if (msg.includes('✨') || msg.includes('🏁') || msg.includes('🎯')) col = '#FBBF24'; // yellow
+                        else if (msg.includes('✨') || msg.includes('جديدة')) col = '#34D399'; // emerald green for new additions
+                        else if (msg.includes('🏁') || msg.includes('🎯') || msg.includes('📊') || msg.includes('✅')) col = '#FBBF24'; // amber
                         html += `<div style="color: ${col}; margin-bottom: 3px;">${escapeHtml(msg)}</div>`;
                     });
                 }

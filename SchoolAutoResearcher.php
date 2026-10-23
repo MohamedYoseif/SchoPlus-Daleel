@@ -214,7 +214,7 @@ class SchoolAutoResearcher {
     /**
      * Main Autonomous Discovery Entry Point
      */
-    public static function autoDiscoverAndRegister(PDO $pdo, string $query, ?string $inputState = null, ?string $inputCity = null): array {
+    public static function autoDiscoverAndRegister(PDO $pdo, string $query, ?string $inputState = null, ?string $inputCity = null, ?string $forcedSchoolType = null): array {
         $cleanQ = self::cleanQuery($query);
         if (mb_strlen($cleanQ, 'UTF-8') < 2) {
             return [
@@ -226,7 +226,7 @@ class SchoolAutoResearcher {
         // 1. Check if school already exists via universal search clause
         list($searchClause, $searchParams) = buildUniversalSchoolSearchClause($cleanQ);
         if (!empty($searchClause)) {
-            $chkStmt = $pdo->prepare("SELECT id, name, name_en, slug, state, city, district, address, stages, is_verified, directory_rank 
+            $chkStmt = $pdo->prepare("SELECT id, name, name_en, slug, school_type, state, city, district, address, phone, whatsapp, stages, is_verified, directory_rank 
                                       FROM daleel_schools 
                                       WHERE {$searchClause} 
                                       LIMIT 1");
@@ -244,9 +244,13 @@ class SchoolAutoResearcher {
                         'name' => $existing['name'],
                         'name_en' => $existing['name_en'] ?? '',
                         'slug' => $existing['slug'],
+                        'school_type' => $existing['school_type'] ?? 'private',
                         'state' => $existing['state'],
                         'city' => $existing['city'],
                         'district' => $existing['district'],
+                        'address' => $existing['address'] ?? '',
+                        'phone' => $existing['phone'] ?? '',
+                        'whatsapp' => $existing['whatsapp'] ?? '',
                         'url' => '/school/' . urlencode($existing['slug']),
                         'directory_rank' => (int)($existing['directory_rank'] ?? 0),
                         'is_verified' => (int)($existing['is_verified'] ?? 0) === 1
@@ -265,8 +269,21 @@ class SchoolAutoResearcher {
         $formattedNameEn = self::transliterateEnglish($formattedName);
 
         // Deduce Stages, Type, Gender, Curriculum
-        $schoolType = SudanGeography::deduceSchoolType($formattedName, 'private');
-        $stages = SudanGeography::deduceStages($schoolType, $formattedName, null, '');
+        if (!empty($forcedSchoolType) && in_array($forcedSchoolType, ['kindergarten', 'government', 'private', 'international'])) {
+            $schoolType = $forcedSchoolType;
+        } else {
+            $schoolType = SudanGeography::deduceSchoolType($formattedName, 'private');
+        }
+
+        if ($schoolType === 'kindergarten') {
+            $stages = ['kindergarten'];
+        } else {
+            $stages = SudanGeography::deduceStages($schoolType, $formattedName, null, '');
+            if (empty($stages)) {
+                $stages = ($schoolType === 'government') ? ['intermediate'] : ['primary', 'intermediate'];
+            }
+        }
+
         $genderType = (str_contains($formattedName, 'بنات')) ? 'girls' : ((str_contains($formattedName, 'بنين')) ? 'boys' : 'mixed');
         $curriculum = (str_contains($formattedName, 'بريطاني') || str_contains($formattedName, 'كامبريدج') || str_contains($formattedName, 'عالمية')) ? 'british' : 'sudanese';
 
@@ -291,13 +308,19 @@ class SchoolAutoResearcher {
             $counter++;
         }
 
-        // Rich Description
+        // Rich Description tailored to institution type
         $stagesArabic = array_map(function($st) {
             return SudanGeography::stageLabel($st);
         }, $stages);
         $stagesStr = implode('، ', $stagesArabic);
 
-        $description = "صرح تربوي وتعليمي متميز يقع في {$fullAddress}، يقدم خدماته الأكاديمية والتربوية لطلاب المراحل ({$stagesStr})، ويهتم بتطوير المهارات العلمية والأنشطة الطلابية وبناء بيئة تعليمية محفزة.";
+        if ($schoolType === 'kindergarten') {
+            $description = "صرح تعليمي وتأهيلي مبكر متميز يقع في {$fullAddress}، يركز على رعاية الطفولة المبكرة وبناء المهارات الإدراكية والحركية واللغوية عبر بيئة ترفيهية وتعليمية آمنة ومحفزة.";
+        } elseif ($schoolType === 'government') {
+            $description = "مؤسسة تعليمية حكومية رائدة تقع في {$fullAddress}، تتبع وزارة التربية والتعليم وتقدم التعليم لمراحل ({$stagesStr}) وفق المنهج السوداني القومي المعتمد.";
+        } else {
+            $description = "صرح تربوي وتعليمي متميز يقع في {$fullAddress}، يقدم خدماته الأكاديمية والتربوية لطلاب المراحل ({$stagesStr})، ويهتم بتطوير المهارات العلمية والأنشطة الطلابية وبناء بيئة تعليمية محفزة.";
+        }
 
         $googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=' . urlencode($formattedName . ' ' . $city . ' ' . $state);
         $randomPasswordHash = password_hash(bin2hex(random_bytes(6)), PASSWORD_BCRYPT);
@@ -354,10 +377,12 @@ class SchoolAutoResearcher {
                 'name' => $formattedName,
                 'name_en' => $formattedNameEn,
                 'slug' => $slug,
+                'school_type' => $schoolType,
                 'state' => $state,
                 'city' => $city,
                 'district' => $district,
                 'stages' => $stages,
+                'address' => $fullAddress,
                 'url' => '/school/' . urlencode($slug),
                 'google_maps_url' => $googleMapsUrl,
                 'is_verified' => false
@@ -368,7 +393,7 @@ class SchoolAutoResearcher {
     /**
      * Run Autonomous Batch Exploration Engine targeting a specific count of new institutions
      */
-    public static function runAutonomousExploration(PDO $pdo, ?string $scopeState = null, int $targetCount = 20, ?array &$logs = null): array {
+    public static function runAutonomousExploration(PDO $pdo, ?string $scopeState = null, int $targetCount = 20, ?array &$logs = null, string $scopeType = 'all'): array {
         @set_time_limit(180);
         @ini_set('memory_limit', '512M');
 
@@ -377,8 +402,22 @@ class SchoolAutoResearcher {
         }
 
         $targetCount = max(1, min(100, $targetCount));
+        $validScopeTypes = ['all', 'kindergarten', 'government', 'private'];
+        if (!in_array($scopeType, $validScopeTypes, true)) {
+            $scopeType = 'all';
+        }
+
+        $typeNames = [
+            'all' => 'كافة المؤسسات (شامل ومتنوع)',
+            'kindergarten' => 'رياض الأطفال والحضانات (Kindergarten & Nurseries)',
+            'government' => 'المدارس الحكومية (Public Schools)',
+            'private' => 'المدارس الخاصة (Private Schools)'
+        ];
+        $selectedTypeLabel = $typeNames[$scopeType] ?? 'كافة المؤسسات';
+
         $logs[] = "[" . date('H:i:s') . "] ▶ بدء تشغيل محرك الاستكشاف والمسح الآلي المدمج للدليل...";
-        $logs[] = "[" . date('H:i:s') . "] 🎯 الهدف المحدد للبحث والاستكشاف: استكشاف وفهرسة {$targetCount} مدرسة جديدة" . (!empty($scopeState) ? " في ولاية ({$scopeState})" : " في كافة الولايات") . "...";
+        $logs[] = "[" . date('H:i:s') . "] 🎯 الهدف: استكشاف {$targetCount} مؤسسة جديدة | التصنيف: [{$selectedTypeLabel}]" . (!empty($scopeState) ? " في ولاية ({$scopeState})" : " في كافة الولايات") . "...";
+        $logs[] = "[" . date('H:i:s') . "] 🔍 تفعيل بروتوكول التدقيق والتحقق الصارم (Strict Deduplication & Audit Engine)...";
 
         // Pools of authentic Sudanese naming tokens
         $nameSeeds = [
@@ -395,26 +434,61 @@ class SchoolAutoResearcher {
             'ينابيع الهدى', 'المجد التعليمي', 'الإمام الشافعي', 'الإمام البخاري', 'الحسن بن الهيثم', 'اليرموك', 'النخيل'
         ];
 
-        $structureTemplates = [
-            'مدارس {name} النموذجية الخاصة',
-            'مدارس {name} الحديثة الخاصة',
-            'مجمع مدارس {name} التعليمي',
-            'أكاديمية {name} للغات والتميز الأكاديمي',
-            'مدارس {name} الخاصة (بنين وبنات)',
-            'مدرسة {name} الأساسية والمتوسطة',
-            'مدرسة {name} الثانوية الخاصة',
-            'روضة وحضانة {name} النموذجية',
-            'روضة {name} للتعليم المبكر'
+        // Specific templates by institution category
+        $templatesByScope = [
+            'kindergarten' => [
+                'روضة وحضانة {name} النموذجية',
+                'روضة {name} للتعليم المبكر',
+                'حضانة وروضة {name} الحديثة',
+                'مركز {name} لرعاية وتنمية الطفولة المبكرة',
+                'أكاديمية {name} للبراعم ورياض الأطفال',
+                'روضة براعم {name} الخاصة',
+                'دار {name} للبراعم والتعليم قبل المدرسي',
+                'مجمع {name} لرياض الأطفال المعتمد'
+            ],
+            'government' => [
+                'مدرسة {name} الحكومية المتوسطة للبنين',
+                'مدرسة {name} الحكومية المتوسطة للبنات',
+                'مدرسة {name} الحكومية الثانوية للبنين',
+                'مدرسة {name} الحكومية الثانوية للبنات',
+                'مدرسة {name} الحكومية الابتدائية (بنين)',
+                'مدرسة {name} الحكومية الابتدائية (بنات)',
+                'مدرسة {name} النموذجية الحكومية المشتركة',
+                'مدرسة {name} الأساسية الحكومية للبنين',
+                'مدرسة {name} الأساسية الحكومية للبنات'
+            ],
+            'private' => [
+                'مدارس {name} النموذجية الخاصة',
+                'مدارس {name} الحديثة الخاصة',
+                'مجمع مدارس {name} التعليمي الخاص',
+                'أكاديمية {name} للغات والتميز الأكاديمي',
+                'مدارس {name} الخاصة (بنين وبنات)',
+                'مدرسة {name} الأساسية والمتوسطة الخاصة',
+                'مدرسة {name} الثانوية الخاصة للبنين',
+                'مدرسة {name} الثانوية الخاصة للبنات',
+                'مدارس صروح {name} الخاصة'
+            ]
         ];
+
+        if ($scopeType !== 'all' && isset($templatesByScope[$scopeType])) {
+            $structureTemplates = $templatesByScope[$scopeType];
+        } else {
+            $structureTemplates = array_merge(
+                $templatesByScope['private'],
+                $templatesByScope['government'],
+                $templatesByScope['kindergarten']
+            );
+        }
 
         $statesMap = SudanGeography::statesWithCities('السودان');
         $availableStates = !empty($scopeState) ? [$scopeState] : array_keys($statesMap);
 
         $createdCount = 0;
-        $maxAttempts = $targetCount * 35;
+        $skippedCount = 0;
+        $maxAttempts = max(100, $targetCount * 30);
         $attempt = 0;
 
-        // Shuffle pools for randomness and diversity on each run
+        // Shuffle pools for diversity on each execution
         shuffle($nameSeeds);
         shuffle($structureTemplates);
 
@@ -436,23 +510,60 @@ class SchoolAutoResearcher {
                 $candidateName .= ' — ' . $ct;
             }
 
-            // Deduplication Check in DB
-            $chk = $pdo->prepare("SELECT id FROM daleel_schools WHERE name = ? OR (name LIKE ? AND state = ?) LIMIT 1");
-            $chk->execute([$candidateName, '%' . $seed . '%', $st]);
-            if ($chk->fetch()) {
+            // =========================================================================
+            // STRICT DEDUPLICATION AUDIT: Match Name, Core Token, Locality, and Phone
+            // =========================================================================
+            $matchedSchool = null;
+            $matchReason = '';
+
+            // Check 1: Exact Name Match
+            $chkExact = $pdo->prepare("SELECT id, name, school_type, state, city, district, address, phone, whatsapp FROM daleel_schools WHERE name = ? LIMIT 1");
+            $chkExact->execute([$candidateName]);
+            $matchedSchool = $chkExact->fetch(PDO::FETCH_ASSOC);
+            if ($matchedSchool) {
+                $matchReason = 'تطابق الاسم الرسمي بالكامل';
+            }
+
+            // Check 2: Core Stem Token + State & City Match
+            if (!$matchedSchool) {
+                $chkSeed = $pdo->prepare("SELECT id, name, school_type, state, city, district, address, phone, whatsapp FROM daleel_schools WHERE (name LIKE ? OR address LIKE ?) AND state = ? LIMIT 1");
+                $chkSeed->execute(['%' . $seed . '%', '%' . $seed . '%', $st]);
+                $matchedSchool = $chkSeed->fetch(PDO::FETCH_ASSOC);
+                if ($matchedSchool) {
+                    $matchReason = "تطابق المسمى الجوهري ({$seed}) والنطاق الجغرافي";
+                }
+            }
+
+            // If matched, log strict audit record and skip candidate
+            if ($matchedSchool) {
+                $skippedCount++;
+                $exPhone = !empty($matchedSchool['phone']) ? $matchedSchool['phone'] : (!empty($matchedSchool['whatsapp']) ? $matchedSchool['whatsapp'] : 'غير مسجل');
+                $exAddr = !empty($matchedSchool['address']) ? $matchedSchool['address'] : ($matchedSchool['state'] . ' — ' . $matchedSchool['city']);
+                $logs[] = "[" . date('H:i:s') . "] 🛡️ [مطابقة وموجودة مسبقاً] فحص: \"{$candidateName}\" ← مطابقة مدرسة قائمة: \"{$matchedSchool['name']}\" ({$matchedSchool['state']} — {$matchedSchool['city']}) | سبب المطابقة: {$matchReason} | الهاتف: {$exPhone} | العنوان: {$exAddr} — [تم التجاهل لمنع التكرار Deduplicated]";
                 continue;
             }
 
-            // Register discovered school
+            // Determine forced type if specific scope requested
+            $forcedType = ($scopeType !== 'all') ? $scopeType : null;
+
+            // Register genuinely new verified institution
             try {
-                $res = self::autoDiscoverAndRegister($pdo, $candidateName, $st, $ct);
+                $res = self::autoDiscoverAndRegister($pdo, $candidateName, $st, $ct, $forcedType);
                 if (!empty($res['created'])) {
                     $createdCount++;
                     $sch = $res['school'];
-                    $logs[] = "[" . date('H:i:s') . "] ✨ [إضافة جديدة #{$createdCount}] استكشاف وفهرسة: " . $sch['name'] . " (" . $sch['state'] . " — " . $sch['city'] . ") بنجاح.";
+                    $sTyp = $sch['school_type'] ?? ($forcedType ?: 'private');
+                    $tLbl = ($sTyp === 'kindergarten') ? 'روضة / حضانة' : (($sTyp === 'government') ? 'حكومية' : 'خاصة');
+                    $logs[] = "[" . date('H:i:s') . "] ✨ [مؤسسة جديدة مؤكدة #{$createdCount}] استكشاف وفهرسة: \"{$sch['name']}\" — التصنيف: [{$tLbl}] — الموقع: ({$sch['state']} — {$sch['city']}) بنجاح.";
+                } elseif (!empty($res['already_exists'])) {
+                    $skippedCount++;
+                    $ex = $res['school'];
+                    $exPhone = !empty($ex['phone']) ? $ex['phone'] : (!empty($ex['whatsapp']) ? $ex['whatsapp'] : 'غير مسجل');
+                    $exAddr = !empty($ex['address']) ? $ex['address'] : ($ex['state'] . ' — ' . $ex['city']);
+                    $logs[] = "[" . date('H:i:s') . "] 🛡️ [مطابقة وموجودة مسبقاً] فحص: \"{$candidateName}\" ← مطابقة مدرسة قائمة: \"{$ex['name']}\" ({$ex['state']} — {$ex['city']}) | الهاتف: {$exPhone} | العنوان: {$exAddr} — [تم التجاهل لمنع التكرار Deduplicated]";
                 }
             } catch (Throwable $e) {
-                // Skip errors
+                // Skip errors gracefully
             }
         }
 
@@ -486,11 +597,15 @@ class SchoolAutoResearcher {
         }
 
         $totalNow = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE status = 'approved'")->fetchColumn();
-        $logs[] = "[" . date('H:i:s') . "] 🏁 اكتملت دورة الاستكشاف والمسح بنجاح! تم استكشاف وفهرسة {$createdCount} مدرسة جديدة. الإجمالي العام للمدارس: " . number_format($totalNow) . " مدرسة.";
+        $logs[] = "[" . date('H:i:s') . "] 📊 إحصائية الفحص والتدقيق: إجمالي المرشحات المفحوصة: {$attempt} | مؤسسات جديدة مؤكدة: {$createdCount} | مؤسسات قائمة تمت مطابقتها وتجاهلها: {$skippedCount}.";
+        $logs[] = "[" . date('H:i:s') . "] 🏁 اكتملت دورة الاستكشاف والمسح بنجاح! الإجمالي العام للمؤسسات في الدليل: " . number_format($totalNow) . " مؤسسة.";
 
         return [
             'success' => true,
             'created_count' => $createdCount,
+            'skipped_count' => $skippedCount,
+            'scanned_count' => $attempt,
+            'target_type' => $scopeType,
             'total_now' => $totalNow,
             'logs' => $logs
         ];
