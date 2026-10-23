@@ -266,7 +266,7 @@ if (!function_exists('getSchoolDirectoryRank')) {
         if ($refresh || $cachedRanks === null) {
             try {
                 // ترتيب الدليل: الصروح والمدارس العريقة أولاً (حسب سنة التأسيس الأقدم)، ثم المدارس الموثقة والذكية، ثم بقية المدارس المعتمدة
-                $historicSql = "(is_historic = 1 OR (established_year IS NOT NULL AND CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950) OR historic_votes >= 500 OR name LIKE '%خور طقت%' OR name LIKE '%وادي سيدنا%' OR name LIKE '%حنتوب الثانوية%' OR name LIKE '%حنتوب العريقة%' OR name LIKE '%بخت الرضا%' OR name LIKE '%الأهلية%أم درمان%' OR name LIKE '%كمبوني%' OR name LIKE '%الراهبات%' OR name_en LIKE '%Sister%')";
+                $historicSql = "(is_historic = 1 OR (established_year IS NOT NULL AND CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950) OR historic_votes >= 500 OR name LIKE '%خور طقت%' OR name LIKE '%وادي سيدنا%' OR name LIKE '%حنتوب الثانوية%' OR name LIKE '%حنتوب العريقة%' OR name LIKE '%بخت الرضا%' OR name LIKE '%الأهلية%أم درمان%' OR name LIKE '%كمبوني%' OR name LIKE '%الراهبات%' OR name_en LIKE '%Sister%' OR name LIKE '%بيت المال%')";
                 $orderClause = "({$historicSql}) DESC, (CASE WHEN CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950 THEN CAST(established_year AS UNSIGNED) ELSE 9999 END) ASC, (is_verified = 1 OR is_schoplus_client = 1) DESC, is_featured DESC, rating_avg DESC, id ASC";
 
                 $stmt = $pdo->query("SELECT id FROM daleel_schools WHERE status = 'approved' ORDER BY {$orderClause}");
@@ -302,7 +302,7 @@ if (!function_exists('getSchoolStateRank')) {
         if ($refresh || $cachedStateRanks === null) {
             try {
                 // الترتيب داخل الولاية: الصروح العريقة أولاً، ثم المدارس الموثقة والذكية، ثم بقية المدارس
-                $historicSql = "(is_historic = 1 OR (established_year IS NOT NULL AND CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950) OR historic_votes >= 500 OR name LIKE '%خور طقت%' OR name LIKE '%وادي سيدنا%' OR name LIKE '%حنتوب الثانوية%' OR name LIKE '%حنتوب العريقة%' OR name LIKE '%بخت الرضا%' OR name LIKE '%الأهلية%أم درمان%' OR name LIKE '%كمبوني%' OR name LIKE '%الراهبات%' OR name_en LIKE '%Sister%')";
+                $historicSql = "(is_historic = 1 OR (established_year IS NOT NULL AND CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950) OR historic_votes >= 500 OR name LIKE '%خور طقت%' OR name LIKE '%وادي سيدنا%' OR name LIKE '%حنتوب الثانوية%' OR name LIKE '%حنتوب العريقة%' OR name LIKE '%بخت الرضا%' OR name LIKE '%الأهلية%أم درمان%' OR name LIKE '%كمبوني%' OR name LIKE '%الراهبات%' OR name_en LIKE '%Sister%' OR name LIKE '%بيت المال%')";
                 $orderClause = "({$historicSql}) DESC, (CASE WHEN CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950 THEN CAST(established_year AS UNSIGNED) ELSE 9999 END) ASC, (is_verified = 1 OR is_schoplus_client = 1) DESC, is_featured DESC, rating_avg DESC, id ASC";
 
                 $stmt = $pdo->query("SELECT id, country, state FROM daleel_schools WHERE status = 'approved' ORDER BY {$orderClause}");
@@ -355,7 +355,7 @@ if (!function_exists('recalculateDaleelRanks')) {
      * 3. General unverified schools (id ASC)
      */
     function recalculateDaleelRanks(PDO $pdo): int {
-        $historicSql = "(is_historic = 1 OR (established_year IS NOT NULL AND CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950) OR historic_votes >= 500 OR name LIKE '%خور طقت%' OR name LIKE '%وادي سيدنا%' OR name LIKE '%حنتوب الثانوية%' OR name LIKE '%حنتوب العريقة%' OR name LIKE '%بخت الرضا%' OR name LIKE '%الأهلية%أم درمان%' OR name LIKE '%كمبوني%' OR name LIKE '%الراهبات%' OR name_en LIKE '%Sister%')";
+        $historicSql = "(is_historic = 1 OR (established_year IS NOT NULL AND CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950) OR historic_votes >= 500 OR name LIKE '%خور طقت%' OR name LIKE '%وادي سيدنا%' OR name LIKE '%حنتوب الثانوية%' OR name LIKE '%حنتوب العريقة%' OR name LIKE '%بخت الرضا%' OR name LIKE '%الأهلية%أم درمان%' OR name LIKE '%كمبوني%' OR name LIKE '%الراهبات%' OR name_en LIKE '%Sister%' OR name LIKE '%بيت المال%')";
         $orderClause = "({$historicSql}) DESC, (CASE WHEN CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950 THEN CAST(established_year AS UNSIGNED) ELSE 9999 END) ASC, (is_verified = 1 OR is_schoplus_client = 1) DESC, is_featured DESC, rating_avg DESC, id ASC";
 
         $approvedRows = $pdo->query("SELECT id, country, state FROM daleel_schools WHERE status = 'approved' ORDER BY {$orderClause}")->fetchAll(PDO::FETCH_ASSOC);
@@ -938,7 +938,7 @@ function ensureTablesExist(PDO $pdo): void {
         // Pre-flag heritage schools founded <= 1960 or iconic national schools
         try {
             $pdo->exec("UPDATE daleel_schools SET is_historic = 1, historic_badge_reason = 'صرح وطني عريق' WHERE established_year IS NOT NULL AND CAST(established_year AS UNSIGNED) <= 1960 AND CAST(established_year AS UNSIGNED) >= 1800");
-            $pdo->exec("UPDATE daleel_schools SET is_historic = 1, historic_badge_reason = 'صرح وطني تاريخي' WHERE name LIKE '%خور طقت%' OR name LIKE '%وادي سيدنا%' OR name LIKE '%حنتوب الثانوية%' OR name LIKE '%حنتوب العريقة%' OR name LIKE '%بخت الرضا%' OR name LIKE '%رفاعة%بابكر بدري%' OR name LIKE '%بربر الثانوية%' OR name LIKE '%الأهلية%أم درمان%' OR name LIKE '%المؤتمر%' OR name LIKE '%الشيخ مصطفى الأمين%' OR name LIKE '%كمبوني%' OR name LIKE '%الراهبات%' OR name_en LIKE '%Sister%'");
+            $pdo->exec("UPDATE daleel_schools SET is_historic = 1, historic_badge_reason = 'صرح وطني تاريخي' WHERE name LIKE '%خور طقت%' OR name LIKE '%وادي سيدنا%' OR name LIKE '%حنتوب الثانوية%' OR name LIKE '%حنتوب العريقة%' OR name LIKE '%بخت الرضا%' OR name LIKE '%رفاعة%بابكر بدري%' OR name LIKE '%بربر الثانوية%' OR name LIKE '%الأهلية%أم درمان%' OR name LIKE '%المؤتمر%' OR name LIKE '%الشيخ مصطفى الأمين%' OR name LIKE '%كمبوني%' OR name LIKE '%الراهبات%' OR name_en LIKE '%Sister%' OR name LIKE '%بيت المال%'");
         } catch (Throwable $e) {}
 
         // Strict Directory Deduplication & National Heritage Refinements (v3.7.64)

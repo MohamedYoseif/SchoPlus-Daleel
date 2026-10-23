@@ -183,7 +183,7 @@ $statGovernment = (int) $pdo->query("SELECT COUNT(*) FROM daleel_schools WHERE s
 $statPrivate = (int) $pdo->query("SELECT COUNT(*) FROM daleel_schools WHERE status = 'approved' AND school_type IN ('private', 'international', 'community', 'language')")->fetchColumn();
 
 // Historic schools global counter (is_historic = 1 OR established_year <= 1950 OR historic_votes >= 500 OR iconic names)
-$historicWhereSql = "(is_historic = 1 OR (established_year IS NOT NULL AND CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950) OR historic_votes >= 500 OR name LIKE '%خور طقت%' OR name LIKE '%وادي سيدنا%' OR name LIKE '%حنتوب الثانوية%' OR name LIKE '%حنتوب العريقة%' OR name LIKE '%بخت الرضا%' OR name LIKE '%الأهلية%أم درمان%' OR name LIKE '%كمبوني%' OR name LIKE '%الراهبات%' OR name_en LIKE '%Sister%')";
+$historicWhereSql = "(is_historic = 1 OR (established_year IS NOT NULL AND CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950) OR historic_votes >= 500 OR name LIKE '%خور طقت%' OR name LIKE '%وادي سيدنا%' OR name LIKE '%حنتوب الثانوية%' OR name LIKE '%حنتوب العريقة%' OR name LIKE '%بخت الرضا%' OR name LIKE '%الأهلية%أم درمان%' OR name LIKE '%كمبوني%' OR name LIKE '%الراهبات%' OR name_en LIKE '%Sister%' OR name LIKE '%بيت المال%')";
 $statHistoric = (int) $pdo->query("SELECT COUNT(*) FROM daleel_schools WHERE status = 'approved' AND {$historicWhereSql}")->fetchColumn();
 
 // State school counters for the state cards
