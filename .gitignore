@@ -24,3 +24,7 @@ android/.idea/
 android/*.iml
 android/local.properties
 flutter_app/
+whatsapp-server/
+tokens/
+start_whatsapp.bat
+stop_whatsapp.bat

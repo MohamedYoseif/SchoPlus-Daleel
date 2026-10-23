@@ -1100,8 +1100,8 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                     <span class="tab-badge" style="color: <?= $claimsCount > 0 ? '#DC2626' : 'inherit' ?>;"><?= $claimsCount ?></span>
                 </a>
                 <a href="admin.php?tab=researcher" class="sp-main-tab <?= $activeTab === 'researcher' ? 'active' : '' ?>">
-                    <i class="fas fa-robot"></i> الباحث الآلي المدمج
-                    <span class="tab-badge">استكشاف ذكي</span>
+                    <i class="fas fa-bolt text-warning"></i> محرك الاستكشاف والمسح الآلي المباشر (Autonomous Worker)
+                    <span class="tab-badge">بحث واستكشاف ذكي</span>
                 </a>
                 <a href="admin.php?tab=ads" class="sp-main-tab <?= $activeTab === 'ads' ? 'active' : '' ?>">
                     <i class="fas fa-ad"></i> المساحة الإعلانية
@@ -1697,84 +1697,155 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                 </div>
             </div>
 
-        <!-- TAB CONTENT: 3. AUTONOMOUS RESEARCHER (INTERNAL TOOL) -->
+        <!-- TAB CONTENT: 3. AUTONOMOUS WORKER (DEVELOPED DISCOVERY & RESEARCH ENGINE) -->
         <?php elseif ($activeTab === 'researcher'): ?>
             <div class="row">
-                <div class="col-12 col-xl-10 mx-auto">
-                    <div class="admin-card">
-                        <div class="admin-card-head">
-                            <h5 class="admin-card-title">
-                                <i class="fas fa-bolt text-warning"></i> محرك الاستكشاف والمسح الآلي المباشر (Autonomous Worker)
-                            </h5>
-                            <span class="badge bg-light text-primary border" style="font-size: 0.7rem;">نظام خلفي ذكي</span>
-                        </div>
-                        <div class="p-4">
-                            <p class="small text-muted mb-3" style="font-size: 0.78rem; line-height: 1.6;">
-                                يمكنك تشغيل دورة استكشاف ومسح آلي ذكية للبحث عن المدارس ورياض الأطفال غير المسجلة وفهرستها فوراً في الدليل دون الحاجة لاستخدام cPanel أو إعداد أوامر Cron يدوية:
-                            </p>
-                            
-                            <div class="row g-3 mb-3">
-                                <div class="col-md-4 col-12">
-                                    <label class="form-label fw-bold text-dark" style="font-size: 0.75rem;">
-                                        <i class="fas fa-shapes text-info me-1"></i> تصنيف المؤسسات المستهدفة:
-                                    </label>
-                                    <select id="workerSchoolType" class="form-select form-select-sm" style="border-color: #DDE4ED; font-size: 0.78rem;">
-                                        <option value="all">كافة المؤسسات (شامل ومتنوع)</option>
-                                        <option value="kindergarten">رياض الأطفال والحضانات (Kindergarten)</option>
-                                        <option value="private">المدارس الخاصة (Private Schools)</option>
-                                        <option value="government">المدارس الحكومية (Public Schools)</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4 col-12">
-                                    <label class="form-label fw-bold text-dark" style="font-size: 0.75rem;">
-                                        <i class="fas fa-map-marker-alt text-primary me-1"></i> نطاق المسح والاستكشاف:
-                                    </label>
-                                    <select id="workerScopeState" class="form-select form-select-sm" style="border-color: #DDE4ED; font-size: 0.78rem;">
-                                        <option value="">كافة ولايات السودان والمهجر (شامل)</option>
-                                        <?php foreach (SudanGeography::states('السودان') as $st): ?>
-                                            <option value="<?= e($st) ?>"><?= e($st) ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                                <div class="col-md-4 col-12">
-                                    <label class="form-label fw-bold text-dark" style="font-size: 0.75rem;">
-                                        <i class="fas fa-bullseye text-warning me-1"></i> العدد المستهدف للبحث:
-                                    </label>
-                                    <div class="d-flex gap-2">
-                                        <select id="workerTargetCount" class="form-select form-select-sm" style="border-color: #DDE4ED; font-size: 0.78rem;">
-                                            <option value="10">10 مؤسسات جديدة</option>
-                                            <option value="20" selected>20 مؤسسة (موصى به)</option>
-                                            <option value="50">50 مؤسسة (دفعة موسعة)</option>
-                                            <option value="100">100 مؤسسة (مسح شامل)</option>
-                                        </select>
-                                        <input type="number" id="workerCustomCount" class="form-control form-control-sm" placeholder="مخصص" min="1" max="100" style="width: 80px; border-color: #DDE4ED; font-size: 0.78rem;" title="أدخل عدداً مخصصاً">
+                <div class="col-12 col-xl-11 mx-auto">
+                    <div class="admin-card mb-4 shadow-sm" style="border: 1px solid #DDE4ED; border-radius: 14px; overflow: hidden;">
+                        <!-- Main Card Header -->
+                        <div class="admin-card-head p-3 p-md-4" style="background: linear-gradient(135deg, #0B2A52, #163870) !important; color: #FFFFFF;">
+                            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 w-100">
+                                <div>
+                                    <h5 class="admin-card-title text-white mb-1" style="font-size: 1.05rem;">
+                                        <i class="fas fa-bolt text-warning me-1"></i> محرك الاستكشاف والمسح الآلي المباشر (Autonomous Worker)
+                                    </h5>
+                                    <div class="small text-white-50" style="font-size: 0.72rem;">
+                                        البحث والاستقصاء الرقمي الشامل لمدارس ورياض الأطفال بالسودان — فحص خرائط جوجل والمنصات الرقمية واعتمادها بالدليل.
                                     </div>
                                 </div>
+                                <div class="d-flex gap-2">
+                                    <button type="button" class="btn btn-sm btn-outline-light py-1.5 px-3" onclick="recalculateRanks()" style="font-size: 0.72rem; border-radius: 8px;" title="إعادة حساب الترتيب الفعلي">
+                                        <i class="fas fa-sort-numeric-down me-1"></i> مواءمة الرتب
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-light py-1.5 px-3" onclick="exportMasterSeed()" style="font-size: 0.72rem; border-radius: 8px;" title="تصدير قاعدة البيانات">
+                                        <i class="fas fa-file-export me-1"></i> تصدير Seed
+                                    </button>
+                                </div>
                             </div>
+                        </div>
 
-                            <div class="mb-3">
-                                <a class="small text-decoration-none text-muted" data-bs-toggle="collapse" href="#collapseManualBatch" role="button" aria-expanded="false" style="font-size: 0.74rem;">
-                                    <i class="fas fa-plus-circle text-primary me-1"></i> إدراج قائمة أسماء محددة يدوياً لاستكشافها معاً (اختياري)
-                                </a>
-                                <div class="collapse mt-2" id="collapseManualBatch">
-                                    <textarea id="workerBatchText" class="form-control form-control-sm" rows="3" placeholder="أدخل أسماء المدارس أو رياض الأطفال المحددة (كل مدرسة في سطر منفصل)..." style="border-color: #DDE4ED; font-size: 0.75rem;"></textarea>
+                        <div class="p-3.5 p-md-4 bg-white">
+                            <!-- SECTION 1: SEARCH BY SCHOOL NAME (Primary & Direct) -->
+                            <div class="p-3.5 rounded-3 border mb-4" style="background: #F8FAFC; border-color: #E2E8F0 !important;">
+                                <label class="form-label fw-bold text-dark mb-2 d-flex align-items-center justify-content-between" style="font-size: 0.88rem;">
+                                    <span><i class="fas fa-search text-primary me-1"></i> أدخل اسم المدرسة للبحث والاستكشاف المباشر:</span>
+                                    <span class="badge bg-primary text-white" style="font-size: 0.65rem;">فحص خرائط جوجل + المنصات</span>
+                                </label>
+
+                                <div class="row g-2 align-items-center">
+                                    <div class="col-lg-7 col-12">
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-white" style="border-color: #CBD5E1;"><i class="fas fa-school text-muted"></i></span>
+                                            <input type="text" id="studioQuery" class="form-control" placeholder="اكتب اسم المدرسة هنا (مثال: مدارس القبس، مدارس المنار، روضة المستقبل...)" style="font-size: 0.85rem; border-color: #CBD5E1; padding: 10px 14px;" onkeydown="if(event.key==='Enter') runStudioResearch();">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-sm-6 col-12">
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-white" style="border-color: #CBD5E1;"><i class="fas fa-map-marker-alt text-danger"></i></span>
+                                            <input type="text" id="studioCity" class="form-control" placeholder="المدينة (اختياري: الخرطوم، بورتسودان...)" style="font-size: 0.85rem; border-color: #CBD5E1; padding: 10px 14px;" onkeydown="if(event.key==='Enter') runStudioResearch();">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-sm-6 col-12">
+                                        <button type="button" id="btnRunStudio" class="btn w-100 fw-bold py-2 shadow-sm text-white" onclick="runStudioResearch()" style="background: #F5A020; border-color: #F5A020; font-size: 0.85rem; border-radius: 8px;">
+                                            <i class="fas fa-search me-1"></i> ابدأ الاستكشاف
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="form-text small text-muted mt-2" style="font-size: 0.72rem;">
+                                    <i class="fas fa-info-circle text-info me-1"></i> يقوم المحرك آلياً بالبحث في خرائط جوجل للتأكد من وجود المدرسة وموقعها، وفحص فيسبوك ويوتيوب وتيك توك والمراجع الحكومية لجلب الهواتف الحقيقية والنبذة قبل الاعتماد.
                                 </div>
                             </div>
 
-                            <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
-                                <button type="button" class="btn btn-sm py-2 px-3 fw-bold" id="btnRunWorker" onclick="adminRunWorker()" style="background: #F5A020; border-color: #F5A020; color: #FFF; font-size: 0.78rem; border-radius: 8px;">
-                                    <i class="fas fa-play me-1"></i> تشغيل محرك الاستكشاف والتدقيق الآن
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary py-2 px-2" onclick="exportMasterSeed()" style="font-size: 0.74rem; border-radius: 8px;" title="تصدير قاعدة البيانات المركزية">
-                                    <i class="fas fa-file-export me-1"></i> تصدير Master Seed
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-success py-2 px-2" onclick="recalculateRanks()" style="font-size: 0.74rem; border-radius: 8px;" title="إعادة حساب الترتيب الفعلي">
-                                    <i class="fas fa-sort-numeric-down me-1"></i> مواءمة التسلسل
-                                </button>
-                            </div>
+                            <!-- Visual Search Results Dossier (Instead of Terminal Console) -->
+                            <div id="studioDossierBox" style="display: none;" class="mb-4"></div>
 
-                            <!-- Live Terminal Console Log -->
-                            <div id="workerConsoleBox" class="p-3 rounded-3 bg-dark text-success font-monospace shadow-sm" style="direction: ltr; font-size: 0.72rem; min-height: 140px; max-height: 300px; overflow-y: auto; display: none; line-height: 1.6; border: 1px solid #334155;">
+                            <!-- ADDITIONAL OPTIONS (Batch & Direct Entry Collapsible) -->
+                            <div class="border-top pt-3 mt-4">
+                                <div class="d-flex flex-wrap gap-2">
+                                    <button class="btn btn-sm btn-outline-secondary py-1.5 px-3 fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBatchIngest" aria-expanded="false" style="font-size: 0.76rem; border-radius: 8px;">
+                                        <i class="fas fa-layer-group me-1"></i> استكشاف وإدراج قائمة مدارس بالدفعات (Batch)
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-secondary py-1.5 px-3 fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseManualDirect" aria-expanded="false" style="font-size: 0.76rem; border-radius: 8px;">
+                                        <i class="fas fa-plus-circle me-1"></i> إدخال بيانات مدرسة يدوياً
+                                    </button>
+                                </div>
+
+                                <!-- Collapsible 1: Batch List -->
+                                <div class="collapse mt-3" id="collapseBatchIngest">
+                                    <div class="p-3 bg-light rounded-3 border">
+                                        <h6 class="fw-bold text-dark mb-2" style="font-size: 0.82rem;"><i class="fas fa-layer-group text-primary me-1"></i> استكشاف قائمة مدارس دفعة واحدة:</h6>
+                                        <div class="alert alert-light border py-1.5 px-2.5 mb-2 small text-muted" style="font-size: 0.72rem;">
+                                            الصيغة: <code>اسم المدرسة | الولاية | المدينة | الحي | هاتف التوثيق | رابط الخريطة | فيسبوك | نبذة</code> (الهاتف اختياري)
+                                        </div>
+                                        <textarea id="batchInputText" class="form-control font-monospace mb-2" rows="4" placeholder="مدارس المنار الخاصة | البحر الأحمر | بورتسودان | حي المطار | 0123456789 | https://maps.app.goo.gl/...&#10;روضة الإيمان الحديثة | نهر النيل | عطبرة | حي الداخلة | | https://maps.app.goo.gl/..." style="border-color: #DDE4ED; font-size: 0.76rem;"></textarea>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span id="batchParsedSummary" class="small text-muted" style="font-size: 0.74rem;"></span>
+                                            <div class="d-flex gap-2">
+                                                <button type="button" class="btn btn-sm btn-outline-secondary px-3 py-1" onclick="previewBatchList()" style="font-size: 0.76rem;">
+                                                    <i class="fas fa-eye me-1"></i> فحص القائمة
+                                                </button>
+                                                <button type="button" id="btnExecuteBatch" class="btn btn-sm btn-success px-3 py-1 fw-bold text-white shadow-sm" onclick="executeBatchImport()" disabled style="font-size: 0.76rem;">
+                                                    <i class="fas fa-check-double me-1"></i> اعتماد وإدراج الدفعة
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div id="batchPreviewBox" class="mt-3" style="display: none;"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Collapsible 2: Manual Direct Form -->
+                                <div class="collapse mt-3" id="collapseManualDirect">
+                                    <div class="p-3 bg-light rounded-3 border">
+                                        <h6 class="fw-bold text-dark mb-3" style="font-size: 0.82rem;"><i class="fas fa-edit text-primary me-1"></i> إدخال مباشر لبيانات مدرسة:</h6>
+                                        <form id="autoDiscoverForm" onsubmit="event.preventDefault(); runAutoDiscover();">
+                                            <div class="row g-2.5">
+                                                <div class="col-lg-5 col-12">
+                                                    <label class="form-label small fw-bold text-dark mb-1">اسم المدرسة <span class="text-danger">*</span></label>
+                                                    <input type="text" id="discQuery" class="form-control form-control-sm" placeholder="اسم المدرسة" required style="font-size: 0.78rem;">
+                                                </div>
+                                                <div class="col-lg-4 col-sm-6 col-12">
+                                                    <label class="form-label small fw-bold text-dark mb-1">رابط خرائط جوجل</label>
+                                                    <input type="url" id="discGoogleMapUrl" class="form-control form-control-sm" placeholder="https://maps.app.goo.gl/..." style="font-size: 0.78rem;">
+                                                </div>
+                                                <div class="col-lg-3 col-sm-6 col-12">
+                                                    <label class="form-label small fw-bold text-dark mb-1">الهاتف الموثق (إن وجد)</label>
+                                                    <input type="text" id="discPhone" class="form-control form-control-sm" placeholder="فارغ إن لم يتوفر" style="font-size: 0.78rem;">
+                                                </div>
+                                                <div class="col-lg-3 col-sm-6 col-12">
+                                                    <label class="form-label small fw-bold text-dark mb-1">الولاية</label>
+                                                    <select id="discState" class="form-select form-select-sm" style="font-size: 0.78rem;">
+                                                        <option value="">استنتاج تلقائي</option>
+                                                        <?php foreach (SudanGeography::states('السودان') as $st): ?>
+                                                            <option value="<?= e($st) ?>"><?= e($st) ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-3 col-sm-6 col-12">
+                                                    <label class="form-label small fw-bold text-dark mb-1">المدينة</label>
+                                                    <input type="text" id="discCity" class="form-control form-control-sm" placeholder="المدينة" style="font-size: 0.78rem;">
+                                                </div>
+                                                <div class="col-lg-3 col-sm-6 col-12">
+                                                    <label class="form-label small fw-bold text-dark mb-1">الحي</label>
+                                                    <input type="text" id="discDistrict" class="form-control form-control-sm" placeholder="الحي" style="font-size: 0.78rem;">
+                                                </div>
+                                                <div class="col-lg-3 col-sm-6 col-12">
+                                                    <label class="form-label small fw-bold text-dark mb-1">صفحة فيسبوك</label>
+                                                    <input type="url" id="discFacebook" class="form-control form-control-sm" placeholder="https://facebook.com/..." style="font-size: 0.78rem;">
+                                                </div>
+                                                <div class="col-12">
+                                                    <label class="form-label small fw-bold text-dark mb-1">نبذة تعريفية</label>
+                                                    <textarea id="discDesc" class="form-control form-control-sm" rows="2" placeholder="نبذة تعريفية عن المدرسة..." style="font-size: 0.78rem;"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="mt-2 text-end">
+                                                <button type="submit" id="btnRunDiscovery" class="btn btn-sm btn-primary px-3 py-1.5 fw-bold text-white shadow-sm" style="font-size: 0.78rem;">
+                                                    <i class="fas fa-check-circle me-1"></i> اعتماد وحفظ المدرسة بالدليل
+                                                </button>
+                                            </div>
+                                        </form>
+                                        <div id="discoveryResultBox" class="mt-2" style="display: none;"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -2247,132 +2318,557 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
         });
     }
 
-    function adminRunDiscover() {
-        const q = document.getElementById('admDiscQuery').value.trim();
-        const st = document.getElementById('admDiscState').value.trim();
-        const ct = document.getElementById('admDiscCity').value.trim();
-        const btn = document.getElementById('btnAdminDisc');
-        const resBox = document.getElementById('adminDiscResult');
+    let parsedBatchItems = [];
 
-        if (!q) return;
+    function switchResearcherTab(tab) {
+        const sStudio = document.getElementById('sectionStudioDiscovery');
+        const sSingle = document.getElementById('sectionSingleDiscovery');
+        const sBatch = document.getElementById('sectionBatchDiscovery');
+
+        const bStudio = document.getElementById('tabBtnStudio');
+        const bSingle = document.getElementById('tabBtnSingle');
+        const bBatch = document.getElementById('tabBtnBatch');
+
+        if (!sStudio || !sSingle || !sBatch) return;
+
+        sStudio.style.display = (tab === 'studio') ? 'block' : 'none';
+        sSingle.style.display = (tab === 'single') ? 'block' : 'none';
+        sBatch.style.display = (tab === 'batch') ? 'block' : 'none';
+
+        bStudio.className = (tab === 'studio') ? 'btn btn-sm px-3 py-1.5 fw-bold btn-primary text-white' : 'btn btn-sm px-3 py-1.5 fw-bold btn-outline-secondary';
+        bSingle.className = (tab === 'single') ? 'btn btn-sm px-3 py-1.5 fw-bold btn-primary text-white' : 'btn btn-sm px-3 py-1.5 fw-bold btn-outline-secondary';
+        bBatch.className = (tab === 'batch') ? 'btn btn-sm px-3 py-1.5 fw-bold btn-primary text-white' : 'btn btn-sm px-3 py-1.5 fw-bold btn-outline-secondary';
+    }
+
+    function runStudioResearch() {
+        const q = document.getElementById('studioQuery').value.trim();
+        const ct = document.getElementById('studioCity').value.trim();
+        const btn = document.getElementById('btnRunStudio');
+        const box = document.getElementById('studioDossierBox');
+
+        if (!q) {
+            alert('يرجى إدخال اسم المدرسة للبدء في الاستقصاء الشامل.');
+            return;
+        }
 
         btn.disabled = true;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> جاري الاستكشاف والفهرسة...';
+        const oldHtml = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> جاري الاستقصاء عبر المنصات...';
 
-        resBox.style.display = 'block';
-        resBox.innerHTML = '<div class="alert alert-info py-2 px-3 small"><i class="fas fa-robot me-1"></i> جاري استكشاف ومطابقة المدرسة وفحص التكرار...</div>';
+        box.style.display = 'block';
+        box.innerHTML = `
+            <div class="p-4 bg-white rounded-3 border text-center shadow-sm">
+                <div class="spinner-border text-primary mb-3" role="status" style="width: 2.2rem; height: 2.2rem;"></div>
+                <h6 class="fw-bold text-dark" style="font-size: 0.95rem;">جاري الاستقصاء الرقمي الشامل لـ "${escapeHtml(q)}"...</h6>
+                <div class="text-muted small" style="font-size: 0.74rem;">
+                    يتم الآن مسح إحداثيات خرائط جوجل، والبحث في صفحات فيسبوك، يوتيوب، تيك توك ومراجع الشهادة السودانية...
+                </div>
+            </div>
+        `;
 
-        const fd = new FormData();
-        fd.append('query', q);
-        fd.append('state', st);
-        fd.append('city', ct);
-        fd.append('key', 'schoplus_daleel_deploy_sec_4412f');
-
-        fetch('/api_auto_discover.php', { method: 'POST', body: fd })
+        fetch('api_deep_research.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ query: q, city: ct })
+        })
         .then(r => r.json())
         .then(data => {
             btn.disabled = false;
-            btn.innerHTML = '<i class="fas fa-search-plus me-1"></i> استكشاف وفهرسة آمنة في الدليل';
+            btn.innerHTML = oldHtml;
 
-            if (data && data.success) {
-                resBox.innerHTML = `
-                    <div class="alert ${data.already_exists ? 'alert-warning' : 'alert-success'} py-2 px-3 small rounded-3">
-                        <div class="fw-bold mb-1">${data.message}</div>
-                        <div><strong>${data.school.name}</strong> (${data.school.state} — ${data.school.city})</div>
-                        <a href="${data.school.url}" target="_blank" class="btn btn-sm btn-dark py-1 px-2 mt-2" style="font-size: 0.72rem;">معاينة المدرسة في الدليل</a>
+            if (!data || !data.success) {
+                box.innerHTML = `
+                    <div class="alert alert-danger p-3 rounded-3 shadow-sm border">
+                        <i class="fas fa-exclamation-triangle text-danger me-1"></i> ${escapeHtml(data.error || 'تعذر إتمام الاستقصاء.')}
                     </div>
                 `;
-            } else {
-                resBox.innerHTML = `<div class="alert alert-danger py-2 px-3 small">${data.error || 'فشل الاستكشاف'}</div>`;
+                return;
             }
+
+            renderStudioDossier(data);
         })
         .catch(err => {
             btn.disabled = false;
-            btn.innerHTML = '<i class="fas fa-search-plus me-1"></i> استكشاف وفهرسة آمنة في الدليل';
-            resBox.innerHTML = '<div class="alert alert-danger py-2 px-3 small">حدث خطأ في الاتصال.</div>';
+            btn.innerHTML = oldHtml;
+            box.innerHTML = `
+                <div class="alert alert-danger p-3 rounded-3 shadow-sm border">
+                    <i class="fas fa-exclamation-triangle text-danger me-1"></i> حدث خطأ أثناء الاتصال بالخادم.
+                </div>
+            `;
         });
     }
 
-    function adminRunWorker() {
-        const typeElem = document.getElementById('workerSchoolType');
-        const schoolType = typeElem ? typeElem.value : 'all';
-        const stateElem = document.getElementById('workerScopeState');
-        const state = stateElem ? stateElem.value : '';
-        const targetSelect = document.getElementById('workerTargetCount') ? parseInt(document.getElementById('workerTargetCount').value, 10) : 20;
-        const customInput = document.getElementById('workerCustomCount') ? parseInt(document.getElementById('workerCustomCount').value, 10) : 0;
-        const targetCount = (customInput && customInput > 0) ? customInput : targetSelect;
-        const batchElem = document.getElementById('workerBatchText');
-        const batchText = batchElem ? batchElem.value : '';
-        const btn = document.getElementById('btnRunWorker');
-        const consoleBox = document.getElementById('workerConsoleBox');
+    function renderStudioDossier(d) {
+        const box = document.getElementById('studioDossierBox');
+        const p = d.platforms;
+
+        let html = `
+            <div class="card border-0 shadow-sm rounded-3 overflow-hidden" style="border: 1px solid #DDE4ED !important;">
+                <!-- Dossier Header -->
+                <div class="card-header bg-white p-3 border-bottom d-flex flex-wrap justify-content-between align-items-center gap-2">
+                    <div>
+                        <span class="badge bg-primary text-white mb-1" style="font-size: 0.68rem;"><i class="fas fa-folder-open me-1"></i> ملف الاستقصاء الرقمي المكتشف</span>
+                        <h5 class="fw-bold text-dark mb-0" style="font-size: 1.05rem;">${escapeHtml(d.formatted_name)}</h5>
+                        <div class="text-muted small" style="font-size: 0.72rem;">${escapeHtml(d.formatted_name_en)}</div>
+                    </div>
+                    <div class="d-flex flex-wrap gap-1.5 align-items-center">
+                        <span class="badge bg-light text-dark border"><i class="fas fa-map-marker-alt text-danger me-1"></i> ${escapeHtml(d.state)} — ${escapeHtml(d.city)} (${escapeHtml(d.district)})</span>
+                        <span class="badge" style="background: #EFF6FF; color: #1E5FA8; border: 1px solid #BFDBFE;">${d.curriculum === 'british' ? 'منهج بريطاني' : 'منهج سوداني'}</span>
+                        ${d.exists_in_db ? `<span class="badge bg-warning text-dark"><i class="fas fa-database me-1"></i> مسجلة بالدليل (#${d.existing_rank || d.existing_id})</span> <a href="/school.php?slug=${encodeURIComponent(d.slug || d.existing_id)}" target="_blank" class="btn btn-sm btn-outline-dark py-0 px-2 shadow-none" style="font-size: 0.68rem;"><i class="fas fa-external-link-alt me-1"></i> فتح الصفحة بالدليل</a>` : `<span class="badge bg-success text-white"><i class="fas fa-sparkles me-1"></i> مدرسة جديدة</span>`}
+                    </div>
+                </div>
+
+                <div class="card-body p-3 p-md-4">
+                    <!-- 5 Multi-Platform Live Search Buttons -->
+                    <div class="mb-3">
+                        <label class="form-label fw-bold text-dark small mb-2"><i class="fas fa-external-link-alt text-muted me-1"></i> روابط الاستقصاء والتحقق الميداني المباشر من المنصات:</label>
+                        <div class="row g-2">
+                            <div class="col-md col-sm-6 col-12">
+                                <a href="${p.google_maps.search_url}" target="_blank" class="btn btn-sm w-100 py-2 d-flex align-items-center justify-content-center gap-1.5 text-white fw-bold shadow-sm" style="background: #10B981; font-size: 0.74rem;">
+                                    <i class="${p.google_maps.icon}"></i> فتح خرائط جوجل
+                                </a>
+                            </div>
+                            <div class="col-md col-sm-6 col-12">
+                                <a href="${p.facebook.search_url}" target="_blank" class="btn btn-sm w-100 py-2 d-flex align-items-center justify-content-center gap-1.5 text-white fw-bold shadow-sm" style="background: #1877F2; font-size: 0.74rem;">
+                                    <i class="${p.facebook.icon}"></i> صفحة فيسبوك
+                                </a>
+                            </div>
+                            <div class="col-md col-sm-6 col-12">
+                                <a href="${p.youtube.search_url}" target="_blank" class="btn btn-sm w-100 py-2 d-flex align-items-center justify-content-center gap-1.5 text-white fw-bold shadow-sm" style="background: #DC2626; font-size: 0.74rem;">
+                                    <i class="${p.youtube.icon}"></i> فيديوهات يوتيوب
+                                </a>
+                            </div>
+                            <div class="col-md col-sm-6 col-12">
+                                <a href="${p.tiktok.search_url}" target="_blank" class="btn btn-sm w-100 py-2 d-flex align-items-center justify-content-center gap-1.5 text-white fw-bold shadow-sm" style="background: #111827; font-size: 0.74rem;">
+                                    <i class="${p.tiktok.icon}"></i> جولات تيك توك
+                                </a>
+                            </div>
+                            <div class="col-md col-sm-6 col-12">
+                                <a href="${p.web_references.search_url}" target="_blank" class="btn btn-sm w-100 py-2 d-flex align-items-center justify-content-center gap-1.5 text-white fw-bold shadow-sm" style="background: #0284C7; font-size: 0.74rem;">
+                                    <i class="${p.web_references.icon}"></i> مراجع غوغل
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Editable Dossier Form -->
+                    <div class="p-3 bg-light rounded-3 border">
+                        <h6 class="fw-bold text-dark mb-3" style="font-size: 0.84rem;"><i class="fas fa-check-circle text-success me-1"></i> مراجعة واعتماد بيانات المدرسة قبل الحفظ بالدليل:</h6>
+                        
+                        <div class="row g-2.5">
+                            <div class="col-lg-6 col-12">
+                                <label class="form-label small fw-bold text-dark mb-1">الاسم المعتمد في الدليل</label>
+                                <input type="text" id="dosName" class="form-control form-control-sm" value="${escapeHtml(d.formatted_name)}">
+                            </div>
+
+                            <div class="col-lg-3 col-sm-6 col-12">
+                                <label class="form-label small fw-bold text-dark mb-1">الهاتف الموثق (إن وجد بالخريطة أو فيسبوك)</label>
+                                <input type="text" id="dosPhone" class="form-control form-control-sm" placeholder="فارغ إن لم يتوفر" value="${escapeHtml(d.phone || '')}">
+                            </div>
+
+                            <div class="col-lg-3 col-sm-6 col-12">
+                                <label class="form-label small fw-bold text-dark mb-1">الواتساب</label>
+                                <input type="text" id="dosWhatsapp" class="form-control form-control-sm" placeholder="فارغ إن لم يتوفر" value="${escapeHtml(d.whatsapp || '')}">
+                            </div>
+
+                            <div class="col-lg-6 col-12">
+                                <label class="form-label small fw-bold text-dark mb-1"><i class="fas fa-map-marker-alt text-danger me-1"></i> رابط خرائط جوجل الفعلي (Pin URL)</label>
+                                <input type="url" id="dosGmap" class="form-control form-control-sm" placeholder="الصق الرابط الفعلي من خرائط جوجل إن توفر" value="${escapeHtml(p.google_maps.existing_url || '')}">
+                            </div>
+
+                            <div class="col-lg-6 col-12">
+                                <label class="form-label small fw-bold text-dark mb-1"><i class="fab fa-facebook text-primary me-1"></i> رابط صفحة الفيسبوك الرسمية</label>
+                                <input type="url" id="dosFacebook" class="form-control form-control-sm" placeholder="https://facebook.com/..." value="${escapeHtml(p.facebook.existing_url || '')}">
+                            </div>
+
+                            <div class="col-lg-4 col-sm-6 col-12">
+                                <label class="form-label small fw-bold text-dark mb-1"><i class="fab fa-youtube text-danger me-1"></i> قناة / فيديو يوتيوب</label>
+                                <input type="url" id="dosYoutube" class="form-control form-control-sm" placeholder="https://youtube.com/..." value="${escapeHtml(p.youtube.existing_url || '')}">
+                            </div>
+
+                            <div class="col-lg-4 col-sm-6 col-12">
+                                <label class="form-label small fw-bold text-dark mb-1"><i class="fab fa-tiktok text-dark me-1"></i> حساب تيك توك</label>
+                                <input type="url" id="dosTiktok" class="form-control form-control-sm" placeholder="https://tiktok.com/@..." value="${escapeHtml(p.tiktok.existing_url || '')}">
+                            </div>
+
+                            <div class="col-lg-4 col-sm-6 col-12">
+                                <label class="form-label small fw-bold text-dark mb-1">سنة التأسيس (اختياري)</label>
+                                <input type="text" id="dosYear" class="form-control form-control-sm" placeholder="مثال: 2012" value="${escapeHtml(d.established_year || '')}">
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label small fw-bold text-dark mb-1"><i class="fas fa-align-left text-muted me-1"></i> النبذة التعريفية الشاملة عن المدرسة</label>
+                                <textarea id="dosDesc" class="form-control form-control-sm" rows="3">${escapeHtml(d.description || '')}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="mt-3 d-flex flex-wrap justify-content-between align-items-center gap-2">
+                            <span class="text-muted small" style="font-size: 0.72rem;">
+                                <i class="fas fa-shield-alt text-success me-1"></i> خالية من أي أرقام هواتف وهمية، موثقة جغرافياً ورقمياً.
+                            </span>
+                            <button type="button" id="btnCommitDossier" class="btn btn-success fw-bold px-4 py-2 text-white shadow-sm" onclick="commitStudioDossier('${escapeHtml(d.state)}', '${escapeHtml(d.city)}', '${escapeHtml(d.district)}', '${escapeHtml(d.school_type)}')" style="font-size: 0.84rem;">
+                                <i class="fas fa-check-circle me-1"></i> اعتماد وحفظ بيانات المدرسة في الدليل
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="dossierSaveStatus" class="mt-3" style="display: none;"></div>
+                </div>
+            </div>
+        `;
+
+        box.innerHTML = html;
+    }
+
+    function commitStudioDossier(state, city, district, schoolType) {
+        const name = document.getElementById('dosName').value.trim();
+        const phone = document.getElementById('dosPhone').value.trim();
+        const whatsapp = document.getElementById('dosWhatsapp').value.trim();
+        const gmap = document.getElementById('dosGmap').value.trim();
+        const fb = document.getElementById('dosFacebook').value.trim();
+        const yt = document.getElementById('dosYoutube').value.trim();
+        const tt = document.getElementById('dosTiktok').value.trim();
+        const yr = document.getElementById('dosYear').value.trim();
+        const desc = document.getElementById('dosDesc').value.trim();
+
+        const btn = document.getElementById('btnCommitDossier');
+        const stBox = document.getElementById('dossierSaveStatus');
+
+        if (!name) {
+            alert('يرجى تحديد اسم المدرسة.');
+            return;
+        }
 
         btn.disabled = true;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> جاري استكشاف وفهرسة وتدقيق المدارس...';
-
-        const typeLabels = {
-            'all': 'كافة المؤسسات',
-            'kindergarten': 'رياض الأطفال والحضانات',
-            'private': 'المدارس الخاصة',
-            'government': 'المدارس الحكومية'
-        };
-        const typeLbl = typeLabels[schoolType] || 'كافة المؤسسات';
-
-        consoleBox.style.display = 'block';
-        consoleBox.innerHTML = '<div style="color: #94A3B8;">[' + (new Date().toLocaleTimeString()) + '] ▶ Initializing Autonomous Discovery Worker (Target: ' + targetCount + ' | Category: ' + typeLbl + ')...</div>';
+        const oldHtml = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> جاري الحفظ والاعتماد بالدليل...';
 
         const fd = new FormData();
-        fd.append('ajax_action', 'run_batch_researcher');
-        fd.append('school_type', schoolType);
+        fd.append('query', name);
         fd.append('state', state);
-        fd.append('target_count', targetCount);
-        fd.append('batch_text', batchText);
+        fd.append('city', city);
+        fd.append('district', district);
+        fd.append('school_type', schoolType);
+        fd.append('phone', phone);
+        fd.append('whatsapp', whatsapp || phone);
+        fd.append('google_map_url', gmap);
+        fd.append('facebook', fb);
+        fd.append('youtube', yt);
+        fd.append('tiktok', tt);
+        fd.append('established_year', yr);
+        fd.append('description', desc);
 
-        fetch('admin.php', { method: 'POST', body: fd })
-        .then(async r => {
-            const rawText = await r.text();
-            let data;
-            try {
-                data = JSON.parse(rawText);
-            } catch (e) {
-                console.error("Server raw response:", rawText);
-                throw new Error("استجابة غير متوقعة من الخادم: " + (rawText.length > 200 ? rawText.substring(0, 200) + '...' : rawText));
-            }
-            return data;
+        fetch('api_auto_discover.php', {
+            method: 'POST',
+            body: fd
         })
+        .then(r => r.json())
         .then(data => {
             btn.disabled = false;
-            btn.innerHTML = '<i class="fas fa-play me-1"></i> تشغيل محرك الاستكشاف والتدقيق الآن';
+            btn.innerHTML = oldHtml;
+            stBox.style.display = 'block';
 
             if (data && data.success) {
-                let html = '';
-                if (data.logs && Array.isArray(data.logs)) {
-                    data.logs.forEach(msg => {
-                        let col = '#4ADE80'; // default green
-                        if (msg.includes('❌') || msg.includes('⚠️')) col = '#F87171'; // red
-                        else if (msg.includes('🛡️') || msg.includes('مطابقة') || msg.includes('تجاهل')) col = '#94A3B8'; // gray for deduplicated
-                        else if (msg.includes('ℹ️') || msg.includes('🔍')) col = '#38BDF8'; // cyan
-                        else if (msg.includes('✨') || msg.includes('جديدة')) col = '#34D399'; // emerald green for new additions
-                        else if (msg.includes('🏁') || msg.includes('🎯') || msg.includes('📊') || msg.includes('✅')) col = '#FBBF24'; // amber
-                        let safeMsg = escapeHtml(msg);
-                        safeMsg = safeMsg.replace(/\[SOURCE_LINK\|([^\|]+)\|([^\]]+)\]/g, function(match, url, label) {
-                            return `<a href="${url}" target="_blank" rel="noopener" class="badge bg-primary text-white text-decoration-none py-0 px-2 ms-1 shadow-2xs" style="font-size: 0.65rem; border-radius: 4px; font-weight: 500; vertical-align: middle;"><i class="fas fa-external-link-alt me-1" style="font-size: 0.55rem;"></i>${label}</a>`;
-                        });
-                        html += `<div style="color: ${col}; margin-bottom: 4px; line-height: 1.6;">${safeMsg}</div>`;
-                    });
-                }
-                consoleBox.innerHTML = html;
-                consoleBox.scrollTop = consoleBox.scrollHeight;
-                showAdminToast(data.message || 'اكتملت دورة الاستكشاف والمسح بنجاح ✅', 'success');
+                const sch = data.school;
+                showAdminToast(data.message || 'تم اعتماد وحفظ المدرسة بنجاح ✅', 'success');
+                stBox.innerHTML = `
+                    <div class="alert alert-success p-3 rounded-3 shadow-sm border mb-0 d-flex flex-wrap justify-content-between align-items-center gap-2">
+                        <div>
+                            <div class="fw-bold text-dark mb-0.5"><i class="fas fa-check-circle text-success me-1"></i> ${escapeHtml(data.message || 'تم اعتماد وحفظ المدرسة بنجاح!')}</div>
+                            <div class="text-muted small">أصبحت المدرسة مفهرسة في دليل المدارس السودانية برتبة رسمية.</div>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <a href="${sch.url}" target="_blank" class="btn btn-sm btn-primary fw-bold px-3 py-1.5" style="font-size: 0.76rem;">
+                                <i class="fas fa-external-link-alt me-1"></i> عرض صفحة المدرسة بالدليل
+                            </a>
+                            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="document.getElementById('studioQuery').value=''; document.getElementById('studioDossierBox').style.display='none';" style="font-size: 0.76rem;">
+                                استقصاء مدرسة أخرى
+                            </button>
+                        </div>
+                    </div>
+                `;
             } else {
-                consoleBox.innerHTML += `<div style="color: #EF4444;">[ERROR] ${escapeHtml(data.error || 'فشل تشغيل المحرك')}</div>`;
-                showAdminToast('حدث خطأ أثناء تشغيل المحرك: ' + (data.error || ''), 'danger');
+                stBox.innerHTML = `
+                    <div class="alert alert-danger p-3 rounded-3 shadow-sm border mb-0">
+                        <i class="fas fa-exclamation-triangle text-danger me-1"></i> ${escapeHtml(data.error || 'حدث خطأ أثناء الحفظ.')}
+                    </div>
+                `;
+                showAdminToast('فشل الحفظ: ' + (data.error || ''), 'danger');
             }
         })
         .catch(err => {
             btn.disabled = false;
-            btn.innerHTML = '<i class="fas fa-play me-1"></i> تشغيل محرك الاستكشاف والتدقيق الآن';
-            consoleBox.innerHTML += `<div style="color: #EF4444;">[FATAL] ${escapeHtml(err.message || 'خطأ في الاتصال بالخادم')}</div>`;
-            showAdminToast('خطأ: ' + (err.message || 'فشل الاتصال بالخادم'), 'danger');
+            btn.innerHTML = oldHtml;
+            stBox.style.display = 'block';
+            stBox.innerHTML = `
+                <div class="alert alert-danger p-3 rounded-3 shadow-sm border mb-0">
+                    <i class="fas fa-exclamation-triangle text-danger me-1"></i> حدث خطأ أثناء الاتصال بالخادم.
+                </div>
+            `;
+            showAdminToast('حدث خطأ في الاتصال بالخادم.', 'danger');
+        });
+    }
+
+    function runAutoDiscover() {
+        const q = document.getElementById('discQuery').value.trim();
+        const gmap = document.getElementById('discGoogleMapUrl').value.trim();
+        const phone = document.getElementById('discPhone').value.trim();
+        const st = document.getElementById('discState').value.trim();
+        const ct = document.getElementById('discCity').value.trim();
+        const dist = document.getElementById('discDistrict').value.trim();
+        const fb = document.getElementById('discFacebook').value.trim();
+        const desc = document.getElementById('discDesc').value.trim();
+
+        const btn = document.getElementById('btnRunDiscovery');
+        const resBox = document.getElementById('discoveryResultBox');
+
+        if (!q) {
+            alert('يرجى كتابة اسم المدرسة للبدء.');
+            return;
+        }
+
+        btn.disabled = true;
+        const oldHtml = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> جاري التدقيق والاعتماد...';
+
+        resBox.style.display = 'block';
+        resBox.innerHTML = `
+            <div class="p-3 bg-white rounded-3 border text-center shadow-sm">
+                <div class="spinner-border text-primary mb-2" role="status" style="width: 2rem; height: 2rem;"></div>
+                <div class="fw-bold text-dark" style="font-size: 0.82rem;">جاري التحقق الجغرافي وفهرسة بيانات "${escapeHtml(q)}"...</div>
+                <div class="text-muted small" style="font-size: 0.72rem;">يتم الآن فحص عدم التكرار، ربط خرائط جوجل، وتحديث الرتبة...</div>
+            </div>
+        `;
+
+        const fd = new FormData();
+        fd.append('query', q);
+        fd.append('google_map_url', gmap);
+        fd.append('phone', phone);
+        fd.append('state', st);
+        fd.append('city', ct);
+        fd.append('district', dist);
+        fd.append('facebook', fb);
+        fd.append('description', desc);
+
+        fetch('api_auto_discover.php', {
+            method: 'POST',
+            body: fd
+        })
+        .then(r => r.json())
+        .then(data => {
+            btn.disabled = false;
+            btn.innerHTML = oldHtml;
+
+            if (data && data.success) {
+                const sch = data.school;
+                const isExisting = data.already_exists;
+                const alertClass = isExisting ? 'alert-warning' : 'alert-success';
+                const icon = isExisting ? 'fa-info-circle text-warning' : 'fa-check-circle text-success';
+                const badgeText = isExisting ? 'مدرسة مسجلة سلفاً (تم تحديث البيانات)' : 'مدرسة معتمدة ومضافة حديثاً';
+
+                showAdminToast(data.message || 'تم الاعتماد بنجاح ✅', 'success');
+
+                resBox.innerHTML = `
+                    <div class="alert ${alertClass} p-3 rounded-3 shadow-sm border">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="fas ${icon} fs-5"></i>
+                                <h6 class="fw-bold mb-0 text-dark" style="font-size: 0.95rem;">${escapeHtml(data.message || 'اكتملت العملية بنجاح!')}</h6>
+                            </div>
+                            <span class="badge ${isExisting ? 'bg-warning text-dark' : 'bg-success text-white'}">${badgeText}</span>
+                        </div>
+
+                        <div class="p-3 bg-white rounded-3 border mt-2">
+                            <div class="row g-2 align-items-center">
+                                <div class="col-md-7 col-12">
+                                    <h5 class="fw-bold text-dark mb-1" style="font-size: 1rem;">${escapeHtml(sch.name)}</h5>
+                                    <div class="text-muted small mb-2" style="font-size: 0.74rem;">${escapeHtml(sch.name_en || '')}</div>
+                                    <div class="d-flex flex-wrap gap-2 small">
+                                        <span class="badge bg-light text-dark border"><i class="fas fa-map-marker-alt text-danger me-1"></i> ${escapeHtml(sch.state)} — ${escapeHtml(sch.city)}</span>
+                                        <span class="badge bg-light text-dark border"><i class="fas fa-building text-primary me-1"></i> حي ${escapeHtml(sch.district || sch.city)}</span>
+                                        ${sch.phone ? `<span class="badge bg-success text-white"><i class="fas fa-phone me-1"></i> ${escapeHtml(sch.phone)}</span>` : `<span class="badge bg-secondary text-white"><i class="fas fa-phone-slash me-1"></i> بدون هاتف مسجل</span>`}
+                                    </div>
+                                </div>
+                                <div class="col-md-5 col-12 text-md-end mt-3 mt-md-0 d-flex flex-wrap gap-2 justify-content-md-end">
+                                    <a href="${sch.url}" target="_blank" class="btn btn-sm btn-primary py-2 px-3 fw-bold" style="background: #1E5FA8; font-size: 0.78rem;">
+                                        <i class="fas fa-external-link-alt me-1"></i> فتح صفحة المدرسة
+                                    </a>
+                                    ${sch.google_map_url ? `<a href="${sch.google_map_url}" target="_blank" class="btn btn-sm btn-light border py-2 px-3" style="font-size: 0.78rem;"><i class="fas fa-map-marked-alt text-success me-1"></i> خرائط جوجل</a>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                resBox.innerHTML = `
+                    <div class="alert alert-danger p-3 rounded-3 shadow-sm border">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="fas fa-exclamation-triangle text-danger fs-5"></i>
+                            <span class="fw-bold" style="font-size: 0.85rem;">${escapeHtml(data.error || 'تعذر استكشاف المدرسة.')}</span>
+                        </div>
+                    </div>
+                `;
+                showAdminToast('فشل: ' + (data.error || ''), 'danger');
+            }
+        })
+        .catch(err => {
+            btn.disabled = false;
+            btn.innerHTML = oldHtml;
+            resBox.innerHTML = `
+                <div class="alert alert-danger p-3 rounded-3 shadow-sm border">
+                    <i class="fas fa-exclamation-triangle text-danger me-1"></i> حدث خطأ أثناء الاتصال بالخادم.
+                </div>
+            `;
+            showAdminToast('حدث خطأ في الاتصال بالخادم.', 'danger');
+        });
+    }
+
+    function previewBatchList() {
+        const raw = document.getElementById('batchInputText').value.trim();
+        const prevBox = document.getElementById('batchPreviewBox');
+        const summarySpan = document.getElementById('batchParsedSummary');
+        const btnExecute = document.getElementById('btnExecuteBatch');
+
+        if (!raw) {
+            alert('يرجى لصق قائمة المدارس أولاً للمعاينة.');
+            return;
+        }
+
+        const lines = raw.split('\n');
+        parsedBatchItems = [];
+
+        lines.forEach((line) => {
+            const cleanLine = line.trim();
+            if (!cleanLine || cleanLine.startsWith('#')) return;
+
+            const parts = cleanLine.split('|').map(p => p.trim());
+            if (parts.length >= 1 && parts[0].length >= 2) {
+                parsedBatchItems.push({
+                    name: parts[0],
+                    state: parts[1] || '',
+                    city: parts[2] || '',
+                    district: parts[3] || '',
+                    phone: parts[4] || '',
+                    google_map_url: parts[5] || '',
+                    facebook: parts[6] || '',
+                    description: parts[7] || ''
+                });
+            }
+        });
+
+        if (parsedBatchItems.length === 0) {
+            prevBox.style.display = 'none';
+            btnExecute.disabled = true;
+            summarySpan.innerHTML = '<span class="text-danger">لم يتم العثور على أسطر صالحة للتحليل.</span>';
+            return;
+        }
+
+        btnExecute.disabled = false;
+        summarySpan.innerHTML = `<span class="text-success fw-bold">تم تحليل ${parsedBatchItems.length} مدرسة بنجاح</span>`;
+
+        let html = `
+            <div class="card border-0 shadow-sm rounded-3 overflow-hidden mt-3" style="border: 1px solid #DDE4ED !important;">
+                <div class="card-header bg-white py-2 px-3 d-flex justify-content-between align-items-center border-bottom">
+                    <h6 class="fw-bold mb-0 text-dark" style="font-size: 0.84rem;"><i class="fas fa-list-check text-primary me-1"></i> جدول معاينة الدفعة (${parsedBatchItems.length} مؤسسة)</h6>
+                    <span class="badge bg-light text-dark border">جاهزة للاعتماد</span>
+                </div>
+                <div class="table-responsive" style="max-height: 280px;">
+                    <table class="table table-sm table-hover align-middle mb-0" style="font-size: 0.72rem;">
+                        <thead style="background: #F8FAFC; color: #64748B;">
+                            <tr>
+                                <th>#</th>
+                                <th>اسم المدرسة</th>
+                                <th>الموقع</th>
+                                <th>الحي</th>
+                                <th>الهاتف الموثق</th>
+                                <th>خرائط جوجل</th>
+                                <th>فيسبوك</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+        `;
+
+        parsedBatchItems.forEach((item, i) => {
+            html += `
+                <tr>
+                    <td class="fw-bold text-muted">${i + 1}</td>
+                    <td class="fw-bold text-dark">${escapeHtml(item.name)}</td>
+                    <td><span class="badge bg-light text-dark border">${escapeHtml(item.state || 'تلقائي')}</span> ${item.city ? `— ${escapeHtml(item.city)}` : ''}</td>
+                    <td>${escapeHtml(item.district || '-')}</td>
+                    <td>${item.phone ? `<span class="badge bg-success text-white">${escapeHtml(item.phone)}</span>` : `<span class="text-muted">بدون هاتف</span>`}</td>
+                    <td>${item.google_map_url ? `<a href="${item.google_map_url}" target="_blank" class="text-success"><i class="fas fa-map-pin"></i> نعم</a>` : `<span class="text-muted">تلقائي</span>`}</td>
+                    <td>${item.facebook ? `<a href="${item.facebook}" target="_blank" class="text-primary"><i class="fab fa-facebook"></i> نعم</a>` : `<span class="text-muted">-</span>`}</td>
+                </tr>
+            `;
+        });
+
+        html += `
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        `;
+
+        prevBox.style.display = 'block';
+        prevBox.innerHTML = html;
+    }
+
+    function executeBatchImport() {
+        if (!parsedBatchItems || parsedBatchItems.length === 0) {
+            alert('لا توجد عناصر مفحوصة للإدراج.');
+            return;
+        }
+
+        const btn = document.getElementById('btnExecuteBatch');
+        const prevBox = document.getElementById('batchPreviewBox');
+
+        btn.disabled = true;
+        const oldHtml = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> جاري إدراج الدفعة بالدليل...';
+
+        fetch('api_auto_discover.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                action: 'batch',
+                schools: parsedBatchItems
+            })
+        })
+        .then(r => r.json())
+        .then(data => {
+            btn.disabled = false;
+            btn.innerHTML = oldHtml;
+
+            if (data && data.success) {
+                showAdminToast(`تم إدراج الدفعة بنجاح: ${data.created} مدرسة جديدة، و${data.existing} مدرسة سابقة ✅`, 'success');
+                prevBox.innerHTML = `
+                    <div class="alert alert-success p-3 rounded-3 shadow-sm border mt-3">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <i class="fas fa-check-circle text-success fs-4"></i>
+                            <h6 class="fw-bold mb-0 text-dark" style="font-size: 0.95rem;">تم إدراج الدفعة بنجاح!</h6>
+                        </div>
+                        <div class="small text-muted mb-2">
+                            تمت إضافة <strong>${data.created}</strong> مدرسة جديدة، وتحديث <strong>${data.existing}</strong> مدرسة سابقة.
+                        </div>
+                        <div class="mt-2">
+                            <a href="admin.php?tab=schools" class="btn btn-sm btn-primary py-1 px-3" style="font-size: 0.76rem;">
+                                <i class="fas fa-school me-1"></i> فتح قائمة المدارس بالإدارة
+                            </a>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('batchInputText').value = '';
+                parsedBatchItems = [];
+            } else {
+                alert(data.error || 'حدث خطأ أثناء استيراد الدفعة.');
+                showAdminToast('فشل استيراد الدفعة: ' + (data.error || ''), 'danger');
+            }
+        })
+        .catch(err => {
+            btn.disabled = false;
+            btn.innerHTML = oldHtml;
+            alert('حدث خطأ أثناء الاتصال بالخادم.');
+            showAdminToast('حدث خطأ في الاتصال بالخادم.', 'danger');
         });
     }
 

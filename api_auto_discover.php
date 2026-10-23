@@ -16,7 +16,7 @@ $rawInput = file_get_contents('php://input');
 $inputData = json_decode($rawInput, true);
 
 $providedKey = $_GET['key'] ?? ($_POST['key'] ?? ($inputData['key'] ?? ''));
-$isAuthAdmin = (!empty($_SESSION['school_id']) || !empty($_SESSION['daleel_admin_authorized']));
+$isAuthAdmin = (!empty($_SESSION['daleel_master_admin']) || !empty($_SESSION['school_id']) || !empty($_SESSION['daleel_admin_authorized']));
 
 if (!$isAuthAdmin && $providedKey !== $secretKey && php_sapi_name() !== 'cli') {
     http_response_code(403);
