@@ -12,6 +12,15 @@ class DaleelWhatsAppService {
     private static string $token = 'schoplus_daleel_sec_token_9918';
 
     /**
+     * هل البيئة الحالية استضافة سحابية عامة أم بيئة محلية؟
+     */
+    public static function isCloudServer(): bool {
+        return is_dir('/home/wdenfygx') ||
+            (isset($_SERVER['HTTP_HOST']) && strpos($_SERVER['HTTP_HOST'], 'schoplus.sd') !== false) ||
+            (isset($_SERVER['SERVER_NAME']) && strpos($_SERVER['SERVER_NAME'], 'schoplus.sd') !== false);
+    }
+
+    /**
      * جلب رابط السيرفر الأساسي
      */
     public static function getBaseUrl(): string {
@@ -31,6 +40,14 @@ class DaleelWhatsAppService {
      * إرسال طلب HTTP إلى سيرفر الواتساب
      */
     private static function request(string $endpoint, string $method = 'GET', array $data = []): array {
+        if (self::isCloudServer()) {
+            return [
+                'success' => false,
+                'cloud_env' => true,
+                'error' => 'سيرفر الإرسال الآلي للواتساب يعمل عبر المحطة المحلية لضمان استقرار الاتصال. يمكنك استخدام روابط المحادثة الفورية (Click-to-Chat) أو تشغيل الحملة من لوحة التحكم المحلية.'
+            ];
+        }
+
         $url = self::getBaseUrl() . $endpoint;
         $ch = curl_init();
 
@@ -75,6 +92,16 @@ class DaleelWhatsAppService {
      * فحص حالة الاتصال بالواتساب
      */
     public static function getStatus(): array {
+        if (self::isCloudServer()) {
+            return [
+                'success' => true,
+                'status' => 'cloud_hub',
+                'server_env' => true,
+                'connected' => false,
+                'message' => 'المراسلة الآلية المركزية مُدارة عبر المحطة المحلية (Desktop Hub) مع مزامنة السحابة المباشرة بنقرة واحدة.',
+                'phone' => 'مُدار محلياً'
+            ];
+        }
         return self::request('/api/daleel_session/check-connection-session');
     }
 
