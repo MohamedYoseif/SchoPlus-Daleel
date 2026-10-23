@@ -385,6 +385,10 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
     $sStateRank = getSchoolStateRank($pdo, (int)$s['id'], (string)($s['state'] ?? ''), !empty($s['state_rank']) ? (int)$s['state_rank'] : null);
     $isHistoric = isSchoolHistoric($s);
     $hBadge = $isHistoric ? getSchoolHistoricBadge($s) : null;
+    $rating = round((float)($s['rating_avg'] ?? 0), 1);
+    $reviewsCount = (int)($s['reviews_count'] ?? 0);
+    $phone = trim($s['phone'] ?? '');
+    $whatsapp = trim($s['whatsapp'] ?? '');
 ?>
 <div class="col-xl-4 col-md-6 col-12">
     <div class="luxury-card clickable-school-card <?= $isHistoric ? 'luxury-card-historic' : '' ?> h-100 d-flex flex-column" onclick="window.location.href='<?= $schoolUrl ?>'">
@@ -399,110 +403,143 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
         <div class="card-cover-wrap" style="<?= $cover ? "background-image: url('{$cover}');" : '' ?>">
             <div class="card-cover-overlay"></div>
             <?php if (!$cover): ?>
-                <div class="cover-placeholder-icon"><i class="<?= $isHistoric ? 'fas fa-landmark' : 'fas fa-school' ?>"></i></div>
+                <div class="cover-placeholder-mesh">
+                    <i class="<?= $isHistoric ? 'fas fa-landmark' : 'fas fa-school' ?>"></i>
+                </div>
             <?php endif; ?>
 
-            <div style="position: absolute; top: 10px; left: 10px; z-index: 2; display: flex; flex-direction: column; gap: 4px; align-items: flex-end;">
-                <span class="badge-directory-rank"><i class="fas fa-award"></i> الترتيب #<?= $sRank ?></span>
-                <?php if ($isHistoric): ?>
-                    <span class="historic-ribbon-badge">
-                        <i class="fas fa-landmark"></i> صرح وطني عريق
-                    </span>
-                <?php endif; ?>
-                <?php if (!empty($s['is_schoplus_client'])): ?>
-                    <span class="badge-schoplus-smart"><i class="fas fa-bolt"></i> SchoPlus الذكي</span>
-                <?php endif; ?>
-                <?php if (!empty($s['is_verified'])): ?>
-                    <span class="badge bg-success text-white border border-light" style="font-size: 0.65rem; padding: 2px 8px; border-radius: 999px;"><i class="fas fa-check-circle me-1"></i> موثقة بالدليل</span>
-                <?php else: ?>
-                    <span class="badge" style="background: rgba(100, 116, 139, 0.85); color: #FFFFFF; font-size: 0.65rem; padding: 2px 8px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.25);"><i class="fas fa-info-circle me-1"></i> عامة (غير موثقة)</span>
-                <?php endif; ?>
+            <!-- Floating Top Capsule Bar -->
+            <div class="card-cover-topbar">
+                <div class="card-cover-topbar-badges">
+                    <?php if ($isHistoric): ?>
+                        <span class="badge-card-pill badge-pill-historic" title="صرح وطني عريق">
+                            <i class="fas fa-landmark"></i> صرح عريق
+                        </span>
+                    <?php endif; ?>
+                    <?php if (!empty($s['is_schoplus_client'])): ?>
+                        <span class="badge-card-pill badge-pill-smart" title="مدرسة ذكية تعمل بنظام SchoPlus">
+                            <i class="fas fa-bolt text-warning"></i> ذكي
+                        </span>
+                    <?php endif; ?>
+                    <?php if (!empty($s['is_verified'])): ?>
+                        <span class="badge-card-pill badge-pill-verified" title="مدرسة موثقة رسمياً بالدليل">
+                            <i class="fas fa-check-circle"></i> موثقة
+                        </span>
+                    <?php else: ?>
+                        <span class="badge-card-pill badge-pill-public" title="مدرسة عامة مسجلة">
+                            <i class="fas fa-shield-alt"></i> عامة
+                        </span>
+                    <?php endif; ?>
+                </div>
+
+                <span class="badge-card-pill badge-pill-rank" title="الترتيب العام بالدليل">
+                    <i class="fas fa-award"></i> #<?= $sRank ?>
+                </span>
             </div>
 
+            <!-- Logo Badge with Golden Seal for Historic -->
             <div class="card-logo-badge">
-                <img src="<?= $logo ?>" alt="" loading="lazy">
+                <img src="<?= $logo ?>" alt="<?= e($s['name']) ?>" loading="lazy">
                 <?php if ($isHistoric): ?>
                     <span class="historic-logo-seal" title="صرح وطني عريق"><i class="fas fa-crown"></i></span>
                 <?php endif; ?>
             </div>
         </div>
 
-        <div style="padding: 26px 16px 14px; display: flex; flex-direction: column; flex-grow: 1; position: relative; z-index: 1;">
+        <div class="luxury-card-body d-flex flex-column flex-grow-1 position-relative">
             
-            <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
-                <div>
-                    <a href="<?= $schoolUrl ?>" style="font-weight: 700; font-size: 0.9rem; color: #0B2A52; text-decoration: none;" onclick="event.stopPropagation();">
+            <!-- Title & State Rank -->
+            <div class="d-flex justify-content-between align-items-start gap-2 mb-1.5">
+                <div class="flex-grow-1 min-w-0">
+                    <a href="<?= $schoolUrl ?>" class="luxury-card-title text-decoration-none d-block" onclick="event.stopPropagation();">
                         <?php if ($isHistoric): ?>
                             <i class="fas fa-landmark text-warning ms-1" style="color: #D97706 !important; font-size: 0.85rem;" title="صرح وطني عريق"></i>
                         <?php endif; ?>
                         <?= e($s['name']) ?>
                     </a>
                     <?php if (!empty($s['name_en'])): ?>
-                        <div style="font-size: 0.72rem; color: #64748B; font-weight: 600; margin-top: 1px;"><?= e($s['name_en']) ?></div>
+                        <div class="luxury-card-subtitle text-truncate"><?= e($s['name_en']) ?></div>
                     <?php endif; ?>
                 </div>
-                <span class="badge-state-rank-tag" title="الترتيب في ولاية <?= e($s['state']) ?>">#<?= $sStateRank ?> <?= e($s['state']) ?></span>
+                <span class="badge-state-rank-tag flex-shrink-0" title="الترتيب في ولاية <?= e($s['state']) ?>">#<?= $sStateRank ?> <?= e($s['state']) ?></span>
             </div>
 
-            <div class="d-flex align-items-center gap-1 mb-2 text-muted" style="font-size: 0.72rem;">
-                <i class="fas fa-map-marker-alt text-danger me-1"></i>
-                <span><?= e($s['country'] ?? 'السودان') ?> — ولاية <?= e($s['state']) ?> — <?= e($s['city']) ?> <?= !empty($s['district']) ? '('.e($s['district']).')' : '' ?></span>
+            <!-- Location Line -->
+            <div class="d-flex align-items-center gap-1.5 mb-2 text-muted luxury-card-location">
+                <i class="fas fa-map-marker-alt text-danger me-1 flex-shrink-0"></i>
+                <span class="text-truncate">
+                    <strong><?= e($s['state'] ?? 'السودان') ?></strong> — <?= e($s['city']) ?><?= !empty($s['district']) ? ' ('.e($s['district']).')' : '' ?>
+                </span>
             </div>
 
-            <p class="school-card-desc mb-2 <?= $isHistoric ? 'historic-card-desc' : '' ?>" style="font-size: 0.73rem; <?= $isHistoric ? 'color: #1E293B;' : 'color: #475569;' ?>">
+            <!-- Description (2 Lines Clamp) -->
+            <p class="school-card-desc mb-2.5 <?= $isHistoric ? 'historic-card-desc' : '' ?>">
                 <?= e($s['description'] ?: ($isHistoric ? 'صرح تعليمي وتاريخي عريق أسهم في مسيرة النهضة التعليمية بالسودان.' : 'مؤسسة تعليمية وتربوية تقدم برامج أكاديمية متميزة وبيئة متطورة للطلاب.')) ?>
             </p>
 
-            <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 12px;">
-                <?php foreach(array_slice($stagesArr, 0, 3) as $st): ?>
-                    <span class="badge-stage-pill"><?= e($schoolStages[$st] ?? $st) ?></span>
-                <?php endforeach; ?>
+            <!-- Attributes / Tags Row -->
+            <div class="d-flex flex-wrap align-items-center gap-1.5 mb-3">
                 <?php $tBadge = SudanGeography::schoolTypeBadge($s['school_type'] ?? ''); ?>
-                <span class="badge" style="<?= $tBadge['style'] ?> font-size: 0.68rem; font-weight: 700;">
+                <span class="badge" style="<?= $tBadge['style'] ?> font-size: 0.67rem; font-weight: 700;">
                     <i class="<?= $tBadge['icon'] ?> me-1"></i> <?= e($tBadge['label']) ?>
                 </span>
+
+                <?php if (!empty($s['curriculum'])): ?>
+                    <?php
+                    $currLabel = 'سوداني';
+                    if ($s['curriculum'] === 'british') $currLabel = 'بريطاني';
+                    elseif ($s['curriculum'] === 'american') $currLabel = 'أمريكي';
+                    elseif ($s['curriculum'] === 'bilingual') $currLabel = 'ثنائي اللغة';
+                    elseif ($s['curriculum'] === 'other') $currLabel = 'أجنبي / آخر';
+                    ?>
+                    <span class="badge" style="background: #F8FAFC; color: #475569; border: 1px solid #E2E8F0; font-size: 0.67rem; font-weight: 600;">
+                        <i class="fas fa-book-open me-1 text-primary"></i> منهج <?= e($currLabel) ?>
+                    </span>
+                <?php endif; ?>
+
+                <?php foreach(array_slice($stagesArr, 0, 3) as $st): ?>
+                    <?php if (isset($schoolStages[$st])): ?>
+                        <span class="badge-stage-pill"><?= e($schoolStages[$st]) ?></span>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+
                 <?php if ($isHistoric && !empty($s['established_year'])): ?>
                     <?php $legacy = (int)date('Y') - (int)$s['established_year']; ?>
-                    <span class="badge" style="background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; font-size: 0.68rem; font-weight: 800;">
+                    <span class="badge" style="background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; font-size: 0.67rem; font-weight: 800;">
                         <i class="fas fa-calendar-alt text-warning me-1"></i> تأسست <?= e($s['established_year']) ?>م<?= ($legacy > 0) ? " ({$legacy} عاماً)" : '' ?>
                     </span>
-                <?php elseif ($isHistoric): ?>
-                    <span class="badge" style="background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; font-size: 0.68rem; font-weight: 800;">
-                        <i class="fas fa-landmark text-warning me-1"></i> صرح وطني عريق
-                    </span>
                 <?php elseif (!empty($s['established_year'])): ?>
-                    <span class="badge-established"><i class="fas fa-calendar-alt me-1"></i> تأسست <?= e($s['established_year']) ?></span>
+                    <span class="badge-established"><i class="fas fa-calendar-alt me-1"></i> تأسست <?= e($s['established_year']) ?>م</span>
                 <?php endif; ?>
             </div>
 
-            <div style="padding-top: 12px; border-top: 1px solid <?= $isHistoric ? '#FDE68A' : '#EDF2F7' ?>; display: flex; align-items: center; justify-content: space-between; margin-top: auto;">
+            <!-- Footer: Rating & Actions -->
+            <div class="luxury-card-footer">
                 <div class="star-rating">
-                    <i class="fas fa-star"></i>
-                    <span class="fw-bold text-dark" style="font-size: 0.78rem;"><?= number_format($s['rating_avg'], 1) ?></span>
-                    <span class="text-muted" style="font-size: 0.68rem;">(<?= $s['reviews_count'] ?>)</span>
+                    <i class="fas fa-star text-warning"></i>
+                    <span class="fw-bold text-dark" style="font-size: 0.8rem;"><?= number_format($rating, 1) ?></span>
+                    <span class="text-muted" style="font-size: 0.68rem;">(<?= $reviewsCount ?>)</span>
                 </div>
 
-                <div class="d-flex align-items-center gap-1">
+                <div class="d-flex align-items-center gap-1.5">
                     <button type="button" class="btn-compare-card" data-compare-id="<?= $s['id'] ?>" onclick="event.stopPropagation(); toggleSchoolCompare({id: '<?= $s['id'] ?>', name: '<?= addslashes(e($s['name'])) ?>', logo: '<?= addslashes($logo) ?>', slug: '<?= addslashes($s['slug']) ?>'});" title="إضافة إلى المقارنة">
                         <i class="fas fa-balance-scale"></i>
                         <span class="compare-lbl">مقارنة</span>
                     </button>
-                    <?php if (!empty($s['whatsapp']) && (!empty($s['is_verified']) || !empty($s['is_schoplus_client']))): ?>
-                        <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $s['whatsapp']) ?>" target="_blank" class="btn btn-sm btn-outline-success rounded-circle" style="width: 30px; height: 30px; padding: 0; display: inline-flex; align-items: center; justify-content: center;" title="واتساب المدرسة" onclick="event.stopPropagation();">
+                    <?php if (!empty($whatsapp) && (!empty($s['is_verified']) || !empty($s['is_schoplus_client']))): ?>
+                        <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $whatsapp) ?>" target="_blank" class="btn-card-icon-wa" title="واتساب المدرسة" onclick="event.stopPropagation();">
                             <i class="fab fa-whatsapp"></i>
                         </a>
                     <?php endif; ?>
-                    <?php if ($isHistoric): ?>
-                        <a href="<?= $schoolUrl ?>" class="btn-historic-action btn-sm py-1 px-2" onclick="event.stopPropagation();" style="font-size: 0.72rem;">
-                            <span>تصفح الإرث والتفاصيل</span>
-                            <i class="fas fa-arrow-left"></i>
-                        </a>
-                    <?php else: ?>
-                        <a href="<?= $schoolUrl ?>" class="btn-luxury-outline btn-sm py-1 px-2" onclick="event.stopPropagation();" style="font-size: 0.72rem;">
-                            <span>عرض التفاصيل</span>
-                            <i class="fas fa-arrow-left"></i>
+                    <?php if (!empty($phone) && (!empty($s['is_verified']) || !empty($s['is_schoplus_client']))): ?>
+                        <a href="tel:<?= preg_replace('/[^0-9+]/', '', $phone) ?>" class="btn-card-icon-phone" title="اتصال هاتفي" onclick="event.stopPropagation();">
+                            <i class="fas fa-phone-alt"></i>
                         </a>
                     <?php endif; ?>
+                    <a href="<?= $schoolUrl ?>" class="<?= $isHistoric ? 'btn-historic-action' : 'btn-luxury-action' ?>" onclick="event.stopPropagation();">
+                        <span><?= $isHistoric ? 'تصفح الإرث' : 'عرض التفاصيل' ?></span>
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
                 </div>
             </div>
 
@@ -513,7 +550,7 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
 };
 
 /**
- * Reusable School Horizontal Row Renderer (List View Mode)
+ * Reusable School Horizontal Row Renderer (List View Mode - Single Source of Truth Style F v2)
  */
 $renderSchoolRow = function($s) use ($pdo, $schoolStages, $schoolTypes, $q) {
     $logo = e(defaultSchoolLogo($s['logo_path'] ?? null));
@@ -527,7 +564,6 @@ $renderSchoolRow = function($s) use ($pdo, $schoolStages, $schoolTypes, $q) {
     $reviewsCount = (int)($s['reviews_count'] ?? 0);
     $phone = trim($s['phone'] ?? '');
     $whatsapp = trim($s['whatsapp'] ?? '');
-    $typeLabel = $s['school_type'] === 'government' ? 'حكومية' : ($s['school_type'] === 'private' ? 'خاصة' : ($s['school_type'] === 'international' ? 'دولية' : 'مؤسسة'));
     
     // Highlight helper
     $highlight = function($text) use ($q) {
@@ -543,10 +579,10 @@ $renderSchoolRow = function($s) use ($pdo, $schoolStages, $schoolTypes, $q) {
 ?>
 <div class="luxury-row-card clickable-school-card <?= $isHistoric ? 'luxury-row-card-historic' : '' ?> mb-2.5" onclick="window.location.href='<?= $schoolUrl ?>'">
     <div class="row g-3 align-items-center">
-        <!-- 1. Logo & Rank -->
+        <!-- 1. Logo & Rank Pillar -->
         <div class="col-auto">
             <div class="luxury-row-logo-wrap">
-                <img src="<?= $logo ?>" alt="" loading="lazy">
+                <img src="<?= $logo ?>" alt="<?= e($s['name']) ?>" loading="lazy">
                 <span class="luxury-row-rank-badge" title="الترتيب العام بالدليل">#<?= $sRank ?></span>
                 <?php if ($isHistoric): ?>
                     <span class="historic-logo-seal" title="صرح وطني عريق"><i class="fas fa-crown"></i></span>
@@ -555,28 +591,30 @@ $renderSchoolRow = function($s) use ($pdo, $schoolStages, $schoolTypes, $q) {
         </div>
 
         <!-- 2. Main School Details -->
-        <div class="col">
+        <div class="col min-w-0">
             <div class="d-flex flex-wrap align-items-center gap-2 mb-1">
                 <a href="<?= $schoolUrl ?>" class="luxury-row-title text-decoration-none" onclick="event.stopPropagation();">
                     <?php if ($isHistoric): ?>
-                        <i class="fas fa-landmark text-warning me-1" style="color: #D97706 !important;" title="صرح وطني عريق"></i>
+                        <i class="fas fa-landmark text-warning ms-1" style="color: #D97706 !important;" title="صرح وطني عريق"></i>
                     <?php endif; ?>
                     <?= $highlight($s['name']) ?>
                 </a>
 
                 <?php if ($isHistoric): ?>
-                    <span class="badge bg-warning text-dark border border-warning" style="font-size: 0.65rem; padding: 2px 7px; border-radius: 999px; font-weight: 800;">
+                    <span class="badge-card-pill badge-pill-historic">
                         <i class="fas fa-landmark"></i> صرح عريق
                     </span>
                 <?php endif; ?>
 
                 <?php if (!empty($s['is_schoplus_client'])): ?>
-                    <span class="badge-schoplus-smart" style="font-size: 0.65rem; padding: 2px 7px;"><i class="fas fa-bolt"></i> SchoPlus الذكي</span>
+                    <span class="badge-card-pill badge-pill-smart"><i class="fas fa-bolt text-warning"></i> SchoPlus الذكي</span>
                 <?php endif; ?>
 
                 <?php if (!empty($s['is_verified'])): ?>
-                    <span class="badge bg-success text-white" style="font-size: 0.64rem; padding: 2px 7px; border-radius: 999px;"><i class="fas fa-check-circle me-1"></i> موثقة</span>
+                    <span class="badge-card-pill badge-pill-verified"><i class="fas fa-check-circle me-1"></i> موثقة</span>
                 <?php endif; ?>
+
+                <span class="badge-state-rank-tag" title="الترتيب في ولاية <?= e($s['state']) ?>">#<?= $sStateRank ?> <?= e($s['state']) ?></span>
             </div>
 
             <?php if (!empty($s['name_en'])): ?>
@@ -584,8 +622,8 @@ $renderSchoolRow = function($s) use ($pdo, $schoolStages, $schoolTypes, $q) {
             <?php endif; ?>
 
             <!-- Location Line -->
-            <div class="d-flex flex-wrap align-items-center gap-2 mb-2 text-muted" style="font-size: 0.73rem;">
-                <span class="d-inline-flex align-items-center">
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-1.5 text-muted" style="font-size: 0.73rem;">
+                <span class="d-inline-flex align-items-center text-truncate">
                     <i class="fas fa-map-marker-alt text-danger me-1"></i>
                     <strong><?= e($s['state'] ?? 'السودان') ?></strong>
                     <?php if (!empty($s['city'])): ?> — <?= e($s['city']) ?><?php endif; ?>
@@ -596,26 +634,44 @@ $renderSchoolRow = function($s) use ($pdo, $schoolStages, $schoolTypes, $q) {
                 </a>
             </div>
 
-            <!-- Tags (Type, Curriculum, Stages) -->
+            <!-- Description Teaser -->
+            <div class="luxury-row-desc d-none d-md-block text-muted mb-1.5">
+                <?= e($s['description'] ?: ($isHistoric ? 'صرح تعليمي وتاريخي عريق أسهم في مسيرة النهضة التعليمية بالسودان.' : 'مؤسسة تعليمية وتربوية تقدم برامج أكاديمية متميزة وبيئة متطورة للطلاب.')) ?>
+            </div>
+
+            <!-- Tags (Type, Curriculum, Stages, Year) -->
             <div class="d-flex flex-wrap align-items-center gap-1.5">
-                <span class="badge" style="background: #EFF6FF; color: #1E5FA8; border: 1px solid #BFDBFE; font-size: 0.66rem; font-weight: 700;">
-                    <?= e($typeLabel) ?>
+                <?php $tBadge = SudanGeography::schoolTypeBadge($s['school_type'] ?? ''); ?>
+                <span class="badge" style="<?= $tBadge['style'] ?> font-size: 0.67rem; font-weight: 700;">
+                    <i class="<?= $tBadge['icon'] ?> me-1"></i> <?= e($tBadge['label']) ?>
                 </span>
 
                 <?php if (!empty($s['curriculum'])): ?>
-                    <span class="badge" style="background: #F8FAFC; color: #475569; border: 1px solid #E2E8F0; font-size: 0.66rem;">
-                        <i class="fas fa-book-open me-1 text-primary"></i> منهج <?= $s['curriculum'] === 'sudanese' ? 'سوداني' : ($s['curriculum'] === 'british' ? 'بريطاني' : ($s['curriculum'] === 'bilingual' ? 'ثنائي اللغة' : e($s['curriculum']))) ?>
+                    <?php
+                    $currLabel = 'سوداني';
+                    if ($s['curriculum'] === 'british') $currLabel = 'بريطاني';
+                    elseif ($s['curriculum'] === 'american') $currLabel = 'أمريكي';
+                    elseif ($s['curriculum'] === 'bilingual') $currLabel = 'ثنائي اللغة';
+                    elseif ($s['curriculum'] === 'other') $currLabel = 'أجنبي / آخر';
+                    ?>
+                    <span class="badge" style="background: #F8FAFC; color: #475569; border: 1px solid #E2E8F0; font-size: 0.67rem;">
+                        <i class="fas fa-book-open me-1 text-primary"></i> منهج <?= e($currLabel) ?>
                     </span>
                 <?php endif; ?>
 
-                <?php foreach($stagesArr as $stg): ?>
+                <?php foreach(array_slice($stagesArr, 0, 3) as $stg): ?>
                     <?php if (isset($schoolStages[$stg])): ?>
-                        <span class="badge-stage"><?= e($schoolStages[$stg]) ?></span>
+                        <span class="badge-stage-pill"><?= e($schoolStages[$stg]) ?></span>
                     <?php endif; ?>
                 <?php endforeach; ?>
 
-                <?php if (!empty($s['established_year'])): ?>
-                    <span class="badge" style="background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; font-size: 0.66rem; font-weight: 700;">
+                <?php if ($isHistoric && !empty($s['established_year'])): ?>
+                    <?php $legacy = (int)date('Y') - (int)$s['established_year']; ?>
+                    <span class="badge" style="background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; font-size: 0.67rem; font-weight: 800;">
+                        <i class="fas fa-calendar-alt text-warning me-1"></i> تأسست <?= e($s['established_year']) ?>م<?= ($legacy > 0) ? " ({$legacy} عاماً)" : '' ?>
+                    </span>
+                <?php elseif (!empty($s['established_year'])): ?>
+                    <span class="badge" style="background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; font-size: 0.67rem; font-weight: 700;">
                         <i class="fas fa-calendar-alt me-1"></i> تأسست <?= e($s['established_year']) ?>م
                     </span>
                 <?php endif; ?>
@@ -638,20 +694,20 @@ $renderSchoolRow = function($s) use ($pdo, $schoolStages, $schoolTypes, $q) {
                     <span class="compare-lbl">مقارنة</span>
                 </button>
 
-                <?php if (!empty($whatsapp)): ?>
-                    <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $whatsapp) ?>" target="_blank" class="btn btn-sm btn-outline-success rounded-circle" style="width: 32px; height: 32px; padding: 0; display: inline-flex; align-items: center; justify-content: center;" title="تواصل عبر واتساب" onclick="event.stopPropagation();">
+                <?php if (!empty($whatsapp) && (!empty($s['is_verified']) || !empty($s['is_schoplus_client']))): ?>
+                    <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $whatsapp) ?>" target="_blank" class="btn-card-icon-wa" title="واتساب المدرسة" onclick="event.stopPropagation();">
                         <i class="fab fa-whatsapp"></i>
                     </a>
                 <?php endif; ?>
 
-                <?php if (!empty($phone)): ?>
-                    <a href="tel:<?= preg_replace('/[^0-9+]/', '', $phone) ?>" class="btn btn-sm btn-outline-primary rounded-circle" style="width: 32px; height: 32px; padding: 0; display: inline-flex; align-items: center; justify-content: center;" title="اتصال هاتفي" onclick="event.stopPropagation();">
-                        <i class="fas fa-phone-alt" style="font-size: 0.72rem;"></i>
+                <?php if (!empty($phone) && (!empty($s['is_verified']) || !empty($s['is_schoplus_client']))): ?>
+                    <a href="tel:<?= preg_replace('/[^0-9+]/', '', $phone) ?>" class="btn-card-icon-phone" title="اتصال هاتفي" onclick="event.stopPropagation();">
+                        <i class="fas fa-phone-alt"></i>
                     </a>
                 <?php endif; ?>
 
-                <a href="<?= $schoolUrl ?>" class="<?= $isHistoric ? 'btn-historic-action' : 'btn-luxury-outline' ?> btn-sm py-1.5 px-3" onclick="event.stopPropagation();" style="font-size: 0.74rem;">
-                    <span>الملف التعريفي</span>
+                <a href="<?= $schoolUrl ?>" class="<?= $isHistoric ? 'btn-historic-action' : 'btn-luxury-action' ?>" onclick="event.stopPropagation();">
+                    <span><?= $isHistoric ? 'تصفح الإرث' : 'الملف التعريفي' ?></span>
                     <i class="fas fa-arrow-left"></i>
                 </a>
             </div>
@@ -2046,7 +2102,7 @@ require_once __DIR__ . '/header.php';
 
 /* School Cards (SchoPlus Style F v2) */
 .card-cover-wrap {
-    height: 150px;
+    height: 138px;
     background-size: cover;
     background-position: center;
     position: relative;
@@ -2056,35 +2112,242 @@ require_once __DIR__ . '/header.php';
 .card-cover-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(11,42,82,0.15) 0%, rgba(11,42,82,0.65) 100%);
+    background: linear-gradient(180deg, rgba(11,42,82,0.2) 0%, rgba(11,42,82,0.7) 100%);
+    pointer-events: none;
+}
+.card-cover-topbar {
+    position: absolute;
+    top: 9px;
+    left: 10px;
+    right: 10px;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    pointer-events: none;
+}
+.card-cover-topbar-badges {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: wrap;
+    pointer-events: auto;
+}
+.cover-placeholder-mesh {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0B2A52 0%, #163870 50%, #1E5FA8 100%);
+    overflow: hidden;
+}
+.luxury-card-historic .cover-placeholder-mesh {
+    background: linear-gradient(135deg, #451A03 0%, #78350F 50%, #B45309 100%);
+}
+.cover-placeholder-mesh i {
+    font-size: 4.5rem;
+    color: rgba(255, 255, 255, 0.08);
+    transform: rotate(-10deg);
 }
 .card-logo-badge {
     width: 58px;
     height: 58px;
-    border-radius: 12px;
+    border-radius: 13px;
     background: #FFFFFF;
     padding: 3px;
-    box-shadow: 0 4px 12px rgba(11,42,82,0.12);
+    box-shadow: 0 5px 16px rgba(11,42,82,0.16);
     border: 2px solid #FFFFFF;
     position: absolute;
     bottom: -20px;
     right: 16px;
-    z-index: 2;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .card-logo-badge img {
     width: 100%;
     height: 100%;
-    border-radius: 9px;
-    object-fit: cover;
+    border-radius: 10px;
+    object-fit: contain;
 }
 .clickable-school-card {
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .clickable-school-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 30px rgba(11, 42, 82, 0.12);
+    box-shadow: 0 14px 34px rgba(11, 42, 82, 0.12);
     border-color: #CBD5E1;
+}
+.clickable-school-card:hover .luxury-card-title,
+.clickable-school-card:hover .luxury-row-title {
+    color: #1E5FA8 !important;
+}
+
+/* Luxury Card Body & Typography */
+.luxury-card-body {
+    padding: 26px 16px 14px 16px;
+}
+.luxury-card-title {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #0D1B2E;
+    line-height: 1.35;
+    transition: color 0.18s ease;
+}
+.luxury-card-subtitle {
+    font-size: 0.7rem;
+    color: #7A93AD;
+    font-weight: 600;
+    margin-top: 1px;
+}
+.luxury-card-location {
+    font-size: 0.72rem;
+}
+.school-card-desc {
+    font-size: 0.73rem;
+    line-height: 1.5;
+    color: #475569;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 2.2rem;
+    max-height: 2.2rem;
+}
+.luxury-card-footer {
+    padding-top: 10px;
+    border-top: 1px solid #EDF2F7;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+}
+
+/* Unified Card Capsule Badges (Glassmorphism & Style F v2) */
+.badge-card-pill {
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 2.5px 8px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    line-height: 1.25;
+    white-space: nowrap;
+}
+.badge-pill-rank {
+    background: rgba(11, 42, 82, 0.90);
+    color: #F5A020 !important;
+    border: 1px solid rgba(245, 160, 32, 0.45);
+    box-shadow: 0 2px 6px rgba(11, 42, 82, 0.25);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    pointer-events: auto;
+}
+.badge-pill-historic {
+    background: linear-gradient(135deg, #78350F 0%, #B45309 60%, #D97706 100%) !important;
+    color: #FEF3C7 !important;
+    border: 1px solid #FCD34D !important;
+    box-shadow: 0 2px 6px rgba(120, 53, 15, 0.3) !important;
+}
+.badge-pill-smart {
+    background: #FFFFFF;
+    color: #0B2A52;
+    border: 1.5px solid #1E5FA8;
+    box-shadow: 0 2px 6px rgba(30, 95, 168, 0.15);
+    font-weight: 800;
+}
+.badge-pill-verified {
+    background: rgba(16, 185, 129, 0.92);
+    color: #FFFFFF;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+.badge-pill-public {
+    background: rgba(100, 116, 139, 0.85);
+    color: #FFFFFF;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+/* Quick Action Circle Icon Buttons */
+.btn-card-icon-wa {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #ECFDF5;
+    color: #059669 !important;
+    border: 1px solid #A7F3D0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    text-decoration: none !important;
+    transition: all 0.2s ease;
+}
+.btn-card-icon-wa:hover {
+    background: #059669;
+    color: #FFFFFF !important;
+    border-color: #059669;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(5, 150, 105, 0.28);
+}
+.btn-card-icon-phone {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #EFF6FF;
+    color: #1E5FA8 !important;
+    border: 1px solid #BFDBFE;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    text-decoration: none !important;
+    transition: all 0.2s ease;
+}
+.btn-card-icon-phone:hover {
+    background: #1E5FA8;
+    color: #FFFFFF !important;
+    border-color: #1E5FA8;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(30, 95, 168, 0.28);
+}
+
+/* Primary Action Buttons */
+.btn-luxury-action {
+    background: #FFFFFF;
+    color: #0B2A52 !important;
+    border: 1px solid #DDE4ED;
+    font-weight: 700;
+    font-size: 0.73rem;
+    padding: 5px 12px;
+    border-radius: 8px;
+    text-decoration: none !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+}
+.btn-luxury-action:hover {
+    background: #0B2A52;
+    color: #FFFFFF !important;
+    border-color: #0B2A52;
+    box-shadow: 0 4px 14px rgba(11, 42, 82, 0.2);
+    transform: translateY(-1px);
+}
+.btn-luxury-action i {
+    font-size: 0.68rem;
+    transition: transform 0.2s ease;
+}
+.btn-luxury-action:hover i {
+    transform: translateX(-3px);
 }
 
 /* HISTORIC SCHOOL CARDS (SchoPlus Luxury Heritage Style) */
@@ -2137,11 +2400,6 @@ require_once __DIR__ . '/header.php';
 .historic-ribbon-badge i {
     color: #FCD34D !important;
 }
-.historic-ribbon-year {
-    font-size: 0.64rem;
-    opacity: 0.95;
-    color: #FFFBEB;
-}
 .luxury-card-historic .card-logo-badge {
     border: 2px solid #F5A020 !important;
     box-shadow: 0 4px 14px rgba(245, 160, 32, 0.28) !important;
@@ -2180,20 +2438,28 @@ require_once __DIR__ . '/header.php';
     color: #FFFFFF !important;
     border: 1px solid #F5A020 !important;
     font-weight: 700 !important;
-    font-size: 0.72rem !important;
+    font-size: 0.73rem !important;
+    padding: 5px 12px;
     box-shadow: 0 2px 8px rgba(180, 83, 9, 0.22) !important;
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    border-radius: 6px;
+    border-radius: 8px;
     text-decoration: none !important;
-    transition: all 0.2s ease;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .btn-historic-action:hover {
     background: linear-gradient(135deg, #92400E 0%, #B45309 100%) !important;
     color: #FFFFFF !important;
     box-shadow: 0 4px 14px rgba(180, 83, 9, 0.35) !important;
     transform: translateY(-1px);
+}
+.btn-historic-action i {
+    font-size: 0.68rem;
+    transition: transform 0.2s ease;
+}
+.btn-historic-action:hover i {
+    transform: translateX(-3px);
 }
 
 /* ============================================================
@@ -2202,8 +2468,9 @@ require_once __DIR__ . '/header.php';
 .luxury-row-card {
     background: #FFFFFF;
     border: 1px solid #DDE4ED;
+    border-right: 3.5px solid #1E5FA8 !important;
     border-radius: 14px;
-    padding: 16px 18px;
+    padding: 14px 18px;
     box-shadow: 0 3px 12px rgba(11, 42, 82, 0.04);
     transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
     position: relative;
@@ -2217,6 +2484,7 @@ require_once __DIR__ . '/header.php';
 .luxury-row-card-historic {
     background: linear-gradient(180deg, #FFFDF8 0%, #FFFFFF 100%) !important;
     border: 1.5px solid #F5A020 !important;
+    border-right: 3.5px solid #F5A020 !important;
     box-shadow: 0 4px 18px rgba(245, 160, 32, 0.1) !important;
 }
 .luxury-row-card-historic:hover {
@@ -2224,9 +2492,9 @@ require_once __DIR__ . '/header.php';
     box-shadow: 0 10px 28px rgba(217, 119, 6, 0.18) !important;
 }
 .luxury-row-logo-wrap {
-    width: 68px;
-    height: 68px;
-    min-width: 68px;
+    width: 66px;
+    height: 66px;
+    min-width: 66px;
     border-radius: 12px;
     border: 1px solid #DDE4ED;
     background: #FFFFFF;
@@ -2235,11 +2503,13 @@ require_once __DIR__ . '/header.php';
     justify-content: center;
     position: relative;
     padding: 4px;
+    box-shadow: 0 2px 6px rgba(11, 42, 82, 0.04);
 }
 .luxury-row-logo-wrap img {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
+    border-radius: 8px;
 }
 .luxury-row-rank-badge {
     position: absolute;
@@ -2247,14 +2517,15 @@ require_once __DIR__ . '/header.php';
     left: 50%;
     transform: translateX(-50%);
     background: #0B2A52;
-    color: #FFFFFF;
+    color: #F5A020;
     font-size: 0.58rem;
     font-weight: 800;
     padding: 1px 6px;
     border-radius: 999px;
     white-space: nowrap;
-    border: 1px solid rgba(255,255,255,0.5);
+    border: 1px solid rgba(245, 160, 32, 0.4);
     line-height: 1.2;
+    box-shadow: 0 2px 5px rgba(11, 42, 82, 0.25);
 }
 .luxury-row-title {
     font-weight: 700;
@@ -2264,6 +2535,15 @@ require_once __DIR__ . '/header.php';
 }
 .luxury-row-card:hover .luxury-row-title {
     color: #1E5FA8;
+}
+.luxury-row-desc {
+    font-size: 0.72rem;
+    line-height: 1.45;
+    max-width: 680px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #475569;
 }
 .sp-search-highlight {
     background-color: #FEF3C7;

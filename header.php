@@ -540,7 +540,7 @@ $isDaleelMobile = (
             color: #FFFFFF !important;
         }
 
-        /* Cards & Styling */
+        /* Cards & Styling (SchoPlus Style F v2) */
         .luxury-card {
             background-color: #FFFFFF;
             border: 1px solid #DDE4ED;
@@ -552,9 +552,279 @@ $isDaleelMobile = (
         }
 
         .luxury-card:hover {
-            box-shadow: 0 12px 30px rgba(11, 42, 82, 0.12);
+            box-shadow: 0 14px 34px rgba(11, 42, 82, 0.12);
             transform: translateY(-4px);
             border-color: #CBD5E1;
+        }
+
+        .card-cover-wrap {
+            height: 138px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            background-color: #0B2A52;
+            overflow: hidden;
+        }
+
+        .card-cover-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(11,42,82,0.2) 0%, rgba(11,42,82,0.7) 100%);
+            pointer-events: none;
+        }
+
+        .card-cover-topbar {
+            position: absolute;
+            top: 9px;
+            left: 10px;
+            right: 10px;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            pointer-events: none;
+        }
+
+        .card-cover-topbar-badges {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap;
+            pointer-events: auto;
+        }
+
+        .cover-placeholder-mesh {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0B2A52 0%, #163870 50%, #1E5FA8 100%);
+            overflow: hidden;
+        }
+
+        .luxury-card-historic .cover-placeholder-mesh {
+            background: linear-gradient(135deg, #451A03 0%, #78350F 50%, #B45309 100%);
+        }
+
+        .cover-placeholder-mesh i {
+            font-size: 4.5rem;
+            color: rgba(255, 255, 255, 0.08);
+            transform: rotate(-10deg);
+        }
+
+        .card-logo-badge {
+            width: 58px;
+            height: 58px;
+            border-radius: 13px;
+            background: #FFFFFF;
+            padding: 3px;
+            box-shadow: 0 5px 16px rgba(11,42,82,0.16);
+            border: 2px solid #FFFFFF;
+            position: absolute;
+            bottom: -20px;
+            right: 16px;
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-logo-badge img {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            object-fit: contain;
+        }
+
+        .clickable-school-card {
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .clickable-school-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 34px rgba(11, 42, 82, 0.12);
+            border-color: #CBD5E1;
+        }
+
+        .clickable-school-card:hover .luxury-card-title,
+        .clickable-school-card:hover .luxury-row-title {
+            color: #1E5FA8 !important;
+        }
+
+        .luxury-card-body {
+            padding: 26px 16px 14px 16px;
+        }
+
+        .luxury-card-title {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: #0D1B2E;
+            line-height: 1.35;
+            transition: color 0.18s ease;
+        }
+
+        .luxury-card-subtitle {
+            font-size: 0.7rem;
+            color: #7A93AD;
+            font-weight: 600;
+            margin-top: 1px;
+        }
+
+        .luxury-card-location {
+            font-size: 0.72rem;
+        }
+
+        .school-card-desc {
+            font-size: 0.73rem;
+            line-height: 1.5;
+            color: #475569;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            min-height: 2.2rem;
+            max-height: 2.2rem;
+        }
+
+        .luxury-card-footer {
+            padding-top: 10px;
+            border-top: 1px solid #EDF2F7;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+        }
+
+        /* Unified Card Capsule Badges */
+        .badge-card-pill {
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 2.5px 8px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            line-height: 1.25;
+            white-space: nowrap;
+        }
+
+        .badge-pill-rank {
+            background: rgba(11, 42, 82, 0.90);
+            color: #F5A020 !important;
+            border: 1px solid rgba(245, 160, 32, 0.45);
+            box-shadow: 0 2px 6px rgba(11, 42, 82, 0.25);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            pointer-events: auto;
+        }
+
+        .badge-pill-historic {
+            background: linear-gradient(135deg, #78350F 0%, #B45309 60%, #D97706 100%) !important;
+            color: #FEF3C7 !important;
+            border: 1px solid #FCD34D !important;
+            box-shadow: 0 2px 6px rgba(120, 53, 15, 0.3) !important;
+        }
+
+        .badge-pill-smart {
+            background: #FFFFFF;
+            color: #0B2A52;
+            border: 1.5px solid #1E5FA8;
+            box-shadow: 0 2px 6px rgba(30, 95, 168, 0.15);
+            font-weight: 800;
+        }
+
+        .badge-pill-verified {
+            background: rgba(16, 185, 129, 0.92);
+            color: #FFFFFF;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .badge-pill-public {
+            background: rgba(100, 116, 139, 0.85);
+            color: #FFFFFF;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        /* Quick Action Circle Icon Buttons */
+        .btn-card-icon-wa {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #ECFDF5;
+            color: #059669 !important;
+            border: 1px solid #A7F3D0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            text-decoration: none !important;
+            transition: all 0.2s ease;
+        }
+        .btn-card-icon-wa:hover {
+            background: #059669;
+            color: #FFFFFF !important;
+            border-color: #059669;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(5, 150, 105, 0.28);
+        }
+
+        .btn-card-icon-phone {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #EFF6FF;
+            color: #1E5FA8 !important;
+            border: 1px solid #BFDBFE;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.72rem;
+            text-decoration: none !important;
+            transition: all 0.2s ease;
+        }
+        .btn-card-icon-phone:hover {
+            background: #1E5FA8;
+            color: #FFFFFF !important;
+            border-color: #1E5FA8;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(30, 95, 168, 0.28);
+        }
+
+        /* Primary Action Buttons */
+        .btn-luxury-action {
+            background: #FFFFFF;
+            color: #0B2A52 !important;
+            border: 1px solid #DDE4ED;
+            font-weight: 700;
+            font-size: 0.73rem;
+            padding: 5px 12px;
+            border-radius: 8px;
+            text-decoration: none !important;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+        .btn-luxury-action:hover {
+            background: #0B2A52;
+            color: #FFFFFF !important;
+            border-color: #0B2A52;
+            box-shadow: 0 4px 14px rgba(11, 42, 82, 0.2);
+            transform: translateY(-1px);
+        }
+        .btn-luxury-action i {
+            font-size: 0.68rem;
+            transition: transform 0.2s ease;
+        }
+        .btn-luxury-action:hover i {
+            transform: translateX(-3px);
         }
 
         /* ============================================================
@@ -665,20 +935,28 @@ $isDaleelMobile = (
             color: #FFFFFF !important;
             border: 1px solid #F5A020 !important;
             font-weight: 700 !important;
-            font-size: 0.72rem !important;
+            font-size: 0.73rem !important;
+            padding: 5px 12px;
             box-shadow: 0 2px 8px rgba(180, 83, 9, 0.22) !important;
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            border-radius: 6px;
+            border-radius: 8px;
             text-decoration: none !important;
-            transition: all 0.2s ease;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .btn-historic-action:hover {
             background: linear-gradient(135deg, #92400E 0%, #B45309 100%) !important;
             color: #FFFFFF !important;
             box-shadow: 0 4px 14px rgba(180, 83, 9, 0.35) !important;
             transform: translateY(-1px);
+        }
+        .btn-historic-action i {
+            font-size: 0.68rem;
+            transition: transform 0.2s ease;
+        }
+        .btn-historic-action:hover i {
+            transform: translateX(-3px);
         }
 
         /* Badges */
