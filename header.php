@@ -1258,88 +1258,133 @@ $isDaleelMobile = (
             }
         }
 
-        /* Live AI Discovery Ticker Bar (Style F v2) */
+        /* Live AI Discovery & Verification Activity Bar (Style F v2 - Placed Below Header) */
         .daleel-live-bar {
-            background: linear-gradient(90deg, #0B2A52 0%, #163870 50%, #0B2A52 100%);
+            background: linear-gradient(90deg, #0B2A52 0%, #12356B 45%, #184282 75%, #0B2A52 100%);
             border-bottom: 2px solid #F5A020;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
             color: #FFFFFF;
-            font-size: 0.73rem;
-            z-index: 1040;
+            font-size: 0.74rem;
+            z-index: 1030;
             position: relative;
-            box-shadow: 0 2px 10px rgba(11, 42, 82, 0.18);
+            box-shadow: 0 4px 14px rgba(11, 42, 82, 0.10);
+        }
+        .daleel-live-bar .container {
+            min-height: 38px;
         }
         .live-pulse-badge {
             display: inline-flex;
             align-items: center;
-            background: rgba(245, 160, 32, 0.18);
+            background: rgba(245, 160, 32, 0.16);
             border: 1px solid rgba(245, 160, 32, 0.45);
-            color: #F5A020;
-            font-size: 0.62rem;
+            color: #FCD34D;
+            font-size: 0.65rem;
             font-weight: 800;
-            padding: 2px 8px;
+            padding: 3px 9px;
             border-radius: 999px;
             white-space: nowrap;
             gap: 5px;
+            line-height: 1.2;
+            letter-spacing: 0.2px;
             transition: all 0.3s ease;
+            flex-shrink: 0;
         }
         .live-pulse-badge.badge-verified {
             background: rgba(16, 185, 129, 0.18);
-            border-color: rgba(16, 185, 129, 0.45);
-            color: #10B981;
+            border-color: rgba(16, 185, 129, 0.5);
+            color: #34D399;
         }
         .pulse-dot {
-            width: 6px;
-            height: 6px;
-            background: #10B981;
+            width: 7px;
+            height: 7px;
             border-radius: 50%;
             display: inline-block;
+            flex-shrink: 0;
             animation: livePulseDot 1.6s infinite;
         }
+        .live-pulse-badge:not(.badge-verified) .pulse-dot {
+            background: #F5A020;
+            box-shadow: 0 0 6px #F5A020;
+        }
+        .live-pulse-badge.badge-verified .pulse-dot {
+            background: #10B981;
+            box-shadow: 0 0 6px #10B981;
+        }
         @keyframes livePulseDot {
-            0% { transform: scale(0.9); opacity: 0.8; }
-            50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 6px #10B981; }
-            100% { transform: scale(0.9); opacity: 0.8; }
+            0% { transform: scale(0.85); opacity: 0.75; }
+            50% { transform: scale(1.3); opacity: 1; }
+            100% { transform: scale(0.85); opacity: 0.75; }
         }
         .live-ticker-text {
-            font-size: 0.73rem;
+            font-size: 0.74rem;
             color: #E2E8F0;
+            line-height: 1.4;
             transition: opacity 0.25s ease, transform 0.25s ease;
         }
         .live-ticker-text strong {
             color: #FFFFFF;
             font-weight: 700;
+            letter-spacing: -0.1px;
+        }
+        .live-ticker-loc {
+            color: #93C5FD;
+            font-size: 0.71rem;
+            font-weight: 600;
         }
         .live-btn-visit {
-            background: #F5A020;
+            background: linear-gradient(135deg, #F5A020 0%, #E08E15 100%);
             color: #FFFFFF !important;
-            font-size: 0.66rem;
-            font-weight: 700;
-            padding: 3px 10px;
-            border-radius: 6px;
+            font-size: 0.68rem;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 999px;
             text-decoration: none;
             white-space: nowrap;
-            transition: all 0.2s;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
             display: inline-flex;
             align-items: center;
+            gap: 5px;
+            box-shadow: 0 2px 6px rgba(245, 160, 32, 0.35);
+            flex-shrink: 0;
         }
         .live-btn-visit:hover {
-            background: #E08E15;
+            background: linear-gradient(135deg, #FFB03A 0%, #F5A020 100%);
             color: #FFFFFF !important;
             transform: translateY(-1px);
-            box-shadow: 0 3px 10px rgba(245, 160, 32, 0.45);
+            box-shadow: 0 4px 12px rgba(245, 160, 32, 0.5);
         }
         @media (max-width: 576px) {
-            .live-pulse-badge span:not(.pulse-dot), .live-pulse-badge i {
-                display: none;
+            .daleel-live-bar {
+                font-size: 0.71rem;
+            }
+            .daleel-live-bar .container {
+                min-height: 35px;
+                padding-left: 8px !important;
+                padding-right: 8px !important;
             }
             .live-pulse-badge {
-                padding: 4px;
+                font-size: 0.6rem;
+                padding: 2px 7px;
+                gap: 4px;
             }
-            .live-btn-visit span {
-                display: none;
+            .live-pulse-badge i {
+                font-size: 0.62rem;
+            }
+            .pulse-dot {
+                width: 6px;
+                height: 6px;
+            }
+            .live-ticker-text {
+                font-size: 0.71rem;
+            }
+            .live-ticker-loc {
+                font-size: 0.68rem;
             }
             .live-btn-visit {
-                padding: 4px 7px;
+                font-size: 0.64rem;
+                padding: 3px 9px;
+                gap: 4px;
+                border-radius: 6px;
             }
         }
     </style>
@@ -1405,118 +1450,6 @@ $isDaleelMobile = (
         </div>
     </div>
 
-    <!-- Live AI Discovery & Verification Ticker Bar (Top Activity Notifications for Visitors) -->
-    <?php
-    $daleelLiveRecent = [];
-    try {
-        $livePdo = function_exists('db') ? db() : ($pdo ?? null);
-        if ($livePdo) {
-            $liveQ = $livePdo->query("SELECT id, name, slug, state, city, country, school_type, stages, is_verified, created_at, updated_at 
-                                      FROM daleel_schools 
-                                      WHERE status = 'approved' 
-                                      ORDER BY id DESC 
-                                      LIMIT 50");
-            if ($liveQ) {
-                $daleelLiveRecent = $liveQ->fetchAll(PDO::FETCH_ASSOC);
-            }
-        }
-    } catch (Throwable $e) {}
-    ?>
-    <?php if (!empty($daleelLiveRecent)): ?>
-    <div id="daleelLiveActivityBar" class="daleel-live-bar" style="display: none;">
-        <div class="container d-flex align-items-center justify-content-between py-1 px-3">
-            <div class="d-flex align-items-center gap-2 overflow-hidden flex-grow-1" style="min-width: 0;">
-                <span id="daleelLiveBadge" class="live-pulse-badge">
-                    <span class="pulse-dot"></span>
-                    <i id="daleelLiveBadgeIcon" class="fas fa-robot text-warning me-1"></i> <span id="daleelLiveBadgeText">استكشاف ذكي</span>
-                </span>
-                <div id="daleelLiveTickerText" class="live-ticker-text text-truncate">
-                    <!-- Populated dynamically via JS -->
-                </div>
-            </div>
-            <div class="d-flex align-items-center gap-2 ms-2 flex-shrink-0">
-                <a id="daleelLiveActionLink" href="#" class="live-btn-visit">
-                    <span>زيارة صفحة المدرسة</span>
-                    <i class="fas fa-arrow-left ms-1"></i>
-                </a>
-            </div>
-        </div>
-    </div>
-    <script>
-    (function() {
-        var rawLive = <?= json_encode($daleelLiveRecent, JSON_UNESCAPED_UNICODE) ?>;
-        if (!rawLive || rawLive.length === 0) return;
-
-        var bar = document.getElementById('daleelLiveActivityBar');
-        var ticker = document.getElementById('daleelLiveTickerText');
-        var link = document.getElementById('daleelLiveActionLink');
-        var badge = document.getElementById('daleelLiveBadge');
-        var badgeIcon = document.getElementById('daleelLiveBadgeIcon');
-        var badgeText = document.getElementById('daleelLiveBadgeText');
-        if (!bar || !ticker || !link) return;
-
-        var cur = 0;
-        var INTERVAL_MS = 10000;
-        var tickerTimer = null;
-
-        function renderLiveIdx(i) {
-            var s = rawLive[i];
-            if (!s) return;
-            ticker.style.opacity = '0';
-            ticker.style.transform = 'translateY(-3px)';
-            setTimeout(function() {
-                var isVerified = parseInt(s.is_verified, 10) === 1;
-                var loc = s.state ? ' (' + s.state + (s.city ? ' — ' + s.city : '') + ')' : '';
-
-                if (badge && badgeIcon && badgeText) {
-                    if (isVerified) {
-                        badge.className = 'live-pulse-badge badge-verified';
-                        badgeIcon.className = 'fas fa-shield-alt text-success me-1';
-                        badgeText.textContent = 'توثيق رسمي';
-                    } else {
-                        badge.className = 'live-pulse-badge';
-                        badgeIcon.className = 'fas fa-robot text-warning me-1';
-                        badgeText.textContent = 'استكشاف ذكي';
-                    }
-                }
-
-                if (isVerified) {
-                    ticker.innerHTML = 'تم توثيق واعتماد مدرسة <strong>' + (s.name || '') + '</strong>' + loc + ' رسمياً في الدليل';
-                    link.title = 'زيارة صفحة ' + (s.name || '') + ' الموثقة';
-                } else {
-                    ticker.innerHTML = 'تمت إضافة مدرسة <strong>' + (s.name || '') + '</strong>' + loc + ' آلياً بواسطة محرك الاستكشاف الذكي للدليل';
-                    link.title = 'زيارة صفحة ' + (s.name || '');
-                }
-
-                link.href = '/school/' + encodeURIComponent(s.slug);
-                ticker.style.opacity = '1';
-                ticker.style.transform = 'translateY(0)';
-            }, 200);
-        }
-
-        bar.style.display = 'block';
-        renderLiveIdx(0);
-
-        function startTicker() {
-            if (tickerTimer) clearInterval(tickerTimer);
-            tickerTimer = setInterval(function() {
-                cur = (cur + 1) % rawLive.length;
-                renderLiveIdx(cur);
-            }, INTERVAL_MS);
-        }
-
-        startTicker();
-
-        bar.addEventListener('mouseenter', function() {
-            if (tickerTimer) clearInterval(tickerTimer);
-        });
-        bar.addEventListener('mouseleave', function() {
-            startTicker();
-        });
-    })();
-    </script>
-    <?php endif; ?>
-
     <!-- Main Navigation Header (Clean Minimalist: Brand + Actions) -->
     <header class="daleel-navbar">
         <div class="container d-flex justify-content-between align-items-center">
@@ -1554,6 +1487,131 @@ $isDaleelMobile = (
 
         </div>
     </header>
+
+    <!-- Live AI Discovery & Verification Ticker Bar (Placed BELOW Header) -->
+    <?php
+    $daleelLiveRecent = [];
+    try {
+        $livePdo = function_exists('db') ? db() : ($pdo ?? null);
+        if ($livePdo) {
+            $liveQ = $livePdo->query("SELECT id, name, slug, state, city, country, school_type, stages, is_verified, created_at, updated_at 
+                                      FROM daleel_schools 
+                                      WHERE status = 'approved' 
+                                      ORDER BY id DESC 
+                                      LIMIT 50");
+            if ($liveQ) {
+                $daleelLiveRecent = $liveQ->fetchAll(PDO::FETCH_ASSOC);
+            }
+        }
+    } catch (Throwable $e) {}
+    ?>
+    <?php if (!empty($daleelLiveRecent)): ?>
+    <div id="daleelLiveActivityBar" class="daleel-live-bar" style="display: none;">
+        <div class="container d-flex align-items-center justify-content-between py-1 px-2 px-md-3">
+            <div class="d-flex align-items-center gap-2 overflow-hidden flex-grow-1" style="min-width: 0;">
+                <span id="daleelLiveBadge" class="live-pulse-badge">
+                    <span class="pulse-dot"></span>
+                    <i id="daleelLiveBadgeIcon" class="fas fa-robot text-warning me-1"></i>
+                    <span id="daleelLiveBadgeText" class="d-none d-sm-inline">استكشاف ذكي</span>
+                    <span id="daleelLiveBadgeTextMobile" class="d-inline d-sm-none">استكشاف</span>
+                </span>
+                <div id="daleelLiveTickerText" class="live-ticker-text text-truncate">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </div>
+            <div class="d-flex align-items-center ms-2 flex-shrink-0">
+                <a id="daleelLiveActionLink" href="#" class="live-btn-visit">
+                    <span class="d-none d-sm-inline">زيارة صفحة المدرسة</span>
+                    <span class="d-inline d-sm-none">عرض</span>
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <script>
+    (function() {
+        var rawLive = <?= json_encode($daleelLiveRecent, JSON_UNESCAPED_UNICODE) ?>;
+        if (!rawLive || rawLive.length === 0) return;
+
+        var bar = document.getElementById('daleelLiveActivityBar');
+        var ticker = document.getElementById('daleelLiveTickerText');
+        var link = document.getElementById('daleelLiveActionLink');
+        var badge = document.getElementById('daleelLiveBadge');
+        var badgeIcon = document.getElementById('daleelLiveBadgeIcon');
+        var badgeText = document.getElementById('daleelLiveBadgeText');
+        var badgeTextMobile = document.getElementById('daleelLiveBadgeTextMobile');
+        if (!bar || !ticker || !link) return;
+
+        var cur = 0;
+        var INTERVAL_MS = 10000;
+        var tickerTimer = null;
+
+        function renderLiveIdx(i) {
+            var s = rawLive[i];
+            if (!s) return;
+            ticker.style.opacity = '0';
+            ticker.style.transform = 'translateY(-3px)';
+            setTimeout(function() {
+                var isVerified = parseInt(s.is_verified, 10) === 1;
+                var locStr = s.state ? (s.city ? s.state + ' — ' + s.city : s.state) : (s.country && s.country !== 'SD' ? s.country : '');
+                var locHtml = locStr ? '<span class="live-ticker-loc ms-1">(' + locStr + ')</span>' : '';
+
+                if (badge && badgeIcon && badgeText && badgeTextMobile) {
+                    if (isVerified) {
+                        badge.className = 'live-pulse-badge badge-verified';
+                        badgeIcon.className = 'fas fa-shield-alt text-success me-1';
+                        badgeText.textContent = 'توثيق رسمي';
+                        badgeTextMobile.textContent = 'توثيق';
+                    } else {
+                        badge.className = 'live-pulse-badge';
+                        badgeIcon.className = 'fas fa-robot text-warning me-1';
+                        badgeText.textContent = 'استكشاف ذكي';
+                        badgeTextMobile.textContent = 'استكشاف';
+                    }
+                }
+
+                if (isVerified) {
+                    ticker.innerHTML = '<span class="d-none d-md-inline text-white-50">تم توثيق مدرسة </span>' +
+                                       '<strong>' + (s.name || '') + '</strong>' +
+                                       locHtml +
+                                       '<span class="d-none d-lg-inline text-white-50 me-1"> رسمياً في الدليل</span>';
+                    link.title = 'زيارة صفحة ' + (s.name || '') + ' الموثقة';
+                } else {
+                    ticker.innerHTML = '<span class="d-none d-md-inline text-white-50">تمت إضافة مدرسة </span>' +
+                                       '<strong>' + (s.name || '') + '</strong>' +
+                                       locHtml +
+                                       '<span class="d-none d-lg-inline text-white-50 me-1"> عبر محرك الاستكشاف</span>';
+                    link.title = 'زيارة صفحة ' + (s.name || '');
+                }
+
+                link.href = '/school/' + encodeURIComponent(s.slug);
+                ticker.style.opacity = '1';
+                ticker.style.transform = 'translateY(0)';
+            }, 200);
+        }
+
+        bar.style.display = 'block';
+        renderLiveIdx(0);
+
+        function startTicker() {
+            if (tickerTimer) clearInterval(tickerTimer);
+            tickerTimer = setInterval(function() {
+                cur = (cur + 1) % rawLive.length;
+                renderLiveIdx(cur);
+            }, INTERVAL_MS);
+        }
+
+        startTicker();
+
+        bar.addEventListener('mouseenter', function() {
+            if (tickerTimer) clearInterval(tickerTimer);
+        });
+        bar.addEventListener('mouseleave', function() {
+            startTicker();
+        });
+    })();
+    </script>
+    <?php endif; ?>
     <?php endif; ?>
 
     <main>
