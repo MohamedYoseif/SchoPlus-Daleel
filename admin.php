@@ -47,6 +47,48 @@ if (!function_exists('getCountryBadge')) {
     }
 }
 
+if (!function_exists('buildWhatsAppMessageText')) {
+    function buildWhatsAppMessageText(string $schoolName, string $schoolSlug = ''): string {
+        $schoolUrl = !empty($schoolSlug) ? "https://daleel.schoplus.sd/school/" . $schoolSlug : "https://daleel.schoplus.sd";
+
+        $paragraphs = [
+            "السلام عليكم ورحمة الله وبركاته،",
+            "إدارة مدرسة *{$schoolName}* الموقرة،",
+            "تحية طيبة لكم من منصة *دليل المدارس السودانية (SchoPlus Daleel)*.",
+            "",
+            "◆ *الهدف من المنصة والرؤية:*",
+            "«دليل المدارس السودانية» هو المنصة الرقمية الموحدة لتوثيق وربط المدارس في كافة الولايات ودول المهجر، بهدف:",
+            "• توفير تواجد رقمي رسمي ومجاني لكل مدرسة على الإنترنت.",
+            "• تسهيل وصول آلاف أولياء الأمور والطلاب إلى بيانات المدارس، مراحلها، ومواقعها للتواصل المباشر مع الإدارة.",
+            "• تعزيز الشفافية والمصداقية ودعم مسيرة التعليم السوداني.",
+            "",
+            "◆ *كيف تمت إضافة مدرستكم؟*",
+            "نود إحاطتكم بأنه قد تمت إضافة البيانات الأساسية لمدرستكم مبدئياً وبشكل آلي عبر *محرك استكشاف وبحث ذكي معتمد*، استناداً إلى السجلات التعليمية والإعلانات العامة المتاحة.",
+            "",
+            "◆ *رابط صفحة مدرستكم في الدليل:*",
+            "{$schoolUrl}",
+            "",
+            "◆ *المزايا والخيارات المتاحة لكم:*",
+            "[1] *توثيق المدرسة واستلام لوحة الإدارة مجاناً*: لإضافة شعار المدرسة، المراحل الدراسية، الرسوم، وصور المباني وأرقام التواصل المباشرة.",
+            "[2] *تحديث وتصحيح أي بيانات*: لضمان دقة المعلومات المعروضة لأولياء الأمور.",
+            "[3] *طلب الحذف التام*: في حال رغبتم بعدم إدراج مدرستكم في الدليل، يتم الحذف فوراً دون أي شروط.",
+            "",
+            "◆ *اطمئنان وتأكيد أمني (حماية ضد الاحتيال):*",
+            "نؤكد لكم أن هذه المبادرة تعليمية وتوثيقية رسمية، ولن نطلب منكم أي بيانات بنكية أو كلمات سر إطلاقاً.",
+            "وللتأكد التام والاطمئنان من مصداقية المنصة والرابط، يمكنكم البحث مباشرة في محرك البحث Google عن عبارة:",
+            "« دليل المدارس السودانية »",
+            "وستجدون موقعنا الرسمي يتصدر النتائج الأولى: daleel.schoplus.sd",
+            "",
+            "للتوثيق أو التحديث أو طلب الحذف، يمكنكم زيارة رابط صفحتكم والضغط على زر *\"إثبات ملكية المدرسة\"*، أو الرد مباشرة على هذه المحادثة وسيسعد فريقنا بخدمتكم.",
+            "",
+            "شاكرين ومقدرين جهودكم ورسالتكم التعليمية النبيلة،",
+            "*فريق عمل دليل المدارس السودانية — SchoPlus*"
+        ];
+
+        return implode("\r\n", $paragraphs);
+    }
+}
+
 if (!function_exists('formatWhatsAppUrl')) {
     function formatWhatsAppUrl(?string $phone, string $schoolName, string $schoolSlug = '', string $country = 'السودان'): ?string {
         $raw = trim((string)$phone);
@@ -61,35 +103,8 @@ if (!function_exists('formatWhatsAppUrl')) {
             $digits = '249' . $digits;
         }
 
-        $schoolUrl = !empty($schoolSlug) ? "https://daleel.schoplus.sd/school/" . urlencode($schoolSlug) : "https://daleel.schoplus.sd";
-
-        $msg = "السلام عليكم ورحمة الله وبركاته،\n"
-             . "إدارة مدرسة *{$schoolName}* الموقرة،\n"
-             . "تحية طيبة لكم من منصة *دليل المدارس السودانية (SchoPlus Daleel)* 🇸🇩.\n\n"
-             . "📌 *الهدف من المنصة والرؤية:*\n"
-             . "«دليل المدارس السودانية» هو المنصة الرقمية الموحدة لتوثيق وربط المدارس في كافة الولايات ودول المهجر، بهدف:\n"
-             . "• توفير تواجد رقمي رسمي ومجاني لكل مدرسة على الإنترنت.\n"
-             . "• تسهيل وصول آلاف أولياء الأمور والطلاب إلى بيانات المدارس، مراحلها، ومواقعها الجغرافية للتواصل المباشر مع الإدارة.\n"
-             . "• تعزيز الشفافية والمصداقية ودعم مسيرة التعليم السوداني.\n\n"
-             . "🤖 *كيف تمت إضافة مدرستكم؟*\n"
-             . "نود إحاطتكم بأنه قد تمت إضافة البيانات الأساسية لمدرستكم مبدئياً وبشكل آلي عبر *محرك استكشاف وبحث ذكي معتمد*، استناداً إلى السجلات التعليمية والإعلانات العامة المتاحة.\n\n"
-             . "🔗 *رابط صفحة مدرستكم في الدليل:*\n"
-             . "{$schoolUrl}\n\n"
-             . "🌟 *المزايا والخيارات المتاحة لكم:*\n"
-             . "1️⃣ *توثيق المدرسة واستلام لوحة الإدارة مجاناً*: لإضافة شعار المدرسة، المراحل الدراسية، الرسوم، وصور المباني وأرقام التواصل المباشرة.\n"
-             . "2️⃣ *تحديث وتصحيح أي بيانات*: لضمان دقة المعلومات المعروضة لأولياء الأمور.\n"
-             . "3️⃣ *طلب الحذف التام*: في حال رغبتم بعدم إدراج مدرستكم في الدليل، يتم الحذف فوراً دون أي شروط.\n\n"
-             . "🔒 *اطمئنان وتأكيد أمني (حماية ضد الاحتيال):*\n"
-             . "نؤكد لكم أن هذه المبادرة تعليمية رسمية وموثقة، ولن نطلب منكم أي بيانات بنكية أو كلمات سر إطلاقاً.\n"
-             . "وللتأكد التام والاطمئنان من مصداقية المنصة والرابط، يمكنكم البحث مباشرة في محرك البحث Google عن عبارة:\n"
-             . "« دليل المدارس السودانية »\n"
-             . "وستجدون موقعنا الرسمي يتصدر النتائج الأولى:\n"
-             . "daleel.schoplus.sd\n\n"
-             . "للتوثيق أو التحديث أو طلب الحذف، يمكنكم زيارة رابط صفحتكم والضغط على زر *\"إثبات ملكية المدرسة\"*، أو الرد مباشرة على هذه المحادثة وسيسعد فريقنا بخدمتكم.\n\n"
-             . "شاكرين ومقدرين جهودكم ورسالتكم التعليمية النبيلة،\n"
-             . "فريق عمل دليل المدارس السودانية — SchoPlus";
-
-        return "https://wa.me/{$digits}?text=" . urlencode($msg);
+        $msgText = buildWhatsAppMessageText($schoolName, $schoolSlug);
+        return "https://wa.me/{$digits}?text=" . rawurlencode($msgText);
     }
 }
 
@@ -1103,6 +1118,10 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                                                             <a href="<?= e($waUrl) ?>" target="_blank" class="btn btn-sm text-white d-inline-flex align-items-center gap-1 py-0 px-2" style="font-size: 0.68rem; height: 23px; border-radius: 6px; background-color: #25D366; border-color: #25D366;" title="مراسلة واتساب بالرسالة الترحيبية والتعريفية">
                                                                 <i class="fab fa-whatsapp"></i> <span>واتساب</span>
                                                             </a>
+                                                            <button type="button" class="btn btn-sm btn-outline-success d-inline-flex align-items-center justify-content-center p-0" style="width: 23px; height: 23px; border-radius: 6px;" onclick="copySchoolMessage(<?= $sch['id'] ?>)" title="نسخ نص الرسالة الترحيبية للحافظة">
+                                                                <i class="fas fa-copy" style="font-size: 0.65rem;"></i>
+                                                            </button>
+                                                            <div id="msg-text-<?= $sch['id'] ?>" style="display: none;"><?= e(buildWhatsAppMessageText($sch['name'], $sch['slug'] ?? '')) ?></div>
                                                         <?php endif; ?>
                                                         <a href="tel:<?= e($phoneVal) ?>" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center justify-content-center p-0" style="width: 23px; height: 23px; border-radius: 6px;" title="اتصال هاتفي">
                                                             <i class="fas fa-phone-alt" style="font-size: 0.65rem;"></i>
@@ -1695,6 +1714,17 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
             }
         })
         .catch(err => showAdminToast('حدث خطأ في الاتصال بالخادم.', 'danger'));
+    }
+
+    function copySchoolMessage(schoolId) {
+        const el = document.getElementById('msg-text-' + schoolId);
+        if (!el) return;
+        const text = el.innerText || el.textContent;
+        navigator.clipboard.writeText(text).then(() => {
+            showAdminToast('تم نسخ نص الرسالة الترحيبية المنسق للحافظة بنجاح ✅ يمكنك لصقها الآن في محادثة المدرسة مباشرة', 'success');
+        }).catch(err => {
+            showAdminToast('تعذر النسخ التلقائي، يمكنك استخدام زر واتساب المباشر', 'warning');
+        });
     }
 
     function approveClaim(claimId) {
