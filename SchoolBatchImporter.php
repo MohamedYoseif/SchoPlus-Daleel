@@ -28,6 +28,36 @@ class SchoolBatchImporter
     }
 
     /**
+     * Validate if a phone number is genuine and not a placeholder/dummy pattern
+     */
+    public static function isValidRealPhone(?string $phone): bool
+    {
+        if (!$phone) return false;
+        $digits = preg_replace('/[^0-9]/', '', $phone);
+        if (strlen($digits) < 9 || strlen($digits) > 15) return false;
+
+        // Dummy/Placeholder checks
+        $dummyNumbers = [
+            '249912389100', '249912376820', '249912389010', '249912378940',
+            '249123456012', '249912778899', '249912445566', '249912667788',
+            '249912556677', '249912334455', '249912448833', '249912448822',
+            '249912445588', '249912771144', '249912551188', '249912338877',
+            '249912441122', '249912447788', '249912440011', '249912558822',
+            '249912558833', '123456012', '0100000000', '0900000000'
+        ];
+
+        foreach ($dummyNumbers as $d) {
+            if (str_contains($digits, $d)) return false;
+        }
+
+        // Repeating sequences (e.g. 5 identical consecutive digits, or sequential patterns)
+        if (preg_match('/(.)\1{4,}/', $digits)) return false;
+        if (preg_match('/123456|654321|445566|778899|112233|223344|334455|556677/', $digits)) return false;
+
+        return true;
+    }
+
+    /**
      * Generate unique URL slug
      */
     public function generateSlug(string $name, ?string $state = null): string
@@ -126,17 +156,26 @@ class SchoolBatchImporter
         $stages = json_encode($deducedStages, JSON_UNESCAPED_UNICODE);
         
         $phone = trim($data['phone'] ?? '');
-        // Guard against fabricated or placeholder phone numbers
-        if ($phone === '' || $phone === '0100000000' || preg_match('/0{4,}/', $phone)) {
+        if (!self::isValidRealPhone($phone)) {
             $phone = null;
         }
 
         $whatsapp = trim($data['whatsapp'] ?? '');
-        if ($whatsapp === '' && $phone) {
+        if (!self::isValidRealPhone($whatsapp)) {
             $whatsapp = $phone;
         }
-        if ($whatsapp === '0100000000' || preg_match('/0{4,}/', (string)$whatsapp)) {
-            $whatsapp = null;
+
+        // STRICT ZERO-PHONE PROHIBITION FOR PRIVATE INSTITUTIONS:
+        // "سنجعل البحث اكثر صرامة في المدارس الخاصة مالم تجد رقم هاتف حقيقي لا تقم باضافة اي مدرسة"
+        if ($schoolType !== 'government') {
+            $hasRealPhone = ($phone !== null || $whatsapp !== null);
+            if (!$hasRealPhone) {
+                return [
+                    'status' => 'skipped',
+                    'message' => 'مرفوضة: مدرسة خاصة تفتقر لرقم هاتف حقيقي موثق (قاعدة الصرامة الصفرية للمدارس الخاصة)',
+                    'name' => $name
+                ];
+            }
         }
 
         $email = trim($data['email'] ?? '');

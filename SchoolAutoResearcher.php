@@ -275,6 +275,16 @@ class SchoolAutoResearcher {
             $schoolType = SudanGeography::deduceSchoolType($formattedName, 'private');
         }
 
+        // STRICT ZERO-PHONE PROHIBITION FOR PRIVATE INSTITUTIONS:
+        // "سنجعل البحث اكثر صرامة في المدارس الخاصة مالم تجد رقم هاتف حقيقي لا تقم باضافة اي مدرسة"
+        if ($schoolType !== 'government') {
+            return [
+                'success' => false,
+                'error' => 'مرفوضة: مدرسة خاصة تفتقر لرقم هاتف حقيقي موثق (قاعدة الصرامة الصفرية للمدارس الخاصة)',
+                'school' => null
+            ];
+        }
+
         if ($schoolType === 'kindergarten') {
             $stages = ['kindergarten'];
         } else {
