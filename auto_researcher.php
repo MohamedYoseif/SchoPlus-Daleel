@@ -42,13 +42,18 @@ if ($isCli) {
 // 2. SECURITY GATE FOR WEB ACCESS (ADMIN / BACKGROUND SECRET ONLY)
 // =========================================================================
 $adminSecretKey = "schoplus_daleel_deploy_sec_4412f";
-$providedKey = $_GET['key'] ?? ($_POST['key'] ?? '');
-$isAuthAdmin = (!empty($_SESSION['school_id']));
+$providedKey = $_GET['key'] ?? ($_POST['key'] ?? ($_SESSION['admin_key'] ?? ''));
+$isAuthAdmin = (!empty($_SESSION['school_id']) || !empty($_SESSION['daleel_admin_authorized']));
 
 if (!$isAuthAdmin && $providedKey !== $adminSecretKey) {
     http_response_code(403);
     header('Location: /');
     exit;
+}
+
+if ($providedKey === $adminSecretKey) {
+    $_SESSION['daleel_admin_authorized'] = true;
+    $_SESSION['admin_key'] = $adminSecretKey;
 }
 
 $pageTitle = 'الباحث الآلي المدمج للمدارس — لوحة التحكم بالخلفية';
@@ -65,6 +70,10 @@ $recentDiscovered = $pdo->query("SELECT id, name, name_en, slug, state, city, di
 
 require __DIR__ . '/header.php';
 ?>
+
+<script>
+window.DALEEL_API_KEY = "<?= htmlspecialchars($providedKey ?: $adminSecretKey) ?>";
+</script>
 
 <div class="container py-4">
     <!-- Breadcrumb -->
@@ -421,10 +430,10 @@ function runStudioResearch() {
         </div>
     `;
 
-    fetch('/api_deep_research.php', {
+    fetch('api_deep_research.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query: q, city: ct })
+        body: JSON.stringify({ query: q, city: ct, key: window.DALEEL_API_KEY || '' })
     })
     .then(r => r.json())
     .then(data => {
@@ -469,7 +478,7 @@ function renderStudioDossier(d) {
                 <div class="d-flex flex-wrap gap-1.5 align-items-center">
                     <span class="badge bg-light text-dark border"><i class="fas fa-map-marker-alt text-danger me-1"></i> ${d.state} — ${d.city} (${d.district})</span>
                     <span class="badge" style="background: #EFF6FF; color: #1E5FA8; border: 1px solid #BFDBFE;">${d.curriculum === 'british' ? 'منهج بريطاني' : 'منهج سوداني'}</span>
-                    ${d.exists_in_db ? `<span class="badge bg-warning text-dark"><i class="fas fa-database me-1"></i> مسجلة بالدليل (#${d.existing_rank || d.existing_id})</span>` : `<span class="badge bg-success text-white"><i class="fas fa-sparkles me-1"></i> جديدة</span>`}
+                    ${d.exists_in_db ? `<span class="badge bg-warning text-dark"><i class="fas fa-database me-1"></i> مسجلة بالدليل (#${d.existing_rank || d.existing_id})</span> <a href="/school.php?slug=${d.slug || d.existing_id}" target="_blank" class="btn btn-sm btn-outline-dark py-0 px-2 shadow-none" style="font-size: 0.68rem;"><i class="fas fa-external-link-alt me-1"></i> فتح الصفحة بالدليل</a>` : `<span class="badge bg-success text-white"><i class="fas fa-sparkles me-1"></i> مدرسة جديدة</span>`}
                 </div>
             </div>
 
@@ -518,12 +527,12 @@ function renderStudioDossier(d) {
 
                         <div class="col-lg-3 col-sm-6 col-12">
                             <label class="form-label small fw-bold text-dark mb-1">الهاتف الموثق (إن وجد بالخريطة أو فيسبوك)</label>
-                            <input type="text" id="dosPhone" class="form-control form-control-sm" placeholder="فارغ إن لم يتوفر">
+                            <input type="text" id="dosPhone" class="form-control form-control-sm" placeholder="فارغ إن لم يتوفر" value="${d.phone || ''}">
                         </div>
 
                         <div class="col-lg-3 col-sm-6 col-12">
                             <label class="form-label small fw-bold text-dark mb-1">الواتساب</label>
-                            <input type="text" id="dosWhatsapp" class="form-control form-control-sm" placeholder="فارغ إن لم يتوفر">
+                            <input type="text" id="dosWhatsapp" class="form-control form-control-sm" placeholder="فارغ إن لم يتوفر" value="${d.whatsapp || ''}">
                         </div>
 
                         <div class="col-lg-6 col-12">
@@ -548,12 +557,12 @@ function renderStudioDossier(d) {
 
                         <div class="col-lg-4 col-sm-6 col-12">
                             <label class="form-label small fw-bold text-dark mb-1">سنة التأسيس (اختياري)</label>
-                            <input type="text" id="dosYear" class="form-control form-control-sm" placeholder="مثال: 2012">
+                            <input type="text" id="dosYear" class="form-control form-control-sm" placeholder="مثال: 2012" value="${d.established_year || ''}">
                         </div>
 
                         <div class="col-12">
                             <label class="form-label small fw-bold text-dark mb-1"><i class="fas fa-align-left text-muted me-1"></i> النبذة التعريفية الشاملة عن المدرسة</label>
-                            <textarea id="dosDesc" class="form-control form-control-sm" rows="3">${d.description}</textarea>
+                            <textarea id="dosDesc" class="form-control form-control-sm" rows="3">${d.description || ''}</textarea>
                         </div>
                     </div>
 
@@ -599,6 +608,7 @@ function commitStudioDossier(state, city, district, schoolType) {
     btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> جاري الحفظ والاعتماد بالدليل...';
 
     const fd = new FormData();
+    fd.append('key', window.DALEEL_API_KEY || '');
     fd.append('query', name);
     fd.append('state', state);
     fd.append('city', city);
@@ -613,7 +623,7 @@ function commitStudioDossier(state, city, district, schoolType) {
     fd.append('established_year', yr);
     fd.append('description', desc);
 
-    fetch('/api_auto_discover.php', {
+    fetch('api_auto_discover.php', {
         method: 'POST',
         body: fd
     })
@@ -693,6 +703,7 @@ function runAutoDiscover() {
     `;
 
     const fd = new FormData();
+    fd.append('key', window.DALEEL_API_KEY || '');
     fd.append('query', q);
     fd.append('google_map_url', gmap);
     fd.append('phone', phone);
@@ -702,7 +713,7 @@ function runAutoDiscover() {
     fd.append('facebook', fb);
     fd.append('description', desc);
 
-    fetch('/api_auto_discover.php', {
+    fetch('api_auto_discover.php', {
         method: 'POST',
         body: fd
     })
@@ -876,11 +887,12 @@ function executeBatchImport() {
     const oldHtml = btn.innerHTML;
     btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> جاري إدراج الدفعة بالدليل...';
 
-    fetch('/api_auto_discover.php', {
+    fetch('api_auto_discover.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             action: 'batch',
+            key: window.DALEEL_API_KEY || '',
             schools: parsedBatchItems
         })
     })

@@ -19,7 +19,7 @@ $rawInput = file_get_contents('php://input');
 $inputData = json_decode($rawInput, true);
 
 $providedKey = $_GET['key'] ?? ($_POST['key'] ?? ($inputData['key'] ?? ''));
-$isAuthAdmin = (!empty($_SESSION['school_id']));
+$isAuthAdmin = (!empty($_SESSION['school_id']) || !empty($_SESSION['daleel_admin_authorized']));
 
 if (!$isAuthAdmin && $providedKey !== $secretKey && php_sapi_name() !== 'cli') {
     http_response_code(403);
@@ -83,29 +83,44 @@ $existsInDb = false;
 $existingRecord = null;
 list($searchClause, $searchParams) = buildUniversalSchoolSearchClause($cleanQ);
 if (!empty($searchClause)) {
-    $chkStmt = $pdo->prepare("SELECT id, name, slug, phone, whatsapp, google_map_url, facebook, youtube, tiktok, instagram, telegram, directory_rank FROM daleel_schools WHERE {$searchClause} LIMIT 1");
+    $chkStmt = $pdo->prepare("SELECT id, name, name_en, school_type, curriculum, stages, state, city, district, address, phone, whatsapp, email, website, established_year, google_map_url, facebook, youtube, tiktok, instagram, telegram, description, directory_rank, slug FROM daleel_schools WHERE {$searchClause} LIMIT 1");
     $chkStmt->execute($searchParams);
     $existingRecord = $chkStmt->fetch(PDO::FETCH_ASSOC);
     if ($existingRecord) {
         $existsInDb = true;
+        $formattedName = $existingRecord['name'];
+        if (!empty($existingRecord['name_en'])) $formattedNameEn = $existingRecord['name_en'];
+        if (!empty($existingRecord['school_type'])) $schoolType = $existingRecord['school_type'];
+        if (!empty($existingRecord['curriculum'])) $curriculum = $existingRecord['curriculum'];
+        if (!empty($existingRecord['stages'])) {
+            $dec = json_decode($existingRecord['stages'], true);
+            if (is_array($dec)) $stages = $dec;
+        }
+        if (!empty($existingRecord['state'])) $finalState = $existingRecord['state'];
+        if (!empty($existingRecord['city'])) $finalCity = $existingRecord['city'];
+        if (!empty($existingRecord['district'])) $finalDistrict = $existingRecord['district'];
+        if (!empty($existingRecord['address'])) $fullAddress = $existingRecord['address'];
+        if (!empty($existingRecord['description'])) $description = $existingRecord['description'];
     }
 }
 
-// Generate rich synthesized synopsis
-$stagesArabic = array_map(function($st) {
-    return SudanGeography::stageLabel($st);
-}, $stages);
-$stagesStr = implode('، ', $stagesArabic);
-$addressParts = ['ولاية ' . $finalState, $finalCity];
-if (!empty($finalDistrict) && $finalDistrict !== $finalCity) {
-    $addressParts[] = 'حي ' . $finalDistrict;
-}
-$fullAddress = implode(' — ', $addressParts);
+// Generate rich synthesized synopsis if not already in DB
+if (empty($description)) {
+    $stagesArabic = array_map(function($st) {
+        return SudanGeography::stageLabel($st);
+    }, $stages);
+    $stagesStr = implode('، ', $stagesArabic);
+    $addressParts = ['ولاية ' . $finalState, $finalCity];
+    if (!empty($finalDistrict) && $finalDistrict !== $finalCity) {
+        $addressParts[] = 'حي ' . $finalDistrict;
+    }
+    $fullAddress = implode(' — ', $addressParts);
 
-if ($schoolType === 'kindergarten') {
-    $description = "صرح تربوي وتأهيلي متميز لمرحلة الطفولة المبكرة يقع في {$fullAddress}. يركز على تنمية المهارات الإدراكية والحركية واللغوية لدى الأطفال عبر مناهج تفاعلية حديثة وبيئة تربوية آمنة ومحفزة.";
-} else {
-    $description = "مؤسسة تعليمية وتربوية رائدة تقع في {$fullAddress}، تقدم برامجها الأكاديمية لمراحل ({$stagesStr}) وفق معايير الجودة والتميز. تحرص على توفير كادر تعليمي مؤهل، ومرافق تعليمية متطورة، مع الاهتمام بالأنشطة الطلابية والتحصيل الأكاديمي المتفوق في الامتحانات القومية.";
+    if ($schoolType === 'kindergarten') {
+        $description = "صرح تربوي وتأهيلي متميز لمرحلة الطفولة المبكرة يقع في {$fullAddress}. يركز على تنمية المهارات الإدراكية والحركية واللغوية لدى الأطفال عبر مناهج تفاعلية حديثة وبيئة تربوية آمنة ومحفزة.";
+    } else {
+        $description = "مؤسسة تعليمية وتربوية رائدة تقع في {$fullAddress}، تقدم برامجها الأكاديمية لمراحل ({$stagesStr}) وفق معايير الجودة والتميز. تحرص على توفير كادر تعليمي مؤهل، ومرافق تعليمية متطورة، مع الاهتمام بالأنشطة الطلابية والتحصيل الأكاديمي المتفوق في الامتحانات القومية.";
+    }
 }
 
 echo json_encode([
@@ -121,6 +136,11 @@ echo json_encode([
     'district' => $finalDistrict,
     'address' => $fullAddress,
     'description' => $description,
+    'phone' => $existingRecord['phone'] ?? null,
+    'whatsapp' => $existingRecord['whatsapp'] ?? null,
+    'established_year' => $existingRecord['established_year'] ?? null,
+    'website' => $existingRecord['website'] ?? null,
+    'slug' => $existingRecord['slug'] ?? null,
     'exists_in_db' => $existsInDb,
     'existing_id' => $existingRecord ? (int)$existingRecord['id'] : null,
     'existing_rank' => $existingRecord ? (int)$existingRecord['directory_rank'] : null,
