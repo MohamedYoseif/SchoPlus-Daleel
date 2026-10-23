@@ -222,7 +222,14 @@ class SchoolAutoResearcher {
         ?string $inputCity = null,
         ?string $forcedSchoolType = null,
         ?string $inputPhone = null,
-        ?string $inputWhatsapp = null
+        ?string $inputWhatsapp = null,
+        ?string $inputGoogleMapsUrl = null,
+        ?string $inputDistrict = null,
+        ?string $inputAddress = null,
+        ?string $inputDescription = null,
+        ?string $inputFacebook = null,
+        ?string $inputWebsite = null,
+        ?string $inputEstablishedYear = null
     ): array {
         $cleanQ = self::cleanQuery($query);
         if (mb_strlen($cleanQ, 'UTF-8') < 2) {
@@ -235,7 +242,7 @@ class SchoolAutoResearcher {
         // 1. Check if school already exists via universal search clause
         list($searchClause, $searchParams) = buildUniversalSchoolSearchClause($cleanQ);
         if (!empty($searchClause)) {
-            $chkStmt = $pdo->prepare("SELECT id, name, name_en, slug, school_type, state, city, district, address, phone, whatsapp, stages, is_verified, directory_rank 
+            $chkStmt = $pdo->prepare("SELECT id, name, name_en, slug, school_type, state, city, district, address, phone, whatsapp, google_map_url, facebook, stages, is_verified, directory_rank 
                                       FROM daleel_schools 
                                       WHERE {$searchClause} 
                                       LIMIT 1");
@@ -243,11 +250,32 @@ class SchoolAutoResearcher {
             $existing = $chkStmt->fetch(PDO::FETCH_ASSOC);
 
             if ($existing) {
+                // If existing school was missing phone/facebook/google_map_url and new verified info is provided, enrich it!
+                $enrichUpdates = [];
+                $enrichParams = [];
+                if (empty($existing['phone']) && SchoolBatchImporter::isValidRealPhone($inputPhone)) {
+                    $enrichUpdates[] = "phone = :phone, whatsapp = :whatsapp";
+                    $enrichParams[':phone'] = $inputPhone;
+                    $enrichParams[':whatsapp'] = $inputWhatsapp ?: $inputPhone;
+                }
+                if (empty($existing['google_map_url']) && !empty($inputGoogleMapsUrl)) {
+                    $enrichUpdates[] = "google_map_url = :gmap";
+                    $enrichParams[':gmap'] = $inputGoogleMapsUrl;
+                }
+                if (empty($existing['facebook']) && !empty($inputFacebook)) {
+                    $enrichUpdates[] = "facebook = :fb";
+                    $enrichParams[':fb'] = $inputFacebook;
+                }
+                if (!empty($enrichUpdates)) {
+                    $enrichParams[':id'] = (int)$existing['id'];
+                    $pdo->prepare("UPDATE daleel_schools SET " . implode(', ', $enrichUpdates) . ", updated_at = NOW() WHERE id = :id")->execute($enrichParams);
+                }
+
                 return [
                     'success' => true,
                     'already_exists' => true,
                     'created' => false,
-                    'message' => 'المدرسة موجودة بالفعل في الدليل!',
+                    'message' => 'المدرسة موجودة بالفعل في الدليل (تم تحديث البيانات الإضافية إن وُجدت)!',
                     'school' => [
                         'id' => (int)$existing['id'],
                         'name' => $existing['name'],
@@ -268,11 +296,11 @@ class SchoolAutoResearcher {
             }
         }
 
-        // 2. Perform Intelligent Autonomous Deduction
+        // 2. Perform Intelligent Autonomous Deduction & Grounding
         $geo = self::inferGeography($cleanQ, $inputState, $inputCity);
-        $state = $geo['state'];
-        $city = $geo['city'];
-        $district = $geo['district'];
+        $state = !empty($inputState) ? $inputState : $geo['state'];
+        $city = !empty($inputCity) ? $inputCity : $geo['city'];
+        $district = !empty($inputDistrict) ? $inputDistrict : $geo['district'];
 
         $formattedName = self::formatOfficialName($cleanQ, $state, $city, $district);
         $formattedNameEn = self::transliterateEnglish($formattedName);
@@ -284,17 +312,11 @@ class SchoolAutoResearcher {
             $schoolType = SudanGeography::deduceSchoolType($formattedName, 'private');
         }
 
-        // STRICT ZERO-PHONE PROHIBITION FOR PRIVATE INSTITUTIONS:
-        // "سنجعل البحث اكثر صرامة في المدارس الخاصة مالم تجد رقم هاتف حقيقي لا تقم باضافة اي مدرسة"
-        // "هذه قاعدة صارمة نفذها في البحث الذكي"
-        $hasRealPhone = SchoolBatchImporter::isValidRealPhone($inputPhone) || SchoolBatchImporter::isValidRealPhone($inputWhatsapp);
-        if ($schoolType !== 'government' && !$hasRealPhone) {
-            return [
-                'success' => false,
-                'error' => 'مرفوضة: يُمنع منعاً باتاً إضافة، أو توليد، أو استيراد، أو اعتماد أي مدرسة خاصة أو روضة أطفال في الدليل ما لم يتوفر لها رقم هاتف حقيقي موثق ومؤكد 100% (قاعدة الصرامة الصفرية للهواتف)',
-                'school' => null
-            ];
-        }
+        // GOOGLE MAPS GROUNDING & AUTHENTIC PHONE POLICY:
+        // If a real verified phone is present (via Google Maps or official page), save it.
+        // If no phone is listed on the map, DO NOT exclude the school (save phone = NULL).
+        $finalPhone = SchoolBatchImporter::isValidRealPhone($inputPhone) ? $inputPhone : null;
+        $finalWhatsapp = SchoolBatchImporter::isValidRealPhone($inputWhatsapp) ? $inputWhatsapp : $finalPhone;
 
         if ($schoolType === 'kindergarten') {
             $stages = ['kindergarten'];
@@ -309,11 +331,15 @@ class SchoolAutoResearcher {
         $curriculum = (str_contains($formattedName, 'بريطاني') || str_contains($formattedName, 'كامبريدج') || str_contains($formattedName, 'عالمية')) ? 'british' : 'sudanese';
 
         // Address Composition
-        $addressParts = ['ولاية ' . $state, $city];
-        if (!empty($district) && $district !== $city) {
-            $addressParts[] = 'حي ' . $district;
+        if (!empty($inputAddress)) {
+            $fullAddress = $inputAddress;
+        } else {
+            $addressParts = ['ولاية ' . $state, $city];
+            if (!empty($district) && $district !== $city) {
+                $addressParts[] = 'حي ' . $district;
+            }
+            $fullAddress = implode(' — ', $addressParts);
         }
-        $fullAddress = implode(' — ', $addressParts);
 
         // Unique Slug Generation
         $baseSlug = preg_replace('/[^\p{L}\p{N}]+/u', '-', $formattedName);
@@ -329,13 +355,15 @@ class SchoolAutoResearcher {
             $counter++;
         }
 
-        // Rich Description tailored to institution type
+        // Rich Description tailored to institution type or custom synopsis
         $stagesArabic = array_map(function($st) {
             return SudanGeography::stageLabel($st);
         }, $stages);
         $stagesStr = implode('، ', $stagesArabic);
 
-        if ($schoolType === 'kindergarten') {
+        if (!empty($inputDescription)) {
+            $description = trim($inputDescription);
+        } elseif ($schoolType === 'kindergarten') {
             $description = "صرح تعليمي وتأهيلي مبكر متميز يقع في {$fullAddress}، يركز على رعاية الطفولة المبكرة وبناء المهارات الإدراكية والحركية واللغوية عبر بيئة ترفيهية وتعليمية آمنة ومحفزة.";
         } elseif ($schoolType === 'government') {
             $description = "مؤسسة تعليمية حكومية رائدة تقع في {$fullAddress}، تتبع وزارة التربية والتعليم وتقدم التعليم لمراحل ({$stagesStr}) وفق المنهج السوداني القومي المعتمد.";
@@ -344,23 +372,20 @@ class SchoolAutoResearcher {
         }
 
         $namePrefix = !preg_match('/^(مدرسة|مدارس|روضة|حضانة|كلية|مجمع|أكاديمية|معهد)/iu', $formattedName) ? 'مدرسة ' : '';
-        $googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=' . urlencode($namePrefix . $formattedName . ' ' . $city . ' ' . $state . ' السودان');
-        $sourceUrl = 'https://www.google.com/search?q=' . urlencode('"' . $namePrefix . $formattedName . '" ' . $city . ' ' . $state . ' السودان');
-        $sourceType = 'google_search';
+        $googleMapsUrl = !empty($inputGoogleMapsUrl) ? $inputGoogleMapsUrl : ('https://www.google.com/maps/search/?api=1&query=' . urlencode($namePrefix . $formattedName . ' ' . $city . ' ' . $state . ' السودان'));
+        $sourceUrl = !empty($inputGoogleMapsUrl) ? $inputGoogleMapsUrl : ('https://www.google.com/search?q=' . urlencode('"' . $namePrefix . $formattedName . '" ' . $city . ' ' . $state . ' السودان'));
+        $sourceType = !empty($inputGoogleMapsUrl) ? 'google_maps' : 'google_search';
         $randomPasswordHash = password_hash(bin2hex(random_bytes(6)), PASSWORD_BCRYPT);
 
-        $finalPhone = SchoolBatchImporter::isValidRealPhone($inputPhone) ? $inputPhone : null;
-        $finalWhatsapp = SchoolBatchImporter::isValidRealPhone($inputWhatsapp) ? $inputWhatsapp : $finalPhone;
-
-        // 3. Insert as Approved, Unverified Public School (is_verified = 0)
+        // 3. Insert as Approved, Verified/Unverified Public School
         $ins = $pdo->prepare("INSERT INTO daleel_schools (
             name, name_en, slug, school_type, gender_type, curriculum, country, established_year,
-            stages, state, city, district, address, google_map_url, phone, whatsapp, email, website, source_url, source_type,
+            stages, state, city, district, address, google_map_url, phone, whatsapp, email, website, facebook, source_url, source_type,
             description, status, is_verified, is_schoplus_client, rating_avg, reviews_count, views_count,
             owner_name, owner_title, owner_phone, password, created_at, updated_at
         ) VALUES (
-            :name, :name_en, :slug, :school_type, :gender_type, :curriculum, 'السودان', NULL,
-            :stages, :state, :city, :district, :address, :google_map_url, :phone, :whatsapp, NULL, NULL, :source_url, :source_type,
+            :name, :name_en, :slug, :school_type, :gender_type, :curriculum, 'السودان', :established_year,
+            :stages, :state, :city, :district, :address, :google_map_url, :phone, :whatsapp, NULL, :website, :facebook, :source_url, :source_type,
             :description, 'approved', 0, 0, 5.00, 0, 1,
             :owner_name, 'مدير المدرسة / المفوض', :owner_phone, :password, NOW(), NOW()
         )");
@@ -372,6 +397,7 @@ class SchoolAutoResearcher {
             ':school_type' => $schoolType,
             ':gender_type' => $genderType,
             ':curriculum' => $curriculum,
+            ':established_year' => !empty($inputEstablishedYear) ? $inputEstablishedYear : null,
             ':stages' => json_encode($stages, JSON_UNESCAPED_UNICODE),
             ':state' => $state,
             ':city' => $city,
@@ -380,6 +406,8 @@ class SchoolAutoResearcher {
             ':google_map_url' => $googleMapsUrl,
             ':phone' => $finalPhone,
             ':whatsapp' => $finalWhatsapp,
+            ':website' => !empty($inputWebsite) ? $inputWebsite : null,
+            ':facebook' => !empty($inputFacebook) ? $inputFacebook : null,
             ':source_url' => $sourceUrl,
             ':source_type' => $sourceType,
             ':description' => $description,
@@ -421,6 +449,57 @@ class SchoolAutoResearcher {
                 'google_maps_url' => $googleMapsUrl,
                 'is_verified' => false
             ]
+        ];
+    }
+
+    /**
+     * Batch Import Verified Schools from Google Maps Grounding pipeline
+     */
+    public static function importVerifiedSchoolBatch(PDO $pdo, array $schoolsList): array {
+        $created = 0;
+        $existing = 0;
+        $errors = [];
+        $insertedSchools = [];
+
+        foreach ($schoolsList as $s) {
+            $name = trim($s['name'] ?? '');
+            if (mb_strlen($name, 'UTF-8') < 2) continue;
+
+            $res = self::autoDiscoverAndRegister(
+                $pdo,
+                $name,
+                $s['state'] ?? null,
+                $s['city'] ?? null,
+                $s['school_type'] ?? null,
+                $s['phone'] ?? null,
+                $s['whatsapp'] ?? null,
+                $s['google_map_url'] ?? null,
+                $s['district'] ?? null,
+                $s['address'] ?? null,
+                $s['description'] ?? null,
+                $s['facebook'] ?? null,
+                $s['website'] ?? null,
+                $s['established_year'] ?? null
+            );
+
+            if (!empty($res['created'])) {
+                $created++;
+                $insertedSchools[] = $res['school'];
+            } elseif (!empty($res['already_exists'])) {
+                $existing++;
+            } elseif (!empty($res['error'])) {
+                $errors[] = $name . ': ' . $res['error'];
+            }
+        }
+
+        recalculateDaleelRanks($pdo);
+
+        return [
+            'success' => true,
+            'created' => $created,
+            'existing' => $existing,
+            'errors' => $errors,
+            'schools' => $insertedSchools
         ];
     }
 

@@ -132,65 +132,144 @@ require __DIR__ . '/header.php';
 
     <!-- Main Discovery Card -->
     <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4" style="border: 1px solid #DDE4ED !important;">
-        <div class="card-header bg-white p-3 p-md-4 border-bottom" style="background: linear-gradient(135deg, #0B2A52, #163870) !important; color: #FFFFFF;">
-            <div class="d-flex align-items-center gap-2">
-                <div style="width: 38px; height: 38px; border-radius: 10px; background: rgba(245, 160, 32, 0.2); color: #F5A020; display: inline-flex; align-items: center; justify-content: center; font-size: 1.1rem;">
-                    <i class="fas fa-search-location"></i>
+        <div class="card-header p-3 p-md-4 border-bottom" style="background: linear-gradient(135deg, #0B2A52, #163870) !important; color: #FFFFFF;">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3">
+                <div class="d-flex align-items-center gap-2">
+                    <div style="width: 40px; height: 40px; border-radius: 10px; background: rgba(245, 160, 32, 0.2); color: #F5A020; display: inline-flex; align-items: center; justify-content: center; font-size: 1.15rem;">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold mb-0 text-white" style="font-size: 1rem;">محرك البحث والاستكشاف الداخلي (Google Maps Grounding)</h5>
+                        <span class="small" style="color: #CBD5E1; font-size: 0.72rem;">اعتماد جغرافي موثق من خرائط جوجل متبوعاً بإثراء متعمق من فيسبوك والمراجع الرقمية.</span>
+                    </div>
                 </div>
-                <div>
-                    <h5 class="fw-bold mb-0 text-white" style="font-size: 0.98rem;">استكشاف مدرسة جديدة وإدراجها فوراً</h5>
-                    <span class="small" style="color: #CBD5E1; font-size: 0.72rem;">أدخل اسم أي مدرسة أو روضة أطفال للبحث عنها، تحليل بياناتها، وإدراج بطاقتها في الدليل تلقائياً.</span>
+
+                <!-- Navigation Tabs -->
+                <div class="d-flex gap-2">
+                    <button type="button" class="btn btn-sm text-white fw-bold px-3 py-1.5 active" id="tabBtnSingle" onclick="switchResearcherTab('single')" style="background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; font-size: 0.75rem;">
+                        <i class="fas fa-search-plus me-1"></i> استكشاف وإثراء مدرسة
+                    </button>
+                    <button type="button" class="btn btn-sm text-white fw-bold px-3 py-1.5" id="tabBtnBatch" onclick="switchResearcherTab('batch')" style="background: transparent; border: 1px solid rgba(255,255,255,0.25); border-radius: 8px; font-size: 0.75rem;">
+                        <i class="fas fa-layer-group me-1"></i> إدراج سريع بالدفعات
+                    </button>
                 </div>
             </div>
         </div>
+
         <div class="card-body p-4 bg-light">
-            <div class="alert alert-warning py-2 px-3 mb-3 d-flex align-items-center gap-2" style="font-size: 0.76rem; border-radius: 8px; border: 1px solid #FDE68A; background: #FEF3C7; color: #92400E;">
-                <i class="fas fa-shield-alt fs-6"></i>
-                <span><strong>قاعدة الصرامة الصفرية للهواتف:</strong> يُمنع منعاً باتاً إضافة، أو توليد، أو اعتماد أي مدرسة خاصة أو روضة أطفال في الدليل ما لم يتوفر لها رقم هاتف حقيقي موثق ومؤكد 100%. الصروح الحكومية التاريخية فقط هي المعفاة.</span>
+            <!-- Policy Banner -->
+            <div class="alert alert-info py-2.5 px-3 mb-3 d-flex align-items-start gap-2" style="font-size: 0.75rem; border-radius: 10px; border: 1px solid #BAE6FD; background: #F0F9FF; color: #0369A1;">
+                <i class="fas fa-info-circle fs-5 mt-0.5 text-primary"></i>
+                <div>
+                    <strong>قاعدة الاعتماد الجغرافي والإثراء التوثيقي:</strong>
+                    إذا وُجدت المدرسة على خرائط جوجل ولها موقع وعنوان حقيقي، <strong>تُدرج في الدليل ولا تُستبعد حتى لو لم يتوفر لها هاتف في الخريطة</strong> (يُترك الهاتف فارغاً لمنع أي خطأ). ثم يُجرى البحث عن <strong>صفحة الفيسبوك الرسمية، هاتف القبول والتسجيل، والمراجع ونبذة تعريفية متكاملة</strong> لإثراء البطاقة.
+                </div>
             </div>
-            <form id="autoDiscoverForm" onsubmit="event.preventDefault(); runAutoDiscover();">
-                <div class="row g-3">
-                    <div class="col-lg-5 col-12">
-                        <label class="form-label fw-bold text-dark" style="font-size: 0.75rem;">اسم المدرسة أو المجمع أو الروضة <span class="text-danger">*</span></label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-white" style="border-color: #DDE4ED;"><i class="fas fa-school text-muted"></i></span>
-                            <input type="text" id="discQuery" class="form-control" placeholder="مثال: مدارس المنار الخاصة بورتسودان، مدارس الإشراق كوستي، روضة المستقبل..." required style="border-color: #DDE4ED; font-size: 0.8rem;">
+
+            <!-- TAB 1: Single School Discovery & Deep Enrichment -->
+            <div id="sectionSingleDiscovery">
+                <form id="autoDiscoverForm" onsubmit="event.preventDefault(); runAutoDiscover();">
+                    <div class="row g-3">
+                        <div class="col-lg-5 col-12">
+                            <label class="form-label fw-bold text-dark" style="font-size: 0.75rem;">اسم المدرسة في خرائط جوجل <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-white" style="border-color: #DDE4ED;"><i class="fas fa-school text-muted"></i></span>
+                                <input type="text" id="discQuery" class="form-control" placeholder="مثال: مدارس المنار الخاصة، روضة المستقبل، مدرسة القبس..." required style="border-color: #DDE4ED; font-size: 0.8rem;">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-sm-6 col-12">
+                            <label class="form-label fw-bold text-dark" style="font-size: 0.75rem;">رابط موقع المدرسة على خرائط جوجل (Google Maps Link)</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-white" style="border-color: #DDE4ED;"><i class="fas fa-map-marker-alt text-danger"></i></span>
+                                <input type="url" id="discGoogleMapUrl" class="form-control" placeholder="https://maps.app.goo.gl/... أو https://google.com/maps/place/..." style="border-color: #DDE4ED; font-size: 0.8rem;">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <label class="form-label fw-bold text-dark" style="font-size: 0.75rem;">رقم الهاتف الموثق <span class="text-muted">(إن وجد بالخريطة أو المنشورات)</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-white" style="border-color: #DDE4ED;"><i class="fas fa-phone text-success"></i></span>
+                                <input type="text" id="discPhone" class="form-control" placeholder="اتركه فارغاً إن لم يتوفر بالخريطة" style="border-color: #DDE4ED; font-size: 0.8rem;">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <label class="form-label fw-bold text-dark" style="font-size: 0.75rem;">الولاية (استنتاج تلقائي أو اختيار)</label>
+                            <select id="discState" class="form-select" style="border-color: #DDE4ED; font-size: 0.8rem;">
+                                <option value="">استنتاج تلقائي من الاسم والعنوان</option>
+                                <?php foreach (SudanGeography::states('السودان') as $st): ?>
+                                    <option value="<?= e($st) ?>"><?= e($st) ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <label class="form-label fw-bold text-dark" style="font-size: 0.75rem;">المدينة / المحلية</label>
+                            <input type="text" id="discCity" class="form-control" placeholder="مثال: بورتسودان، عطبرة، شندي..." style="border-color: #DDE4ED; font-size: 0.8rem;">
+                        </div>
+
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <label class="form-label fw-bold text-dark" style="font-size: 0.75rem;">الحي / المنطقة الجغرافية</label>
+                            <input type="text" id="discDistrict" class="form-control" placeholder="مثال: حي المطار، الداخلة، سلبونا..." style="border-color: #DDE4ED; font-size: 0.8rem;">
+                        </div>
+
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <label class="form-label fw-bold text-dark" style="font-size: 0.75rem;">صفحة الفيسبوك الرسمية (إن وُجدت)</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-white" style="border-color: #DDE4ED;"><i class="fab fa-facebook text-primary"></i></span>
+                                <input type="url" id="discFacebook" class="form-control" placeholder="https://facebook.com/..." style="border-color: #DDE4ED; font-size: 0.8rem;">
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label fw-bold text-dark" style="font-size: 0.75rem;">نبذة عن المدرسة / مراجع وتاريخ التأسيس (اختياري)</label>
+                            <textarea id="discDesc" class="form-control" rows="2" placeholder="نبذة تعريفية مستخرجة من صفحة المدرسة أو المراجع (تاريخ التأسيس، المناهج المعتمدة، الأنشطة، ورؤية المدرسة)..." style="border-color: #DDE4ED; font-size: 0.78rem;"></textarea>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <label class="form-label fw-bold text-dark" style="font-size: 0.75rem;">رقم هاتف المدرسة <span class="text-danger">* (إلزامي للخاصة)</span></label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-white" style="border-color: #DDE4ED;"><i class="fas fa-phone text-muted"></i></span>
-                            <input type="text" id="discPhone" class="form-control" placeholder="مثال: +249912345678 أو 0912345678" style="border-color: #DDE4ED; font-size: 0.8rem;">
+
+                    <div class="mt-3.5 d-flex flex-wrap align-items-center justify-content-between gap-2">
+                        <div class="text-muted small" style="font-size: 0.71rem;">
+                            <i class="fas fa-shield-alt text-success me-1"></i> يضمن النظام منع أي أرقام هواتف وهمية وفحص عدم التكرار آلياً.
                         </div>
+                        <button type="submit" id="btnRunDiscovery" class="btn-luxury-primary px-4 py-2 text-white fw-bold" style="background: #F5A020; border-color: #F5A020; font-size: 0.82rem; border-radius: 8px;">
+                            <i class="fas fa-plus-circle me-1"></i> اعتماد وإدراج المدرسة بالدليل
+                        </button>
                     </div>
-                    <div class="col-lg-2 col-sm-6 col-12">
-                        <label class="form-label fw-bold text-dark" style="font-size: 0.75rem;">الولاية (اختياري)</label>
-                        <select id="discState" class="form-select" style="border-color: #DDE4ED; font-size: 0.8rem;">
-                            <option value="">استنتاج تلقائي</option>
-                            <?php foreach (SudanGeography::states('السودان') as $st): ?>
-                                <option value="<?= e($st) ?>"><?= e($st) ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                    <div class="col-lg-2 col-sm-6 col-12">
-                        <label class="form-label fw-bold text-dark" style="font-size: 0.75rem;">المدينة / المحلية</label>
-                        <input type="text" id="discCity" class="form-control" placeholder="مثال: بورتسودان..." style="border-color: #DDE4ED; font-size: 0.8rem;">
+                </form>
+
+                <!-- Discovery Result Area -->
+                <div id="discoveryResultBox" class="mt-4" style="display: none;"></div>
+            </div>
+
+            <!-- TAB 2: Batch Paste Import from Google Maps -->
+            <div id="sectionBatchDiscovery" style="display: none;">
+                <div class="p-3 bg-white rounded-3 border mb-3">
+                    <label class="form-label fw-bold text-dark" style="font-size: 0.78rem;">
+                        لصق قائمة المدارس المستكشفة من خرائط جوجل وفيسبوك (سطر لكل مدرسة):
+                    </label>
+                    <p class="text-muted small mb-2" style="font-size: 0.7rem;">
+                        الصيغة المدعومة: <code>اسم المدرسة | الولاية | المدينة | الحي | الهاتف (إن وجد) | رابط الخريطة | صفحة فيسبوك | نبذة تعريفية</code> (الحقول مفصولة بعلامة <code>|</code>)
+                    </p>
+                    <textarea id="batchInputText" class="form-control font-monospace" rows="6" placeholder="مدرسة الأمل الخاصة | البحر الأحمر | بورتسودان | حي المطار | +249912345678 | https://maps.app.goo.gl/... | https://facebook.com/alamal | مدرسة نموذجية متميزة
+روضة البراعم | نهر النيل | عطبرة | الداخلة | | https://maps.app.goo.gl/... | | روضة أطفال رائدة" style="font-size: 0.74rem; border-color: #DDE4ED;"></textarea>
+
+                    <div class="mt-3 d-flex flex-wrap justify-content-between align-items-center gap-2">
+                        <span class="text-muted small" id="batchParsedSummary" style="font-size: 0.72rem;">جاهز للتحليل والمعاينة</span>
+                        <div class="d-flex gap-2">
+                            <button type="button" class="btn btn-sm btn-outline-primary fw-bold px-3 py-1.5" onclick="previewBatchList()" style="font-size: 0.78rem;">
+                                <i class="fas fa-eye me-1"></i> معاينة البيانات المفحوصة
+                            </button>
+                            <button type="button" id="btnExecuteBatch" class="btn btn-sm btn-success fw-bold px-4 py-1.5 text-white" onclick="executeBatchImport()" disabled style="font-size: 0.78rem;">
+                                <i class="fas fa-check-double me-1"></i> اعتماد وإدراج الدفعة كاملة
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="mt-3 d-flex flex-wrap align-items-center justify-content-between gap-2">
-                    <div class="text-muted small" style="font-size: 0.71rem;">
-                        <i class="fas fa-shield-alt text-success me-1"></i> تخضع كافة المدخلات لفحص التحقق الصارم من الأرقام الحقيقية وتجنب التكرار.
-                    </div>
-                    <button type="submit" id="btnRunDiscovery" class="btn-luxury-primary px-4 py-2 text-white fw-bold" style="background: #F5A020; border-color: #F5A020; font-size: 0.8rem;">
-                        <i class="fas fa-magic me-1"></i> بدء الاستكشاف والفهرسة
-                    </button>
-                </div>
-            </form>
-
-            <!-- Discovery Result Area -->
-            <div id="discoveryResultBox" class="mt-4" style="display: none;"></div>
+                <!-- Batch Preview Area -->
+                <div id="batchPreviewBox" style="display: none;"></div>
+            </div>
         </div>
     </div>
 
@@ -253,11 +332,41 @@ require __DIR__ . '/header.php';
 </div>
 
 <script>
+let parsedBatchItems = [];
+
+function switchResearcherTab(tab) {
+    const btnSingle = document.getElementById('tabBtnSingle');
+    const btnBatch = document.getElementById('tabBtnBatch');
+    const secSingle = document.getElementById('sectionSingleDiscovery');
+    const secBatch = document.getElementById('sectionBatchDiscovery');
+
+    if (tab === 'single') {
+        btnSingle.style.background = 'rgba(255,255,255,0.18)';
+        btnSingle.classList.add('active');
+        btnBatch.style.background = 'transparent';
+        btnBatch.classList.remove('active');
+        secSingle.style.display = 'block';
+        secBatch.style.display = 'none';
+    } else {
+        btnBatch.style.background = 'rgba(255,255,255,0.18)';
+        btnBatch.classList.add('active');
+        btnSingle.style.background = 'transparent';
+        btnSingle.classList.remove('active');
+        secSingle.style.display = 'none';
+        secBatch.style.display = 'block';
+    }
+}
+
 function runAutoDiscover() {
     const q = document.getElementById('discQuery').value.trim();
-    const phone = document.getElementById('discPhone') ? document.getElementById('discPhone').value.trim() : '';
+    const gmap = document.getElementById('discGoogleMapUrl').value.trim();
+    const phone = document.getElementById('discPhone').value.trim();
     const st = document.getElementById('discState').value.trim();
     const ct = document.getElementById('discCity').value.trim();
+    const dist = document.getElementById('discDistrict').value.trim();
+    const fb = document.getElementById('discFacebook').value.trim();
+    const desc = document.getElementById('discDesc').value.trim();
+
     const btn = document.getElementById('btnRunDiscovery');
     const resBox = document.getElementById('discoveryResultBox');
 
@@ -268,22 +377,26 @@ function runAutoDiscover() {
 
     btn.disabled = true;
     const oldHtml = btn.innerHTML;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> جاري الاستكشاف والتحليل والفهرسة...';
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> جاري التدقيق والاعتماد...';
 
     resBox.style.display = 'block';
     resBox.innerHTML = `
         <div class="p-3 bg-white rounded-3 border text-center shadow-sm">
             <div class="spinner-border text-primary mb-2" role="status" style="width: 2rem; height: 2rem;"></div>
-            <div class="fw-bold text-dark" style="font-size: 0.82rem;">جاري مسح المصادر وفهرسة بيانات "${q}"...</div>
-            <div class="text-muted small" style="font-size: 0.72rem;">يتم الآن استنتاج الموقع، التحقق من الهاتف الصارم، وفحص عدم التكرار...</div>
+            <div class="fw-bold text-dark" style="font-size: 0.82rem;">جاري التحقق الجغرافي وفهرسة بيانات "${q}"...</div>
+            <div class="text-muted small" style="font-size: 0.72rem;">يتم الآن فحص عدم التكرار، ربط خرائط جوجل، وتحديث الرتبة...</div>
         </div>
     `;
 
     const fd = new FormData();
     fd.append('query', q);
+    fd.append('google_map_url', gmap);
     fd.append('phone', phone);
     fd.append('state', st);
     fd.append('city', ct);
+    fd.append('district', dist);
+    fd.append('facebook', fb);
+    fd.append('description', desc);
 
     fetch('/api_auto_discover.php', {
         method: 'POST',
@@ -299,7 +412,7 @@ function runAutoDiscover() {
             const isExisting = data.already_exists;
             const alertClass = isExisting ? 'alert-warning' : 'alert-success';
             const icon = isExisting ? 'fa-info-circle text-warning' : 'fa-check-circle text-success';
-            const badgeText = isExisting ? 'مدرسة مسجلة سلفاً' : 'مدرسة مكتشفة ومضافة حديثاً';
+            const badgeText = isExisting ? 'مدرسة مسجلة سلفاً (تم تحديث البيانات)' : 'مدرسة معتمدة ومضافة حديثاً';
 
             resBox.innerHTML = `
                 <div class="alert ${alertClass} p-3 rounded-3 shadow-sm border">
@@ -319,7 +432,7 @@ function runAutoDiscover() {
                                 <div class="d-flex flex-wrap gap-2 small">
                                     <span class="badge bg-light text-dark border"><i class="fas fa-map-marker-alt text-danger me-1"></i> ${sch.state} — ${sch.city}</span>
                                     <span class="badge bg-light text-dark border"><i class="fas fa-building text-primary me-1"></i> حي ${sch.district || sch.city}</span>
-                                    <span class="badge bg-light text-dark border"><i class="fas fa-shield-alt text-muted me-1"></i> عامة (غير موثقة)</span>
+                                    ${sch.phone ? `<span class="badge bg-success text-white"><i class="fas fa-phone me-1"></i> ${sch.phone}</span>` : `<span class="badge bg-secondary text-white"><i class="fas fa-phone-slash me-1"></i> بدون هاتف مسجل</span>`}
                                 </div>
                             </div>
                             <div class="col-md-5 col-12 text-md-end mt-3 mt-md-0 d-flex flex-wrap gap-2 justify-content-md-end">
@@ -353,6 +466,152 @@ function runAutoDiscover() {
                 <i class="fas fa-exclamation-triangle text-danger me-1"></i> حدث خطأ أثناء الاتصال بالخادم.
             </div>
         `;
+    });
+}
+
+function previewBatchList() {
+    const raw = document.getElementById('batchInputText').value.trim();
+    const prevBox = document.getElementById('batchPreviewBox');
+    const summarySpan = document.getElementById('batchParsedSummary');
+    const btnExecute = document.getElementById('btnExecuteBatch');
+
+    if (!raw) {
+        alert('يرجى لصق قائمة المدارس أولاً للمعاينة.');
+        return;
+    }
+
+    const lines = raw.split('\n');
+    parsedBatchItems = [];
+
+    lines.forEach((line, idx) => {
+        const cleanLine = line.trim();
+        if (!cleanLine || cleanLine.startsWith('#')) return;
+
+        const parts = cleanLine.split('|').map(p => p.trim());
+        if (parts.length >= 1 && parts[0].length >= 2) {
+            parsedBatchItems.push({
+                name: parts[0],
+                state: parts[1] || '',
+                city: parts[2] || '',
+                district: parts[3] || '',
+                phone: parts[4] || '',
+                google_map_url: parts[5] || '',
+                facebook: parts[6] || '',
+                description: parts[7] || ''
+            });
+        }
+    });
+
+    if (parsedBatchItems.length === 0) {
+        prevBox.style.display = 'none';
+        btnExecute.disabled = true;
+        summarySpan.innerHTML = '<span class="text-danger">لم يتم العثور على أسطر صالحة للتحليل.</span>';
+        return;
+    }
+
+    btnExecute.disabled = false;
+    summarySpan.innerHTML = `<span class="text-success fw-bold">تم تحليل ${parsedBatchItems.length} مدرسة بنجاح</span>`;
+
+    let html = `
+        <div class="card border-0 shadow-sm rounded-3 overflow-hidden mt-3" style="border: 1px solid #DDE4ED !important;">
+            <div class="card-header bg-white py-2 px-3 d-flex justify-content-between align-items-center border-bottom">
+                <h6 class="fw-bold mb-0 text-dark" style="font-size: 0.84rem;"><i class="fas fa-list-check text-primary me-1"></i> جدول معاينة الدفعة (${parsedBatchItems.length} مؤسسة)</h6>
+                <span class="badge bg-light text-dark border">جاهزة للاعتماد</span>
+            </div>
+            <div class="table-responsive" style="max-height: 280px;">
+                <table class="table table-sm table-hover align-middle mb-0" style="font-size: 0.72rem;">
+                    <thead style="background: #F8FAFC; color: #64748B;">
+                        <tr>
+                            <th>#</th>
+                            <th>اسم المدرسة</th>
+                            <th>الموقع</th>
+                            <th>الحي</th>
+                            <th>الهاتف الموثق</th>
+                            <th>خرائط جوجل</th>
+                            <th>فيسبوك</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    `;
+
+    parsedBatchItems.forEach((item, i) => {
+        html += `
+            <tr>
+                <td class="fw-bold text-muted">${i + 1}</td>
+                <td class="fw-bold text-dark">${item.name}</td>
+                <td><span class="badge bg-light text-dark border">${item.state || 'تلقائي'}</span> ${item.city ? `— ${item.city}` : ''}</td>
+                <td>${item.district || '-'}</td>
+                <td>${item.phone ? `<span class="badge bg-success text-white">${item.phone}</span>` : `<span class="text-muted">بدون هاتف</span>`}</td>
+                <td>${item.google_map_url ? `<a href="${item.google_map_url}" target="_blank" class="text-success"><i class="fas fa-map-pin"></i> نعم</a>` : `<span class="text-muted">تلقائي</span>`}</td>
+                <td>${item.facebook ? `<a href="${item.facebook}" target="_blank" class="text-primary"><i class="fab fa-facebook"></i> نعم</a>` : `<span class="text-muted">-</span>`}</td>
+            </tr>
+        `;
+    });
+
+    html += `
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    `;
+
+    prevBox.style.display = 'block';
+    prevBox.innerHTML = html;
+}
+
+function executeBatchImport() {
+    if (!parsedBatchItems || parsedBatchItems.length === 0) {
+        alert('لا توجد عناصر مفحوصة للإدراج.');
+        return;
+    }
+
+    const btn = document.getElementById('btnExecuteBatch');
+    const prevBox = document.getElementById('batchPreviewBox');
+
+    btn.disabled = true;
+    const oldHtml = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> جاري إدراج الدفعة بالدليل...';
+
+    fetch('/api_auto_discover.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            action: 'batch',
+            schools: parsedBatchItems
+        })
+    })
+    .then(r => r.json())
+    .then(data => {
+        btn.disabled = false;
+        btn.innerHTML = oldHtml;
+
+        if (data && data.success) {
+            prevBox.innerHTML = `
+                <div class="alert alert-success p-3 rounded-3 shadow-sm border mt-3">
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        <i class="fas fa-check-circle text-success fs-4"></i>
+                        <h6 class="fw-bold mb-0 text-dark" style="font-size: 0.95rem;">تم إدراج الدفعة بنجاح!</h6>
+                    </div>
+                    <div class="small text-muted mb-2">
+                        تمت إضافة <strong>${data.created}</strong> مدرسة جديدة، وتحديث <strong>${data.existing}</strong> مدرسة سابقة.
+                    </div>
+                    <div class="mt-2">
+                        <a href="/" target="_blank" class="btn btn-sm btn-primary py-1 px-3" style="font-size: 0.76rem;">
+                            <i class="fas fa-external-link-alt me-1"></i> فتح الدليل ومعاينة المدارس المضافة
+                        </a>
+                    </div>
+                </div>
+            `;
+            document.getElementById('batchInputText').value = '';
+            parsedBatchItems = [];
+        } else {
+            alert(data.error || 'حدث خطأ أثناء استيراد الدفعة.');
+        }
+    })
+    .catch(err => {
+        btn.disabled = false;
+        btn.innerHTML = oldHtml;
+        alert('حدث خطأ أثناء الاتصال بالخادم.');
     });
 }
 </script>
