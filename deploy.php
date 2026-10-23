@@ -57,6 +57,16 @@ if (!is_dir(__DIR__ . '/.git')) {
 
 
 exec("git log -n 1 --oneline 2>&1", $output);
+
+if (!empty($_GET['dedupe'])) {
+    require_once __DIR__ . '/run_deduplication.php';
+    $res = runDaleelDeduplication(db());
+    $output[] = "=== Deduplication Report ===";
+    $output[] = "Renamed: " . ($res['renamed'] ?? 0);
+    $output[] = "Deleted redundant: " . ($res['deleted'] ?? 0);
+    $output[] = "Remaining approved: " . ($res['remaining'] ?? 0);
+}
+
 $output[] = "=== Daleel Deployment Finished Successfully ===";
 
 header("Content-Type: application/json; charset=utf-8");
