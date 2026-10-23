@@ -888,61 +888,74 @@ function ensureTablesExist(PDO $pdo): void {
             $pdo->exec("DELETE FROM daleel_schools WHERE slug = 'قائمة-المدارس-التي-تم-فحصها-واستبعادها' OR name LIKE '%فحصها واستبعادها%' OR name LIKE 'قائمة المدارس%'");
         } catch (Throwable $e) {}
 
-        // Ensure Al-Akhillaa exists and is positioned at ID 25 as unverified with Banat branch
+        // Ensure Al-Akhillaa exists as TWO distinct schools:
+        // 1. مدارس الأخلاء الخاصة — فرع بانت شرق (ID 25)
+        // 2. مدارس الأخلاء الخاصة — فرع أمبدة السبيل (ID 26)
         try {
-            $akhilla = $pdo->query("SELECT id, is_schoplus_client, address FROM daleel_schools WHERE name = 'مدارس الأخلاء الخاصة'")->fetch(PDO::FETCH_ASSOC);
-            if (!$akhilla || (int)$akhilla['id'] !== 25 || (int)$akhilla['is_schoplus_client'] !== 0 || strpos((string)$akhilla['address'], 'بانت') === false) {
-                if ($akhilla) {
-                    $pdo->exec("DELETE FROM daleel_schools WHERE name = 'مدارس الأخلاء الخاصة'");
-                }
-                $has25 = (int)$pdo->query("SELECT COUNT(*) FROM daleel_schools WHERE id = 25 AND name != 'مدارس الأخلاء الخاصة'")->fetchColumn();
+            // Delete old combined single entry if still present
+            $pdo->exec("DELETE FROM daleel_schools WHERE name = 'مدارس الأخلاء الخاصة' OR slug = 'مدارس-الأخلاء-الخاصة'");
+
+            // Check Branch 1 (Bant East)
+            $b1 = $pdo->query("SELECT id, name FROM daleel_schools WHERE slug = 'مدارس-الأخلاء-الخاصة-فرع-بانت-شرق' OR name LIKE '%الأخلاء%بانت%'")->fetch(PDO::FETCH_ASSOC);
+            // Check Branch 2 (Ombada)
+            $b2 = $pdo->query("SELECT id, name FROM daleel_schools WHERE slug = 'مدارس-الأخلاء-الخاصة-فرع-أمبدة-السبيل' OR name LIKE '%الأخلاء%أمبدة%' OR name LIKE '%الاخلاء%امبدة%'")->fetch(PDO::FETCH_ASSOC);
+
+            if (!$b1 || (int)$b1['id'] !== 25 || !$b2 || (int)$b2['id'] !== 26) {
+                $pdo->exec("DELETE FROM daleel_schools WHERE slug IN ('مدارس-الأخلاء-الخاصة-فرع-بانت-شرق', 'مدارس-الأخلاء-الخاصة-فرع-أمبدة-السبيل')");
+
+                $has25 = (int)$pdo->query("SELECT COUNT(*) FROM daleel_schools WHERE id = 25")->fetchColumn();
                 if ($has25 > 0) {
                     $pdo->exec("UPDATE daleel_schools SET id = id + 1 WHERE id >= 25 ORDER BY id DESC");
                 }
-                $seedFile = __DIR__ . '/seed_schools_data.php';
-                if (file_exists($seedFile)) {
-                    $seeds = require $seedFile;
-                    $foundSeed = null;
-                    if (is_array($seeds)) {
-                        foreach ($seeds as $sd) {
-                            if (isset($sd['name']) && $sd['name'] === 'مدارس الأخلاء الخاصة') {
-                                $foundSeed = $sd;
-                                break;
-                            }
-                        }
-                    }
-                    if ($foundSeed) {
-                        $stagesJson = json_encode($foundSeed['stages'] ?? ['primary', 'intermediate', 'secondary'], JSON_UNESCAPED_UNICODE);
-                        $pwdHash = password_hash(bin2hex(random_bytes(6)), PASSWORD_BCRYPT);
-                        $insStmt = $pdo->prepare("INSERT INTO daleel_schools (
-                            id, name, name_en, slug, school_type, gender_type, curriculum, country, established_year,
-                            stages, state, city, district, address, phone, whatsapp, email, website,
-                            description, status, is_verified, is_schoplus_client, rating_avg, reviews_count, views_count,
-                            owner_name, owner_title, owner_phone, password, created_at, updated_at
-                        ) VALUES (
-                            25,
-                            :name, :name_en, :slug, :school_type, :gender_type, :curriculum, 'السودان', NULL,
-                            :stages, 'الخرطوم', 'أم درمان', :district, :address, NULL, NULL, NULL, NULL,
-                            :description, 'approved', 0, 0, 5.00, 0, 1,
-                            'إدارة مدارس الأخلاء الخاصة', 'مدير المدرسة / المفوض', NULL, :password, NOW(), NOW()
-                        ) ON DUPLICATE KEY UPDATE 
-                            name = VALUES(name), address = VALUES(address), district = VALUES(district), description = VALUES(description),
-                            is_verified = 0, is_schoplus_client = 0");
-                        $insStmt->execute([
-                            ':name' => $foundSeed['name'],
-                            ':name_en' => $foundSeed['name_en'] ?? 'Al-Akhillaa Private Schools',
-                            ':slug' => $foundSeed['slug'] ?? 'مدارس-الأخلاء-الخاصة',
-                            ':school_type' => $foundSeed['school_type'] ?? 'private',
-                            ':gender_type' => $foundSeed['gender_type'] ?? 'mixed',
-                            ':curriculum' => $foundSeed['curriculum'] ?? 'sudanese',
-                            ':stages' => $stagesJson,
-                            ':district' => $foundSeed['district'] ?? 'حي بانت شرق / أمبدة السبيل',
-                            ':address' => $foundSeed['address'] ?? 'ولاية الخرطوم — أم درمان — فرع بانت شرق (جوار مدرسة أم درمان الأهلية) & فرع أمبدة السبيل (الحارة 8 جوار مسجد كرار)',
-                            ':description' => $foundSeed['description'] ?? 'مؤسسة تعليمية وتربوية رائدة في أم درمان تقدم خدماتها لكافة المراحل الدراسية...',
-                            ':password' => $pwdHash
-                        ]);
-                    }
+                $has26 = (int)$pdo->query("SELECT COUNT(*) FROM daleel_schools WHERE id = 26")->fetchColumn();
+                if ($has26 > 0) {
+                    $pdo->exec("UPDATE daleel_schools SET id = id + 1 WHERE id >= 26 ORDER BY id DESC");
                 }
+
+                $stagesJson = json_encode(['primary', 'intermediate', 'secondary'], JSON_UNESCAPED_UNICODE);
+                $pwdHash = password_hash(bin2hex(random_bytes(6)), PASSWORD_BCRYPT);
+
+                $insStmt = $pdo->prepare("INSERT INTO daleel_schools (
+                    id, name, name_en, slug, school_type, gender_type, curriculum, country, established_year,
+                    stages, state, city, district, address, phone, whatsapp, email, website,
+                    description, status, is_verified, is_schoplus_client, rating_avg, reviews_count, views_count,
+                    owner_name, owner_title, owner_phone, password, created_at, updated_at
+                ) VALUES (
+                    :id, :name, :name_en, :slug, 'private', 'mixed', 'sudanese', 'السودان', NULL,
+                    :stages, 'الخرطوم', :city, :district, :address, NULL, NULL, NULL, NULL,
+                    :description, 'approved', 0, 0, 5.00, 0, 1,
+                    'إدارة مدارس الأخلاء الخاصة', 'مدير المدرسة / المفوض', NULL, :password, NOW(), NOW()
+                )");
+
+                // Branch 1: Bant East (ID 25)
+                $insStmt->execute([
+                    ':id' => 25,
+                    ':name' => 'مدارس الأخلاء الخاصة — فرع بانت شرق',
+                    ':name_en' => 'Al-Ikhlaa Private Schools — Bant East Branch',
+                    ':slug' => 'مدارس-الأخلاء-الخاصة-فرع-بانت-شرق',
+                    ':stages' => $stagesJson,
+                    ':city' => 'أم درمان',
+                    ':district' => 'بانت شرق',
+                    ':address' => 'ولاية الخرطوم — أم درمان — حي بانت شرق (جوار مدرسة أم درمان الأهلية)',
+                    ':description' => 'صرح تربوي وتعليمي متميز في أم درمان بحي بانت شرق (جوار مدرسة أم درمان الأهلية)، يضم المراحل الابتدائية والمتوسطة والثانوية (بنين وبنات)، ويهتم ببناء القيم الأكاديمية والتربوية والأنشطة الإبداعية وتنمية مهارات الطلاب.',
+                    ':password' => $pwdHash
+                ]);
+
+                // Branch 2: Ombada Al-Sabeel (ID 26)
+                $insStmt->execute([
+                    ':id' => 26,
+                    ':name' => 'مدارس الأخلاء الخاصة — فرع أمبدة السبيل',
+                    ':name_en' => 'Al-Ikhlaa Private Schools — Ombada Al-Sabeel Branch',
+                    ':slug' => 'مدارس-الأخلاء-الخاصة-فرع-أمبدة-السبيل',
+                    ':stages' => $stagesJson,
+                    ':city' => 'أم بدة',
+                    ':district' => 'السبيل الحارة 8',
+                    ':address' => 'ولاية الخرطوم — أم بدة — السبيل الحارة 8 (جوار مسجد كرار)',
+                    ':description' => 'مؤسسة تعليمية وتربوية رائدة في أم بدة السبيل الحارة 8 (جوار مسجد كرار)، توفر بيئة مدرسية نموذجية لطلاب المراحل الابتدائية والمتوسطة والثانوية (بنين وبنات)، وتضم نخبة من الكفاءات التعليمية مع برامج تربوية وأنشطة صفية ولاصفية متكاملة.',
+                    ':password' => $pwdHash
+                ]);
+            } else {
+                $pdo->exec("UPDATE daleel_schools SET is_verified = 0, is_schoplus_client = 0 WHERE id IN (25, 26)");
             }
         } catch (Throwable $e) {}
 
