@@ -322,8 +322,9 @@ class SchoolAutoResearcher {
             $description = "صرح تربوي وتعليمي متميز يقع في {$fullAddress}، يقدم خدماته الأكاديمية والتربوية لطلاب المراحل ({$stagesStr})، ويهتم بتطوير المهارات العلمية والأنشطة الطلابية وبناء بيئة تعليمية محفزة.";
         }
 
-        $googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=' . urlencode($formattedName . ' ' . $city . ' ' . $state);
-        $sourceUrl = 'https://www.google.com/search?q=' . urlencode('مدرسة ' . $formattedName . ' ' . $city . ' ' . $state);
+        $namePrefix = !preg_match('/^(مدرسة|مدارس|روضة|حضانة|كلية|مجمع|أكاديمية|معهد)/iu', $formattedName) ? 'مدرسة ' : '';
+        $googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=' . urlencode($namePrefix . $formattedName . ' ' . $city . ' ' . $state . ' السودان');
+        $sourceUrl = 'https://www.google.com/search?q=' . urlencode('"' . $namePrefix . $formattedName . '" ' . $city . ' ' . $state . ' السودان');
         $sourceType = 'google_search';
         $randomPasswordHash = password_hash(bin2hex(random_bytes(6)), PASSWORD_BCRYPT);
 

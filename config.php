@@ -325,27 +325,13 @@ if (!function_exists('recalculateDaleelRanks')) {
 
 if (!function_exists('getSchoolVerificationSourceUrl')) {
     function getSchoolVerificationSourceUrl(array $school): array {
-        // 1. Custom or stored source_url
-        if (!empty($school['source_url'])) {
-            $type = $school['source_type'] ?? 'custom';
-            $icon = 'fas fa-external-link-alt';
-            $lbl = 'المصدر المعتمد';
-            if ($type === 'facebook' || str_contains($school['source_url'], 'facebook.com')) {
-                $icon = 'fab fa-facebook text-primary';
-                $lbl = 'صفحة فيسبوك';
-            } elseif ($type === 'google_search' || str_contains($school['source_url'], 'google.com/search')) {
-                $icon = 'fab fa-google text-danger';
-                $lbl = 'توثيق Google';
-            }
-            return [
-                'url' => $school['source_url'],
-                'label' => $lbl,
-                'icon' => $icon,
-                'type' => $type
-            ];
-        }
+        $rawName = trim((string)($school['name'] ?? ''));
+        $country = trim((string)($school['country'] ?? '')) ?: 'السودان';
+        $city = trim((string)($school['city'] ?? ''));
+        $district = trim((string)($school['district'] ?? ''));
+        $state = trim((string)($school['state'] ?? ''));
 
-        // 2. Official Website
+        // 1. Official Stored Website
         if (!empty($school['website'])) {
             return [
                 'url' => $school['website'],
@@ -355,7 +341,7 @@ if (!function_exists('getSchoolVerificationSourceUrl')) {
             ];
         }
 
-        // 3. Official Facebook
+        // 2. Official Stored Facebook
         if (!empty($school['facebook'])) {
             return [
                 'url' => $school['facebook'],
@@ -365,15 +351,82 @@ if (!function_exists('getSchoolVerificationSourceUrl')) {
             ];
         }
 
-        // 4. Fallback Google Search Knowledge query
-        $q = ($school['name'] ?? '');
-        if (!empty($school['city'])) $q .= ' ' . $school['city'];
-        if (!empty($school['state'])) $q .= ' ' . $school['state'];
-        $searchUrl = 'https://www.google.com/search?q=' . urlencode('مدرسة ' . $q);
+        // 3. Custom direct source_url (only if not an unanchored google search)
+        if (!empty($school['source_url'])) {
+            $srcUrl = $school['source_url'];
+            $type = $school['source_type'] ?? 'custom';
+
+            $isGoogleSearch = str_contains($srcUrl, 'google.com/search');
+            $hasCountry = str_contains($srcUrl, urlencode($country)) || str_contains($srcUrl, 'السودان');
+
+            if (!$isGoogleSearch || $hasCountry) {
+                $icon = 'fas fa-external-link-alt';
+                $lbl = 'المصدر المعتمد';
+                if ($type === 'facebook' || str_contains($srcUrl, 'facebook.com')) {
+                    $icon = 'fab fa-facebook text-primary';
+                    $lbl = 'صفحة فيسبوك';
+                } elseif ($isGoogleSearch) {
+                    $icon = 'fab fa-google text-danger';
+                    $lbl = 'توثيق Google';
+                }
+                return [
+                    'url' => $srcUrl,
+                    'label' => $lbl,
+                    'icon' => $icon,
+                    'type' => $type
+                ];
+            }
+        }
+
+        // 4. Fallback Google Search Knowledge query with STRICT GEOGRAPHIC ANCHORING
+        // Avoid repeating prefixes like "مدرسة مدارس" or "مدرسة روضة"
+        $namePrefix = '';
+        if (!preg_match('/^(مدرسة|مدارس|روضة|حضانة|كلية|مجمع|أكاديمية|معهد)/iu', $rawName)) {
+            $namePrefix = 'مدرسة ';
+        }
+
+        // Clean quotes and excessive punctuation
+        $cleanName = trim(str_replace(['"', '“', '”', '«', '»'], '', $rawName));
+
+        // If the school name has a branch suffix (e.g. "مدارس كامبريدج — الخرطوم"), extract the core school name
+        $parts = preg_split('/[\—\–\-]\s*/u', $cleanName, 2);
+        $coreName = trim($parts[0] ?? $cleanName);
+        $branchName = trim($parts[1] ?? '');
+
+        // Build search query tokens
+        $tokens = [];
+        $tokens[] = '"' . $namePrefix . $coreName . '"';
+
+        if (!empty($branchName)) {
+            $tokens[] = $branchName;
+        }
+
+        if (!empty($district) && !str_contains($cleanName, $district)) {
+            $tokens[] = $district;
+        }
+
+        if (!empty($city) && !str_contains($cleanName, $city)) {
+            $tokens[] = $city;
+        }
+
+        if (!empty($state) && $state !== $city && !str_contains($state, $city) && !str_contains($cleanName, $state)) {
+            $tokens[] = $state;
+        }
+
+        // MANDATORY: Country anchor (السودان for Sudan, or host country for Diaspora)
+        $tokens[] = $country;
+
+        // If diaspora institution, ensure Sudanese context
+        if ($country !== 'السودان' && !str_contains($cleanName, 'السودانية') && !str_contains($cleanName, 'السودان')) {
+            $tokens[] = 'المنهج السوداني';
+        }
+
+        $searchQuery = implode(' ', array_filter($tokens));
+        $searchUrl = 'https://www.google.com/search?q=' . urlencode($searchQuery);
 
         return [
             'url' => $searchUrl,
-            'label' => 'بحث وتوثيق Google',
+            'label' => 'توثيق Google',
             'icon' => 'fab fa-google text-danger',
             'type' => 'google_search'
         ];
