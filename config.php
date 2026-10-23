@@ -143,7 +143,8 @@ if (!function_exists('buildUniversalSchoolSearchClause')) {
         
         // Comprehensive search fields:
         // Name (AR & EN), City, State, District, Address, Description, Curriculum, School Type,
-        // Phone numbers (phone, whatsapp, owner_phone), School Management (owner_name, owner_title)
+        // Phone numbers (phone, whatsapp, owner_phone), School Management (owner_name, owner_title),
+        // Plus semantic Arabic matching for School Types and Stages
         $fields = [
             'name',
             'name_en',
@@ -157,7 +158,12 @@ if (!function_exists('buildUniversalSchoolSearchClause')) {
             'owner_title',
             'phone',
             'whatsapp',
-            'owner_phone'
+            'owner_phone',
+            "(CASE WHEN school_type = 'government' THEN 'حكومية حكومي' WHEN school_type IN ('private', 'international', 'language') THEN 'خاصة اهلية دولية' ELSE '' END)",
+            "(CASE WHEN stages LIKE '%kindergarten%' THEN 'روضة رياض اطفال حضانة حضانه' ELSE '' END)",
+            "(CASE WHEN stages LIKE '%primary%' THEN 'اساس اساسي ابتدائي ابتدائية' ELSE '' END)",
+            "(CASE WHEN stages LIKE '%intermediate%' THEN 'متوسط متوسطة' ELSE '' END)",
+            "(CASE WHEN stages LIKE '%secondary%' THEN 'ثانوي ثانوية' ELSE '' END)"
         ];
 
         // Tokenize search query to support multi-keyword partial matches (e.g. "الاخلاء بانت")

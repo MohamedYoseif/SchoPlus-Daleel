@@ -344,6 +344,52 @@ if (!function_exists('renderCatalogPagination')) {
         </div>
         <?php endif; ?>
 
+        <?php 
+        $currentViewMode = $viewMode ?? 'grid';
+        $currentSort = $sort ?? '';
+        ?>
+
+        <!-- RESULTS TOOLBAR: COUNT, SORT, & VIEW MODE SWITCHER -->
+        <div class="sp-results-toolbar mb-3 d-flex flex-wrap align-items-center justify-content-between gap-2">
+            <!-- Left: Results Count & Active Query -->
+            <div class="d-flex align-items-center gap-2">
+                <span class="sp-results-count-badge">
+                    <i class="fas fa-school text-primary me-1"></i>
+                    <strong><?= number_format($isSearching ? $totalMatching : $statTotal) ?></strong> مدرسة
+                </span>
+                <?php if (!empty($q)): ?>
+                    <span class="text-muted small d-none d-sm-inline">مطابقة لـ "<strong><?= e($q) ?></strong>"</span>
+                <?php endif; ?>
+            </div>
+
+            <!-- Right: Quick Sort + View Switcher -->
+            <div class="d-flex align-items-center gap-2 flex-wrap">
+                <!-- Sort Dropdown -->
+                <div class="d-flex align-items-center gap-1">
+                    <label for="catalogSortSelect" class="text-muted small" style="font-size: 0.72rem; white-space: nowrap;"><i class="fas fa-sort-amount-down me-1"></i> الترتيب:</label>
+                    <select id="catalogSortSelect" class="form-select form-select-sm sp-sort-select" onchange="onCatalogSortChange(this.value)">
+                        <option value="" <?= empty($currentSort) ? 'selected' : '' ?>>الأفضلية والتطابق</option>
+                        <option value="rating" <?= $currentSort === 'rating' ? 'selected' : '' ?>>الأعلى تقييماً ⭐</option>
+                        <option value="historic" <?= ($currentSort === 'historic' || $view === 'historic') ? 'selected' : '' ?>>الصروح العريقة أولاً 🏛️</option>
+                        <option value="latest" <?= $currentSort === 'latest' ? 'selected' : '' ?>>الأحدث إضافة 🆕</option>
+                        <option value="name_asc" <?= $currentSort === 'name_asc' ? 'selected' : '' ?>>الاسم أبجدياً (أ - ي)</option>
+                    </select>
+                </div>
+
+                <div style="width: 1px; height: 22px; background: #DDE4ED;" class="d-none d-sm-block"></div>
+
+                <!-- View Switcher (Grid / List) -->
+                <div class="btn-group btn-group-sm" role="group" aria-label="نمط العرض">
+                    <button type="button" class="btn sp-view-btn <?= $currentViewMode === 'grid' ? 'active' : '' ?>" data-mode="grid" onclick="switchCatalogViewMode('grid')" title="عرض الشبكة (بطاقات)">
+                        <i class="fas fa-th-large"></i> <span class="d-none d-sm-inline">شبكة</span>
+                    </button>
+                    <button type="button" class="btn sp-view-btn <?= $currentViewMode === 'list' ? 'active' : '' ?>" data-mode="list" onclick="switchCatalogViewMode('list')" title="عرض القائمة (تفصيلي أفقي)">
+                        <i class="fas fa-list"></i> <span class="d-none d-sm-inline">قائمة</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <?php if ($isSearching): ?>
             <!-- SEARCH RESULTS HEADER -->
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 pb-2 border-bottom">
@@ -379,6 +425,8 @@ if (!function_exists('renderCatalogPagination')) {
                         <?php if ($city !== ''): ?><input type="hidden" name="city" value="<?= e($city) ?>"><?php endif; ?>
                         <?php if ($stage !== ''): ?><input type="hidden" name="stage" value="<?= e($stage) ?>"><?php endif; ?>
                         <?php if ($schoolType !== ''): ?><input type="hidden" name="type" value="<?= e($schoolType) ?>"><?php endif; ?>
+                        <?php if (!empty($viewMode)): ?><input type="hidden" name="view_mode" value="<?= e($viewMode) ?>"><?php endif; ?>
+                        <?php if (!empty($sort)): ?><input type="hidden" name="sort" value="<?= e($sort) ?>"><?php endif; ?>
                         <div class="input-group input-group-sm" style="min-width: 240px;">
                             <input type="text" name="q" class="form-control" style="font-size: 0.74rem; border-color: #CBD5E1; border-radius: 8px 0 0 8px;" placeholder="تعديل أو تخصيص البحث..." value="<?= e($q) ?>">
                             <button class="btn btn-primary btn-sm px-3" type="submit" style="background: #1E5FA8; border-color: #1E5FA8; border-radius: 0 8px 8px 0;" title="تحديث نتائج البحث">
@@ -396,41 +444,49 @@ if (!function_exists('renderCatalogPagination')) {
             <!-- TOP PAGINATION BAR -->
             <?php renderCatalogPagination($page ?? 1, $totalPages ?? 1, $totalMatching ?? 0, $perPage ?? 12); ?>
 
-            <!-- SEARCH RESULTS GRID -->
-            <div class="row g-3">
-                <?php if (empty($searchResults)): ?>
-                    <div class="col-12 py-5 text-center">
-                        <div class="p-4 p-md-5 bg-white rounded-4 border text-center shadow-sm max-w-md mx-auto" style="max-width: 520px; margin: 0 auto; border-color: #DDE4ED !important;">
-                            <div style="width: 56px; height: 56px; border-radius: 50%; background: #EFF6FF; color: #1E5FA8; display: inline-flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 14px;">
-                                <i class="fas fa-search"></i>
-                            </div>
-                            <h4 class="fw-bold text-dark" style="font-size: 1.05rem;">لم نعثر على مدرسة مطابقة للبحث</h4>
-                            <?php if (!empty($q)): ?>
-                                <p class="text-muted small" style="font-size: 0.76rem; line-height: 1.6; margin-bottom: 18px;">
-                                    هل تبحث عن مدرسة <strong class="text-dark">"<?= e($q) ?>"</strong>؟ قد لا تكون مسجلة بعد في الدليل، ولكن يمكنك فحص حضورها الرقمي الشامل على جوجل وخرائط جوجل وشبكات التواصل بنقرة واحدة!
-                                </p>
-                                <div class="d-flex flex-wrap align-items-center justify-content-center gap-2 mb-2">
-                                    <a href="/presence-audit.php?school=<?= urlencode($q) ?>&country=<?= urlencode($country) ?>&state=<?= urlencode($state) ?>&auto=1" class="btn-luxury-primary btn-sm py-2 px-3" style="font-size: 0.78rem;">
-                                        <i class="fas fa-satellite-dish me-1"></i> فحص الوجود الرقمي لـ "<?= e($q) ?>"
-                                    </a>
-                                    <a href="/" class="btn-luxury-outline btn-sm py-2 px-3" style="font-size: 0.78rem;">
-                                        <i class="fas fa-undo me-1"></i> عرض كافة المدارس
-                                    </a>
-                                </div>
-                            <?php else: ?>
-                                <p class="text-muted small" style="font-size: 0.74rem;">جرب تغيير شروط الفلترة أو تصفح ولاية أخرى لاكتشاف خيارات أوسع.</p>
-                                <a href="/" class="btn-luxury-primary btn-sm mt-2">
-                                    <i class="fas fa-undo me-1"></i> إعادة ضبط وعرض كل المدارس
-                                </a>
-                            <?php endif; ?>
+            <!-- SEARCH RESULTS (GRID OR LIST) -->
+            <?php if (empty($searchResults)): ?>
+                <div class="col-12 py-5 text-center">
+                    <div class="p-4 p-md-5 bg-white rounded-4 border text-center shadow-sm max-w-md mx-auto" style="max-width: 520px; margin: 0 auto; border-color: #DDE4ED !important;">
+                        <div style="width: 56px; height: 56px; border-radius: 50%; background: #EFF6FF; color: #1E5FA8; display: inline-flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 14px;">
+                            <i class="fas fa-search"></i>
                         </div>
+                        <h4 class="fw-bold text-dark" style="font-size: 1.05rem;">لم نعثر على مدرسة مطابقة للبحث</h4>
+                        <?php if (!empty($q)): ?>
+                            <p class="text-muted small" style="font-size: 0.76rem; line-height: 1.6; margin-bottom: 18px;">
+                                هل تبحث عن مدرسة <strong class="text-dark">"<?= e($q) ?>"</strong>؟ قد لا تكون مسجلة بعد في الدليل، ولكن يمكنك فحص حضورها الرقمي الشامل على جوجل وخرائط جوجل وشبكات التواصل بنقرة واحدة!
+                            </p>
+                            <div class="d-flex flex-wrap align-items-center justify-content-center gap-2 mb-2">
+                                <a href="/presence-audit.php?school=<?= urlencode($q) ?>&country=<?= urlencode($country) ?>&state=<?= urlencode($state) ?>&auto=1" class="btn-luxury-primary btn-sm py-2 px-3" style="font-size: 0.78rem;">
+                                    <i class="fas fa-satellite-dish me-1"></i> فحص الوجود الرقمي لـ "<?= e($q) ?>"
+                                </a>
+                                <a href="/" class="btn-luxury-outline btn-sm py-2 px-3" style="font-size: 0.78rem;">
+                                    <i class="fas fa-undo me-1"></i> عرض كافة المدارس
+                                </a>
+                            </div>
+                        <?php else: ?>
+                            <p class="text-muted small" style="font-size: 0.74rem;">جرب تغيير شروط الفلترة أو تصفح ولاية أخرى لاكتشاف خيارات أوسع.</p>
+                            <a href="/" class="btn-luxury-primary btn-sm mt-2">
+                                <i class="fas fa-undo me-1"></i> إعادة ضبط وعرض كل المدارس
+                            </a>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            <?php else: ?>
+                <?php if ($currentViewMode === 'list'): ?>
+                    <div class="d-flex flex-column gap-2 mb-3">
+                        <?php foreach($searchResults as $s): ?>
+                            <?php $renderSchoolRow($s); ?>
+                        <?php endforeach; ?>
                     </div>
                 <?php else: ?>
-                    <?php foreach($searchResults as $s): ?>
-                        <?php $renderSchoolCard($s); ?>
-                    <?php endforeach; ?>
+                    <div class="row g-3">
+                        <?php foreach($searchResults as $s): ?>
+                            <?php $renderSchoolCard($s); ?>
+                        <?php endforeach; ?>
+                    </div>
                 <?php endif; ?>
-            </div>
+            <?php endif; ?>
 
             <!-- BOTTOM PAGINATION BAR -->
             <?php renderCatalogPagination($page ?? 1, $totalPages ?? 1, $totalMatching ?? 0, $perPage ?? 12); ?>
@@ -457,15 +513,23 @@ if (!function_exists('renderCatalogPagination')) {
                     <?php endif; ?>
                 </div>
 
-                <div class="row g-3">
-                    <?php foreach($schoplusShowcase as $s): ?>
-                        <?php $renderSchoolCard($s); ?>
-                    <?php endforeach; ?>
-                </div>
+                <?php if ($currentViewMode === 'list'): ?>
+                    <div class="d-flex flex-column gap-2 mb-3">
+                        <?php foreach($schoplusShowcase as $s): ?>
+                            <?php $renderSchoolRow($s); ?>
+                        <?php endforeach; ?>
+                    </div>
+                <?php else: ?>
+                    <div class="row g-3">
+                        <?php foreach($schoplusShowcase as $s): ?>
+                            <?php $renderSchoolCard($s); ?>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
             </div>
             <?php endif; ?>
 
-            <!-- DEFAULT VIEW: MAIN CATALOG GRID -->
+            <!-- DEFAULT VIEW: MAIN CATALOG -->
             <div>
                 <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3 pb-2 border-bottom">
                     <div>
@@ -482,11 +546,19 @@ if (!function_exists('renderCatalogPagination')) {
                 <!-- TOP PAGINATION BAR -->
                 <?php renderCatalogPagination($page ?? 1, $totalPages ?? 1, $statTotal ?? 0, $perPage ?? 12); ?>
 
-                <div class="row g-3">
-                    <?php foreach($catalogSchools as $s): ?>
-                        <?php $renderSchoolCard($s); ?>
-                    <?php endforeach; ?>
-                </div>
+                <?php if ($currentViewMode === 'list'): ?>
+                    <div class="d-flex flex-column gap-2 mb-3">
+                        <?php foreach($catalogSchools as $s): ?>
+                            <?php $renderSchoolRow($s); ?>
+                        <?php endforeach; ?>
+                    </div>
+                <?php else: ?>
+                    <div class="row g-3">
+                        <?php foreach($catalogSchools as $s): ?>
+                            <?php $renderSchoolCard($s); ?>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
 
                 <!-- BOTTOM PAGINATION BAR -->
                 <?php renderCatalogPagination($page ?? 1, $totalPages ?? 1, $statTotal ?? 0, $perPage ?? 12); ?>

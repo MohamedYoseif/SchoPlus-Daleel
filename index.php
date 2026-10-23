@@ -7,12 +7,12 @@ $isAjax = (!empty($_GET['ajax']) && $_GET['ajax'] == '1') ||
 
 $pdo = db();
 
-// Fast Live Autocomplete Suggestions Endpoint (Hero Search)
+// Fast Live Multi-Category Autocomplete Suggestions Endpoint (Hero Search)
 if (!empty($_GET['suggest']) && $_GET['suggest'] == '1') {
     header('Content-Type: application/json; charset=UTF-8');
     $sq = trim($_GET['q'] ?? '');
     if (mb_strlen($sq, 'UTF-8') < 2) {
-        echo json_encode(['schools' => [], 'total' => 0, 'q' => $sq], JSON_UNESCAPED_UNICODE);
+        echo json_encode(['schools' => [], 'locations' => [], 'stages' => [], 'total' => 0, 'q' => $sq], JSON_UNESCAPED_UNICODE);
         exit;
     }
 
@@ -38,7 +38,8 @@ if (!empty($_GET['suggest']) && $_GET['suggest'] == '1') {
     $countStmt->execute($searchParams);
     $totalFound = (int)$countStmt->fetchColumn();
 
-    $stmt = $pdo->prepare("SELECT id, name, name_en, slug, logo_path, state, city, school_type, rating_avg, is_schoplus_client, is_verified FROM daleel_schools WHERE {$suggestWhere} ORDER BY {$suggestOrder} LIMIT 6");
+    // 1. Matching Schools (Top 5)
+    $stmt = $pdo->prepare("SELECT id, name, name_en, slug, logo_path, state, city, district, school_type, rating_avg, is_schoplus_client, is_verified, is_historic FROM daleel_schools WHERE {$suggestWhere} ORDER BY {$suggestOrder} LIMIT 5");
     $stmt->execute($allParams);
     $schools = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -49,8 +50,45 @@ if (!empty($_GET['suggest']) && $_GET['suggest'] == '1') {
         $s['type_label'] = $s['school_type'] === 'government' ? 'حكومية' : ($s['school_type'] === 'private' ? 'خاصة' : ($s['school_type'] === 'international' ? 'دولية' : 'مدرسة'));
     }
 
+    // 2. Matching Cities & States
+    $locations = [];
+    try {
+        $locStmt = $pdo->prepare("SELECT city, state, COUNT(*) as cnt FROM daleel_schools WHERE status = 'approved' AND (city LIKE ? OR state LIKE ?) GROUP BY city, state ORDER BY cnt DESC LIMIT 3");
+        $locStmt->execute([$cleanSq . '%', $cleanSq . '%']);
+        $locations = $locStmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Throwable $e) {}
+
+    // 3. Matching Stages
+    $matchedStages = [];
+    try {
+        $normSq = normalizeArabicForSearch($sq);
+        $stagesList = SudanGeography::schoolStages();
+        $stageKeywords = [
+            'kindergarten' => ['روضه', 'رياض', 'حضانه', 'اطفال', 'kindergarten', 'preschool'],
+            'primary' => ['اساس', 'ابتدائي', 'ابتدائيه', 'primary', 'elementary'],
+            'intermediate' => ['متوسط', 'متوسطه', 'اعدادي', 'intermediate', 'middle'],
+            'secondary' => ['ثانوي', 'ثانويه', 'secondary', 'high']
+        ];
+        foreach ($stageKeywords as $stgKey => $words) {
+            foreach ($words as $w) {
+                if (str_contains($normSq, $w) || str_contains($w, $normSq)) {
+                    $cnt = (int)$pdo->query("SELECT COUNT(*) FROM daleel_schools WHERE status = 'approved' AND stages LIKE '%\"{$stgKey}\"%'")->fetchColumn();
+                    $matchedStages[] = [
+                        'key' => $stgKey,
+                        'label' => $stagesList[$stgKey] ?? $stgKey,
+                        'count' => $cnt,
+                        'url' => '/?stage=' . urlencode($stgKey)
+                    ];
+                    break;
+                }
+            }
+        }
+    } catch (Throwable $e) {}
+
     echo json_encode([
         'schools' => $schools,
+        'locations' => $locations,
+        'stages' => $matchedStages,
         'total' => $totalFound,
         'q' => $sq
     ], JSON_UNESCAPED_UNICODE);
@@ -67,6 +105,8 @@ $schoolType = trim($_GET['type'] ?? $_GET['school_type'] ?? '');
 $schoplusOnly = !empty($_GET['schoplus_only']);
 $sort = trim($_GET['sort'] ?? '');
 $view = trim($_GET['view'] ?? ''); // 'all', 'schoplus', 'top_rated', 'historic', 'latest', or ''
+$viewMode = trim($_GET['view_mode'] ?? $_COOKIE['daleel_view_mode'] ?? 'grid');
+if (!in_array($viewMode, ['grid', 'list'])) $viewMode = 'grid';
 $page = max(1, (int)($_GET['page'] ?? 1));
 $perPage = 12;
 
@@ -189,6 +229,9 @@ if (!function_exists('buildFilterUrl')) {
     function buildFilterUrl(array $overrides = []): string {
         $params = $_GET;
         unset($params['ajax']);
+        if (!isset($overrides['view_mode']) && !empty($_GET['view_mode'])) {
+            $params['view_mode'] = $_GET['view_mode'];
+        }
         foreach ($overrides as $k => $v) {
             if ($v === null || $v === '') {
                 unset($params[$k]);
@@ -278,9 +321,11 @@ if ($isSearching) {
         if ($view === 'historic') $orderBy = "{$historicWhereSql} DESC, {$historicYearOrder}, id ASC";
     }
     if ($sort === 'rating' || $view === 'top_rated') $orderBy = "rating_avg DESC, reviews_count DESC, id ASC";
+    if ($sort === 'historic' || $view === 'historic') $orderBy = "{$historicWhereSql} DESC, {$historicYearOrder}, id ASC";
     if ($sort === 'reviews') $orderBy = "reviews_count DESC, id ASC";
     if ($sort === 'views') $orderBy = "views_count DESC, id ASC";
     if ($sort === 'latest' || $view === 'latest') $orderBy = "created_at DESC, id DESC";
+    if ($sort === 'name_asc') $orderBy = "name ASC, id ASC";
 
     $countStmt = $pdo->prepare("SELECT COUNT(*) FROM daleel_schools WHERE {$whereClause}");
     $countStmt->execute($params);
@@ -452,6 +497,155 @@ $renderSchoolCard = function($s) use ($pdo, $schoolStages, $schoolTypes) {
 <?php
 };
 
+/**
+ * Reusable School Horizontal Row Renderer (List View Mode)
+ */
+$renderSchoolRow = function($s) use ($pdo, $schoolStages, $schoolTypes, $q) {
+    $logo = e(defaultSchoolLogo($s['logo_path'] ?? null));
+    $stagesArr = json_decode($s['stages'] ?? '[]', true) ?: [];
+    $schoolUrl = '/school/' . urlencode($s['slug']);
+    $sRank = getSchoolDirectoryRank($pdo, (int)$s['id'], !empty($s['directory_rank']) ? (int)$s['directory_rank'] : null);
+    $sStateRank = getSchoolStateRank($pdo, (int)$s['id'], (string)($s['state'] ?? ''), !empty($s['state_rank']) ? (int)$s['state_rank'] : null);
+    $isHistoric = isSchoolHistoric($s);
+    $hBadge = $isHistoric ? getSchoolHistoricBadge($s) : null;
+    $rating = round((float)($s['rating_avg'] ?? 0), 1);
+    $reviewsCount = (int)($s['reviews_count'] ?? 0);
+    $phone = trim($s['phone'] ?? '');
+    $whatsapp = trim($s['whatsapp'] ?? '');
+    $typeLabel = $s['school_type'] === 'government' ? 'حكومية' : ($s['school_type'] === 'private' ? 'خاصة' : ($s['school_type'] === 'international' ? 'دولية' : 'مؤسسة'));
+    
+    // Highlight helper
+    $highlight = function($text) use ($q) {
+        if (!$q || !$text) return e($text);
+        $escaped = e($text);
+        $safeQ = preg_quote($q, '/');
+        return preg_replace('/(' . $safeQ . ')/iu', '<mark class="sp-search-highlight">$1</mark>', $escaped);
+    };
+
+    // Google maps link for address if available
+    $mapsQuery = urlencode(trim(($s['name'] ?? '') . ' ' . ($s['district'] ?? '') . ' ' . ($s['city'] ?? '') . ' ' . ($s['state'] ?? '') . ' ' . ($s['country'] ?? 'السودان')));
+    $mapsUrl = "https://www.google.com/maps/search/?api=1&query={$mapsQuery}";
+?>
+<div class="luxury-row-card clickable-school-card <?= $isHistoric ? 'luxury-row-card-historic' : '' ?> mb-2.5" onclick="window.location.href='<?= $schoolUrl ?>'">
+    <div class="row g-3 align-items-center">
+        <!-- 1. Logo & Rank -->
+        <div class="col-auto">
+            <div class="luxury-row-logo-wrap">
+                <img src="<?= $logo ?>" alt="" loading="lazy">
+                <span class="luxury-row-rank-badge" title="الترتيب العام بالدليل">#<?= $sRank ?></span>
+                <?php if ($isHistoric): ?>
+                    <span class="historic-logo-seal" title="صرح وطني عريق"><i class="fas fa-crown"></i></span>
+                <?php endif; ?>
+            </div>
+        </div>
+
+        <!-- 2. Main School Details -->
+        <div class="col">
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-1">
+                <a href="<?= $schoolUrl ?>" class="luxury-row-title text-decoration-none" onclick="event.stopPropagation();">
+                    <?php if ($isHistoric): ?>
+                        <i class="fas fa-landmark text-warning me-1" style="color: #D97706 !important;" title="صرح وطني عريق"></i>
+                    <?php endif; ?>
+                    <?= $highlight($s['name']) ?>
+                </a>
+
+                <?php if ($isHistoric): ?>
+                    <span class="badge bg-warning text-dark border border-warning" style="font-size: 0.65rem; padding: 2px 7px; border-radius: 999px; font-weight: 800;">
+                        <i class="fas fa-landmark"></i> صرح عريق
+                    </span>
+                <?php endif; ?>
+
+                <?php if (!empty($s['is_schoplus_client'])): ?>
+                    <span class="badge-schoplus-smart" style="font-size: 0.65rem; padding: 2px 7px;"><i class="fas fa-bolt"></i> SchoPlus الذكي</span>
+                <?php endif; ?>
+
+                <?php if (!empty($s['is_verified'])): ?>
+                    <span class="badge bg-success text-white" style="font-size: 0.64rem; padding: 2px 7px; border-radius: 999px;"><i class="fas fa-check-circle me-1"></i> موثقة</span>
+                <?php endif; ?>
+            </div>
+
+            <?php if (!empty($s['name_en'])): ?>
+                <div class="text-muted small mb-1" style="font-size: 0.72rem;"><?= $highlight($s['name_en']) ?></div>
+            <?php endif; ?>
+
+            <!-- Location Line -->
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-2 text-muted" style="font-size: 0.73rem;">
+                <span class="d-inline-flex align-items-center">
+                    <i class="fas fa-map-marker-alt text-danger me-1"></i>
+                    <strong><?= e($s['state'] ?? 'السودان') ?></strong>
+                    <?php if (!empty($s['city'])): ?> — <?= e($s['city']) ?><?php endif; ?>
+                    <?php if (!empty($s['district'])): ?> (<?= $highlight($s['district']) ?>)<?php endif; ?>
+                </span>
+                <a href="<?= $mapsUrl ?>" target="_blank" class="sp-maps-pill-link" onclick="event.stopPropagation();" title="فتح الموقع في خرائط Google">
+                    <i class="fas fa-external-link-alt" style="font-size: 0.62rem;"></i> خرائط Google
+                </a>
+            </div>
+
+            <!-- Tags (Type, Curriculum, Stages) -->
+            <div class="d-flex flex-wrap align-items-center gap-1.5">
+                <span class="badge" style="background: #EFF6FF; color: #1E5FA8; border: 1px solid #BFDBFE; font-size: 0.66rem; font-weight: 700;">
+                    <?= e($typeLabel) ?>
+                </span>
+
+                <?php if (!empty($s['curriculum'])): ?>
+                    <span class="badge" style="background: #F8FAFC; color: #475569; border: 1px solid #E2E8F0; font-size: 0.66rem;">
+                        <i class="fas fa-book-open me-1 text-primary"></i> منهج <?= $s['curriculum'] === 'sudanese' ? 'سوداني' : ($s['curriculum'] === 'british' ? 'بريطاني' : ($s['curriculum'] === 'bilingual' ? 'ثنائي اللغة' : e($s['curriculum']))) ?>
+                    </span>
+                <?php endif; ?>
+
+                <?php foreach($stagesArr as $stg): ?>
+                    <?php if (isset($schoolStages[$stg])): ?>
+                        <span class="badge-stage"><?= e($schoolStages[$stg]) ?></span>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+
+                <?php if (!empty($s['established_year'])): ?>
+                    <span class="badge" style="background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; font-size: 0.66rem; font-weight: 700;">
+                        <i class="fas fa-calendar-alt me-1"></i> تأسست <?= e($s['established_year']) ?>م
+                    </span>
+                <?php endif; ?>
+            </div>
+        </div>
+
+        <!-- 3. Actions & Rating Block -->
+        <div class="col-12 col-md-auto d-flex flex-md-column justify-content-between align-items-end gap-2 border-top border-md-top-0 pt-2 pt-md-0">
+            <div class="d-flex align-items-center gap-1 mb-md-2">
+                <div class="star-rating d-inline-flex align-items-center gap-1">
+                    <i class="fas fa-star text-warning"></i>
+                    <span class="fw-bold text-dark" style="font-size: 0.85rem;"><?= number_format($rating, 1) ?></span>
+                </div>
+                <span class="text-muted small" style="font-size: 0.68rem;">(<?= $reviewsCount ?>)</span>
+            </div>
+
+            <div class="d-flex align-items-center gap-1.5 flex-wrap">
+                <button type="button" class="btn-compare-card" data-compare-id="<?= $s['id'] ?>" onclick="event.stopPropagation(); toggleSchoolCompare({id: '<?= $s['id'] ?>', name: '<?= addslashes(e($s['name'])) ?>', logo: '<?= addslashes($logo) ?>', slug: '<?= addslashes($s['slug']) ?>'});" title="إضافة إلى المقارنة">
+                    <i class="fas fa-balance-scale"></i>
+                    <span class="compare-lbl">مقارنة</span>
+                </button>
+
+                <?php if (!empty($whatsapp)): ?>
+                    <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $whatsapp) ?>" target="_blank" class="btn btn-sm btn-outline-success rounded-circle" style="width: 32px; height: 32px; padding: 0; display: inline-flex; align-items: center; justify-content: center;" title="تواصل عبر واتساب" onclick="event.stopPropagation();">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                <?php endif; ?>
+
+                <?php if (!empty($phone)): ?>
+                    <a href="tel:<?= preg_replace('/[^0-9+]/', '', $phone) ?>" class="btn btn-sm btn-outline-primary rounded-circle" style="width: 32px; height: 32px; padding: 0; display: inline-flex; align-items: center; justify-content: center;" title="اتصال هاتفي" onclick="event.stopPropagation();">
+                        <i class="fas fa-phone-alt" style="font-size: 0.72rem;"></i>
+                    </a>
+                <?php endif; ?>
+
+                <a href="<?= $schoolUrl ?>" class="<?= $isHistoric ? 'btn-historic-action' : 'btn-luxury-outline' ?> btn-sm py-1.5 px-3" onclick="event.stopPropagation();" style="font-size: 0.74rem;">
+                    <span>الملف التعريفي</span>
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<?php
+};
+
 // Dynamic Title Resolution
 $dynamicTitle = 'دليل المدارس — دليلك الشامل لاختيار أفضل المدارس';
 if ($schoolType === 'government') {
@@ -489,6 +683,7 @@ if ($isAjax) {
         'type' => $schoolType,
         'q' => $q,
         'view' => $view,
+        'view_mode' => $viewMode,
         'sort' => $sort,
         'schoplus_only' => $schoplusOnly ? 1 : 0,
         'page' => $page,
@@ -1985,6 +2180,222 @@ require_once __DIR__ . '/header.php';
     box-shadow: 0 4px 14px rgba(180, 83, 9, 0.35) !important;
     transform: translateY(-1px);
 }
+
+/* ============================================================
+   ADVANCED SEARCH & LUXURY LIST VIEW STYLING (Style F v2)
+   ============================================================ */
+.luxury-row-card {
+    background: #FFFFFF;
+    border: 1px solid #DDE4ED;
+    border-radius: 14px;
+    padding: 16px 18px;
+    box-shadow: 0 3px 12px rgba(11, 42, 82, 0.04);
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+.luxury-row-card:hover {
+    border-color: #1E5FA8;
+    box-shadow: 0 8px 24px rgba(30, 95, 168, 0.12);
+    transform: translateY(-2px);
+}
+.luxury-row-card-historic {
+    background: linear-gradient(180deg, #FFFDF8 0%, #FFFFFF 100%) !important;
+    border: 1.5px solid #F5A020 !important;
+    box-shadow: 0 4px 18px rgba(245, 160, 32, 0.1) !important;
+}
+.luxury-row-card-historic:hover {
+    border-color: #D97706 !important;
+    box-shadow: 0 10px 28px rgba(217, 119, 6, 0.18) !important;
+}
+.luxury-row-logo-wrap {
+    width: 68px;
+    height: 68px;
+    min-width: 68px;
+    border-radius: 12px;
+    border: 1px solid #DDE4ED;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 4px;
+}
+.luxury-row-logo-wrap img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+.luxury-row-rank-badge {
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #0B2A52;
+    color: #FFFFFF;
+    font-size: 0.58rem;
+    font-weight: 800;
+    padding: 1px 6px;
+    border-radius: 999px;
+    white-space: nowrap;
+    border: 1px solid rgba(255,255,255,0.5);
+    line-height: 1.2;
+}
+.luxury-row-title {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #0B2A52;
+    transition: color 0.15s ease;
+}
+.luxury-row-card:hover .luxury-row-title {
+    color: #1E5FA8;
+}
+.sp-search-highlight {
+    background-color: #FEF3C7;
+    color: #B45309;
+    padding: 0 2px;
+    border-radius: 2px;
+    font-weight: 800;
+}
+.sp-maps-pill-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 0.68rem;
+    color: #1E5FA8;
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    padding: 1px 8px;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: all 0.15s ease;
+}
+.sp-maps-pill-link:hover {
+    background: #1E5FA8;
+    color: #FFFFFF;
+    border-color: #1E5FA8;
+}
+
+/* Results Toolbar */
+.sp-results-toolbar {
+    background: #FFFFFF;
+    border: 1px solid #DDE4ED;
+    border-radius: 12px;
+    padding: 8px 14px;
+    box-shadow: 0 2px 6px rgba(11, 42, 82, 0.03);
+}
+.sp-results-count-badge {
+    display: inline-flex;
+    align-items: center;
+    background: #F0F4F8;
+    color: #0B2A52;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 0.74rem;
+    font-weight: 700;
+    border: 1px solid #DDE4ED;
+}
+.sp-view-btn {
+    font-size: 0.72rem;
+    padding: 4px 10px;
+    border-color: #DDE4ED;
+    color: #475569;
+    background: #FFFFFF;
+    transition: all 0.15s ease;
+}
+.sp-view-btn.active {
+    background-color: #0B2A52 !important;
+    border-color: #0B2A52 !important;
+    color: #FFFFFF !important;
+}
+.sp-view-btn:hover:not(.active) {
+    background: #F1F5F9;
+    border-color: #CBD5E1;
+}
+.sp-sort-select {
+    font-size: 0.72rem;
+    height: 30px;
+    border-color: #DDE4ED;
+    color: #0B2A52;
+    font-weight: 600;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    padding: 2px 24px 2px 8px;
+    min-width: 155px;
+}
+.sp-sort-select:focus {
+    border-color: #1E5FA8;
+    box-shadow: 0 0 0 2px rgba(30, 95, 168, 0.15);
+}
+
+/* Hero Quick Search Pills */
+.sp-hero-quick-pills {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    padding-top: 4px;
+}
+.sp-quick-pill {
+    background: #F8FAFC;
+    border: 1px solid #DDE4ED;
+    color: #334155;
+    padding: 2.5px 9px;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    text-decoration: none;
+}
+.sp-quick-pill:hover {
+    background: #EFF6FF;
+    border-color: #1E5FA8;
+    color: #1E5FA8;
+    transform: translateY(-1px);
+}
+
+/* Enhanced Autocomplete Dropdown Categorization */
+.sp-suggest-section-title {
+    font-size: 0.64rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #64748B;
+    padding: 6px 12px 3px;
+    background: #F8FAFC;
+    border-top: 1px solid #EEF2F6;
+    border-bottom: 1px solid #EEF2F6;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.sp-suggest-loc-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px 12px;
+    text-decoration: none;
+    color: #0B2A52;
+    font-size: 0.74rem;
+    font-weight: 600;
+    transition: background 0.15s ease;
+    border-bottom: 1px solid #F1F5F9;
+}
+.sp-suggest-loc-item:hover, .sp-suggest-loc-item.is-active {
+    background: #EFF6FF;
+    color: #1E5FA8;
+}
+.sp-suggest-loc-count {
+    background: #E2E8F0;
+    color: #475569;
+    font-size: 0.62rem;
+    padding: 1px 7px;
+    border-radius: 999px;
+    font-weight: 700;
+}
 </style>
 
 <!-- HERO SECTION WITH INTEGRATED SEARCH -->
@@ -2021,6 +2432,20 @@ require_once __DIR__ . '/header.php';
                         </div>
                         <!-- Live Autocomplete Suggestions Dropdown -->
                         <div id="heroSearchSuggestions" class="sp-search-suggestions-dropdown" style="display: none;"></div>
+                    </div>
+
+                    <!-- Quick Search Pills -->
+                    <div class="sp-hero-quick-pills mb-2.5">
+                        <span class="sp-quick-pills-lbl"><i class="fas fa-bolt text-warning me-1"></i> الأكثر بحثاً:</span>
+                        <a href="javascript:void(0)" class="sp-quick-pill" onclick="quickApplySearch('', 'historic')"><i class="fas fa-landmark text-warning"></i> صروح عريقة</a>
+                        <a href="javascript:void(0)" class="sp-quick-pill" onclick="quickApplySearch('روضة', '')"><i class="fas fa-child text-info"></i> رياض أطفال</a>
+                        <a href="javascript:void(0)" class="sp-quick-pill" onclick="quickApplySearch('', '', 'private')"><i class="fas fa-graduation-cap text-primary"></i> مدارس خاصة</a>
+                        <a href="javascript:void(0)" class="sp-quick-pill" onclick="quickApplySearch('', '', 'government')"><i class="fas fa-university text-secondary"></i> مدارس حكومية</a>
+                        <a href="javascript:void(0)" class="sp-quick-pill" onclick="quickApplySearch('بورتسودان', '')"><i class="fas fa-map-marker-alt text-danger"></i> بورتسودان</a>
+                        <a href="javascript:void(0)" class="sp-quick-pill" onclick="quickApplySearch('عطبرة', '')"><i class="fas fa-map-marker-alt text-danger"></i> عطبرة</a>
+                        <a href="javascript:void(0)" class="sp-quick-pill" onclick="quickApplySearch('ود مدني', '')"><i class="fas fa-map-marker-alt text-danger"></i> ود مدني</a>
+                        <a href="javascript:void(0)" class="sp-quick-pill" onclick="quickApplySearch('أم درمان', '')"><i class="fas fa-map-marker-alt text-danger"></i> أم درمان</a>
+                        <a href="javascript:void(0)" class="sp-quick-pill" onclick="quickApplySearch('بحري', '')"><i class="fas fa-map-marker-alt text-danger"></i> بحري</a>
                     </div>
 
                     <!-- 2. Structured Filter Grid (Country, State, City, Stage with Searchable Dropdowns) -->
@@ -3058,13 +3483,15 @@ ob_start();
             function renderSuggestions(data, query) {
                 if (!heroSuggestionsBox) return;
                 const schools = data.schools || [];
+                const locations = data.locations || [];
+                const stages = data.stages || [];
                 const total = data.total || 0;
 
-                if (schools.length === 0) {
+                if (schools.length === 0 && locations.length === 0 && stages.length === 0) {
                     heroSuggestionsBox.innerHTML = `
                         <div class="sp-suggest-empty">
                             <i class="fas fa-search me-1 text-muted"></i>
-                            لم نعثر على مدرسة باسم "<strong>${escapeHtml(query)}</strong>" مباشرة.
+                            لم نعثر على نتيجة مطابقة لـ "<strong>${escapeHtml(query)}</strong>" مباشرة.
                             <div class="mt-2">
                                 <button type="button" class="btn btn-sm btn-primary rounded-pill px-3 py-1" style="font-size: 0.72rem; background: #0B2A52; border-color: #0B2A52;" onclick="submitHeroSearch('${escapeHtml(query)}')">
                                     بحث شامل في كافة البيانات ↵
@@ -3078,37 +3505,78 @@ ob_start();
 
                 let html = `
                     <div class="sp-suggest-header">
-                        <span><i class="fas fa-school text-primary me-1"></i> مقترحات المدارس المطابقة</span>
+                        <span><i class="fas fa-search text-primary me-1"></i> نتائج الاقتراح الذكي</span>
                         <span class="sp-suggest-count-badge">${total} مدرسة</span>
                     </div>
-                    <div class="sp-suggest-list">
                 `;
 
-                schools.forEach(s => {
-                    const ratingBadge = s.rating_avg > 0 ? `<span class="badge bg-warning text-dark"><i class="fas fa-star" style="font-size:0.6rem"></i> ${s.rating_avg}</span>` : '';
-                    const verifiedIcon = s.is_verified || s.is_schoplus_client ? `<i class="fas fa-check-circle text-primary" title="مدرسة موثقة" style="font-size:0.7rem"></i>` : '';
-                    const loc = [s.state, s.city].filter(Boolean).join(' • ');
+                // 1. Matching Locations (Cities & States)
+                if (locations.length > 0) {
+                    html += `<div class="sp-suggest-section-title"><i class="fas fa-map-marker-alt text-danger"></i> المدن والمناطق المطابقة</div>`;
+                    locations.forEach(loc => {
+                        html += `
+                            <a href="javascript:void(0)" class="sp-suggest-loc-item" onclick="filterByLocation('${escapeHtml(loc.city)}', '${escapeHtml(loc.state)}')">
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="fas fa-city text-primary" style="font-size:0.75rem;"></i>
+                                    <span><strong>${highlightMatch(loc.city, query)}</strong> <span class="text-muted small">(${escapeHtml(loc.state)})</span></span>
+                                </div>
+                                <span class="sp-suggest-loc-count">${loc.cnt} مدرسة</span>
+                            </a>
+                        `;
+                    });
+                }
 
+                // 2. Matching Educational Stages
+                if (stages.length > 0) {
+                    html += `<div class="sp-suggest-section-title"><i class="fas fa-graduation-cap text-warning"></i> المراحل الدراسية</div>`;
+                    stages.forEach(stg => {
+                        html += `
+                            <a href="javascript:void(0)" class="sp-suggest-loc-item" onclick="filterByStage('${escapeHtml(stg.key)}')">
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="fas fa-layer-group text-warning" style="font-size:0.75rem;"></i>
+                                    <span>مرحلة <strong>${escapeHtml(stg.label)}</strong></span>
+                                </div>
+                                <span class="sp-suggest-loc-count">${stg.count} مدرسة</span>
+                            </a>
+                        `;
+                    });
+                }
+
+                // 3. Matching Schools
+                if (schools.length > 0) {
                     html += `
-                        <a href="${s.url}" class="sp-suggest-item">
-                            <img src="${s.logo_url}" alt="${escapeHtml(s.name)}" class="sp-suggest-logo" onerror="this.src='/assets/images/default-school-logo.svg'">
-                            <div class="sp-suggest-info">
-                                <div class="sp-suggest-title">
-                                    ${highlightMatch(s.name, query)} ${verifiedIcon}
-                                </div>
-                                <div class="sp-suggest-meta">
-                                    <span class="sp-suggest-meta-tag">${escapeHtml(s.type_label)}</span>
-                                    <span><i class="fas fa-map-marker-alt text-danger me-1"></i> ${escapeHtml(loc || 'السودان')}</span>
-                                    ${ratingBadge}
-                                </div>
-                            </div>
-                            <i class="fas fa-arrow-left text-muted" style="font-size: 0.75rem;"></i>
-                        </a>
+                        <div class="sp-suggest-section-title"><i class="fas fa-school text-primary"></i> المدارس المقترحة</div>
+                        <div class="sp-suggest-list">
                     `;
-                });
+
+                    schools.forEach(s => {
+                        const ratingBadge = s.rating_avg > 0 ? `<span class="badge bg-warning text-dark"><i class="fas fa-star" style="font-size:0.6rem"></i> ${s.rating_avg}</span>` : '';
+                        const verifiedIcon = s.is_verified || s.is_schoplus_client ? `<i class="fas fa-check-circle text-primary" title="مدرسة موثقة" style="font-size:0.7rem"></i>` : '';
+                        const historicIcon = s.is_historic ? `<i class="fas fa-landmark text-warning" title="صرح عريق" style="font-size:0.7rem;"></i>` : '';
+                        const loc = [s.state, s.city, s.district].filter(Boolean).join(' • ');
+
+                        html += `
+                            <a href="${s.url}" class="sp-suggest-item">
+                                <img src="${s.logo_url}" alt="${escapeHtml(s.name)}" class="sp-suggest-logo" onerror="this.src='/assets/images/default-school-logo.svg'">
+                                <div class="sp-suggest-info">
+                                    <div class="sp-suggest-title">
+                                        ${historicIcon} ${highlightMatch(s.name, query)} ${verifiedIcon}
+                                    </div>
+                                    <div class="sp-suggest-meta">
+                                        <span class="sp-suggest-meta-tag">${escapeHtml(s.type_label)}</span>
+                                        <span><i class="fas fa-map-marker-alt text-danger me-1"></i> ${escapeHtml(loc || 'السودان')}</span>
+                                        ${ratingBadge}
+                                    </div>
+                                </div>
+                                <i class="fas fa-arrow-left text-muted" style="font-size: 0.75rem;"></i>
+                            </a>
+                        `;
+                    });
+
+                    html += `</div>`;
+                }
 
                 html += `
-                    </div>
                     <a href="javascript:void(0)" class="sp-suggest-footer" onclick="submitHeroSearch('${escapeHtml(query)}')">
                         <span><i class="fas fa-list-ul me-1"></i> عرض كافة النتائج المطابقة (${total} مدرسة)</span>
                         <span class="badge bg-white text-dark border">Enter ↵</span>
@@ -3120,12 +3588,66 @@ ob_start();
                 activeSuggestIndex = -1;
             }
 
+            window.filterByLocation = function(city, state) {
+                closeSuggestions();
+                const url = new URL(window.location.origin);
+                if (city) url.searchParams.set('city', city);
+                if (state) url.searchParams.set('state', state);
+                loadCatalogAjax(url.pathname + url.search, true, true);
+            };
+
+            window.filterByStage = function(stageKey) {
+                closeSuggestions();
+                const url = new URL(window.location.origin);
+                url.searchParams.set('stage', stageKey);
+                loadCatalogAjax(url.pathname + url.search, true, true);
+            };
+
             window.submitHeroSearch = function(query) {
                 if (heroSearchInput) heroSearchInput.value = query;
                 closeSuggestions();
                 if (smartFilterForm) {
                     smartFilterForm.dispatchEvent(new Event('submit', { cancelable: true }));
                 }
+            };
+
+            // Global Quick Apply Helper for Hero Topic Pills
+            window.quickApplySearch = function(query, viewVal, typeVal) {
+                if (heroSearchInput) heroSearchInput.value = query || '';
+                closeSuggestions();
+                const url = new URL(window.location.origin);
+                if (query) url.searchParams.set('q', query);
+                if (viewVal) url.searchParams.set('view', viewVal);
+                if (typeVal) url.searchParams.set('type', typeVal);
+                loadCatalogAjax(url.pathname + url.search, true, true);
+            };
+
+            // View Mode Switcher (Grid vs List)
+            window.switchCatalogViewMode = function(mode) {
+                mode = (mode === 'list') ? 'list' : 'grid';
+                document.cookie = 'daleel_view_mode=' + mode + '; path=/; max-age=31536000';
+                try { localStorage.setItem('daleel_view_mode', mode); } catch(e) {}
+
+                // Update active state on buttons
+                document.querySelectorAll('.sp-view-btn').forEach(b => {
+                    b.classList.toggle('active', b.dataset.mode === mode);
+                });
+
+                const currentUrl = new URL(window.location.href);
+                currentUrl.searchParams.set('view_mode', mode);
+                loadCatalogAjax(currentUrl.pathname + currentUrl.search, 'replace', false);
+            };
+
+            // Sort Dropdown Change Handler
+            window.onCatalogSortChange = function(sortVal) {
+                const currentUrl = new URL(window.location.href);
+                if (sortVal) {
+                    currentUrl.searchParams.set('sort', sortVal);
+                } else {
+                    currentUrl.searchParams.delete('sort');
+                }
+                currentUrl.searchParams.delete('page');
+                loadCatalogAjax(currentUrl.pathname + currentUrl.search, 'replace', false);
             };
 
             // Auto-trigger filter on native select changes (DO NOT aggressively scroll down!)
