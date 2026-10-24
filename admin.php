@@ -4900,7 +4900,7 @@ try {
                 school_type: s.school_type,
                 phone: s.phone,
                 google_map_url: s.google_map_url,
-                facebook: s.facebook_url,
+                facebook: (s.facebook_url && !s.facebook_url.includes('facebook.com/search')) ? s.facebook_url : '',
                 description: s.description
             })
         })
@@ -4966,7 +4966,7 @@ try {
                     school_type: s.school_type,
                     phone: s.phone || '',
                     google_map_url: s.google_map_url || '',
-                    facebook: s.facebook_url || '',
+                    facebook: (s.facebook_url && !s.facebook_url.includes('facebook.com/search')) ? s.facebook_url : '',
                     description: s.description || ''
                 }))
             })
@@ -5163,10 +5163,14 @@ try {
                                 </button>
                             ` : ''}
                             ${s.facebook_url ? `
-                                <a href="${s.facebook_url}" target="_blank" class="btn btn-sm btn-light border py-1 px-2 text-primary fw-bold d-inline-flex align-items-center gap-1" style="font-size: 0.68rem;" title="بحث فيسبوك">
-                                    <i class="fab fa-facebook"></i> فيسبوك ↗
+                                <a href="${s.facebook_url}" target="_blank" class="btn btn-sm btn-light border py-1 px-2 text-primary fw-bold d-inline-flex align-items-center gap-1" style="font-size: 0.68rem;" title="فتح صفحة الفيسبوك الرسمية">
+                                    <i class="fab fa-facebook text-primary"></i> صفحة فيسبوك ↗
                                 </a>
-                            ` : ''}
+                            ` : `
+                                <a href="${s.facebook_search_url || ('https://www.google.com/search?q=' + encodeURIComponent('مدرسة ' + s.name + ' ' + (s.district || s.city) + ' facebook'))}" target="_blank" class="btn btn-sm btn-light border py-1 px-2 text-muted d-inline-flex align-items-center gap-1" style="font-size: 0.68rem;" title="بحث عن صفحة المدرسة عبر محرك البحث">
+                                    <i class="fab fa-facebook opacity-75"></i> بحث فيسبوك ↗
+                                </a>
+                            `}
                         </div>
 
                         <!-- Embedded Interactive Map PIN Preview (Collapsible) -->

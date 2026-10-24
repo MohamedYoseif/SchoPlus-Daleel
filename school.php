@@ -372,8 +372,9 @@ $socialLinks = [];
 if (!empty(trim($school['website'] ?? ''))) {
     $socialLinks[] = ['url' => trim($school['website']), 'label' => 'الموقع الإلكتروني', 'icon' => 'fas fa-globe', 'color' => '#475569'];
 }
-if (!empty(trim($school['facebook'] ?? ''))) {
-    $socialLinks[] = ['url' => trim($school['facebook']), 'label' => 'صفحة فيسبوك', 'icon' => 'fab fa-facebook', 'color' => '#1877F2'];
+$fbRaw = trim((string)($school['facebook'] ?? ''));
+if (!empty($fbRaw) && !str_contains($fbRaw, 'facebook.com/search') && !str_contains($fbRaw, 'sharer') && (str_contains($fbRaw, 'facebook.com') || str_contains($fbRaw, 'fb.com') || str_contains($fbRaw, 'fb.me'))) {
+    $socialLinks[] = ['url' => $fbRaw, 'label' => 'صفحة فيسبوك', 'icon' => 'fab fa-facebook', 'color' => '#1877F2'];
 }
 if (!empty(trim($school['twitter'] ?? ''))) {
     $socialLinks[] = ['url' => trim($school['twitter']), 'label' => 'منصة إكس (تويتر)', 'icon' => 'fab fa-x-twitter', 'color' => '#0F172A'];

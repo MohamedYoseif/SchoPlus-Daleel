@@ -728,7 +728,12 @@ class SchoolAutoResearcher {
             $groundingStatus = $hasPhone ? 'هاتف موثق مسجل' : 'معتمدة جغرافياً بدبوس خرائط جوجل';
 
             // 4. Multi-Platform Deep Research URLs
-            $fbSearchUrl = !empty($c['facebook']) ? $c['facebook'] : ('https://www.facebook.com/search/top?q=' . urlencode($name . ' ' . $ct));
+            $rawFb = $c['facebook'] ?? ($c['website'] ?? null);
+            $validFbPage = null;
+            if (!empty($rawFb) && (str_contains($rawFb, 'facebook.com') || str_contains($rawFb, 'fb.com')) && !str_contains($rawFb, '/search') && !str_contains($rawFb, 'sharer')) {
+                $validFbPage = $rawFb;
+            }
+            $fbSearchUrl = 'https://www.google.com/search?q=' . urlencode('مدرسة ' . $name . ' ' . $ct . ' ' . $st . ' facebook صفحة فيسبوك');
             $ytSearchUrl = !empty($c['youtube']) ? $c['youtube'] : ('https://www.youtube.com/results?search_query=' . urlencode($name . ' ' . $ct . ' حفل تخريج فعاليات'));
             $ttSearchUrl = !empty($c['tiktok']) ? $c['tiktok'] : ('https://www.tiktok.com/search?q=' . urlencode($name . ' ' . $ct));
             $googleRecordsUrl = 'https://www.google.com/search?q=' . urlencode('"' . $name . '" ' . $ct . ' ' . $st . ' السودان');
@@ -771,12 +776,11 @@ class SchoolAutoResearcher {
                 'has_phone' => $hasPhone,
                 'has_pin' => true,
                 'pin_address' => $pinAddressStr,
-                'whatsapp' => $validPhone,
-                'has_phone' => $hasPhone,
                 'grounding_status' => $groundingStatus,
                 'google_map_url' => $gmapUrl,
                 'embed_map_url' => $embedMapUrl,
-                'facebook_url' => $fbSearchUrl,
+                'facebook_url' => $validFbPage,
+                'facebook_search_url' => $fbSearchUrl,
                 'youtube_url' => $ytSearchUrl,
                 'tiktok_url' => $ttSearchUrl,
                 'google_records_url' => $googleRecordsUrl,
@@ -802,7 +806,7 @@ class SchoolAutoResearcher {
                         $dist,
                         $fullAddress,
                         $desc,
-                        $fbSearchUrl
+                        $validFbPage
                     );
                     if (!empty($regRes['created'])) {
                         $registeredCount++;
