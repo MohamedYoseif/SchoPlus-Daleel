@@ -952,6 +952,29 @@ if ($action !== null) {
             exit;
         }
 
+        if ($action === 'run_deduplication') {
+            require_once __DIR__ . '/run_deduplication.php';
+            $res = runDaleelDeduplication($pdo);
+            $deleted = $res['deleted'] ?? 0;
+            $renamed = $res['renamed'] ?? 0;
+            $remaining = $res['remaining'] ?? 0;
+
+            if (class_exists('DaleelSyncService') && DaleelSyncService::isLocal()) {
+                DaleelSyncService::autoSyncDelta();
+            }
+
+            echo json_encode([
+                'success' => true,
+                'deleted' => $deleted,
+                'renamed' => $renamed,
+                'remaining' => $remaining,
+                'message' => ($deleted > 0) 
+                    ? "تم فحص وتنقية قاعدة البيانات: تم دمج وإلغاء ({$deleted}) مدرسة مكررة، وإجمالي المدارس المعتمدة بالدليل حالياً هو ({$remaining}) مدرسة."
+                    : "قاعدة البيانات نظيفة تماماً 100%! لم يُعثر على أي مدارس مكررة، وإجمالي المدارس المعتمدة بالدليل هو ({$remaining}) مدرسة."
+            ], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+
         if ($action === 'quick_approve_discovered_school') {
             $rawPayload = file_get_contents('php://input');
             $data = json_decode($rawPayload, true) ?: $_POST;
@@ -3397,6 +3420,9 @@ try {
                                     </div>
                                 </div>
                                 <div class="d-flex gap-2">
+                                    <button type="button" class="btn btn-sm btn-outline-light py-1.5 px-3" onclick="runDeduplicationAudit()" style="font-size: 0.72rem; border-radius: 8px;" title="فحص وتدقيق التكرار الشامل لدمج أي سجلات متكررة">
+                                        <i class="fas fa-shield-alt text-warning me-1"></i> فحص التكرار
+                                    </button>
                                     <button type="button" class="btn btn-sm btn-outline-light py-1.5 px-3" onclick="recalculateRanks()" style="font-size: 0.72rem; border-radius: 8px;" title="إعادة حساب الترتيب الفعلي">
                                         <i class="fas fa-sort-numeric-down me-1"></i> مواءمة الرتب
                                     </button>
@@ -4581,6 +4607,30 @@ try {
         })
         .catch(err => {
             showAdminToast('حدث خطأ في الاتصال.', 'danger');
+        });
+    }
+
+    function runDeduplicationAudit() {
+        if (!confirm('هل تريد تشغيل فحص تدقيق التكرار الشامل لدمج أي سجلات مكررة وتوحيد بياناتها؟')) return;
+
+        showAdminToast('جاري تدقيق وفحص كافة المدارس المسجلة لمنع التكرار...', 'warning');
+
+        const fd = new FormData();
+        fd.append('ajax_action', 'run_deduplication');
+
+        fetch('admin.php', { method: 'POST', body: fd })
+        .then(r => r.json())
+        .then(data => {
+            if (data && data.success) {
+                showAdminToast(data.message, 'success');
+                alert(data.message);
+                setTimeout(() => location.reload(), 1200);
+            } else {
+                showAdminToast('حدث خطأ أثناء فحص التكرار: ' + (data.error || ''), 'danger');
+            }
+        })
+        .catch(err => {
+            showAdminToast('حدث خطأ في الاتصال: ' + err, 'danger');
         });
     }
 
