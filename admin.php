@@ -2060,7 +2060,7 @@ try {
                     </button>
                 <?php endif; ?>
 
-                <a href="/" target="_blank" class="btn btn-sm btn-outline-light d-inline-flex align-items-center gap-1" style="font-size: 0.72rem; border-radius: 8px;" title="فتح الدليل العام المباشر في نافذة جديدة">
+                <a href="https://daleel.schoplus.sd/" target="_blank" class="btn btn-sm btn-outline-light d-inline-flex align-items-center gap-1" style="font-size: 0.72rem; border-radius: 8px;" title="فتح الدليل العام المباشر على السحابة في نافذة جديدة">
                     <i class="fas fa-external-link-alt"></i> عرض الدليل الحي
                 </a>
                 <a href="admin.php?action=logout" class="btn btn-sm btn-danger d-inline-flex align-items-center gap-1" style="font-size: 0.72rem; border-radius: 8px;">
@@ -2274,8 +2274,8 @@ try {
                     </div>
                     <?php if ($mSchool['id'] > 0): ?>
                     <div class="d-flex align-items-center gap-2 flex-wrap">
-                        <a href="/school/<?= urlencode($mSchool['slug']) ?>" target="_blank" class="btn btn-sm btn-light fw-bold text-dark px-3 py-1.5" style="border-radius: 8px; font-size: 0.78rem;">
-                            <i class="fas fa-external-link-alt text-primary me-1"></i> فتح صفحة الدليل
+                        <a href="https://daleel.schoplus.sd/school/<?= urlencode($mSchool['slug']) ?>" target="_blank" class="btn btn-sm btn-light fw-bold text-dark px-3 py-1.5" style="border-radius: 8px; font-size: 0.78rem;">
+                            <i class="fas fa-external-link-alt text-primary me-1"></i> فتح صفحة الدليل بالسحابة
                         </a>
                         <button type="button" class="btn btn-sm btn-danger px-3 py-1.5" onclick="deleteSchool(<?= $mSchool['id'] ?>, '<?= e(addslashes($mSchool['name'])) ?>')" style="border-radius: 8px; font-size: 0.78rem;">
                             <i class="fas fa-trash-alt me-1"></i> حذف المدرسة
@@ -2859,7 +2859,7 @@ try {
                                             <div class="d-flex align-items-center gap-2">
                                                 <div>
                                                     <div class="d-flex align-items-center gap-1 flex-wrap">
-                                                        <a href="/school/<?= urlencode($sch['slug']) ?>" target="_blank" class="fw-bold text-dark text-decoration-none hover-primary" style="font-size: 0.84rem;">
+                                                        <a href="https://daleel.schoplus.sd/school/<?= urlencode($sch['slug']) ?>" target="_blank" class="fw-bold text-dark text-decoration-none hover-primary" style="font-size: 0.84rem;" title="فتح المدرسة على السحابة المباشرة">
                                                             <?= e($sch['name']) ?>
                                                         </a>
                                                         <?php if (!empty($sch['is_verified'])): ?>
@@ -2971,7 +2971,7 @@ try {
                                                     <i class="fas fa-sliders-h"></i> <span>إدارة المدرسة</span>
                                                 </a>
                                                 <div class="d-flex align-items-center justify-content-center gap-1 mt-1 w-100">
-                                                    <a href="/school/<?= urlencode($sch['slug']) ?>" target="_blank" class="act-btn flex-grow-1 text-center" title="معاينة الصفحة العامة بالدليل">
+                                                    <a href="https://daleel.schoplus.sd/school/<?= urlencode($sch['slug']) ?>" target="_blank" class="act-btn flex-grow-1 text-center" title="معاينة الصفحة العامة بالدليل السحابي الحي">
                                                         <i class="fas fa-external-link-alt"></i>
                                                     </a>
                                                     <button type="button" class="act-btn danger flex-grow-1 text-center" onclick="deleteSchool(<?= $sch['id'] ?>, '<?= e(addslashes($sch['name'])) ?>')" title="حذف المدرسة">
@@ -3055,7 +3055,7 @@ try {
                                     <tr id="claim-row-<?= $clm['id'] ?>">
                                         <td class="fw-bold ps-3">#<?= $clm['id'] ?></td>
                                         <td>
-                                            <a href="/school/<?= urlencode($clm['school_slug'] ?? '') ?>" target="_blank" class="fw-bold text-dark text-decoration-none">
+                                            <a href="https://daleel.schoplus.sd/school/<?= urlencode($clm['school_slug'] ?? '') ?>" target="_blank" class="fw-bold text-dark text-decoration-none">
                                                 <?= e($clm['school_name'] ?? 'مدرسة #' . $clm['school_id']) ?>
                                             </a>
                                         </td>
@@ -3147,7 +3147,7 @@ try {
                                     <tr id="inquiry-row-<?= $inq['id'] ?>">
                                         <td class="fw-bold ps-3">#<?= $inq['id'] ?></td>
                                         <td>
-                                            <a href="/school/<?= urlencode($inq['school_slug'] ?? '') ?>" target="_blank" class="fw-bold text-dark text-decoration-none hover-primary">
+                                            <a href="https://daleel.schoplus.sd/school/<?= urlencode($inq['school_slug'] ?? '') ?>" target="_blank" class="fw-bold text-dark text-decoration-none hover-primary">
                                                 <?= e($inq['school_name'] ?? 'مدرسة #' . $inq['school_id']) ?>
                                             </a>
                                             <div class="small text-muted"><?= e($inq['state'] ?? '') ?> — <?= e($inq['city'] ?? '') ?></div>
@@ -3251,7 +3251,7 @@ try {
                                     <tr id="review-row-<?= $rev['id'] ?>">
                                         <td class="fw-bold ps-3">#<?= $rev['id'] ?></td>
                                         <td>
-                                            <a href="/school/<?= urlencode($rev['school_slug'] ?? '') ?>" target="_blank" class="fw-bold text-dark text-decoration-none hover-primary">
+                                            <a href="https://daleel.schoplus.sd/school/<?= urlencode($rev['school_slug'] ?? '') ?>" target="_blank" class="fw-bold text-dark text-decoration-none hover-primary">
                                                 <?= e($rev['school_name'] ?? 'مدرسة #' . $rev['school_id']) ?>
                                             </a>
                                             <div class="small text-muted"><?= e($rev['state'] ?? '') ?> — <?= e($rev['city'] ?? '') ?></div>
@@ -4986,7 +4986,7 @@ try {
                 actionBtns = `
                     <div class="d-flex align-items-center gap-1.5">
                         ${schId ? `<a href="admin.php?tab=manage_school&id=${schId}" class="btn btn-sm btn-primary py-1 px-2.5 fw-bold text-white shadow-2xs" style="font-size: 0.72rem; border-radius: 6px;"><i class="fas fa-edit me-1"></i> إدارة المدرسة</a>` : ''}
-                        <a href="/school/${encodeURIComponent(s.slug)}" target="_blank" class="btn btn-sm btn-outline-secondary py-1 px-2" style="font-size: 0.72rem; border-radius: 6px;" title="عرض في الدليل الحي"><i class="fas fa-external-link-alt"></i></a>
+                        <a href="https://daleel.schoplus.sd/school/${encodeURIComponent(s.slug)}" target="_blank" class="btn btn-sm btn-outline-secondary py-1 px-2" style="font-size: 0.72rem; border-radius: 6px;" title="عرض المدرسة في الدليل السحابي الحي"><i class="fas fa-external-link-alt"></i></a>
                     </div>
                 `;
             } else {

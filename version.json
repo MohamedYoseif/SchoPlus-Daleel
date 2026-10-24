@@ -1,7 +1,7 @@
 {
-    "version": "3.8.43",
+    "version": "3.8.44",
     "release_date": "2026-10-24",
     "version_type": "enterprise",
     "min_php_version": "8.2",
-    "release_notes": "دليل المدارس السودانية (daleel.schoplus.sd) — إلغاء الحفظ التلقائي وجعل المدارس المستكشفة في قائمة معاينة قابلة للاستبعاد والحفظ اليدوي v3.8.43"
+    "release_notes": "دليل المدارس السودانية (daleel.schoplus.sd) — توجيه كافة أزرار وروابط عرض الدليل العام وصفحات المدارس الحية لفتحها مباشرة على السحابة https://daleel.schoplus.sd v3.8.44"
 }
