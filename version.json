@@ -1,7 +1,7 @@
 {
-    "version": "3.8.64",
+    "version": "3.8.65",
     "release_date": "2026-10-24",
     "version_type": "enterprise",
     "min_php_version": "8.2",
-    "release_notes": "دليل المدارس السودانية (daleel.schoplus.sd) — إظهار تنبيه استنفاد كوتا جوجل الصريح وسجل الاستكشاف المباشر عند فراغ النتائج v3.8.64"
+    "release_notes": "دليل المدارس السودانية (daleel.schoplus.sd) — مسح مفتاح Google Places API محلياً وسحابياً وإضافة زر المسح المباشر في الواجهة v3.8.65"
 }

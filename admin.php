@@ -3562,6 +3562,9 @@ try {
                                                 <button type="button" id="btnSaveGoogleApiKey" class="btn btn-sm btn-success text-nowrap fw-bold" onclick="saveGooglePlacesApiKey()" style="font-size: 0.7rem; border-radius: 6px;" title="حفظ وتحديث المفتاح في قاعدة البيانات ومزامنته سحابياً">
                                                     <i class="fas fa-save me-1"></i> حفظ وتحديث
                                                 </button>
+                                                <button type="button" id="btnClearGoogleApiKey" class="btn btn-sm btn-outline-danger text-nowrap fw-bold" onclick="clearGooglePlacesApiKey()" style="font-size: 0.7rem; border-radius: 6px;" title="مسح المفتاح والعودة للاستكشاف المفتوح">
+                                                    <i class="fas fa-trash-alt me-1"></i> مسح
+                                                </button>
                                                 <a href="https://mapsplatform.google.com/maps-demo-key?utm_campaign=gmp_git_agentskills_v1" target="_blank" class="btn btn-sm btn-outline-primary text-nowrap fw-bold" style="font-size: 0.7rem; border-radius: 6px;" title="توليد مفتاح تجريبي مجاني بنقرة واحدة بدون بطاقة بنكية">
                                                     <i class="fas fa-key text-warning me-1"></i> Demo Key مجاني
                                                 </a>
@@ -4912,6 +4915,26 @@ try {
                     btn.innerHTML = '<i class="fas fa-save me-1"></i> حفظ وتحديث';
                 }
                 alert('حدث خطأ أثناء حفظ المفتاح: ' + e);
+            });
+    }
+
+    function clearGooglePlacesApiKey() {
+        if (!confirm('هل تريد بالتأكيد مسح مفتاح Google Places API والاعتماد على الاستكشاف الجغرافي المفتوح؟')) {
+            return;
+        }
+        const input = document.getElementById('workerGoogleApiKey');
+        if (input) input.value = '';
+        const fd = new FormData();
+        fd.append('ajax_action', 'save_google_places_api_key');
+        fd.append('google_api_key', '');
+        fetch('admin.php', { method: 'POST', body: fd })
+            .then(r => r.json())
+            .then(d => {
+                showAdminToast('تم مسح المفتاح بنجاح محلياً وسحابياً 🗑️', 'info');
+                alert('تم مسح المفتاح بنجاح محلياً وسحابياً!');
+            })
+            .catch(e => {
+                showAdminToast('خطأ أثناء المسح: ' + e, 'danger');
             });
     }
 
