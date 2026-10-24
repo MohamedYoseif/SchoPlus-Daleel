@@ -1,7 +1,7 @@
 {
-    "version": "3.8.58",
+    "version": "3.8.59",
     "release_date": "2026-10-24",
     "version_type": "enterprise",
     "min_php_version": "8.2",
-    "release_notes": "دليل المدارس السودانية (daleel.schoplus.sd) — فلترة جغرافية صارمة تمنع تسريب المدارس بين المحليات واستخراج الأحياء الدقيقة تلقائياً من العنوان واسم المدرسة v3.8.58"
+    "release_notes": "دليل المدارس السودانية (daleel.schoplus.sd) — دعم المسح المتعدد لكافة محليات الولاية مع الترقيم التلقائي Pagination في Google Places API لجلب حتى 100 مدرسة v3.8.59"
 }
