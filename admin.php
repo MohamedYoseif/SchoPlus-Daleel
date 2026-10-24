@@ -909,16 +909,14 @@ if ($action !== null) {
 
             if (!empty($googleApiKey)) {
                 try {
-                    $pdo->prepare("INSERT INTO daleel_settings (setting_key, setting_value, created_at, updated_at) 
-                                   VALUES ('google_places_api_key', :v, NOW(), NOW()) 
-                                   ON DUPLICATE KEY UPDATE setting_value = :v, updated_at = NOW()")->execute([':v' => $googleApiKey]);
+                    setDaleelSetting($pdo, 'google_places_api_key', $googleApiKey);
                     if (class_exists('DaleelSyncService') && DaleelSyncService::isLocal()) {
                         DaleelSyncService::callCloud('save_setting', ['key' => 'google_places_api_key', 'value' => $googleApiKey]);
                     }
                 } catch (Throwable $e) {}
             } else {
                 try {
-                    $googleApiKey = $pdo->query("SELECT setting_value FROM daleel_settings WHERE setting_key = 'google_places_api_key' LIMIT 1")->fetchColumn() ?: '';
+                    $googleApiKey = getDaleelSetting($pdo, 'google_places_api_key', '') ?: '';
                 } catch (Throwable $e) {}
             }
 

@@ -1,7 +1,7 @@
 {
-    "version": "3.8.55",
+    "version": "3.8.56",
     "release_date": "2026-10-24",
     "version_type": "enterprise",
     "min_php_version": "8.2",
-    "release_notes": "دليل المدارس السودانية (daleel.schoplus.sd) — حفظ مفتاح Google Places API تلقائياً في قاعدة البيانات ومزامنته سحابياً مع الاسترجاع التلقائي بالواجهة v3.8.55"
+    "release_notes": "دليل المدارس السودانية (daleel.schoplus.sd) — تفعيل وتثبيت مفتاح Google Places API المعتمد محلياً وسحابياً وإصلاح آلية حفظ الإعدادات عبر setDaleelSetting v3.8.56"
 }
