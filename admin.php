@@ -907,6 +907,21 @@ if ($action !== null) {
             $autoRegister = !empty($_POST['auto_register']) && $_POST['auto_register'] !== '0' && $_POST['auto_register'] !== 'false';
             $googleApiKey = trim($_POST['google_api_key'] ?? '');
 
+            if (!empty($googleApiKey)) {
+                try {
+                    $pdo->prepare("INSERT INTO daleel_settings (setting_key, setting_value, created_at, updated_at) 
+                                   VALUES ('google_places_api_key', :v, NOW(), NOW()) 
+                                   ON DUPLICATE KEY UPDATE setting_value = :v, updated_at = NOW()")->execute([':v' => $googleApiKey]);
+                    if (class_exists('DaleelSyncService') && DaleelSyncService::isLocal()) {
+                        DaleelSyncService::callCloud('save_setting', ['key' => 'google_places_api_key', 'value' => $googleApiKey]);
+                    }
+                } catch (Throwable $e) {}
+            } else {
+                try {
+                    $googleApiKey = $pdo->query("SELECT setting_value FROM daleel_settings WHERE setting_key = 'google_places_api_key' LIMIT 1")->fetchColumn() ?: '';
+                } catch (Throwable $e) {}
+            }
+
             $result = SchoolAutoResearcher::runAutonomousMapsDiscovery(
                 $pdo,
                 !empty($scopeState) ? $scopeState : null,
@@ -3479,7 +3494,13 @@ try {
                                                 <span>ربط Google Places API (لجلب نفس نتائج Google Maps الرسمية الحية بالتقييمات والهواتف):</span>
                                             </div>
                                             <div class="d-flex align-items-center gap-2 flex-grow-1" style="max-width: 480px;">
-                                                <input type="password" id="workerGoogleApiKey" class="form-control form-control-sm" placeholder="AIzaSy... (اختياري - اتركه فارغاً للاستكشاف المجاني)" style="font-size: 0.74rem;">
+                                                <?php
+                                                $savedGooglePlacesKey = '';
+                                                try {
+                                                    $savedGooglePlacesKey = $pdo->query("SELECT setting_value FROM daleel_settings WHERE setting_key = 'google_places_api_key' LIMIT 1")->fetchColumn() ?: '';
+                                                } catch (Throwable $e) {}
+                                                ?>
+                                                <input type="password" id="workerGoogleApiKey" class="form-control form-control-sm" placeholder="AIzaSy... (محفوظ تلقائياً - اتركه فارغاً للاستكشاف المجاني)" value="<?= htmlspecialchars($savedGooglePlacesKey) ?>" style="font-size: 0.74rem;" title="<?= !empty($savedGooglePlacesKey) ? 'تم حفظ المفتاح مسبقاً وسيعمل تلقائياً' : '' ?>">
                                                 <a href="https://mapsplatform.google.com/maps-demo-key?utm_campaign=gmp_git_agentskills_v1" target="_blank" class="btn btn-sm btn-outline-primary text-nowrap fw-bold" style="font-size: 0.7rem; border-radius: 6px;" title="توليد مفتاح تجريبي مجاني بنقرة واحدة بدون بطاقة بنكية">
                                                     <i class="fas fa-key text-warning me-1"></i> Demo Key مجاني
                                                 </a>

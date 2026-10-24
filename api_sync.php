@@ -88,6 +88,23 @@ if ($action === 'stats') {
     exit;
 }
 
+// ─── ACTION: SAVE_SETTING (مزامنة الإعدادات كالمفاتيح بين السحابة والمحلي) ────────
+if ($action === 'save_setting') {
+    $key = trim($_POST['key'] ?? ($jsonPayload['key'] ?? ''));
+    $val = trim($_POST['value'] ?? ($jsonPayload['value'] ?? ''));
+    if (!empty($key)) {
+        try {
+            $pdo->prepare("INSERT INTO daleel_settings (setting_key, setting_value, created_at, updated_at) 
+                           VALUES (:k, :v, NOW(), NOW()) 
+                           ON DUPLICATE KEY UPDATE setting_value = :v, updated_at = NOW()")->execute([':k' => $key, ':v' => $val]);
+            echo json_encode(['success' => true, 'message' => "Setting {$key} synced successfully"]);
+        } catch (Throwable $e) {
+            echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+        }
+        exit;
+    }
+}
+
 // ─── 3. ACTION: PUSH_SINGLE_SCHOOL (مزامنة فورية لمدرسة تم حفظها أو تعديلها) ──────
 if ($action === 'push_single_school') {
     $s = $jsonPayload['school'] ?? ($_POST['school'] ?? []);
