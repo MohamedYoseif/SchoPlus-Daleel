@@ -138,18 +138,32 @@ class SchoolAutoResearcher {
     }
 
     /**
-     * Format standardized official school name
+     * Format standardized official school name without distorting genuine institution names
      */
     public static function formatOfficialName(string $rawQuery, string $state, string $city, string $district = ''): string {
-        $q = self::cleanQuery($rawQuery);
+        $q = trim($rawQuery);
+        $q = preg_replace('/\s+/u', ' ', $q);
 
-        // Remove redundant location mentions at end if already parsed
-        $hasSchool = (bool)preg_match('/^(مدرسة|مدارس|مجمع|روضة|رياض|حضانة|أكاديمية|معهد)/u', $q);
-        if (!$hasSchool) {
+        // 1. Remove accidental duplicate prefix chains e.g. "مدارس مدرسة" or "مدارس ثانوية"
+        $q = preg_replace('/^مدارس\s+(مدرسة|مدرسه)\s+/iu', '$1 ', $q);
+        $q = preg_replace('/^مدارس\s+(ثانوية|ثانويه)\s+/iu', '$1 ', $q);
+        $q = preg_replace('/^مدارس\s+(روضة|روضه|رياض)\s+/iu', '$1 ', $q);
+        $q = preg_replace('/^مدارس\s+(ابتدائية|ابتدائيه)\s+/iu', '$1 ', $q);
+        $q = preg_replace('/^مدارس\s+(مجمع)\s+/iu', '$1 ', $q);
+
+        // 2. Normalize repeated "الخاصة / الخاصه"
+        $q = preg_replace('/\s+الخاص[ةه]\s+الخاص[ةه]/iu', ' الخاصة', $q);
+        $q = preg_replace('/\s+الخاصه$/iu', ' الخاصة', $q);
+
+        // 3. Check if starts with any valid educational institution keyword (with both ة and ه)
+        $hasEduPrefix = (bool)preg_match('/^(مدرسة|مدرسه|مدارس|مجمع|روضة|روضه|رياض|حضانة|حضانه|أكاديمية|اكاديمية|اكاديميه|ثانوية|ثانويه|ابتدائية|ابتدائيه|متوسطة|متوسطه|معهد|كلية|كليه)/iu', $q);
+        if (!$hasEduPrefix) {
             $q = 'مدارس ' . $q;
         }
 
-        if (!str_contains($q, 'الخاصة') && !str_contains($q, 'الحكومية') && !str_contains($q, 'العالمية') && !str_contains($q, 'الدولية') && !str_contains($q, 'النموذجية') && !str_contains($q, 'التعليمي')) {
+        // 4. Check if already has a type/classification suffix or indicator (prevent duplicate "الخاصة")
+        $hasType = (bool)preg_match('/(الخاص[ةه]|الحكومي[ةه]|العالمي[ةه]|الدولي[ةه]|النموذجي[ةه]|التعليمي|الأهلي[ةه]|الاهلي[ةه]|الخيري[ةه]|القرآني[ةه]|فرع\s+|بنين|بنات|مشتركة|مختلطة)/iu', $q);
+        if (!$hasType) {
             if (str_contains($q, '—')) {
                 $parts = explode('—', $q, 2);
                 $q = trim($parts[0]) . ' الخاصة — ' . trim($parts[1]);
@@ -158,7 +172,11 @@ class SchoolAutoResearcher {
             }
         }
 
-        return $q;
+        // Final cleanup of any accidental duplicates
+        $q = preg_replace('/\s+الخاص[ةه]\s+الخاص[ةه]/iu', ' الخاصة', $q);
+        $q = preg_replace('/^مدارس\s+(مدرسة|مدرسه|ثانوية|ثانويه|روضة|روضه)\s+/iu', '$1 ', $q);
+
+        return trim($q);
     }
 
     /**
@@ -1860,9 +1878,9 @@ class SchoolAutoResearcher {
                 ['name' => 'مدرسة النوابغ الأساسية الخاصة', 'city' => 'عطبرة', 'district' => 'حي المطار', 'school_type' => 'private', 'stages' => ['primary', 'intermediate'], 'phone' => '0912165077'],
                 ['name' => 'مدرسة المدينة الخاصة', 'city' => 'عطبرة', 'district' => 'عطبرة', 'school_type' => 'private', 'stages' => ['primary', 'intermediate', 'secondary'], 'phone' => '0912384617'],
                 ['name' => 'مدرسة عطبرة الأساسية الخاصة', 'city' => 'عطبرة', 'district' => 'حي السكة حديد', 'school_type' => 'private', 'stages' => ['primary', 'intermediate'], 'phone' => '0123000676'],
-                ['name' => 'مدارس نور الإيمان الأساسية', 'city' => 'عطبرة', 'district' => 'حي المطار', 'school_type' => 'private', 'stages' => ['primary', 'intermediate'], 'phone' => '0912803612'],
-                ['name' => 'مدارس نمبر ون فرع عطبرة', 'city' => 'عطبرة', 'district' => 'عطبرة', 'school_type' => 'private', 'stages' => ['primary', 'intermediate', 'secondary'], 'phone' => null],
-                ['name' => 'ثانوية درة الإيمان العالمية الخاصة', 'city' => 'عطبرة', 'district' => 'حي المطار', 'school_type' => 'private', 'curriculum' => 'british', 'stages' => ['secondary'], 'phone' => null],
+                ['name' => 'مدارس نور الإيمان الأساسية', 'city' => 'عطبرة', 'district' => 'حي المطار', 'school_type' => 'private', 'stages' => ['primary', 'intermediate'], 'phone' => '0912803612', 'address' => 'مدارس نور الإيمان الأساسية، عطبرة، ولاية نهر النيل (M2X6+5QJ)', 'google_map_url' => 'https://www.google.com/maps/search/?api=1&query=M2X6%2B5QJ+Atbara'],
+                ['name' => 'مدارس نمبر ون فرع عطبرة', 'city' => 'عطبرة', 'district' => 'عطبرة', 'school_type' => 'private', 'stages' => ['primary', 'intermediate', 'secondary'], 'phone' => null, 'address' => 'مدارس نمبر ون فرع عطبرة، عطبرة (P252+R9J)', 'google_map_url' => 'https://www.google.com/maps/search/?api=1&query=P252%2BR9J+Atbara'],
+                ['name' => 'ثانوية نور الإيمان العالمية الخاصة (بنين وبنات)', 'city' => 'عطبرة', 'district' => 'حي المطار', 'school_type' => 'private', 'curriculum' => 'british', 'stages' => ['secondary'], 'phone' => null, 'address' => 'ثانوية نور الإيمان العالمية الخاصة (بنين وبنات)، عطبرة، ولاية نهر النيل (M2X9+HX)', 'google_map_url' => 'https://www.google.com/maps/search/?api=1&query=M2X9%2BHX+Atbara'],
                 ['name' => 'مدرسة الدراع الأساسية الخاصة', 'city' => 'عطبرة', 'district' => 'الدراع', 'school_type' => 'private', 'stages' => ['primary', 'intermediate'], 'phone' => null],
                 ['name' => 'مدرسة الصفوة الثانوية الخاصة', 'city' => 'عطبرة', 'district' => 'عطبرة', 'school_type' => 'private', 'stages' => ['secondary'], 'phone' => null],
                 ['name' => 'مدرسة السيدة خديجة الخاصة', 'city' => 'عطبرة', 'district' => 'عطبرة', 'school_type' => 'private', 'stages' => ['primary', 'intermediate', 'secondary'], 'phone' => null],
