@@ -451,6 +451,11 @@ class SchoolAutoResearcher {
                 ->execute([$totalCount, $stateCount, $newSchoolId]);
         } catch (Throwable $e) {}
 
+        // 5. Instant Real-Time Cloud Sync
+        if (class_exists('DaleelSyncService') && DaleelSyncService::isLocal()) {
+            DaleelSyncService::pushSchoolById($newSchoolId);
+        }
+
         return [
             'success' => true,
             'already_exists' => false,
@@ -521,6 +526,10 @@ class SchoolAutoResearcher {
         }
 
         recalculateDaleelRanks($pdo);
+
+        if (class_exists('DaleelSyncService') && DaleelSyncService::isLocal()) {
+            DaleelSyncService::autoSyncDelta();
+        }
 
         return [
             'success' => true,
@@ -792,6 +801,10 @@ class SchoolAutoResearcher {
 
         if ($registeredCount > 0) {
             recalculateDaleelRanks($pdo);
+
+        if (class_exists('DaleelSyncService') && DaleelSyncService::isLocal()) {
+            DaleelSyncService::autoSyncDelta();
+        }
             require_once __DIR__ . '/export_master_seed.php';
             exportMasterSeed($pdo);
         }

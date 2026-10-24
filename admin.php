@@ -943,6 +943,13 @@ if (isset($_REQUEST['ajax_action'])) {
 
             if (!empty($res['created'])) {
                 recalculateDaleelRanks($pdo);
+                if (class_exists('DaleelSyncService') && DaleelSyncService::isLocal()) {
+                    if (!empty($res['school']['id'])) {
+                        DaleelSyncService::pushSchoolById((int)$res['school']['id']);
+                    } else {
+                        DaleelSyncService::autoSyncDelta();
+                    }
+                }
                 require_once __DIR__ . '/export_master_seed.php';
                 exportMasterSeed($pdo);
             }
@@ -3436,15 +3443,12 @@ try {
                                     <div class="col-12 mt-2 d-flex flex-wrap justify-content-between align-items-center gap-2 pt-2 border-top">
                                         <div class="form-check form-switch m-0">
                                             <input class="form-check-input" type="checkbox" id="workerAutoRegister" checked>
-                                            <label class="form-check-label small fw-bold text-dark" for="workerAutoRegister" style="font-size: 0.74rem;">
-                                                اعتماد وإدراج المدارس الجديدة فوراً في الدليل (Auto-Register) وتوليد الرتب والروابط
+                                            <label class="form-check-label small fw-bold text-dark" for="workerAutoRegister" style="font-size: 0.76rem;">
+                                                ✅ حفظ المدارس المكتشفة تلقائياً في قاعدة البيانات والسحابة فوراً (بدون الحاجة لزر حفظ)
                                             </label>
                                         </div>
 
                                         <div class="d-flex flex-wrap align-items-center gap-2">
-                                            <button type="button" class="btn btn-sm btn-outline-primary py-2 px-3 fw-bold shadow-2xs" onclick="openCloudSyncModal()" style="font-size: 0.8rem; border-radius: 8px;">
-                                                <i class="fas fa-cloud-upload-alt me-1 text-primary"></i> ☁️ مزامنة السحابة بنقرة واحدة
-                                            </button>
                                             <button type="button" id="btnRunAutonomousWorker" class="btn fw-bold px-4 py-2 text-white shadow-sm" onclick="runAutonomousWorker()" style="background: linear-gradient(135deg, #10B981, #059669); border: none; font-size: 0.85rem; border-radius: 8px;">
                                                 <i class="fas fa-map-marked-alt me-1.5"></i> بدء الاستكشاف والمسح الآلي من خرائط جوجل
                                             </button>
@@ -4773,7 +4777,33 @@ try {
         const existCount = schools.filter(s => !s.is_new).length;
         const unapprovedNewCount = schools.filter(s => s.is_new && !s.registered).length;
 
+        let bannerHtml = '';
+        if (unapprovedNewCount > 0) {
+            bannerHtml = `
+                <div class="alert alert-warning border-0 shadow-sm p-3 mb-3 d-flex flex-wrap justify-content-between align-items-center gap-2" style="background: #FEF3C7; color: #92400E; border-radius: 10px;">
+                    <div>
+                        <h6 class="fw-bold mb-0.5" style="font-size: 0.88rem;"><i class="fas fa-exclamation-circle me-1"></i> تم العثور على (${unapprovedNewCount}) مدرسة جديدة غير محفوظة:</h6>
+                        <div class="small opacity-90" style="font-size: 0.74rem;">انقر على زر "💾 حفظ وإدراج في الدليل" الأخضر في بطاقة المدرسة لحفظها، أو احفظها جميعاً دفعة واحدة بنقرة واحدة هنا:</div>
+                    </div>
+                    <button type="button" id="btnBulkApproveNew" class="btn btn-success fw-bold py-2 px-3.5 shadow-sm text-white" onclick="bulkApproveNewDiscovered()" style="font-size: 0.8rem; border-radius: 8px;">
+                        <i class="fas fa-save me-1.5"></i> 💾 حفظ وإدراج كافة المدارس (${unapprovedNewCount}) في الدليل والسحابة فوراً
+                    </button>
+                </div>
+            `;
+        } else {
+            bannerHtml = `
+                <div class="alert alert-success border-0 shadow-sm p-3 mb-3 d-flex align-items-center gap-2.5" style="background: #DCFCE7; color: #166534; border-radius: 10px;">
+                    <i class="fas fa-check-circle fs-3 flex-shrink-0 text-success"></i>
+                    <div>
+                        <h6 class="fw-bold mb-0.5" style="font-size: 0.9rem;">✅ تم حفظ وإدراج كافة المدارس بنجاح في قاعدة البيانات وتزامنت مع السحابة!</h6>
+                        <div class="small opacity-90" style="font-size: 0.74rem;">أصبحت المدارس الآن مسجلة ومحفوظة ولها روابط وترتيب تلقائي. يمكنك النقر على "إدارة المدرسة" في أي بطاقة أدناه لتعديل أي تفاصيل أو إضافة معلومات.</div>
+                    </div>
+                </div>
+            `;
+        }
+
         let html = `
+            ${bannerHtml}
             <div class="card border-0 shadow-sm rounded-3 overflow-hidden" style="border: 1px solid #DDE4ED !important;">
                 <!-- Header Stats & Action Bar -->
                 <div class="card-header bg-white p-3 border-bottom d-flex flex-wrap justify-content-between align-items-center gap-2">
@@ -4801,12 +4831,12 @@ try {
 
                     <div class="d-flex flex-wrap gap-2 align-items-center">
                         ${unapprovedNewCount > 0 ? `
-                            <button type="button" id="btnBulkApproveNew" class="btn btn-sm btn-success fw-bold py-1.5 px-3 shadow-sm text-white" onclick="bulkApproveNewDiscovered()" style="font-size: 0.76rem; border-radius: 8px;">
-                                <i class="fas fa-check-double me-1"></i> اعتماد وإدراج كافة المدارس الجديدة (${unapprovedNewCount})
+                            <button type="button" id="btnBulkApproveNew2" class="btn btn-sm btn-success fw-bold py-1.5 px-3 shadow-sm text-white" onclick="bulkApproveNewDiscovered()" style="font-size: 0.76rem; border-radius: 8px;">
+                                <i class="fas fa-save me-1"></i> حفظ كافة المدارس الجديدة (${unapprovedNewCount})
                             </button>
                         ` : `
                             <span class="badge bg-success-subtle text-success border border-success-subtle py-1.5 px-2.5" style="font-size: 0.72rem;">
-                                <i class="fas fa-check-circle me-1"></i> كافة المدارس الجديدة مفهرسة بالدليل
+                                <i class="fas fa-check-circle me-1"></i> كافة المدارس محفوظة ومفهرسة بالدليل
                             </span>
                         `}
                     </div>
@@ -4829,16 +4859,27 @@ try {
 
                 let statusBadge = '';
                 let actionBtn = '';
+                const schId = s.existing_id || s.id;
 
                 if (s.registered) {
-                    statusBadge = `<span class="badge bg-success text-white py-1 px-2" style="font-size: 0.68rem;"><i class="fas fa-check-circle me-1"></i> معتمدة بالدليل</span>`;
-                    actionBtn = `<a href="/school/${encodeURIComponent(s.slug)}" target="_blank" class="btn btn-sm btn-outline-primary py-1 px-2.5 fw-bold" style="font-size: 0.72rem; border-radius: 6px;"><i class="fas fa-external-link-alt me-1"></i> عرض بالدليل ↗</a>`;
+                    statusBadge = `<span class="badge bg-success text-white py-1 px-2" style="font-size: 0.68rem;"><i class="fas fa-check-circle me-1"></i> محفوظة ومسجلة في القاعدة ✅</span>`;
+                    actionBtn = `
+                        <div class="d-flex align-items-center gap-1.5">
+                            ${schId ? `<a href="admin.php?tab=manage_school&id=${schId}" class="btn btn-sm btn-primary py-1 px-2.5 fw-bold text-white shadow-2xs" style="font-size: 0.72rem; border-radius: 6px;"><i class="fas fa-edit me-1"></i> إدارة المدرسة</a>` : ''}
+                            <a href="/school/${encodeURIComponent(s.slug)}" target="_blank" class="btn btn-sm btn-outline-secondary py-1 px-2" style="font-size: 0.72rem; border-radius: 6px;" title="عرض في الدليل الحي"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    `;
                 } else if (s.is_new) {
-                    statusBadge = `<span class="badge bg-success text-white py-1 px-2" style="font-size: 0.68rem;"><i class="fas fa-sparkles me-1"></i> جديدة ومكتشفة</span>`;
-                    actionBtn = `<button type="button" class="btn btn-sm btn-success text-white fw-bold py-1 px-3 shadow-2xs" onclick="quickApproveCard(this, ${idx})" style="font-size: 0.72rem; border-radius: 6px;"><i class="fas fa-plus me-1"></i> اعتماد بالدليل فوراً</button>`;
+                    statusBadge = `<span class="badge bg-warning text-dark py-1 px-2" style="font-size: 0.68rem;"><i class="fas fa-clock me-1"></i> غير محفوظة بعد ⏳</span>`;
+                    actionBtn = `<button type="button" class="btn btn-sm btn-success text-white fw-bold py-1.5 px-3 shadow-sm" onclick="quickApproveCard(this, ${idx})" style="font-size: 0.75rem; border-radius: 6px;"><i class="fas fa-save me-1"></i> 💾 حفظ وإدراج في الدليل</button>`;
                 } else {
-                    statusBadge = `<span class="badge bg-secondary text-white py-1 px-2" style="font-size: 0.68rem;"><i class="fas fa-shield-alt me-1"></i> مسجلة ومطابقة مسبقاً</span>`;
-                    actionBtn = `<a href="/school/${encodeURIComponent(s.slug)}" target="_blank" class="btn btn-sm btn-outline-secondary py-1 px-2.5" style="font-size: 0.72rem; border-radius: 6px;"><i class="fas fa-external-link-alt me-1"></i> عرض بالدليل ↗</a>`;
+                    statusBadge = `<span class="badge bg-secondary text-white py-1 px-2" style="font-size: 0.68rem;"><i class="fas fa-shield-alt me-1"></i> مسجلة مسبقاً 🛡️</span>`;
+                    actionBtn = `
+                        <div class="d-flex align-items-center gap-1.5">
+                            ${schId ? `<a href="admin.php?tab=manage_school&id=${schId}" class="btn btn-sm btn-outline-primary py-1 px-2.5" style="font-size: 0.72rem; border-radius: 6px;"><i class="fas fa-edit me-1"></i> إدارة</a>` : ''}
+                            <a href="/school/${encodeURIComponent(s.slug)}" target="_blank" class="btn btn-sm btn-outline-secondary py-1 px-2" style="font-size: 0.72rem; border-radius: 6px;" title="عرض في الدليل الحي"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    `;
                 }
 
                 html += `
@@ -4962,8 +5003,9 @@ try {
         .then(data => {
             if (data && data.success) {
                 s.registered = true;
+                s.existing_id = data.school?.id || s.existing_id;
                 s.slug = data.school?.slug || s.slug;
-                showAdminToast(`تم اعتماد وتوثيق "${s.name}" بالدليل بنجاح ✅`, 'success');
+                showAdminToast(`تم حفظ وإدراج "${s.name}" في قاعدة البيانات والسحابة بنجاح ✅`, 'success');
                 renderWorkerResults({
                     state: document.getElementById('workerState').value.trim() || 'كافة الولايات',
                     total_schools: data.total_now || 0

@@ -44,6 +44,9 @@ if ($action === 'batch' || !empty($_POST['schools']) || !empty($inputData['schoo
 
     try {
         $result = SchoolAutoResearcher::importVerifiedSchoolBatch($pdo, $rawSchools);
+        if (class_exists('DaleelSyncService') && DaleelSyncService::isLocal()) {
+            DaleelSyncService::autoSyncDelta();
+        }
         echo json_encode($result, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
     } catch (Throwable $e) {
         http_response_code(500);
