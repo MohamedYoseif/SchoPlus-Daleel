@@ -185,6 +185,9 @@ class SchoolAutoResearcher {
      */
     public static function transliterateEnglish(string $nameAr): string {
         $phrases = [
+            'رياض ومدارس' => 'Schools & Kindergarten',
+            'مدارس ورياض' => 'Schools & Kindergarten',
+            'روضة ومدارس' => 'Schools & Kindergarten',
             'مجمع مدارس' => 'Schools Complex',
             'مدارس' => 'Schools',
             'مدرسة' => 'School',
@@ -193,12 +196,41 @@ class SchoolAutoResearcher {
             'رياض' => 'Kindergarten',
             'حضانة' => 'Nursery',
             'أكاديمية' => 'Academy',
+            'اكاديمية' => 'Academy',
+            'المؤمنين' => 'Al-Moameneen',
+            'المؤمن' => 'Al-Moamen',
+            'نور الإيمان' => 'Noor Al-Iman',
+            'درة الإيمان' => 'Dorrat Al-Iman',
+            'الإيمان' => 'Al-Iman',
+            'الايمان' => 'Al-Iman',
+            'الهداية' => 'Al-Hidaya',
+            'التقوى' => 'Al-Taqwa',
+            'الإحسان' => 'Al-Ihsan',
+            'الفردوس' => 'Al-Firdous',
+            'الكوثر' => 'Al-Kawthar',
+            'الأنفال' => 'Al-Anfal',
+            'الإسراء' => 'Al-Israa',
+            'الأبرار' => 'Al-Abrar',
+            'الفرقان' => 'Al-Furqan',
+            'الصديق' => 'Al-Siddiq',
+            'الفاروق' => 'Al-Farouq',
+            'النوابغ' => 'Al-Nawabigh',
+            'المدينة' => 'Al-Madina',
+            'الصفوة' => 'Al-Safwa',
+            'الدراع' => 'Al-Diraa',
+            'الظافر' => 'Al-Dhafer',
+            'صحاري' => 'Sahari',
+            'الهدى والنور' => 'Al-Huda & Al-Noor',
+            'نمبر ون' => 'Number One',
             'الشهيد' => 'Al-Shaheed',
             'شهداء' => 'Shohadaa',
-            'الثانوية' => 'Secondary',
-            'المتوسطة' => 'Intermediate',
-            'الأساسية' => 'Basic',
-            'الابتدائية' => 'Primary',
+            'الثانوية' => 'Secondary School',
+            'ثانوية' => 'Secondary School',
+            'المتوسطة' => 'Intermediate School',
+            'متوسطة' => 'Intermediate School',
+            'الأساسية' => 'Basic School',
+            'الابتدائية' => 'Primary School',
+            'ابتدائية' => 'Primary School',
             'الخاصة' => 'Private',
             'خاصة' => 'Private',
             'الحكومية' => 'Public',
@@ -208,6 +240,7 @@ class SchoolAutoResearcher {
             'البريطانية' => 'British',
             'التركية' => 'Turkish',
             'الأمريكية' => 'American',
+            'بنين وبنات' => 'Boys & Girls',
             'بنين' => 'Boys',
             'بنات' => 'Girls',
             'المشتركة' => 'Co-ed',
@@ -249,6 +282,7 @@ class SchoolAutoResearcher {
             'عطبرة' => 'Atbara',
             'الدامر' => 'Ed Damer',
             'شندي' => 'Shendi',
+            'بربر' => 'Berber',
             'الأبيض' => 'El Obeid',
             'كوستي' => 'Kosti'
         ];
@@ -259,7 +293,7 @@ class SchoolAutoResearcher {
         }
 
         $charMap = [
-            'ا' => 'a', 'أ' => 'a', 'إ' => 'e', 'آ' => 'aa', 'ء' => '',
+            'ا' => 'a', 'أ' => 'a', 'إ' => 'e', 'آ' => 'aa', 'ء' => '', 'ؤ' => 'o', 'ئ' => 'e',
             'ب' => 'b', 'ت' => 't', 'ث' => 'th', 'ج' => 'j', 'ح' => 'h',
             'خ' => 'kh', 'د' => 'd', 'ذ' => 'dh', 'ر' => 'r', 'ز' => 'z',
             'س' => 's', 'ش' => 'sh', 'ص' => 's', 'ض' => 'd', 'ط' => 't',
@@ -273,7 +307,7 @@ class SchoolAutoResearcher {
         foreach ($words as $w) {
             $wClean = trim($w, " —-–_()");
             if (empty($wClean)) continue;
-            if (preg_match('/^[a-zA-Z\-\'\.]+$/', $wClean)) {
+            if (preg_match('/^[a-zA-Z\-\'\.&]+$/', $wClean)) {
                 $outWords[] = $wClean;
                 continue;
             }
@@ -282,7 +316,7 @@ class SchoolAutoResearcher {
             $len = mb_strlen($wClean, 'UTF-8');
             for ($i = 0; $i < $len; $i++) {
                 $ch = mb_substr($wClean, $i, 1, 'UTF-8');
-                $latin .= $charMap[$ch] ?? $ch;
+                $latin .= $charMap[$ch] ?? '';
             }
             $cleanLatin = ucfirst(trim($latin));
             if (!empty($cleanLatin)) {
@@ -1895,7 +1929,7 @@ class SchoolAutoResearcher {
                 ['name' => 'مدرسة ذات النطاقين الأساسية بنات', 'city' => 'عطبرة', 'district' => 'حي الامتداد', 'school_type' => 'government', 'stages' => ['primary', 'intermediate'], 'phone' => null],
                 ['name' => 'مدرسة خديجة بنت خويلد الأساسية بنات', 'city' => 'عطبرة', 'district' => 'حي المزاد', 'school_type' => 'government', 'stages' => ['primary', 'intermediate'], 'phone' => null],
                 // الدامر
-                ['name' => 'رياض ومدارس المؤمن العالمية الدامر', 'city' => 'الدامر', 'district' => 'الدامر', 'school_type' => 'private', 'curriculum' => 'british', 'stages' => ['kindergarten', 'primary', 'intermediate'], 'phone' => null],
+                ['name' => 'رياض ومدارس المؤمن العالمية الدامر', 'name_en' => 'Al-Moamen International Schools & Kindergarten Ed Damer', 'city' => 'الدامر', 'district' => 'حي البان جديد', 'school_type' => 'private', 'curriculum' => 'british', 'stages' => ['kindergarten', 'primary', 'intermediate'], 'phone' => '0118002325', 'whatsapp' => '0118002325', 'address' => 'رياض ومدارس المؤمن العالمية، حي البان جديد (شمال مستوصف الحكمة)، الدامر، ولاية نهر النيل', 'google_map_url' => 'https://www.google.com/maps/search/?api=1&query=%D8%B1%D9%8A%D8%A7%D8%B6+%D9%88%D9%85%D8%AF%D8%A7%D8%B1%D8%B3+%D8%A7%D9%84%D9%85%D8%A4%D9%85%D9%86+%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%D8%A9+%D8%A7%D9%84%D8%AF%D8%A7%D9%85%D8%B1', 'facebook' => 'https://www.facebook.com/people/%D8%B1%D9%8A%D8%A7%D8%B6-%D9%88%D9%85%D8%AF%D8%A7%D8%B1%D8%B3-%D8%A7%D9%84%D9%85%D8%A4%D9%85%D9%86-%D8%A7%D9%84%D8%AE%D8%A7%D8%B5%D8%A9-%D8%A7%D9%84%D8%AF%D8%A7%D9%85%D8%B1/'],
                 ['name' => 'مدرسة الحميراء النموذجية بنات', 'city' => 'الدامر', 'district' => 'الدامر', 'school_type' => 'government', 'stages' => ['primary', 'intermediate'], 'phone' => null],
                 ['name' => 'مدرسة الدامر الثانوية القديمة بنين', 'city' => 'الدامر', 'district' => 'الدامر', 'school_type' => 'government', 'stages' => ['secondary'], 'phone' => null],
                 ['name' => 'مدرسة الدامر الثانوية الجديدة بنين', 'city' => 'الدامر', 'district' => 'الدامر', 'school_type' => 'government', 'stages' => ['secondary'], 'phone' => null],
