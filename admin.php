@@ -1886,48 +1886,48 @@ try {
         <div class="sp-main-tabs-wrap">
             <div class="sp-main-tabs">
                 <a href="admin.php?tab=schools" class="sp-main-tab <?= $activeTab === 'schools' ? 'active' : '' ?>">
-                    <i class="fas fa-school"></i> إدارة المدارس
+                    <i class="fas fa-school"></i> المدارس
                     <span class="tab-badge"><?= number_format($totalCount) ?></span>
                 </a>
                 <a href="admin.php?tab=claims" class="sp-main-tab <?= $activeTab === 'claims' ? 'active' : '' ?>">
-                    <i class="fas fa-file-signature"></i> طلبات التوثيق والملكية
+                    <i class="fas fa-file-signature"></i> طلبات التوثيق
                     <span class="tab-badge" style="color: <?= $claimsCount > 0 ? '#DC2626' : 'inherit' ?>;"><?= $claimsCount ?></span>
                 </a>
 
                 <?php if (!$isLocalStation): ?>
                     <!-- CLOUD PRODUCTION TAB: INQUIRIES & REVIEWS -->
                     <a href="admin.php?tab=inquiries" class="sp-main-tab <?= $activeTab === 'inquiries' ? 'active' : '' ?>">
-                        <i class="fas fa-comments text-success"></i> استفسارات أولياء الأمور والتقييمات
+                        <i class="fas fa-comments text-success"></i> الاستفسارات والتقييمات
                         <span class="tab-badge"><?= ($inquiriesCount + $reviewsCount) ?></span>
                     </a>
                 <?php else: ?>
                     <!-- LOCAL MASTER HQ ONLY: AUTONOMOUS WORKER -->
                     <a href="admin.php?tab=researcher" class="sp-main-tab <?= $activeTab === 'researcher' ? 'active' : '' ?>">
-                        <i class="fas fa-bolt text-warning"></i> محرك الاستكشاف والمسح الآلي المباشر (Autonomous Worker)
-                        <span class="tab-badge">بحث واستكشاف ذكي</span>
+                        <i class="fas fa-bolt text-warning"></i> محرك الاستكشاف
+                        <span class="tab-badge">آلي</span>
                     </a>
                 <?php endif; ?>
 
                 <a href="admin.php?tab=ads" class="sp-main-tab <?= $activeTab === 'ads' ? 'active' : '' ?>">
-                    <i class="fas fa-ad"></i> المساحة الإعلانية
+                    <i class="fas fa-ad"></i> الإعلانات
                     <span class="tab-badge"><?= !empty($adConfig['enabled']) ? 'نشطة' : 'متوقفة' ?></span>
                 </a>
 
                 <?php if ($isLocalStation): ?>
                     <!-- LOCAL MASTER HQ ONLY: WHATSAPP MISSION CONTROL & DAEMON -->
                     <a href="admin.php?tab=whatsapp" class="sp-main-tab <?= $activeTab === 'whatsapp' ? 'active' : '' ?>">
-                        <i class="fab fa-whatsapp text-success"></i> مركز عمليات الواتساب والبوت
+                        <i class="fab fa-whatsapp text-success"></i> الواتساب
                         <span class="tab-badge" id="tabWaMainBadge">خادم 8085</span>
                     </a>
                 <?php endif; ?>
 
                 <a href="admin.php?tab=sync" class="sp-main-tab <?= $activeTab === 'sync' ? 'active' : '' ?>">
-                    <i class="fas <?= $isLocalStation ? 'fa-cloud-upload-alt text-primary' : 'fa-key text-primary' ?>"></i> <?= $isLocalStation ? 'مركز المزامنة السحابية' : 'إعدادات الربط والمزامنة' ?>
-                    <span class="tab-badge"><?= $isLocalStation ? 'سحب &amp; رفع' : 'API نشط' ?></span>
+                    <i class="fas <?= $isLocalStation ? 'fa-cloud-upload-alt text-primary' : 'fa-key text-primary' ?>"></i> المزامنة
+                    <span class="tab-badge"><?= $isLocalStation ? 'سحب &amp; رفع' : 'API' ?></span>
                 </a>
 
                 <a href="admin.php?tab=maintenance" class="sp-main-tab <?= $activeTab === 'maintenance' ? 'active' : '' ?>">
-                    <i class="fas <?= $isLocalStation ? 'fa-tools' : 'fa-shield-alt text-warning' ?>"></i> <?= $isLocalStation ? 'أدوات النظام والصيانة' : 'أمان وصيانة السحابة' ?>
+                    <i class="fas <?= $isLocalStation ? 'fa-tools' : 'fa-shield-alt text-warning' ?>"></i> الصيانة
                     <span class="tab-badge">v<?= e($systemVersion) ?></span>
                 </a>
             </div>
@@ -1938,7 +1938,7 @@ try {
             <div class="admin-card">
                 <div class="admin-card-head">
                     <h5 class="admin-card-title">
-                        <i class="fas fa-list-check text-primary"></i> دليل وإدارة كافة المدارس
+                        <i class="fas fa-list-check text-primary"></i> قائمة المدارس
                         <span class="badge bg-light text-dark border ms-2" style="font-size: 0.68rem;"><?= number_format($totalFiltered) ?> مطابقة</span>
                     </h5>
                     
@@ -2480,7 +2480,7 @@ try {
             <div class="admin-card">
                 <div class="admin-card-head">
                     <h5 class="admin-card-title">
-                        <i class="fas fa-file-signature text-primary"></i> طلبات إثبات ملكية وتوثيق المدارس
+                        <i class="fas fa-file-signature text-primary"></i> طلبات التوثيق والملكية
                         <span class="badge bg-danger text-white ms-2" style="font-size: 0.68rem;"><?= count($pendingClaims) ?> طلب</span>
                     </h5>
                 </div>
