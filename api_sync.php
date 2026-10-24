@@ -88,7 +88,124 @@ if ($action === 'stats') {
     exit;
 }
 
-// ─── 3. ACTION: PUSH (استقبال وتحديث المدارس وحالات الواتساب من المحلي) ────────
+// ─── 3. ACTION: PUSH_SINGLE_SCHOOL (مزامنة فورية لمدرسة تم حفظها أو تعديلها) ──────
+if ($action === 'push_single_school') {
+    $s = $jsonPayload['school'] ?? ($_POST['school'] ?? []);
+    if (empty($s) || empty($s['name'])) {
+        echo json_encode(['success' => false, 'error' => 'بيانات المدرسة غير مكتملة']);
+        exit;
+    }
+
+    $name = trim($s['name']);
+    $slug = trim($s['slug'] ?? '') ?: createSlug($name);
+
+    $chk = $pdo->prepare("SELECT id FROM daleel_schools WHERE slug = ? OR name = ? LIMIT 1");
+    $chk->execute([$slug, $name]);
+    $existId = $chk->fetchColumn();
+
+    $fields = [
+        'name' => $name,
+        'name_en' => $s['name_en'] ?? null,
+        'slug' => $slug,
+        'school_type' => $s['school_type'] ?? 'private',
+        'gender_type' => $s['gender_type'] ?? 'mixed',
+        'curriculum' => $s['curriculum'] ?? 'sudanese',
+        'country' => $s['country'] ?? 'السودان',
+        'state' => $s['state'] ?? 'الخرطوم',
+        'city' => $s['city'] ?? 'المركز',
+        'district' => $s['district'] ?? null,
+        'address' => $s['address'] ?? null,
+        'google_map_url' => $s['google_map_url'] ?? null,
+        'phone' => $s['phone'] ?? '',
+        'whatsapp' => $s['whatsapp'] ?? null,
+        'email' => $s['email'] ?? null,
+        'website' => $s['website'] ?? null,
+        'established_year' => $s['established_year'] ?? null,
+        'stages' => is_array($s['stages'] ?? null) ? json_encode($s['stages'], JSON_UNESCAPED_UNICODE) : ($s['stages'] ?? null),
+        'facilities' => is_array($s['facilities'] ?? null) ? implode(',', $s['facilities']) : ($s['facilities'] ?? null),
+        'approx_fees' => $s['approx_fees'] ?? null,
+        'working_hours' => $s['working_hours'] ?? null,
+        'description' => $s['description'] ?? null,
+        'vision' => $s['vision'] ?? null,
+        'mission' => $s['mission'] ?? null,
+        'owner_name' => $s['owner_name'] ?? ('إدارة ' . $name),
+        'owner_title' => $s['owner_title'] ?? 'مدير المدرسة / المفوض',
+        'owner_phone' => $s['owner_phone'] ?? ($s['phone'] ?? ''),
+        'owner_email' => $s['owner_email'] ?? null,
+        'status' => $s['status'] ?? 'approved',
+        'is_verified' => !empty($s['is_verified']) ? 1 : 0,
+        'is_schoplus_client' => !empty($s['is_schoplus_client']) ? 1 : 0,
+        'is_historic' => !empty($s['is_historic']) ? 1 : 0,
+        'directory_rank' => !empty($s['directory_rank']) ? (int)$s['directory_rank'] : null,
+        'state_rank' => !empty($s['state_rank']) ? (int)$s['state_rank'] : null,
+        'whatsapp_status' => $s['whatsapp_status'] ?? 'unverified',
+        'whatsapp_checked_at' => $s['whatsapp_checked_at'] ?? null,
+        'updated_at' => date('Y-m-d H:i:s')
+    ];
+
+    if ($existId) {
+        $setClauses = [];
+        $setValues = [];
+        foreach ($fields as $col => $val) {
+            $setClauses[] = "`{$col}` = ?";
+            $setValues[] = $val;
+        }
+        $setValues[] = (int)$existId;
+        $sql = "UPDATE daleel_schools SET " . implode(', ', $setClauses) . " WHERE id = ?";
+        $pdo->prepare($sql)->execute($setValues);
+        $finalId = $existId;
+        $op = 'updated';
+    } else {
+        $cols = array_keys($fields);
+        $placeholders = array_fill(0, count($cols), '?');
+        $sql = "INSERT INTO daleel_schools (`" . implode('`, `', $cols) . "`) VALUES (" . implode(', ', $placeholders) . ")";
+        $pdo->prepare($sql)->execute(array_values($fields));
+        $finalId = $pdo->lastInsertId();
+        $op = 'created';
+    }
+
+    try { recalculateDaleelRanks($pdo); } catch (Throwable $e) {}
+
+    echo json_encode([
+        'success' => true,
+        'op' => $op,
+        'id' => $finalId,
+        'server_time' => date('Y-m-d H:i:s')
+    ], JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
+// ─── ACTION: PUSH_WA_STATUS (تحديث فوري لحالة واتساب) ────────────────────────
+if ($action === 'push_wa_status') {
+    $slug = trim($jsonPayload['slug'] ?? ($_POST['slug'] ?? ''));
+    $phone = trim($jsonPayload['phone'] ?? ($_POST['phone'] ?? ''));
+    $status = trim($jsonPayload['whatsapp_status'] ?? ($_POST['whatsapp_status'] ?? 'valid'));
+    $schoolId = (int)($jsonPayload['school_id'] ?? ($_POST['school_id'] ?? 0));
+
+    $sql = "UPDATE daleel_schools SET whatsapp_status = ?, whatsapp_checked_at = NOW() WHERE ";
+    $params = [$status];
+    if ($schoolId > 0) {
+        $sql .= "id = ?";
+        $params[] = $schoolId;
+    } elseif ($slug !== '') {
+        $sql .= "slug = ?";
+        $params[] = $slug;
+    } elseif ($phone !== '') {
+        $sql .= "(phone = ? OR whatsapp = ?)";
+        $params[] = $phone;
+        $params[] = $phone;
+    } else {
+        echo json_encode(['success' => false, 'error' => 'معرف المدرسة مفقود']);
+        exit;
+    }
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute($params);
+    echo json_encode(['success' => true, 'updated' => $stmt->rowCount()], JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
+// ─── 4. ACTION: PUSH (استقبال وتحديث المدارس وحالات الواتساب من المحلي) ────────
 if ($action === 'push') {
     @set_time_limit(300);
     @ini_set('memory_limit', '512M');
@@ -365,8 +482,11 @@ if ($action === 'pull') {
     try {
         $sql = "SELECT id, name, name_en, slug, school_type, gender_type, curriculum, country, established_year,
                        stages, state, city, district, address, google_map_url, phone, whatsapp, whatsapp_sent, whatsapp_sent_at,
+                       whatsapp_status, whatsapp_checked_at,
                        email, website, source_url, source_type, facebook, twitter, youtube, telegram, instagram, tiktok,
-                       description, status, is_verified, is_schoplus_client, is_featured, directory_rank, state_rank,
+                       facilities, approx_fees, working_hours, description, vision, mission,
+                       owner_name, owner_title, owner_phone, owner_email,
+                       status, is_verified, is_schoplus_client, is_historic, directory_rank, state_rank,
                        rating_avg, reviews_count, views_count, created_at, updated_at
                 FROM daleel_schools 
                 WHERE status = 'approved' AND deleted_at IS NULL";

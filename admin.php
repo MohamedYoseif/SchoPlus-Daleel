@@ -9,6 +9,7 @@ require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/SudanGeography.php';
 require_once __DIR__ . '/SchoolAutoResearcher.php';
 require_once __DIR__ . '/DaleelWhatsAppService.php';
+require_once __DIR__ . '/DaleelSyncService.php';
 
 $pdo = db();
 
@@ -983,6 +984,12 @@ if (isset($_REQUEST['ajax_action'])) {
             exit;
         }
 
+        if ($action === 'auto_sync_delta') {
+            $res = DaleelSyncService::autoSyncDelta();
+            echo json_encode($res, JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+
         if ($action === 'trigger_cloud_push') {
             @set_time_limit(300);
             @ini_set('memory_limit', '512M');
@@ -1533,7 +1540,14 @@ if ($activeTab === 'manage_school' && $manageSchoolId > 0) {
                 }
 
                 recalculateDaleelRanks($pdo);
-                $manageSaveSuccess = 'تم حفظ وتحديث بيانات المدرسة وترتيبها بنجاح ✅';
+
+                // مزامنة فورية تلقائية مع السحابة بدون أزرار
+                if (class_exists('DaleelSyncService') && DaleelSyncService::isLocal()) {
+                    DaleelSyncService::pushSchoolById($manageSchoolId);
+                    $manageSaveSuccess = 'تم حفظ بيانات المدرسة ومزامنتها لحظياً مع السحابة بنجاح 🟢';
+                } else {
+                    $manageSaveSuccess = 'تم حفظ وتحديث بيانات المدرسة وترتيبها بنجاح ✅';
+                }
             } catch (Throwable $e) {
                 $manageSaveError = 'حدث خطأ أثناء الحفظ: ' . $e->getMessage();
             }
@@ -1940,11 +1954,11 @@ try {
 
             <div class="d-flex align-items-center gap-2">
                 <?php if ($isLocalStation): ?>
-                    <!-- LOCAL STATION ONLY: 1-CLICK CLOUD SYNC WIDGET BUTTON -->
-                    <button type="button" id="btnCloudSyncWidget" onclick="openCloudSyncModal()" class="btn btn-sm text-white d-inline-flex align-items-center gap-1.5 shadow-sm" style="background: #1E5FA8; border: 1px solid rgba(255,255,255,0.25); font-size: 0.72rem; border-radius: 8px;" title="مزامنة قاعدة البيانات ورسائل الواتساب مع السحابة بنقرة واحدة">
-                        <i class="fas fa-cloud-upload-alt text-warning"></i>
-                        <span id="cloudSyncBtnText">☁️ مزامنة السحابة</span>
-                    </button>
+                    <!-- LOCAL STATION ONLY: LIVE SEAMLESS BACKGROUND SYNC INDICATOR (ZERO BUTTONS) -->
+                    <div id="liveSyncStatusPill" class="d-none d-md-inline-flex align-items-center gap-1.5 px-3 py-1 text-white shadow-2xs" style="background: rgba(16, 185, 129, 0.2); border: 1px solid rgba(16, 185, 129, 0.45); border-radius: 999px; font-size: 0.72rem;" title="المزامنة المتزامنة التلقائية بين السحابة والمحطة المحلية تعمل في الخلفية لحظياً وبدون أي أزرار">
+                        <span class="spinner-grow spinner-grow-sm text-success" style="width: 7px; height: 7px;"></span>
+                        <span id="liveSyncStatusText">مزامنة تلقائية متزامنة 🟢</span>
+                    </div>
 
                     <!-- LOCAL STATION ONLY: WHATSAPP GATEWAY STATUS WIDGET -->
                     <button type="button" id="btnWaGatewayWidget" onclick="openWaGatewayModal()" class="btn btn-sm text-white d-inline-flex align-items-center gap-2" style="background: rgba(15,92,62,0.85); border: 1px solid rgba(255,255,255,0.25); font-size: 0.72rem; border-radius: 8px;" title="حالة خادم واتساب الدليل ورمز QR">
@@ -6667,6 +6681,32 @@ try {
     // بدء فحص دوري لحالة سيرفر الواتساب كل 8 ثوان في المحطة المحلية فقط
     setInterval(updateWaWidgetStatus, 8000);
     setTimeout(updateWaWidgetStatus, 1000);
+
+    // ─── ZERO-BUTTON CONTINUOUS BACKGROUND SYNCHRONIZATION ───
+    (function() {
+        let isSyncing = false;
+        function runSilentAutoSync() {
+            if (isSyncing) return;
+            isSyncing = true;
+            const fd = new FormData();
+            fd.append('ajax_action', 'auto_sync_delta');
+            fetch('admin.php', { method: 'POST', body: fd })
+                .then(r => r.json())
+                .then(data => {
+                    isSyncing = false;
+                    if (data && data.success && data.synced_count > 0) {
+                        const txt = document.getElementById('liveSyncStatusText');
+                        if (txt) {
+                            txt.innerText = `تمت مزامنة (${data.synced_count}) سجل تلقائياً ✅`;
+                            setTimeout(() => { txt.innerText = 'مزامنة تلقائية متزامنة 🟢'; }, 6000);
+                        }
+                    }
+                })
+                .catch(() => { isSyncing = false; });
+        }
+        setTimeout(runSilentAutoSync, 2500);
+        setInterval(runSilentAutoSync, 35000);
+    })();
     <?php endif; ?>
     </script>
 

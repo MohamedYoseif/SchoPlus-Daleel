@@ -194,14 +194,20 @@ class DaleelWhatsAppService {
     }
 
     /**
-     * حفظ وتحديث نتيجة فحص واتساب المدرسة في قاعدة البيانات
+     * حفظ وتحديث نتيجة فحص واتساب المدرسة في قاعدة البيانات والمزامنة اللحظية مع السحابة
      */
     public static function updateSchoolWhatsAppStatus(int $schoolId, bool $exists, ?string $jid = null): bool {
         try {
             $pdo = db();
             $status = $exists ? 'valid' : 'invalid';
             $stmt = $pdo->prepare("UPDATE daleel_schools SET whatsapp_status = ?, whatsapp_checked_at = NOW() WHERE id = ?");
-            return $stmt->execute([$status, $schoolId]);
+            $res = $stmt->execute([$status, $schoolId]);
+
+            // مزامنة فورية تلقائية مع السحابة بدون أزرار
+            if (class_exists('DaleelSyncService')) {
+                DaleelSyncService::pushWaStatus($schoolId, $status, $jid);
+            }
+            return $res;
         } catch (Throwable $e) {
             return false;
         }
