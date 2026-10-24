@@ -948,6 +948,7 @@ if ($action !== null) {
                 !empty($scopeLocality) ? $scopeLocality : null,
                 !empty($googleApiKey) ? $googleApiKey : null
             );
+            $result['logs'] = $logs;
 
             echo json_encode($result, JSON_UNESCAPED_UNICODE);
             exit;
@@ -5177,14 +5178,49 @@ try {
         const total = schools.length;
         const pendingCount = schools.filter(s => !s.registered).length;
         const savedCount = schools.filter(s => s.registered).length;
+        const logs = data && data.logs ? data.logs : [];
+        const isQuotaExhausted = logs.some(l => typeof l === 'string' && (l.includes('RESOURCE_EXHAUSTED') || l.includes('استنفاد الحصة')));
 
         if (total === 0) {
+            let quotaAlertHtml = '';
+            if (isQuotaExhausted) {
+                quotaAlertHtml = `
+                    <div class="alert alert-warning border-0 shadow-sm p-3 mb-3 text-start" style="background: #FEF3C7; color: #92400E; border-radius: 10px; border-right: 4px solid #F59E0B !important;">
+                        <div class="fw-bold mb-1 d-flex align-items-center gap-2" style="font-size: 0.88rem;">
+                            <i class="fas fa-exclamation-triangle text-warning fs-5"></i>
+                            <span>تنبيه: تم استنفاد الحصة اليومية لمفتاح Google Places API (حد 100 طلب/يوم)</span>
+                        </div>
+                        <div class="small opacity-90 mb-2" style="font-size: 0.76rem; line-height: 1.6;">
+                            مفتاح Google Cloud المسجل يملك حداً مجانياً قدره <strong>100 طلب يومياً</strong> وتم استهلاكه بالكامل اليوم. تم التحويل التلقائي لمحرك الخرائط المفتوحة (OSM) ولكن لم تتوفر صروح جديدة إضافية غير مسجلة مسبقاً في هذه الولاية.
+                        </div>
+                        <div class="d-flex align-items-center gap-2 flex-wrap">
+                            <a href="https://console.cloud.google.com/apis/api/places.googleapis.com/quotas" target="_blank" class="btn btn-sm btn-dark text-white fw-bold py-1 px-2.5" style="font-size: 0.72rem;">
+                                <i class="fas fa-external-link-alt me-1 text-warning"></i> فحص أو زيادة الكوتا في Google Cloud Console
+                            </a>
+                            <span class="small text-muted" style="font-size: 0.72rem;">• تتجدد الحصة تلقائياً من جوجل في بداية اليوم الجديد، أو يمكنك إدخال مفتاح إضافي.</span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            let logsHtml = '';
+            if (logs.length > 0) {
+                logsHtml = `
+                    <div class="mt-3 p-3 bg-light rounded-3 text-start border" style="font-size: 0.72rem; max-height: 140px; overflow-y: auto; font-family: monospace;">
+                        <div class="fw-bold text-dark mb-1 font-sans">سجل عمليات البحث الحية:</div>
+                        ${logs.map(l => `<div class="text-secondary">${escapeHtml(l)}</div>`).join('')}
+                    </div>
+                `;
+            }
+
             container.innerHTML = `
+                ${quotaAlertHtml}
                 <div class="card border-0 shadow-sm rounded-3 p-4 text-center bg-white" style="border: 1px solid #DDE4ED !important;">
                     <i class="fas fa-inbox fa-3x text-muted mb-2 opacity-50"></i>
                     <h6 class="fw-bold text-dark mb-1">قائمة المعاينة فارغة</h6>
-                    <div class="text-muted small mb-3">تم استبعاد كافة المدارس من القائمة أو لم يتم استكشاف نتائج جديدة.</div>
-                    <div>
+                    <div class="text-muted small mb-3">تم فحص النطاق ولم يتم العثور على صروح تعليمية جديدة غير مسجلة مسبقاً في الدليل.</div>
+                    ${logsHtml}
+                    <div class="mt-3">
                         <button type="button" class="btn btn-sm btn-primary px-3 py-1.5" onclick="runAutonomousWorker()">
                             <i class="fas fa-redo me-1"></i> إعادة البحث والاستكشاف
                         </button>
@@ -5195,8 +5231,30 @@ try {
         }
 
         let bannerHtml = '';
+        let quotaBanner = '';
+        if (isQuotaExhausted) {
+            quotaBanner = `
+                <div class="alert alert-warning border-0 shadow-sm p-3 mb-3 text-start" style="background: #FEF3C7; color: #92400E; border-radius: 10px; border-right: 4px solid #F59E0B !important;">
+                    <div class="fw-bold mb-1 d-flex align-items-center gap-2" style="font-size: 0.88rem;">
+                        <i class="fas fa-exclamation-triangle text-warning fs-5"></i>
+                        <span>تنبيه: تم استنفاد الحصة اليومية لمفتاح Google Places API (حد 100 طلب/يوم لـ Google Cloud)</span>
+                    </div>
+                    <div class="small opacity-90 mb-2" style="font-size: 0.74rem;">
+                        مفتاح Google Cloud المسجل وصل للحد الأقصى اليومي المجاني (100 طلب يومياً). تم جلب النتائج المعروضة أدناه عبر شبكة الخرائط المفتوحة (OSM).
+                    </div>
+                    <div class="d-flex align-items-center gap-2 flex-wrap">
+                        <a href="https://console.cloud.google.com/apis/api/places.googleapis.com/quotas" target="_blank" class="btn btn-sm btn-dark text-white fw-bold py-1 px-2.5" style="font-size: 0.72rem;">
+                            <i class="fas fa-external-link-alt me-1 text-warning"></i> رفع كوتا المفتاح في Google Cloud Console
+                        </a>
+                        <span class="small text-muted" style="font-size: 0.72rem;">• تتجدد الحصة تلقائياً غداً، أو يمكنك تجربة مفتاح إضافي.</span>
+                    </div>
+                </div>
+            `;
+        }
+
         if (pendingCount > 0) {
             bannerHtml = `
+                ${quotaBanner}
                 <div class="alert alert-warning border-0 shadow-sm p-3 mb-3 d-flex flex-wrap justify-content-between align-items-center gap-3" style="background: #FEF3C7; color: #92400E; border-radius: 12px; border-right: 5px solid #F59E0B !important;">
                     <div>
                         <h6 class="fw-bold mb-1 d-flex align-items-center gap-2" style="font-size: 0.92rem;">
