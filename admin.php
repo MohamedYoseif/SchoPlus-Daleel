@@ -2243,19 +2243,15 @@ try {
                     <span class="tab-badge" style="color: <?= $claimsCount > 0 ? '#DC2626' : 'inherit' ?>;"><?= $claimsCount ?></span>
                 </a>
 
-                <?php if (!$isLocalStation): ?>
-                    <!-- CLOUD PRODUCTION TAB: INQUIRIES & REVIEWS -->
-                    <a href="admin.php?tab=inquiries" class="sp-main-tab <?= $activeTab === 'inquiries' ? 'active' : '' ?>">
-                        <i class="fas fa-comments text-success"></i> الاستفسارات والتقييمات
-                        <span class="tab-badge"><?= ($inquiriesCount + $reviewsCount) ?></span>
-                    </a>
-                <?php else: ?>
-                    <!-- LOCAL MASTER HQ ONLY: AUTONOMOUS WORKER -->
-                    <a href="admin.php?tab=researcher" class="sp-main-tab <?= $activeTab === 'researcher' ? 'active' : '' ?>">
-                        <i class="fas fa-bolt text-warning"></i> محرك الاستكشاف
-                        <span class="tab-badge">آلي</span>
-                    </a>
-                <?php endif; ?>
+                <a href="admin.php?tab=inquiries" class="sp-main-tab <?= $activeTab === 'inquiries' ? 'active' : '' ?>">
+                    <i class="fas fa-comments text-success"></i> الاستفسارات والتقييمات
+                    <span class="tab-badge"><?= ($inquiriesCount + $reviewsCount) ?></span>
+                </a>
+
+                <a href="admin.php?tab=researcher" class="sp-main-tab <?= $activeTab === 'researcher' ? 'active' : '' ?>">
+                    <i class="fas fa-bolt text-warning"></i> محرك الاستكشاف
+                    <span class="tab-badge">آلي</span>
+                </a>
 
                 <a href="admin.php?tab=ads" class="sp-main-tab <?= $activeTab === 'ads' ? 'active' : '' ?>">
                     <i class="fas fa-ad"></i> الإعلانات
@@ -3355,29 +3351,6 @@ try {
 
         <!-- TAB CONTENT: 3. AUTONOMOUS WORKER (DEVELOPED DISCOVERY & RESEARCH ENGINE) -->
         <?php elseif ($activeTab === 'researcher'): ?>
-            <?php if (!$isLocalStation): ?>
-                <div class="row">
-                    <div class="col-12 col-md-8 mx-auto py-5">
-                        <div class="admin-card text-center p-5 shadow-sm">
-                            <div class="mb-3 text-warning">
-                                <i class="fas fa-desktop fa-4x"></i>
-                            </div>
-                            <h4 class="fw-bold text-dark mb-2">محرك الاستكشاف والمسح الآلي متاح بالمحطة المحلية المستقلة</h4>
-                            <p class="text-muted" style="line-height: 1.7; font-size: 0.85rem;">
-                                نظراً لأن استكشاف خرائط جوجل ومطابقة المواقع الجغرافية بالذكاء الاصطناعي يتطلب بيئة روبوتية مستقلة، يتم تشغيل هذا المحرك من خلال <strong>محطة العمليات المركزية (Local Master HQ)</strong> لضمان أعلى دقة وسرعة دون استهلاك موارد الاستضافة السحابية المشتركة.
-                            </p>
-                            <div class="d-flex justify-content-center gap-2 mt-4">
-                                <a href="admin.php?view=local&tab=researcher" class="btn btn-primary fw-bold px-4 py-2" style="border-radius: 10px;">
-                                    <i class="fas fa-desktop me-1.5"></i> التبديل إلى المحطة المحلية
-                                </a>
-                                <a href="admin.php?tab=schools" class="btn btn-outline-secondary px-3 py-2" style="border-radius: 10px;">
-                                    العودة لإدارة المدارس
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            <?php else: ?>
             <div class="row">
                 <div class="col-12 col-xl-11 mx-auto">
                     <div class="admin-card mb-4 shadow-sm" style="border: 1px solid #DDE4ED; border-radius: 14px; overflow: hidden;">
@@ -3640,7 +3613,6 @@ try {
                     </div>
                 </div>
             </div>
-            <?php endif; ?>
 
         <!-- TAB CONTENT: 4. ADS CONFIGURATION -->
         <?php elseif ($activeTab === 'ads'): ?>
