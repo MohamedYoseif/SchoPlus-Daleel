@@ -4765,17 +4765,7 @@ try {
         let opts = `<option value="">🌐 كافة محليات ولاية ${escapeHtml(st)} (${cities.length} محليات)</option>`;
 
         cities.forEach(c => {
-            let details = '';
-            if (st === 'الخرطوم') {
-                if (c === 'الخرطوم') details = ' (وسط الخرطوم، العمارات، الرياض، المعمورة)';
-                else if (c === 'أم درمان') details = ' (الملازمين، العباسية، ود نوباوي، المهندسين)';
-                else if (c === 'بحري') details = ' (بحري وسط، الصافية، الشعبية، كافوري)';
-                else if (c === 'شرق النيل') details = ' (حلة كوكو، الفيحاء، الردمية، الوادي الأخضر)';
-                else if (c === 'كرري') details = ' (الثورات 1-100، الواحة، الفتح)';
-                else if (c === 'أم بدة') details = ' (الحارات، دار السلام، البقعة)';
-                else if (c === 'جبل أولياء') details = ' (الكلاكلات، الأزهري، السلمة)';
-            }
-            opts += `<option value="${escapeHtml(c)}">📍 محلية ${escapeHtml(c)}${details}</option>`;
+            opts += `<option value="${escapeHtml(c)}">📍 محلية ${escapeHtml(c)}</option>`;
         });
 
         locSelect.innerHTML = opts;
