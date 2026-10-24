@@ -905,6 +905,7 @@ if ($action !== null) {
             $targetCount = (int)($_POST['target_count'] ?? 20);
             $schoolName = trim($_POST['school_name'] ?? '');
             $autoRegister = !empty($_POST['auto_register']) && $_POST['auto_register'] !== '0' && $_POST['auto_register'] !== 'false';
+            $googleApiKey = trim($_POST['google_api_key'] ?? '');
 
             $result = SchoolAutoResearcher::runAutonomousMapsDiscovery(
                 $pdo,
@@ -914,7 +915,8 @@ if ($action !== null) {
                 !empty($schoolName) ? $schoolName : null,
                 $autoRegister,
                 $logs,
-                !empty($scopeLocality) ? $scopeLocality : null
+                !empty($scopeLocality) ? $scopeLocality : null,
+                !empty($googleApiKey) ? $googleApiKey : null
             );
 
             echo json_encode($result, JSON_UNESCAPED_UNICODE);
@@ -3469,6 +3471,22 @@ try {
                                         <input type="text" id="workerSchoolName" class="form-control form-control-sm" placeholder="فارغ للكل..." style="font-size: 0.8rem; border-color: #CBD5E1; padding: 8px 12px;" onkeydown="if(event.key==='Enter') runAutonomousWorker();">
                                     </div>
 
+                                    <!-- 4.b Optional Google Places API Key -->
+                                    <div class="col-12 mt-2 pt-2 border-top">
+                                        <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 p-2 rounded-2" style="background: #F1F5F9;">
+                                            <div class="d-flex align-items-center gap-1.5 small text-dark fw-bold" style="font-size: 0.76rem;">
+                                                <i class="fab fa-google text-danger"></i>
+                                                <span>ربط Google Places API (لجلب نفس نتائج Google Maps الرسمية الحية بالتقييمات والهواتف):</span>
+                                            </div>
+                                            <div class="d-flex align-items-center gap-2 flex-grow-1" style="max-width: 480px;">
+                                                <input type="password" id="workerGoogleApiKey" class="form-control form-control-sm" placeholder="AIzaSy... (اختياري - اتركه فارغاً للاستكشاف المجاني)" style="font-size: 0.74rem;">
+                                                <a href="https://mapsplatform.google.com/maps-demo-key?utm_campaign=gmp_git_agentskills_v1" target="_blank" class="btn btn-sm btn-outline-primary text-nowrap fw-bold" style="font-size: 0.7rem; border-radius: 6px;" title="توليد مفتاح تجريبي مجاني بنقرة واحدة بدون بطاقة بنكية">
+                                                    <i class="fas fa-key text-warning me-1"></i> Demo Key مجاني
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <!-- 5. Options and Action Button Row -->
                                     <div class="col-12 mt-2 d-flex flex-wrap justify-content-between align-items-center gap-2 pt-2 border-top">
                                         <div class="d-flex align-items-center gap-2 text-muted small" style="font-size: 0.76rem;">
@@ -4808,6 +4826,8 @@ try {
         fd.append('target_count', cnt);
         fd.append('school_name', nameQ);
         fd.append('auto_register', 0); // دائماً صفر لجلبها للمعاينة فقط بدون حفظ مسبق
+        const apiKey = document.getElementById('workerGoogleApiKey') ? document.getElementById('workerGoogleApiKey').value.trim() : '';
+        fd.append('google_api_key', apiKey);
 
         fetch('admin.php', { method: 'POST', body: fd })
         .then(r => r.json())
