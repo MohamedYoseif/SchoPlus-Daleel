@@ -15,7 +15,8 @@ class SchoolAutoResearcher {
      */
     public static function cleanQuery(string $q): string {
         $q = trim($q);
-        $q = preg_replace('/[^\p{L}\p{N}\s—\-_]/u', ' ', $q);
+        // Preserve letters, numbers, spaces, dashes, and parentheses for gender/stage e.g. (بنين وبنات)
+        $q = preg_replace('/[^\p{L}\p{N}\s—\-_\(\)]/u', ' ', $q);
         $q = preg_replace('/\s+/u', ' ', $q);
         return trim($q);
     }
@@ -623,14 +624,14 @@ class SchoolAutoResearcher {
     }
 
     /**
-     * Clean school name for Google Maps search (strip trailing dashes, parenthetical notes, city suffixes)
+     * Clean school name for Google Maps search (preserve authentic names and gender/stage notes)
      */
     public static function cleanSchoolNameForMaps(string $name): string
     {
-        // Remove trailing dash and geography e.g. " — بحري (المزاد)" or " — الخرطوم" or " - الضعين"
-        $clean = preg_replace('/\s*[\-—–]\s*.*$/u', '', $name);
-        // Remove any remaining parentheses e.g. "(الرومي)"
-        $clean = preg_replace('/\(.*?\)/u', '', $clean);
+        // Strip trailing dashes with state or generic labels only e.g. " — ولاية نهر النيل"
+        $clean = preg_replace('/\s*[\-—–]\s*(ولاية\s+.*|السودان)$/iu', '', $name);
+        // Only strip parentheses if they contain a known state or country, preserving gender e.g. (بنين وبنات)
+        $clean = preg_replace('/\((السودان|ولاية\s+.*)\)/iu', '', $clean);
         // Remove excess whitespace
         $clean = trim(preg_replace('/\s+/u', ' ', $clean));
         return !empty($clean) ? $clean : trim($name);

@@ -220,6 +220,13 @@ if ($action === 'push_wa_status') {
     exit;
 }
 
+// ─── ACTION: DELETE DISTORTED DUPLICATES ────────────────────────────────────
+if ($action === 'delete_distorted_duplicates') {
+    $cnt = $pdo->exec("DELETE FROM daleel_schools WHERE name LIKE 'مدارس ثانوية%' OR name LIKE '%الخاصه الخاصة%' OR name LIKE '%درة الإيمان%' OR name LIKE 'مدارس روضه%' OR name LIKE 'مدارس مدرسه%'");
+    echo json_encode(['success' => true, 'deleted_count' => (int)$cnt], JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
 // ─── 4. ACTION: PUSH (استقبال وتحديث المدارس وحالات الواتساب من المحلي) ────────
 if ($action === 'push') {
     @set_time_limit(300);
