@@ -155,6 +155,19 @@ class DaleelSyncService {
             }
         }
 
+        // دفع المدارس المحدثة أو المضافة محلياً منذ آخر مزامنة إلى السحابة تلقائياً
+        try {
+            $locStmt = $pdo->prepare("SELECT * FROM daleel_schools WHERE status = 'approved' AND (updated_at >= ? OR created_at >= ?) AND deleted_at IS NULL LIMIT 50");
+            $locStmt->execute([$lastSyncTime, $lastSyncTime]);
+            $localChanges = $locStmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if (!empty($localChanges)) {
+                foreach ($localChanges as $ls) {
+                    self::callCloud('push_single_school', ['school' => $ls], 4);
+                }
+            }
+        } catch (Throwable $e) {}
+
         // تحديث طابع آخر مزامنة تلقائية
         try {
             $now = date('Y-m-d H:i:s');

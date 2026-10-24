@@ -1456,7 +1456,7 @@ $managedSchool = null;
 $manageSaveSuccess = '';
 $manageSaveError = '';
 
-if ($activeTab === 'manage_school' && $manageSchoolId > 0) {
+if ($activeTab === 'manage_school') {
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_managed_school'])) {
         $name = trim($_POST['name'] ?? '');
         $nameEn = trim($_POST['name_en'] ?? '');
@@ -1510,33 +1510,77 @@ if ($activeTab === 'manage_school' && $manageSchoolId > 0) {
             $manageSaveError = 'يرجى إدخال اسم المدرسة ورقم الهاتف الأساسي.';
         } else {
             try {
-                $params = [
-                    $name, $nameEn ?: null, $schoolType, $genderType, $curriculum,
-                    $country, $state, $city, $district ?: null, $address ?: null, $googleMapUrl ?: null,
-                    $phone, $whatsapp ?: null, $email ?: null, $website ?: null,
-                    $establishedYear ?: null, $stagesStr ?: null, $facilitiesStr ?: null,
-                    $approxFees ?: null, $workingHours ?: null, $description ?: null, $vision ?: null, $mission ?: null,
-                    $isVerified, $isSchoplus, $isHistoric, $dirRank, $stateRank, $status,
-                    $ownerName ?: null, $ownerTitle ?: null, $ownerPhone ?: null, $ownerEmail ?: null,
-                    $manageSchoolId
-                ];
+                if ($manageSchoolId > 0) {
+                    $params = [
+                        $name, $nameEn ?: null, $schoolType, $genderType, $curriculum,
+                        $country, $state, $city, $district ?: null, $address ?: null, $googleMapUrl ?: null,
+                        $phone, $whatsapp ?: null, $email ?: null, $website ?: null,
+                        $establishedYear ?: null, $stagesStr ?: null, $facilitiesStr ?: null,
+                        $approxFees ?: null, $workingHours ?: null, $description ?: null, $vision ?: null, $mission ?: null,
+                        $isVerified, $isSchoplus, $isHistoric, $dirRank, $stateRank, $status,
+                        $ownerName ?: null, $ownerTitle ?: null, $ownerPhone ?: null, $ownerEmail ?: null,
+                        $manageSchoolId
+                    ];
 
-                $sql = "UPDATE daleel_schools SET 
-                    name = ?, name_en = ?, school_type = ?, gender_type = ?, curriculum = ?,
-                    country = ?, state = ?, city = ?, district = ?, address = ?, google_map_url = ?,
-                    phone = ?, whatsapp = ?, email = ?, website = ?,
-                    established_year = ?, stages = ?, facilities = ?,
-                    approx_fees = ?, working_hours = ?, description = ?, vision = ?, mission = ?,
-                    is_verified = ?, is_schoplus_client = ?, is_historic = ?, directory_rank = ?, state_rank = ?, status = ?,
-                    owner_name = ?, owner_title = ?, owner_phone = ?, owner_email = ?,
-                    updated_at = NOW()
-                    WHERE id = ?";
+                    $sql = "UPDATE daleel_schools SET 
+                        name = ?, name_en = ?, school_type = ?, gender_type = ?, curriculum = ?,
+                        country = ?, state = ?, city = ?, district = ?, address = ?, google_map_url = ?,
+                        phone = ?, whatsapp = ?, email = ?, website = ?,
+                        established_year = ?, stages = ?, facilities = ?,
+                        approx_fees = ?, working_hours = ?, description = ?, vision = ?, mission = ?,
+                        is_verified = ?, is_schoplus_client = ?, is_historic = ?, directory_rank = ?, state_rank = ?, status = ?,
+                        owner_name = ?, owner_title = ?, owner_phone = ?, owner_email = ?,
+                        updated_at = NOW()
+                        WHERE id = ?";
 
-                $pdo->prepare($sql)->execute($params);
+                    $pdo->prepare($sql)->execute($params);
 
-                if (!empty($newPassword)) {
-                    $pwdHash = password_hash($newPassword, PASSWORD_BCRYPT);
-                    $pdo->prepare("UPDATE daleel_schools SET password = ? WHERE id = ?")->execute([$pwdHash, $manageSchoolId]);
+                    if (!empty($newPassword)) {
+                        $pwdHash = password_hash($newPassword, PASSWORD_BCRYPT);
+                        $pdo->prepare("UPDATE daleel_schools SET password = ? WHERE id = ?")->execute([$pwdHash, $manageSchoolId]);
+                    }
+                } else {
+                    $slug = createSlug($name);
+                    $chkSlug = $pdo->prepare("SELECT COUNT(*) FROM daleel_schools WHERE slug = ?");
+                    $chkSlug->execute([$slug]);
+                    if ($chkSlug->fetchColumn() > 0) {
+                        $slug .= '-' . rand(100, 999);
+                    }
+                    $rndPass = !empty($newPassword) ? password_hash($newPassword, PASSWORD_BCRYPT) : password_hash(bin2hex(random_bytes(6)), PASSWORD_BCRYPT);
+
+                    $sql = "INSERT INTO daleel_schools (
+                        name, name_en, slug, school_type, gender_type, curriculum,
+                        country, state, city, district, address, google_map_url,
+                        phone, whatsapp, email, website,
+                        established_year, stages, facilities,
+                        approx_fees, working_hours, description, vision, mission,
+                        is_verified, is_schoplus_client, is_historic, directory_rank, state_rank, status,
+                        owner_name, owner_title, owner_phone, owner_email,
+                        password, rating_avg, reviews_count, views_count,
+                        created_at, updated_at
+                    ) VALUES (
+                        ?, ?, ?, ?, ?, ?,
+                        ?, ?, ?, ?, ?, ?,
+                        ?, ?, ?, ?,
+                        ?, ?, ?,
+                        ?, ?, ?, ?, ?,
+                        ?, ?, ?, ?, ?, ?,
+                        ?, ?, ?, ?,
+                        ?, 5.00, 0, 1,
+                        NOW(), NOW()
+                    )";
+                    $insParams = [
+                        $name, $nameEn ?: null, $slug, $schoolType, $genderType, $curriculum,
+                        $country, $state, $city, $district ?: null, $address ?: null, $googleMapUrl ?: null,
+                        $phone, $whatsapp ?: null, $email ?: null, $website ?: null,
+                        $establishedYear ?: null, $stagesStr ?: null, $facilitiesStr ?: null,
+                        $approxFees ?: null, $workingHours ?: null, $description ?: null, $vision ?: null, $mission ?: null,
+                        $isVerified, $isSchoplus, $isHistoric, $dirRank, $stateRank, $status,
+                        $ownerName ?: ('إدارة ' . $name), $ownerTitle ?: 'مدير المدرسة / المفوض', $ownerPhone ?: $phone, $ownerEmail ?: null,
+                        $rndPass
+                    ];
+                    $pdo->prepare($sql)->execute($insParams);
+                    $manageSchoolId = (int)$pdo->lastInsertId();
                 }
 
                 recalculateDaleelRanks($pdo);
@@ -1554,12 +1598,54 @@ if ($activeTab === 'manage_school' && $manageSchoolId > 0) {
         }
     }
 
-    $mStmt = $pdo->prepare("SELECT * FROM daleel_schools WHERE id = ? LIMIT 1");
-    $mStmt->execute([$manageSchoolId]);
-    $managedSchool = $mStmt->fetch(PDO::FETCH_ASSOC);
+    if ($manageSchoolId > 0) {
+        $mStmt = $pdo->prepare("SELECT * FROM daleel_schools WHERE id = ? LIMIT 1");
+        $mStmt->execute([$manageSchoolId]);
+        $managedSchool = $mStmt->fetch(PDO::FETCH_ASSOC);
 
-    if (!$managedSchool) {
-        $activeTab = 'schools';
+        if (!$managedSchool) {
+            $activeTab = 'schools';
+        }
+    } else {
+        $managedSchool = [
+            'id' => 0,
+            'name' => '',
+            'name_en' => '',
+            'slug' => '',
+            'school_type' => 'private',
+            'gender_type' => 'mixed',
+            'curriculum' => 'sudanese',
+            'country' => 'السودان',
+            'state' => 'الخرطوم',
+            'city' => '',
+            'district' => '',
+            'address' => '',
+            'google_map_url' => '',
+            'phone' => '',
+            'whatsapp' => '',
+            'email' => '',
+            'website' => '',
+            'established_year' => '',
+            'stages' => '["primary"]',
+            'facilities' => '',
+            'approx_fees' => '',
+            'working_hours' => '',
+            'description' => '',
+            'vision' => '',
+            'mission' => '',
+            'owner_name' => '',
+            'owner_title' => 'مدير المدرسة / المفوض',
+            'owner_phone' => '',
+            'owner_email' => '',
+            'status' => 'approved',
+            'is_verified' => 0,
+            'is_schoplus_client' => 0,
+            'is_historic' => 0,
+            'directory_rank' => null,
+            'state_rank' => null,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ];
     }
 }
 
@@ -2162,13 +2248,24 @@ try {
                         </a>
                         <div>
                             <div class="d-flex align-items-center gap-2 flex-wrap">
-                                <h4 class="mb-0 fw-bold" style="font-size: 1.15rem; color: #FFF;"><?= e($mSchool['name']) ?></h4>
-                                <span class="badge rounded-pill" style="background: #F5A020; color: #0B2A52; font-size: 0.7rem;">#<?= $mSchool['id'] ?></span>
-                                <span class="badge" style="background: rgba(255,255,255,0.15); font-size: 0.7rem;">ترتيب الدليل: #<?= $actualDirRank ?></span>
+                                <h4 class="mb-0 fw-bold" style="font-size: 1.15rem; color: #FFF;">
+                                    <?= $mSchool['id'] > 0 ? e($mSchool['name']) : '➕ إضافة مدرسة جديدة إلى الدليل' ?>
+                                </h4>
+                                <?php if ($mSchool['id'] > 0): ?>
+                                    <span class="badge rounded-pill" style="background: #F5A020; color: #0B2A52; font-size: 0.7rem;">#<?= $mSchool['id'] ?></span>
+                                    <span class="badge" style="background: rgba(255,255,255,0.15); font-size: 0.7rem;">ترتيب الدليل: #<?= $actualDirRank ?></span>
+                                <?php else: ?>
+                                    <span class="badge bg-success" style="font-size: 0.7rem;">مؤسسة جديدة</span>
+                                <?php endif; ?>
                             </div>
-                            <div class="small opacity-75 mt-0.5 dir-ltr text-end" style="font-size: 0.74rem; font-family: monospace;">daleel.schoplus.sd/school/<?= e($mSchool['slug']) ?></div>
+                            <?php if ($mSchool['id'] > 0): ?>
+                                <div class="small opacity-75 mt-0.5 dir-ltr text-end" style="font-size: 0.74rem; font-family: monospace;">daleel.schoplus.sd/school/<?= e($mSchool['slug']) ?></div>
+                            <?php else: ?>
+                                <div class="small opacity-75 mt-0.5" style="font-size: 0.74rem;">سيتم حفظ المدرسة في القاعدة المحلية ورفعها فورياً ومباشرة إلى السحابة 🟢</div>
+                            <?php endif; ?>
                         </div>
                     </div>
+                    <?php if ($mSchool['id'] > 0): ?>
                     <div class="d-flex align-items-center gap-2 flex-wrap">
                         <a href="/school/<?= urlencode($mSchool['slug']) ?>" target="_blank" class="btn btn-sm btn-light fw-bold text-dark px-3 py-1.5" style="border-radius: 8px; font-size: 0.78rem;">
                             <i class="fas fa-external-link-alt text-primary me-1"></i> فتح صفحة الدليل
@@ -2177,6 +2274,7 @@ try {
                             <i class="fas fa-trash-alt me-1"></i> حذف المدرسة
                         </button>
                     </div>
+                    <?php endif; ?>
                 </div>
 
                 <!-- Alert Messages -->
@@ -2469,7 +2567,7 @@ try {
                             <!-- Action Buttons Fixed Box -->
                             <div class="card border-0 rounded-4 shadow-lg p-3 bg-white sticky-top" style="top: 20px; z-index: 10;">
                                 <button type="submit" class="btn btn-primary fw-bold w-100 py-2.5 mb-2 shadow-sm" style="background: #0B2A52; border-color: #0B2A52; font-size: 0.88rem; border-radius: 10px;">
-                                    <i class="fas fa-save me-1"></i> حفظ كافة التغييرات والترتيب
+                                    <i class="fas fa-save me-1"></i> <?= $mSchool['id'] > 0 ? 'حفظ كافة التغييرات والترتيب' : 'حفظ وإدراج المدرسة ورفعها للسحابة ➕' ?>
                                 </button>
                                 <a href="admin.php?tab=schools" class="btn btn-outline-secondary w-100 py-2" style="font-size: 0.8rem; border-radius: 10px;">
                                     إلغاء والعودة للقائمة
@@ -2488,7 +2586,10 @@ try {
                     </h5>
                     
                     <div class="d-flex align-items-center gap-2">
-                        <button type="button" class="btn btn-sm btn-primary py-1 px-3" style="font-size: 0.72rem; border-radius: 8px;" onclick="recalculateRanks()">
+                        <a href="admin.php?tab=manage_school&id=0" class="btn btn-sm btn-success py-1.5 px-3 fw-bold d-inline-flex align-items-center gap-1.5 shadow-sm" style="font-size: 0.75rem; border-radius: 8px;">
+                            <i class="fas fa-plus-circle"></i> إضافة مدرسة جديدة
+                        </a>
+                        <button type="button" class="btn btn-sm btn-outline-primary py-1.5 px-3" style="font-size: 0.72rem; border-radius: 8px;" onclick="recalculateRanks()">
                             <i class="fas fa-sync-alt me-1"></i> إعادة ترقيم التسلسل
                         </button>
                     </div>
