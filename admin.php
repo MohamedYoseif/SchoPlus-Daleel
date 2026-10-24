@@ -1302,13 +1302,6 @@ $waInvalidCount = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE st
 $waPendingCheckCount = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE status = 'approved' AND (phone IS NOT NULL AND phone != '' OR whatsapp IS NOT NULL AND whatsapp != '') AND (whatsapp_status IS NULL OR whatsapp_status = 'unverified')")->fetchColumn();
 $waSchoolsWithPhone = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE status = 'approved' AND (phone IS NOT NULL AND phone != '' OR whatsapp IS NOT NULL AND whatsapp != '')")->fetchColumn();
 $isLocalStation = DaleelWhatsAppService::isLocalStation();
-// View mode switcher: local or cloud
-if (isset($_GET['view'])) {
-    $isLocalStation = ($_GET['view'] === 'local');
-    $_SESSION['admin_view_mode'] = $isLocalStation ? 'local' : 'cloud';
-} elseif (isset($_SESSION['admin_view_mode'])) {
-    $isLocalStation = ($_SESSION['admin_view_mode'] === 'local');
-}
 
 // Filters for Schools Table
 $filterCountry = trim($_GET['country'] ?? '');
@@ -1643,42 +1636,6 @@ try {
             box-shadow: 0 4px 14px rgba(0,0,0,0.18);
         }
 
-        /* View Mode Switcher Pill Group */
-        .view-mode-pill-group {
-            display: inline-flex;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 3px;
-            border-radius: 999px;
-            backdrop-filter: blur(8px);
-        }
-        .view-mode-pill-group .view-pill {
-            padding: 5px 14px;
-            border-radius: 999px;
-            font-size: 0.72rem;
-            font-weight: 700;
-            color: rgba(255, 255, 255, 0.75);
-            text-decoration: none;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .view-mode-pill-group .view-pill:hover {
-            color: #FFFFFF;
-            background: rgba(255, 255, 255, 0.08);
-        }
-        .view-mode-pill-group .view-pill.active-cloud {
-            background: linear-gradient(135deg, #2563EB, #1D4ED8);
-            color: #FFFFFF;
-            box-shadow: 0 2px 10px rgba(37, 99, 235, 0.45);
-        }
-        .view-mode-pill-group .view-pill.active-local {
-            background: linear-gradient(135deg, #059669, #047857);
-            color: #FFFFFF;
-            box-shadow: 0 2px 10px rgba(5, 150, 105, 0.45);
-        }
 
         /* Metrics Cards */
         .metric-card {
@@ -1982,16 +1939,6 @@ try {
             </div>
 
             <div class="d-flex align-items-center gap-2">
-                <!-- VIEW MODE SWITCHER PILL (TOGGLE CLOUD / LOCAL HQ) -->
-                <div class="view-mode-pill-group me-1" title="تبديل وضع العرض بين السحابة والمحطة المحلية">
-                    <a href="admin.php?view=cloud" class="view-pill <?= !$isLocalStation ? 'active-cloud' : '' ?>" title="عرض لوحة التحكم السحابية المخصصة للإنتاج">
-                        <i class="fas fa-cloud"></i> السحابة
-                    </a>
-                    <a href="admin.php?view=local" class="view-pill <?= $isLocalStation ? 'active-local' : '' ?>" title="عرض محطة العمليات المحلية وسيرفر الواتساب المستقل">
-                        <i class="fas fa-desktop"></i> المحطة المحلية
-                    </a>
-                </div>
-
                 <?php if ($isLocalStation): ?>
                     <!-- LOCAL STATION ONLY: 1-CLICK CLOUD SYNC WIDGET BUTTON -->
                     <button type="button" id="btnCloudSyncWidget" onclick="openCloudSyncModal()" class="btn btn-sm text-white d-inline-flex align-items-center gap-1.5 shadow-sm" style="background: #1E5FA8; border: 1px solid rgba(255,255,255,0.25); font-size: 0.72rem; border-radius: 8px;" title="مزامنة قاعدة البيانات ورسائل الواتساب مع السحابة بنقرة واحدة">
