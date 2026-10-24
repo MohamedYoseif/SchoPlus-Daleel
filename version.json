@@ -1,7 +1,7 @@
 {
-    "version": "3.8.49",
+    "version": "3.8.50",
     "release_date": "2026-10-24",
     "version_type": "enterprise",
     "min_php_version": "8.2",
-    "release_notes": "دليل المدارس السودانية (daleel.schoplus.sd) — إزالة روتين الحذف التلقائي العقيم من config.php و run_deduplication.php، وتفعيل المزامنة الفورية لحزم المدارس (Batch Push) للسحابة v3.8.49"
+    "release_notes": "دليل المدارس السودانية (daleel.schoplus.sd) — حذف ملفات البذور القديمة بالكامل، وبناء محرك الاستكشاف الجغرافي الحي الحقيقي عبر الخرائط ودبابيس الـ GPS المباشرة بنسبة 100% v3.8.50"
 }
