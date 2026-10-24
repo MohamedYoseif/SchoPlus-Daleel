@@ -3441,16 +3441,14 @@ try {
 
                                     <!-- 5. Options and Action Button Row -->
                                     <div class="col-12 mt-2 d-flex flex-wrap justify-content-between align-items-center gap-2 pt-2 border-top">
-                                        <div class="form-check form-switch m-0">
-                                            <input class="form-check-input" type="checkbox" id="workerAutoRegister" checked>
-                                            <label class="form-check-label small fw-bold text-dark" for="workerAutoRegister" style="font-size: 0.76rem;">
-                                                ✅ حفظ المدارس المكتشفة تلقائياً في قاعدة البيانات والسحابة فوراً (بدون الحاجة لزر حفظ)
-                                            </label>
+                                        <div class="d-flex align-items-center gap-2 text-muted small" style="font-size: 0.76rem;">
+                                            <i class="fas fa-info-circle text-primary fs-6"></i>
+                                            <span>تُجلب المدارس أولاً إلى <strong>قائمة المعاينة المؤقتة</strong> لمراجعتها واستبعاد ما لا تريده، ثم حفظ المدارس المتبقية يدوياً.</span>
                                         </div>
 
                                         <div class="d-flex flex-wrap align-items-center gap-2">
-                                            <button type="button" id="btnRunAutonomousWorker" class="btn fw-bold px-4 py-2 text-white shadow-sm" onclick="runAutonomousWorker()" style="background: linear-gradient(135deg, #10B981, #059669); border: none; font-size: 0.85rem; border-radius: 8px;">
-                                                <i class="fas fa-map-marked-alt me-1.5"></i> بدء الاستكشاف والمسح الآلي من خرائط جوجل
+                                            <button type="button" id="btnRunAutonomousWorker" class="btn fw-bold px-4 py-2 text-white shadow-sm" onclick="runAutonomousWorker()" style="background: linear-gradient(135deg, #1E5FA8, #0B2A52); border: none; font-size: 0.85rem; border-radius: 8px;">
+                                                <i class="fas fa-search-location me-1.5 text-warning"></i> جلب واستكشاف المدارس للمعاينة
                                             </button>
                                         </div>
                                     </div>
@@ -4701,30 +4699,30 @@ try {
 
     let currentWorkerDiscoveredSchools = [];
     let currentWorkerActiveFilter = 'all';
+    let currentWorkerLastResultData = {};
 
     function runAutonomousWorker() {
         const st = document.getElementById('workerState').value.trim();
         const typ = document.getElementById('workerSchoolType').value.trim();
         const cnt = document.getElementById('workerTargetCount').value.trim();
         const nameQ = document.getElementById('workerSchoolName').value.trim();
-        const autoReg = document.getElementById('workerAutoRegister').checked ? 1 : 0;
 
         const btn = document.getElementById('btnRunAutonomousWorker');
         const container = document.getElementById('workerResultsContainer');
 
         btn.disabled = true;
         const oldHtml = btn.innerHTML;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1.5"></i> جاري مسح خرائط جوجل والمنصات...';
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1.5 text-warning"></i> جاري استكشاف وجلب المدارس للمعاينة...';
 
         container.style.display = 'block';
         container.innerHTML = `
             <div class="card border-0 shadow-sm rounded-3 p-4 text-center bg-white" style="border: 1px solid #DDE4ED !important;">
-                <div class="spinner-border text-success mb-3" role="status" style="width: 2.4rem; height: 2.4rem;"></div>
+                <div class="spinner-border text-primary mb-3" role="status" style="width: 2.4rem; height: 2.4rem;"></div>
                 <h6 class="fw-bold text-dark mb-1" style="font-size: 0.96rem;">
-                    جاري تشغيل محرك الاستكشاف والمسح الآلي في خرائط جوجل ${st ? 'لولاية (' + escapeHtml(st) + ')' : 'لكافة الولايات'}...
+                    جاري جلب واستكشاف المدارس في خرائط جوجل ${st ? 'لولاية (' + escapeHtml(st) + ')' : 'لكافة الولايات'}...
                 </h6>
                 <div class="text-muted small" style="font-size: 0.74rem;">
-                    يتم مطابقة السجلات الميدانية، التدقيق من عدم التكرار، فحص روابط خرائط جوجل واستقصاء فيسبوك ويوتيوب وتيك توك...
+                    يتم استخراج البيانات الميدانية وروابط الخرائط وإعدادها في قائمة المعاينة المؤقتة لمراجعتها يدوياً قبل الحفظ...
                 </div>
             </div>
         `;
@@ -4735,7 +4733,7 @@ try {
         fd.append('school_type', typ);
         fd.append('target_count', cnt);
         fd.append('school_name', nameQ);
-        fd.append('auto_register', autoReg);
+        fd.append('auto_register', 0); // دائماً صفر لجلبها للمعاينة فقط بدون حفظ مسبق
 
         fetch('admin.php', { method: 'POST', body: fd })
         .then(r => r.json())
@@ -4746,16 +4744,17 @@ try {
             if (!data || !data.success) {
                 container.innerHTML = `
                     <div class="alert alert-danger p-3 rounded-3 shadow-sm border">
-                        <i class="fas fa-exclamation-triangle text-danger me-1"></i> ${escapeHtml(data.error || 'تعذر استكمال المسح الآلي.')}
+                        <i class="fas fa-exclamation-triangle text-danger me-1"></i> ${escapeHtml(data.error || 'تعذر استكمال جلب المدارس.')}
                     </div>
                 `;
                 return;
             }
 
+            currentWorkerLastResultData = data;
             currentWorkerDiscoveredSchools = data.schools || [];
             currentWorkerActiveFilter = 'all';
             renderWorkerResults(data);
-            showAdminToast(data.message || 'اكتملت دورة الاستكشاف والمسح بنجاح ✅', 'success');
+            showAdminToast(`تم جلب (${currentWorkerDiscoveredSchools.length}) مدرسة إلى قائمة المعاينة للمراجعة والاستبعاد 📋`, 'info');
         })
         .catch(err => {
             btn.disabled = false;
@@ -4769,219 +4768,29 @@ try {
         });
     }
 
-    function renderWorkerResults(data) {
+    function removeCandidateSchool(idx) {
+        const s = currentWorkerDiscoveredSchools[idx];
+        const name = s ? s.name : 'المدرسة';
+        currentWorkerDiscoveredSchools.splice(idx, 1);
+        renderWorkerResults(currentWorkerLastResultData || {});
+        showAdminToast(`تم استبعاد "${name}" من القائمة 🗑️`, 'warning');
+    }
+
+    function clearAllCandidates() {
+        if (!confirm('هل تريد إلغاء وتفريغ قائمة المعاينة بالكامل؟')) return;
+        currentWorkerDiscoveredSchools = [];
         const container = document.getElementById('workerResultsContainer');
-        const schools = currentWorkerDiscoveredSchools;
-        const total = schools.length;
-        const newCount = schools.filter(s => s.is_new).length;
-        const existCount = schools.filter(s => !s.is_new).length;
-        const unapprovedNewCount = schools.filter(s => s.is_new && !s.registered).length;
-
-        let bannerHtml = '';
-        if (unapprovedNewCount > 0) {
-            bannerHtml = `
-                <div class="alert alert-warning border-0 shadow-sm p-3 mb-3 d-flex flex-wrap justify-content-between align-items-center gap-2" style="background: #FEF3C7; color: #92400E; border-radius: 10px;">
-                    <div>
-                        <h6 class="fw-bold mb-0.5" style="font-size: 0.88rem;"><i class="fas fa-exclamation-circle me-1"></i> تم العثور على (${unapprovedNewCount}) مدرسة جديدة غير محفوظة:</h6>
-                        <div class="small opacity-90" style="font-size: 0.74rem;">انقر على زر "💾 حفظ وإدراج في الدليل" الأخضر في بطاقة المدرسة لحفظها، أو احفظها جميعاً دفعة واحدة بنقرة واحدة هنا:</div>
-                    </div>
-                    <button type="button" id="btnBulkApproveNew" class="btn btn-success fw-bold py-2 px-3.5 shadow-sm text-white" onclick="bulkApproveNewDiscovered()" style="font-size: 0.8rem; border-radius: 8px;">
-                        <i class="fas fa-save me-1.5"></i> 💾 حفظ وإدراج كافة المدارس (${unapprovedNewCount}) في الدليل والسحابة فوراً
-                    </button>
-                </div>
-            `;
-        } else {
-            bannerHtml = `
-                <div class="alert alert-success border-0 shadow-sm p-3 mb-3 d-flex align-items-center gap-2.5" style="background: #DCFCE7; color: #166534; border-radius: 10px;">
-                    <i class="fas fa-check-circle fs-3 flex-shrink-0 text-success"></i>
-                    <div>
-                        <h6 class="fw-bold mb-0.5" style="font-size: 0.9rem;">✅ تم حفظ وإدراج كافة المدارس بنجاح في قاعدة البيانات وتزامنت مع السحابة!</h6>
-                        <div class="small opacity-90" style="font-size: 0.74rem;">أصبحت المدارس الآن مسجلة ومحفوظة ولها روابط وترتيب تلقائي. يمكنك النقر على "إدارة المدرسة" في أي بطاقة أدناه لتعديل أي تفاصيل أو إضافة معلومات.</div>
-                    </div>
-                </div>
-            `;
-        }
-
-        let html = `
-            ${bannerHtml}
-            <div class="card border-0 shadow-sm rounded-3 overflow-hidden" style="border: 1px solid #DDE4ED !important;">
-                <!-- Header Stats & Action Bar -->
-                <div class="card-header bg-white p-3 border-bottom d-flex flex-wrap justify-content-between align-items-center gap-2">
-                    <div>
-                        <div class="d-flex align-items-center gap-2 mb-1">
-                            <span class="badge bg-success text-white py-1 px-2.5" style="font-size: 0.72rem;">
-                                <i class="fas fa-satellite me-1"></i> نتائج الاستكشاف الميداني (${total} مؤسسة)
-                            </span>
-                            <span class="text-muted small" style="font-size: 0.72rem;">
-                                نطاق المسح: <strong>${escapeHtml(data.state || '')}</strong> | الإجمالي العام بالدليل: <strong>${Number(data.total_schools || 0).toLocaleString()}</strong>
-                            </span>
-                        </div>
-                        <div class="d-flex flex-wrap gap-1.5 align-items-center">
-                            <button type="button" class="btn btn-sm ${currentWorkerActiveFilter === 'all' ? 'btn-dark' : 'btn-outline-secondary'} py-0.5 px-2.5" onclick="filterWorkerCards('all')" style="font-size: 0.72rem; border-radius: 6px;">
-                                كافة النتائج (${total})
-                            </button>
-                            <button type="button" class="btn btn-sm ${currentWorkerActiveFilter === 'new' ? 'btn-success text-white' : 'btn-outline-success'} py-0.5 px-2.5" onclick="filterWorkerCards('new')" style="font-size: 0.72rem; border-radius: 6px;">
-                                ✨ مؤسسات جديدة (${newCount})
-                            </button>
-                            <button type="button" class="btn btn-sm ${currentWorkerActiveFilter === 'existing' ? 'btn-secondary text-white' : 'btn-outline-secondary'} py-0.5 px-2.5" onclick="filterWorkerCards('existing')" style="font-size: 0.72rem; border-radius: 6px;">
-                                🛡️ مطابقة مسبقاً (${existCount})
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="d-flex flex-wrap gap-2 align-items-center">
-                        ${unapprovedNewCount > 0 ? `
-                            <button type="button" id="btnBulkApproveNew2" class="btn btn-sm btn-success fw-bold py-1.5 px-3 shadow-sm text-white" onclick="bulkApproveNewDiscovered()" style="font-size: 0.76rem; border-radius: 8px;">
-                                <i class="fas fa-save me-1"></i> حفظ كافة المدارس الجديدة (${unapprovedNewCount})
-                            </button>
-                        ` : `
-                            <span class="badge bg-success-subtle text-success border border-success-subtle py-1.5 px-2.5" style="font-size: 0.72rem;">
-                                <i class="fas fa-check-circle me-1"></i> كافة المدارس محفوظة ومفهرسة بالدليل
-                            </span>
-                        `}
-                    </div>
-                </div>
-
-                <div class="card-body p-3 p-md-3.5 bg-light">
-                    <div class="row g-3" id="workerCardsGrid">
-        `;
-
-        if (total === 0) {
-            html += `
-                <div class="col-12 text-center py-4 text-muted small">
-                    لم يتم العثور على مؤسسات مطابقة لمعايير البحث المحددة في هذا النطاق.
-                </div>
-            `;
-        } else {
-            schools.forEach((s, idx) => {
-                const sTypeBadge = (s.school_type === 'kindergarten') ? 'روضة / حضانة' : ((s.school_type === 'government') ? 'حكومية' : 'خاصة');
-                const sTypeColor = (s.school_type === 'kindergarten') ? '#8B5CF6' : ((s.school_type === 'government') ? '#0B2A52' : '#1E5FA8');
-
-                let statusBadge = '';
-                let actionBtn = '';
-                const schId = s.existing_id || s.id;
-
-                if (s.registered) {
-                    statusBadge = `<span class="badge bg-success text-white py-1 px-2" style="font-size: 0.68rem;"><i class="fas fa-check-circle me-1"></i> محفوظة ومسجلة في القاعدة ✅</span>`;
-                    actionBtn = `
-                        <div class="d-flex align-items-center gap-1.5">
-                            ${schId ? `<a href="admin.php?tab=manage_school&id=${schId}" class="btn btn-sm btn-primary py-1 px-2.5 fw-bold text-white shadow-2xs" style="font-size: 0.72rem; border-radius: 6px;"><i class="fas fa-edit me-1"></i> إدارة المدرسة</a>` : ''}
-                            <a href="/school/${encodeURIComponent(s.slug)}" target="_blank" class="btn btn-sm btn-outline-secondary py-1 px-2" style="font-size: 0.72rem; border-radius: 6px;" title="عرض في الدليل الحي"><i class="fas fa-external-link-alt"></i></a>
-                        </div>
-                    `;
-                } else if (s.is_new) {
-                    statusBadge = `<span class="badge bg-warning text-dark py-1 px-2" style="font-size: 0.68rem;"><i class="fas fa-clock me-1"></i> غير محفوظة بعد ⏳</span>`;
-                    actionBtn = `<button type="button" class="btn btn-sm btn-success text-white fw-bold py-1.5 px-3 shadow-sm" onclick="quickApproveCard(this, ${idx})" style="font-size: 0.75rem; border-radius: 6px;"><i class="fas fa-save me-1"></i> 💾 حفظ وإدراج في الدليل</button>`;
-                } else {
-                    statusBadge = `<span class="badge bg-secondary text-white py-1 px-2" style="font-size: 0.68rem;"><i class="fas fa-shield-alt me-1"></i> مسجلة مسبقاً 🛡️</span>`;
-                    actionBtn = `
-                        <div class="d-flex align-items-center gap-1.5">
-                            ${schId ? `<a href="admin.php?tab=manage_school&id=${schId}" class="btn btn-sm btn-outline-primary py-1 px-2.5" style="font-size: 0.72rem; border-radius: 6px;"><i class="fas fa-edit me-1"></i> إدارة</a>` : ''}
-                            <a href="/school/${encodeURIComponent(s.slug)}" target="_blank" class="btn btn-sm btn-outline-secondary py-1 px-2" style="font-size: 0.72rem; border-radius: 6px;" title="عرض في الدليل الحي"><i class="fas fa-external-link-alt"></i></a>
-                        </div>
-                    `;
-                }
-
-                html += `
-                    <div class="col-lg-6 col-12 worker-card-item" data-is-new="${s.is_new ? '1' : '0'}" id="worker-card-${idx}">
-                        <div class="card h-100 border-0 shadow-sm rounded-3 bg-white p-3" style="border: 1px solid #E2E8F0 !important;">
-                            <!-- Top Info -->
-                            <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
-                                <div>
-                                    <div class="d-flex align-items-center gap-1.5 mb-1">
-                                        <span class="badge text-white" style="background: ${sTypeColor}; font-size: 0.64rem;">${sTypeBadge}</span>
-                                        <span class="badge bg-light text-dark border" style="font-size: 0.64rem;">${s.curriculum === 'british' ? 'بريطاني' : 'سوداني'}</span>
-                                        ${statusBadge}
-                                    </div>
-                                    <h6 class="fw-bold text-dark mb-0" style="font-size: 0.92rem;">${escapeHtml(s.name)}</h6>
-                                    <div class="text-muted small" style="font-size: 0.7rem;">${escapeHtml(s.name_en || '')}</div>
-                                </div>
-                                <div class="text-end">
-                                    ${actionBtn}
-                                </div>
-                            </div>
-
-                            <!-- Geography & Contact -->
-                            <div class="p-2 rounded-2 mb-2" style="background: #F8FAFC; border: 1px solid #F1F5F9; font-size: 0.72rem;">
-                                <div class="d-flex flex-wrap justify-content-between align-items-center gap-1 mb-1">
-                                    <span class="text-dark"><i class="fas fa-map-marker-alt text-danger me-1"></i> ${escapeHtml(s.state)} — ${escapeHtml(s.city)} (${escapeHtml(s.district)})</span>
-                                    ${s.has_phone ? `
-                                        <span class="badge bg-success-subtle text-success border border-success-subtle"><i class="fas fa-phone-alt me-1"></i> ${escapeHtml(s.phone)}</span>
-                                    ` : `
-                                        <span class="badge bg-light text-muted border"><i class="fas fa-map-marked-alt text-success me-1"></i> معتمدة جغرافياً (بدون هاتف)</span>
-                                    `}
-                                </div>
-                                <div class="text-muted small text-truncate" title="${escapeHtml(s.address)}">
-                                    <i class="fas fa-location-arrow text-primary me-1"></i> ${escapeHtml(s.address)}
-                                </div>
-                            </div>
-
-                            <!-- Platform Links Toolbar -->
-                            <div class="d-flex flex-wrap gap-1 mb-2">
-                                <a href="${s.google_map_url}" target="_blank" class="btn btn-sm btn-light border py-1 px-2 text-success fw-bold d-flex align-items-center gap-1" style="font-size: 0.68rem;" title="فتح في خرائط جوجل">
-                                    <i class="fas fa-map-marked-alt"></i> خرائط جوجل ↗
-                                </a>
-                                <a href="${s.facebook_url}" target="_blank" class="btn btn-sm btn-light border py-1 px-2 text-primary fw-bold d-flex align-items-center gap-1" style="font-size: 0.68rem;" title="بحث فيسبوك">
-                                    <i class="fab fa-facebook"></i> فيسبوك ↗
-                                </a>
-                                <a href="${s.youtube_url}" target="_blank" class="btn btn-sm btn-light border py-1 px-2 text-danger fw-bold d-flex align-items-center gap-1" style="font-size: 0.68rem;" title="بحث يوتيوب">
-                                    <i class="fab fa-youtube"></i> يوتيوب ↗
-                                </a>
-                                <a href="${s.tiktok_url}" target="_blank" class="btn btn-sm btn-light border py-1 px-2 text-dark fw-bold d-flex align-items-center gap-1" style="font-size: 0.68rem;" title="بحث تيك توك">
-                                    <i class="fab fa-tiktok"></i> تيك توك ↗
-                                </a>
-                                <a href="${s.google_records_url}" target="_blank" class="btn btn-sm btn-light border py-1 px-2 text-info fw-bold d-flex align-items-center gap-1" style="font-size: 0.68rem;" title="بحث مراجع جوجل">
-                                    <i class="fas fa-globe"></i> مراجع جوجل ↗
-                                </a>
-                            </div>
-
-                            <!-- Description Synopsis -->
-                            <div class="text-muted small mt-auto" style="font-size: 0.7rem; line-height: 1.45; max-height: 38px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
-                                ${escapeHtml(s.description || '')}
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        html += `
-                    </div>
-                </div>
-            </div>
-        `;
-
-        container.innerHTML = html;
+        if (container) container.style.display = 'none';
+        showAdminToast('تم تفريغ قائمة المعاينة ℹ️', 'info');
     }
 
-    function filterWorkerCards(type) {
-        currentWorkerActiveFilter = type;
-        const items = document.querySelectorAll('.worker-card-item');
-        items.forEach(el => {
-            const isNew = el.getAttribute('data-is-new') === '1';
-            if (type === 'all') {
-                el.style.display = 'block';
-            } else if (type === 'new') {
-                el.style.display = isNew ? 'block' : 'none';
-            } else if (type === 'existing') {
-                el.style.display = !isNew ? 'block' : 'none';
-            }
-        });
-
-        // Re-render header counts and active classes
-        renderWorkerResults({
-            state: document.getElementById('workerState').value.trim() || 'كافة الولايات',
-            total_schools: parseInt(document.getElementById('sp-live-total-schools')?.innerText || 0)
-        });
-    }
-
-    function quickApproveCard(btn, idx) {
+    function saveCandidateSchool(idx, btn) {
         const s = currentWorkerDiscoveredSchools[idx];
         if (!s) return;
 
         btn.disabled = true;
         const oldHtml = btn.innerHTML;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...';
 
         fetch('admin.php', {
             method: 'POST',
@@ -5005,15 +4814,12 @@ try {
                 s.registered = true;
                 s.existing_id = data.school?.id || s.existing_id;
                 s.slug = data.school?.slug || s.slug;
-                showAdminToast(`تم حفظ وإدراج "${s.name}" في قاعدة البيانات والسحابة بنجاح ✅`, 'success');
-                renderWorkerResults({
-                    state: document.getElementById('workerState').value.trim() || 'كافة الولايات',
-                    total_schools: data.total_now || 0
-                });
+                showAdminToast(`تم حفظ وإدراج "${s.name}" في قاعدة البيانات وتزامنت مع السحابة بنجاح 🟢`, 'success');
+                renderWorkerResults(currentWorkerLastResultData || {});
             } else {
                 btn.disabled = false;
                 btn.innerHTML = oldHtml;
-                showAdminToast('فشل الاعتماد: ' + (data.error || 'خطأ غير معروف'), 'danger');
+                showAdminToast('فشل الحفظ: ' + (data.error || 'خطأ غير معروف'), 'danger');
             }
         })
         .catch(err => {
@@ -5023,21 +4829,21 @@ try {
         });
     }
 
-    function bulkApproveNewDiscovered() {
-        const pending = currentWorkerDiscoveredSchools.filter(s => s.is_new && !s.registered);
+    function saveAllRemainingCandidates() {
+        const pending = currentWorkerDiscoveredSchools.filter(s => !s.registered);
         if (pending.length === 0) {
-            alert('كافة المدارس الجديدة معتمدة بالفعل.');
+            alert('لا توجد مدارس جديدة بانتظار الحفظ.');
             return;
         }
 
-        if (!confirm(`هل أنت متأكد من اعتماد وإدراج كافة المدارس الجديدة (${pending.length} مدرسة) في الدليل دفعة واحدة؟`)) {
+        if (!confirm(`هل أنت متأكد من حفظ كافة المدارس المتبقية في القائمة (${pending.length} مدرسة) في قاعدة البيانات ورفعها للسحابة الآن؟`)) {
             return;
         }
 
-        const btn = document.getElementById('btnBulkApproveNew');
+        const btn = document.getElementById('btnSaveAllCandidates');
         if (btn) {
             btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> جاري اعتماد الدفعة...';
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1.5"></i> جاري الحفظ والرفع للسحابة...';
         }
 
         fetch('api_auto_discover.php', {
@@ -5064,26 +4870,203 @@ try {
                 pending.forEach(s => {
                     s.registered = true;
                 });
-                showAdminToast(`تم اعتماد وإدراج ${data.created || pending.length} مدرسة جديدة بنجاح في الدليل ✅`, 'success');
-                renderWorkerResults({
-                    state: document.getElementById('workerState').value.trim() || 'كافة الولايات',
-                    total_schools: data.total_now || 0
-                });
+                showAdminToast(`تم حفظ وإدراج ${data.created || pending.length} مدرسة بنجاح في قاعدة البيانات وتزامنت مع السحابة ✅`, 'success');
+                renderWorkerResults(currentWorkerLastResultData || {});
             } else {
                 if (btn) {
                     btn.disabled = false;
-                    btn.innerHTML = '<i class="fas fa-check-double me-1"></i> إعادة المحاولة';
+                    btn.innerHTML = '<i class="fas fa-save me-1.5"></i> إعادة المحاولة';
                 }
-                showAdminToast('فشل الاعتماد الجماعي: ' + (data.error || ''), 'danger');
+                showAdminToast('فشل الحفظ الجماعي: ' + (data.error || ''), 'danger');
             }
         })
         .catch(err => {
             if (btn) {
                 btn.disabled = false;
-                btn.innerHTML = '<i class="fas fa-check-double me-1"></i> إعادة المحاولة';
+                btn.innerHTML = '<i class="fas fa-save me-1.5"></i> إعادة المحاولة';
             }
             showAdminToast('حدث خطأ في الاتصال بالخادم.', 'danger');
         });
+    }
+
+    function renderWorkerResults(data) {
+        const container = document.getElementById('workerResultsContainer');
+        const schools = currentWorkerDiscoveredSchools;
+        const total = schools.length;
+        const pendingCount = schools.filter(s => !s.registered).length;
+        const savedCount = schools.filter(s => s.registered).length;
+
+        if (total === 0) {
+            container.innerHTML = `
+                <div class="card border-0 shadow-sm rounded-3 p-4 text-center bg-white" style="border: 1px solid #DDE4ED !important;">
+                    <i class="fas fa-inbox fa-3x text-muted mb-2 opacity-50"></i>
+                    <h6 class="fw-bold text-dark mb-1">قائمة المعاينة فارغة</h6>
+                    <div class="text-muted small mb-3">تم استبعاد كافة المدارس من القائمة أو لم يتم استكشاف نتائج جديدة.</div>
+                    <div>
+                        <button type="button" class="btn btn-sm btn-primary px-3 py-1.5" onclick="runAutonomousWorker()">
+                            <i class="fas fa-redo me-1"></i> إعادة البحث والاستكشاف
+                        </button>
+                    </div>
+                </div>
+            `;
+            return;
+        }
+
+        let bannerHtml = '';
+        if (pendingCount > 0) {
+            bannerHtml = `
+                <div class="alert alert-warning border-0 shadow-sm p-3 mb-3 d-flex flex-wrap justify-content-between align-items-center gap-3" style="background: #FEF3C7; color: #92400E; border-radius: 12px; border-right: 5px solid #F59E0B !important;">
+                    <div>
+                        <h6 class="fw-bold mb-1 d-flex align-items-center gap-2" style="font-size: 0.92rem;">
+                            <i class="fas fa-list-check text-warning fs-5"></i>
+                            <span>قائمة المعاينة جاهزة: لديك (${pendingCount}) مدرسة بانتظار المراجعة والحفظ</span>
+                        </h6>
+                        <div class="small opacity-90" style="font-size: 0.74rem;">
+                            • يمكنك <strong>استبعاد أي مدرسة غير مناسبة</strong> بالضغط على زر "🗑️ استبعاد" باللون الأحمر لحذفها من القائمة.<br>
+                            • عند الانتهاء من المراجعة، اضغط زر <strong>"💾 حفظ كافة المدارس المتبقية"</strong> لحفظها في القاعدة والسحابة دفعة واحدة.
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center gap-2 flex-wrap">
+                        <button type="button" id="btnSaveAllCandidates" class="btn btn-success fw-bold py-2.5 px-4 shadow-sm text-white" onclick="saveAllRemainingCandidates()" style="font-size: 0.85rem; border-radius: 8px; background: linear-gradient(135deg, #059669, #047857);">
+                            <i class="fas fa-save me-1.5 text-warning"></i> 💾 حفظ كافة المدارس المتبقية في القاعدة والسحابة (${pendingCount})
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary py-2 px-3 fw-bold" onclick="clearAllCandidates()" style="font-size: 0.78rem; border-radius: 8px;" title="إلغاء قائمة المعاينة">
+                            <i class="fas fa-times me-1"></i> إلغاء القائمة
+                        </button>
+                    </div>
+                </div>
+            `;
+        } else {
+            bannerHtml = `
+                <div class="alert alert-success border-0 shadow-sm p-3 mb-3 d-flex align-items-center gap-2.5" style="background: #DCFCE7; color: #166534; border-radius: 12px; border-right: 5px solid #10B981 !important;">
+                    <i class="fas fa-check-circle fs-3 flex-shrink-0 text-success"></i>
+                    <div>
+                        <h6 class="fw-bold mb-0.5" style="font-size: 0.92rem;">✅ تم حفظ وإدراج كافة المدارس المعروضة (${savedCount} مدرسة) بنجاح في قاعدة البيانات وتزامنت مع السحابة!</h6>
+                        <div class="small opacity-90" style="font-size: 0.74rem;">أصبحت المدارس الآن مسجلة ولها روابط وترتيب مباشر. يمكنك النقر على "إدارة المدرسة" في أي بطاقة أدناه لتعديل أي تفاصيل أو إضافة معلومات.</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        let html = `
+            ${bannerHtml}
+            <div class="card border-0 shadow-sm rounded-3 overflow-hidden" style="border: 1px solid #DDE4ED !important;">
+                <div class="card-header bg-white p-3 border-bottom d-flex flex-wrap justify-content-between align-items-center gap-2">
+                    <div>
+                        <span class="badge bg-primary text-white py-1 px-2.5" style="font-size: 0.74rem;">
+                            <i class="fas fa-clipboard-list me-1"></i> المدارس في قائمة المعاينة (${total} مؤسسة)
+                        </span>
+                        <span class="text-muted small ms-2" style="font-size: 0.72rem;">
+                            (متبقي للحفظ: <strong>${pendingCount}</strong> | تم حفظها بالفعل: <strong>${savedCount}</strong>)
+                        </span>
+                    </div>
+
+                    ${pendingCount > 0 ? `
+                        <button type="button" class="btn btn-sm btn-success fw-bold py-1.5 px-3 text-white shadow-2xs" onclick="saveAllRemainingCandidates()" style="font-size: 0.78rem; border-radius: 6px;">
+                            <i class="fas fa-save me-1"></i> حفظ المتبقي (${pendingCount})
+                        </button>
+                    ` : ''}
+                </div>
+
+                <div class="card-body p-3 p-md-3.5 bg-light">
+                    <div class="row g-3" id="workerCardsGrid">
+        `;
+
+        schools.forEach((s, idx) => {
+            const sTypeBadge = (s.school_type === 'kindergarten') ? 'روضة / حضانة' : ((s.school_type === 'government') ? 'حكومية' : 'خاصة');
+            const sTypeColor = (s.school_type === 'kindergarten') ? '#8B5CF6' : ((s.school_type === 'government') ? '#0B2A52' : '#1E5FA8');
+            const schId = s.existing_id || s.id;
+
+            let statusBadge = '';
+            let actionBtns = '';
+
+            if (s.registered) {
+                statusBadge = `<span class="badge bg-success text-white py-1 px-2" style="font-size: 0.68rem;"><i class="fas fa-check-circle me-1"></i> محفوظة ومسجلة في القاعدة ✅</span>`;
+                actionBtns = `
+                    <div class="d-flex align-items-center gap-1.5">
+                        ${schId ? `<a href="admin.php?tab=manage_school&id=${schId}" class="btn btn-sm btn-primary py-1 px-2.5 fw-bold text-white shadow-2xs" style="font-size: 0.72rem; border-radius: 6px;"><i class="fas fa-edit me-1"></i> إدارة المدرسة</a>` : ''}
+                        <a href="/school/${encodeURIComponent(s.slug)}" target="_blank" class="btn btn-sm btn-outline-secondary py-1 px-2" style="font-size: 0.72rem; border-radius: 6px;" title="عرض في الدليل الحي"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                `;
+            } else {
+                statusBadge = `<span class="badge bg-warning text-dark py-1 px-2" style="font-size: 0.68rem;"><i class="fas fa-clock me-1"></i> بانتظار المراجعة والحفظ ⏳</span>`;
+                actionBtns = `
+                    <div class="d-flex align-items-center gap-1.5">
+                        <button type="button" class="btn btn-sm btn-success text-white fw-bold py-1 px-3 shadow-2xs d-inline-flex align-items-center gap-1" onclick="saveCandidateSchool(${idx}, this)" style="font-size: 0.74rem; border-radius: 6px;">
+                            <i class="fas fa-save"></i> حفظ في القاعدة
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-danger py-1 px-2.5 fw-bold d-inline-flex align-items-center gap-1" onclick="removeCandidateSchool(${idx})" style="font-size: 0.74rem; border-radius: 6px;" title="استبعاد وحذف هذه المدرسة من قائمة المعاينة">
+                            <i class="fas fa-trash-alt"></i> استبعاد
+                        </button>
+                    </div>
+                `;
+            }
+
+            html += `
+                <div class="col-lg-6 col-12 worker-card-item" id="worker-card-${idx}">
+                    <div class="card h-100 border-0 shadow-sm rounded-3 bg-white p-3" style="border: 1px solid #E2E8F0 !important;">
+                        <!-- Top Info -->
+                        <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+                            <div>
+                                <div class="d-flex align-items-center gap-1.5 mb-1 flex-wrap">
+                                    <span class="badge text-white" style="background: ${sTypeColor}; font-size: 0.64rem;">${sTypeBadge}</span>
+                                    <span class="badge bg-light text-dark border" style="font-size: 0.64rem;">${s.curriculum === 'british' ? 'بريطاني' : 'سوداني'}</span>
+                                    ${statusBadge}
+                                </div>
+                                <h6 class="fw-bold text-dark mb-0" style="font-size: 0.92rem;">${escapeHtml(s.name)}</h6>
+                                <div class="text-muted small" style="font-size: 0.7rem;">${escapeHtml(s.name_en || '')}</div>
+                            </div>
+                            <div class="text-end">
+                                ${actionBtns}
+                            </div>
+                        </div>
+
+                        <!-- Geography & Contact -->
+                        <div class="p-2 rounded-2 mb-2" style="background: #F8FAFC; border: 1px solid #F1F5F9; font-size: 0.72rem;">
+                            <div class="d-flex flex-wrap justify-content-between align-items-center gap-1 mb-1">
+                                <span class="text-dark"><i class="fas fa-map-marker-alt text-danger me-1"></i> ${escapeHtml(s.state)} — ${escapeHtml(s.city)} (${escapeHtml(s.district || s.city)})</span>
+                                ${s.phone ? `
+                                    <span class="badge bg-success-subtle text-success border border-success-subtle"><i class="fas fa-phone-alt me-1"></i> ${escapeHtml(s.phone)}</span>
+                                ` : `
+                                    <span class="badge bg-light text-muted border"><i class="fas fa-map-marked-alt text-success me-1"></i> موثقة جغرافياً</span>
+                                `}
+                            </div>
+                            <div class="text-muted small text-truncate" title="${escapeHtml(s.address || '')}">
+                                <i class="fas fa-location-arrow text-primary me-1"></i> ${escapeHtml(s.address || s.city)}
+                            </div>
+                        </div>
+
+                        <!-- Platform Links Toolbar -->
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                            ${s.google_map_url ? `
+                                <a href="${s.google_map_url}" target="_blank" class="btn btn-sm btn-light border py-0.5 px-2 text-success fw-bold d-flex align-items-center gap-1" style="font-size: 0.66rem;" title="فتح في خرائط جوجل">
+                                    <i class="fas fa-map-marked-alt"></i> خرائط جوجل ↗
+                                </a>
+                            ` : ''}
+                            ${s.facebook_url ? `
+                                <a href="${s.facebook_url}" target="_blank" class="btn btn-sm btn-light border py-0.5 px-2 text-primary fw-bold d-flex align-items-center gap-1" style="font-size: 0.66rem;" title="بحث فيسبوك">
+                                    <i class="fab fa-facebook"></i> فيسبوك ↗
+                                </a>
+                            ` : ''}
+                        </div>
+
+                        <!-- Description Synopsis -->
+                        <div class="text-muted small mt-auto" style="font-size: 0.7rem; line-height: 1.45; max-height: 38px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+                            ${escapeHtml(s.description || '')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+
+        html += `
+                    </div>
+                </div>
+            </div>
+        `;
+
+        container.innerHTML = html;
     }
 
     function runStudioResearch() {
