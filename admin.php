@@ -988,6 +988,9 @@ if ($action !== null) {
             if (!empty($result['created'])) {
                 recalculateDaleelRanks($pdo);
                 if (class_exists('DaleelSyncService') && DaleelSyncService::isLocal()) {
+                    if (!empty($result['schools'])) {
+                        DaleelSyncService::pushSchoolsBatch($result['schools']);
+                    }
                     DaleelSyncService::autoSyncDelta();
                 }
                 require_once __DIR__ . '/export_master_seed.php';
@@ -4977,15 +4980,24 @@ try {
         .then(r => r.json())
         .then(data => {
             if (data && data.success) {
+                const createdCount = Number(data.created || 0);
+                const existingCount = Number(data.existing || 0);
+
                 pending.forEach(s => {
                     s.registered = true;
                 });
                 if (data.total_schools_now) {
                     updateLiveSchoolCounters(data.total_schools_now);
                 }
-                const savedNum = data.created || pending.length;
-                const totalMsg = data.total_schools_now ? ` | إجمالي المدارس الآن: ${data.total_schools_now}` : '';
-                showAdminToast(`تم حفظ وإدراج ${savedNum} مدرسة بنجاح في قاعدة البيانات وتزامنت مع السحابة ✅${totalMsg}`, 'success');
+
+                const totalMsg = data.total_schools_now ? ` | إجمالي المدارس في الدليل: ${data.total_schools_now}` : '';
+                if (createdCount > 0) {
+                    showAdminToast(`تم حفظ وإدراج ${createdCount} مدرسة جديدة بنجاح وتزامنت مع السحابة 🟢${totalMsg}`, 'success');
+                } else if (existingCount > 0) {
+                    showAdminToast(`المدارس محددة كانت مسجلة مسبقاً (${existingCount} مدرسة)، تم تحديث بياناتها ℹ️${totalMsg}`, 'info');
+                } else {
+                    showAdminToast(`تمت المعالجة بنجاح${totalMsg}`, 'success');
+                }
                 renderWorkerResults(currentWorkerLastResultData || {});
             } else {
                 if (btn) {

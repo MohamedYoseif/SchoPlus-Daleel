@@ -75,6 +75,17 @@ class DaleelSyncService {
     }
 
     /**
+     * مزامنة دفعة من المدارس دفعة واحدة للسحابة
+     */
+    public static function pushSchoolsBatch(array $schools): array {
+        if (!self::isLocal() || empty($schools)) {
+            return ['success' => false, 'error' => 'not_local_or_empty'];
+        }
+        $res = self::callCloud('push', ['schools' => array_values($schools)], 25);
+        return is_array($res) ? $res : ['success' => false];
+    }
+
+    /**
      * مزامنة فورية لحالة فحص الواتساب
      */
     public static function pushWaStatus(int $schoolId, string $status, ?string $jid = null): bool {

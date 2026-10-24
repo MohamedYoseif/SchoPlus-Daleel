@@ -370,44 +370,6 @@ function runDaleelDeduplication(PDO $pdo): array {
             $pdo->exec("DELETE FROM daleel_schools WHERE name = " . $pdo->quote($synName));
         }
 
-        // 5.1 Strict Radical Purge (Option 2 — Zero-Tolerance for AI-hallucinated phone numbers)
-        // Permanently purge any school that is not an authentic National Government or Historic Landmark Institution
-        $purgeFilter = "school_type != 'government' AND (is_historic IS NULL OR is_historic = 0)";
-        $pdo->exec("DELETE FROM daleel_school_reviews WHERE school_id IN (SELECT id FROM daleel_schools WHERE {$purgeFilter})");
-        $pdo->exec("DELETE FROM daleel_school_news WHERE school_id IN (SELECT id FROM daleel_schools WHERE {$purgeFilter})");
-        $pdo->exec("DELETE FROM daleel_school_inquiries WHERE school_id IN (SELECT id FROM daleel_schools WHERE {$purgeFilter})");
-        $purgedCount = $pdo->exec("DELETE FROM daleel_schools WHERE {$purgeFilter}");
-        $deletedCount += (int)$purgedCount;
-
-        // 5.2 Clean synthetic phone placeholders from retained schools
-        // Only keep phone numbers that are verified landlines/official lines; set unknown or synthetic numbers to NULL
-        $verifiedLandlines = [
-            2 => '+249155770108',   // المدرسة الأمريكية بالخرطوم
-            44 => '+249183777000',  // كلية كمبوني — الخرطوم
-            47 => '+249183777111',  // مدرسة الراهبات — الخرطوم
-            3995 => '+249311822456',// كمبوني بورتسودان (أرضي بورتسودان)
-            4746 => '+249183772211' // مدارس الشيخ مصطفى الأمين (أرضي الخرطوم)
-        ];
-        $allRetained = $pdo->query("SELECT id, phone, whatsapp FROM daleel_schools")->fetchAll(PDO::FETCH_ASSOC);
-        $cleanPhoneStmt = $pdo->prepare("UPDATE daleel_schools SET phone = :phone, whatsapp = :whatsapp WHERE id = :id");
-        foreach ($allRetained as $ret) {
-            $rId = (int)$ret['id'];
-            if (isset($verifiedLandlines[$rId])) {
-                $cleanPhoneStmt->execute([
-                    ':phone' => $verifiedLandlines[$rId],
-                    ':whatsapp' => $verifiedLandlines[$rId],
-                    ':id' => $rId
-                ]);
-            } else {
-                // Historic government institutions or unconfirmed mobiles: set to NULL to prevent wrong numbers
-                $cleanPhoneStmt->execute([
-                    ':phone' => null,
-                    ':whatsapp' => null,
-                    ':id' => $rId
-                ]);
-            }
-        }
-
         // Ensure authentic historic Beit Al-Mal primary school exists
         $bm1 = $pdo->query("SELECT id FROM daleel_schools WHERE name LIKE '%مدرسة بيت المال الأساسية النموذجية%' LIMIT 1")->fetchColumn();
         if (!$bm1) {

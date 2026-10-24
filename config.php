@@ -1281,16 +1281,6 @@ function ensureTablesExist(PDO $pdo): void {
         } catch (Throwable $e) {}
         */
 
-        // Self-healing Daleel Deduplication & Radical Unverified Purge Routine
-        try {
-            $unverifiedCount = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE school_type != 'government' AND (is_historic IS NULL OR is_historic = 0)")->fetchColumn();
-            $dupCheck = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE name = 'مدارس القبس الخاصة' AND city = 'عطبرة'")->fetchColumn();
-            if ($unverifiedCount > 0 || $dupCheck > 0) {
-                require_once __DIR__ . '/run_deduplication.php';
-                runDaleelDeduplication($pdo);
-            }
-        } catch (Throwable $e) {}
-
         // Sync default country and sequential directory_rank and state_rank for approved schools
         try {
             $pdo->exec("UPDATE daleel_schools SET country = 'السودان' WHERE country IS NULL OR country = ''");

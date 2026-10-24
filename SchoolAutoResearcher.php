@@ -528,6 +528,9 @@ class SchoolAutoResearcher {
         recalculateDaleelRanks($pdo);
 
         if (class_exists('DaleelSyncService') && DaleelSyncService::isLocal()) {
+            if (!empty($insertedSchools)) {
+                DaleelSyncService::pushSchoolsBatch($insertedSchools);
+            }
             DaleelSyncService::autoSyncDelta();
         }
 
@@ -950,6 +953,9 @@ class SchoolAutoResearcher {
             recalculateDaleelRanks($pdo);
 
         if (class_exists('DaleelSyncService') && DaleelSyncService::isLocal()) {
+            if (!empty($insertedSchools)) {
+                DaleelSyncService::pushSchoolsBatch($insertedSchools);
+            }
             DaleelSyncService::autoSyncDelta();
         }
             require_once __DIR__ . '/export_master_seed.php';
