@@ -285,9 +285,15 @@ endif;
 // =========================================================================
 // 2. MASTER ADMIN AJAX ACTIONS HANDLER
 // =========================================================================
-if (isset($_REQUEST['ajax_action'])) {
+$rawAjaxInput = file_get_contents('php://input');
+$jsonAjaxInput = !empty($rawAjaxInput) ? @json_decode($rawAjaxInput, true) : null;
+$action = $_REQUEST['ajax_action'] ?? ($jsonAjaxInput['ajax_action'] ?? null);
+
+if ($action !== null) {
     header('Content-Type: application/json; charset=utf-8');
-    $action = $_REQUEST['ajax_action'];
+    if (is_array($jsonAjaxInput) && empty($_POST)) {
+        $_POST = $jsonAjaxInput;
+    }
 
     try {
         if ($action === 'toggle_verified') {
@@ -954,7 +960,41 @@ if (isset($_REQUEST['ajax_action'])) {
                 exportMasterSeed($pdo);
             }
 
+            $totalNow = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE status = 'approved'")->fetchColumn();
+            $res['total_schools_now'] = $totalNow;
+
             echo json_encode($res, JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+
+        if ($action === 'batch_save_discovered_schools') {
+            $rawPayload = file_get_contents('php://input');
+            $data = json_decode($rawPayload, true) ?: $_POST;
+            $rawSchools = $data['schools'] ?? [];
+            if (is_string($rawSchools)) {
+                $rawSchools = json_decode($rawSchools, true) ?: [];
+            }
+
+            if (empty($rawSchools) || !is_array($rawSchools)) {
+                echo json_encode(['success' => false, 'error' => 'قائمة المدارس فارغة أو غير صالحة للاستيراد بالدفعة.']);
+                exit;
+            }
+
+            $result = SchoolAutoResearcher::importVerifiedSchoolBatch($pdo, $rawSchools);
+
+            if (!empty($result['created'])) {
+                recalculateDaleelRanks($pdo);
+                if (class_exists('DaleelSyncService') && DaleelSyncService::isLocal()) {
+                    DaleelSyncService::autoSyncDelta();
+                }
+                require_once __DIR__ . '/export_master_seed.php';
+                exportMasterSeed($pdo);
+            }
+
+            $totalNow = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE status = 'approved'")->fetchColumn();
+            $result['total_schools_now'] = $totalNow;
+
+            echo json_encode($result, JSON_UNESCAPED_UNICODE);
             exit;
         }
 
@@ -2080,7 +2120,7 @@ try {
                 <div class="col-xl-2 col-md-4 col-6">
                     <div class="metric-card m-blue">
                         <div class="metric-lbl"><i class="fas fa-school text-primary"></i> إجمالي المدارس</div>
-                        <div class="metric-val"><?= number_format($totalCount) ?></div>
+                        <div class="metric-val metric-val-total-schools"><?= number_format($totalCount) ?></div>
                         <div class="small text-muted" style="font-size: 0.62rem;">مؤسسة بالدليل العام</div>
                     </div>
                 </div>
@@ -2130,7 +2170,7 @@ try {
                 <div class="col-xl-2 col-md-4 col-6">
                     <div class="metric-card m-blue">
                         <div class="metric-lbl"><i class="fas fa-school text-primary"></i> إجمالي المدارس</div>
-                        <div class="metric-val"><?= number_format($totalCount) ?></div>
+                        <div class="metric-val metric-val-total-schools"><?= number_format($totalCount) ?></div>
                         <div class="small text-muted" style="font-size: 0.62rem;">مؤسسة تعليمية</div>
                     </div>
                 </div>
@@ -2190,7 +2230,7 @@ try {
                 <?php endif; ?>
                 <a href="admin.php?tab=schools" class="sp-main-tab <?= $activeTab === 'schools' ? 'active' : '' ?>">
                     <i class="fas fa-school"></i> المدارس
-                    <span class="tab-badge"><?= number_format($totalCount) ?></span>
+                    <span class="tab-badge" id="tabSchoolsCountBadge"><?= number_format($totalCount) ?></span>
                 </a>
                 <a href="admin.php?tab=claims" class="sp-main-tab <?= $activeTab === 'claims' ? 'active' : '' ?>">
                     <i class="fas fa-file-signature"></i> طلبات التوثيق
@@ -4814,6 +4854,9 @@ try {
                 s.registered = true;
                 s.existing_id = data.school?.id || s.existing_id;
                 s.slug = data.school?.slug || s.slug;
+                if (data.total_schools_now) {
+                    updateLiveSchoolCounters(data.total_schools_now);
+                }
                 showAdminToast(`تم حفظ وإدراج "${s.name}" في قاعدة البيانات وتزامنت مع السحابة بنجاح 🟢`, 'success');
                 renderWorkerResults(currentWorkerLastResultData || {});
             } else {
@@ -4826,6 +4869,14 @@ try {
             btn.disabled = false;
             btn.innerHTML = oldHtml;
             showAdminToast('حدث خطأ في الاتصال بالخادم.', 'danger');
+        });
+    }
+
+    function updateLiveSchoolCounters(count) {
+        if (!count) return;
+        const formatted = Number(count).toLocaleString('en-US');
+        document.querySelectorAll('.metric-val-total-schools, #tabSchoolsCountBadge, #syncHubLocalCount, #headerTotalSchoolsCount').forEach(el => {
+            el.innerText = formatted;
         });
     }
 
@@ -4846,11 +4897,11 @@ try {
             btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1.5"></i> جاري الحفظ والرفع للسحابة...';
         }
 
-        fetch('api_auto_discover.php', {
+        fetch('admin.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                action: 'batch',
+                ajax_action: 'batch_save_discovered_schools',
                 schools: pending.map(s => ({
                     name: s.name,
                     state: s.state,
@@ -4870,7 +4921,12 @@ try {
                 pending.forEach(s => {
                     s.registered = true;
                 });
-                showAdminToast(`تم حفظ وإدراج ${data.created || pending.length} مدرسة بنجاح في قاعدة البيانات وتزامنت مع السحابة ✅`, 'success');
+                if (data.total_schools_now) {
+                    updateLiveSchoolCounters(data.total_schools_now);
+                }
+                const savedNum = data.created || pending.length;
+                const totalMsg = data.total_schools_now ? ` | إجمالي المدارس الآن: ${data.total_schools_now}` : '';
+                showAdminToast(`تم حفظ وإدراج ${savedNum} مدرسة بنجاح في قاعدة البيانات وتزامنت مع السحابة ✅${totalMsg}`, 'success');
                 renderWorkerResults(currentWorkerLastResultData || {});
             } else {
                 if (btn) {

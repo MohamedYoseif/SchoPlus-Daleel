@@ -3,10 +3,11 @@
  * SchoPlus Daleel — Autonomous School Discovery API Endpoint
  */
 
-header('Content-Type: application/json; charset=utf-8');
-
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/SchoolAutoResearcher.php';
+require_once __DIR__ . '/DaleelWhatsAppService.php';
+
+header('Content-Type: application/json; charset=utf-8');
 
 $pdo = db();
 
@@ -17,8 +18,9 @@ $inputData = json_decode($rawInput, true);
 
 $providedKey = $_GET['key'] ?? ($_POST['key'] ?? ($inputData['key'] ?? ''));
 $isAuthAdmin = (!empty($_SESSION['daleel_master_admin']) || !empty($_SESSION['school_id']) || !empty($_SESSION['daleel_admin_authorized']));
+$isLocalStation = class_exists('DaleelWhatsAppService') && DaleelWhatsAppService::isLocalStation();
 
-if (!$isAuthAdmin && $providedKey !== $secretKey && php_sapi_name() !== 'cli') {
+if (!$isAuthAdmin && $providedKey !== $secretKey && !$isLocalStation && php_sapi_name() !== 'cli') {
     http_response_code(403);
     echo json_encode([
         'success' => false,
@@ -47,6 +49,8 @@ if ($action === 'batch' || !empty($_POST['schools']) || !empty($inputData['schoo
         if (class_exists('DaleelSyncService') && DaleelSyncService::isLocal()) {
             DaleelSyncService::autoSyncDelta();
         }
+        $totalNow = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE status = 'approved'")->fetchColumn();
+        $result['total_schools_now'] = $totalNow;
         echo json_encode($result, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
     } catch (Throwable $e) {
         http_response_code(500);
