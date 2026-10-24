@@ -10,6 +10,9 @@ require_once __DIR__ . '/SudanGeography.php';
 
 class DaleelBotService {
 
+    public static bool $simulateMode = false;
+    public static array $lastSimulatedReplies = [];
+
     /**
      * معالجة الرسالة الواردة من Webhook سيرفر الواتساب
      */
@@ -437,8 +440,39 @@ class DaleelBotService {
      * دالة مساعدة للرد عبر سيرفر الواتساب وتسجيل الرسالة الصادرة
      */
     private static function reply(string $phone, ?string $chatId, string $text, ?string $intent = null): void {
+        if (self::$simulateMode) {
+            self::$lastSimulatedReplies[] = [
+                'text' => $text,
+                'intent' => $intent,
+                'time' => date('H:i')
+            ];
+            DaleelWhatsAppService::logMessage(null, 'out', $phone, $chatId, '[محاكاة] ' . $text, $intent);
+            return;
+        }
         DaleelWhatsAppService::sendMessage($phone, $text, $chatId);
         DaleelWhatsAppService::logMessage(null, 'out', $phone, $chatId, $text, $intent);
+    }
+
+    /**
+     * محاكاة محادثة البوت الذكي من لوحة التحكم المحلية دون إرسال رسالة حقيقية للهاتف
+     */
+    public static function simulate(string $phone, string $message): array {
+        self::$simulateMode = true;
+        self::$lastSimulatedReplies = [];
+        self::handleIncoming($phone, $message, $phone . '@c.us');
+        $session = self::getSession($phone, $phone . '@c.us');
+        $replies = self::$lastSimulatedReplies;
+        self::$simulateMode = false;
+        return [
+            'success' => true,
+            'replies' => $replies,
+            'step' => $session['current_step'] ?? 'idle',
+            'temp_data' => !empty($session['temp_data']) ? json_decode($session['temp_data'], true) : []
+        ];
+    }
+
+    public static function handleIncomingMessage(string $phone, string $message, ?string $chatId = null, array $payload = []): void {
+        self::handleIncoming($phone, $message, $chatId, $payload);
     }
 
     /**

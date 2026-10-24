@@ -12,12 +12,22 @@ class DaleelWhatsAppService {
     private static string $token = 'schoplus_daleel_sec_token_9918';
 
     /**
-     * هل البيئة الحالية استضافة سحابية عامة أم بيئة محلية؟
+     * هل البيئة الحالية استضافة سحابية عامة أم محطة العمل المحلية المستقلة؟
      */
+    public static function isLocalStation(): bool {
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            return true;
+        }
+        $host = $_SERVER['HTTP_HOST'] ?? ($_SERVER['SERVER_NAME'] ?? '');
+        $serverAddr = $_SERVER['SERVER_ADDR'] ?? '';
+        if (strpos($host, 'localhost') !== false || strpos($host, '127.0.0.1') !== false || $serverAddr === '127.0.0.1' || $serverAddr === '::1') {
+            return true;
+        }
+        return !is_dir('/home/wdenfygx');
+    }
+
     public static function isCloudServer(): bool {
-        return is_dir('/home/wdenfygx') ||
-            (isset($_SERVER['HTTP_HOST']) && strpos($_SERVER['HTTP_HOST'], 'schoplus.sd') !== false) ||
-            (isset($_SERVER['SERVER_NAME']) && strpos($_SERVER['SERVER_NAME'], 'schoplus.sd') !== false);
+        return !self::isLocalStation();
     }
 
     /**
@@ -181,5 +191,19 @@ class DaleelWhatsAppService {
             $stmt = $pdo->prepare("INSERT INTO daleel_whatsapp_messages (school_id, direction, phone, chat_id, message, intent) VALUES (?, ?, ?, ?, ?, ?)");
             $stmt->execute([$schoolId, $direction, $phone, $chatId, $message, $intent]);
         } catch (Throwable $e) {}
+    }
+
+    /**
+     * حفظ وتحديث نتيجة فحص واتساب المدرسة في قاعدة البيانات
+     */
+    public static function updateSchoolWhatsAppStatus(int $schoolId, bool $exists, ?string $jid = null): bool {
+        try {
+            $pdo = db();
+            $status = $exists ? 'valid' : 'invalid';
+            $stmt = $pdo->prepare("UPDATE daleel_schools SET whatsapp_status = ?, whatsapp_checked_at = NOW() WHERE id = ?");
+            return $stmt->execute([$status, $schoolId]);
+        } catch (Throwable $e) {
+            return false;
+        }
     }
 }

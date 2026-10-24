@@ -398,11 +398,13 @@ if (isset($_REQUEST['ajax_action'])) {
             $res = DaleelWhatsAppService::checkNumber($phone);
             if (isset($res['exists'])) {
                 $exists = (bool)$res['exists'];
+                DaleelWhatsAppService::updateSchoolWhatsAppStatus($id, $exists, $res['jid'] ?? null);
                 echo json_encode([
                     'success' => true,
                     'id' => $id,
                     'phone' => $phone,
                     'exists' => $exists,
+                    'status' => $exists ? 'valid' : 'invalid',
                     'jid' => $res['jid'] ?? null,
                     'message' => $exists ? 'الرقم مسجل في الواتساب ولديه حساب نشط 🟢' : 'الرقم ليس لديه حساب واتساب (هاتف أرضي أو غير مفعل) 🔴'
                 ]);
@@ -412,6 +414,135 @@ if (isset($_REQUEST['ajax_action'])) {
                     'error' => $res['error'] ?? 'تعذر فحص الرقم من خادم الواتساب'
                 ]);
             }
+            exit;
+        }
+
+        if ($action === 'bulk_check_whatsapp_numbers') {
+            @set_time_limit(180);
+            $state = trim($_POST['state'] ?? '');
+            $limit = (int)($_POST['limit'] ?? 20);
+            $limit = max(1, min(50, $limit));
+            $onlyUnverified = !empty($_POST['only_unverified']);
+
+            $sql = "SELECT id, name, phone, whatsapp, whatsapp_status FROM daleel_schools WHERE (phone IS NOT NULL AND phone != '' OR whatsapp IS NOT NULL AND whatsapp != '') AND deleted_at IS NULL";
+            $params = [];
+            if ($state !== '') {
+                $sql .= " AND state = ?";
+                $params[] = $state;
+            }
+            if ($onlyUnverified) {
+                $sql .= " AND (whatsapp_status IS NULL OR whatsapp_status = 'unverified')";
+            }
+            $sql .= " ORDER BY (whatsapp_status IS NULL OR whatsapp_status = 'unverified') DESC, id ASC LIMIT " . $limit;
+
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute($params);
+            $schools = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            $results = [];
+            $validCount = 0;
+            $invalidCount = 0;
+
+            foreach ($schools as $sch) {
+                $phone = trim((string)($sch['whatsapp'] ?: $sch['phone']));
+                $check = DaleelWhatsAppService::checkNumber($phone);
+                $exists = !empty($check['exists']);
+                DaleelWhatsAppService::updateSchoolWhatsAppStatus((int)$sch['id'], $exists, $check['jid'] ?? null);
+
+                if ($exists) $validCount++;
+                else $invalidCount++;
+
+                $results[] = [
+                    'id' => (int)$sch['id'],
+                    'name' => $sch['name'],
+                    'phone' => $phone,
+                    'exists' => $exists,
+                    'status' => $exists ? 'valid' : 'invalid'
+                ];
+            }
+
+            echo json_encode([
+                'success' => true,
+                'checked_count' => count($results),
+                'valid_count' => $validCount,
+                'invalid_count' => $invalidCount,
+                'schools' => $results
+            ]);
+            exit;
+        }
+
+        if ($action === 'simulate_bot_message') {
+            $phone = trim($_POST['phone'] ?? '249111970220');
+            $msg = trim($_POST['message'] ?? '');
+            if ($msg === '') {
+                echo json_encode(['success' => false, 'error' => 'الرسالة فارغة']);
+                exit;
+            }
+            $res = DaleelBotService::simulate($phone, $msg);
+            echo json_encode($res);
+            exit;
+        }
+
+        if ($action === 'reset_bot_simulation') {
+            $phone = trim($_POST['phone'] ?? '249111970220');
+            try {
+                $pdo->prepare("DELETE FROM daleel_whatsapp_sessions WHERE phone = ?")->execute([$phone]);
+            } catch (Throwable $e) {}
+            echo json_encode(['success' => true, 'message' => 'تمت إعادة تعيين محادثة البوت بنجاح 🔄']);
+            exit;
+        }
+
+        if ($action === 'run_batch_whatsapp_campaign') {
+            @set_time_limit(120);
+            $state = trim($_POST['state'] ?? '');
+            $limit = (int)($_POST['batch_size'] ?? 5);
+            $limit = max(1, min(10, $limit));
+
+            $sql = "SELECT id, name, slug, phone, whatsapp, country FROM daleel_schools 
+                    WHERE (phone IS NOT NULL AND phone != '' OR whatsapp IS NOT NULL AND whatsapp != '')
+                      AND (whatsapp_sent = 0 OR whatsapp_sent IS NULL)
+                      AND (whatsapp_status = 'valid' OR whatsapp_status IS NULL OR whatsapp_status = 'unverified')
+                      AND deleted_at IS NULL";
+            $params = [];
+            if ($state !== '') {
+                $sql .= " AND state = ?";
+                $params[] = $state;
+            }
+            $sql .= " ORDER BY (whatsapp_status = 'valid') DESC, id ASC LIMIT " . $limit;
+
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute($params);
+            $targets = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            $sent = [];
+            $failed = [];
+
+            foreach ($targets as $sch) {
+                $phone = trim((string)($sch['whatsapp'] ?: $sch['phone']));
+                $msgText = buildWhatsAppMessageText($sch['name'], $sch['slug'] ?? '');
+                $res = DaleelWhatsAppService::sendMessage($phone, $msgText);
+
+                if (!empty($res['success'])) {
+                    $pdo->prepare("UPDATE daleel_schools SET whatsapp_sent = 1, whatsapp_sent_at = NOW(), whatsapp_status = 'valid' WHERE id = ?")->execute([$sch['id']]);
+                    DaleelWhatsAppService::logMessage((int)$sch['id'], 'out', $phone, $res['chatId'] ?? null, $msgText, 'school_campaign');
+                    $sent[] = ['id' => $sch['id'], 'name' => $sch['name'], 'phone' => $phone];
+                } else {
+                    $failed[] = ['id' => $sch['id'], 'name' => $sch['name'], 'phone' => $phone, 'error' => $res['error'] ?? 'فشل'];
+                }
+            }
+
+            // إحصائيات المتبقي
+            $remainingSql = "SELECT COUNT(*) FROM daleel_schools WHERE (phone IS NOT NULL AND phone != '' OR whatsapp IS NOT NULL AND whatsapp != '') AND (whatsapp_sent = 0 OR whatsapp_sent IS NULL) AND deleted_at IS NULL";
+            $remaining = (int)$pdo->query($remainingSql)->fetchColumn();
+
+            echo json_encode([
+                'success' => true,
+                'sent_count' => count($sent),
+                'failed_count' => count($failed),
+                'sent' => $sent,
+                'failed' => $failed,
+                'remaining' => $remaining
+            ]);
             exit;
         }
 
@@ -430,13 +561,30 @@ if (isset($_REQUEST['ajax_action'])) {
         if ($action === 'start_whatsapp_server') {
             $serverDir = __DIR__ . '/whatsapp-server';
             if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-                pclose(popen("start /B cmd /c \"cd /d \"{$serverDir}\" && node index.js > server.log 2>&1\"", "r"));
+                $vbs = $serverDir . '/run_whatsapp_hidden.vbs';
+                if (file_exists($vbs)) {
+                    pclose(popen("wscript.exe \"{$vbs}\"", "r"));
+                } else {
+                    pclose(popen("start /B cmd /c \"cd /d \"{$serverDir}\" && node index.js > server.log 2>&1\"", "r"));
+                }
             } else {
                 exec("cd " . escapeshellarg($serverDir) . " && node index.js > server.log 2>&1 &");
             }
             sleep(2);
             $status = DaleelWhatsAppService::getStatus();
             echo json_encode(['success' => true, 'message' => 'تم بدء تشغيل الخادم بنجاح 🚀', 'status' => $status]);
+            exit;
+        }
+
+        if ($action === 'stop_whatsapp_server') {
+            $serverDir = __DIR__ . '/whatsapp-server';
+            if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+                $bat = $serverDir . '/stop_whatsapp.bat';
+                pclose(popen("start /B cmd /c \"{$bat}\"", "r"));
+            } else {
+                exec("fuser -k 8085/tcp >/dev/null 2>&1");
+            }
+            echo json_encode(['success' => true, 'message' => 'تم إيقاف خادم الواتساب بنجاح ⏹️']);
             exit;
         }
 
@@ -532,6 +680,40 @@ if (isset($_REQUEST['ajax_action'])) {
             $reason = trim($_POST['reason'] ?? 'المستندات غير كافية');
             $pdo->prepare("UPDATE daleel_school_claims SET status = 'rejected', rejection_reason = ?, reviewed_by = 'Super Admin', reviewed_at = NOW() WHERE id = ?")->execute([$reason, $claimId]);
             echo json_encode(['success' => true, 'claim_id' => $claimId, 'message' => 'تم رفض الطلب.']);
+            exit;
+        }
+
+        if ($action === 'update_inquiry_status') {
+            $inqId = (int)($_POST['id'] ?? 0);
+            $newStatus = trim($_POST['status'] ?? 'new');
+            $stmt = $pdo->prepare("UPDATE daleel_school_inquiries SET status = ?, updated_at = NOW() WHERE id = ?");
+            $stmt->execute([$newStatus, $inqId]);
+            echo json_encode(['success' => true, 'id' => $inqId, 'status' => $newStatus, 'message' => 'تم تحديث حالة الاستفسار بنجاح.']);
+            exit;
+        }
+
+        if ($action === 'delete_inquiry') {
+            $inqId = (int)($_POST['id'] ?? 0);
+            $stmt = $pdo->prepare("DELETE FROM daleel_school_inquiries WHERE id = ?");
+            $stmt->execute([$inqId]);
+            echo json_encode(['success' => true, 'id' => $inqId, 'message' => 'تم حذف الاستفسار بنجاح.']);
+            exit;
+        }
+
+        if ($action === 'toggle_review_approval') {
+            $revId = (int)($_POST['id'] ?? 0);
+            $isApproved = (int)($_POST['is_approved'] ?? 0);
+            $stmt = $pdo->prepare("UPDATE daleel_school_reviews SET is_approved = ?, updated_at = NOW() WHERE id = ?");
+            $stmt->execute([$isApproved, $revId]);
+            echo json_encode(['success' => true, 'id' => $revId, 'is_approved' => $isApproved, 'message' => $isApproved ? 'تم اعتماد ونشر التقييم بنجاح ⭐' : 'تم إخفاء التقييم عن الدليل ℹ️']);
+            exit;
+        }
+
+        if ($action === 'delete_review') {
+            $revId = (int)($_POST['id'] ?? 0);
+            $stmt = $pdo->prepare("DELETE FROM daleel_school_reviews WHERE id = ?");
+            $stmt->execute([$revId]);
+            echo json_encode(['success' => true, 'id' => $revId, 'message' => 'تم حذف التقييم بنجاح.']);
             exit;
         }
 
@@ -977,6 +1159,18 @@ $inquiriesCount = (int)$pdo->query("SELECT count(*) FROM daleel_school_inquiries
 $waSentCount = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE status = 'approved' AND whatsapp_sent = 1")->fetchColumn();
 $waUnsentCount = max(0, $totalCount - $waSentCount);
 $waPercent = $totalCount > 0 ? round(($waSentCount / $totalCount) * 100, 1) : 0;
+$waValidCount = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE status = 'approved' AND whatsapp_status = 'valid'")->fetchColumn();
+$waInvalidCount = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE status = 'approved' AND whatsapp_status = 'invalid'")->fetchColumn();
+$waPendingCheckCount = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE status = 'approved' AND (phone IS NOT NULL AND phone != '' OR whatsapp IS NOT NULL AND whatsapp != '') AND (whatsapp_status IS NULL OR whatsapp_status = 'unverified')")->fetchColumn();
+$waSchoolsWithPhone = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE status = 'approved' AND (phone IS NOT NULL AND phone != '' OR whatsapp IS NOT NULL AND whatsapp != '')")->fetchColumn();
+$isLocalStation = DaleelWhatsAppService::isLocalStation();
+// View mode switcher: local or cloud
+if (isset($_GET['view'])) {
+    $isLocalStation = ($_GET['view'] === 'local');
+    $_SESSION['admin_view_mode'] = $isLocalStation ? 'local' : 'cloud';
+} elseif (isset($_SESSION['admin_view_mode'])) {
+    $isLocalStation = ($_SESSION['admin_view_mode'] === 'local');
+}
 
 // Filters for Schools Table
 $filterCountry = trim($_GET['country'] ?? '');
@@ -1033,11 +1227,17 @@ if ($filterType === 'government') {
     $whereClauses[] = "(school_type = 'community' OR country != 'السودان')";
 }
 
-// WhatsApp Outreach Status Filter: تم الإرسال، لم يتم الإرسال، يتوفر هاتف، بدون هاتف
+// WhatsApp Outreach & Verification Status Filter
 if ($filterWaStatus === 'sent') {
     $whereClauses[] = "whatsapp_sent = 1";
 } elseif ($filterWaStatus === 'unsent') {
-    $whereClauses[] = "whatsapp_sent = 0";
+    $whereClauses[] = "(whatsapp_sent = 0 OR whatsapp_sent IS NULL)";
+} elseif ($filterWaStatus === 'valid') {
+    $whereClauses[] = "whatsapp_status = 'valid'";
+} elseif ($filterWaStatus === 'invalid') {
+    $whereClauses[] = "whatsapp_status = 'invalid'";
+} elseif ($filterWaStatus === 'unverified_phone') {
+    $whereClauses[] = "(whatsapp_status IS NULL OR whatsapp_status = 'unverified') AND (phone IS NOT NULL AND phone != '')";
 } elseif ($filterWaStatus === 'has_phone') {
     $whereClauses[] = "(phone IS NOT NULL AND phone != '')";
 } elseif ($filterWaStatus === 'no_phone') {
@@ -1110,6 +1310,31 @@ $pendingClaims = $pdo->query("SELECT c.*, s.name as school_name, s.slug as schoo
 // Ad Settings
 $rawAdConfig = getDaleelSetting($pdo, 'sidebar_ad_config');
 $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdConfig ?: []);
+
+$activeTab = $_GET['tab'] ?? 'schools';
+
+// Fetch inquiries & reviews list for Cloud CRM
+$inquiriesList = [];
+$reviewsList = [];
+try {
+    $inqStmt = $pdo->query("SELECT i.*, s.name as school_name, s.slug as school_slug, s.state, s.city 
+                            FROM daleel_school_inquiries i 
+                            LEFT JOIN daleel_schools s ON i.school_id = s.id 
+                            ORDER BY i.id DESC LIMIT 100");
+    $inquiriesList = $inqStmt ? $inqStmt->fetchAll(PDO::FETCH_ASSOC) : [];
+} catch (Throwable $e) {
+    $inquiriesList = [];
+}
+
+try {
+    $revStmt = $pdo->query("SELECT r.*, s.name as school_name, s.slug as school_slug, s.state, s.city 
+                            FROM daleel_school_reviews r 
+                            LEFT JOIN daleel_schools s ON r.school_id = s.id 
+                            ORDER BY r.id DESC LIMIT 100");
+    $reviewsList = $revStmt ? $revStmt->fetchAll(PDO::FETCH_ASSOC) : [];
+} catch (Throwable $e) {
+    $reviewsList = [];
+}
 ?>
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
@@ -1123,13 +1348,16 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
     <style>
         :root {
             --primary: #1E5FA8;
+            --primary-dark: #0B2A52;
+            --primary-light: #2563EB;
             --orange: #F5A020;
             --navy: #0B2A52;
-            --bg-slate: #F0F4F8;
-            --card-border: #DDE4ED;
-            --text-heading: #0D1B2E;
-            --text-body: #3D5068;
-            --text-muted: #7A93AD;
+            --slate-dark: #09192F;
+            --bg-slate: #F8FAFC;
+            --card-border: #E2E8F0;
+            --text-heading: #0F172A;
+            --text-body: #334155;
+            --text-muted: #64748B;
         }
         body {
             font-family: 'Tajawal', sans-serif;
@@ -1138,14 +1366,19 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
             font-size: 0.8rem;
             margin: 0;
             padding: 0;
+            -webkit-font-smoothing: antialiased;
         }
 
         /* Top Bar */
         .admin-topbar {
-            background: linear-gradient(135deg, #0B2A52 0%, #163870 100%);
+            background: linear-gradient(135deg, #09192F 0%, #0F2547 50%, #163870 100%);
             border-bottom: 2px solid var(--orange);
             color: #FFFFFF;
-            padding: 12px 24px;
+            padding: 12px 28px;
+            box-shadow: 0 4px 20px rgba(9, 25, 47, 0.25);
+            position: sticky;
+            top: 0;
+            z-index: 1030;
         }
         .admin-brand {
             display: flex;
@@ -1156,27 +1389,67 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
         }
         .admin-brand:hover { color: #FFFFFF; }
         .admin-brand-icon {
-            width: 38px;
-            height: 38px;
-            background: rgba(245, 160, 32, 0.2);
-            border: 1px solid var(--orange);
-            border-radius: 10px;
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            color: var(--orange);
-            font-size: 1.15rem;
+            font-size: 1.25rem;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.18);
         }
 
-        /* Metrics */
+        /* View Mode Switcher Pill Group */
+        .view-mode-pill-group {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 3px;
+            border-radius: 999px;
+            backdrop-filter: blur(8px);
+        }
+        .view-mode-pill-group .view-pill {
+            padding: 5px 14px;
+            border-radius: 999px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.75);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .view-mode-pill-group .view-pill:hover {
+            color: #FFFFFF;
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .view-mode-pill-group .view-pill.active-cloud {
+            background: linear-gradient(135deg, #2563EB, #1D4ED8);
+            color: #FFFFFF;
+            box-shadow: 0 2px 10px rgba(37, 99, 235, 0.45);
+        }
+        .view-mode-pill-group .view-pill.active-local {
+            background: linear-gradient(135deg, #059669, #047857);
+            color: #FFFFFF;
+            box-shadow: 0 2px 10px rgba(5, 150, 105, 0.45);
+        }
+
+        /* Metrics Cards */
         .metric-card {
             background: #FFFFFF;
             border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 16px;
-            box-shadow: 0 2px 8px rgba(11, 42, 82, 0.04);
+            border-radius: 14px;
+            padding: 18px;
+            box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
             position: relative;
             overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .metric-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
         }
         .metric-card::before {
             content: '';
@@ -1190,23 +1463,30 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
         .m-orange::before { background-color: var(--orange); }
         .m-green::before { background-color: #10B981; }
         .m-purple::before { background-color: #8B5CF6; }
+        .m-red::before { background-color: #EF4444; }
+        .m-cyan::before { background-color: #06B6D4; }
 
         .metric-val {
-            font-size: 1.35rem;
+            font-size: 1.45rem;
             font-weight: 800;
             color: var(--text-heading);
             line-height: 1.2;
+            letter-spacing: -0.5px;
         }
         .metric-lbl {
-            font-size: 0.7rem;
+            font-size: 0.72rem;
             font-weight: 700;
             color: var(--text-muted);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        /* Navigation Tabs (Style F v2 Mandatory Spec) */
+        /* Navigation Tabs */
         .sp-main-tabs-wrap {
             overflow-x: auto;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             scrollbar-width: none;
         }
         .sp-main-tabs-wrap::-webkit-scrollbar { display: none; }
@@ -1215,30 +1495,32 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
             gap: 8px;
             background: #E2E8F0;
             padding: 5px;
-            border-radius: 12px;
+            border-radius: 14px;
         }
         .sp-main-tab {
             border: none;
             background: transparent;
-            padding: 8px 18px;
-            font-size: 0.74rem;
+            padding: 9px 18px;
+            font-size: 0.76rem;
             font-weight: 700;
             color: #475569;
-            border-radius: 9px;
+            border-radius: 10px;
             display: inline-flex;
             align-items: center;
-            gap: 7px;
+            gap: 8px;
             cursor: pointer;
             transition: all 0.2s;
             text-decoration: none;
+            white-space: nowrap;
         }
         .sp-main-tab:hover {
             color: var(--navy);
+            background: rgba(255, 255, 255, 0.45);
         }
         .sp-main-tab.active {
             background: #FFFFFF;
             color: var(--primary);
-            box-shadow: 0 4px 12px rgba(11, 42, 82, 0.08);
+            box-shadow: 0 4px 14px rgba(11, 42, 82, 0.08);
         }
         .sp-main-tab.active i {
             color: var(--orange);
@@ -1246,7 +1528,7 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
         .tab-badge {
             background: #F1F5F9;
             color: var(--text-heading);
-            padding: 2px 7px;
+            padding: 2px 8px;
             border-radius: 999px;
             font-size: 0.65rem;
             font-weight: 800;
@@ -1263,6 +1545,7 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
             border-radius: 14px;
             box-shadow: 0 4px 16px rgba(11, 42, 82, 0.04);
             margin-bottom: 24px;
+            overflow: hidden;
         }
         .admin-card-head {
             padding: 16px 20px;
@@ -1427,35 +1710,63 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
 
     <!-- TOPBAR -->
     <header class="admin-topbar">
-        <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
             <div class="d-flex align-items-center gap-3">
                 <a href="admin.php" class="admin-brand">
-                    <div class="admin-brand-icon"><i class="fas fa-crown"></i></div>
+                    <div class="admin-brand-icon" style="background: <?= $isLocalStation ? 'linear-gradient(135deg, #10B981, #059669)' : 'linear-gradient(135deg, #F5A020, #D97706)' ?>;">
+                        <i class="fas <?= $isLocalStation ? 'fa-desktop text-white' : 'fa-crown text-white' ?>"></i>
+                    </div>
                     <div>
-                        <div style="font-weight: 800; font-size: 0.96rem; line-height: 1.2;">لوحة الإدارة العليا للدليل</div>
-                        <div style="font-size: 0.65rem; color: #94A3B8;">SchoPlus Daleel Master Control Panel</div>
+                        <div style="font-weight: 800; font-size: 0.98rem; line-height: 1.2;">
+                            <?= $isLocalStation ? 'محطة العمليات المركزية (Master Local HQ)' : 'لوحة التحكم السحابية لدليل المدارس' ?>
+                        </div>
+                        <div style="font-size: 0.65rem; color: #94A3B8;">
+                            <?= $isLocalStation ? '🖥️ التحكم الميداني الشامل والأتمتة وسيرفر الواتساب والمزامنة' : '☁️ SchoPlus Daleel Cloud Production Platform' ?>
+                        </div>
                     </div>
                 </a>
+
+                <?php if ($isLocalStation): ?>
+                    <span class="badge bg-success-subtle text-success border border-success d-none d-lg-inline-flex align-items-center gap-1 px-2.5 py-1" style="font-size: 0.72rem; border-radius: 8px;">
+                        <i class="fas fa-bolt text-warning"></i> المحطة المحلية المستقلة (كامل المميزات والتحكم)
+                    </span>
+                <?php else: ?>
+                    <span class="badge bg-primary-subtle text-white border border-primary-subtle d-none d-lg-inline-flex align-items-center gap-1.5 px-2.5 py-1" style="font-size: 0.72rem; border-radius: 8px; background: rgba(37, 99, 235, 0.25) !important;">
+                        <span class="spinner-grow spinner-grow-sm text-success" style="width: 7px; height: 7px;"></span> سحابة الإنتاج المباشرة (daleel.schoplus.sd)
+                    </span>
+                <?php endif; ?>
             </div>
 
             <div class="d-flex align-items-center gap-2">
-                <!-- 1-CLICK CLOUD SYNC WIDGET BUTTON -->
-                <button type="button" id="btnCloudSyncWidget" onclick="openCloudSyncModal()" class="btn btn-sm text-white d-inline-flex align-items-center gap-1.5 shadow-sm" style="background: #1E5FA8; border: 1px solid rgba(255,255,255,0.25); font-size: 0.72rem; border-radius: 8px;" title="مزامنة قاعدة البيانات ورسائل الواتساب مع السحابة بنقرة واحدة">
-                    <i class="fas fa-cloud-upload-alt text-warning"></i>
-                    <span id="cloudSyncBtnText">☁️ مزامنة السحابة</span>
-                </button>
+                <!-- VIEW MODE SWITCHER PILL (TOGGLE CLOUD / LOCAL HQ) -->
+                <div class="view-mode-pill-group me-1" title="تبديل وضع العرض بين السحابة والمحطة المحلية">
+                    <a href="admin.php?view=cloud" class="view-pill <?= !$isLocalStation ? 'active-cloud' : '' ?>" title="عرض لوحة التحكم السحابية المخصصة للإنتاج">
+                        <i class="fas fa-cloud"></i> السحابة
+                    </a>
+                    <a href="admin.php?view=local" class="view-pill <?= $isLocalStation ? 'active-local' : '' ?>" title="عرض محطة العمليات المحلية وسيرفر الواتساب المستقل">
+                        <i class="fas fa-desktop"></i> المحطة المحلية
+                    </a>
+                </div>
 
-                <!-- WHATSAPP GATEWAY STATUS WIDGET -->
-                <button type="button" id="btnWaGatewayWidget" onclick="openWaGatewayModal()" class="btn btn-sm text-white d-inline-flex align-items-center gap-2" style="background: rgba(15,92,62,0.85); border: 1px solid rgba(255,255,255,0.25); font-size: 0.72rem; border-radius: 8px;" title="حالة خادم واتساب الدليل ورمز QR">
-                    <i class="fab fa-whatsapp text-warning fs-6"></i>
-                    <span id="waWidgetStatusText">جاري فحص الواتساب...</span>
-                </button>
+                <?php if ($isLocalStation): ?>
+                    <!-- LOCAL STATION ONLY: 1-CLICK CLOUD SYNC WIDGET BUTTON -->
+                    <button type="button" id="btnCloudSyncWidget" onclick="openCloudSyncModal()" class="btn btn-sm text-white d-inline-flex align-items-center gap-1.5 shadow-sm" style="background: #1E5FA8; border: 1px solid rgba(255,255,255,0.25); font-size: 0.72rem; border-radius: 8px;" title="مزامنة قاعدة البيانات ورسائل الواتساب مع السحابة بنقرة واحدة">
+                        <i class="fas fa-cloud-upload-alt text-warning"></i>
+                        <span id="cloudSyncBtnText">☁️ مزامنة السحابة</span>
+                    </button>
 
-                <a href="/" target="_blank" class="btn btn-sm btn-outline-light" style="font-size: 0.72rem; border-radius: 8px;">
-                    <i class="fas fa-external-link-alt me-1"></i> عرض الدليل الحي
+                    <!-- LOCAL STATION ONLY: WHATSAPP GATEWAY STATUS WIDGET -->
+                    <button type="button" id="btnWaGatewayWidget" onclick="openWaGatewayModal()" class="btn btn-sm text-white d-inline-flex align-items-center gap-2" style="background: rgba(15,92,62,0.85); border: 1px solid rgba(255,255,255,0.25); font-size: 0.72rem; border-radius: 8px;" title="حالة خادم واتساب الدليل ورمز QR">
+                        <i class="fab fa-whatsapp text-warning fs-6"></i>
+                        <span id="waWidgetStatusText">جاري فحص الواتساب...</span>
+                    </button>
+                <?php endif; ?>
+
+                <a href="/" target="_blank" class="btn btn-sm btn-outline-light d-inline-flex align-items-center gap-1" style="font-size: 0.72rem; border-radius: 8px;" title="فتح الدليل العام المباشر في نافذة جديدة">
+                    <i class="fas fa-external-link-alt"></i> عرض الدليل الحي
                 </a>
-                <a href="admin.php?action=logout" class="btn btn-sm btn-danger" style="font-size: 0.72rem; border-radius: 8px;">
-                    <i class="fas fa-sign-out-alt me-1"></i> خروج
+                <a href="admin.php?action=logout" class="btn btn-sm btn-danger d-inline-flex align-items-center gap-1" style="font-size: 0.72rem; border-radius: 8px;">
+                    <i class="fas fa-sign-out-alt"></i> خروج
                 </a>
             </div>
         </div>
@@ -1466,54 +1777,112 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
 
         <!-- METRICS ROW -->
         <div class="row g-3 mb-4">
-            <div class="col-xl-2 col-md-4 col-6">
-                <div class="metric-card m-blue">
-                    <div class="metric-lbl">إجمالي المدارس</div>
-                    <div class="metric-val"><?= number_format($totalCount) ?></div>
-                    <div class="small text-muted" style="font-size: 0.62rem;">مؤسسة تعليمية</div>
-                </div>
-            </div>
-            <div class="col-xl-2 col-md-4 col-6">
-                <div class="metric-card m-green">
-                    <div class="metric-lbl">مدارس موثقة</div>
-                    <div class="metric-val text-success"><?= number_format($verifiedCount) ?></div>
-                    <div class="small text-muted" style="font-size: 0.62rem;">معتمدة من الإدارات</div>
-                </div>
-            </div>
-            <div class="col-xl-2 col-md-4 col-6">
-                <div class="metric-card m-orange">
-                    <div class="metric-lbl">مدارس SchoPlus الذكية</div>
-                    <div class="metric-val" style="color: var(--orange);"><?= number_format($smartCount) ?></div>
-                    <div class="small text-muted" style="font-size: 0.62rem;">تعمل بالنظام السحابي</div>
-                </div>
-            </div>
-            <div class="col-xl-2 col-md-4 col-6">
-                <div class="metric-card m-purple">
-                    <div class="metric-lbl">الصروح العريقة</div>
-                    <div class="metric-val" style="color: #7C3AED;"><?= number_format($historicCount) ?></div>
-                    <div class="small text-muted" style="font-size: 0.62rem;">إرث وطني وتاريخي</div>
-                </div>
-            </div>
-            <div class="col-xl-2 col-md-4 col-6">
-                <div class="metric-card m-orange">
-                    <div class="metric-lbl">طلبات التوثيق المعلقة</div>
-                    <div class="metric-val text-danger"><?= number_format($claimsCount) ?></div>
-                    <div class="small text-muted" style="font-size: 0.62rem;">بانتظار المراجعة</div>
-                </div>
-            </div>
-            <div class="col-xl-2 col-md-4 col-6">
-                <a href="admin.php?tab=schools&wa_status=sent" class="text-decoration-none">
-                    <div class="metric-card m-green">
-                        <div class="metric-lbl"><i class="fab fa-whatsapp me-1 text-success"></i>حملة مراسلة الواتساب</div>
-                        <div class="metric-val text-success"><?= number_format($waSentCount) ?></div>
-                        <div class="small text-muted" style="font-size: 0.62rem;"><?= number_format($waUnsentCount) ?> متبقية (<?= $waPercent ?>%)</div>
+            <?php if (!$isLocalStation): ?>
+                <!-- CLOUD PRODUCTION KPI METRICS -->
+                <div class="col-xl-2 col-md-4 col-6">
+                    <div class="metric-card m-blue">
+                        <div class="metric-lbl"><i class="fas fa-school text-primary"></i> إجمالي المدارس</div>
+                        <div class="metric-val"><?= number_format($totalCount) ?></div>
+                        <div class="small text-muted" style="font-size: 0.62rem;">مؤسسة بالدليل العام</div>
                     </div>
-                </a>
-            </div>
+                </div>
+                <div class="col-xl-2 col-md-4 col-6">
+                    <a href="admin.php?tab=claims" class="text-decoration-none">
+                        <div class="metric-card <?= $claimsCount > 0 ? 'm-red' : 'm-orange' ?>">
+                            <div class="metric-lbl"><i class="fas fa-file-signature <?= $claimsCount > 0 ? 'text-danger' : 'text-warning' ?>"></i> طلبات التوثيق</div>
+                            <div class="metric-val <?= $claimsCount > 0 ? 'text-danger' : 'text-dark' ?>"><?= number_format($claimsCount) ?></div>
+                            <div class="small text-muted" style="font-size: 0.62rem;"><?= $claimsCount > 0 ? 'بانتظار اعتماد الإدارة' : 'لا توجد طلبات معلقة' ?></div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xl-2 col-md-4 col-6">
+                    <a href="admin.php?tab=inquiries" class="text-decoration-none">
+                        <div class="metric-card m-green">
+                            <div class="metric-lbl"><i class="fas fa-comments text-success"></i> استفسارات أولياء الأمور</div>
+                            <div class="metric-val text-success"><?= number_format($inquiriesCount) ?></div>
+                            <div class="small text-muted" style="font-size: 0.62rem;">طلب تسجيل واستفسار</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xl-2 col-md-4 col-6">
+                    <a href="admin.php?tab=inquiries#reviews-section" class="text-decoration-none">
+                        <div class="metric-card m-orange">
+                            <div class="metric-lbl"><i class="fas fa-star text-warning"></i> تقييمات الزوار</div>
+                            <div class="metric-val" style="color: var(--orange);"><?= number_format($reviewsCount) ?></div>
+                            <div class="small text-muted" style="font-size: 0.62rem;">آراء وتجارب مجتمعية</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xl-2 col-md-4 col-6">
+                    <div class="metric-card m-purple">
+                        <div class="metric-lbl"><i class="fas fa-shield-alt text-purple" style="color: #8B5CF6;"></i> مدارس موثقة معتمدة</div>
+                        <div class="metric-val" style="color: #7C3AED;"><?= number_format($verifiedCount) ?></div>
+                        <div class="small text-muted" style="font-size: 0.62rem;">تحت إشراف مباشر</div>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-md-4 col-6">
+                    <div class="metric-card m-cyan">
+                        <div class="metric-lbl"><i class="fas fa-crown text-info"></i> مدارس SchoPlus الذكية</div>
+                        <div class="metric-val text-info"><?= number_format($smartCount) ?></div>
+                        <div class="small text-muted" style="font-size: 0.62rem;">تعمل بالنظام السحابي</div>
+                    </div>
+                </div>
+            <?php else: ?>
+                <!-- LOCAL MASTER HQ KPI METRICS -->
+                <div class="col-xl-2 col-md-4 col-6">
+                    <div class="metric-card m-blue">
+                        <div class="metric-lbl"><i class="fas fa-school text-primary"></i> إجمالي المدارس</div>
+                        <div class="metric-val"><?= number_format($totalCount) ?></div>
+                        <div class="small text-muted" style="font-size: 0.62rem;">مؤسسة تعليمية</div>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-md-4 col-6">
+                    <a href="admin.php?tab=schools&wa_status=sent" class="text-decoration-none">
+                        <div class="metric-card m-green">
+                            <div class="metric-lbl"><i class="fab fa-whatsapp me-1 text-success"></i>حملة مراسلة الواتساب</div>
+                            <div class="metric-val text-success"><?= number_format($waSentCount) ?></div>
+                            <div class="small text-muted" style="font-size: 0.62rem;"><?= number_format($waUnsentCount) ?> متبقية (<?= $waPercent ?>%)</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xl-2 col-md-4 col-6">
+                    <a href="admin.php?tab=schools&wa_status=valid" class="text-decoration-none">
+                        <div class="metric-card m-green">
+                            <div class="metric-lbl"><i class="fas fa-check-double text-success"></i>أرقام واتساب مؤكدة</div>
+                            <div class="metric-val text-success"><?= number_format($waValidCount) ?></div>
+                            <div class="small text-muted" style="font-size: 0.62rem;">حسابات مفحوصة ونشطة</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xl-2 col-md-4 col-6">
+                    <a href="admin.php?tab=schools&wa_status=unverified_phone" class="text-decoration-none">
+                        <div class="metric-card m-orange">
+                            <div class="metric-lbl"><i class="fas fa-clock text-warning"></i>بانتظار الفحص الآلي</div>
+                            <div class="metric-val" style="color: var(--orange);"><?= number_format($waPendingCheckCount) ?></div>
+                            <div class="small text-muted" style="font-size: 0.62rem;">أرقام هواتف غير مفحوصة</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xl-2 col-md-4 col-6">
+                    <a href="admin.php?tab=claims" class="text-decoration-none">
+                        <div class="metric-card m-orange">
+                            <div class="metric-lbl"><i class="fas fa-file-signature text-danger"></i>طلبات التوثيق</div>
+                            <div class="metric-val text-danger"><?= number_format($claimsCount) ?></div>
+                            <div class="small text-muted" style="font-size: 0.62rem;">بانتظار المراجعة</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-xl-2 col-md-4 col-6">
+                    <div class="metric-card m-cyan">
+                        <div class="metric-lbl"><i class="fas fa-crown text-info"></i>مدارس SchoPlus الذكية</div>
+                        <div class="metric-val text-info"><?= number_format($smartCount) ?></div>
+                        <div class="small text-muted" style="font-size: 0.62rem;">تعمل بالنظام السحابي</div>
+                    </div>
+                </div>
+            <?php endif; ?>
         </div>
 
-        <!-- MAIN TABS (Style F v2 Spec) -->
-        <?php $activeTab = $_GET['tab'] ?? 'schools'; ?>
+        <!-- MAIN TABS (Conditional for Cloud vs Local) -->
         <div class="sp-main-tabs-wrap">
             <div class="sp-main-tabs">
                 <a href="admin.php?tab=schools" class="sp-main-tab <?= $activeTab === 'schools' ? 'active' : '' ?>">
@@ -1524,20 +1893,41 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                     <i class="fas fa-file-signature"></i> طلبات التوثيق والملكية
                     <span class="tab-badge" style="color: <?= $claimsCount > 0 ? '#DC2626' : 'inherit' ?>;"><?= $claimsCount ?></span>
                 </a>
-                <a href="admin.php?tab=researcher" class="sp-main-tab <?= $activeTab === 'researcher' ? 'active' : '' ?>">
-                    <i class="fas fa-bolt text-warning"></i> محرك الاستكشاف والمسح الآلي المباشر (Autonomous Worker)
-                    <span class="tab-badge">بحث واستكشاف ذكي</span>
-                </a>
+
+                <?php if (!$isLocalStation): ?>
+                    <!-- CLOUD PRODUCTION TAB: INQUIRIES & REVIEWS -->
+                    <a href="admin.php?tab=inquiries" class="sp-main-tab <?= $activeTab === 'inquiries' ? 'active' : '' ?>">
+                        <i class="fas fa-comments text-success"></i> استفسارات أولياء الأمور والتقييمات
+                        <span class="tab-badge"><?= ($inquiriesCount + $reviewsCount) ?></span>
+                    </a>
+                <?php else: ?>
+                    <!-- LOCAL MASTER HQ ONLY: AUTONOMOUS WORKER -->
+                    <a href="admin.php?tab=researcher" class="sp-main-tab <?= $activeTab === 'researcher' ? 'active' : '' ?>">
+                        <i class="fas fa-bolt text-warning"></i> محرك الاستكشاف والمسح الآلي المباشر (Autonomous Worker)
+                        <span class="tab-badge">بحث واستكشاف ذكي</span>
+                    </a>
+                <?php endif; ?>
+
                 <a href="admin.php?tab=ads" class="sp-main-tab <?= $activeTab === 'ads' ? 'active' : '' ?>">
                     <i class="fas fa-ad"></i> المساحة الإعلانية
                     <span class="tab-badge"><?= !empty($adConfig['enabled']) ? 'نشطة' : 'متوقفة' ?></span>
                 </a>
-                <a href="admin.php?tab=whatsapp" class="sp-main-tab <?= $activeTab === 'whatsapp' ? 'active' : '' ?>">
-                    <i class="fab fa-whatsapp text-success"></i> مركز الواتساب والرد الذكي
-                    <span class="tab-badge" id="tabWaMainBadge">خادم الواتساب</span>
+
+                <?php if ($isLocalStation): ?>
+                    <!-- LOCAL MASTER HQ ONLY: WHATSAPP MISSION CONTROL & DAEMON -->
+                    <a href="admin.php?tab=whatsapp" class="sp-main-tab <?= $activeTab === 'whatsapp' ? 'active' : '' ?>">
+                        <i class="fab fa-whatsapp text-success"></i> مركز عمليات الواتساب والبوت
+                        <span class="tab-badge" id="tabWaMainBadge">خادم 8085</span>
+                    </a>
+                <?php endif; ?>
+
+                <a href="admin.php?tab=sync" class="sp-main-tab <?= $activeTab === 'sync' ? 'active' : '' ?>">
+                    <i class="fas <?= $isLocalStation ? 'fa-cloud-upload-alt text-primary' : 'fa-key text-primary' ?>"></i> <?= $isLocalStation ? 'مركز المزامنة السحابية' : 'إعدادات الربط والمزامنة' ?>
+                    <span class="tab-badge"><?= $isLocalStation ? 'سحب &amp; رفع' : 'API نشط' ?></span>
                 </a>
+
                 <a href="admin.php?tab=maintenance" class="sp-main-tab <?= $activeTab === 'maintenance' ? 'active' : '' ?>">
-                    <i class="fas fa-tools"></i> أدوات النظام والصيانة
+                    <i class="fas <?= $isLocalStation ? 'fa-tools' : 'fa-shield-alt text-warning' ?>"></i> <?= $isLocalStation ? 'أدوات النظام والصيانة' : 'أمان وصيانة السحابة' ?>
                     <span class="tab-badge">v<?= e($systemVersion) ?></span>
                 </a>
             </div>
@@ -1627,19 +2017,24 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                             </div>
                         </div>
 
-                        <!-- 6. WHATSAPP OUTREACH STATUS FILTER -->
+                        <?php if ($isLocalStation): ?>
+                        <!-- 6. WHATSAPP OUTREACH STATUS FILTER (LOCAL HQ ONLY) -->
                         <div class="col-xl-3 col-md-6 col-12">
                             <div class="input-group input-group-sm">
                                 <span class="input-group-text bg-white" style="border-color: #DDE4ED; width: 36px; justify-content: center;"><i class="fab fa-whatsapp text-success"></i></span>
                                 <select name="wa_status" class="form-select form-select-sm" style="border-color: #DDE4ED; font-size: 0.75rem; height: 34px;" onchange="this.form.submit()">
-                                    <option value="">حالة مراسلة الواتساب (الكل)</option>
+                                    <option value="">حالة مراسلة وتدقيق الواتساب (الكل)</option>
                                     <option value="sent" <?= $filterWaStatus === 'sent' ? 'selected' : '' ?>>✅ تم إرسال الرسالة فقط</option>
                                     <option value="unsent" <?= $filterWaStatus === 'unsent' ? 'selected' : '' ?>>⏳ لم يتم الإرسال بعد (المتبقي)</option>
+                                    <option value="valid" <?= $filterWaStatus === 'valid' ? 'selected' : '' ?>>🟢 واتساب نشط ومؤكد (مفحوص)</option>
+                                    <option value="invalid" <?= $filterWaStatus === 'invalid' ? 'selected' : '' ?>>🔴 رقم أرضي / غير مفعل بالواتساب</option>
+                                    <option value="unverified_phone" <?= $filterWaStatus === 'unverified_phone' ? 'selected' : '' ?>>⚪ هواتف بانتظار الفحص الآلي</option>
                                     <option value="has_phone" <?= $filterWaStatus === 'has_phone' ? 'selected' : '' ?>>📞 يتوفر رقم هاتف / واتساب</option>
                                     <option value="no_phone" <?= $filterWaStatus === 'no_phone' ? 'selected' : '' ?>>⚠️ بدون رقم هاتف</option>
                                 </select>
                             </div>
                         </div>
+                        <?php endif; ?>
 
                         <!-- 7. SORT FILTER -->
                         <div class="col-xl-3 col-md-6 col-12">
@@ -1733,13 +2128,16 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                                     </span>
                                 <?php endif; ?>
 
-                                <?php if ($filterWaStatus !== ''): ?>
+                                <?php if ($filterWaStatus !== '' && $isLocalStation): ?>
                                     <span class="badge bg-white text-dark border d-inline-flex align-items-center gap-1 py-1 px-2" style="font-size: 0.72rem;">
                                         <i class="fab fa-whatsapp text-success"></i>
                                         <?php
                                             $waLabels = [
                                                 'sent' => 'تم إرسال الواتساب',
                                                 'unsent' => 'لم يُرسل بعد',
+                                                'valid' => 'واتساب نشط ومؤكد 🟢',
+                                                'invalid' => 'أرضي / غير مفعل 🔴',
+                                                'unverified_phone' => 'بانتظار الفحص ⚪',
                                                 'has_phone' => 'يتوفر هاتف',
                                                 'no_phone' => 'بدون هاتف'
                                             ];
@@ -1785,7 +2183,9 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                                 <th>الدولة</th>
                                 <th>الموقع (الولاية / المدينة / الحي)</th>
                                 <th style="min-width: 145px;">الهاتف والتواصل</th>
-                                <th class="text-center" style="width: 105px;">إرسال الواتساب</th>
+                                <?php if ($isLocalStation): ?>
+                                    <th class="text-center" style="width: 105px;">إرسال الواتساب</th>
+                                <?php endif; ?>
                                 <th class="text-center">التوثيق</th>
                                 <th class="text-center">SchoPlus</th>
                                 <th class="text-center">صرح عريق</th>
@@ -1878,19 +2278,27 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                                                             <i class="fas fa-pencil-alt" style="font-size: 0.62rem;"></i>
                                                         </button>
                                                     </div>
-                                                    <div>
-                                                        <?php if ($isMobile): ?>
-                                                            <span class="badge bg-success-subtle text-success border border-success-subtle py-0 px-1" style="font-size: 0.58rem;">
-                                                                <i class="fab fa-whatsapp me-1"></i>موبايل مهيأ لواتساب
-                                                            </span>
-                                                        <?php else: ?>
-                                                            <span class="badge bg-light text-secondary border py-0 px-1" style="font-size: 0.58rem;">
-                                                                <i class="fas fa-phone-office me-1"></i>هاتف أرضي/ثابت
-                                                            </span>
-                                                        <?php endif; ?>
-                                                    </div>
-                                                    <div class="d-flex flex-wrap align-items-center gap-1 mt-1">
-                                                        <?php if ($phoneVal !== ''): ?>
+                                                    <?php if ($isLocalStation): ?>
+                                                        <div id="badge-wa-status-wrap-<?= $sch['id'] ?>">
+                                                            <?php if (($sch['whatsapp_status'] ?? '') === 'valid'): ?>
+                                                                <span class="badge bg-success text-white py-0 px-1.5" id="badge-wa-status-<?= $sch['id'] ?>" style="font-size: 0.58rem;">
+                                                                    <i class="fab fa-whatsapp me-1"></i>واتساب نشط ومؤكد 🟢
+                                                                </span>
+                                                            <?php elseif (($sch['whatsapp_status'] ?? '') === 'invalid'): ?>
+                                                                <span class="badge bg-danger-subtle text-danger border border-danger-subtle py-0 px-1.5" id="badge-wa-status-<?= $sch['id'] ?>" style="font-size: 0.58rem;">
+                                                                    <i class="fas fa-phone-slash me-1"></i>أرضي / غير مفعل 🔴
+                                                                </span>
+                                                            <?php elseif ($isMobile): ?>
+                                                                <span class="badge bg-success-subtle text-success border border-success-subtle py-0 px-1.5" id="badge-wa-status-<?= $sch['id'] ?>" style="font-size: 0.58rem;">
+                                                                    <i class="fab fa-whatsapp me-1"></i>موبايل (لم يُفحص) ⚪
+                                                                </span>
+                                                            <?php else: ?>
+                                                                <span class="badge bg-light text-secondary border py-0 px-1.5" id="badge-wa-status-<?= $sch['id'] ?>" style="font-size: 0.58rem;">
+                                                                    <i class="fas fa-phone-office me-1"></i>هاتف أرضي/ثابت ⚪
+                                                                </span>
+                                                            <?php endif; ?>
+                                                        </div>
+                                                        <div class="d-flex flex-wrap align-items-center gap-1 mt-1">
                                                             <!-- زر الإرسال المباشر الآلي عبر سيرفر الواتساب المستقل (بنقرة واحدة) -->
                                                             <button type="button" id="btn-wa-auto-<?= $sch['id'] ?>" class="btn btn-sm text-white d-inline-flex align-items-center gap-1 py-0 px-2" style="font-size: 0.65rem; height: 23px; border-radius: 6px; background-color: #0F5C3E; border-color: #0F5C3E;" onclick="sendAutoWhatsApp(<?= $sch['id'] ?>, this)" title="إرسال رسالة التعريف والدعوة آلياً وفورياً بنقرة واحدة عبر خادم الواتساب">
                                                                 <i class="fab fa-whatsapp"></i> <span>إرسال آلي</span>
@@ -1900,22 +2308,33 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                                                             <button type="button" id="btn-wa-check-<?= $sch['id'] ?>" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center justify-content-center p-0" style="width: 23px; height: 23px; border-radius: 6px;" onclick="checkSchoolWhatsApp(<?= $sch['id'] ?>, this)" title="فحص هل الرقم يملك حساب واتساب نشط؟">
                                                                 <i class="fas fa-search" style="font-size: 0.6rem;"></i>
                                                             </button>
-                                                        <?php endif; ?>
 
-                                                        <?php if ($waUrl): ?>
-                                                            <!-- فتح واتساب ويب يدوياً كخيار بديل -->
-                                                            <a href="<?= e($waUrl) ?>" target="_blank" class="btn btn-sm btn-outline-success d-inline-flex align-items-center justify-content-center p-0" style="width: 23px; height: 23px; border-radius: 6px;" title="فتح واتساب ويب يدوياً">
-                                                                <i class="fab fa-whatsapp" style="font-size: 0.68rem;"></i>
-                                                            </a>
-                                                            <button type="button" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center justify-content-center p-0" style="width: 23px; height: 23px; border-radius: 6px;" onclick="copySchoolMessage(<?= $sch['id'] ?>)" title="نسخ نص الرسالة الترحيبية للحافظة">
-                                                                <i class="fas fa-copy" style="font-size: 0.62rem;"></i>
+                                                            <!-- إرسال رسالة مخصصة مباشرة -->
+                                                            <button type="button" class="btn btn-sm btn-outline-primary d-inline-flex align-items-center justify-content-center p-0" style="width: 23px; height: 23px; border-radius: 6px;" onclick="openCustomSchoolMsg(<?= $sch['id'] ?>, '<?= e(addslashes($sch['name'])) ?>', '<?= e(addslashes($phoneVal)) ?>')" title="إرسال رسالة مخصصة للمدرسة عبر خادم الواتساب">
+                                                                <i class="fas fa-comment-dots" style="font-size: 0.62rem;"></i>
                                                             </button>
-                                                            <div id="msg-text-<?= $sch['id'] ?>" style="display: none;"><?= e(buildWhatsAppMessageText($sch['name'], $sch['slug'] ?? '')) ?></div>
-                                                        <?php endif; ?>
-                                                        <a href="tel:<?= e($phoneVal) ?>" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center justify-content-center p-0" style="width: 23px; height: 23px; border-radius: 6px;" title="اتصال هاتفي">
-                                                            <i class="fas fa-phone-alt" style="font-size: 0.62rem;"></i>
-                                                         </a>
-                                                    </div>
+
+                                                            <?php if ($waUrl): ?>
+                                                                <a href="<?= e($waUrl) ?>" target="_blank" class="btn btn-sm btn-outline-success d-inline-flex align-items-center justify-content-center p-0" style="width: 23px; height: 23px; border-radius: 6px;" title="فتح واتساب ويب يدوياً">
+                                                                    <i class="fab fa-whatsapp" style="font-size: 0.68rem;"></i>
+                                                                </a>
+                                                                <button type="button" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center justify-content-center p-0" style="width: 23px; height: 23px; border-radius: 6px;" onclick="copySchoolMessage(<?= $sch['id'] ?>)" title="نسخ نص الرسالة الترحيبية للحافظة">
+                                                                    <i class="fas fa-copy" style="font-size: 0.62rem;"></i>
+                                                                </button>
+                                                                <div id="msg-text-<?= $sch['id'] ?>" style="display: none;"><?= e(buildWhatsAppMessageText($sch['name'], $sch['slug'] ?? '')) ?></div>
+                                                            <?php endif; ?>
+                                                            <a href="tel:<?= e($phoneVal) ?>" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center justify-content-center p-0" style="width: 23px; height: 23px; border-radius: 6px;" title="اتصال هاتفي">
+                                                                <i class="fas fa-phone-alt" style="font-size: 0.62rem;"></i>
+                                                            </a>
+                                                        </div>
+                                                    <?php else: ?>
+                                                        <!-- CLOUD VIEW: SIMPLE DIRECT CONTACT -->
+                                                        <div class="d-flex align-items-center gap-1 mt-1">
+                                                            <a href="tel:<?= e($phoneVal) ?>" class="btn btn-sm btn-outline-primary d-inline-flex align-items-center gap-1 py-0 px-2" style="font-size: 0.65rem; height: 23px; border-radius: 6px;" title="اتصال هاتفي بالمدرسة">
+                                                                <i class="fas fa-phone-alt"></i> <span>اتصال</span>
+                                                            </a>
+                                                        </div>
+                                                    <?php endif; ?>
                                                 </div>
                                             <?php else: ?>
                                                 <div class="d-flex align-items-center gap-1">
@@ -1929,7 +2348,8 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                                             <?php endif; ?>
                                         </td>
                                         
-                                        <!-- WHATSAPP OUTREACH STATUS TOGGLE -->
+                                        <?php if ($isLocalStation): ?>
+                                        <!-- WHATSAPP OUTREACH STATUS TOGGLE (LOCAL HQ ONLY) -->
                                         <td class="text-center">
                                             <span class="sp-toggle-pill <?= !empty($sch['whatsapp_sent']) ? 'toggle-on-green' : 'toggle-off-gray' ?>" 
                                                   onclick="toggleSchoolMeta(<?= $sch['id'] ?>, 'toggle_whatsapp_sent', <?= !empty($sch['whatsapp_sent']) ? 0 : 1 ?>, this)"
@@ -1943,6 +2363,7 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                                                 </div>
                                             <?php endif; ?>
                                         </td>
+                                        <?php endif; ?>
 
                                         <!-- VERIFIED TOGGLE -->
                                         <td class="text-center">
@@ -2139,8 +2560,231 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                 </div>
             </div>
 
+        <!-- TAB CONTENT: CLOUD CRM - INQUIRIES & REVIEWS -->
+        <?php elseif ($activeTab === 'inquiries'): ?>
+            <!-- 1. PARENT ADMISSION & SCHOOL INQUIRIES -->
+            <div class="admin-card mb-4">
+                <div class="admin-card-head">
+                    <h5 class="admin-card-title">
+                        <i class="fas fa-comments text-success"></i> طلبات واستفسارات أولياء الأمور
+                        <span class="badge bg-success-subtle text-success border border-success ms-2" style="font-size: 0.68rem;"><?= count($inquiriesList) ?> استفسار</span>
+                    </h5>
+                    <div class="small text-muted">
+                        الاستفسارات الواردة عبر صفحات المدارس في الدليل العام
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table admin-table align-middle">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>المدرسة المستهدفة</th>
+                                <th>بيانات ولي الأمر</th>
+                                <th>بيانات الطالب والمرحلة</th>
+                                <th>نص الاستفسار والترحيل</th>
+                                <th>الحالة</th>
+                                <th>تاريخ الطلب</th>
+                                <th class="text-center pe-3">إجراءات المراسلة</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (empty($inquiriesList)): ?>
+                                <tr>
+                                    <td colspan="8" class="text-center py-5 text-muted">
+                                        <i class="fas fa-inbox fa-3x mb-2 text-muted opacity-50"></i>
+                                        <div>لا توجد استفسارات واردة من أولياء الأمور حتى الآن.</div>
+                                    </td>
+                                </tr>
+                            <?php else: ?>
+                                <?php foreach ($inquiriesList as $inq): ?>
+                                    <tr id="inquiry-row-<?= $inq['id'] ?>">
+                                        <td class="fw-bold ps-3">#<?= $inq['id'] ?></td>
+                                        <td>
+                                            <a href="/school/<?= urlencode($inq['school_slug'] ?? '') ?>" target="_blank" class="fw-bold text-dark text-decoration-none hover-primary">
+                                                <?= e($inq['school_name'] ?? 'مدرسة #' . $inq['school_id']) ?>
+                                            </a>
+                                            <div class="small text-muted"><?= e($inq['state'] ?? '') ?> — <?= e($inq['city'] ?? '') ?></div>
+                                            <?php if (!empty($inq['branch_name'])): ?>
+                                                <span class="badge bg-light text-secondary border" style="font-size: 0.62rem;">فرع: <?= e($inq['branch_name']) ?></span>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td>
+                                            <div class="fw-bold text-dark"><?= e($inq['parent_name'] ?? 'ولي أمر') ?></div>
+                                            <?php if (!empty($inq['parent_phone'])): ?>
+                                                <a href="tel:<?= e($inq['parent_phone']) ?>" class="text-primary text-decoration-none fw-bold small dir-ltr d-inline-block">
+                                                    <i class="fas fa-phone-alt me-1"></i> <?= e($inq['parent_phone']) ?>
+                                                </a>
+                                            <?php endif; ?>
+                                            <?php if (!empty($inq['parent_email'])): ?>
+                                                <div class="text-muted" style="font-size: 0.65rem;"><?= e($inq['parent_email']) ?></div>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td>
+                                            <?php if (!empty($inq['student_name'])): ?>
+                                                <div class="fw-bold text-dark"><?= e($inq['student_name']) ?></div>
+                                            <?php endif; ?>
+                                            <div class="small text-muted">
+                                                <?= e($inq['student_stage'] ?? '') ?> <?= !empty($inq['student_grade']) ? '— ' . e($inq['student_grade']) : '' ?>
+                                            </div>
+                                            <?php if (!empty($inq['previous_school'])): ?>
+                                                <div class="text-muted" style="font-size: 0.62rem;">السابقة: <?= e($inq['previous_school']) ?></div>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td style="max-width: 250px;">
+                                            <div class="text-dark small" style="line-height: 1.4;"><?= nl2br(e($inq['message'] ?? '')) ?></div>
+                                            <?php if (!empty($inq['needs_transportation'])): ?>
+                                                <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle mt-1" style="font-size: 0.62rem;">
+                                                    <i class="fas fa-bus me-1"></i> يطلب ترحيل
+                                                </span>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td>
+                                            <select class="form-select form-select-sm py-0 px-2" style="font-size: 0.68rem; height: 26px; border-radius: 6px; width: 105px;" onchange="updateInquiryStatus(<?= $inq['id'] ?>, this.value)">
+                                                <option value="new" <?= ($inq['status'] ?? 'new') === 'new' ? 'selected' : '' ?>>جديد ⚪</option>
+                                                <option value="contacted" <?= ($inq['status'] ?? '') === 'contacted' ? 'selected' : '' ?>>تم التواصل 🟢</option>
+                                                <option value="closed" <?= ($inq['status'] ?? '') === 'closed' ? 'selected' : '' ?>>مكتمل / مغلق 🔒</option>
+                                            </select>
+                                        </td>
+                                        <td class="text-muted small text-nowrap" style="font-size: 0.68rem;">
+                                            <?= !empty($inq['created_at']) ? date('Y-m-d H:i', strtotime($inq['created_at'])) : '—' ?>
+                                        </td>
+                                        <td class="text-center pe-3 text-nowrap">
+                                            <?php if (!empty($inq['parent_phone'])): ?>
+                                                <a href="tel:<?= e($inq['parent_phone']) ?>" class="btn btn-sm btn-outline-primary py-1 px-2" style="font-size: 0.68rem; border-radius: 6px;" title="الاتصال الهاتفي المباشر بولي الأمر">
+                                                    <i class="fas fa-phone-alt me-1"></i> اتصال
+                                                </a>
+                                            <?php endif; ?>
+                                            <button type="button" class="btn btn-sm btn-outline-danger p-0 ms-1" style="width: 24px; height: 24px; border-radius: 6px;" onclick="deleteInquiry(<?= $inq['id'] ?>)" title="حذف الاستفسار">
+                                                <i class="fas fa-trash-alt" style="font-size: 0.62rem;"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 2. REVIEWS & RATINGS SECTION -->
+            <div class="admin-card" id="reviews-section">
+                <div class="admin-card-head">
+                    <h5 class="admin-card-title">
+                        <i class="fas fa-star text-warning"></i> تقييمات وتجارب الزوار وأولياء الأمور
+                        <span class="badge bg-warning-subtle text-warning-emphasis border border-warning ms-2" style="font-size: 0.68rem;"><?= count($reviewsList) ?> تقييم</span>
+                    </h5>
+                    <div class="small text-muted">
+                        إدارة الآراء المجتمعية المنشورة على الدليل
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table admin-table align-middle">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>المدرسة</th>
+                                <th>صاحب التقييم</th>
+                                <th>التقييم بالنجوم</th>
+                                <th>التعليق والتجربة</th>
+                                <th>حالة الاعتماد</th>
+                                <th>التاريخ</th>
+                                <th class="text-center pe-3">إجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (empty($reviewsList)): ?>
+                                <tr>
+                                    <td colspan="8" class="text-center py-5 text-muted">
+                                        <i class="far fa-star fa-3x mb-2 text-muted opacity-50"></i>
+                                        <div>لا توجد تقييمات مسجلة حتى الآن.</div>
+                                    </td>
+                                </tr>
+                            <?php else: ?>
+                                <?php foreach ($reviewsList as $rev): ?>
+                                    <tr id="review-row-<?= $rev['id'] ?>">
+                                        <td class="fw-bold ps-3">#<?= $rev['id'] ?></td>
+                                        <td>
+                                            <a href="/school/<?= urlencode($rev['school_slug'] ?? '') ?>" target="_blank" class="fw-bold text-dark text-decoration-none hover-primary">
+                                                <?= e($rev['school_name'] ?? 'مدرسة #' . $rev['school_id']) ?>
+                                            </a>
+                                            <div class="small text-muted"><?= e($rev['state'] ?? '') ?> — <?= e($rev['city'] ?? '') ?></div>
+                                        </td>
+                                        <td>
+                                            <div class="fw-bold text-dark"><?= e($rev['reviewer_name'] ?? 'زائر') ?></div>
+                                            <span class="badge bg-light text-secondary border" style="font-size: 0.62rem;">
+                                                <?= e($rev['reviewer_role'] === 'parent' ? 'ولي أمر' : ($rev['reviewer_role'] === 'student' ? 'طالب' : ($rev['reviewer_role'] === 'teacher' ? 'معلم' : 'زائر'))) ?>
+                                            </span>
+                                            <?php if (!empty($rev['reviewer_phone'])): ?>
+                                                <div class="text-muted small dir-ltr"><?= e($rev['reviewer_phone']) ?></div>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td>
+                                            <div class="text-warning text-nowrap" style="font-size: 0.8rem;">
+                                                <?php 
+                                                $stars = min(5, max(1, (int)($rev['rating'] ?? 5)));
+                                                for ($i = 1; $i <= 5; $i++): ?>
+                                                    <i class="fas fa-star <?= $i <= $stars ? 'text-warning' : 'text-muted opacity-25' ?>"></i>
+                                                <?php endfor; ?>
+                                                <span class="fw-bold text-dark ms-1 small">(<?= $stars ?>/5)</span>
+                                            </div>
+                                        </td>
+                                        <td style="max-width: 280px;">
+                                            <div class="small text-dark" style="line-height: 1.4;"><?= nl2br(e($rev['comment'] ?? '')) ?></div>
+                                            <?php if (!empty($rev['school_reply'])): ?>
+                                                <div class="mt-1 p-2 rounded bg-light border-start border-3 border-primary small" style="font-size: 0.68rem;">
+                                                    <strong class="text-primary">رد المدرسة:</strong> <?= e($rev['school_reply']) ?>
+                                                </div>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td>
+                                            <span class="sp-toggle-pill <?= !empty($rev['is_approved']) ? 'toggle-on-green' : 'toggle-off-gray' ?>" 
+                                                  onclick="toggleReviewApproval(<?= $rev['id'] ?>, <?= !empty($rev['is_approved']) ? 0 : 1 ?>, this)"
+                                                  title="انقر لتغيير حالة نشر التقييم">
+                                                <i class="fas <?= !empty($rev['is_approved']) ? 'fa-check-circle' : 'fa-eye-slash' ?>"></i>
+                                                <span><?= !empty($rev['is_approved']) ? 'منشور ومعتمد' : 'قيد المراجعة / مخفي' ?></span>
+                                            </span>
+                                        </td>
+                                        <td class="text-muted small text-nowrap" style="font-size: 0.68rem;">
+                                            <?= !empty($rev['created_at']) ? date('Y-m-d', strtotime($rev['created_at'])) : '—' ?>
+                                        </td>
+                                        <td class="text-center pe-3">
+                                            <button type="button" class="btn btn-sm btn-outline-danger p-0" style="width: 24px; height: 24px; border-radius: 6px;" onclick="deleteReview(<?= $rev['id'] ?>)" title="حذف التقييم">
+                                                <i class="fas fa-trash-alt" style="font-size: 0.62rem;"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         <!-- TAB CONTENT: 3. AUTONOMOUS WORKER (DEVELOPED DISCOVERY & RESEARCH ENGINE) -->
         <?php elseif ($activeTab === 'researcher'): ?>
+            <?php if (!$isLocalStation): ?>
+                <div class="row">
+                    <div class="col-12 col-md-8 mx-auto py-5">
+                        <div class="admin-card text-center p-5 shadow-sm">
+                            <div class="mb-3 text-warning">
+                                <i class="fas fa-desktop fa-4x"></i>
+                            </div>
+                            <h4 class="fw-bold text-dark mb-2">محرك الاستكشاف والمسح الآلي متاح بالمحطة المحلية المستقلة</h4>
+                            <p class="text-muted" style="line-height: 1.7; font-size: 0.85rem;">
+                                نظراً لأن استكشاف خرائط جوجل ومطابقة المواقع الجغرافية بالذكاء الاصطناعي يتطلب بيئة روبوتية مستقلة، يتم تشغيل هذا المحرك من خلال <strong>محطة العمليات المركزية (Local Master HQ)</strong> لضمان أعلى دقة وسرعة دون استهلاك موارد الاستضافة السحابية المشتركة.
+                            </p>
+                            <div class="d-flex justify-content-center gap-2 mt-4">
+                                <a href="admin.php?view=local&tab=researcher" class="btn btn-primary fw-bold px-4 py-2" style="border-radius: 10px;">
+                                    <i class="fas fa-desktop me-1.5"></i> التبديل إلى المحطة المحلية
+                                </a>
+                                <a href="admin.php?tab=schools" class="btn btn-outline-secondary px-3 py-2" style="border-radius: 10px;">
+                                    العودة لإدارة المدارس
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php else: ?>
             <div class="row">
                 <div class="col-12 col-xl-11 mx-auto">
                     <div class="admin-card mb-4 shadow-sm" style="border: 1px solid #DDE4ED; border-radius: 14px; overflow: hidden;">
@@ -2397,6 +3041,7 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                     </div>
                 </div>
             </div>
+            <?php endif; ?>
 
         <!-- TAB CONTENT: 4. ADS CONFIGURATION -->
         <?php elseif ($activeTab === 'ads'): ?>
@@ -2494,31 +3139,66 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                 </div>
             </div>
 
-        <!-- TAB CONTENT: 6. WHATSAPP CENTER & SMART BOT -->
+        <!-- TAB CONTENT: 6. WHATSAPP MISSION CONTROL & BOT AGENT -->
         <?php elseif ($activeTab === 'whatsapp'): ?>
+            <?php if (!$isLocalStation): ?>
+                <div class="row">
+                    <div class="col-12 col-md-8 mx-auto py-5">
+                        <div class="admin-card text-center p-5 shadow-sm">
+                            <div class="mb-3 text-success">
+                                <i class="fab fa-whatsapp fa-4x"></i>
+                            </div>
+                            <h4 class="fw-bold text-dark mb-2">مركز عمليات الواتساب والبوت متاح بالمحطة المحلية المستقلة</h4>
+                            <p class="text-muted" style="line-height: 1.7; font-size: 0.85rem;">
+                                يعمل خادم الواتساب المستقل، فاحص الأرقام الجماعي، ومحاكي البوت التفاعلي عبر <strong>محطة العمليات المركزية (Local Master HQ على المنفذ 8085)</strong> لتأمين جلسات الأرقام وتنفيذ الحملات الآلية.
+                                <br>في السحابة الحالية، يمكنك مراسلة أي مدرسة مباشرة بنقرة واحدة عبر زر <strong>"مراسلة واتساب"</strong> المتوفر في جدول المدارس.
+                            </p>
+                            <div class="d-flex justify-content-center gap-2 mt-4">
+                                <a href="admin.php?view=local&tab=whatsapp" class="btn btn-success fw-bold px-4 py-2" style="border-radius: 10px;">
+                                    <i class="fas fa-desktop me-1.5"></i> فتح مركز الواتساب بالمحطة المحلية
+                                </a>
+                                <a href="admin.php?tab=schools" class="btn btn-outline-secondary px-3 py-2" style="border-radius: 10px;">
+                                    العودة لإدارة المدارس
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php else: ?>
             <?php
             $waSentCount = (int)$pdo->query("SELECT COUNT(*) FROM daleel_schools WHERE whatsapp_sent = 1")->fetchColumn();
             $waSchoolsWithPhone = (int)$pdo->query("SELECT COUNT(*) FROM daleel_schools WHERE phone IS NOT NULL AND phone != ''")->fetchColumn();
+            $waValidCount = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE whatsapp_status = 'valid'")->fetchColumn();
+            $waInvalidCount = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE whatsapp_status = 'invalid'")->fetchColumn();
+            $waPendingCheckCount = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE (phone IS NOT NULL AND phone != '' OR whatsapp IS NOT NULL AND whatsapp != '') AND (whatsapp_status IS NULL OR whatsapp_status = 'unverified')")->fetchColumn();
             $waMessagesCount = 0;
             $recentMessages = [];
             try {
                 $waMessagesCount = (int)$pdo->query("SELECT COUNT(*) FROM daleel_whatsapp_messages")->fetchColumn();
-                $recentMessages = $pdo->query("SELECT * FROM daleel_whatsapp_messages ORDER BY id DESC LIMIT 15")->fetchAll(PDO::FETCH_ASSOC);
+                $recentMessages = $pdo->query("SELECT * FROM daleel_whatsapp_messages ORDER BY id DESC LIMIT 25")->fetchAll(PDO::FETCH_ASSOC);
             } catch (Throwable $e) {}
             ?>
             <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
                 <div>
-                    <h5 class="fw-bold mb-0 text-dark" style="font-size: 1.05rem;"><i class="fab fa-whatsapp text-success me-1.5"></i> مركز المراسلة الآلية وبوت الرد الذكي</h5>
-                    <div class="text-muted small" style="font-size: 0.72rem;">إرسال حملات التواصل الرسمي ومزامنة حالات الإرسال وسجلات المحادثات مع السحابة بنقرة واحدة</div>
+                    <h5 class="fw-bold mb-0 text-dark" style="font-size: 1.1rem;">
+                        <i class="fab fa-whatsapp text-success me-1.5"></i> مركز عمليات الواتساب المستقل وبوت الرد الذكي
+                    </h5>
+                    <div class="text-muted small" style="font-size: 0.74rem;">
+                        المحطة المركزية للتحكم بخادم الواتساب (Port 8085)، فحص الأرقام الميداني، حملات المراسلة الآلية، ومحاكي البوت التفاعلي
+                    </div>
                 </div>
                 <div class="d-flex gap-2">
-                    <button type="button" class="btn btn-sm btn-primary fw-bold px-3 py-1.5 shadow-sm" onclick="openCloudSyncModal()" style="font-size: 0.78rem; border-radius: 8px;">
-                        <i class="fas fa-cloud-upload-alt me-1 text-warning"></i> ☁️ مزامنة حالات الرسائل مع السحابة
+                    <a href="admin.php?tab=sync" class="btn btn-sm btn-primary fw-bold px-3 py-1.5 shadow-sm" style="font-size: 0.78rem; border-radius: 8px;">
+                        <i class="fas fa-cloud-upload-alt me-1 text-warning"></i> ☁️ مركز المزامنة السحابية
+                    </a>
+                    <button type="button" class="btn btn-sm btn-outline-success fw-bold px-3 py-1.5" onclick="updateWaWidgetStatus()" style="font-size: 0.78rem; border-radius: 8px;">
+                        <i class="fas fa-sync-alt me-1"></i> فحص فوري
                     </button>
                 </div>
             </div>
-            <div class="row g-4">
-                <!-- METRIC CARDS -->
+
+            <!-- METRIC CARDS -->
+            <div class="row g-3 mb-4">
                 <div class="col-xl-3 col-md-6 col-12">
                     <div class="metric-card m-green">
                         <div class="metric-lbl">حالة جلسة الواتساب</div>
@@ -2528,36 +3208,37 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                 </div>
                 <div class="col-xl-3 col-md-6 col-12">
                     <div class="metric-card m-blue">
-                        <div class="metric-lbl">المدارس التي تم مراسلتها</div>
-                        <div class="metric-val"><?= number_format($waSentCount) ?> <span style="font-size: 0.8rem; font-weight: 500;">/ <?= number_format($waSchoolsWithPhone) ?></span></div>
-                        <div class="small text-muted"><?= round(($waSchoolsWithPhone > 0 ? ($waSentCount / $waSchoolsWithPhone * 100) : 0), 1) ?>% نسبة التغطية</div>
+                        <div class="metric-lbl">أرقام واتساب مؤكدة 🟢</div>
+                        <div class="metric-val text-success"><?= number_format($waValidCount) ?> <span style="font-size: 0.8rem; font-weight: 500; color: #64748B;">/ <?= number_format($waSchoolsWithPhone) ?></span></div>
+                        <div class="small text-muted"><?= round(($waSchoolsWithPhone > 0 ? ($waValidCount / $waSchoolsWithPhone * 100) : 0), 1) ?>% نسبة الأرقام الصالحة</div>
                     </div>
                 </div>
                 <div class="col-xl-3 col-md-6 col-12">
                     <div class="metric-card m-orange">
-                        <div class="metric-lbl">إجمالي المحادثات والرسائل</div>
-                        <div class="metric-val"><?= number_format($waMessagesCount) ?></div>
-                        <div class="small text-muted">رسائل واردة وصادرة</div>
+                        <div class="metric-lbl">أرقام أرضية أو غير مفعلة 🔴</div>
+                        <div class="metric-val text-danger"><?= number_format($waInvalidCount) ?></div>
+                        <div class="small text-muted">مستبعدة من الإرسال لتجنب الهدر</div>
                     </div>
                 </div>
                 <div class="col-xl-3 col-md-6 col-12">
                     <div class="metric-card m-purple">
-                        <div class="metric-lbl">وكيل الرد الآلي والخدمة</div>
-                        <div class="metric-val" style="color: #059669; font-size: 1.15rem;">نشط 24/7 🤖</div>
-                        <div class="small text-muted">بحث + توثيق + تعديل</div>
+                        <div class="metric-lbl">هواتف بانتظار الفحص ⚪</div>
+                        <div class="metric-val" style="color: #7C3AED; font-size: 1.15rem;"><?= number_format($waPendingCheckCount) ?></div>
+                        <div class="small text-muted">المدارس التي تم مراسلتها: <b><?= number_format($waSentCount) ?></b></div>
                     </div>
                 </div>
+            </div>
 
-                <!-- SECTION 1: QR & SESSION MANAGEMENT -->
+            <!-- GRID ROW 1: SERVER CONTROL & BULK VALIDATOR -->
+            <div class="row g-4 mb-4">
+                <!-- 1. SERVER & SESSION CONTROL -->
                 <div class="col-lg-5 col-12">
-                    <div class="admin-card h-100">
-                        <div class="admin-card-head" style="background: linear-gradient(135deg, #0F5C3E, #0A3E2A);">
-                            <h5 class="admin-card-title text-white">
-                                <i class="fab fa-whatsapp text-warning"></i> جلسة واتساب الدليل (QR Code)
+                    <div class="admin-card h-100 shadow-sm" style="border: 1px solid #DDE4ED; border-radius: 14px;">
+                        <div class="admin-card-head text-white d-flex justify-content-between align-items-center" style="background: linear-gradient(135deg, #0F5C3E, #0A3E2A); border-radius: 14px 14px 0 0;">
+                            <h5 class="admin-card-title text-white mb-0" style="font-size: 0.95rem;">
+                                <i class="fab fa-whatsapp text-warning me-1.5"></i> خادم وجلسة واتساب الدليل
                             </h5>
-                            <button type="button" class="btn btn-sm btn-outline-light py-0 px-2" style="font-size: 0.68rem;" onclick="refreshTabWaStatus()">
-                                <i class="fas fa-sync-alt"></i> تحديث
-                            </button>
+                            <span class="badge bg-white-subtle text-white border" style="font-size: 0.68rem;">Port 8085</span>
                         </div>
                         <div class="p-4 text-center">
                             <div id="waTabStatusBadge" class="p-3 rounded-3 mb-3 fw-bold" style="background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D;">
@@ -2565,82 +3246,284 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                             </div>
                             <div id="waTabDevicePhone" class="fw-bold text-dark mb-3" style="font-size: 0.95rem;"></div>
 
-                            <div id="waTabQrWrap" class="p-3 bg-white rounded-3 border mb-3 mx-auto" style="min-height: 230px; max-width: 260px; display: flex; align-items: center; justify-content: center;">
-                                <span class="text-muted small">جاري جلب رمز الاستجابة...</span>
+                            <div id="waTabQrWrap" class="p-3 bg-white rounded-3 border mb-3 mx-auto" style="min-height: 220px; max-width: 250px; display: flex; align-items: center; justify-content: center;">
+                                <span class="text-muted small"><i class="fas fa-spinner fa-spin me-1"></i> جاري استعلام الخادم...</span>
                             </div>
 
                             <div class="d-flex flex-wrap gap-2 justify-content-center mt-3">
-                                <button type="button" class="btn btn-sm btn-outline-warning fw-bold px-3" onclick="restartWaGatewaySession()">
-                                    <i class="fas fa-redo me-1"></i> إعادة تشغيل الجلسة
+                                <button type="button" class="btn btn-sm btn-success fw-bold px-3 py-1.5" onclick="startWaServerFromPanel(this)" style="font-size: 0.76rem; border-radius: 8px;">
+                                    <i class="fas fa-play me-1"></i> تشغيل الخادم
                                 </button>
-                                <button type="button" class="btn btn-sm btn-outline-danger fw-bold px-3" onclick="logoutWaSession()">
+                                <button type="button" class="btn btn-sm btn-outline-danger fw-bold px-3 py-1.5" onclick="stopWaServerFromPanel(this)" style="font-size: 0.76rem; border-radius: 8px;">
+                                    <i class="fas fa-stop me-1"></i> إيقاف الخادم
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-warning fw-bold px-3 py-1.5" onclick="restartWaGatewaySession()" style="font-size: 0.76rem; border-radius: 8px;">
+                                    <i class="fas fa-redo me-1"></i> إعادة تشغيل
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary fw-bold px-3 py-1.5" onclick="logoutWaSession()" style="font-size: 0.76rem; border-radius: 8px;">
                                     <i class="fas fa-sign-out-alt me-1"></i> فصل الرقم
                                 </button>
                             </div>
-                            <div class="text-muted small mt-3" style="font-size: 0.7rem;">
-                                يعمل على سيرفر محلي مستقل (Port 8085) وجلسة معزولة تماماً عن نظام SchoPlus.
+                            <div class="alert alert-light border rounded-3 p-2 mt-3 text-muted mb-0" style="font-size: 0.68rem; text-align: right; line-height: 1.5; background: #F8FAFC;">
+                                <i class="fas fa-info-circle text-primary me-1"></i>
+                                الجلسة محفوظة باسم <code>daleel_session</code> داخل <code>whatsapp-server/tokens/</code> وتعمل بصفة دائمة ومعزولة عن سيرفر SchoPlus الأساسي.
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- SECTION 2: NUMBER CHECKER & QUICK SENDER -->
+                <!-- 2. BULK NUMBER VALIDATOR & SINGLE CHECKER -->
                 <div class="col-lg-7 col-12">
-                    <div class="admin-card mb-4">
-                        <div class="admin-card-head">
-                            <h5 class="admin-card-title">
-                                <i class="fas fa-search-dollar text-primary"></i> أداة فحص وتدقيق أرقام الواتساب
+                    <div class="admin-card mb-4 shadow-sm" style="border: 1px solid #DDE4ED; border-radius: 14px;">
+                        <div class="admin-card-head" style="background: linear-gradient(135deg, #0B2A52, #163870); color: #FFFFFF; border-radius: 14px 14px 0 0;">
+                            <h5 class="admin-card-title text-white mb-0" style="font-size: 0.95rem;">
+                                <i class="fas fa-phone-volume text-warning me-1.5"></i> أداة الفحص الجماعي الذكي لأرقام المدارس
                             </h5>
+                            <span class="badge bg-warning text-dark" style="font-size: 0.65rem;">فحص فوري</span>
                         </div>
                         <div class="p-4">
-                            <p class="text-muted small mb-3">
-                                يمكنك فحص أي رقم هاتف لمعرفة هل لديه حساب واتساب نشط لتجنب المراسلة العشوائية للأرقام الأرضية أو غير المفعلة:
+                            <p class="text-muted small mb-3" style="font-size: 0.76rem; line-height: 1.5;">
+                                فحص أرقام هواتف المدارس دفعة واحدة للتحقق من امتلاكها حسابات واتساب نشطة (🟢) وتمييزها عن الهواتف الأرضية والأرقام غير المفعلة (🔴)، مع حفظ وتثبيت النتيجة في قاعدة البيانات لحظياً:
                             </p>
+                            <div class="row g-2 align-items-center mb-3">
+                                <div class="col-md-5 col-12">
+                                    <label class="form-label small fw-bold text-muted mb-1" style="font-size: 0.72rem;">الولاية المستهدفة:</label>
+                                    <select id="bulkCheckState" class="form-select form-select-sm" style="font-size: 0.78rem;">
+                                        <option value="">كافة الولايات (السودان والمهجر)</option>
+                                        <?php foreach (SudanGeography::states('السودان') as $st): ?>
+                                            <option value="<?= e($st) ?>"><?= e($st) ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-3 col-6">
+                                    <label class="form-label small fw-bold text-muted mb-1" style="font-size: 0.72rem;">حجم الدفعة:</label>
+                                    <select id="bulkCheckLimit" class="form-select form-select-sm" style="font-size: 0.78rem;">
+                                        <option value="10">10 مدارس</option>
+                                        <option value="20" selected>20 مدرسة</option>
+                                        <option value="35">35 مدرسة</option>
+                                        <option value="50">50 مدرسة</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 col-6 d-flex align-items-end">
+                                    <div class="form-check small mb-1">
+                                        <input class="form-check-input" type="checkbox" id="bulkCheckOnlyUnverified" checked>
+                                        <label class="form-check-label" for="bulkCheckOnlyUnverified" style="font-size: 0.72rem;">
+                                            غير المفحوصة فقط (⚪)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button type="button" id="btnRunBulkCheck" class="btn btn-primary fw-bold px-4 py-2" onclick="runBulkNumberValidation()" style="font-size: 0.8rem; border-radius: 8px;">
+                                    <i class="fas fa-bolt text-warning me-1"></i> بدء الفحص الجماعي التلقائي
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm px-3" onclick="document.getElementById('bulkCheckProgressWrap').style.display='none'; document.getElementById('bulkCheckResultsList').innerHTML='';" style="font-size: 0.75rem; border-radius: 8px;">
+                                    مسح النتائج
+                                </button>
+                            </div>
+
+                            <!-- Live Progress Box -->
+                            <div id="bulkCheckProgressWrap" class="mt-3 p-3 rounded-3 border" style="display: none; background: #F8FAFC;">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="fw-bold small text-dark" id="bulkCheckProgressText">جاري فحص الأرقام عبر بوابة الواتساب...</span>
+                                    <span class="badge bg-primary" id="bulkCheckCounterBadge">0 / 0</span>
+                                </div>
+                                <div class="progress mb-2" style="height: 7px;">
+                                    <div id="bulkCheckProgressBar" class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width: 0%;"></div>
+                                </div>
+                                <div id="bulkCheckResultsList" style="max-height: 200px; overflow-y: auto; font-size: 0.75rem;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SINGLE NUMBER QUICK TEST -->
+                    <div class="admin-card shadow-sm" style="border: 1px solid #DDE4ED; border-radius: 14px;">
+                        <div class="admin-card-head">
+                            <h5 class="admin-card-title" style="font-size: 0.9rem;">
+                                <i class="fas fa-search text-primary me-1.5"></i> فحص فوري لرقم فردي محدد
+                            </h5>
+                        </div>
+                        <div class="p-3">
                             <div class="row g-2 align-items-center">
                                 <div class="col-sm-8 col-12">
-                                    <input type="text" id="checkSinglePhoneInput" class="form-control" placeholder="أدخل الرقم (مثال: 0912345678 أو 249912345678)">
+                                    <input type="text" id="checkSinglePhoneInput" class="form-control form-control-sm" placeholder="أدخل الرقم (مثال: 0911197022 أو 249111970220)" style="font-size: 0.78rem;">
                                 </div>
                                 <div class="col-sm-4 col-12">
-                                    <button type="button" class="btn btn-primary w-100 fw-bold" onclick="runSinglePhoneCheck()">
+                                    <button type="button" class="btn btn-sm btn-primary w-100 fw-bold" onclick="runSinglePhoneCheck()" style="font-size: 0.78rem; border-radius: 6px;">
                                         <i class="fas fa-check-circle me-1"></i> فحص الرقم
                                     </button>
                                 </div>
                             </div>
-                            <div id="checkSingleResultBox" class="mt-3 p-3 rounded-3" style="display: none; font-size: 0.85rem;"></div>
+                            <div id="checkSingleResultBox" class="mt-2 p-2.5 rounded-3" style="display: none; font-size: 0.78rem;"></div>
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <div class="admin-card">
-                        <div class="admin-card-head">
-                            <h5 class="admin-card-title">
-                                <i class="fas fa-paper-plane text-success"></i> إرسال رسالة مباشرة تجريبية
+            <!-- GRID ROW 2: AUTOMATED CAMPAIGN RUNNER & INTERACTIVE BOT SIMULATOR -->
+            <div class="row g-4 mb-4">
+                <!-- 3. AUTOMATED BATCH OUTREACH CAMPAIGNS -->
+                <div class="col-lg-6 col-12">
+                    <div class="admin-card h-100 shadow-sm" style="border: 1px solid #DDE4ED; border-radius: 14px;">
+                        <div class="admin-card-head text-white d-flex justify-content-between align-items-center" style="background: linear-gradient(135deg, #1E3A8A, #0F2D6B); border-radius: 14px 14px 0 0;">
+                            <h5 class="admin-card-title text-white mb-0" style="font-size: 0.95rem;">
+                                <i class="fas fa-paper-plane text-warning me-1.5"></i> حملات المراسلة الآلية المجدولة للمدارس
                             </h5>
+                            <span class="badge bg-warning text-dark" style="font-size: 0.65rem;">أتمتة ذكية</span>
                         </div>
                         <div class="p-4">
-                            <div class="mb-3">
-                                <label class="form-label small fw-bold">رقم المستلم:</label>
-                                <input type="text" id="tabSendPhone" class="form-control" placeholder="09xxxxxxxx أو 249xxxxxxxxx">
+                            <p class="text-muted small mb-3" style="font-size: 0.76rem; line-height: 1.5;">
+                                إرسال رسائل التعريف والدعوة الرسمية المخصصة للمدارس آلياً على دفعات متتالية، مع فواصل زمنية ذكية لحماية الرقم وتجنب الحظر:
+                            </p>
+
+                            <div class="row g-2 mb-3">
+                                <div class="col-sm-6 col-12">
+                                    <label class="form-label small fw-bold text-muted mb-1" style="font-size: 0.72rem;">استهداف ولاية معينة:</label>
+                                    <select id="campaignState" class="form-select form-select-sm" style="font-size: 0.78rem;">
+                                        <option value="">كافة الولايات (المدارس غير المراسلة)</option>
+                                        <?php foreach (SudanGeography::states('السودان') as $st): ?>
+                                            <option value="<?= e($st) ?>"><?= e($st) ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="col-sm-6 col-12">
+                                    <label class="form-label small fw-bold text-muted mb-1" style="font-size: 0.72rem;">الفاصل الزمني الآمن بين كل رسالة:</label>
+                                    <select id="campaignDelaySec" class="form-select form-select-sm" style="font-size: 0.78rem;">
+                                        <option value="6">6 ثوانٍ (سريع)</option>
+                                        <option value="8" selected>8 ثوانٍ (موصى به لحماية الحساب)</option>
+                                        <option value="12">12 ثانية (فائق الأمان)</option>
+                                    </select>
+                                </div>
                             </div>
+
+                            <!-- Template Preview Collapsible -->
                             <div class="mb-3">
-                                <label class="form-label small fw-bold">نص الرسالة:</label>
-                                <textarea id="tabSendMessage" class="form-control" rows="3" placeholder="اكتب نص الرسالة هنا..."></textarea>
+                                <button type="button" class="btn btn-sm btn-link p-0 text-decoration-none text-primary fw-bold" onclick="toggleCampaignTemplate()" style="font-size: 0.74rem;">
+                                    <i class="fas fa-eye me-1"></i> معاينة قالب الرسالة الرسمية المخصصة
+                                </button>
+                                <div id="campaignTemplateWrap" class="p-2.5 bg-light rounded-3 border mt-2 small text-muted dir-rtl" style="display: none; font-size: 0.72rem; line-height: 1.5; max-height: 140px; overflow-y: auto;">
+                                    السلام عليكم ورحمة الله وبركاته،<br>
+                                    إدارة مدرسة <b>{اسم المدرسة}</b> الموقرة،<br>
+                                    تحية طيبة لكم من منصة <b>دليل المدارس السودانية</b>.<br>
+                                    يسرنا إعلامكم بإدراج مدرستكم ضمن الدليل الوطني الشامل، وندعوكم لتوثيق صفحة المدرسة وإدارتها مجاناً عبر الرابط:<br>
+                                    <code>https://daleel.schoplus.sd/school/{slug}</code>
+                                </div>
                             </div>
-                            <button type="button" class="btn btn-success fw-bold px-4" onclick="runTabSendMessage()">
-                                <i class="fab fa-whatsapp me-1"></i> إرسال الآن 📲
-                            </button>
-                            <div id="tabSendResultBox" class="mt-3 p-3 rounded-3" style="display: none; font-size: 0.85rem;"></div>
+
+                            <div class="d-flex flex-wrap gap-2 mb-3">
+                                <button type="button" id="btnStartCampaign" class="btn btn-success fw-bold px-4 py-2" onclick="startBatchCampaign()" style="font-size: 0.8rem; border-radius: 8px;">
+                                    <i class="fas fa-play me-1"></i> بدء حملة الإرسال الآن 🚀
+                                </button>
+                                <button type="button" id="btnPauseCampaign" class="btn btn-outline-warning fw-bold px-3 py-2" onclick="pauseBatchCampaign()" style="display: none; font-size: 0.8rem; border-radius: 8px;">
+                                    <i class="fas fa-pause me-1"></i> إيقاف مؤقت
+                                </button>
+                                <button type="button" id="btnStopCampaign" class="btn btn-outline-danger fw-bold px-3 py-2" onclick="stopBatchCampaign()" style="display: none; font-size: 0.8rem; border-radius: 8px;">
+                                    <i class="fas fa-stop me-1"></i> إنهاء الحملة
+                                </button>
+                            </div>
+
+                            <!-- Campaign Live Progress -->
+                            <div id="campaignProgressWrap" class="p-3 rounded-3 border" style="display: none; background: #F8FAFC;">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span class="fw-bold small text-dark" id="campaignStatusText">جاري تشغيل الحملة...</span>
+                                    <span class="badge bg-success" id="campaignCountBadge">0 مرسلة</span>
+                                </div>
+                                <div class="progress mb-2" style="height: 7px;">
+                                    <div id="campaignProgressBar" class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width: 0%;"></div>
+                                </div>
+                                <div id="campaignStreamLogs" style="max-height: 160px; overflow-y: auto; font-size: 0.72rem; line-height: 1.5;"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- SECTION 3: RECENT MESSAGES LOG -->
-                <div class="col-12">
-                    <div class="admin-card">
+                <!-- 4. INTERACTIVE BOT SIMULATOR & PLAYGROUND -->
+                <div class="col-lg-6 col-12">
+                    <div class="admin-card h-100 shadow-sm" style="border: 1px solid #DDE4ED; border-radius: 14px;">
+                        <div class="admin-card-head text-white d-flex justify-content-between align-items-center" style="background: linear-gradient(135deg, #0F5C3E, #144933); border-radius: 14px 14px 0 0;">
+                            <div class="d-flex align-items-center gap-2">
+                                <div style="width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-robot text-warning fs-6"></i>
+                                </div>
+                                <div>
+                                    <h5 class="admin-card-title text-white mb-0" style="font-size: 0.95rem;">محاكي البوت والرد الذكي (Live Bot Simulator)</h5>
+                                    <div style="font-size: 0.65rem; color: #BBF7D0;">اختبر سيناريوهات أولياء الأمور والمدارس محلياً بدون إرسال للهاتف</div>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-sm btn-outline-light py-0 px-2" onclick="resetBotSimulationChat()" style="font-size: 0.68rem;" title="إعادة تعيين المحادثة">
+                                <i class="fas fa-redo me-1"></i> إعادة تعيين
+                            </button>
+                        </div>
+                        <div class="p-3 d-flex flex-column" style="height: 430px;">
+                            <!-- Test Prompt Pills -->
+                            <div class="d-flex flex-wrap gap-1 mb-2 pb-2 border-bottom">
+                                <span class="badge bg-light text-dark border hover-primary" style="cursor: pointer; font-size: 0.65rem;" onclick="sendSimPrompt('مرحبا')">مرحبا 👋</span>
+                                <span class="badge bg-light text-dark border hover-primary" style="cursor: pointer; font-size: 0.65rem;" onclick="sendSimPrompt('1')">1. بحث عن مدرسة 🔍</span>
+                                <span class="badge bg-light text-dark border hover-primary" style="cursor: pointer; font-size: 0.65rem;" onclick="sendSimPrompt('2')">2. توثيق مدرسة ⭐</span>
+                                <span class="badge bg-light text-dark border hover-primary" style="cursor: pointer; font-size: 0.65rem;" onclick="sendSimPrompt('3')">3. تعديل بيانات ✏️</span>
+                                <span class="badge bg-light text-dark border hover-primary" style="cursor: pointer; font-size: 0.65rem;" onclick="sendSimPrompt('4')">4. تسجيل مدرسة 🏫</span>
+                                <span class="badge bg-light text-dark border hover-primary" style="cursor: pointer; font-size: 0.65rem;" onclick="sendSimPrompt('كم رسوم المدارس في بحري؟')">رسوم بحري؟ 💰</span>
+                            </div>
+
+                            <!-- Chat Messages Screen -->
+                            <div id="botSimChatBox" class="flex-grow-1 p-3 rounded-3 border mb-2" style="background: #EFEAE2; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;">
+                                <div class="text-center text-muted small my-1" style="font-size: 0.68rem;">
+                                    <span class="bg-white px-2 py-1 rounded-pill shadow-2xs">محادثة تجريبية مشفرة محلياً مع وكيل الدليل الذكي</span>
+                                </div>
+                                <div class="bot-msg-bubble align-self-start p-2.5 rounded-3 shadow-2xs" style="background: #FFFFFF; max-width: 85%; font-size: 0.76rem; line-height: 1.5; border-radius: 10px 10px 10px 0;">
+                                    مرحباً بك! أنا <b>المساعد الآلي لدليل المدارس السودانية 🤖</b><br>
+                                    اكتب أي سؤال أو اختر من الأوامر أعلاه لتجربة تدفق المحادثة والذكاء الاصطناعي مباشرة.
+                                    <div class="text-end text-muted mt-1" style="font-size: 0.62rem;"><?= date('H:i') ?> ✓✓</div>
+                                </div>
+                            </div>
+
+                            <!-- Input Form -->
+                            <form id="botSimForm" onsubmit="event.preventDefault(); sendSimMsg();" class="d-flex gap-2">
+                                <input type="text" id="botSimInput" class="form-control form-control-sm" placeholder="اكتب رسالة إلى البوت (مثال: بحث عن مدرسة في الخرطوم)..." style="font-size: 0.78rem;" autocomplete="off">
+                                <button type="submit" id="btnBotSimSend" class="btn btn-sm btn-success fw-bold px-3" style="font-size: 0.78rem;">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GRID ROW 3: LIVE MESSAGE LOGS & DIRECT MANUAL SENDER -->
+            <div class="row g-4">
+                <!-- 5. DIRECT MANUAL SENDER -->
+                <div class="col-lg-4 col-12">
+                    <div class="admin-card shadow-sm h-100" style="border: 1px solid #DDE4ED; border-radius: 14px;">
                         <div class="admin-card-head">
-                            <h5 class="admin-card-title">
-                                <i class="fas fa-comments text-primary"></i> سجل المحادثات والرسائل التفاعلية الحية
+                            <h5 class="admin-card-title" style="font-size: 0.92rem;">
+                                <i class="fas fa-paper-plane text-success me-1.5"></i> إرسال رسالة مباشرة مخصصة
                             </h5>
-                            <span class="badge bg-light text-dark border">آخر 15 رسالة</span>
+                        </div>
+                        <div class="p-3">
+                            <div class="mb-2">
+                                <label class="form-label small fw-bold text-muted mb-1" style="font-size: 0.72rem;">رقم هاتف المستلم:</label>
+                                <input type="text" id="tabSendPhone" class="form-control form-control-sm" placeholder="مثال: 0911197022 أو 249111970220" style="font-size: 0.78rem;">
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label small fw-bold text-muted mb-1" style="font-size: 0.72rem;">نص الرسالة:</label>
+                                <textarea id="tabSendMessage" class="form-control form-control-sm" rows="4" placeholder="اكتب نص الرسالة هنا..." style="font-size: 0.78rem;"></textarea>
+                            </div>
+                            <button type="button" class="btn btn-sm btn-success fw-bold w-100 py-1.5" onclick="runTabSendMessage()" style="font-size: 0.78rem; border-radius: 8px;">
+                                <i class="fab fa-whatsapp me-1"></i> إرسال الرسالة الآن 📲
+                            </button>
+                            <div id="tabSendResultBox" class="mt-2 p-2.5 rounded-3" style="display: none; font-size: 0.78rem;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. LIVE MESSAGE LOGS TABLE -->
+                <div class="col-lg-8 col-12">
+                    <div class="admin-card shadow-sm h-100" style="border: 1px solid #DDE4ED; border-radius: 14px;">
+                        <div class="admin-card-head d-flex justify-content-between align-items-center">
+                            <h5 class="admin-card-title" style="font-size: 0.92rem;">
+                                <i class="fas fa-comments text-primary me-1.5"></i> سجل المحادثات والرسائل التفاعلية الحية
+                            </h5>
+                            <span class="badge bg-light text-dark border" style="font-size: 0.68rem;">آخر <?= count($recentMessages) ?> رسالة</span>
                         </div>
                         <div class="table-responsive">
                             <table class="table admin-table mb-0">
@@ -2650,8 +3533,8 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                                         <th>الاتجاه</th>
                                         <th>رقم الهاتف</th>
                                         <th>نص الرسالة</th>
-                                        <th>نوع الاستفسار / الإجراء</th>
-                                        <th>التاريخ والوقت</th>
+                                        <th>نوع الإجراء</th>
+                                        <th>الوقت</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -2659,7 +3542,7 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                                         <tr>
                                             <td colspan="6" class="text-center py-4 text-muted">
                                                 <i class="fas fa-inbox fa-2x mb-2 text-muted opacity-50"></i>
-                                                <div>لا توجد رسائل مسجلة حتى الآن. ستظهر هنا المحادثات الواردة من المدارس والردود التلقائية فوراً.</div>
+                                                <div>لا توجد رسائل مسجلة حتى الآن. ستظهر هنا الرسائل الواردة والصادرة تلقائياً.</div>
                                             </td>
                                         </tr>
                                     <?php else: ?>
@@ -2668,25 +3551,214 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                                                 <td class="text-muted fw-bold">#<?= $m['id'] ?></td>
                                                 <td>
                                                     <?php if ($m['direction'] === 'in'): ?>
-                                                        <span class="badge bg-info-subtle text-info border border-info-subtle"><i class="fas fa-arrow-down me-1"></i>وارد</span>
+                                                        <span class="badge bg-info-subtle text-info border border-info-subtle py-0 px-1" style="font-size: 0.65rem;"><i class="fas fa-arrow-down me-1"></i>وارد</span>
                                                     <?php else: ?>
-                                                        <span class="badge bg-success-subtle text-success border border-success-subtle"><i class="fas fa-arrow-up me-1"></i>صادر</span>
+                                                        <span class="badge bg-success-subtle text-success border border-success-subtle py-0 px-1" style="font-size: 0.65rem;"><i class="fas fa-arrow-up me-1"></i>صادر</span>
                                                     <?php endif; ?>
                                                 </td>
-                                                <td class="fw-bold dir-ltr text-end" style="font-family: monospace;"><?= e($m['phone']) ?></td>
-                                                <td style="max-width: 400px; white-space: normal; line-height: 1.5;">
-                                                    <?= nl2br(e(mb_substr($m['message'], 0, 150))) ?><?= mb_strlen($m['message']) > 150 ? '...' : '' ?>
+                                                <td class="fw-bold dir-ltr text-end" style="font-family: monospace; font-size: 0.72rem;"><?= e($m['phone']) ?></td>
+                                                <td style="max-width: 320px; white-space: normal; line-height: 1.4; font-size: 0.72rem;">
+                                                    <?= nl2br(e(mb_substr($m['message'], 0, 120))) ?><?= mb_strlen($m['message']) > 120 ? '...' : '' ?>
                                                 </td>
                                                 <td>
-                                                    <span class="badge bg-light text-dark border"><?= e($m['intent'] ?: 'عام') ?></span>
+                                                    <span class="badge bg-light text-dark border" style="font-size: 0.65rem;"><?= e($m['intent'] ?: 'عام') ?></span>
                                                 </td>
-                                                <td class="text-muted small"><?= e(date('Y-m-d H:i', strtotime($m['created_at']))) ?></td>
+                                                <td class="text-muted small" style="font-size: 0.68rem;"><?= e(date('H:i | m/d', strtotime($m['created_at']))) ?></td>
                                             </tr>
                                         <?php endforeach; ?>
                                     <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <?php endif; ?>
+
+        <!-- TAB CONTENT: 7. TWO-WAY CLOUD SYNC COMMAND HUB -->
+        <?php elseif ($activeTab === 'sync'): ?>
+            <div class="row g-4">
+                <div class="col-12">
+                    <div class="admin-card shadow-sm" style="border: 1px solid #DDE4ED; border-radius: 14px; overflow: hidden;">
+                        <?php if (!$isLocalStation): ?>
+                            <!-- CLOUD PRODUCTION VIEW: API ENDPOINT & SYNC STATUS -->
+                            <div class="admin-card-head p-4 text-white" style="background: linear-gradient(135deg, #0B2A52, #1E5FA8);">
+                                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                                    <div>
+                                        <h4 class="fw-bold text-white mb-1" style="font-size: 1.15rem;">
+                                            <i class="fas fa-cloud text-warning me-2"></i> بوابة المزامنة السحابية (Cloud Production Sync Gateway)
+                                        </h4>
+                                        <div style="font-size: 0.76rem; color: #CBD5E1;">
+                                            نقطة النهاية الآمنة لاستقبال التحديثات، المدارس المستكشفة، وحالات الواتساب من محطة العمليات المحلية
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span class="badge bg-success text-white px-3 py-1.5" style="font-size: 0.76rem;">
+                                            <i class="fas fa-check-circle me-1"></i> نقطة النهاية جاهزة ونشطة 🟢
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="row g-3 mb-4">
+                                    <div class="col-md-6 col-12">
+                                        <div class="p-3.5 rounded-3 border h-100" style="background: #F8FAFC;">
+                                            <h6 class="fw-bold text-dark mb-2" style="font-size: 0.88rem;">
+                                                <i class="fas fa-link text-primary me-1"></i> رابط نقطة نهاية المزامنة (API Endpoint)
+                                            </h6>
+                                            <div class="input-group input-group-sm mb-2">
+                                                <input type="text" class="form-control font-monospace text-muted bg-white" readonly value="https://daleel.schoplus.sd/api_sync.php" id="cloudEndpointUrl">
+                                                <button class="btn btn-outline-primary" type="button" onclick="navigator.clipboard.writeText(document.getElementById('cloudEndpointUrl').value); showAdminToast('تم نسخ رابط الـ API ✅');">نسخ</button>
+                                            </div>
+                                            <div class="text-muted small" style="font-size: 0.72rem; line-height: 1.5;">
+                                                تستخدم محطة العمليات المركزية هذا الرابط لرفع المدارس الجديدة وسجلات المراسلات واستيراد التوثيقات.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="p-3.5 rounded-3 border h-100" style="background: #F0FDF4; border-color: #BBF7D0 !important;">
+                                            <h6 class="fw-bold text-success mb-2" style="font-size: 0.88rem;">
+                                                <i class="fas fa-shield-alt me-1"></i> مفتاح الأمان المشفر (Sync Secret Token)
+                                            </h6>
+                                            <div class="input-group input-group-sm mb-2">
+                                                <input type="password" class="form-control font-monospace bg-white" readonly value="SchoPlus_Daleel_Sync_Secret_Key_2026_Live" id="cloudSyncToken">
+                                                <button class="btn btn-outline-secondary" type="button" onclick="const f=document.getElementById('cloudSyncToken'); f.type = f.type==='password'?'text':'password';">إظهار</button>
+                                                <button class="btn btn-outline-success" type="button" onclick="navigator.clipboard.writeText('SchoPlus_Daleel_Sync_Secret_Key_2026_Live'); showAdminToast('تم نسخ مفتاح الأمان المشفر ✅');">نسخ</button>
+                                            </div>
+                                            <div class="text-muted small" style="font-size: 0.72rem;">
+                                                يتم التحقق من هذا الرمز في كل طلب مزامنة لمنع الوصول غير المصرح به.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="p-3.5 rounded-3 border mb-3" style="background: #EFF6FF; border-color: #BFDBFE !important;">
+                                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                                        <div>
+                                            <h6 class="fw-bold text-primary mb-1" style="font-size: 0.88rem;">
+                                                <i class="fas fa-database me-1"></i> النسخة الاحتياطية السحابية وقاعدة البيانات الحية
+                                            </h6>
+                                            <div class="text-muted small" style="font-size: 0.74rem;">
+                                                يحتوي الدليل السحابي على <?= number_format($totalCount) ?> مدرسة معتمدة و <?= number_format($verifiedCount) ?> مدرسة موثقة.
+                                            </div>
+                                        </div>
+                                        <div class="d-flex gap-2">
+                                            <button type="button" class="btn btn-sm btn-primary fw-bold px-3 py-1.5" onclick="exportMasterSeed()" style="border-radius: 8px; font-size: 0.78rem;">
+                                                <i class="fas fa-file-export me-1"></i> تصدير Master Seed SQL
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-outline-primary fw-bold px-3 py-1.5" onclick="recalculateRanks()" style="border-radius: 8px; font-size: 0.78rem;">
+                                                <i class="fas fa-sort-numeric-down me-1"></i> تدقيق الترقيم المتسلسل
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php else: ?>
+                        <!-- LOCAL MASTER HQ VIEW: FULL 2-WAY PUSH/PULL HUB -->
+                        <div class="admin-card-head p-4 text-white" style="background: linear-gradient(135deg, #0B2A52, #1E5FA8);">
+                            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                                <div>
+                                    <h4 class="fw-bold text-white mb-1" style="font-size: 1.15rem;">
+                                        <i class="fas fa-cloud-upload-alt text-warning me-2"></i> مركز المزامنة السحابية المتقدم (Cloud Sync Command Hub)
+                                    </h4>
+                                    <div style="font-size: 0.76rem; color: #CBD5E1;">
+                                        ربط محطة العمل المحلية المستقلة بالسحابة العامة (https://daleel.schoplus.sd/api_sync.php) لمزامنة المدارس، التوثيقات، وحالات الواتساب
+                                    </div>
+                                </div>
+                                <div>
+                                    <span class="badge bg-white-subtle text-white border px-3 py-1.5" style="font-size: 0.76rem;">
+                                        <i class="fas fa-shield-alt text-warning me-1"></i> الربط بمفتاح المزامنة المشفر
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4">
+                            <!-- Latency / Status Badge -->
+                            <div id="syncHubStatusBadge" class="p-3 rounded-3 text-center mb-4 fw-bold" style="background: #F1F5F9; color: #334155; font-size: 0.85rem;">
+                                <i class="fas fa-spinner fa-spin me-1.5 text-primary"></i> جاري فحص حالة نقطة نهاية السحابة والمطابقة...
+                            </div>
+
+                            <!-- Side-by-Side Statistics Grid -->
+                            <div class="row g-3 mb-4">
+                                <div class="col-md-6 col-12">
+                                    <div class="p-3 rounded-3 border" style="background: #F8FAFC;">
+                                        <div class="d-flex align-items-center gap-2 mb-2">
+                                            <i class="fas fa-desktop text-success fs-5"></i>
+                                            <h6 class="fw-bold mb-0 text-dark" style="font-size: 0.9rem;">محطة العمل المحلية (Localhost XAMPP)</h6>
+                                        </div>
+                                        <div class="d-flex justify-content-between border-bottom py-1.5 small">
+                                            <span class="text-muted">إجمالي المدارس المحلية:</span>
+                                            <span class="fw-bold text-dark" id="syncHubLocalCount"><?= number_format($totalCount) ?></span>
+                                        </div>
+                                        <div class="d-flex justify-content-between border-bottom py-1.5 small">
+                                            <span class="text-muted">المدارس التي تم مراسلتها محلياً:</span>
+                                            <span class="fw-bold text-success" id="syncHubLocalWaSent"><?= number_format($waSentCount) ?></span>
+                                        </div>
+                                        <div class="d-flex justify-content-between py-1.5 small">
+                                            <span class="text-muted">أرقام واتساب مؤكدة 🟢:</span>
+                                            <span class="fw-bold text-primary"><?= number_format($waValidCount) ?></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-12">
+                                    <div class="p-3 rounded-3 border" style="background: #EFF6FF;">
+                                        <div class="d-flex align-items-center gap-2 mb-2">
+                                            <i class="fas fa-cloud text-primary fs-5"></i>
+                                            <h6 class="fw-bold mb-0 text-primary" style="font-size: 0.9rem;">السحابة العامة (daleel.schoplus.sd)</h6>
+                                        </div>
+                                        <div class="d-flex justify-content-between border-bottom py-1.5 small">
+                                            <span class="text-muted">إجمالي المدارس بالسحابة:</span>
+                                            <span class="fw-bold text-dark" id="syncHubCloudCount">جاري الجلب...</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between border-bottom py-1.5 small">
+                                            <span class="text-muted">المدارس المراسلة بالسحابة:</span>
+                                            <span class="fw-bold text-success" id="syncHubCloudWaSent">جاري الجلب...</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between py-1.5 small">
+                                            <span class="text-muted">الإصدار السحابي المنشور:</span>
+                                            <span class="fw-bold text-primary" id="syncHubCloudVer">v3.8.32</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Actions Row -->
+                            <div class="row g-3 mb-4">
+                                <div class="col-md-6 col-12">
+                                    <div class="card p-3 border shadow-none h-100" style="border-radius: 12px; background: #FAF5FF; border-color: #E9D5FF !important;">
+                                        <h6 class="fw-bold mb-1" style="font-size: 0.88rem; color: #6B21A8;">
+                                            <i class="fas fa-cloud-download-alt me-1 text-purple"></i> سحب البيانات من السحابة (Pull from Cloud)
+                                        </h6>
+                                        <p class="text-muted small mb-3" style="font-size: 0.74rem; line-height: 1.5;">
+                                            جلب أي مدارس جديدة أو طلبات توثيق مسجلة عبر الإنترنت على السحابة، وتحديث قاعدة البيانات المحلية دون المساس بالفحوصات المحلية.
+                                        </p>
+                                        <button type="button" class="btn btn-sm text-white fw-bold py-2 mt-auto" onclick="doCloudPull(this)" style="background: #7C3AED; border-radius: 8px; font-size: 0.8rem;">
+                                            <i class="fas fa-download me-1.5"></i> بدء السحب والاستيراد من السحابة 📥
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-12">
+                                    <div class="card p-3 border shadow-none h-100" style="border-radius: 12px; background: #F0FDF4; border-color: #BBF7D0 !important;">
+                                        <h6 class="fw-bold mb-1" style="font-size: 0.88rem; color: #166534;">
+                                            <i class="fas fa-cloud-upload-alt me-1 text-success"></i> رفع ومزامنة التحديثات إلى السحابة (Push to Cloud)
+                                        </h6>
+                                        <p class="text-muted small mb-3" style="font-size: 0.74rem; line-height: 1.5;">
+                                            رفع كافة المدارس المضافة محلياً، وأرقام الهواتف المكتشفة، وحالات إرسال الواتساب، وسجلات الرسائل الصادرة إلى السحابة بنقرة واحدة.
+                                        </p>
+                                        <button type="button" class="btn btn-sm btn-success fw-bold py-2 mt-auto" onclick="doCloudPush(this)" style="border-radius: 8px; font-size: 0.8rem;">
+                                            <i class="fas fa-upload me-1.5"></i> بدء رفع التحديثات إلى السحابة 📤
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Live Sync Log Box -->
+                            <div id="cloudSyncLogBox" class="p-3 rounded-3 border" style="display: none; background: #F8FAFC; font-size: 0.8rem;"></div>
+                        </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -4073,6 +5145,17 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
             }
             if (devPhone) devPhone.innerHTML = 'واتساب > الأجهزة المرتبطة > ربط جهاز';
             qrWrap.innerHTML = '<img src="' + data.qrcode + '" style="max-width: 220px; border-radius: 10px; border: 2px dashed #CBD5E1; padding: 6px;">';
+        } else if (['PAIRING', 'SYNCING', 'init', 'loading'].includes(data.status)) {
+            val.style.color = '#D97706';
+            val.innerHTML = '⏳ جاري الاتصال (' + data.status + ')...';
+            if (phoneVal) phoneVal.innerHTML = 'ثوانٍ قليلة ويكتمل الربط...';
+            if (badge) {
+                badge.style.background = '#FEF3C7';
+                badge.style.color = '#92400E';
+                badge.innerHTML = '⏳ جاري مزامنة بيانات الحساب والاتصال...';
+            }
+            if (devPhone) devPhone.innerHTML = 'جاري المزامنة مع الهاتف';
+            qrWrap.innerHTML = '<div class="py-4 text-center text-warning fw-bold"><i class="fas fa-spinner fa-spin fa-3x mb-2"></i><br>جاري مزامنة جلسة الواتساب...</div>';
         } else {
             val.style.color = '#DC2626';
             val.innerHTML = '🔴 غير متصل';
@@ -4116,6 +5199,445 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
             }
             showAdminToast('جاري تشغيل الخادم في الخلفية...', 'info');
             setTimeout(updateWaWidgetStatus, 3000);
+        });
+    }
+
+    function stopWaServerFromPanel(btn) {
+        if (!confirm('هل تريد إيقاف خادم الواتساب (Port 8085) الآن؟')) return;
+        if (btn) {
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> جاري الإيقاف...';
+        }
+        const fd = new FormData();
+        fd.append('ajax_action', 'stop_whatsapp_server');
+        fetch('admin.php', { method: 'POST', body: fd })
+        .then(r => r.json())
+        .then(data => {
+            showAdminToast(data.message || 'تم إيقاف الخادم ⏹️', 'info');
+            setTimeout(updateWaWidgetStatus, 1500);
+            setTimeout(refreshWaGatewayStatus, 2000);
+        })
+        .catch(err => {
+            if (btn) btn.disabled = false;
+            showAdminToast('حدث خطأ أثناء إيقاف الخادم', 'danger');
+        });
+    }
+
+    // ─── BULK NUMBER VALIDATION JS ─────────────────────────────────────
+    function runBulkNumberValidation() {
+        const state = document.getElementById('bulkCheckState')?.value || '';
+        const limit = document.getElementById('bulkCheckLimit')?.value || '20';
+        const onlyUnverified = document.getElementById('bulkCheckOnlyUnverified')?.checked ? 1 : 0;
+        const btn = document.getElementById('btnRunBulkCheck');
+        const wrap = document.getElementById('bulkCheckProgressWrap');
+        const txt = document.getElementById('bulkCheckProgressText');
+        const badge = document.getElementById('bulkCheckCounterBadge');
+        const bar = document.getElementById('bulkCheckProgressBar');
+        const list = document.getElementById('bulkCheckResultsList');
+
+        if (!btn || !wrap) return;
+
+        btn.disabled = true;
+        const oldBtn = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> جاري الفحص التلقائي...';
+        wrap.style.display = 'block';
+        txt.innerHTML = 'جاري استعلام سيرفر الواتساب وتدقيق الأرقام في قاعدة البيانات...';
+        bar.style.width = '30%';
+
+        const fd = new FormData();
+        fd.append('ajax_action', 'bulk_check_whatsapp_numbers');
+        fd.append('state', state);
+        fd.append('limit', limit);
+        fd.append('only_unverified', onlyUnverified);
+
+        fetch('admin.php', { method: 'POST', body: fd })
+        .then(r => r.json())
+        .then(data => {
+            btn.disabled = false;
+            btn.innerHTML = oldBtn;
+            bar.style.width = '100%';
+
+            if (data && data.success) {
+                const total = data.checked_count || 0;
+                const valids = data.valid_count || 0;
+                const invalids = data.invalid_count || 0;
+
+                txt.innerHTML = `اكتمل الفحص! تم فحص <b>${total}</b> مدرسة (🟢 <b>${valids}</b> نشطة — 🔴 <b>${invalids}</b> أرضية/غير مسجلة)`;
+                badge.className = 'badge bg-success';
+                badge.innerText = `${valids} / ${total} نشط`;
+
+                let html = '<div class="table-responsive mt-2"><table class="table table-sm table-bordered align-middle mb-0" style="font-size: 0.72rem;">';
+                html += '<thead class="table-light"><tr><th>المدرسة</th><th>الهاتف</th><th>النتيجة</th></tr></thead><tbody>';
+                (data.schools || []).forEach(s => {
+                    const isV = s.status === 'valid';
+                    html += `<tr>
+                        <td class="fw-bold">${escapeHtml(s.name)}</td>
+                        <td class="dir-ltr text-end" style="font-family: monospace;">${escapeHtml(s.phone)}</td>
+                        <td>${isV ? '<span class="badge bg-success text-white">واتساب نشط 🟢</span>' : '<span class="badge bg-danger text-white">أرضي / غير مفعل 🔴</span>'}</td>
+                    </tr>`;
+
+                    // Update school table badge if present
+                    const bWrap = document.getElementById('badge-wa-status-wrap-' + s.id);
+                    if (bWrap) {
+                        bWrap.innerHTML = isV 
+                            ? '<span class="badge bg-success text-white py-0 px-1.5" style="font-size: 0.58rem;"><i class="fab fa-whatsapp me-1"></i>واتساب نشط ومؤكد 🟢</span>'
+                            : '<span class="badge bg-danger-subtle text-danger border border-danger-subtle py-0 px-1.5" style="font-size: 0.58rem;"><i class="fas fa-phone-slash me-1"></i>أرضي / غير مفعل 🔴</span>';
+                    }
+                });
+                html += '</tbody></table></div>';
+                list.innerHTML = html;
+
+                showAdminToast(`تم فحص ${total} مدرسة: ${valids} رقم واتساب نشط 🟢`, 'success');
+            } else {
+                txt.innerHTML = 'حدث خطأ: ' + (data.error || 'تعذر استكمال الفحص');
+                bar.className = 'progress-bar bg-danger';
+                showAdminToast('فشل الفحص الجماعي: ' + (data.error || ''), 'danger');
+            }
+        })
+        .catch(err => {
+            btn.disabled = false;
+            btn.innerHTML = oldBtn;
+            txt.innerHTML = 'فشل الاتصال بالخادم المحلي.';
+            bar.className = 'progress-bar bg-danger';
+            showAdminToast('حدث خطأ في الاتصال بالخادم.', 'danger');
+        });
+    }
+
+    // ─── AUTOMATED BATCH CAMPAIGNS JS ──────────────────────────────────
+    let isCampaignRunning = false;
+    let isCampaignPaused = false;
+    let campaignTotalSent = 0;
+
+    function toggleCampaignTemplate() {
+        const wrap = document.getElementById('campaignTemplateWrap');
+        if (wrap) wrap.style.display = wrap.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function startBatchCampaign() {
+        if (!confirm('تنبيه: ستبدأ الآن حملة إرسال رسائل الواتساب الآلية للمدارس غير المراسلة والتي تملك أرقام واتساب مؤكدة.\n\nهل ترغب بالبدء؟')) return;
+
+        isCampaignRunning = true;
+        isCampaignPaused = false;
+        campaignTotalSent = 0;
+
+        document.getElementById('btnStartCampaign').style.display = 'none';
+        document.getElementById('btnPauseCampaign').style.display = 'inline-block';
+        document.getElementById('btnStopCampaign').style.display = 'inline-block';
+
+        const wrap = document.getElementById('campaignProgressWrap');
+        const txt = document.getElementById('campaignStatusText');
+        const badge = document.getElementById('campaignCountBadge');
+        const bar = document.getElementById('campaignProgressBar');
+        const logs = document.getElementById('campaignStreamLogs');
+
+        if (wrap) wrap.style.display = 'block';
+        if (txt) txt.innerHTML = '<i class="fas fa-spinner fa-spin me-1 text-primary"></i> الحملة قيد التنفيذ الآن...';
+        if (bar) bar.style.width = '10%';
+        if (logs) logs.innerHTML = '<div class="text-muted"><i class="fas fa-clock me-1"></i> تم بدء حملة الإرسال المجدول...</div>';
+
+        runCampaignNextBatch();
+    }
+
+    function pauseBatchCampaign() {
+        isCampaignPaused = !isCampaignPaused;
+        const btn = document.getElementById('btnPauseCampaign');
+        const txt = document.getElementById('campaignStatusText');
+        if (isCampaignPaused) {
+            btn.innerHTML = '<i class="fas fa-play me-1"></i> استئناف';
+            btn.className = 'btn btn-outline-success fw-bold px-3 py-2';
+            if (txt) txt.innerHTML = '⏸️ تم إيقاف الحملة مؤقتاً';
+        } else {
+            btn.innerHTML = '<i class="fas fa-pause me-1"></i> إيقاف مؤقت';
+            btn.className = 'btn btn-outline-warning fw-bold px-3 py-2';
+            if (txt) txt.innerHTML = '<i class="fas fa-spinner fa-spin me-1 text-primary"></i> تم استئناف الحملة...';
+            runCampaignNextBatch();
+        }
+    }
+
+    function stopBatchCampaign() {
+        isCampaignRunning = false;
+        isCampaignPaused = false;
+        document.getElementById('btnStartCampaign').style.display = 'inline-block';
+        document.getElementById('btnPauseCampaign').style.display = 'none';
+        document.getElementById('btnStopCampaign').style.display = 'none';
+
+        const txt = document.getElementById('campaignStatusText');
+        if (txt) txt.innerHTML = `⏹️ تم إيقاف الحملة. إجمالي ما تم إرساله: <b>${campaignTotalSent}</b> مدرسة.`;
+        showAdminToast(`تم إيقاف الحملة بعد إرسال ${campaignTotalSent} رسالة.`, 'info');
+    }
+
+    function runCampaignNextBatch() {
+        if (!isCampaignRunning || isCampaignPaused) return;
+
+        const state = document.getElementById('campaignState')?.value || '';
+        const delaySec = parseInt(document.getElementById('campaignDelaySec')?.value || '8', 10);
+        const txt = document.getElementById('campaignStatusText');
+        const badge = document.getElementById('campaignCountBadge');
+        const bar = document.getElementById('campaignProgressBar');
+        const logs = document.getElementById('campaignStreamLogs');
+
+        const fd = new FormData();
+        fd.append('ajax_action', 'run_batch_whatsapp_campaign');
+        fd.append('state', state);
+        fd.append('batch_size', '3'); // دفعات صغيرة ثلاثية مع تأخير
+
+        fetch('admin.php', { method: 'POST', body: fd })
+        .then(r => r.json())
+        .then(data => {
+            if (!isCampaignRunning) return;
+
+            if (data && data.success) {
+                const sentList = data.sent || [];
+                const failedList = data.failed || [];
+                const remaining = data.remaining || 0;
+
+                campaignTotalSent += sentList.length;
+                if (badge) badge.innerText = `${campaignTotalSent} مرسلة (متبقي ${remaining})`;
+
+                sentList.forEach(s => {
+                    if (logs) {
+                        const entry = document.createElement('div');
+                        entry.className = 'text-success py-0.5';
+                        entry.innerHTML = `<i class="fas fa-check-circle me-1"></i> تم الإرسال إلى: <b>${escapeHtml(s.name)}</b> (${s.phone})`;
+                        logs.insertBefore(entry, logs.firstChild);
+                    }
+                    // Update school row if on screen
+                    const row = document.getElementById('row-school-' + s.id);
+                    if (row) {
+                        const togglePill = row.querySelector('.sp-toggle-pill[onclick*="toggle_whatsapp_sent"]');
+                        if (togglePill) {
+                            togglePill.className = 'sp-toggle-pill toggle-on-green is-success-pulse';
+                            togglePill.innerHTML = '<i class="fab fa-whatsapp"></i> <span>تم الإرسال</span>';
+                        }
+                    }
+                });
+
+                failedList.forEach(f => {
+                    if (logs) {
+                        const entry = document.createElement('div');
+                        entry.className = 'text-danger py-0.5';
+                        entry.innerHTML = `<i class="fas fa-times-circle me-1"></i> فشل الإرسال إلى: <b>${escapeHtml(f.name)}</b> (${f.error})`;
+                        logs.insertBefore(entry, logs.firstChild);
+                    }
+                });
+
+                if (sentList.length === 0 && remaining === 0) {
+                    if (txt) txt.innerHTML = '🎉 تم إرسال الرسائل لكافة المدارس المستهدفة بنجاح!';
+                    if (bar) bar.style.width = '100%';
+                    stopBatchCampaign();
+                    return;
+                }
+
+                if (bar) {
+                    const pct = Math.min(95, Math.max(15, Math.round((campaignTotalSent / (campaignTotalSent + remaining)) * 100)));
+                    bar.style.width = pct + '%';
+                }
+
+                if (txt) txt.innerHTML = `جاري انتظار الفاصل الآمن (${delaySec} ثوانٍ) قبل الدفعة القادمة...`;
+
+                setTimeout(() => {
+                    if (isCampaignRunning && !isCampaignPaused) {
+                        runCampaignNextBatch();
+                    }
+                }, delaySec * 1000);
+
+            } else {
+                if (txt) txt.innerHTML = 'توقفت الحملة بسبب خطأ: ' + (data.error || 'غير معروف');
+                stopBatchCampaign();
+            }
+        })
+        .catch(err => {
+            if (txt) txt.innerHTML = 'خطأ اتصال بالخادم أثناء تنفيذ الحملة.';
+            stopBatchCampaign();
+        });
+    }
+
+    // ─── INTERACTIVE BOT SIMULATOR JS ──────────────────────────────────
+    function sendSimPrompt(text) {
+        const inp = document.getElementById('botSimInput');
+        if (inp) {
+            inp.value = text;
+            sendSimMsg();
+        }
+    }
+
+    function sendSimMsg() {
+        const inp = document.getElementById('botSimInput');
+        const box = document.getElementById('botSimChatBox');
+        const btn = document.getElementById('btnBotSimSend');
+        if (!inp || !inp.value.trim() || !box) return;
+
+        const userMsg = inp.value.trim();
+        inp.value = '';
+        if (btn) btn.disabled = true;
+
+        // Render user message bubble (Green WhatsApp style)
+        const userBubble = document.createElement('div');
+        userBubble.className = 'bot-msg-bubble align-self-end p-2.5 rounded-3 shadow-2xs';
+        userBubble.style.background = '#DCF8C6';
+        userBubble.style.maxWidth = '85%';
+        userBubble.style.fontSize = '0.76rem';
+        userBubble.style.lineHeight = '1.5';
+        userBubble.style.borderRadius = '10px 10px 0 10px';
+        userBubble.innerHTML = `${escapeHtml(userMsg)}<div class="text-end text-muted mt-1" style="font-size: 0.62rem;">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} ✓</div>`;
+        box.appendChild(userBubble);
+        box.scrollTop = box.scrollHeight;
+
+        // Typing indicator bubble
+        const typingBubble = document.createElement('div');
+        typingBubble.id = 'botSimTyping';
+        typingBubble.className = 'bot-msg-bubble align-self-start p-2 rounded-3 shadow-2xs small text-muted';
+        typingBubble.style.background = '#FFFFFF';
+        typingBubble.innerHTML = '<i class="fas fa-ellipsis-h fa-beat text-success me-1"></i> جاري إعداد الرد...';
+        box.appendChild(typingBubble);
+        box.scrollTop = box.scrollHeight;
+
+        const fd = new FormData();
+        fd.append('ajax_action', 'simulate_bot_message');
+        fd.append('message', userMsg);
+
+        fetch('admin.php', { method: 'POST', body: fd })
+        .then(r => r.json())
+        .then(data => {
+            if (btn) btn.disabled = false;
+            const t = document.getElementById('botSimTyping');
+            if (t) t.remove();
+
+            if (data && data.success) {
+                const replies = data.replies || [];
+                if (replies.length === 0) {
+                    const fallbackBubble = document.createElement('div');
+                    fallbackBubble.className = 'bot-msg-bubble align-self-start p-2.5 rounded-3 shadow-2xs';
+                    fallbackBubble.style.background = '#FFFFFF';
+                    fallbackBubble.style.maxWidth = '85%';
+                    fallbackBubble.style.fontSize = '0.76rem';
+                    fallbackBubble.style.borderRadius = '10px 10px 10px 0';
+                    fallbackBubble.innerHTML = 'تم استقبال رسالتك وحفظها. <div class="text-muted small mt-1">الخطوة الحالية: ' + (data.step || 'idle') + '</div>';
+                    box.appendChild(fallbackBubble);
+                } else {
+                    replies.forEach(rep => {
+                        const botBubble = document.createElement('div');
+                        botBubble.className = 'bot-msg-bubble align-self-start p-2.5 rounded-3 shadow-2xs';
+                        botBubble.style.background = '#FFFFFF';
+                        botBubble.style.maxWidth = '85%';
+                        botBubble.style.fontSize = '0.76rem';
+                        botBubble.style.lineHeight = '1.5';
+                        botBubble.style.borderRadius = '10px 10px 10px 0';
+                        botBubble.innerHTML = `${escapeHtml(rep.text).replace(/\n/g, '<br>')}<div class="d-flex justify-content-between align-items-center text-muted mt-1" style="font-size: 0.62rem;"><span>${rep.intent ? '#' + rep.intent : ''}</span><span>${rep.time || ''} ✓✓</span></div>`;
+                        box.appendChild(botBubble);
+                    });
+                }
+                box.scrollTop = box.scrollHeight;
+            } else {
+                const errBubble = document.createElement('div');
+                errBubble.className = 'bot-msg-bubble align-self-start p-2.5 rounded-3 text-danger small shadow-2xs';
+                errBubble.style.background = '#FEE2E2';
+                errBubble.innerText = 'خطأ في معالجة البوت: ' + (data.error || 'تعذر المعالجة');
+                box.appendChild(errBubble);
+                box.scrollTop = box.scrollHeight;
+            }
+        })
+        .catch(err => {
+            if (btn) btn.disabled = false;
+            const t = document.getElementById('botSimTyping');
+            if (t) t.remove();
+            showAdminToast('حدث خطأ في محاكاة البوت', 'danger');
+        });
+    }
+
+    function resetBotSimulationChat() {
+        if (!confirm('هل تريد إعادة تعيين محادثة البوت التجريبية وبدء جلسة جديدة؟')) return;
+        const fd = new FormData();
+        fd.append('ajax_action', 'reset_bot_simulation');
+        fetch('admin.php', { method: 'POST', body: fd })
+        .then(r => r.json())
+        .then(data => {
+            showAdminToast(data.message || 'تمت إعادة تعيين محادثة البوت', 'success');
+            const box = document.getElementById('botSimChatBox');
+            if (box) {
+                box.innerHTML = `
+                    <div class="text-center text-muted small my-1" style="font-size: 0.68rem;">
+                        <span class="bg-white px-2 py-1 rounded-pill shadow-2xs">تمت إعادة تعيين الجلسة والبدء من جديد</span>
+                    </div>
+                    <div class="bot-msg-bubble align-self-start p-2.5 rounded-3 shadow-2xs" style="background: #FFFFFF; max-width: 85%; font-size: 0.76rem; line-height: 1.5; border-radius: 10px 10px 10px 0;">
+                        مرحباً بك مجدداً! أنا <b>المساعد الآلي لدليل المدارس السودانية 🤖</b><br>
+                        اكتب أي استفسار أو اختر رقماً من القائمة لتجربة الردود المباشرة.
+                        <div class="text-end text-muted mt-1" style="font-size: 0.62rem;">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} ✓✓</div>
+                    </div>
+                `;
+            }
+        });
+    }
+
+    // ─── CUSTOM SCHOOL WHATSAPP MESSAGE MODAL ─────────────────────────
+    let currentCustomSchoolId = 0;
+    function openCustomSchoolMsg(id, name, phone) {
+        currentCustomSchoolId = id;
+        const modal = document.getElementById('modalCustomSchoolMsg');
+        const title = document.getElementById('customMsgSchoolName');
+        const pInp = document.getElementById('customMsgPhone');
+        const tArea = document.getElementById('customMsgBody');
+        const resBox = document.getElementById('customMsgResultBox');
+
+        if (title) title.innerText = name;
+        if (pInp) pInp.value = phone;
+        if (tArea) tArea.value = `السلام عليكم ورحمة الله وبركاته،\nإدارة مدرسة ${name} الموقرة،\nنود إفادتكم بخصوص دليل المدارس السودانية...`;
+        if (resBox) resBox.style.display = 'none';
+
+        if (modal) modal.style.display = 'block';
+    }
+
+    function closeCustomSchoolMsg() {
+        const modal = document.getElementById('modalCustomSchoolMsg');
+        if (modal) modal.style.display = 'none';
+    }
+
+    function sendCustomSchoolMsg() {
+        const pInp = document.getElementById('customMsgPhone');
+        const tArea = document.getElementById('customMsgBody');
+        const btn = document.getElementById('btnSendCustomMsg');
+        const resBox = document.getElementById('customMsgResultBox');
+
+        if (!pInp || !pInp.value.trim() || !tArea || !tArea.value.trim()) {
+            alert('يرجى التأكد من رقم الهاتف ونص الرسالة');
+            return;
+        }
+
+        btn.disabled = true;
+        const oldHtml = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> جاري الإرسال...';
+
+        const fd = new FormData();
+        fd.append('ajax_action', 'send_direct_whatsapp');
+        fd.append('phone', pInp.value.trim());
+        fd.append('message', tArea.value.trim());
+
+        fetch('admin.php', { method: 'POST', body: fd })
+        .then(r => r.json())
+        .then(data => {
+            btn.disabled = false;
+            btn.innerHTML = oldHtml;
+            if (resBox) {
+                resBox.style.display = 'block';
+                if (data && data.success) {
+                    resBox.className = 'mt-3 p-3 rounded-3 alert alert-success small mb-0';
+                    resBox.innerHTML = '✅ ' + (data.message || 'تم إرسال الرسالة بنجاح عبر خادم الواتساب');
+                    showAdminToast('تم إرسال الرسالة المخصصة بنجاح 📲', 'success');
+                    setTimeout(closeCustomSchoolMsg, 1800);
+                } else {
+                    resBox.className = 'mt-3 p-3 rounded-3 alert alert-danger small mb-0';
+                    resBox.innerHTML = '❌ ' + (data.error || 'فشل إرسال الرسالة');
+                }
+            }
+        })
+        .catch(err => {
+            btn.disabled = false;
+            btn.innerHTML = oldHtml;
+            if (resBox) {
+                resBox.style.display = 'block';
+                resBox.className = 'mt-3 p-3 rounded-3 alert alert-danger small mb-0';
+                resBox.innerHTML = 'خطأ في الاتصال بالخادم.';
+            }
         });
     }
 
@@ -4277,6 +5799,12 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                 b.innerHTML = '⏳ امسح رمز الاستجابة السريعة (QR Code) من تطبيق الواتساب بهاتفك';
                 p.innerHTML = 'واتساب > الأجهزة المرتبطة > ربط جهاز';
                 q.innerHTML = '<img src="' + data.qrcode + '" style="max-width: 210px; border-radius: 8px; border: 2px dashed #CBD5E1; padding: 6px;">';
+            } else if (['PAIRING', 'SYNCING', 'init', 'loading'].includes(data.status)) {
+                b.style.background = '#FEF3C7';
+                b.style.color = '#92400E';
+                b.innerHTML = '⏳ جاري مزامنة جلسة الواتساب مع الهاتف... (' + data.status + ')';
+                p.innerHTML = 'الحالة الحالية: جاري الربط';
+                q.innerHTML = '<div class="py-4 text-center text-warning fw-bold"><i class="fas fa-spinner fa-spin fa-3x mb-2"></i><br>جاري مزامنة الحساب...</div>';
             } else {
                 b.style.background = '#FEE2E2';
                 b.style.color = '#991B1B';
@@ -4362,14 +5890,22 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
         .then(data => {
             btn.disabled = false;
             btn.innerHTML = oldHtml;
+            const bWrap = document.getElementById('badge-wa-status-wrap-' + schoolId);
+
             if (data && data.success) {
                 if (data.exists) {
                     btn.className = 'btn btn-sm btn-success d-inline-flex align-items-center justify-content-center p-0';
                     btn.innerHTML = '<i class="fas fa-check" style="font-size: 0.6rem;"></i>';
+                    if (bWrap) {
+                        bWrap.innerHTML = '<span class="badge bg-success text-white py-0 px-1.5" style="font-size: 0.58rem;"><i class="fab fa-whatsapp me-1"></i>واتساب نشط ومؤكد 🟢</span>';
+                    }
                     showAdminToast('🟢 ' + data.phone + ' مسجل في الواتساب ونشط!', 'success');
                 } else {
                     btn.className = 'btn btn-sm btn-danger d-inline-flex align-items-center justify-content-center p-0';
                     btn.innerHTML = '<i class="fas fa-times" style="font-size: 0.6rem;"></i>';
+                    if (bWrap) {
+                        bWrap.innerHTML = '<span class="badge bg-danger-subtle text-danger border border-danger-subtle py-0 px-1.5" style="font-size: 0.58rem;"><i class="fas fa-phone-slash me-1"></i>أرضي / غير مفعل 🔴</span>';
+                    }
                     showAdminToast('🔴 ' + data.phone + ' ليس لديه حساب واتساب (هاتف أرضي أو غير مفعل)', 'danger');
                 }
             } else {
@@ -4399,11 +5935,18 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
 
     function loadCloudSyncStats() {
         const b = document.getElementById('cloudSyncStatusBadge');
+        const hubBadge = document.getElementById('syncHubStatusBadge');
         if (b) {
             b.className = 'p-3 rounded-3 text-center mb-3 fw-bold';
             b.style.background = '#F1F5F9';
             b.style.color = '#334155';
             b.innerHTML = '<i class="fas fa-spinner fa-spin me-1.5 text-primary"></i> جاري فحص حالة المزامنة ومطابقة السجلات مع السحابة...';
+        }
+        if (hubBadge) {
+            hubBadge.className = 'p-3 rounded-3 text-center mb-4 fw-bold';
+            hubBadge.style.background = '#F1F5F9';
+            hubBadge.style.color = '#334155';
+            hubBadge.innerHTML = '<i class="fas fa-spinner fa-spin me-1.5 text-primary"></i> جاري استعلام السحابة ومطابقة السجلات...';
         }
 
         const fd = new FormData();
@@ -4416,27 +5959,57 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                 const loc = data.local || {};
                 const cld = data.cloud || {};
 
-                document.getElementById('syncLocalCount').innerText = Number(loc.total_schools || 0).toLocaleString();
-                document.getElementById('syncLocalWaSent').innerText = Number(loc.whatsapp_sent_count || 0).toLocaleString();
-                document.getElementById('syncCloudCount').innerText = (cld.total_schools !== undefined) ? Number(cld.total_schools).toLocaleString() : 'غير متاح';
-                document.getElementById('syncCloudWaSent').innerText = (cld.whatsapp_sent_count !== undefined) ? Number(cld.whatsapp_sent_count).toLocaleString() : '0';
+                const localCountEl = document.getElementById('syncLocalCount');
+                if (localCountEl) localCountEl.innerText = Number(loc.total_schools || 0).toLocaleString();
+                const localWaSentEl = document.getElementById('syncLocalWaSent');
+                if (localWaSentEl) localWaSentEl.innerText = Number(loc.whatsapp_sent_count || 0).toLocaleString();
+
+                const hubLocalCountEl = document.getElementById('syncHubLocalCount');
+                if (hubLocalCountEl) hubLocalCountEl.innerText = Number(loc.total_schools || 0).toLocaleString();
+                const hubLocalWaSentEl = document.getElementById('syncHubLocalWaSent');
+                if (hubLocalWaSentEl) hubLocalWaSentEl.innerText = Number(loc.whatsapp_sent_count || 0).toLocaleString();
+
+                const cloudTotal = (cld.total_schools !== undefined) ? Number(cld.total_schools).toLocaleString() : 'غير متاح';
+                const cloudWa = (cld.whatsapp_sent_count !== undefined) ? Number(cld.whatsapp_sent_count).toLocaleString() : '0';
+
+                const cloudCountEl = document.getElementById('syncCloudCount');
+                if (cloudCountEl) cloudCountEl.innerText = cloudTotal;
+                const cloudWaSentEl = document.getElementById('syncCloudWaSent');
+                if (cloudWaSentEl) cloudWaSentEl.innerText = cloudWa;
+
+                const hubCloudCountEl = document.getElementById('syncHubCloudCount');
+                if (hubCloudCountEl) hubCloudCountEl.innerText = cloudTotal;
+                const hubCloudWaSentEl = document.getElementById('syncHubCloudWaSent');
+                if (hubCloudWaSentEl) hubCloudWaSentEl.innerText = cloudWa;
+                const hubCloudVerEl = document.getElementById('syncHubCloudVer');
+                if (hubCloudVerEl) hubCloudVerEl.innerText = 'v' + (cld.version || '3.8.32');
+
+                const statusHtml = (cld.success !== false)
+                    ? `✅ متصل بنقطة نهاية السحابة (daleel.schoplus.sd) — الإصدار: v${cld.version || '3.8.32'}`
+                    : `⚠️ تعذر الاتصال بنقطة نهاية السحابة: ${escapeHtml(cld.error || '')}`;
+                const bg = (cld.success !== false) ? '#DCFCE7' : '#FEF3C7';
+                const color = (cld.success !== false) ? '#166534' : '#92400E';
 
                 if (b) {
-                    if (cld.success !== false) {
-                        b.style.background = '#DCFCE7';
-                        b.style.color = '#166534';
-                        b.innerHTML = `✅ متصل بالسحابة (daleel.schoplus.sd) — الإصدار: v${cld.version || '3.8.32'}`;
-                    } else {
-                        b.style.background = '#FEF3C7';
-                        b.style.color = '#92400E';
-                        b.innerHTML = `⚠️ تعذر الاتصال بنقطة نهاية السحابة: ${escapeHtml(cld.error || '')}`;
-                    }
+                    b.style.background = bg;
+                    b.style.color = color;
+                    b.innerHTML = statusHtml;
+                }
+                if (hubBadge) {
+                    hubBadge.style.background = bg;
+                    hubBadge.style.color = color;
+                    hubBadge.innerHTML = statusHtml;
                 }
             } else {
                 if (b) {
                     b.style.background = '#FEE2E2';
                     b.style.color = '#991B1B';
                     b.innerHTML = '❌ فشل جلب إحصائيات المزامنة.';
+                }
+                if (hubBadge) {
+                    hubBadge.style.background = '#FEE2E2';
+                    hubBadge.style.color = '#991B1B';
+                    hubBadge.innerHTML = '❌ فشل جلب إحصائيات المزامنة.';
                 }
             }
         })
@@ -4445,6 +6018,11 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
                 b.style.background = '#FEE2E2';
                 b.style.color = '#991B1B';
                 b.innerHTML = '❌ خطأ أثناء الاتصال بالخادم المحلي.';
+            }
+            if (hubBadge) {
+                hubBadge.style.background = '#FEE2E2';
+                hubBadge.style.color = '#991B1B';
+                hubBadge.innerHTML = '❌ خطأ أثناء الاتصال بالخادم المحلي.';
             }
         });
     }
@@ -4552,11 +6130,122 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
         });
     }
 
-    // بدء فحص دوري لحالة سيرفر الواتساب كل 8 ثوان
+    // ─── INQUIRIES & REVIEWS MANAGEMENT (CLOUD CRM) ───────────────
+    function updateInquiryStatus(inqId, newStatus) {
+        const fd = new FormData();
+        fd.append('ajax_action', 'update_inquiry_status');
+        fd.append('id', inqId);
+        fd.append('status', newStatus);
+
+        fetch('admin.php', { method: 'POST', body: fd })
+        .then(r => r.json())
+        .then(data => {
+            if (data && data.success) {
+                showAdminToast('تم تحديث حالة الاستفسار بنجاح ✅', 'success');
+            } else {
+                showAdminToast('فشل التحديث: ' + (data.error || ''), 'danger');
+            }
+        })
+        .catch(err => {
+            showAdminToast('حدث خطأ أثناء التحديث.', 'danger');
+        });
+    }
+
+    function deleteInquiry(inqId) {
+        if (!confirm('هل أنت متأكد من حذف هذا الاستفسار نهائياً؟')) return;
+        const fd = new FormData();
+        fd.append('ajax_action', 'delete_inquiry');
+        fd.append('id', inqId);
+
+        fetch('admin.php', { method: 'POST', body: fd })
+        .then(r => r.json())
+        .then(data => {
+            if (data && data.success) {
+                const row = document.getElementById('inquiry-row-' + inqId);
+                if (row) row.remove();
+                showAdminToast('تم حذف الاستفسار بنجاح 🗑️', 'warning');
+            } else {
+                showAdminToast('فشل الحذف: ' + (data.error || ''), 'danger');
+            }
+        })
+        .catch(err => {
+            showAdminToast('حدث خطأ في الاتصال.', 'danger');
+        });
+    }
+
+    function toggleReviewApproval(revId, newVal, el) {
+        if (el.classList.contains('is-loading')) return;
+        const prevHtml = el.innerHTML;
+        const prevClass = el.className;
+        el.classList.add('is-loading');
+        el.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>جاري...</span>';
+
+        const fd = new FormData();
+        fd.append('ajax_action', 'toggle_review_approval');
+        fd.append('id', revId);
+        fd.append('is_approved', newVal);
+
+        fetch('admin.php', { method: 'POST', body: fd })
+        .then(r => r.json())
+        .then(data => {
+            el.classList.remove('is-loading');
+            if (data && data.success) {
+                if (newVal === 1) {
+                    el.className = 'sp-toggle-pill toggle-on-green is-success-pulse';
+                    el.innerHTML = '<i class="fas fa-check-circle"></i> <span>منشور ومعتمد</span>';
+                    el.setAttribute('onclick', `toggleReviewApproval(${revId}, 0, this)`);
+                    showAdminToast('تم اعتماد ونشر التقييم بنجاح ⭐', 'success');
+                } else {
+                    el.className = 'sp-toggle-pill toggle-off-gray is-success-pulse';
+                    el.innerHTML = '<i class="fas fa-eye-slash"></i> <span>قيد المراجعة / مخفي</span>';
+                    el.setAttribute('onclick', `toggleReviewApproval(${revId}, 1, this)`);
+                    showAdminToast('تم إخفاء التقييم ℹ️', 'warning');
+                }
+                setTimeout(() => el.classList.remove('is-success-pulse'), 1200);
+            } else {
+                el.className = prevClass;
+                el.innerHTML = prevHtml;
+                showAdminToast('فشل التعديل: ' + (data.error || ''), 'danger');
+            }
+        })
+        .catch(err => {
+            el.classList.remove('is-loading');
+            el.className = prevClass;
+            el.innerHTML = prevHtml;
+            showAdminToast('حدث خطأ في الاتصال.', 'danger');
+        });
+    }
+
+    function deleteReview(revId) {
+        if (!confirm('هل أنت متأكد من حذف هذا التقييم نهائياً؟')) return;
+        const fd = new FormData();
+        fd.append('ajax_action', 'delete_review');
+        fd.append('id', revId);
+
+        fetch('admin.php', { method: 'POST', body: fd })
+        .then(r => r.json())
+        .then(data => {
+            if (data && data.success) {
+                const row = document.getElementById('review-row-' + revId);
+                if (row) row.remove();
+                showAdminToast('تم حذف التقييم بنجاح 🗑️', 'warning');
+            } else {
+                showAdminToast('فشل الحذف: ' + (data.error || ''), 'danger');
+            }
+        })
+        .catch(err => {
+            showAdminToast('حدث خطأ في الاتصال.', 'danger');
+        });
+    }
+
+    <?php if ($isLocalStation): ?>
+    // بدء فحص دوري لحالة سيرفر الواتساب كل 8 ثوان في المحطة المحلية فقط
     setInterval(updateWaWidgetStatus, 8000);
     setTimeout(updateWaWidgetStatus, 1000);
+    <?php endif; ?>
     </script>
 
+    <?php if ($isLocalStation): ?>
     <!-- MODAL: WHATSAPP SERVER & QR DASHBOARD -->
     <div class="modal fade show" id="modalWaGateway" tabindex="-1" aria-hidden="true" style="display: none; background: rgba(0,0,0,0.65); z-index: 99999;">
         <div class="modal-dialog modal-dialog-centered" style="max-width: 580px;">
@@ -4701,5 +6390,40 @@ $adConfig = is_string($rawAdConfig) ? json_decode($rawAdConfig, true) : ($rawAdC
             </div>
         </div>
     </div>
+
+    <!-- MODAL: CUSTOM SCHOOL WHATSAPP MESSAGE -->
+    <div class="modal fade show" id="modalCustomSchoolMsg" tabindex="-1" aria-hidden="true" style="display: none; background: rgba(0,0,0,0.65); z-index: 99999;">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 540px;">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 16px; overflow: hidden;">
+                <div class="modal-header text-white" style="background: linear-gradient(135deg, #0F5C3E, #166534); padding: 16px 22px;">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="fab fa-whatsapp fs-5 text-warning"></i>
+                        <div>
+                            <h6 class="modal-title fw-bold mb-0" id="customMsgSchoolName" style="font-size: 0.95rem;">مراسلة المدرسة</h6>
+                            <div class="small opacity-75" style="font-size: 0.68rem;">إرسال رسالة مخصصة مباشرة عبر خادم الواتساب المستقل</div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" onclick="closeCustomSchoolMsg()"></button>
+                </div>
+                <div class="modal-body p-4" style="background: #F8FAFC;">
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted mb-1" style="font-size: 0.74rem;">رقم هاتف المستلم (واتساب):</label>
+                        <input type="text" id="customMsgPhone" class="form-control form-control-sm dir-ltr fw-bold" style="font-size: 0.8rem; font-family: monospace;">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted mb-1" style="font-size: 0.74rem;">نص الرسالة المخصصة:</label>
+                        <textarea id="customMsgBody" class="form-control form-control-sm" rows="5" style="font-size: 0.78rem; line-height: 1.5;"></textarea>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button type="button" id="btnSendCustomMsg" class="btn btn-success fw-bold px-4 py-2 w-100" onclick="sendCustomSchoolMsg()" style="font-size: 0.8rem; border-radius: 8px;">
+                            <i class="fab fa-whatsapp me-1"></i> إرسال الرسالة الآن 📲
+                        </button>
+                    </div>
+                    <div id="customMsgResultBox" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
 </body>
 </html>

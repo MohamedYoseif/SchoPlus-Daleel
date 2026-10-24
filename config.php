@@ -903,6 +903,8 @@ function ensureTablesExist(PDO $pdo): void {
             'historic_badge_reason'  => "ALTER TABLE daleel_schools ADD COLUMN historic_badge_reason VARCHAR(255) NULL AFTER historic_votes",
             'whatsapp_sent'          => "ALTER TABLE daleel_schools ADD COLUMN whatsapp_sent TINYINT(1) NOT NULL DEFAULT 0 AFTER whatsapp",
             'whatsapp_sent_at'       => "ALTER TABLE daleel_schools ADD COLUMN whatsapp_sent_at TIMESTAMP NULL DEFAULT NULL AFTER whatsapp_sent",
+            'whatsapp_status'        => "ALTER TABLE daleel_schools ADD COLUMN whatsapp_status VARCHAR(50) NULL DEFAULT 'unverified' AFTER whatsapp_sent_at",
+            'whatsapp_checked_at'    => "ALTER TABLE daleel_schools ADD COLUMN whatsapp_checked_at TIMESTAMP NULL DEFAULT NULL AFTER whatsapp_status",
             'source_url'             => "ALTER TABLE daleel_schools ADD COLUMN source_url VARCHAR(500) NULL AFTER website",
             'source_type'            => "ALTER TABLE daleel_schools ADD COLUMN source_type VARCHAR(50) NULL DEFAULT 'web' AFTER source_url",
         ];
