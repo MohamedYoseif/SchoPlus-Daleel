@@ -2452,16 +2452,16 @@ try {
                                         <!-- 5. MANAGE SCHOOL (PROMINENT BUTTON) -->
                                         <td class="text-center pe-3">
                                             <div class="d-flex flex-column align-items-center justify-content-center gap-1">
-                                                <button type="button" class="btn btn-sm btn-primary fw-bold d-inline-flex align-items-center justify-content-center gap-1 px-3 py-1.5 w-100 shadow-sm" style="font-size: 0.74rem; border-radius: 8px; background: #0B2A52; border-color: #0B2A52;" onclick="openSchoolManager(<?= $sch['id'] ?>)" title="فتح صفحة ولوحة إدارة المدرسة بكافة تفاصيلها">
-                                                    <i class="fas fa-sliders-h"></i> <span>إدارة المدرسة</span>
-                                                </button>
+                                                <a href="dashboard.php?admin_manage_school=<?= $sch['id'] ?>" target="_blank" class="btn btn-sm btn-primary fw-bold d-inline-flex align-items-center justify-content-center gap-1.5 px-3 py-1.5 w-100 shadow-sm" style="font-size: 0.76rem; border-radius: 8px; background: #0B2A52; border-color: #0B2A52;" title="فتح صفحة لوحة إدارة المدرسة الكاملة">
+                                                    <i class="fas fa-tachometer-alt"></i> <span>لوحة الإدارة</span> <i class="fas fa-external-link-alt ms-1" style="font-size: 0.65rem;"></i>
+                                                </a>
                                                 <div class="d-flex align-items-center justify-content-center gap-1 mt-1 w-100">
-                                                    <a href="/school/<?= urlencode($sch['slug']) ?>" target="_blank" class="act-btn flex-grow-1 text-center" title="معاينة الصفحة العامة">
-                                                        <i class="fas fa-external-link-alt"></i>
+                                                    <a href="/school/<?= urlencode($sch['slug']) ?>" target="_blank" class="act-btn flex-grow-1 text-center" title="معاينة الصفحة العامة بالدليل">
+                                                        <i class="fas fa-eye"></i>
                                                     </a>
-                                                    <a href="dashboard.php?admin_manage_school=<?= $sch['id'] ?>" target="_blank" class="act-btn flex-grow-1 text-center" title="دخول لوحة تحكم المدرسة كمدير" style="color: #F5A020;">
-                                                        <i class="fas fa-tachometer-alt"></i>
-                                                    </a>
+                                                    <button type="button" class="act-btn flex-grow-1 text-center" onclick="openSchoolManager(<?= $sch['id'] ?>)" title="تعديل سريع للشارات والترتيب">
+                                                        <i class="fas fa-sliders-h"></i>
+                                                    </button>
                                                     <button type="button" class="act-btn danger flex-grow-1 text-center" onclick="deleteSchool(<?= $sch['id'] ?>, '<?= e(addslashes($sch['name'])) ?>')" title="حذف المدرسة">
                                                         <i class="fas fa-trash-alt"></i>
                                                     </button>
