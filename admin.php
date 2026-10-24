@@ -900,6 +900,7 @@ if ($action !== null) {
             @ini_set('memory_limit', '512M');
 
             $scopeState = trim($_POST['state'] ?? '');
+            $scopeLocality = trim($_POST['locality'] ?? ($_POST['city'] ?? ''));
             $scopeType = trim($_POST['school_type'] ?? 'all');
             $targetCount = (int)($_POST['target_count'] ?? 20);
             $schoolName = trim($_POST['school_name'] ?? '');
@@ -911,7 +912,9 @@ if ($action !== null) {
                 $targetCount,
                 $scopeType,
                 !empty($schoolName) ? $schoolName : null,
-                $autoRegister
+                $autoRegister,
+                $logs,
+                !empty($scopeLocality) ? $scopeLocality : null
             );
 
             echo json_encode($result, JSON_UNESCAPED_UNICODE);
@@ -3416,27 +3419,27 @@ try {
                                         <label class="form-label small fw-bold text-dark mb-1">
                                             <i class="fas fa-map-marker-alt text-danger me-1"></i> الولاية المستهدفة:
                                         </label>
-                                        <select id="workerState" class="form-select form-select-sm" style="font-size: 0.8rem; border-color: #CBD5E1; padding: 8px 12px;">
+                                        <select id="workerState" onchange="onWorkerStateChange()" class="form-select form-select-sm" style="font-size: 0.8rem; border-color: #CBD5E1; padding: 8px 12px;">
                                             <option value="">🌐 كافة ولايات السودان (مسح قومي شامل)</option>
                                             <optgroup label="الولايات (18 ولاية)">
-                                                <option value="الخرطوم">ولاية الخرطوم</option>
-                                                <option value="الجزيرة">ولاية الجزيرة</option>
-                                                <option value="البحر الأحمر">ولاية البحر الأحمر</option>
-                                                <option value="نهر النيل">ولاية نهر النيل</option>
-                                                <option value="الشمالية">الولاية الشمالية</option>
-                                                <option value="النيل الأبيض">ولاية النيل الأبيض</option>
-                                                <option value="سنار">ولاية سنار</option>
-                                                <option value="القضارف">ولاية القضارف</option>
-                                                <option value="كسلا">ولاية كسلا</option>
-                                                <option value="شمال كردفان">ولاية شمال كردفان</option>
-                                                <option value="جنوب كردفان">ولاية جنوب كردفان</option>
-                                                <option value="غرب كردفان">ولاية غرب كردفان</option>
-                                                <option value="شمال دارفور">ولاية شمال دارفور</option>
-                                                <option value="جنوب دارفور">ولاية جنوب دارفور</option>
-                                                <option value="غرب دارفور">ولاية غرب دارفور</option>
-                                                <option value="وسط دارفور">ولاية وسط دارفور</option>
-                                                <option value="شرق دارفور">ولاية شرق دارفور</option>
-                                                <option value="النيل الأزرق">ولاية النيل الأزرق</option>
+                                                <option value="الخرطوم">ولاية الخرطوم (7 محليات رسمية)</option>
+                                                <option value="الجزيرة">ولاية الجزيرة (7 محليات)</option>
+                                                <option value="البحر الأحمر">ولاية البحر الأحمر (5 محليات)</option>
+                                                <option value="نهر النيل">ولاية نهر النيل (6 محليات)</option>
+                                                <option value="الشمالية">الولاية الشمالية (5 محليات)</option>
+                                                <option value="النيل الأبيض">ولاية النيل الأبيض (6 محليات)</option>
+                                                <option value="سنار">ولاية سنار (6 محليات)</option>
+                                                <option value="القضارف">ولاية القضارف (6 محليات)</option>
+                                                <option value="كسلا">ولاية كسلا (5 محليات)</option>
+                                                <option value="شمال كردفان">ولاية شمال كردفان (5 محليات)</option>
+                                                <option value="جنوب كردفان">ولاية جنوب كردفان (5 محليات)</option>
+                                                <option value="غرب كردفان">ولاية غرب كردفان (4 محليات)</option>
+                                                <option value="شمال دارفور">ولاية شمال دارفور (4 محليات)</option>
+                                                <option value="جنوب دارفور">ولاية جنوب دارفور (4 محليات)</option>
+                                                <option value="غرب دارفور">ولاية غرب دارفور (4 محليات)</option>
+                                                <option value="وسط دارفور">ولاية وسط دارفور (4 محليات)</option>
+                                                <option value="شرق دارفور">ولاية شرق دارفور (4 محليات)</option>
+                                                <option value="النيل الأزرق">ولاية النيل الأزرق (5 محليات)</option>
                                             </optgroup>
                                             <optgroup label="خارج السودان">
                                                 <option value="دول المهجر">دول المهجر والشتات (المدارس بالخارج)</option>
@@ -3444,16 +3447,27 @@ try {
                                         </select>
                                     </div>
 
-                                    <!-- 2. Institution Type -->
+                                    <!-- 1.b Locality / City Selector -->
                                     <div class="col-lg-3 col-sm-6 col-12">
+                                        <label class="form-label small fw-bold text-dark mb-1 d-flex justify-content-between">
+                                            <span><i class="fas fa-city text-info me-1"></i> المحلية / المدينة:</span>
+                                            <span class="badge bg-light text-muted border py-0 px-1" style="font-size: 0.64rem;">تدقيق محلي</span>
+                                        </label>
+                                        <select id="workerLocality" class="form-select form-select-sm" style="font-size: 0.8rem; border-color: #CBD5E1; padding: 8px 12px;">
+                                            <option value="">🌐 كافة المحليات بالولاية (مسح شامل)</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- 2. Institution Type -->
+                                    <div class="col-lg-2 col-sm-6 col-12">
                                         <label class="form-label small fw-bold text-dark mb-1">
                                             <i class="fas fa-shapes text-primary me-1"></i> تصنيف المؤسسات:
                                         </label>
                                         <select id="workerSchoolType" class="form-select form-select-sm" style="font-size: 0.8rem; border-color: #CBD5E1; padding: 8px 12px;">
-                                            <option value="all">كافة المؤسسات (شامل ومتنوع)</option>
-                                            <option value="kindergarten">رياض الأطفال والحضانات (Early Childhood)</option>
-                                            <option value="private">المدارس الخاصة والدولية (Private Schools)</option>
-                                            <option value="government">المدارس الحكومية القومية (Public Schools)</option>
+                                            <option value="all">كافة المؤسسات</option>
+                                            <option value="kindergarten">رياض الأطفال والحضانات</option>
+                                            <option value="private">المدارس الخاصة والدولية</option>
+                                            <option value="government">المدارس الحكومية</option>
                                         </select>
                                     </div>
 
@@ -3471,12 +3485,12 @@ try {
                                     </div>
 
                                     <!-- 4. Optional School Name Query -->
-                                    <div class="col-lg-4 col-sm-6 col-12">
+                                    <div class="col-lg-2 col-sm-6 col-12">
                                         <label class="form-label small fw-bold text-dark mb-1 d-flex justify-content-between">
-                                            <span><i class="fas fa-search text-muted me-1"></i> اسم مدرسة محددة:</span>
-                                            <span class="text-muted fw-normal" style="font-size: 0.68rem;">(اختياري — فارغ للمسح الشامل)</span>
+                                            <span><i class="fas fa-search text-muted me-1"></i> اسم مدرسة:</span>
+                                            <span class="text-muted fw-normal" style="font-size: 0.65rem;">(اختياري)</span>
                                         </label>
-                                        <input type="text" id="workerSchoolName" class="form-control form-control-sm" placeholder="فارغ لمسح واستكشاف الولاية بالكامل..." style="font-size: 0.8rem; border-color: #CBD5E1; padding: 8px 12px;" onkeydown="if(event.key==='Enter') runAutonomousWorker();">
+                                        <input type="text" id="workerSchoolName" class="form-control form-control-sm" placeholder="فارغ للكل..." style="font-size: 0.8rem; border-color: #CBD5E1; padding: 8px 12px;" onkeydown="if(event.key==='Enter') runAutonomousWorker();">
                                     </div>
 
                                     <!-- 5. Options and Action Button Row -->
@@ -4741,8 +4755,48 @@ try {
     let currentWorkerActiveFilter = 'all';
     let currentWorkerLastResultData = {};
 
+    const sudanLocalitiesMap = <?= json_encode(SudanGeography::statesWithCities('السودان'), JSON_UNESCAPED_UNICODE) ?>;
+
+    function onWorkerStateChange() {
+        const st = document.getElementById('workerState').value.trim();
+        const locSelect = document.getElementById('workerLocality');
+        if (!locSelect) return;
+
+        locSelect.innerHTML = '';
+        if (!st || st === 'دول المهجر') {
+            locSelect.innerHTML = '<option value="">🌐 كافة المحليات والمدن (مسح شامل)</option>';
+            return;
+        }
+
+        const cities = sudanLocalitiesMap[st] || [];
+        let opts = `<option value="">🌐 كافة محليات ولاية ${escapeHtml(st)} (${cities.length} محليات)</option>`;
+
+        cities.forEach(c => {
+            let details = '';
+            if (st === 'الخرطوم') {
+                if (c === 'الخرطوم') details = ' (وسط الخرطوم، العمارات، الرياض، المعمورة)';
+                else if (c === 'أم درمان') details = ' (الملازمين، العباسية، ود نوباوي، المهندسين)';
+                else if (c === 'بحري') details = ' (بحري وسط، الصافية، الشعبية، كافوري)';
+                else if (c === 'شرق النيل') details = ' (حلة كوكو، الفيحاء، الردمية، الوادي الأخضر)';
+                else if (c === 'كرري') details = ' (الثورات 1-100، الواحة، الفتح)';
+                else if (c === 'أم بدة') details = ' (الحارات، دار السلام، البقعة)';
+                else if (c === 'جبل أولياء') details = ' (الكلاكلات، الأزهري، السلمة)';
+            }
+            opts += `<option value="${escapeHtml(c)}">📍 محلية ${escapeHtml(c)}${details}</option>`;
+        });
+
+        locSelect.innerHTML = opts;
+    }
+
+    function toggleCardMapPin(idx) {
+        const box = document.getElementById('card-map-embed-' + idx);
+        if (!box) return;
+        box.style.display = (box.style.display === 'none') ? 'block' : 'none';
+    }
+
     function runAutonomousWorker() {
         const st = document.getElementById('workerState').value.trim();
+        const loc = document.getElementById('workerLocality') ? document.getElementById('workerLocality').value.trim() : '';
         const typ = document.getElementById('workerSchoolType').value.trim();
         const cnt = document.getElementById('workerTargetCount').value.trim();
         const nameQ = document.getElementById('workerSchoolName').value.trim();
@@ -4755,14 +4809,15 @@ try {
         btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1.5 text-warning"></i> جاري استكشاف وجلب المدارس للمعاينة...';
 
         container.style.display = 'block';
+        const locLabel = loc ? ` — محلية (${escapeHtml(loc)})` : '';
         container.innerHTML = `
             <div class="card border-0 shadow-sm rounded-3 p-4 text-center bg-white" style="border: 1px solid #DDE4ED !important;">
                 <div class="spinner-border text-primary mb-3" role="status" style="width: 2.4rem; height: 2.4rem;"></div>
                 <h6 class="fw-bold text-dark mb-1" style="font-size: 0.96rem;">
-                    جاري جلب واستكشاف المدارس في خرائط جوجل ${st ? 'لولاية (' + escapeHtml(st) + ')' : 'لكافة الولايات'}...
+                    جاري جلب واستكشاف المدارس في خرائط جوجل ${st ? 'لولاية (' + escapeHtml(st) + ')' + locLabel : 'لكافة الولايات'}...
                 </h6>
                 <div class="text-muted small" style="font-size: 0.74rem;">
-                    يتم استخراج البيانات الميدانية وروابط الخرائط وإعدادها في قائمة المعاينة المؤقتة لمراجعتها يدوياً قبل الحفظ...
+                    يتم استخراج البيانات الميدانية والتحقق من الـ PIN والخرائط وإعدادها في قائمة المعاينة لمراجعتها يدوياً قبل الحفظ...
                 </div>
             </div>
         `;
@@ -4770,6 +4825,7 @@ try {
         const fd = new FormData();
         fd.append('ajax_action', 'run_autonomous_maps_worker');
         fd.append('state', st);
+        fd.append('locality', loc);
         fd.append('school_type', typ);
         fd.append('target_count', cnt);
         fd.append('school_name', nameQ);
@@ -5081,30 +5137,41 @@ try {
                         <!-- Geography & Contact -->
                         <div class="p-2 rounded-2 mb-2" style="background: #F8FAFC; border: 1px solid #F1F5F9; font-size: 0.72rem;">
                             <div class="d-flex flex-wrap justify-content-between align-items-center gap-1 mb-1">
-                                <span class="text-dark"><i class="fas fa-map-marker-alt text-danger me-1"></i> ${escapeHtml(s.state)} — ${escapeHtml(s.city)} (${escapeHtml(s.district || s.city)})</span>
+                                <span class="text-dark fw-bold"><i class="fas fa-map-marker-alt text-danger me-1"></i> ${escapeHtml(s.state)} — ${escapeHtml(s.city)} (${escapeHtml(s.district || s.city)})</span>
+                                <span class="badge bg-danger-subtle text-danger border border-danger-subtle" title="تم التحقق من وجود دبوس جغرافي في خرائط جوجل"><i class="fas fa-map-pin me-1"></i> PIN خرائط جوجل 📍</span>
+                            </div>
+                            <div class="d-flex flex-wrap justify-content-between align-items-center gap-1">
+                                <div class="text-muted small text-truncate" title="${escapeHtml(s.address || '')}">
+                                    <i class="fas fa-location-arrow text-primary me-1"></i> ${escapeHtml(s.address || s.city)}
+                                </div>
                                 ${s.phone ? `
                                     <span class="badge bg-success-subtle text-success border border-success-subtle"><i class="fas fa-phone-alt me-1"></i> ${escapeHtml(s.phone)}</span>
                                 ` : `
-                                    <span class="badge bg-light text-muted border"><i class="fas fa-map-marked-alt text-success me-1"></i> موثقة جغرافياً</span>
+                                    <span class="badge bg-light text-muted border"><i class="fas fa-phone-slash me-1"></i> بدون هاتف</span>
                                 `}
-                            </div>
-                            <div class="text-muted small text-truncate" title="${escapeHtml(s.address || '')}">
-                                <i class="fas fa-location-arrow text-primary me-1"></i> ${escapeHtml(s.address || s.city)}
                             </div>
                         </div>
 
-                        <!-- Platform Links Toolbar -->
-                        <div class="d-flex flex-wrap gap-1 mb-2">
+                        <!-- Platform Links & PIN Verification Toolbar -->
+                        <div class="d-flex flex-wrap align-items-center gap-1 mb-2">
                             ${s.google_map_url ? `
-                                <a href="${s.google_map_url}" target="_blank" class="btn btn-sm btn-light border py-0.5 px-2 text-success fw-bold d-flex align-items-center gap-1" style="font-size: 0.66rem;" title="فتح في خرائط جوجل">
-                                    <i class="fas fa-map-marked-alt"></i> خرائط جوجل ↗
+                                <a href="${s.google_map_url}" target="_blank" class="btn btn-sm btn-light border py-1 px-2.5 text-danger fw-bold d-inline-flex align-items-center gap-1" style="font-size: 0.68rem;" title="فتح الدبوس في تطبيق خرائط جوجل">
+                                    <i class="fas fa-map-pin text-danger"></i> فتح الـ PIN بالخرائط ↗
                                 </a>
+                                <button type="button" class="btn btn-sm btn-light border py-1 px-2 text-primary fw-bold d-inline-flex align-items-center gap-1" style="font-size: 0.68rem;" onclick="toggleCardMapPin(${idx})" title="معاينة موقع الدبوس على الخريطة التفاعلية مباشرة">
+                                    <i class="fas fa-eye text-primary"></i> 🗺️ معاينة الخريطة
+                                </button>
                             ` : ''}
                             ${s.facebook_url ? `
-                                <a href="${s.facebook_url}" target="_blank" class="btn btn-sm btn-light border py-0.5 px-2 text-primary fw-bold d-flex align-items-center gap-1" style="font-size: 0.66rem;" title="بحث فيسبوك">
+                                <a href="${s.facebook_url}" target="_blank" class="btn btn-sm btn-light border py-1 px-2 text-primary fw-bold d-inline-flex align-items-center gap-1" style="font-size: 0.68rem;" title="بحث فيسبوك">
                                     <i class="fab fa-facebook"></i> فيسبوك ↗
                                 </a>
                             ` : ''}
+                        </div>
+
+                        <!-- Embedded Interactive Map PIN Preview (Collapsible) -->
+                        <div id="card-map-embed-${idx}" class="mb-2 rounded-2 overflow-hidden border shadow-2xs" style="display: none; height: 170px; background: #E2E8F0;">
+                            <iframe src="${s.embed_map_url || ('https://maps.google.com/maps?q=' + encodeURIComponent(s.name + ' ' + (s.district || s.city) + ' ' + s.state + ' السودان') + '&t=&z=15&ie=UTF8&iwloc=&output=embed')}" width="100%" height="170" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                         </div>
 
                         <!-- Description Synopsis -->

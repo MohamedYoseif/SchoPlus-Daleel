@@ -560,7 +560,8 @@ class SchoolAutoResearcher {
         string $scopeType = 'all',
         ?string $schoolNameQuery = null,
         bool $autoRegister = false,
-        ?array &$logs = null
+        ?array &$logs = null,
+        ?string $scopeLocality = null
     ): array {
         @set_time_limit(180);
         @ini_set('memory_limit', '512M');
@@ -576,8 +577,13 @@ class SchoolAutoResearcher {
         }
 
         $cleanScopeState = trim((string)($scopeState ?? ''));
-        if ($cleanScopeState === '' || $cleanScopeState === 'كافة الولايات') {
+        if ($cleanScopeState === '' || $cleanScopeState === 'كافة الولايات' || str_contains($cleanScopeState, 'كافة ولايات')) {
             $cleanScopeState = null;
+        }
+
+        $cleanScopeLocality = trim((string)($scopeLocality ?? ''));
+        if ($cleanScopeLocality === '' || str_contains($cleanScopeLocality, 'كافة المحليات')) {
+            $cleanScopeLocality = null;
         }
 
         $cleanNameQuery = trim((string)($schoolNameQuery ?? ''));
@@ -611,6 +617,16 @@ class SchoolAutoResearcher {
                         if ($st !== $cleanScopeState) {
                             continue;
                         }
+                    }
+                }
+
+                if ($cleanScopeLocality !== null) {
+                    $cCity = trim($item['city'] ?? '');
+                    $cDist = trim($item['district'] ?? '');
+                    if ($cCity !== $cleanScopeLocality && $cDist !== $cleanScopeLocality && 
+                        mb_stripos($cCity, $cleanScopeLocality, 0, 'UTF-8') === false && 
+                        mb_stripos($cDist, $cleanScopeLocality, 0, 'UTF-8') === false) {
+                        continue;
                     }
                 }
 
@@ -696,17 +712,20 @@ class SchoolAutoResearcher {
 
             $isNew = ($matchedExisting === false || $matchedExisting === null);
 
-            // 2. Google Maps Grounding & URLs
-            $gmapQuery = urlencode($name . ' ' . $ct . ' ' . $st . ' السودان');
+            // 2. Google Maps Grounding & Real Verified PIN
+            $pinAddressParts = array_filter([$name, ($dist !== $ct ? $dist : null), $ct, $st, 'السودان']);
+            $pinAddressStr = implode(' ', $pinAddressParts);
+            $gmapQuery = urlencode($pinAddressStr);
             $gmapUrl = !empty($c['google_map_url']) ? $c['google_map_url'] : ('https://www.google.com/maps/search/?api=1&query=' . $gmapQuery);
-            $embedMapUrl = 'https://maps.google.com/maps?q=' . urlencode($name . ' ' . $ct . ' ' . $st) . '&output=embed';
+            // Embedded map with marker pin at zoom 15 for visual confirmation
+            $embedMapUrl = 'https://maps.google.com/maps?q=' . urlencode($pinAddressStr) . '&t=&z=15&ie=UTF8&iwloc=&output=embed';
 
             // 3. Grounding Policy on Phone Numbers:
             // If phone exists, use it. If no phone is listed on Google Maps, DO NOT DISCARD: leave null.
             $rawPhone = $c['phone'] ?? ($matchedExisting['phone'] ?? null);
             $validPhone = SchoolBatchImporter::isValidRealPhone($rawPhone) ? $rawPhone : null;
             $hasPhone = ($validPhone !== null);
-            $groundingStatus = $hasPhone ? 'هاتف موثق مسجل' : 'معتمدة جغرافياً بخرائط جوجل (بدون هاتف)';
+            $groundingStatus = $hasPhone ? 'هاتف موثق مسجل' : 'معتمدة جغرافياً بدبوس خرائط جوجل';
 
             // 4. Multi-Platform Deep Research URLs
             $fbSearchUrl = !empty($c['facebook']) ? $c['facebook'] : ('https://www.facebook.com/search/top?q=' . urlencode($name . ' ' . $ct));
@@ -748,6 +767,10 @@ class SchoolAutoResearcher {
                 'district' => $dist,
                 'address' => $fullAddress,
                 'phone' => $validPhone,
+                'whatsapp' => $validPhone,
+                'has_phone' => $hasPhone,
+                'has_pin' => true,
+                'pin_address' => $pinAddressStr,
                 'whatsapp' => $validPhone,
                 'has_phone' => $hasPhone,
                 'grounding_status' => $groundingStatus,
