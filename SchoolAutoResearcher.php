@@ -649,36 +649,17 @@ class SchoolAutoResearcher {
     }
 
     /**
-     * فحص هل المدرسة تتبع للتعليم الخاص في السودان بدقة استناداً للكلمات الدلالية والعلامات التعليمية المعتمدة
+     * فحص هل المدرسة تتبع للتعليم الخاص في السودان بدقة
+     * قاعدة صارمة ومحققة: إذا لم توجد كلمة "خاصة" أو مشتقاتها صراحة في الاسم فهي تتبع للتعليم الحكومي 100%
      */
     public static function isSudanesePrivateSchool(string $name): bool {
-        // 1. Explicit private indicators
-        $privateIndicators = [
-            'الخاصة', 'خاصة', 'العالمية', 'الدولية', 'القرآنية', 'الحديثة', 'اللغات', 'لغات',
-            'البريطانية', 'التركية', 'الأمريكية', 'الفرنسية', 'الإسلامية الخاصة', 'الأهلية الخاصة',
-            'النموذجية الخاصة', 'ثنائية اللغة', 'international', 'private', 'academy', 'أكاديمية'
-        ];
-        foreach ($privateIndicators as $ind) {
-            if (mb_stripos($name, $ind, 0, 'UTF-8') !== false) {
-                return true;
-            }
-        }
-
-        // 2. Known private educational brands/chains in Sudan
-        $privateChains = [
-            'القبس', 'كبييدة', 'سمارت', 'smart', 'المعالي', 'الرواد', 'الأوائل', 'إكسلانس', 'excellence',
-            'المواهب', 'المجلس الأفريقي', 'كامبريدج', 'cambridge', 'نوبل', 'noble', 'الفلاح', 'الإيمان',
-            'الريان', 'النخبة', 'إشراقة', 'الشروق', 'سنابل', 'بيلس', 'المناهل', 'صقر قريش', 'سابيل',
-            'المهاجر', 'المنار', 'الفردوس', 'كمبوني', 'comboni', 'الراهبات', 'الإنجيلية', 'القبطية',
-            'مواهب', 'أمانة', 'صروح المجد', 'دار العلوم', 'بحر العلوم', 'ماكميلان', 'أكسفورد', 'oxford'
-        ];
-        foreach ($privateChains as $chain) {
-            if (mb_stripos($name, $chain, 0, 'UTF-8') !== false) {
-                return true;
-            }
-        }
-
-        return false;
+        return (
+            mb_stripos($name, 'خاصة', 0, 'UTF-8') !== false ||
+            mb_stripos($name, 'الخاصة', 0, 'UTF-8') !== false ||
+            mb_stripos($name, 'خاصه', 0, 'UTF-8') !== false ||
+            mb_stripos($name, 'الخاصه', 0, 'UTF-8') !== false ||
+            stripos($name, 'private') !== false
+        );
     }
 
     /**
@@ -698,8 +679,17 @@ class SchoolAutoResearcher {
 
         // ─── OPTION A: DIRECT GOOGLE PLACES API (NEW) ──────────────────────────
         if (!empty($googleApiKey)) {
-            $typeTerm = ($scopeType === 'kindergarten') ? 'رياض أطفال وحضانات' : (($scopeType === 'private') ? 'مدارس خاصة' : (($scopeType === 'government') ? 'مدارس حكومية' : 'مدارس'));
-            $locQuery = $nameQuery ?: "{$typeTerm} في " . ($locality ?: $state) . " {$state} السودان";
+            if ($scopeType === 'kindergarten') {
+                $typeTerm = 'رياض اطفال';
+            } elseif ($scopeType === 'private') {
+                $typeTerm = 'مدارس خاصة';
+            } elseif ($scopeType === 'government') {
+                $typeTerm = 'مدارس حكومية';
+            } else {
+                $typeTerm = 'مدارس';
+            }
+            $locText = $locality ?: $state;
+            $locQuery = $nameQuery ? "{$nameQuery} {$locText} {$state}" : "{$typeTerm} {$locText} {$state} السودان";
             
             if ($logs !== null) {
                 $logs[] = "[" . date('H:i:s') . "] 🌐 [Google Places API] بدء الاستعلام الحي المباشر من خرائط جوجل: \"{$locQuery}\"...";
@@ -734,12 +724,16 @@ class SchoolAutoResearcher {
                         $clean = self::cleanSchoolNameForMaps($rawName);
                         if (isset($seen[$clean])) continue;
 
-                        $isKg = (mb_stripos($clean, 'روضة') !== false || mb_stripos($clean, 'حضانة') !== false);
+                        $isKg = (mb_stripos($clean, 'روضة', 0, 'UTF-8') !== false || mb_stripos($clean, 'حضانة', 0, 'UTF-8') !== false || mb_stripos($clean, 'براعم', 0, 'UTF-8') !== false);
                         $isPriv = self::isSudanesePrivateSchool($clean);
 
-                        if ($scopeType === 'kindergarten' && !$isKg) continue;
-                        if ($scopeType === 'private' && ($isKg || (!$isPriv && mb_stripos($clean, 'حكومية') !== false))) continue;
-                        if ($scopeType === 'government' && ($isKg || $isPriv)) continue;
+                        if ($scopeType === 'kindergarten') {
+                            if (!$isKg) continue;
+                        } elseif ($scopeType === 'private') {
+                            if ($isKg || !$isPriv) continue;
+                        } elseif ($scopeType === 'government') {
+                            if ($isKg || $isPriv) continue;
+                        }
 
                         $seen[$clean] = true;
                         $lat = $p['location']['latitude'] ?? null;
@@ -771,7 +765,7 @@ class SchoolAutoResearcher {
                             'phone' => $gPhone,
                             'whatsapp' => $gPhone,
                             'website' => $gWeb,
-                            'description' => "مؤسسة تعليمية خاصة قائمة وموثقة عبر خرائط جوجل بنظام Google Business في ولاية {$state} — {$locality}، تقييم: " . ($p['rating'] ?? '5.0') . " ⭐.",
+                            'description' => "مؤسسة تعليمية " . ($dedType === 'private' ? 'خاصة' : ($dedType === 'government' ? 'حكومية' : 'رياض أطفال')) . " قائمة وموثقة عبر خرائط جوجل في ولاية {$state} — {$locality}، تقييم: " . ($p['rating'] ?? '5.0') . " ⭐.",
                             'is_live_discovered' => true
                         ];
                     }
@@ -780,65 +774,34 @@ class SchoolAutoResearcher {
 
             if (!empty($candidates)) {
                 if ($logs !== null) {
-                    $logs[] = "[" . date('H:i:s') . "] ✅ [Google Places API] تم جلب (" . count($candidates) . ") مؤسسة خاصة من خرائط جوجل مباشرة.";
+                    $logs[] = "[" . date('H:i:s') . "] ✅ [Google Places API] تم جلب (" . count($candidates) . ") مؤسسة تعليمية من خرائط جوجل مباشرة.";
                 }
                 return $candidates;
             }
         }
 
         // ─── OPTION B: AUTONOMOUS LIVE GEOSPATIAL CRAWLER (ZERO-COST MAPS GROUNDING) ──────────
-        // Build list of localities / neighborhoods to explore
-        $suburbs = [];
-        if ($locality === 'بحري') {
-            $suburbs = ['حلفاية الملوك', 'شمبات', 'الصافية', 'الشعبية', 'المزاد', 'كافوري', 'الختمية', 'الدروشاب', 'الكدرو', 'الجيلي'];
-        } elseif ($locality === 'أم درمان') {
-            $suburbs = ['الموردة', 'بيت المال', 'ود نوباوي', 'حي العمدة', 'المهندسين', 'بانت', 'الثورة', 'الواحة', 'الفتيحاب'];
-        } elseif ($locality === 'الخرطوم') {
-            $suburbs = ['الرياض', 'العمارات', 'المطار', 'المعمورة', 'اركويت', 'الطائف', 'الصحافة', 'جبرة', 'الديم'];
-        } elseif ($locality === 'شرق النيل') {
-            $suburbs = ['حي الهدى', 'الفيحاء', 'النصر', 'الجريف شرق', 'حلة كوكو', 'العيلفون'];
-        } elseif ($locality === 'كرري') {
-            $suburbs = ['الحارة الأولى', 'الحارة الخامسة', 'الحارة الثامنة', 'الفتح', 'خور عمر'];
-        } elseif ($locality) {
-            $suburbs = [$locality];
-        } else {
-            $suburbs = [$state];
-        }
-
+        // استبعاد أسماء الأحياء والاكتفاء باسم المحلية والمحافظة عليها بالكامل دون حصر البحث على أحياء معينة
+        $locText = $locality ?: $state;
         $queries = [];
+
         if (!empty($nameQuery)) {
-            $queries[] = "{$nameQuery} " . ($locality ?: $state) . " {$state}";
+            $queries[] = "{$nameQuery} {$locText} {$state}";
         } else {
-            $locText = $locality ?: $state;
             if ($scopeType === 'kindergarten') {
+                $queries[] = "رياض اطفال {$locText} {$state}";
                 $queries[] = "روضة {$locText} {$state}";
-                $queries[] = "حضانة {$locText} {$state}";
-                foreach ($suburbs as $sub) {
-                    $queries[] = "روضة {$sub} {$locText}";
-                }
             } elseif ($scopeType === 'private') {
-                $queries[] = "مدرسة خاصة {$locText} {$state}";
                 $queries[] = "مدارس خاصة {$locText} {$state}";
-                $queries[] = "مدرسة عالمية {$locText} {$state}";
-                $queries[] = "مدرسة لغات {$locText} {$state}";
-                foreach ($suburbs as $sub) {
-                    $queries[] = "مدرسة خاصة {$sub} {$locText}";
-                    $queries[] = "مدارس {$sub} الخاصة";
-                    $queries[] = "مدرسة {$sub} العالمية";
-                }
+                $queries[] = "مدرسة خاصة {$locText} {$state}";
             } elseif ($scopeType === 'government') {
+                $queries[] = "مدارس حكومية {$locText} {$state}";
                 $queries[] = "مدرسة حكومية {$locText} {$state}";
-                $queries[] = "مدرسة {$locText} الثانوية بنين";
-                $queries[] = "مدرسة {$locText} الثانوية بنات";
-                foreach ($suburbs as $sub) {
-                    $queries[] = "مدرسة {$sub} الثانوية";
-                    $queries[] = "مدرسة {$sub} الابتدائية";
-                }
             } else {
-                $queries[] = "مدرسة {$locText} {$state}";
-                foreach ($suburbs as $sub) {
-                    $queries[] = "مدرسة {$sub} {$locText}";
-                }
+                $queries[] = "مدارس خاصة {$locText} {$state}";
+                $queries[] = "مدارس حكومية {$locText} {$state}";
+                $queries[] = "رياض اطفال {$locText} {$state}";
+                $queries[] = "مدارس {$locText} {$state}";
             }
         }
 

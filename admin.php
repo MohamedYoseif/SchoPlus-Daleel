@@ -3443,9 +3443,9 @@ try {
                                         </label>
                                         <select id="workerSchoolType" class="form-select form-select-sm" style="font-size: 0.8rem; border-color: #CBD5E1; padding: 8px 12px;">
                                             <option value="all">كافة المؤسسات</option>
-                                            <option value="kindergarten">رياض الأطفال والحضانات</option>
-                                            <option value="private">المدارس الخاصة والدولية</option>
-                                            <option value="government">المدارس الحكومية</option>
+                                            <option value="kindergarten">رياض أطفال</option>
+                                            <option value="private">مدارس خاصة</option>
+                                            <option value="government">مدارس حكومية</option>
                                         </select>
                                     </div>
 

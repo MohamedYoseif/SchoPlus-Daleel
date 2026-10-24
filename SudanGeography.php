@@ -731,22 +731,17 @@ class SudanGeography
 
     public static function deduceSchoolType(string $name, ?string $currentType = null): string
     {
-        if (preg_match('/(حكومية|حكومي|وزارية|بخت الرضا|خور طقت|وادي سيدنا|حنتوب|المؤتمر الثانوية|بربر الثانوية|الأميرية|القومية|النموذجية الحكومية)/u', $name)) {
-            return 'government';
+        if (preg_match('/(روضة|حضانة|براعم|kindergarten|nursery|preschool)/ui', $name)) {
+            return 'kindergarten';
         }
-        if (preg_match('/(عالمية|دولية|international|british|american|cambridge)/ui', $name)) {
-            return 'international';
-        }
-        if (preg_match('/(لغات|language)/ui', $name)) {
-            return 'language';
-        }
-        if (preg_match('/(كمبوني|القبطية|الإنجيلية|اليونانية|الأرمنية|الهندية|الإثيوبية)/u', $name)) {
-            return 'community';
-        }
-        if (preg_match('/(خاصة|الخاصة|الخاص)/u', $name)) {
+        if (preg_match('/(خاصة|الخاصة|خاصه|الخاصه|private)/ui', $name)) {
             return 'private';
         }
-        return $currentType ?: 'private';
+        if (!empty($currentType) && in_array($currentType, ['private', 'government', 'kindergarten', 'international', 'community', 'language'])) {
+            return $currentType;
+        }
+        // قاعدة الاعتماد الصارمة: إذا لم توجد كلمة "خاصة" في الاسم فالمؤسسة حكومية
+        return 'government';
     }
 
     public static function schoolStages(): array
