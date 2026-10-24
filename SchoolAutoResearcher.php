@@ -560,92 +560,239 @@ class SchoolAutoResearcher {
     /**
      * Strictly match an institution candidate against a targeted locality, preventing cross-locality leaks
      */
-    public static function doesInstitutionMatchLocality(array $item, string $targetLocality, ?string $state = null): bool
+    public static function doesInstitutionMatchLocality($item, string $targetLocality, ?string $state = null): bool
     {
-        $cCity = trim($item['city'] ?? '');
-        $cDist = trim($item['district'] ?? '');
-        $cAddress = trim($item['address'] ?? '');
+        $name = is_array($item) ? ($item['name'] ?? '') : (string)$item;
+        $address = is_array($item) ? ($item['address'] ?? ($item['formattedAddress'] ?? ($item['display_name'] ?? ''))) : '';
+        $cCity = is_array($item) ? ($item['city'] ?? '') : '';
+        $cDist = is_array($item) ? ($item['district'] ?? '') : '';
 
         $normTarget = trim(str_replace(['محلية ', 'مدينة '], '', $targetLocality));
+        $haystack = mb_strtolower($name . ' ' . $address . ' ' . $cDist . ' ' . $cCity, 'UTF-8');
+
         $khartoumLocalities = ['الخرطوم', 'بحري', 'أم درمان', 'كرري', 'شرق النيل', 'أم بدة', 'جبل أولياء'];
 
-        // 1. Khartoum State Special Locality Rules (Strict Tri-City / 7 Localities boundary enforcement)
-        if (in_array($normTarget, $khartoumLocalities, true) || $normTarget === 'الخرطوم بحري') {
+        if ($state === 'الخرطوم' || in_array($normTarget, $khartoumLocalities, true) || $normTarget === 'الخرطوم بحري') {
             if ($normTarget === 'الخرطوم بحري') $normTarget = 'بحري';
-            $cCityNorm = str_replace('الخرطوم بحري', 'بحري', $cCity);
 
-            // If the institution's city is explicitly set to a different Khartoum locality, REJECT IMMEDIATELY!
-            if (!empty($cCityNorm) && in_array($cCityNorm, $khartoumLocalities, true) && $cCityNorm !== $normTarget) {
-                return false;
-            }
-
+            // 1. Locality: بحري
             if ($normTarget === 'بحري') {
-                if ($cCityNorm === 'بحري') return true;
-                $bahriDistricts = ['كافوري', 'الصافية', 'شمبات', 'الشعبية', 'المزاد', 'كوبر', 'حلفايا', 'حلفاية الملوك', 'الدروشاب', 'الكدرو', 'الختمية', 'حلة حمد', 'الأملاك', 'الجيلي'];
-                foreach ($bahriDistricts as $bd) {
-                    if (mb_stripos($cDist, $bd, 0, 'UTF-8') !== false) return true;
+                $foreign = ['أم درمان', 'ام درمان', 'المهندسين', 'الملازمين', 'الفتيحاب', 'ود نوباوي', 'بانت', 'الرياض', 'العمارات', 'المعمورة', 'اركويت', 'أركويت', 'الطائف', 'الصحافة', 'جبرة', 'الكلاكلة', 'الأزهري', 'الازهري', 'الفيحاء', 'حلة كوكو', 'شرق النيل', 'دار السلام'];
+                foreach ($foreign as $f) {
+                    if (mb_stripos($haystack, $f, 0, 'UTF-8') !== false) return false;
+                }
+                $allowed = ['بحري', 'كافوري', 'شمبات', 'الصافية', 'الشعبية', 'المزاد', 'كوبر', 'حلفايا', 'حلفاية الملوك', 'الدروشاب', 'الكدرو', 'الختمية', 'حلة حمد', 'الأملاك', 'الاملاك', 'الجيلي', 'السامراب', 'طيبة الأحامدة', 'الصبابي', 'دردق', 'الحلفايا'];
+                foreach ($allowed as $a) {
+                    if (mb_stripos($haystack, $a, 0, 'UTF-8') !== false) return true;
                 }
                 return false;
             }
 
-            if ($normTarget === 'الخرطوم') {
-                if ($cCityNorm === 'الخرطوم') {
-                    $otherLocalityTokens = ['كافوري', 'الصافية', 'شمبات', 'حلفايا', 'الدروشاب', 'الثورة', 'الواحة', 'المهندسين', 'الملازمين', 'الحاج يوسف', 'الفيحاء', 'الكلاكلة', 'الأزهري'];
-                    foreach ($otherLocalityTokens as $olt) {
-                        if (mb_stripos($cDist, $olt, 0, 'UTF-8') !== false) return false;
-                    }
-                    return true;
-                }
-                return false;
-            }
-
-            if ($normTarget === 'أم درمان') {
-                if ($cCityNorm === 'أم درمان') return true;
-                $omdurmanDistricts = ['الملازمين', 'العباسية', 'ود نوباوي', 'المهندسين', 'بانت', 'الموردة', 'العرضة', 'أبو روف', 'الهاشماب', 'الفتيحاب'];
-                foreach ($omdurmanDistricts as $od) {
-                    if (mb_stripos($cDist, $od, 0, 'UTF-8') !== false) return true;
-                }
-                return false;
-            }
-
+            // 2. Locality: كرري
             if ($normTarget === 'كرري') {
-                if ($cCityNorm === 'كرري') return true;
-                $karariDistricts = ['الثورة', 'الثورات', 'الواحة', 'الفتح', 'مدينة النيل', 'الرومي', 'جبل سركاب'];
-                foreach ($karariDistricts as $kd) {
-                    if (mb_stripos($cDist, $kd, 0, 'UTF-8') !== false) return true;
+                if (preg_match('/(^|،|\s)الخرطوم، السودان/u', $address)) return false;
+                $foreign = ['بحري', 'الخرطوم بحري', 'كافوري', 'شمبات', 'الصافية', 'الشعبية', 'الرياض', 'العمارات', 'المطار', 'المعمورة', 'اركويت', 'أركويت', 'الطائف', 'الصحافة', 'جبرة', 'الديم', 'الكلاكلة', 'الأزهري', 'الازهري', 'حلة كوكو', 'الفيحاء', 'شرق النيل', 'الحاج يوسف'];
+                foreach ($foreign as $f) {
+                    if (mb_stripos($haystack, $f, 0, 'UTF-8') !== false) return false;
+                }
+                $allowed = ['كرري', 'الثورة', 'الثورات', 'الحارة', 'الواحة', 'الفتح', 'مدينة النيل', 'الرومي', 'خور عمر', 'بئر حماد', 'جبل سركاب', 'شنقيطي', 'الشنقيطي'];
+                foreach ($allowed as $a) {
+                    if (mb_stripos($haystack, $a, 0, 'UTF-8') !== false) return true;
                 }
                 return false;
             }
 
+            // 3. Locality: أم درمان
+            if ($normTarget === 'أم درمان' || $normTarget === 'ام درمان') {
+                $foreign = ['بحري', 'الخرطوم بحري', 'كافوري', 'شمبات', 'الصافية', 'الشعبية', 'الرياض', 'العمارات', 'المطار', 'المعمورة', 'اركويت', 'أركويت', 'الطائف', 'الصحافة', 'جبرة', 'الكلاكلة', 'الأزهري', 'الازهري', 'حلة كوكو', 'الفيحاء', 'شرق النيل', 'الحاج يوسف'];
+                foreach ($foreign as $f) {
+                    if (mb_stripos($haystack, $f, 0, 'UTF-8') !== false) return false;
+                }
+                $allowed = ['أم درمان', 'ام درمان', 'الملازمين', 'العباسية', 'ود نوباوي', 'المهندسين', 'بانت', 'الموردة', 'العرضة', 'أبو روف', 'ابو روف', 'الهاشماب', 'الفتيحاب', 'حي العمدة', 'بيت المال', 'حي العرب', 'الركابية', 'ود البشير', 'صالحين', 'صالحة'];
+                foreach ($allowed as $a) {
+                    if (mb_stripos($haystack, $a, 0, 'UTF-8') !== false) return true;
+                }
+                return false;
+            }
+
+            // 4. Locality: شرق النيل
             if ($normTarget === 'شرق النيل') {
-                if ($cCityNorm === 'شرق النيل') return true;
-                $eastDistricts = ['حلة كوكو', 'الفيحاء', 'حي الهدى', 'الردمية', 'الباقير', 'الوادي الأخضر', 'الجريف شرق', 'الحاج يوسف'];
-                foreach ($eastDistricts as $ed) {
-                    if (mb_stripos($cDist, $ed, 0, 'UTF-8') !== false) return true;
+                $foreign = ['أم درمان', 'ام درمان', 'المهندسين', 'الملازمين', 'الثورة', 'بحري', 'الخرطوم بحري', 'كافوري', 'شمبات', 'الصافية', 'الرياض', 'العمارات', 'المطار', 'المعمورة', 'اركويت', 'أركويت', 'الطائف', 'الصحافة', 'جبرة', 'الكلاكلة', 'الأزهري'];
+                foreach ($foreign as $f) {
+                    if (mb_stripos($haystack, $f, 0, 'UTF-8') !== false) return false;
+                }
+                $allowed = ['شرق النيل', 'حلة كوكو', 'الفيحاء', 'حي الهدى', 'الردمية', 'الباقير', 'الوادي الأخضر', 'الجريف شرق', 'الحاج يوسف', 'العيلفون', 'سوبا شرق', 'أم دوم', 'المايقوما', 'البركة', 'حي النصر', 'طيبة الحسناب'];
+                foreach ($allowed as $a) {
+                    if (mb_stripos($haystack, $a, 0, 'UTF-8') !== false) return true;
                 }
                 return false;
             }
 
-            if ($normTarget === 'أم بدة') {
-                if ($cCityNorm === 'أم بدة') return true;
-                if (mb_stripos($cDist, 'أم بدة', 0, 'UTF-8') !== false || mb_stripos($cDist, 'دار السلام', 0, 'UTF-8') !== false) return true;
+            // 5. Locality: جبل أولياء
+            if ($normTarget === 'جبل أولياء' || $normTarget === 'جبل اولياء') {
+                $foreign = ['بحري', 'الخرطوم بحري', 'كافوري', 'شمبات', 'أم درمان', 'ام درمان', 'المهندسين', 'الثورة', 'الرياض', 'العمارات', 'المطار', 'المعمورة', 'حلة كوكو', 'الفيحاء'];
+                foreach ($foreign as $f) {
+                    if (mb_stripos($haystack, $f, 0, 'UTF-8') !== false) return false;
+                }
+                $allowed = ['جبل أولياء', 'جبل اولياء', 'الكلاكلة', 'الكلاكلات', 'الأزهري', 'الازهري', 'السلمة', 'مايو', 'طيبة الحسناب', 'الدخينات', 'الشقيلاب', 'عد حسين', 'الإنقاذ', 'الانقاذ'];
+                foreach ($allowed as $a) {
+                    if (mb_stripos($haystack, $a, 0, 'UTF-8') !== false) return true;
+                }
                 return false;
             }
 
-            if ($normTarget === 'جبل أولياء') {
-                if ($cCityNorm === 'جبل أولياء') return true;
-                $jabalDistricts = ['الكلاكلة', 'الكلاكلات', 'الأزهري', 'السلمة', 'مايو', 'طيبة الحسناب'];
-                foreach ($jabalDistricts as $jd) {
-                    if (mb_stripos($cDist, $jd, 0, 'UTF-8') !== false) return true;
+            // 6. Locality: أم بدة
+            if ($normTarget === 'أم بدة' || $normTarget === 'ام بدة') {
+                $foreign = ['بحري', 'الخرطوم بحري', 'كافوري', 'شمبات', 'الرياض', 'العمارات', 'المطار', 'المعمورة', 'حلة كوكو', 'الكلاكلة', 'الأزهري'];
+                foreach ($foreign as $f) {
+                    if (mb_stripos($haystack, $f, 0, 'UTF-8') !== false) return false;
+                }
+                $allowed = ['أم بدة', 'ام بدة', 'دار السلام', 'البقعة', 'السبيل', 'الراشدين', 'حمد النيل', 'أبو زيد', 'ابو زيد'];
+                foreach ($allowed as $a) {
+                    if (mb_stripos($haystack, $a, 0, 'UTF-8') !== false) return true;
                 }
                 return false;
+            }
+
+            // 7. Locality: الخرطوم (محلية الخرطوم)
+            if ($normTarget === 'الخرطوم') {
+                $foreign = ['بحري', 'الخرطوم بحري', 'كافوري', 'شمبات', 'الصافية', 'الشعبية', 'أم درمان', 'ام درمان', 'الملازمين', 'المهندسين', 'الفتيحاب', 'الثورة', 'الواحة', 'كرري', 'حلة كوكو', 'الفيحاء', 'شرق النيل', 'الحاج يوسف', 'الكلاكلة', 'الأزهري', 'جبل أولياء', 'دار السلام'];
+                foreach ($foreign as $f) {
+                    if (mb_stripos($haystack, $f, 0, 'UTF-8') !== false) return false;
+                }
+                return true;
             }
         }
 
         // Generic matching for localities in any other state
-        return ($cCity === $normTarget || $cDist === $normTarget || 
-                mb_stripos($cCity, $normTarget, 0, 'UTF-8') !== false || 
-                mb_stripos($cDist, $normTarget, 0, 'UTF-8') !== false);
+        return (mb_stripos($haystack, $normTarget, 0, 'UTF-8') !== false);
+    }
+
+    /**
+     * Deduce the authentic neighborhood/district from school name and address
+     */
+    public static function extractDistrict(string $name, string $address, string $locality): string
+    {
+        $haystack = $name . ' ' . $address;
+        $normLoc = trim(str_replace(['محلية ', 'مدينة '], '', $locality));
+
+        $neighborhoods = [
+            'بحري' => [
+                'كافوري' => 'كافوري',
+                'شمبات' => 'شمبات',
+                'الصافية' => 'الصافية',
+                'الشعبية' => 'الشعبية',
+                'المزاد' => 'المزاد',
+                'كوبر' => 'كوبر',
+                'حلفاية الملوك' => 'حلفاية الملوك',
+                'حلفايا' => 'حلفاية الملوك',
+                'الدروشاب' => 'الدروشاب',
+                'الكدرو' => 'الكدرو',
+                'الختمية' => 'الختمية',
+                'حلة حمد' => 'حلة حمد',
+                'الأملاك' => 'الأملاك',
+                'السامراب' => 'السامراب',
+                'الجيلي' => 'الجيلي',
+                'طيبة الأحامدة' => 'طيبة الأحامدة',
+                'الصبابي' => 'الصبابي',
+                'دردق' => 'دردق'
+            ],
+            'كرري' => [
+                'مدينة النيل' => 'مدينة النيل',
+                'الواحة' => 'الواحة',
+                'الفتح' => 'الفتح',
+                'الرومي' => 'الرومي',
+                'خور عمر' => 'خور عمر',
+                'بئر حماد' => 'بئر حماد',
+                'جبل سركاب' => 'جبل سركاب',
+                'الثورة' => 'الثورة',
+                'الثورات' => 'الثورة'
+            ],
+            'أم درمان' => [
+                'الملازمين' => 'الملازمين',
+                'العباسية' => 'العباسية',
+                'ود نوباوي' => 'ود نوباوي',
+                'المهندسين' => 'المهندسين',
+                'بانت' => 'بانت',
+                'الموردة' => 'الموردة',
+                'العرضة' => 'العرضة',
+                'أبو روف' => 'أبو روف',
+                'ابو روف' => 'أبو روف',
+                'الهاشماب' => 'الهاشماب',
+                'الفتيحاب' => 'الفتيحاب',
+                'حي العمدة' => 'حي العمدة',
+                'بيت المال' => 'بيت المال',
+                'حي العرب' => 'حي العرب',
+                'الركابية' => 'الركابية',
+                'ود البشير' => 'ود البشير',
+                'صالحة' => 'صالحة'
+            ],
+            'شرق النيل' => [
+                'حي الهدى' => 'حي الهدى',
+                'الفيحاء' => 'الفيحاء',
+                'حلة كوكو' => 'حلة كوكو',
+                'الردمية' => 'الردمية',
+                'الوادي الأخضر' => 'الوادي الأخضر',
+                'الجريف شرق' => 'الجريف شرق',
+                'الحاج يوسف' => 'الحاج يوسف',
+                'العيلفون' => 'العيلفون',
+                'سوبا شرق' => 'سوبا شرق',
+                'أم دوم' => 'أم دوم',
+                'المايقوما' => 'المايقوما',
+                'الباقير' => 'الباقير'
+            ],
+            'جبل أولياء' => [
+                'الكلاكلة' => 'الكلاكلة',
+                'الكلاكلات' => 'الكلاكلة',
+                'الأزهري' => 'الأزهري',
+                'الازهري' => 'الأزهري',
+                'السلمة' => 'السلمة',
+                'مايو' => 'مايو',
+                'طيبة الحسناب' => 'طيبة الحسناب',
+                'الدخينات' => 'الدخينات',
+                'الشقيلاب' => 'الشقيلاب',
+                'عد حسين' => 'عد حسين'
+            ],
+            'أم بدة' => [
+                'دار السلام' => 'دار السلام',
+                'البقعة' => 'البقعة',
+                'السبيل' => 'السبيل',
+                'الراشدين' => 'الراشدين',
+                'حمد النيل' => 'حمد النيل',
+                'أبو زيد' => 'أبو زيد'
+            ],
+            'الخرطوم' => [
+                'العمارات' => 'العمارات',
+                'الرياض' => 'الرياض',
+                'المطار' => 'المطار',
+                'المعمورة' => 'المعمورة',
+                'اركويت' => 'أركويت',
+                'أركويت' => 'أركويت',
+                'الطائف' => 'الطائف',
+                'الصحافة' => 'الصحافة',
+                'جبرة' => 'جبرة',
+                'الديم' => 'الديم',
+                'بري' => 'بري',
+                'المقرن' => 'المقرن',
+                'المنشية' => 'المنشية',
+                'الجريف غرب' => 'الجريف غرب',
+                'سوبا غرب' => 'سوبا غرب',
+                'السجانة' => 'السجانة',
+                'الحلة الجديدة' => 'الحلة الجديدة',
+                'القوز' => 'القوز',
+                'الشجرة' => 'الشجرة'
+            ]
+        ];
+
+        if (isset($neighborhoods[$normLoc])) {
+            foreach ($neighborhoods[$normLoc] as $keyword => $properName) {
+                if (mb_stripos($haystack, $keyword, 0, 'UTF-8') !== false) {
+                    return $properName;
+                }
+            }
+        }
+
+        return $normLoc ?: $locality;
     }
 
     /**
@@ -689,7 +836,22 @@ class SchoolAutoResearcher {
                 $typeTerm = 'مدارس';
             }
             $locText = $locality ?: $state;
-            $locQuery = $nameQuery ? "{$nameQuery} {$locText} {$state}" : "{$typeTerm} {$locText} {$state} السودان";
+            if ($locality === 'كرري') {
+                $searchLoc = 'كرري الثورة الخرطوم';
+            } elseif ($locality === 'بحري') {
+                $searchLoc = 'بحري الخرطوم بحري';
+            } elseif ($locality === 'جبل أولياء') {
+                $searchLoc = 'جبل أولياء الكلاكلة الخرطوم';
+            } elseif ($locality === 'شرق النيل') {
+                $searchLoc = 'شرق النيل الخرطوم';
+            } elseif ($locality === 'أم درمان') {
+                $searchLoc = 'أم درمان الخرطوم';
+            } elseif ($locality) {
+                $searchLoc = "{$locality} {$state}";
+            } else {
+                $searchLoc = $state;
+            }
+            $locQuery = $nameQuery ? "{$nameQuery} في {$searchLoc}" : "{$typeTerm} في {$searchLoc} السودان";
             
             if ($logs !== null) {
                 $logs[] = "[" . date('H:i:s') . "] 🌐 [Google Places API] بدء الاستعلام الحي المباشر من خرائط جوجل: \"{$locQuery}\"...";
@@ -735,13 +897,24 @@ class SchoolAutoResearcher {
                             if ($isKg || $isPriv) continue;
                         }
 
+                        $formattedAddr = $p['formattedAddress'] ?? '';
+
+                        // 1. Strict Locality Filtering: Prevent cross-locality leaks!
+                        if (!empty($locality)) {
+                            if (!self::doesInstitutionMatchLocality(['name' => $clean, 'address' => $formattedAddr], $locality, $state)) {
+                                continue;
+                            }
+                        }
+
+                        // 2. Extract Authentic Neighborhood (الحي)
+                        $deducedDistrict = !empty($locality) ? self::extractDistrict($clean, $formattedAddr, $locality) : ($locality ?: $state);
+
                         $seen[$clean] = true;
                         $lat = $p['location']['latitude'] ?? null;
                         $lon = $p['location']['longitude'] ?? null;
                         $gPhone = $p['nationalPhoneNumber'] ?? null;
                         $gWeb = $p['websiteUri'] ?? null;
                         $gMapUri = $p['googleMapsUri'] ?? null;
-                        $formattedAddr = $p['formattedAddress'] ?? '';
 
                         $dedType = $isKg ? 'kindergarten' : ($isPriv ? 'private' : 'government');
                         $stages = $isKg ? ['kindergarten'] : SudanGeography::deduceStages($dedType, $clean, null, '');
@@ -757,15 +930,15 @@ class SchoolAutoResearcher {
                             'curriculum' => (str_contains($clean, 'عالمية') || str_contains($clean, 'بريطاني') || str_contains($clean, 'International')) ? 'british' : 'sudanese',
                             'state' => $state,
                             'city' => $locality ?: $state,
-                            'district' => $locality ?: $state,
-                            'address' => $formattedAddr ?: "ولاية {$state} — {$locality}",
+                            'district' => $deducedDistrict,
+                            'address' => $formattedAddr ?: "ولاية {$state} — {$locality} — حي {$deducedDistrict}",
                             'latitude' => $lat,
                             'longitude' => $lon,
                             'google_map_url' => $gMapUri ?: ((!empty($lat) && !empty($lon)) ? "https://www.google.com/maps/search/?api=1&query={$lat},{$lon}" : null),
                             'phone' => $gPhone,
                             'whatsapp' => $gPhone,
                             'website' => $gWeb,
-                            'description' => "مؤسسة تعليمية " . ($dedType === 'private' ? 'خاصة' : ($dedType === 'government' ? 'حكومية' : 'رياض أطفال')) . " قائمة وموثقة عبر خرائط جوجل في ولاية {$state} — {$locality}، تقييم: " . ($p['rating'] ?? '5.0') . " ⭐.",
+                            'description' => "مؤسسة تعليمية " . ($dedType === 'private' ? 'خاصة' : ($dedType === 'government' ? 'حكومية' : 'رياض أطفال')) . " قائمة وموثقة عبر خرائط جوجل في ولاية {$state} — {$locality}، حي {$deducedDistrict}، تقييم: " . ($p['rating'] ?? '5.0') . " ⭐.",
                             'is_live_discovered' => true
                         ];
                     }
@@ -880,11 +1053,19 @@ class SchoolAutoResearcher {
                     if ($isKg || $isPriv) continue;  // STRICT: ONLY AUTHENTIC GOVERNMENT SCHOOLS
                 }
 
+                // STRICT LOCALITY MATCHING: Prevent cross-locality leaks
+                if (!empty($locality)) {
+                    if (!self::doesInstitutionMatchLocality(['name' => $cleanName, 'address' => $displayName], $locality, $state)) {
+                        continue;
+                    }
+                }
+
                 $seen[$cleanName] = true;
                 $lat = $item['lat'] ?? null;
                 $lon = $item['lon'] ?? null;
                 $addr = $item['address'] ?? [];
-                $district = $addr['suburb'] ?? ($addr['neighbourhood'] ?? ($addr['residential'] ?? ($locality ?: $state)));
+                $rawDist = $addr['suburb'] ?? ($addr['neighbourhood'] ?? ($addr['residential'] ?? ''));
+                $district = !empty($locality) ? self::extractDistrict($cleanName, $displayName . ' ' . $rawDist, $locality) : ($rawDist ?: ($locality ?: $state));
 
                 $deducedType = $isKg ? 'kindergarten' : ($isPriv ? 'private' : 'government');
                 $stages = $isKg ? ['kindergarten'] : SudanGeography::deduceStages($deducedType, $cleanName, null, '');
