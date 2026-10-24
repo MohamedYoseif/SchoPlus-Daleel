@@ -4788,6 +4788,9 @@ try {
         locSelect.innerHTML = opts;
     }
 
+    document.addEventListener('DOMContentLoaded', function() { if (document.getElementById('workerState')) { onWorkerStateChange(); } });
+    setTimeout(onWorkerStateChange, 300);
+
     function toggleCardMapPin(idx) {
         const box = document.getElementById('card-map-embed-' + idx);
         if (!box) return;
@@ -5150,6 +5153,12 @@ try {
                                     <span class="badge bg-light text-muted border"><i class="fas fa-phone-slash me-1"></i> بدون هاتف</span>
                                 `}
                             </div>
+                        </div>
+
+                        <!-- Clean Map Search Query Match Info -->
+                        <div class="small text-muted mb-2 px-1 d-flex align-items-center justify-content-between" style="font-size: 0.68rem;">
+                            <span><i class="fas fa-crosshairs text-danger me-1"></i> اسم الصرح في خرائط جوجل: <strong class="text-dark">${escapeHtml(s.clean_maps_name || s.name)}</strong></span>
+                            <span class="text-success"><i class="fas fa-check-circle me-1"></i> مطابق للـ PIN</span>
                         </div>
 
                         <!-- Platform Links & PIN Verification Toolbar -->

@@ -541,6 +541,111 @@ class SchoolAutoResearcher {
     }
 
     /**
+     * Clean school name for Google Maps search (strip trailing dashes, parenthetical notes, city suffixes)
+     */
+    public static function cleanSchoolNameForMaps(string $name): string
+    {
+        // Remove trailing dash and geography e.g. " — بحري (المزاد)" or " — الخرطوم" or " - الضعين"
+        $clean = preg_replace('/\s*[\-—–]\s*.*$/u', '', $name);
+        // Remove any remaining parentheses e.g. "(الرومي)"
+        $clean = preg_replace('/\(.*?\)/u', '', $clean);
+        // Remove excess whitespace
+        $clean = trim(preg_replace('/\s+/u', ' ', $clean));
+        return !empty($clean) ? $clean : trim($name);
+    }
+
+    /**
+     * Strictly match an institution candidate against a targeted locality, preventing cross-locality leaks
+     */
+    public static function doesInstitutionMatchLocality(array $item, string $targetLocality, ?string $state = null): bool
+    {
+        $cCity = trim($item['city'] ?? '');
+        $cDist = trim($item['district'] ?? '');
+        $cAddress = trim($item['address'] ?? '');
+
+        $normTarget = trim(str_replace(['محلية ', 'مدينة '], '', $targetLocality));
+        $khartoumLocalities = ['الخرطوم', 'بحري', 'أم درمان', 'كرري', 'شرق النيل', 'أم بدة', 'جبل أولياء'];
+
+        // 1. Khartoum State Special Locality Rules (Strict Tri-City / 7 Localities boundary enforcement)
+        if (in_array($normTarget, $khartoumLocalities, true) || $normTarget === 'الخرطوم بحري') {
+            if ($normTarget === 'الخرطوم بحري') $normTarget = 'بحري';
+            $cCityNorm = str_replace('الخرطوم بحري', 'بحري', $cCity);
+
+            // If the institution's city is explicitly set to a different Khartoum locality, REJECT IMMEDIATELY!
+            if (!empty($cCityNorm) && in_array($cCityNorm, $khartoumLocalities, true) && $cCityNorm !== $normTarget) {
+                return false;
+            }
+
+            if ($normTarget === 'بحري') {
+                if ($cCityNorm === 'بحري') return true;
+                $bahriDistricts = ['كافوري', 'الصافية', 'شمبات', 'الشعبية', 'المزاد', 'كوبر', 'حلفايا', 'حلفاية الملوك', 'الدروشاب', 'الكدرو', 'الختمية', 'حلة حمد', 'الأملاك', 'الجيلي'];
+                foreach ($bahriDistricts as $bd) {
+                    if (mb_stripos($cDist, $bd, 0, 'UTF-8') !== false) return true;
+                }
+                return false;
+            }
+
+            if ($normTarget === 'الخرطوم') {
+                if ($cCityNorm === 'الخرطوم') {
+                    $otherLocalityTokens = ['كافوري', 'الصافية', 'شمبات', 'حلفايا', 'الدروشاب', 'الثورة', 'الواحة', 'المهندسين', 'الملازمين', 'الحاج يوسف', 'الفيحاء', 'الكلاكلة', 'الأزهري'];
+                    foreach ($otherLocalityTokens as $olt) {
+                        if (mb_stripos($cDist, $olt, 0, 'UTF-8') !== false) return false;
+                    }
+                    return true;
+                }
+                return false;
+            }
+
+            if ($normTarget === 'أم درمان') {
+                if ($cCityNorm === 'أم درمان') return true;
+                $omdurmanDistricts = ['الملازمين', 'العباسية', 'ود نوباوي', 'المهندسين', 'بانت', 'الموردة', 'العرضة', 'أبو روف', 'الهاشماب', 'الفتيحاب'];
+                foreach ($omdurmanDistricts as $od) {
+                    if (mb_stripos($cDist, $od, 0, 'UTF-8') !== false) return true;
+                }
+                return false;
+            }
+
+            if ($normTarget === 'كرري') {
+                if ($cCityNorm === 'كرري') return true;
+                $karariDistricts = ['الثورة', 'الثورات', 'الواحة', 'الفتح', 'مدينة النيل', 'الرومي', 'جبل سركاب'];
+                foreach ($karariDistricts as $kd) {
+                    if (mb_stripos($cDist, $kd, 0, 'UTF-8') !== false) return true;
+                }
+                return false;
+            }
+
+            if ($normTarget === 'شرق النيل') {
+                if ($cCityNorm === 'شرق النيل') return true;
+                $eastDistricts = ['حلة كوكو', 'الفيحاء', 'حي الهدى', 'الردمية', 'الباقير', 'الوادي الأخضر', 'الجريف شرق', 'الحاج يوسف'];
+                foreach ($eastDistricts as $ed) {
+                    if (mb_stripos($cDist, $ed, 0, 'UTF-8') !== false) return true;
+                }
+                return false;
+            }
+
+            if ($normTarget === 'أم بدة') {
+                if ($cCityNorm === 'أم بدة') return true;
+                if (mb_stripos($cDist, 'أم بدة', 0, 'UTF-8') !== false || mb_stripos($cDist, 'دار السلام', 0, 'UTF-8') !== false) return true;
+                return false;
+            }
+
+            if ($normTarget === 'جبل أولياء') {
+                if ($cCityNorm === 'جبل أولياء') return true;
+                $jabalDistricts = ['الكلاكلة', 'الكلاكلات', 'الأزهري', 'السلمة', 'مايو', 'طيبة الحسناب'];
+                foreach ($jabalDistricts as $jd) {
+                    if (mb_stripos($cDist, $jd, 0, 'UTF-8') !== false) return true;
+                }
+                return false;
+            }
+        }
+
+        // Generic matching for localities in any other state
+        return ($cCity === $normTarget || $cDist === $normTarget || 
+                mb_stripos($cCity, $normTarget, 0, 'UTF-8') !== false || 
+                mb_stripos($cDist, $normTarget, 0, 'UTF-8') !== false);
+    }
+
+    /**
      * Autonomous Google Maps & Multi-Platform Discovery Engine
      * Grounded in authentic verified databases + Google Maps live query + social research pipeline
      *
@@ -621,20 +726,30 @@ class SchoolAutoResearcher {
                 }
 
                 if ($cleanScopeLocality !== null) {
-                    $cCity = trim($item['city'] ?? '');
-                    $cDist = trim($item['district'] ?? '');
-                    if ($cCity !== $cleanScopeLocality && $cDist !== $cleanScopeLocality && 
-                        mb_stripos($cCity, $cleanScopeLocality, 0, 'UTF-8') === false && 
-                        mb_stripos($cDist, $cleanScopeLocality, 0, 'UTF-8') === false) {
+                    if (!self::doesInstitutionMatchLocality($item, $cleanScopeLocality, $cleanScopeState)) {
                         continue;
                     }
                 }
 
                 $typ = trim($item['school_type'] ?? 'private');
+                $isKindergarten = (
+                    $typ === 'kindergarten' || 
+                    (isset($item['stages']) && is_array($item['stages']) && in_array('kindergarten', $item['stages'], true) && count($item['stages']) === 1) ||
+                    mb_stripos($name, 'روضة', 0, 'UTF-8') !== false || 
+                    mb_stripos($name, 'حضانة', 0, 'UTF-8') !== false ||
+                    (mb_stripos($name, 'براعم', 0, 'UTF-8') !== false && mb_stripos($name, 'مدرسة', 0, 'UTF-8') === false)
+                );
+
                 if ($scopeType !== 'all') {
-                    if ($scopeType === 'private' && !in_array($typ, ['private', 'international'], true)) continue;
-                    if ($scopeType === 'kindergarten' && $typ !== 'kindergarten') continue;
-                    if ($scopeType === 'government' && $typ !== 'government') continue;
+                    if ($scopeType === 'kindergarten') {
+                        if (!$isKindergarten) continue;
+                    } elseif ($scopeType === 'private') {
+                        if ($isKindergarten) continue; // STRICTLY EXCLUDE ALL KINDERGARTENS & NURSERIES
+                        if (!in_array($typ, ['private', 'international'], true)) continue;
+                    } elseif ($scopeType === 'government') {
+                        if ($isKindergarten) continue;
+                        if ($typ !== 'government' && mb_stripos($name, 'حكومية', 0, 'UTF-8') === false && mb_stripos($name, 'حكومي', 0, 'UTF-8') === false) continue;
+                    }
                 }
 
                 if ($cleanNameQuery !== '') {
@@ -712,13 +827,17 @@ class SchoolAutoResearcher {
 
             $isNew = ($matchedExisting === false || $matchedExisting === null);
 
-            // 2. Google Maps Grounding & Real Verified PIN
-            $pinAddressParts = array_filter([$name, ($dist !== $ct ? $dist : null), $ct, $st, 'السودان']);
-            $pinAddressStr = implode(' ', $pinAddressParts);
-            $gmapQuery = urlencode($pinAddressStr);
-            $gmapUrl = !empty($c['google_map_url']) ? $c['google_map_url'] : ('https://www.google.com/maps/search/?api=1&query=' . $gmapQuery);
+            // 2. Google Maps Grounding & Real Exact Clean PIN
+            $cleanMapsName = self::cleanSchoolNameForMaps($name);
+            $cleanDist = preg_replace('/[،,].*$/u', '', (string)$dist);
+            $cleanDist = trim(preg_replace('/[\-—–\(\)]+/u', '', $cleanDist));
+            $mapsQueryParts = array_filter([$cleanMapsName, ($cleanDist !== $ct ? $cleanDist : null), $ct, $st, 'السودان']);
+            $mapsQueryStr = implode(' ', $mapsQueryParts);
+            $gmapUrl = (!empty($c['google_map_url']) && !str_contains($c['google_map_url'], '—'))
+                ? $c['google_map_url']
+                : ('https://www.google.com/maps/search/?api=1&query=' . urlencode($mapsQueryStr));
             // Embedded map with marker pin at zoom 15 for visual confirmation
-            $embedMapUrl = 'https://maps.google.com/maps?q=' . urlencode($pinAddressStr) . '&t=&z=15&ie=UTF8&iwloc=&output=embed';
+            $embedMapUrl = 'https://maps.google.com/maps?q=' . urlencode($mapsQueryStr) . '&t=&z=15&ie=UTF8&iwloc=&output=embed';
 
             // 3. Grounding Policy on Phone Numbers:
             // If phone exists, use it. If no phone is listed on Google Maps, DO NOT DISCARD: leave null.
@@ -763,6 +882,7 @@ class SchoolAutoResearcher {
             $schoolData = [
                 'name' => $name,
                 'name_en' => $c['name_en'] ?? self::transliterateEnglish($name),
+                'clean_maps_name' => $cleanMapsName,
                 'slug' => $matchedExisting['slug'] ?? ($c['slug'] ?? ''),
                 'school_type' => $sTyp,
                 'curriculum' => $c['curriculum'] ?? (str_contains($name, 'بريطاني') || str_contains($name, 'عالمية') ? 'british' : 'sudanese'),
@@ -775,7 +895,7 @@ class SchoolAutoResearcher {
                 'whatsapp' => $validPhone,
                 'has_phone' => $hasPhone,
                 'has_pin' => true,
-                'pin_address' => $pinAddressStr,
+                'pin_address' => $mapsQueryStr,
                 'grounding_status' => $groundingStatus,
                 'google_map_url' => $gmapUrl,
                 'embed_map_url' => $embedMapUrl,
