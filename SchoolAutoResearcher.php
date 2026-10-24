@@ -1375,7 +1375,7 @@ class SchoolAutoResearcher {
                     'google_map_url' => (!empty($lat) && !empty($lon)) ? "https://www.google.com/maps/search/?api=1&query={$lat},{$lon}" : null,
                     'phone' => null,
                     'whatsapp' => null,
-                    'description' => "مؤسسة تعليمية " . ($deducedType === 'private' ? 'خاصة' : ($dedType === 'government' ? 'حكومية' : 'رياض أطفال')) . " معتمدة قائمة في ولاية {$state} — {$candLoc}، حي {$district}، موثقة بدبوس جغرافي دقيق على الخريطة.",
+                    'description' => "مؤسسة تعليمية " . ($deducedType === 'private' ? 'خاصة' : ($deducedType === 'government' ? 'حكومية' : 'رياض أطفال')) . " معتمدة قائمة في ولاية {$state} — {$candLoc}، حي {$district}، موثقة بدبوس جغرافي دقيق على الخريطة.",
                     'is_live_discovered' => true
                 ];
             }
@@ -1385,13 +1385,6 @@ class SchoolAutoResearcher {
         if ($logs !== null) {
             $foundCount = count($candidates);
             $logs[] = "[" . date('H:i:s') . "] ✅ تم استكشاف إجمالي ({$foundCount}) صرح تعليمي مطابق للتصنيف بنجاح.";
-        }
-
-        return $candidates;
-
-        if ($logs !== null) {
-            $foundCount = count($candidates);
-            $logs[] = "[" . date('H:i:s') . "] ✅ تم استكشاف ({$foundCount}) صرح تعليمي مطابق للتصنيف المحدد بنجاح.";
         }
 
         return $candidates;

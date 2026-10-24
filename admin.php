@@ -174,6 +174,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['admin_login'])) {
 // Check if Logged in as Master Admin
 $isMasterAdmin = !empty($_SESSION['daleel_master_admin']);
 
+// If not logged in, handle AJAX calls gracefully with JSON 401
+if (!$isMasterAdmin) {
+    $rawReq = @file_get_contents('php://input');
+    $jsonReq = json_decode($rawReq, true) ?: [];
+    $isAjax = !empty($_POST['ajax_action']) || !empty($_GET['ajax_action']) || !empty($jsonReq['ajax_action']) || !empty($_SERVER['HTTP_X_REQUESTED_WITH']);
+    if ($isAjax) {
+        header('Content-Type: application/json; charset=utf-8');
+        http_response_code(401);
+        echo json_encode([
+            'success' => false,
+            'session_expired' => true,
+            'error' => 'انتهت جلسة تسجيل الدخول للوحة التحكم. يرجى تحديث الصفحة وإعادة الدخول.'
+        ], JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+}
+
 // If not logged in, render Secure Login Screen
 if (!$isMasterAdmin): ?>
 <!DOCTYPE html>
@@ -4937,12 +4954,33 @@ try {
         fd.append('google_api_key', apiKey);
 
         fetch('admin.php', { method: 'POST', body: fd })
-        .then(r => r.json())
+        .then(async r => {
+            const text = await r.text();
+            let data;
+            try {
+                data = JSON.parse(text);
+            } catch (e) {
+                if (text.includes('admin_login') || text.includes('كلمة المرور') || r.status === 401) {
+                    alert('انتهت جلسة تسجيل الدخول للوحة التحكم. سيتم تحديث الصفحة لإعادة الدخول.');
+                    window.location.reload();
+                    return null;
+                }
+                throw new Error('تعذر قراءة رد الخادم (HTTP ' + r.status + ')');
+            }
+            return data;
+        })
         .then(data => {
+            if (!data) return;
             btn.disabled = false;
             btn.innerHTML = oldHtml;
 
-            if (!data || !data.success) {
+            if (data.session_expired) {
+                alert(data.error || 'انتهت جلسة تسجيل الدخول للوحة التحكم. سيتم تحديث الصفحة لإعادة الدخول.');
+                window.location.reload();
+                return;
+            }
+
+            if (!data.success) {
                 container.innerHTML = `
                     <div class="alert alert-danger p-3 rounded-3 shadow-sm border">
                         <i class="fas fa-exclamation-triangle text-danger me-1"></i> ${escapeHtml(data.error || 'تعذر استكمال جلب المدارس.')}
@@ -4962,10 +5000,10 @@ try {
             btn.innerHTML = oldHtml;
             container.innerHTML = `
                 <div class="alert alert-danger p-3 rounded-3 shadow-sm border">
-                    <i class="fas fa-exclamation-triangle text-danger me-1"></i> حدث خطأ أثناء الاتصال بالخادم.
+                    <i class="fas fa-exclamation-triangle text-danger me-1"></i> ${escapeHtml(err.message || 'حدث خطأ أثناء الاتصال بالخادم.')}
                 </div>
             `;
-            showAdminToast('حدث خطأ في الاتصال بالخادم.', 'danger');
+            showAdminToast(err.message || 'حدث خطأ في الاتصال بالخادم.', 'danger');
         });
     }
 
@@ -5009,8 +5047,26 @@ try {
                 description: s.description
             })
         })
-        .then(r => r.json())
+        .then(async r => {
+            const text = await r.text();
+            try {
+                return JSON.parse(text);
+            } catch (e) {
+                if (text.includes('admin_login') || r.status === 401) {
+                    alert('انتهت جلسة تسجيل الدخول. سيتم تحديث الصفحة لإعادة الدخول.');
+                    window.location.reload();
+                    return null;
+                }
+                throw new Error('خطأ في استجابة الخادم (HTTP ' + r.status + ')');
+            }
+        })
         .then(data => {
+            if (!data) return;
+            if (data.session_expired) {
+                alert(data.error);
+                window.location.reload();
+                return;
+            }
             if (data && data.success) {
                 s.registered = true;
                 s.existing_id = data.school?.id || s.existing_id;
