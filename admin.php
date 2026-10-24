@@ -936,6 +936,22 @@ if ($action !== null) {
             exit;
         }
 
+        if ($action === 'save_google_places_api_key') {
+            $key = trim($_POST['google_api_key'] ?? '');
+            setDaleelSetting($pdo, 'google_places_api_key', $key);
+            $cloudSynced = false;
+            if (class_exists('DaleelSyncService') && DaleelSyncService::isLocal()) {
+                $res = DaleelSyncService::callCloud('save_setting', ['key' => 'google_places_api_key', 'value' => $key]);
+                $cloudSynced = !empty($res['success']);
+            }
+            echo json_encode([
+                'success' => true,
+                'cloud_synced' => $cloudSynced,
+                'message' => 'تم حفظ وتحديث المفتاح بنجاح محلياً' . ($cloudSynced ? ' ومزامنته سحابياً!' : '!')
+            ], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+
         if ($action === 'quick_approve_discovered_school') {
             $rawPayload = file_get_contents('php://input');
             $data = json_decode($rawPayload, true) ?: $_POST;
@@ -3499,6 +3515,9 @@ try {
                                                 } catch (Throwable $e) {}
                                                 ?>
                                                 <input type="password" id="workerGoogleApiKey" class="form-control form-control-sm" placeholder="AIzaSy... (محفوظ تلقائياً - اتركه فارغاً للاستكشاف المجاني)" value="<?= htmlspecialchars($savedGooglePlacesKey) ?>" style="font-size: 0.74rem;" title="<?= !empty($savedGooglePlacesKey) ? 'تم حفظ المفتاح مسبقاً وسيعمل تلقائياً' : '' ?>">
+                                                <button type="button" id="btnSaveGoogleApiKey" class="btn btn-sm btn-success text-nowrap fw-bold" onclick="saveGooglePlacesApiKey()" style="font-size: 0.7rem; border-radius: 6px;" title="حفظ وتحديث المفتاح في قاعدة البيانات ومزامنته سحابياً">
+                                                    <i class="fas fa-save me-1"></i> حفظ وتحديث
+                                                </button>
                                                 <a href="https://mapsplatform.google.com/maps-demo-key?utm_campaign=gmp_git_agentskills_v1" target="_blank" class="btn btn-sm btn-outline-primary text-nowrap fw-bold" style="font-size: 0.7rem; border-radius: 6px;" title="توليد مفتاح تجريبي مجاني بنقرة واحدة بدون بطاقة بنكية">
                                                     <i class="fas fa-key text-warning me-1"></i> Demo Key مجاني
                                                 </a>
@@ -4797,6 +4816,35 @@ try {
         const box = document.getElementById('card-map-embed-' + idx);
         if (!box) return;
         box.style.display = (box.style.display === 'none') ? 'block' : 'none';
+    }
+
+    function saveGooglePlacesApiKey() {
+        const key = document.getElementById('workerGoogleApiKey') ? document.getElementById('workerGoogleApiKey').value.trim() : '';
+        const btn = document.getElementById('btnSaveGoogleApiKey');
+        if (btn) {
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> جاري الحفظ...';
+        }
+        const fd = new FormData();
+        fd.append('ajax_action', 'save_google_places_api_key');
+        fd.append('google_api_key', key);
+        fetch('admin.php', { method: 'POST', body: fd })
+            .then(r => r.json())
+            .then(d => {
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fas fa-check text-white me-1"></i> تم الحفظ بنجاح!';
+                    setTimeout(() => { btn.innerHTML = '<i class="fas fa-save me-1"></i> حفظ وتحديث'; }, 3000);
+                }
+                alert(d.message || 'تم حفظ وتحديث المفتاح بنجاح!');
+            })
+            .catch(e => {
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fas fa-save me-1"></i> حفظ وتحديث';
+                }
+                alert('حدث خطأ أثناء حفظ المفتاح: ' + e);
+            });
     }
 
     function runAutonomousWorker() {
