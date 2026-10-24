@@ -162,27 +162,58 @@ class SchoolAutoResearcher {
     }
 
     /**
-     * Transliterate Arabic School Name to English
+     * Transliterate Arabic School Name to English with proper phonetic handling
      */
     public static function transliterateEnglish(string $nameAr): string {
-        $transMap = [
+        $phrases = [
+            'مجمع مدارس' => 'Schools Complex',
             'مدارس' => 'Schools',
             'مدرسة' => 'School',
             'مجمع' => 'Complex',
             'روضة' => 'Kindergarten',
             'رياض' => 'Kindergarten',
             'حضانة' => 'Nursery',
+            'أكاديمية' => 'Academy',
+            'الشهيد' => 'Al-Shaheed',
+            'شهداء' => 'Shohadaa',
+            'الثانوية' => 'Secondary',
+            'المتوسطة' => 'Intermediate',
+            'الأساسية' => 'Basic',
+            'الابتدائية' => 'Primary',
             'الخاصة' => 'Private',
+            'خاصة' => 'Private',
             'الحكومية' => 'Public',
             'النموذجية' => 'Model',
             'العالمية' => 'International',
             'الدولية' => 'International',
             'البريطانية' => 'British',
             'التركية' => 'Turkish',
+            'الأمريكية' => 'American',
             'بنين' => 'Boys',
             'بنات' => 'Girls',
-            'المشتركة' => 'Mixed',
+            'المشتركة' => 'Co-ed',
             'فرع' => 'Branch',
+            'محمد' => 'Mohamed',
+            'أحمد' => 'Ahmed',
+            'محمود' => 'Mahmoud',
+            'عبدالله' => 'Abdullah',
+            'عبد الله' => 'Abdullah',
+            'عبدالرحمن' => 'Abdelrahman',
+            'عبد الرحمن' => 'Abdelrahman',
+            'الطاهر' => 'Al-Tahir',
+            'العمدة' => 'Al-Omda',
+            'الشيخ' => 'Al-Sheikh',
+            'ود نفيع' => 'Wad Nifei',
+            'ود' => 'Wad',
+            'عثمان' => 'Osman',
+            'علي' => 'Ali',
+            'عمر' => 'Omer',
+            'خالد' => 'Khalid',
+            'حسن' => 'Hassan',
+            'حسين' => 'Hussein',
+            'إبراهيم' => 'Ibrahim',
+            'مصطفى' => 'Mustafa',
+            'صالح' => 'Saleh',
             'الخرطوم' => 'Khartoum',
             'أم درمان' => 'Omdurman',
             'أمدرمان' => 'Omdurman',
@@ -190,26 +221,56 @@ class SchoolAutoResearcher {
             'كرري' => 'Karari',
             'بورتسودان' => 'Port Sudan',
             'ود مدني' => 'Wad Madani',
+            'الحصاحيصا' => 'Al Hasahisa',
+            'المناقل' => 'Al Managil',
+            'الكاملين' => 'Al Kamlin',
+            'رفاعة' => 'Rufaa',
             'كسلا' => 'Kassala',
             'القضارف' => 'Gedarif',
             'عطبرة' => 'Atbara',
+            'الدامر' => 'Ed Damer',
             'شندي' => 'Shendi',
             'الأبيض' => 'El Obeid',
             'كوستي' => 'Kosti'
         ];
 
-        $words = explode(' ', $nameAr);
-        $enWords = [];
+        $res = $nameAr;
+        foreach ($phrases as $ar => $en) {
+            $res = preg_replace('/\b' . preg_quote($ar, '/') . '\b/u', $en, $res);
+        }
+
+        $charMap = [
+            'ا' => 'a', 'أ' => 'a', 'إ' => 'e', 'آ' => 'aa', 'ء' => '',
+            'ب' => 'b', 'ت' => 't', 'ث' => 'th', 'ج' => 'j', 'ح' => 'h',
+            'خ' => 'kh', 'د' => 'd', 'ذ' => 'dh', 'ر' => 'r', 'ز' => 'z',
+            'س' => 's', 'ش' => 'sh', 'ص' => 's', 'ض' => 'd', 'ط' => 't',
+            'ظ' => 'z', 'ع' => 'a', 'غ' => 'gh', 'ف' => 'f', 'ق' => 'q',
+            'ك' => 'k', 'ل' => 'l', 'م' => 'm', 'ن' => 'n', 'ه' => 'h',
+            'و' => 'w', 'ي' => 'y', 'ى' => 'a', 'ة' => 'a'
+        ];
+
+        $words = explode(' ', $res);
+        $outWords = [];
         foreach ($words as $w) {
             $wClean = trim($w, " —-–_()");
-            if (isset($transMap[$wClean])) {
-                $enWords[] = $transMap[$wClean];
-            } else {
-                // Approximate transliteration
-                $enWords[] = ucfirst(preg_replace('/[^\w]/', '', $wClean)) ?: 'Al';
+            if (empty($wClean)) continue;
+            if (preg_match('/^[a-zA-Z\-\'\.]+$/', $wClean)) {
+                $outWords[] = $wClean;
+                continue;
+            }
+            // Phonetic letter conversion
+            $latin = '';
+            $len = mb_strlen($wClean, 'UTF-8');
+            for ($i = 0; $i < $len; $i++) {
+                $ch = mb_substr($wClean, $i, 1, 'UTF-8');
+                $latin .= $charMap[$ch] ?? $ch;
+            }
+            $cleanLatin = ucfirst(trim($latin));
+            if (!empty($cleanLatin)) {
+                $outWords[] = $cleanLatin;
             }
         }
-        return trim(implode(' ', array_filter($enWords)));
+        return trim(implode(' ', array_filter($outWords))) ?: 'School';
     }
 
     /**
@@ -792,6 +853,44 @@ class SchoolAutoResearcher {
             }
         }
 
+        // 1. Explicit neighborhood marker: "حي ..."
+        if (preg_match('/حي\s+([^,–\-_]+)/u', $address, $m)) {
+            $c = trim($m[1]);
+            if (mb_strlen($c, 'UTF-8') > 2) return $c;
+        }
+
+        // 2. Explicit village/area marker: "قرية ..." or "منطقة ..."
+        if (preg_match('/(قرية|منطقة)\s+([^,–\-_]+)/u', $address, $m)) {
+            $c = trim($m[2]);
+            if (mb_strlen($c, 'UTF-8') > 2) return $c;
+        }
+
+        // 3. Comma-separated address parts before city/locality
+        $parts = array_map('trim', explode(',', $address));
+        $locIdx = -1;
+        foreach ($parts as $idx => $p) {
+            if (stripos($p, $locality) !== false || stripos($p, 'Hasahisa') !== false || stripos($p, 'Managil') !== false || stripos($p, 'Madani') !== false) {
+                $locIdx = $idx;
+                break;
+            }
+        }
+        if ($locIdx > 1) {
+            for ($k = $locIdx - 1; $k >= 1; $k--) {
+                $cand = $parts[$k];
+                if (!preg_match('/(شارع|طريق|road|street|سوق)/iu', $cand) && mb_strlen($cand, 'UTF-8') >= 3) {
+                    return $cand;
+                }
+            }
+        }
+
+        // 4. Fallback: extract specific name from school if named after a place/village
+        if (preg_match('/مدرسة\s+(ود\s+[^\s]+|[^\s]+)\s+(الثانوية|المتوسطة|الابتدائية|الأساسية)/u', $name, $nm)) {
+            $candName = trim($nm[1]);
+            if (!in_array($candName, ['الشهيد', 'الحكومية', 'الخاصة', 'النموذجية', 'العالمية', 'الحديثة'])) {
+                return $candName;
+            }
+        }
+
         return $normLoc ?: $locality;
     }
 
@@ -800,6 +899,7 @@ class SchoolAutoResearcher {
      */
     public static function detectLocalityInState(string $name, string $address, string $state): string {
         $text = $name . ' ' . $address;
+
         if ($state === 'الخرطوم') {
             if (preg_match('/(بحري|كافوري|شمبات|الصافية|الشعبية|المزاد|حلفاية|الكدرو|الدروشاب|الأملاك|السامراب|طيبة الأحامدة|الصبابي|دردق)/u', $text)) {
                 return 'بحري';
@@ -824,6 +924,45 @@ class SchoolAutoResearcher {
             }
             return 'الخرطوم';
         }
+
+        // Comprehensive Sudanese Locality Aliases & Key Detection across all states
+        $cityAliases = [
+            'الحصاحيصا' => ['الحصاحيصا', 'حصاحيصا', 'al hasahisa', 'hasahisa', 'al hasaheisa', 'ود بلال', 'طيبة الشيخ عبدالباقي', 'أربجي', 'اربجي', 'طابت الشيخ عبدالمحمود'],
+            'المناقل' => ['المناقل', 'مناقل', 'al managil', 'al manaqil', 'الدسيس', 'كشكوش', 'طابت', 'القرشي', '24 القرشي', 'معتوق'],
+            'ود مدني' => ['ود مدني', 'ودمدني', 'مدني', 'wad madani', 'wad medani', 'بركات', 'حنتوب', 'مارنجان', 'عوانة'],
+            'الكاملين' => ['الكاملين', 'كاملين', 'al kamlin', 'kamlin', 'المسيد', 'الجيلي الجزيرة'],
+            'رفاعة' => ['رفاعة', 'شرق الجزيرة', 'rufaa', 'rufa\'a', 'تمبول', 'الهلالية'],
+            'أم القرى' => ['أم القرى', 'ام القرى'],
+            'بورتسودان' => ['بورتسودان', 'port sudan', 'portsudan', 'سواكن', 'طوكر'],
+            'عطبرة' => ['عطبرة', 'atbara', 'كنور'],
+            'الدامر' => ['الدامر', 'ed damer', 'ad damir'],
+            'شندي' => ['شندي', 'shendi', 'المتمة'],
+            'الأبيض' => ['الأبيض', 'الابيض', 'el obeid', 'al ubayyid', 'بارا'],
+            'كوستي' => ['كوستي', 'kosti', 'الدويم', 'القطينة', 'تندلتي'],
+            'ربك' => ['ربك', 'rabak'],
+            'دنقلا' => ['دنقلا', 'dongola', 'مروي', 'الدبة'],
+            'القضارف' => ['القضارف', 'gedarif', 'الفاو'],
+            'كسلا' => ['كسلا', 'kassala', 'حلفا الجديدة']
+        ];
+
+        $stateCities = SudanGeography::countriesWithStatesAndCities()['السودان'][$state] ?? [];
+
+        foreach ($cityAliases as $cityName => $aliases) {
+            if (in_array($cityName, $stateCities, true)) {
+                foreach ($aliases as $alias) {
+                    if (stripos($text, $alias) !== false) {
+                        return $cityName;
+                    }
+                }
+            }
+        }
+
+        foreach ($stateCities as $city) {
+            if (stripos($text, $city) !== false) {
+                return $city;
+            }
+        }
+
         return $state;
     }
 
@@ -832,12 +971,17 @@ class SchoolAutoResearcher {
      * قاعدة محكمة: استبعاد المدارس الحكومية، وقبول المدارس الخاصة والأكاديميات والمدارس الدولية واللغات والماركات المعروفة والمدارس القائمة
      */
     public static function isSudanesePrivateSchool(string $name): bool {
-        // استبعاد أي مدرسة مذكور فيها صراحة أنها حكومية
+        // 1. استبعاد أي مدرسة مذكور فيها صراحة أنها حكومية
         if (mb_stripos($name, 'حكومية', 0, 'UTF-8') !== false || mb_stripos($name, 'حكومي', 0, 'UTF-8') !== false) {
             return false;
         }
 
-        // الكلمات الصريحة للتعليم الخاص
+        // 2. مدارس الشهداء والشهيد في السودان حكومية بنسبة 100%
+        if (mb_stripos($name, 'الشهيد', 0, 'UTF-8') !== false || mb_stripos($name, 'شهداء', 0, 'UTF-8') !== false) {
+            return false;
+        }
+
+        // 3. الكلمات الصريحة للتعليم الخاص
         if (
             mb_stripos($name, 'خاصة', 0, 'UTF-8') !== false ||
             mb_stripos($name, 'الخاصة', 0, 'UTF-8') !== false ||
@@ -848,13 +992,13 @@ class SchoolAutoResearcher {
             return true;
         }
 
-        // مؤشرات التعليم الخاص والدولي واللغات
-        $indicators = ['عالمية', 'العالمية', 'دولية', 'الدولية', 'international', 'لغات', 'اللغات', 'language', 'أكاديمية', 'academy', 'القرآنية', 'الحديثة', 'النموذجية', 'المزدوجة', 'الذكية'];
+        // 4. مؤشرات التعليم الخاص والدولي واللغات
+        $indicators = ['عالمية', 'العالمية', 'دولية', 'الدولية', 'international', 'لغات', 'اللغات', 'language', 'أكاديمية', 'academy', 'القرآنية', 'الحديثة', 'النموذجية', 'المزدوجة', 'الذكية', 'البريطانية', 'التركية', 'الأمريكية'];
         foreach ($indicators as $ind) {
             if (mb_stripos($name, $ind, 0, 'UTF-8') !== false) return true;
         }
 
-        // كبرى سلاسل وماركات المدارس الخاصة المعروفة في السودان
+        // 5. كبرى سلاسل وماركات المدارس الخاصة المعروفة في السودان
         $brands = [
             'القبس', 'كامبردج', 'cambridge', 'المعالي', 'الرواد', 'المواهب', 'المجلس الأفريقي', 'المجلس الافريقي',
             'نوبل', 'noble', 'إكسلانس', 'صروح المجد', 'كمبوني', 'comboni', 'نايل فالي', 'كنون', 'بروقرس',
@@ -868,7 +1012,16 @@ class SchoolAutoResearcher {
             if (mb_stripos($name, $b, 0, 'UTF-8') !== false) return true;
         }
 
-        // في عمليات البحث عن المدارس الخاصة، أي صرح تعليمي معتمد لا يحمل صفة حكومية يعتبر مدرسة خاصة
+        // 6. النمط الكلاسيكي للمدارس الحكومية في السودان:
+        // "مدرسة [اسم قرية/منطقة/شخص] الثانوية/المتوسطة/الابتدائية/الأساسية بنين/بنات"
+        // في حال عدم وجود أي علامة تجارية أو كلمة خاصة، تعتبر هذه الصروح مدارس حكومية
+        if (preg_match('/(الثانوية|المتوسطة|الابتدائية|الأساسية|اساس|أساس)\s+(بنين|بنات|المشتركة)/u', $name)) {
+            return false;
+        }
+        if (preg_match('/\b(بنين|بنات)\b/u', $name) && !preg_match('/(خاصة|الخاصة|عالمية|العالمية|دولية|الدولية|أكاديمية|نموذجية)/u', $name)) {
+            return false;
+        }
+
         return true;
     }
 
