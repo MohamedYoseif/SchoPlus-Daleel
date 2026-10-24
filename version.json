@@ -1,7 +1,7 @@
 {
-    "version": "3.8.35",
+    "version": "3.8.36",
     "release_date": "2026-10-24",
     "version_type": "enterprise",
     "min_php_version": "8.2",
-    "release_notes": "دليل المدارس السودانية (daleel.schoplus.sd) — اختصار وتبسيط عناوين التبويبات بدون شروحات إضافية v3.8.35"
+    "release_notes": "دليل المدارس السودانية (daleel.schoplus.sd) — إعادة تصميم قائمة المدارس وعرض المعلومات الأساسية مع زر إدارة المدرسة الشامل v3.8.36"
 }

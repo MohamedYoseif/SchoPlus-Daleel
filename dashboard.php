@@ -7,6 +7,17 @@
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/SudanGeography.php';
 
+// Allow Master Admin to manage any school directly
+if (!empty($_SESSION['daleel_master_admin']) && isset($_GET['admin_manage_school'])) {
+    $targetId = (int)$_GET['admin_manage_school'];
+    if ($targetId > 0) {
+        $_SESSION['daleel_school_id'] = $targetId;
+        $_SESSION['daleel_admin_impersonating'] = true;
+        header('Location: dashboard.php?from_admin=1');
+        exit;
+    }
+}
+
 $currSchool = currentSchool();
 if (!$currSchool) {
     header('Location: login.php');
@@ -1420,6 +1431,25 @@ require_once __DIR__ . '/header.php';
 
 <div class="dashboard-page py-4">
     <div class="container">
+
+        <?php if (!empty($_SESSION['daleel_admin_impersonating'])): ?>
+            <div class="alert alert-warning border-0 shadow-sm rounded-4 mb-4 d-flex align-items-center justify-content-between flex-wrap gap-2 py-3 px-4" style="background: linear-gradient(135deg, #FFF7ED, #FFEDD5); border: 1.5px solid #F5A020 !important;">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="rounded-circle d-flex align-items-center justify-content-center text-white" style="width: 40px; height: 40px; background: #F5A020;">
+                        <i class="fas fa-user-shield fs-5"></i>
+                    </div>
+                    <div>
+                        <div class="fw-bold text-dark" style="font-size: 0.95rem;">أنت تتصفح وتدير هذه المدرسة بصفتك المشرف العام (Master Admin)</div>
+                        <div class="small text-muted" style="font-size: 0.74rem;">يمكنك إجراء أي تعديل على بيانات المدرسة والمراحل والمرافق والأخبار والقبول مباشرة.</div>
+                    </div>
+                </div>
+                <div>
+                    <a href="admin.php?tab=schools" class="btn btn-sm btn-dark fw-bold px-3 py-2 rounded-3 shadow-sm" style="font-size: 0.78rem;">
+                        <i class="fas fa-arrow-right me-1"></i> العودة للوحة التحكم المركزية
+                    </a>
+                </div>
+            </div>
+        <?php endif; ?>
 
         <!-- Top Header Card -->
         <div class="card border-0 rounded-4 shadow-sm bg-white p-4 mb-4">

@@ -612,6 +612,144 @@ if (isset($_REQUEST['ajax_action'])) {
         }
 
 
+        if ($action === 'get_school_quick_details') {
+            $id = (int)($_GET['id'] ?? 0);
+            $stmt = $pdo->prepare("SELECT * FROM daleel_schools WHERE id = ? LIMIT 1");
+            $stmt->execute([$id]);
+            $sch = $stmt->fetch(PDO::FETCH_ASSOC);
+            if (!$sch) {
+                echo json_encode(['success' => false, 'error' => 'المدرسة غير موجودة']);
+                exit;
+            }
+            $actualDirRank = getSchoolDirectoryRank($pdo, $id, !empty($sch['directory_rank']) ? (int)$sch['directory_rank'] : null);
+            $actualStateRank = getSchoolStateRank($pdo, $id, (string)($sch['state'] ?? ''), !empty($sch['state_rank']) ? (int)$sch['state_rank'] : null);
+
+            echo json_encode([
+                'success' => true,
+                'school' => [
+                    'id' => (int)$sch['id'],
+                    'name' => $sch['name'],
+                    'name_en' => $sch['name_en'] ?? '',
+                    'slug' => $sch['slug'],
+                    'phone' => $sch['phone'] ?? '',
+                    'whatsapp' => $sch['whatsapp'] ?? '',
+                    'school_type' => $sch['school_type'] ?? 'private',
+                    'gender_type' => $sch['gender_type'] ?? 'mixed',
+                    'curriculum' => $sch['curriculum'] ?? 'sudanese',
+                    'country' => $sch['country'] ?? 'السودان',
+                    'state' => $sch['state'] ?? '',
+                    'city' => $sch['city'] ?? '',
+                    'district' => $sch['district'] ?? '',
+                    'address' => $sch['address'] ?? '',
+                    'stages' => $sch['stages'] ?? '',
+                    'established_year' => $sch['established_year'] ?? '',
+                    'is_verified' => (int)($sch['is_verified'] ?? 0),
+                    'is_schoplus_client' => (int)($sch['is_schoplus_client'] ?? 0),
+                    'is_historic' => (int)($sch['is_historic'] ?? 0),
+                    'historic_badge_reason' => $sch['historic_badge_reason'] ?? '',
+                    'directory_rank' => (int)($sch['directory_rank'] ?: $actualDirRank),
+                    'state_rank' => (int)($sch['state_rank'] ?: $actualStateRank),
+                    'actual_directory_rank' => $actualDirRank,
+                    'actual_state_rank' => $actualStateRank,
+                    'status' => $sch['status'] ?? 'pending',
+                    'owner_name' => $sch['owner_name'] ?? '',
+                    'owner_phone' => $sch['owner_phone'] ?? '',
+                    'owner_title' => $sch['owner_title'] ?? '',
+                    'logo_path' => $sch['logo_path'] ?? '',
+                    'views_count' => (int)($sch['views_count'] ?? 0),
+                    'rating_avg' => (float)($sch['rating_avg'] ?? 5.0),
+                    'reviews_count' => (int)($sch['reviews_count'] ?? 0)
+                ]
+            ]);
+            exit;
+        }
+
+        if ($action === 'quick_save_school') {
+            $id = (int)($_POST['id'] ?? 0);
+            $stmt = $pdo->prepare("SELECT id FROM daleel_schools WHERE id = ? LIMIT 1");
+            $stmt->execute([$id]);
+            if (!$stmt->fetch()) {
+                echo json_encode(['success' => false, 'error' => 'المدرسة غير موجودة']);
+                exit;
+            }
+
+            $name = trim($_POST['name'] ?? '');
+            $nameEn = trim($_POST['name_en'] ?? '');
+            $phone = trim($_POST['phone'] ?? '');
+            $whatsapp = trim($_POST['whatsapp'] ?? '');
+            $schoolType = trim($_POST['school_type'] ?? 'private');
+            $country = trim($_POST['country'] ?? 'السودان');
+            $state = trim($_POST['state'] ?? '');
+            $city = trim($_POST['city'] ?? '');
+            $district = trim($_POST['district'] ?? '');
+            $stages = trim($_POST['stages'] ?? '');
+            $establishedYear = trim($_POST['established_year'] ?? '');
+            $isVerified = !empty($_POST['is_verified']) ? 1 : 0;
+            $isSchoplus = !empty($_POST['is_schoplus_client']) ? 1 : 0;
+            $isHistoric = !empty($_POST['is_historic']) ? 1 : 0;
+            $dirRank = (int)($_POST['directory_rank'] ?? 0);
+            $stRank = (int)($_POST['state_rank'] ?? 0);
+            $status = trim($_POST['status'] ?? 'approved');
+
+            if ($name === '') {
+                echo json_encode(['success' => false, 'error' => 'اسم المدرسة مطلوب']);
+                exit;
+            }
+
+            $upd = $pdo->prepare("UPDATE daleel_schools SET 
+                name = ?,
+                name_en = ?,
+                phone = ?,
+                whatsapp = ?,
+                school_type = ?,
+                country = ?,
+                state = ?,
+                city = ?,
+                district = ?,
+                stages = ?,
+                established_year = ?,
+                is_verified = ?,
+                is_schoplus_client = ?,
+                is_historic = ?,
+                directory_rank = ?,
+                state_rank = ?,
+                status = ?,
+                updated_at = NOW()
+                WHERE id = ?");
+            $upd->execute([
+                $name,
+                $nameEn ?: null,
+                $phone,
+                $whatsapp ?: null,
+                $schoolType,
+                $country,
+                $state,
+                $city,
+                $district ?: null,
+                $stages ?: null,
+                $establishedYear ?: null,
+                $isVerified,
+                $isSchoplus,
+                $isHistoric,
+                $dirRank ?: null,
+                $stRank ?: null,
+                $status,
+                $id
+            ]);
+
+            recalculateDaleelRanks($pdo);
+            $newDirRank = getSchoolDirectoryRank($pdo, $id);
+
+            echo json_encode([
+                'success' => true,
+                'id' => $id,
+                'name' => $name,
+                'new_rank' => $newDirRank,
+                'message' => 'تم حفظ تحديثات المدرسة بنجاح ✅'
+            ]);
+            exit;
+        }
+
         if ($action === 'update_rank') {
             $id = (int)($_POST['id'] ?? 0);
             $dirRank = (int)($_POST['directory_rank'] ?? 0);
@@ -2172,31 +2310,23 @@ try {
                     </form>
                 </div>
 
-                <!-- Schools Table -->
+                <!-- Schools Table (Redesigned: Clean, essential info + Manage Button) -->
                 <div class="table-responsive">
                     <table class="table admin-table align-middle">
                         <thead>
                             <tr>
-                                <th style="width: 50px;">#ID</th>
+                                <th style="width: 55px;" class="ps-3">#ID</th>
                                 <th>اسم المدرسة والمراحل</th>
-                                <th>التصنيف</th>
-                                <th>الدولة</th>
-                                <th>الموقع (الولاية / المدينة / الحي)</th>
-                                <th style="min-width: 145px;">الهاتف والتواصل</th>
-                                <?php if ($isLocalStation): ?>
-                                    <th class="text-center" style="width: 105px;">إرسال الواتساب</th>
-                                <?php endif; ?>
-                                <th class="text-center">التوثيق</th>
-                                <th class="text-center">SchoPlus</th>
-                                <th class="text-center">صرح عريق</th>
-                                <th class="text-center" style="width: 145px;" title="الترتيب الفعلي التلقائي في الدليل مع حقول لتخصيص الترتيب العام والولائي">الترتيب الفعلي (عام / ولائي)</th>
-                                <th class="text-center pe-3" style="width: 100px;">إجراءات</th>
+                                <th>الولاية والمدينة</th>
+                                <th style="min-width: 140px;">الهاتف والاتصال</th>
+                                <th class="text-center" style="width: 150px;">الترتيب والحالة</th>
+                                <th class="text-center pe-3" style="width: 150px;">إدارة المدرسة</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php if (empty($schoolsList)): ?>
                                 <tr>
-                                    <td colspan="12" class="text-center py-5 text-muted">لم يتم العثور على أي مدارس مطابقة لشروط البحث.</td>
+                                    <td colspan="6" class="text-center py-5 text-muted">لم يتم العثور على أي مدارس مطابقة لشروط البحث.</td>
                                 </tr>
                             <?php else: ?>
                                 <?php foreach ($schoolsList as $sch): ?>
@@ -2205,232 +2335,137 @@ try {
                                     $typeMeta = getSchoolTypeLabel($sch['school_type'] ?? '', $sch['stages'] ?? '', $sch['name'] ?? '');
                                     $phoneVal = trim((string)($sch['whatsapp'] ?: $sch['phone']));
                                     $waUrl = formatWhatsAppUrl($phoneVal, $sch['name'], $sch['slug'] ?? '', $sch['country'] ?? 'السودان');
-
-                                    // Line type detection: Mobile vs Landline
-                                    $cleanDigits = preg_replace('/[^0-9]/', '', $phoneVal);
-                                    $isMobile = false;
-                                    if (str_starts_with($cleanDigits, '249')) {
-                                        $local = substr($cleanDigits, 3);
-                                        $isMobile = (str_starts_with($local, '9') || str_starts_with($local, '1')) && strlen($local) === 9;
-                                    } elseif (str_starts_with($cleanDigits, '0')) {
-                                        $isMobile = (str_starts_with($cleanDigits, '09') || str_starts_with($cleanDigits, '01')) && strlen($cleanDigits) === 10;
-                                    } elseif (str_starts_with($cleanDigits, '9665') || str_starts_with($cleanDigits, '201') || str_starts_with($cleanDigits, '9715') || str_starts_with($cleanDigits, '974')) {
-                                        $isMobile = true;
-                                    }
                                     ?>
                                     <tr id="row-school-<?= $sch['id'] ?>">
                                         <td class="fw-bold text-muted ps-3">#<?= $sch['id'] ?></td>
+                                        
+                                        <!-- 1. SCHOOL NAME & BASIC INFO -->
                                         <td>
                                             <div class="d-flex align-items-center gap-2">
                                                 <div>
-                                                    <a href="/school/<?= urlencode($sch['slug']) ?>" target="_blank" class="fw-bold text-dark text-decoration-none hover-primary" style="font-size: 0.78rem;">
-                                                        <?= e($sch['name']) ?>
-                                                    </a>
-                                                    <?php if (!empty($sch['name_en'])): ?>
-                                                        <div class="text-muted" style="font-size: 0.65rem;"><?= e($sch['name_en']) ?></div>
-                                                    <?php endif; ?>
-                                                    <?php if (!empty($sch['established_year']) && (int)$sch['established_year'] <= 1950): ?>
-                                                        <span class="badge bg-info-subtle text-info border border-info mt-1" style="font-size: 0.6rem;">
-                                                            <i class="fas fa-landmark me-1"></i>تأسست <?= e($sch['established_year']) ?>
-                                                        </span>
-                                                    <?php endif; ?>
-                                                    <?php $srcMeta = getSchoolVerificationSourceUrl($sch); ?>
-                                                    <div class="mt-1 d-flex align-items-center gap-1">
-                                                        <a href="<?= e($srcMeta['url']) ?>" target="_blank" rel="noopener" class="badge bg-light text-primary border py-0 px-1 text-decoration-none hover-primary" style="font-size: 0.6rem;" title="فتح مصدر النتيجة والتحقق الخارجي">
-                                                            <i class="<?= e($srcMeta['icon']) ?> me-1"></i><?= e($srcMeta['label']) ?> <i class="fas fa-external-link-alt ms-1" style="font-size: 0.55rem;"></i>
+                                                    <div class="d-flex align-items-center gap-1 flex-wrap">
+                                                        <a href="/school/<?= urlencode($sch['slug']) ?>" target="_blank" class="fw-bold text-dark text-decoration-none hover-primary" style="font-size: 0.84rem;">
+                                                            <?= e($sch['name']) ?>
                                                         </a>
+                                                        <?php if (!empty($sch['is_verified'])): ?>
+                                                            <span class="badge bg-success-subtle text-success border border-success-subtle py-0 px-1" style="font-size: 0.62rem;" title="مدرسة موثقة رسمياً">
+                                                                <i class="fas fa-check-circle"></i> موثقة
+                                                            </span>
+                                                        <?php endif; ?>
+                                                        <?php if (!empty($sch['is_schoplus_client'])): ?>
+                                                            <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle py-0 px-1" style="font-size: 0.62rem;" title="مدرسة ذكية بنظام SchoPlus">
+                                                                <i class="fas fa-award"></i> SchoPlus
+                                                            </span>
+                                                        <?php endif; ?>
+                                                        <?php if (!empty($sch['is_historic'])): ?>
+                                                            <span class="badge bg-primary-subtle text-primary border border-primary-subtle py-0 px-1" style="font-size: 0.62rem;" title="صرح تعليمي عريق">
+                                                                <i class="fas fa-landmark"></i> عريقة
+                                                            </span>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                    
+                                                    <div class="d-flex align-items-center gap-2 mt-1 flex-wrap text-muted" style="font-size: 0.68rem;">
+                                                        <span class="badge <?= $typeMeta['badge'] ?> px-1.5 py-0.5" style="font-size: 0.64rem;">
+                                                            <i class="fas <?= $typeMeta['icon'] ?> me-1"></i><?= $typeMeta['label'] ?>
+                                                        </span>
+                                                        <?php if (!empty($sch['stages'])): ?>
+                                                            <span><i class="fas fa-layer-group me-1"></i><?= e($sch['stages']) ?></span>
+                                                        <?php endif; ?>
+                                                        <?php if (!empty($sch['established_year'])): ?>
+                                                            <span><i class="fas fa-calendar-alt me-1"></i>تأسست <?= e($sch['established_year']) ?></span>
+                                                        <?php endif; ?>
                                                     </div>
                                                 </div>
                                             </div>
                                         </td>
-                                        <!-- CLASSIFICATION -->
-                                        <td class="text-nowrap">
-                                            <span class="badge <?= $typeMeta['badge'] ?> px-2 py-1" style="font-size: 0.65rem;">
-                                                <i class="fas <?= $typeMeta['icon'] ?> me-1"></i><?= $typeMeta['label'] ?>
-                                            </span>
-                                        </td>
-                                        <!-- COUNTRY -->
+
+                                        <!-- 2. LOCATION & COUNTRY -->
                                         <td>
-                                            <span class="badge bg-light text-dark border px-2 py-1" style="font-size: 0.72rem;">
-                                                <?= getCountryBadge($sch['country'] ?? 'السودان') ?>
-                                            </span>
+                                            <div class="d-flex flex-column gap-1">
+                                                <div class="d-flex align-items-center gap-1 flex-wrap">
+                                                    <span class="badge bg-light text-dark border px-2 py-0.5" style="font-size: 0.7rem;">
+                                                        <?= getCountryBadge($sch['country'] ?? 'السودان') ?>
+                                                    </span>
+                                                    <span class="fw-bold text-dark" style="font-size: 0.76rem;"><?= e($sch['state']) ?></span>
+                                                </div>
+                                                <div class="text-muted small" style="font-size: 0.68rem;">
+                                                    <?= e($sch['city']) ?>
+                                                    <?php if (!empty($sch['district'])): ?> — حي <?= e($sch['district']) ?><?php endif; ?>
+                                                </div>
+                                            </div>
                                         </td>
-                                        <!-- LOCATION -->
+
+                                        <!-- 3. PHONE & DIRECT CONTACT -->
                                         <td>
-                                            <div class="d-flex flex-wrap gap-1 align-items-center">
-                                                <span class="badge bg-light text-dark border" style="font-size: 0.65rem;"><?= e($sch['state']) ?></span>
-                                                <span class="text-muted small" style="font-size: 0.68rem;"><?= e($sch['city']) ?></span>
-                                                <?php if (!empty($sch['district'])): ?>
-                                                    <span class="text-muted small" style="font-size: 0.68rem;">— حي <?= e($sch['district']) ?></span>
+                                            <?php if ($phoneVal !== ''): ?>
+                                                <div class="d-flex flex-column gap-1">
+                                                    <div>
+                                                        <a href="tel:<?= e($phoneVal) ?>" class="fw-bold text-dark text-decoration-none dir-ltr hover-primary" style="font-size: 0.76rem; font-family: monospace;">
+                                                            <i class="fas fa-phone-alt text-muted me-1" style="font-size: 0.65rem;"></i><?= e($phoneVal) ?>
+                                                        </a>
+                                                    </div>
+                                                    <div class="d-flex align-items-center gap-1 mt-0.5">
+                                                        <?php if ($waUrl): ?>
+                                                            <a href="<?= e($waUrl) ?>" target="_blank" class="btn btn-sm btn-outline-success d-inline-flex align-items-center justify-content-center p-0" style="width: 22px; height: 22px; border-radius: 6px;" title="محادثة واتساب">
+                                                                <i class="fab fa-whatsapp" style="font-size: 0.68rem;"></i>
+                                                            </a>
+                                                        <?php endif; ?>
+                                                        <a href="tel:<?= e($phoneVal) ?>" class="btn btn-sm btn-outline-primary d-inline-flex align-items-center justify-content-center p-0" style="width: 22px; height: 22px; border-radius: 6px;" title="اتصال هاتفي">
+                                                            <i class="fas fa-phone-alt" style="font-size: 0.62rem;"></i>
+                                                        </a>
+                                                        <?php if ($isLocalStation): ?>
+                                                            <button type="button" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center justify-content-center p-0" style="width: 22px; height: 22px; border-radius: 6px;" onclick="openCustomSchoolMsg(<?= $sch['id'] ?>, '<?= e(addslashes($sch['name'])) ?>', '<?= e(addslashes($phoneVal)) ?>')" title="مراسلة عبر خادم الواتساب">
+                                                                <i class="fas fa-comment-dots" style="font-size: 0.6rem;"></i>
+                                                            </button>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                </div>
+                                            <?php else: ?>
+                                                <span class="badge bg-light text-muted border" style="font-size: 0.66rem;">
+                                                    <i class="fas fa-phone-slash me-1"></i>غير متوفر
+                                                </span>
+                                            <?php endif; ?>
+                                        </td>
+
+                                        <!-- 4. RANK & STATUS BADGE -->
+                                        <td class="text-center">
+                                            <div class="d-flex flex-column align-items-center justify-content-center gap-1">
+                                                <span class="badge" style="background: linear-gradient(135deg, #0B2A52, #1E5FA8); color: #FFF; font-size: 0.72rem; padding: 4px 8px;" title="الترتيب في الدليل">
+                                                    #<?= $actualDirRank ?> في الدليل
+                                                </span>
+                                                <?php if (($sch['status'] ?? 'approved') === 'approved'): ?>
+                                                    <span class="badge bg-success-subtle text-success border border-success-subtle py-0.5 px-2" style="font-size: 0.62rem;">
+                                                        نشطة بالدليل
+                                                    </span>
+                                                <?php elseif (($sch['status'] ?? '') === 'pending'): ?>
+                                                    <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle py-0.5 px-2" style="font-size: 0.62rem;">
+                                                        قيد المراجعة
+                                                    </span>
+                                                <?php else: ?>
+                                                    <span class="badge bg-danger-subtle text-danger border border-danger-subtle py-0.5 px-2" style="font-size: 0.62rem;">
+                                                        معلقة
+                                                    </span>
                                                 <?php endif; ?>
                                             </div>
                                         </td>
 
-                                        <!-- PHONE & WHATSAPP -->
-                                        <td>
-                                            <?php if ($phoneVal !== ''): ?>
-                                                <div class="d-flex flex-column gap-1">
-                                                    <div class="d-flex align-items-center gap-1">
-                                                        <span class="fw-bold text-dark dir-ltr" style="font-size: 0.72rem; font-family: monospace;">
-                                                            <?= e($phoneVal) ?>
-                                                        </span>
-                                                        <button type="button" class="btn btn-sm btn-link p-0 text-muted hover-primary" onclick="editSchoolPhone(<?= $sch['id'] ?>, '<?= e(addslashes($sch['name'])) ?>', '<?= e(addslashes($sch['phone'] ?? '')) ?>', '<?= e(addslashes($sch['whatsapp'] ?? '')) ?>')" title="تعديل الهاتف أو الواتساب">
-                                                            <i class="fas fa-pencil-alt" style="font-size: 0.62rem;"></i>
-                                                        </button>
-                                                    </div>
-                                                    <?php if ($isLocalStation): ?>
-                                                        <div id="badge-wa-status-wrap-<?= $sch['id'] ?>">
-                                                            <?php if (($sch['whatsapp_status'] ?? '') === 'valid'): ?>
-                                                                <span class="badge bg-success text-white py-0 px-1.5" id="badge-wa-status-<?= $sch['id'] ?>" style="font-size: 0.58rem;">
-                                                                    <i class="fab fa-whatsapp me-1"></i>واتساب نشط ومؤكد 🟢
-                                                                </span>
-                                                            <?php elseif (($sch['whatsapp_status'] ?? '') === 'invalid'): ?>
-                                                                <span class="badge bg-danger-subtle text-danger border border-danger-subtle py-0 px-1.5" id="badge-wa-status-<?= $sch['id'] ?>" style="font-size: 0.58rem;">
-                                                                    <i class="fas fa-phone-slash me-1"></i>أرضي / غير مفعل 🔴
-                                                                </span>
-                                                            <?php elseif ($isMobile): ?>
-                                                                <span class="badge bg-success-subtle text-success border border-success-subtle py-0 px-1.5" id="badge-wa-status-<?= $sch['id'] ?>" style="font-size: 0.58rem;">
-                                                                    <i class="fab fa-whatsapp me-1"></i>موبايل (لم يُفحص) ⚪
-                                                                </span>
-                                                            <?php else: ?>
-                                                                <span class="badge bg-light text-secondary border py-0 px-1.5" id="badge-wa-status-<?= $sch['id'] ?>" style="font-size: 0.58rem;">
-                                                                    <i class="fas fa-phone-office me-1"></i>هاتف أرضي/ثابت ⚪
-                                                                </span>
-                                                            <?php endif; ?>
-                                                        </div>
-                                                        <div class="d-flex flex-wrap align-items-center gap-1 mt-1">
-                                                            <!-- زر الإرسال المباشر الآلي عبر سيرفر الواتساب المستقل (بنقرة واحدة) -->
-                                                            <button type="button" id="btn-wa-auto-<?= $sch['id'] ?>" class="btn btn-sm text-white d-inline-flex align-items-center gap-1 py-0 px-2" style="font-size: 0.65rem; height: 23px; border-radius: 6px; background-color: #0F5C3E; border-color: #0F5C3E;" onclick="sendAutoWhatsApp(<?= $sch['id'] ?>, this)" title="إرسال رسالة التعريف والدعوة آلياً وفورياً بنقرة واحدة عبر خادم الواتساب">
-                                                                <i class="fab fa-whatsapp"></i> <span>إرسال آلي</span>
-                                                            </button>
-
-                                                            <!-- زر فحص توفر حساب واتساب للرقم -->
-                                                            <button type="button" id="btn-wa-check-<?= $sch['id'] ?>" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center justify-content-center p-0" style="width: 23px; height: 23px; border-radius: 6px;" onclick="checkSchoolWhatsApp(<?= $sch['id'] ?>, this)" title="فحص هل الرقم يملك حساب واتساب نشط؟">
-                                                                <i class="fas fa-search" style="font-size: 0.6rem;"></i>
-                                                            </button>
-
-                                                            <!-- إرسال رسالة مخصصة مباشرة -->
-                                                            <button type="button" class="btn btn-sm btn-outline-primary d-inline-flex align-items-center justify-content-center p-0" style="width: 23px; height: 23px; border-radius: 6px;" onclick="openCustomSchoolMsg(<?= $sch['id'] ?>, '<?= e(addslashes($sch['name'])) ?>', '<?= e(addslashes($phoneVal)) ?>')" title="إرسال رسالة مخصصة للمدرسة عبر خادم الواتساب">
-                                                                <i class="fas fa-comment-dots" style="font-size: 0.62rem;"></i>
-                                                            </button>
-
-                                                            <?php if ($waUrl): ?>
-                                                                <a href="<?= e($waUrl) ?>" target="_blank" class="btn btn-sm btn-outline-success d-inline-flex align-items-center justify-content-center p-0" style="width: 23px; height: 23px; border-radius: 6px;" title="فتح واتساب ويب يدوياً">
-                                                                    <i class="fab fa-whatsapp" style="font-size: 0.68rem;"></i>
-                                                                </a>
-                                                                <button type="button" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center justify-content-center p-0" style="width: 23px; height: 23px; border-radius: 6px;" onclick="copySchoolMessage(<?= $sch['id'] ?>)" title="نسخ نص الرسالة الترحيبية للحافظة">
-                                                                    <i class="fas fa-copy" style="font-size: 0.62rem;"></i>
-                                                                </button>
-                                                                <div id="msg-text-<?= $sch['id'] ?>" style="display: none;"><?= e(buildWhatsAppMessageText($sch['name'], $sch['slug'] ?? '')) ?></div>
-                                                            <?php endif; ?>
-                                                            <a href="tel:<?= e($phoneVal) ?>" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center justify-content-center p-0" style="width: 23px; height: 23px; border-radius: 6px;" title="اتصال هاتفي">
-                                                                <i class="fas fa-phone-alt" style="font-size: 0.62rem;"></i>
-                                                            </a>
-                                                        </div>
-                                                    <?php else: ?>
-                                                        <!-- CLOUD VIEW: SIMPLE DIRECT CONTACT -->
-                                                        <div class="d-flex align-items-center gap-1 mt-1">
-                                                            <a href="tel:<?= e($phoneVal) ?>" class="btn btn-sm btn-outline-primary d-inline-flex align-items-center gap-1 py-0 px-2" style="font-size: 0.65rem; height: 23px; border-radius: 6px;" title="اتصال هاتفي بالمدرسة">
-                                                                <i class="fas fa-phone-alt"></i> <span>اتصال</span>
-                                                            </a>
-                                                        </div>
-                                                    <?php endif; ?>
-                                                </div>
-                                            <?php else: ?>
-                                                <div class="d-flex align-items-center gap-1">
-                                                    <span class="badge bg-light text-muted border" style="font-size: 0.65rem;">
-                                                        <i class="fas fa-phone-slash me-1"></i>غير متوفر
-                                                    </span>
-                                                    <button type="button" class="btn btn-sm btn-link p-0 text-primary" onclick="editSchoolPhone(<?= $sch['id'] ?>, '<?= e(addslashes($sch['name'])) ?>', '', '')" title="إضافة رقم هاتف للمدرسة">
-                                                        <i class="fas fa-plus-circle" style="font-size: 0.72rem;"></i>
+                                        <!-- 5. MANAGE SCHOOL (PROMINENT BUTTON) -->
+                                        <td class="text-center pe-3">
+                                            <div class="d-flex flex-column align-items-center justify-content-center gap-1">
+                                                <button type="button" class="btn btn-sm btn-primary fw-bold d-inline-flex align-items-center justify-content-center gap-1 px-3 py-1.5 w-100 shadow-sm" style="font-size: 0.74rem; border-radius: 8px; background: #0B2A52; border-color: #0B2A52;" onclick="openSchoolManager(<?= $sch['id'] ?>)" title="فتح صفحة ولوحة إدارة المدرسة بكافة تفاصيلها">
+                                                    <i class="fas fa-sliders-h"></i> <span>إدارة المدرسة</span>
+                                                </button>
+                                                <div class="d-flex align-items-center justify-content-center gap-1 mt-1 w-100">
+                                                    <a href="/school/<?= urlencode($sch['slug']) ?>" target="_blank" class="act-btn flex-grow-1 text-center" title="معاينة الصفحة العامة">
+                                                        <i class="fas fa-external-link-alt"></i>
+                                                    </a>
+                                                    <a href="dashboard.php?admin_manage_school=<?= $sch['id'] ?>" target="_blank" class="act-btn flex-grow-1 text-center" title="دخول لوحة تحكم المدرسة كمدير" style="color: #F5A020;">
+                                                        <i class="fas fa-tachometer-alt"></i>
+                                                    </a>
+                                                    <button type="button" class="act-btn danger flex-grow-1 text-center" onclick="deleteSchool(<?= $sch['id'] ?>, '<?= e(addslashes($sch['name'])) ?>')" title="حذف المدرسة">
+                                                        <i class="fas fa-trash-alt"></i>
                                                     </button>
                                                 </div>
-                                            <?php endif; ?>
-                                        </td>
-                                        
-                                        <?php if ($isLocalStation): ?>
-                                        <!-- WHATSAPP OUTREACH STATUS TOGGLE (LOCAL HQ ONLY) -->
-                                        <td class="text-center">
-                                            <span class="sp-toggle-pill <?= !empty($sch['whatsapp_sent']) ? 'toggle-on-green' : 'toggle-off-gray' ?>" 
-                                                  onclick="toggleSchoolMeta(<?= $sch['id'] ?>, 'toggle_whatsapp_sent', <?= !empty($sch['whatsapp_sent']) ? 0 : 1 ?>, this)"
-                                                  title="<?= !empty($sch['whatsapp_sent']) ? 'تم إرسال الرسالة ' . (!empty($sch['whatsapp_sent_at']) ? 'بتاريخ ' . e(arabicDate($sch['whatsapp_sent_at'])) : '') . ' - انقر لإلغاء العلامة' : 'لم يتم إرسال الرسالة بعد - انقر لتحديد أنه تم الإرسال' ?>">
-                                                <i class="fab fa-whatsapp"></i>
-                                                <span><?= !empty($sch['whatsapp_sent']) ? 'تم الإرسال' : 'لم يُرسل' ?></span>
-                                            </span>
-                                            <?php if (!empty($sch['whatsapp_sent']) && !empty($sch['whatsapp_sent_at'])): ?>
-                                                <div class="text-muted" style="font-size: 0.58rem; margin-top: 2px;" title="<?= e($sch['whatsapp_sent_at']) ?>">
-                                                    <?= e(date('j/n H:i', strtotime($sch['whatsapp_sent_at']))) ?>
-                                                </div>
-                                            <?php endif; ?>
-                                        </td>
-                                        <?php endif; ?>
-
-                                        <!-- VERIFIED TOGGLE -->
-                                        <td class="text-center">
-                                            <span class="sp-toggle-pill <?= $sch['is_verified'] ? 'toggle-on-green' : 'toggle-off-gray' ?>" 
-                                                  onclick="toggleSchoolMeta(<?= $sch['id'] ?>, 'toggle_verified', <?= $sch['is_verified'] ? 0 : 1 ?>, this)"
-                                                  title="انقر لتغيير حالة التوثيق">
-                                                <i class="fas <?= $sch['is_verified'] ? 'fa-check-circle' : 'fa-circle-xmark' ?>"></i>
-                                                <span><?= $sch['is_verified'] ? 'موثقة' : 'عامة' ?></span>
-                                            </span>
-                                        </td>
-
-                                        <!-- SCHOPLUS SMART BADGE TOGGLE -->
-                                        <td class="text-center">
-                                            <span class="sp-toggle-pill <?= $sch['is_schoplus_client'] ? 'toggle-on-orange' : 'toggle-off-gray' ?>" 
-                                                  onclick="toggleSchoolMeta(<?= $sch['id'] ?>, 'toggle_schoplus', <?= $sch['is_schoplus_client'] ? 0 : 1 ?>, this)"
-                                                  title="انقر لتعيين كعميل SchoPlus ذكي">
-                                                <i class="fas fa-award"></i>
-                                                <span><?= $sch['is_schoplus_client'] ? 'ذكي' : 'عادي' ?></span>
-                                            </span>
-                                        </td>
-
-                                        <!-- HISTORIC BADGE TOGGLE -->
-                                        <td class="text-center">
-                                            <span class="sp-toggle-pill <?= $sch['is_historic'] ? 'toggle-on-blue' : 'toggle-off-gray' ?>" 
-                                                  onclick="toggleSchoolMeta(<?= $sch['id'] ?>, 'toggle_historic', <?= $sch['is_historic'] ? 0 : 1 ?>, this)"
-                                                  title="انقر لتعيين كصرح وطني عريق">
-                                                <i class="fas fa-landmark"></i>
-                                                <span><?= $sch['is_historic'] ? 'عريق' : 'حديث' ?></span>
-                                            </span>
-                                        </td>
-
-                                        <!-- ACTUAL CATALOG RANK & MANUAL OVERRIDE (EXPLICIT LABELS) -->
-                                        <td class="text-center">
-                                            <div class="d-flex flex-column align-items-center justify-content-center">
-                                                <span class="badge mb-1 actual-rank-badge" style="background: linear-gradient(135deg, #0B2A52, #1E5FA8); color: #FFF; font-size: 0.72rem; padding: 4px 8px;" title="الترتيب الفعلي التلقائي في الدليل">
-                                                    #<?= $actualDirRank ?> في الدليل
-                                                </span>
-                                                <div class="d-flex flex-column gap-1 p-1 bg-light rounded border" style="font-size: 0.65rem; min-width: 125px;">
-                                                    <div class="d-flex align-items-center justify-content-between gap-1">
-                                                        <span class="text-muted fw-bold" style="font-size: 0.62rem;" title="الترتيب العام المخصص للمدرسة في الدليل">العام:</span>
-                                                        <input type="number" class="form-control form-control-sm text-center px-1 py-0 bg-white" style="width: 48px; font-size: 0.68rem; height: 21px;" 
-                                                               id="dir-rank-<?= $sch['id'] ?>" value="<?= (int)($sch['directory_rank'] ?: $actualDirRank) ?>" title="أولوية الترتيب العام المخصص">
-                                                    </div>
-                                                    <div class="d-flex align-items-center justify-content-between gap-1">
-                                                        <span class="text-muted fw-bold" style="font-size: 0.62rem;" title="ترتيب المدرسة داخل ولايتها">الولائي:</span>
-                                                        <input type="number" class="form-control form-control-sm text-center px-1 py-0 bg-white" style="width: 48px; font-size: 0.68rem; height: 21px;" 
-                                                               id="state-rank-<?= $sch['id'] ?>" value="<?= (int)($sch['state_rank'] ?: 1) ?>" title="أولوية الترتيب داخل الولاية">
-                                                        <button type="button" class="btn btn-sm btn-primary p-0 btn-save-rank-<?= $sch['id'] ?>" style="width: 22px; height: 21px; border-radius: 4px;" onclick="saveRanks(<?= $sch['id'] ?>)" title="حفظ الترتيب المخصص">
-                                                            <i class="fas fa-save" style="font-size: 0.6rem;"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-
-                                        <!-- ACTIONS -->
-                                        <td class="text-center pe-3">
-                                            <div class="d-flex align-items-center justify-content-center gap-1">
-                                                <a href="/school/<?= urlencode($sch['slug']) ?>" target="_blank" class="act-btn" title="معاينة في الدليل">
-                                                    <i class="fas fa-external-link-alt"></i>
-                                                </a>
-                                                <button type="button" class="act-btn" onclick="resetPasswordModal(<?= $sch['id'] ?>, '<?= e(addslashes($sch['name'])) ?>')" title="إعادة تعيين كلمة مرور المسؤول">
-                                                    <i class="fas fa-key"></i>
-                                                </button>
-                                                <button type="button" class="act-btn danger" onclick="deleteSchool(<?= $sch['id'] ?>, '<?= e(addslashes($sch['name'])) ?>')" title="حذف المدرسة">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
                                             </div>
                                         </td>
                                     </tr>
@@ -5571,6 +5606,137 @@ try {
 
     // ─── CUSTOM SCHOOL WHATSAPP MESSAGE MODAL ─────────────────────────
     let currentCustomSchoolId = 0;
+    // ─── MASTER SCHOOL MANAGER MODAL HANDLERS ─────────────────────────
+    let currentManagerSchoolId = 0;
+    let currentManagerSchoolSlug = '';
+
+    function openSchoolManager(schoolId) {
+        currentManagerSchoolId = schoolId;
+        const modal = document.getElementById('modalSchoolManager');
+        const spinner = document.getElementById('smLoadingSpinner');
+        const content = document.getElementById('smModalContent');
+        const alertBox = document.getElementById('smAlertBox');
+
+        if (alertBox) alertBox.style.display = 'none';
+        if (content) content.style.display = 'none';
+        if (spinner) spinner.style.display = 'flex';
+        if (modal) modal.style.display = 'block';
+
+        fetch('admin.php?ajax_action=get_school_quick_details&id=' + schoolId)
+            .then(r => r.json())
+            .then(data => {
+                if (spinner) spinner.style.display = 'none';
+                if (!data.success || !data.school) {
+                    showAdminToast(data.error || 'فشل تحميل بيانات المدرسة', 'danger');
+                    closeSchoolManager();
+                    return;
+                }
+
+                const s = data.school;
+                currentManagerSchoolSlug = s.slug;
+
+                document.getElementById('smSchoolId').value = s.id;
+                document.getElementById('smHeaderSchoolName').innerText = s.name;
+                document.getElementById('smHeaderSchoolSlug').innerText = 'daleel.schoplus.sd/school/' + s.slug;
+                
+                // Form Fields
+                document.getElementById('smInputName').value = s.name || '';
+                document.getElementById('smInputNameEn').value = s.name_en || '';
+                document.getElementById('smInputPhone').value = s.phone || '';
+                document.getElementById('smInputWhatsapp').value = s.whatsapp || '';
+                document.getElementById('smSelectType').value = s.school_type || 'private';
+                document.getElementById('smInputCountry').value = s.country || 'السودان';
+                document.getElementById('smInputState').value = s.state || '';
+                document.getElementById('smInputCity').value = s.city || '';
+                document.getElementById('smInputDistrict').value = s.district || '';
+                document.getElementById('smInputStages').value = s.stages || '';
+                document.getElementById('smInputEstablished').value = s.established_year || '';
+                document.getElementById('smSelectStatus').value = s.status || 'approved';
+                
+                // Ranks
+                document.getElementById('smInputDirRank').value = s.directory_rank || '';
+                document.getElementById('smInputStateRank').value = s.state_rank || '';
+                document.getElementById('smActualRankBadge').innerText = '#' + s.actual_directory_rank;
+                document.getElementById('smActualStateRankBadge').innerText = '#' + s.actual_state_rank;
+
+                // Toggles
+                document.getElementById('smCheckVerified').checked = !!s.is_verified;
+                document.getElementById('smCheckSchoplus').checked = !!s.is_schoplus_client;
+                document.getElementById('smCheckHistoric').checked = !!s.is_historic;
+
+                // Stats & Links
+                document.getElementById('smLinkPublicProfile').href = '/school/' + encodeURIComponent(s.slug);
+                document.getElementById('smLinkSchoolDashboard').href = 'dashboard.php?admin_manage_school=' + s.id;
+                document.getElementById('smStatViews').innerText = Number(s.views_count || 0).toLocaleString();
+                document.getElementById('smStatRating').innerText = Number(s.rating_avg || 5).toFixed(1) + ' (' + (s.reviews_count || 0) + ')';
+                document.getElementById('smOwnerInfo').innerText = (s.owner_name || 'غير محدد') + (s.owner_phone ? ' - ' + s.owner_phone : '');
+
+                if (content) content.style.display = 'block';
+            })
+            .catch(err => {
+                if (spinner) spinner.style.display = 'none';
+                showAdminToast('حدث خطأ أثناء تحميل بيانات المدرسة من الخادم', 'danger');
+                closeSchoolManager();
+            });
+    }
+
+    function closeSchoolManager() {
+        const modal = document.getElementById('modalSchoolManager');
+        if (modal) modal.style.display = 'none';
+    }
+
+    function saveSchoolManager(event) {
+        if (event) event.preventDefault();
+        const form = document.getElementById('formSchoolManager');
+        const btn = document.getElementById('smBtnSave');
+        const alertBox = document.getElementById('smAlertBox');
+
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> جارٍ الحفظ...';
+
+        const fd = new FormData(form);
+        fd.append('ajax_action', 'quick_save_school');
+        fd.append('is_verified', document.getElementById('smCheckVerified').checked ? 1 : 0);
+        fd.append('is_schoplus_client', document.getElementById('smCheckSchoplus').checked ? 1 : 0);
+        fd.append('is_historic', document.getElementById('smCheckHistoric').checked ? 1 : 0);
+
+        fetch('admin.php', { method: 'POST', body: fd })
+            .then(r => r.json())
+            .then(data => {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-check-circle me-1"></i> حفظ التغييرات والترتيب';
+
+                if (data.success) {
+                    showAdminToast(data.message || 'تم حفظ بيانات المدرسة بنجاح ✅', 'success');
+                    if (alertBox) {
+                        alertBox.className = 'alert alert-success py-2 px-3 small rounded-3 mb-3';
+                        alertBox.innerHTML = '<i class="fas fa-check-circle me-1"></i> ' + (data.message || 'تم حفظ التعديلات بنجاح');
+                        alertBox.style.display = 'block';
+                    }
+                    setTimeout(() => location.reload(), 1200);
+                } else {
+                    if (alertBox) {
+                        alertBox.className = 'alert alert-danger py-2 px-3 small rounded-3 mb-3';
+                        alertBox.innerHTML = '<i class="fas fa-exclamation-triangle me-1"></i> ' + (data.error || 'فشل حفظ التعديلات');
+                        alertBox.style.display = 'block';
+                    }
+                }
+            })
+            .catch(err => {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-check-circle me-1"></i> حفظ التغييرات والترتيب';
+                showAdminToast('حدث خطأ في الاتصال بالخادم', 'danger');
+            });
+    }
+
+    function copySchoolShareLink() {
+        if (!currentManagerSchoolSlug) return;
+        const link = window.location.origin + '/school/' + encodeURIComponent(currentManagerSchoolSlug);
+        navigator.clipboard.writeText(link).then(() => {
+            showAdminToast('تم نسخ الرابط العام لصفحة المدرسة إلى الحافظة بنجاح ✅', 'success');
+        });
+    }
+
     function openCustomSchoolMsg(id, name, phone) {
         currentCustomSchoolId = id;
         const modal = document.getElementById('modalCustomSchoolMsg');
@@ -6386,6 +6552,221 @@ try {
                             إغلاق
                         </button>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: COMPLETE SCHOOL MANAGER (صفحة ولوحة إدارة المدرسة المركزية) -->
+    <div class="modal fade show" id="modalSchoolManager" tabindex="-1" aria-hidden="true" style="display: none; background: rgba(11, 42, 82, 0.72); backdrop-filter: blur(4px); z-index: 99990;">
+        <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 860px;">
+            <div class="modal-content border-0 shadow-2xl" style="border-radius: 20px; overflow: hidden;">
+                <!-- Header -->
+                <div class="modal-header text-white" style="background: linear-gradient(135deg, #0B2A52, #163870); border-bottom: 3px solid #F5A020; padding: 20px 26px;">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center text-white" style="width: 44px; height: 44px; background: rgba(255,255,255,0.12); border: 1.5px solid rgba(245,160,32,0.6);">
+                            <i class="fas fa-sliders-h fs-5 text-warning"></i>
+                        </div>
+                        <div>
+                            <div class="d-flex align-items-center gap-2">
+                                <h5 class="modal-title fw-bold mb-0" id="smHeaderSchoolName" style="font-size: 1.15rem;">إدارة بيانات المدرسة</h5>
+                                <span class="badge rounded-pill" style="background: #F5A020; color: #0B2A52; font-size: 0.68rem;">تحكم مركزي</span>
+                            </div>
+                            <div class="text-white-50 small mt-0.5 dir-ltr text-end" id="smHeaderSchoolSlug" style="font-size: 0.72rem; font-family: monospace;"></div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" onclick="closeSchoolManager()"></button>
+                </div>
+
+                <!-- Body Spinner -->
+                <div id="smLoadingSpinner" class="p-5 d-flex flex-column align-items-center justify-content-center gap-3" style="min-height: 350px;">
+                    <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <span class="text-muted fw-bold small">جارٍ تحميل وتجهيز بيانات المدرسة بالكامل...</span>
+                </div>
+
+                <!-- Modal Content Form -->
+                <div id="smModalContent" class="modal-body p-4" style="background: #F8FAFC; display: none; max-height: calc(88vh - 120px); overflow-y: auto;">
+                    <div id="smAlertBox" style="display: none;"></div>
+
+                    <!-- Quick Navigation & Portal Bridge Toolbar -->
+                    <div class="card border-0 rounded-4 shadow-sm p-3 mb-4" style="background: #FFFFFF; border: 1px solid #E2E8F0 !important;">
+                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="text-muted small fw-bold"><i class="fas fa-link text-primary me-1"></i> روابط سريعة:</span>
+                                <a href="#" id="smLinkPublicProfile" target="_blank" class="btn btn-sm btn-outline-primary py-1 px-2.5 rounded-3 fw-bold" style="font-size: 0.74rem;">
+                                    <i class="fas fa-external-link-alt me-1"></i> صفحة الدليل العامة
+                                </a>
+                                <button type="button" class="btn btn-sm btn-outline-secondary py-1 px-2.5 rounded-3 fw-bold" onclick="copySchoolShareLink()" style="font-size: 0.74rem;">
+                                    <i class="fas fa-copy me-1"></i> نسخ الرابط
+                                </button>
+                            </div>
+                            <div>
+                                <a href="#" id="smLinkSchoolDashboard" target="_blank" class="btn btn-sm text-white fw-bold py-1 px-3 rounded-3 shadow-sm" style="font-size: 0.76rem; background: linear-gradient(135deg, #F5A020, #D97706); border: none;">
+                                    <i class="fas fa-tachometer-alt me-1"></i> فتح لوحة المدرسة الكاملة (Dashboard)
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form id="formSchoolManager" onsubmit="saveSchoolManager(event)">
+                        <input type="hidden" id="smSchoolId" name="id" value="0">
+
+                        <!-- SECTION 1: ESSENTIAL INFO -->
+                        <div class="card border-0 rounded-4 shadow-sm p-3 mb-3 bg-white">
+                            <h6 class="fw-bold text-dark mb-3 d-flex align-items-center gap-2" style="font-size: 0.88rem;">
+                                <i class="fas fa-school text-primary"></i> البيانات الأساسية للمدرسة
+                            </h6>
+                            <div class="row g-3">
+                                <div class="col-md-7">
+                                    <label class="form-label small fw-bold text-muted mb-1" style="font-size: 0.72rem;">اسم المدرسة باللغة العربية *</label>
+                                    <input type="text" class="form-control form-control-sm" id="smInputName" name="name" required style="font-size: 0.8rem;">
+                                </div>
+                                <div class="col-md-5">
+                                    <label class="form-label small fw-bold text-muted mb-1" style="font-size: 0.72rem;">School Name (EN)</label>
+                                    <input type="text" class="form-control form-control-sm dir-ltr" id="smInputNameEn" name="name_en" style="font-size: 0.8rem;">
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label small fw-bold text-muted mb-1" style="font-size: 0.72rem;">نوع المدرسة</label>
+                                    <select class="form-select form-select-sm" id="smSelectType" name="school_type" style="font-size: 0.78rem;">
+                                        <option value="private">مدرسة خاصة / أهلية</option>
+                                        <option value="government">مدرسة حكومية</option>
+                                        <option value="international">مدرسة دولية / عالمية</option>
+                                        <option value="kindergarten">روضة / رياض أطفال</option>
+                                        <option value="community">مدرسة جالية سودانية</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-5">
+                                    <label class="form-label small fw-bold text-muted mb-1" style="font-size: 0.72rem;">المراحل التعليمية</label>
+                                    <input type="text" class="form-control form-control-sm" id="smInputStages" name="stages" placeholder="مثال: روضة، ابتدائي، متوسط، ثانوي" style="font-size: 0.78rem;">
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label small fw-bold text-muted mb-1" style="font-size: 0.72rem;">سنة التأسيس</label>
+                                    <input type="text" class="form-control form-control-sm text-center" id="smInputEstablished" name="established_year" placeholder="1995" style="font-size: 0.78rem;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECTION 2: GEOGRAPHIC LOCATION & CONTACT -->
+                        <div class="card border-0 rounded-4 shadow-sm p-3 mb-3 bg-white">
+                            <h6 class="fw-bold text-dark mb-3 d-flex align-items-center gap-2" style="font-size: 0.88rem;">
+                                <i class="fas fa-map-marked-alt text-success"></i> الموقع والتواصل الرسمي
+                            </h6>
+                            <div class="row g-3">
+                                <div class="col-md-3">
+                                    <label class="form-label small fw-bold text-muted mb-1" style="font-size: 0.72rem;">الدولة</label>
+                                    <input type="text" class="form-control form-control-sm" id="smInputCountry" name="country" style="font-size: 0.78rem;">
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label small fw-bold text-muted mb-1" style="font-size: 0.72rem;">الولاية *</label>
+                                    <input type="text" class="form-control form-control-sm" id="smInputState" name="state" required style="font-size: 0.78rem;">
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label small fw-bold text-muted mb-1" style="font-size: 0.72rem;">المدينة *</label>
+                                    <input type="text" class="form-control form-control-sm" id="smInputCity" name="city" required style="font-size: 0.78rem;">
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label small fw-bold text-muted mb-1" style="font-size: 0.72rem;">الحي / المنطقة</label>
+                                    <input type="text" class="form-control form-control-sm" id="smInputDistrict" name="district" style="font-size: 0.78rem;">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold text-muted mb-1" style="font-size: 0.72rem;">رقم الهاتف الأساسي *</label>
+                                    <input type="text" class="form-control form-control-sm dir-ltr fw-bold" id="smInputPhone" name="phone" required style="font-size: 0.8rem; font-family: monospace;">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold text-muted mb-1" style="font-size: 0.72rem;">رقم الواتساب الرسمي</label>
+                                    <input type="text" class="form-control form-control-sm dir-ltr fw-bold" id="smInputWhatsapp" name="whatsapp" placeholder="اتركه فارغاً إن كان مطابقاً للهاتف" style="font-size: 0.8rem; font-family: monospace;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECTION 3: BADGES, STATUS & DIRECTORY RANKING -->
+                        <div class="card border-0 rounded-4 shadow-sm p-3 mb-3 bg-white">
+                            <h6 class="fw-bold text-dark mb-3 d-flex align-items-center gap-2" style="font-size: 0.88rem;">
+                                <i class="fas fa-award text-warning"></i> شارات الاعتماد والترتيب المخصص
+                            </h6>
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <div class="p-2.5 rounded-3 border bg-light h-100">
+                                        <div class="form-check form-switch mb-1">
+                                            <input class="form-check-input" type="checkbox" id="smCheckVerified" role="switch">
+                                            <label class="form-check-label fw-bold text-success small" for="smCheckVerified">مدرسة موثقة رسمياً ⭐</label>
+                                        </div>
+                                        <div class="text-muted" style="font-size: 0.65rem;">تظهر شارة التوثيق الخضراء في نتائج البحث.</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="p-2.5 rounded-3 border bg-light h-100">
+                                        <div class="form-check form-switch mb-1">
+                                            <input class="form-check-input" type="checkbox" id="smCheckSchoplus" role="switch">
+                                            <label class="form-check-label fw-bold text-warning-emphasis small" for="smCheckSchoplus">شريك SchoPlus الذكي 🏆</label>
+                                        </div>
+                                        <div class="text-muted" style="font-size: 0.65rem;">تطبيق نظام الإدارة الذكية SchoPlus وشارة الشريك.</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="p-2.5 rounded-3 border bg-light h-100">
+                                        <div class="form-check form-switch mb-1">
+                                            <input class="form-check-input" type="checkbox" id="smCheckHistoric" role="switch">
+                                            <label class="form-check-label fw-bold text-primary small" for="smCheckHistoric">صرح تعليمي عريق 🏛️</label>
+                                        </div>
+                                        <div class="text-muted" style="font-size: 0.65rem;">أولوية الترتيب في صدارة الدليل الوطني.</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label small fw-bold text-muted mb-1" style="font-size: 0.72rem;">حالة النشر في الدليل</label>
+                                    <select class="form-select form-select-sm" id="smSelectStatus" name="status" style="font-size: 0.78rem;">
+                                        <option value="approved">معتمدة ونشطة بالدليل</option>
+                                        <option value="pending">قيد المراجعة والتدقيق</option>
+                                        <option value="suspended">موقوفة إدارياً مؤقتاً</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label small fw-bold text-muted mb-1" style="font-size: 0.72rem;">
+                                        الترتيب العام المخصص
+                                        <span class="badge bg-primary text-white ms-1" id="smActualRankBadge" style="font-size: 0.62rem;">#0</span>
+                                    </label>
+                                    <input type="number" class="form-control form-control-sm text-center" id="smInputDirRank" name="directory_rank" placeholder="تلقائي حسب المعايير" style="font-size: 0.78rem;">
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label small fw-bold text-muted mb-1" style="font-size: 0.72rem;">
+                                        الترتيب الولائي المخصص
+                                        <span class="badge bg-secondary text-white ms-1" id="smActualStateRankBadge" style="font-size: 0.62rem;">#0</span>
+                                    </label>
+                                    <input type="number" class="form-control form-control-sm text-center" id="smInputStateRank" name="state_rank" placeholder="تلقائي داخل الولاية" style="font-size: 0.78rem;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECTION 4: METRICS & OWNER DETAILS -->
+                        <div class="card border-0 rounded-4 shadow-sm p-3 mb-4 bg-light">
+                            <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+                                <div class="d-flex align-items-center gap-3">
+                                    <span class="small text-muted"><i class="fas fa-eye text-primary me-1"></i> المشاهدات: <strong id="smStatViews" class="text-dark">0</strong></span>
+                                    <span class="small text-muted"><i class="fas fa-star text-warning me-1"></i> التقييم: <strong id="smStatRating" class="text-dark">5.0</strong></span>
+                                </div>
+                                <div class="small text-muted">
+                                    <i class="fas fa-user-tie text-secondary me-1"></i> المسؤول: <span id="smOwnerInfo" class="fw-bold text-dark"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="d-flex align-items-center justify-content-between pt-2 border-top">
+                            <button type="button" class="btn btn-sm btn-outline-secondary px-3 py-2 rounded-3" onclick="closeSchoolManager()" style="font-size: 0.78rem;">
+                                إلغاء
+                            </button>
+                            <button type="submit" id="smBtnSave" class="btn btn-primary fw-bold px-4 py-2 rounded-3 shadow-sm" style="font-size: 0.8rem; background: #0B2A52; border-color: #0B2A52;">
+                                <i class="fas fa-check-circle me-1"></i> حفظ التغييرات والترتيب
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
