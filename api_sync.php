@@ -227,6 +227,15 @@ if ($action === 'delete_distorted_duplicates') {
     exit;
 }
 
+// ─── ACTION: PURGE SYNTHETIC BATCH (حذف أي تسميات مولدة اصطناعياً) ─────────────
+if ($action === 'purge_synthetic_batch') {
+    $cnt = $pdo->exec("DELETE FROM daleel_schools WHERE id >= 1007 OR description LIKE 'مؤسسة تعليمية خاصة معتمدة (%' OR description LIKE 'صرح تعليمي خاص معتمد يقدم برامج تعليمية متطورة في مدينة%'");
+    try { recalculateDaleelRanks($pdo); } catch (Throwable $e) {}
+    $remaining = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE status = 'approved'")->fetchColumn();
+    echo json_encode(['success' => true, 'deleted_count' => (int)$cnt, 'remaining' => $remaining], JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
 // ─── 4. ACTION: PUSH (استقبال وتحديث المدارس وحالات الواتساب من المحلي) ────────
 if ($action === 'push') {
     @set_time_limit(300);
