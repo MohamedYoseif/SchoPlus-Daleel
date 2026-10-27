@@ -178,13 +178,13 @@ $statStates = (int) $pdo->query("SELECT COUNT(DISTINCT state) FROM daleel_school
 $statReviews = (int) $pdo->query("SELECT COUNT(*) FROM daleel_school_reviews WHERE is_approved = 1")->fetchColumn();
 $totalTopRatedCount = (int) $pdo->query("SELECT COUNT(*) FROM daleel_schools WHERE status = 'approved' AND rating_avg >= 4.0")->fetchColumn();
 
-// School types global counters
-$statGovernment = (int) $pdo->query("SELECT COUNT(*) FROM daleel_schools WHERE status = 'approved' AND school_type = 'government'")->fetchColumn();
-$statPrivate = (int) $pdo->query("SELECT COUNT(*) FROM daleel_schools WHERE status = 'approved' AND school_type IN ('private', 'international', 'community', 'language')")->fetchColumn();
-
 // Historic schools global counter (is_historic = 1 OR established_year <= 1950 OR historic_votes >= 500 OR iconic names)
 $historicWhereSql = "(is_historic = 1 OR (established_year IS NOT NULL AND CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950) OR historic_votes >= 500 OR name LIKE '%خور طقت%' OR name LIKE '%وادي سيدنا%' OR name LIKE '%حنتوب الثانوية%' OR name LIKE '%حنتوب العريقة%' OR name LIKE '%بخت الرضا%' OR name LIKE '%الأهلية%أم درمان%' OR name LIKE '%كمبوني%' OR name LIKE '%الراهبات%' OR name_en LIKE '%Sister%' OR name LIKE '%بيت المال%')";
 $statHistoric = (int) $pdo->query("SELECT COUNT(*) FROM daleel_schools WHERE status = 'approved' AND {$historicWhereSql}")->fetchColumn();
+
+// School types global counters
+$statGovernment = (int) $pdo->query("SELECT COUNT(*) FROM daleel_schools WHERE status = 'approved' AND school_type = 'government'")->fetchColumn();
+$statPrivate = (int) $pdo->query("SELECT COUNT(*) FROM daleel_schools WHERE status = 'approved' AND school_type IN ('private', 'international', 'community', 'language') AND NOT {$historicWhereSql}")->fetchColumn();
 
 // State school counters for the state cards
 $stateCounts = $pdo->query("SELECT state, COUNT(*) as cnt FROM daleel_schools WHERE status = 'approved' GROUP BY state")->fetchAll(PDO::FETCH_KEY_PAIR) ?: [];
@@ -194,7 +194,7 @@ if ($state !== '') {
     $stCountsStmt = $pdo->prepare("SELECT 
         COUNT(*) as total,
         SUM(CASE WHEN school_type = 'government' THEN 1 ELSE 0 END) as gov,
-        SUM(CASE WHEN school_type IN ('private', 'international', 'community', 'language') THEN 1 ELSE 0 END) as priv,
+        SUM(CASE WHEN school_type IN ('private', 'international', 'community', 'language') AND NOT {$historicWhereSql} THEN 1 ELSE 0 END) as priv,
         SUM(CASE WHEN is_schoplus_client = 1 THEN 1 ELSE 0 END) as schoplus,
         SUM(CASE WHEN {$historicWhereSql} THEN 1 ELSE 0 END) as historic
         FROM daleel_schools WHERE status = 'approved' AND state = ?");
@@ -303,7 +303,7 @@ if ($isSearching) {
     if ($schoolType === 'government') {
         $where[] = "school_type = 'government'";
     } elseif ($schoolType === 'private') {
-        $where[] = "school_type IN ('private', 'international', 'community', 'language')";
+        $where[] = "school_type IN ('private', 'international', 'community', 'language') AND NOT {$historicWhereSql}";
     } elseif ($schoolType !== '') {
         $where[] = "school_type = ?";
         $params[] = $schoolType;
@@ -332,8 +332,13 @@ if ($isSearching) {
         $orderBy = "{$qRelevanceSql}, is_schoplus_client DESC, is_verified DESC, rating_avg DESC, id ASC";
     } else {
         $historicYearOrder = "(CASE WHEN CAST(established_year AS UNSIGNED) > 1800 AND CAST(established_year AS UNSIGNED) <= 1950 THEN CAST(established_year AS UNSIGNED) ELSE 9999 END) ASC";
-        $orderBy = "{$historicWhereSql} DESC, {$historicYearOrder}, (is_verified = 1 OR is_schoplus_client = 1) DESC, is_featured DESC, rating_avg DESC, id ASC";
-        if ($view === 'historic') $orderBy = "{$historicWhereSql} DESC, {$historicYearOrder}, id ASC";
+        if ($schoolType === 'private') {
+            $orderBy = "(is_verified = 1 OR is_schoplus_client = 1) DESC, is_featured DESC, rating_avg DESC, id ASC";
+        } elseif ($view === 'historic') {
+            $orderBy = "{$historicWhereSql} DESC, {$historicYearOrder}, id ASC";
+        } else {
+            $orderBy = "{$historicWhereSql} DESC, {$historicYearOrder}, (is_verified = 1 OR is_schoplus_client = 1) DESC, is_featured DESC, rating_avg DESC, id ASC";
+        }
     }
     if ($sort === 'rating' || $view === 'top_rated') $orderBy = "rating_avg DESC, reviews_count DESC, id ASC";
     if ($sort === 'historic' || $view === 'historic') $orderBy = "{$historicWhereSql} DESC, {$historicYearOrder}, id ASC";
