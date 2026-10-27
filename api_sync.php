@@ -227,12 +227,25 @@ if ($action === 'delete_distorted_duplicates') {
     exit;
 }
 
-// ─── ACTION: PURGE SYNTHETIC BATCH (حذف أي تسميات مولدة اصطناعياً) ─────────────
+// ─── ACTION: PURGE SYNTHETIC BATCH (استئصال وحذف السجلات المولدة افتراضياً) ──
 if ($action === 'purge_synthetic_batch') {
-    $cnt = $pdo->exec("DELETE FROM daleel_schools WHERE id >= 1007 OR description LIKE 'مؤسسة تعليمية خاصة معتمدة (%' OR description LIKE 'صرح تعليمي خاص معتمد يقدم برامج تعليمية متطورة في مدينة%'");
+    $sql = "DELETE FROM daleel_schools 
+            WHERE is_historic = 0 
+              AND (source_type != 'google_maps' OR source_type IS NULL)
+              AND (phone IS NULL OR phone = '')
+              AND (
+                  description LIKE '%وفق المنهج السوداني المعاصر وتعنى بغرس القيم التربوية%'
+                  OR description LIKE '%وفق المنهج السوداني المعاصر%'
+                  OR description LIKE 'مؤسسة تعليمية خاصة معتمدة (مجمع مدارس%'
+                  OR description LIKE 'مؤسسة تعليمية خاصة معتمدة (سلسلة مدارس%'
+                  OR description LIKE 'مؤسسة تعليمية خاصة معتمدة (أكاديمية %'
+                  OR (name LIKE '% — حي %' AND address NOT LIKE '%الإحداثيات%')
+                  OR (name LIKE '% — الحارة %' AND address NOT LIKE '%الإحداثيات%')
+              )";
+    $cnt = $pdo->exec($sql);
     try { recalculateDaleelRanks($pdo); } catch (Throwable $e) {}
-    $remaining = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE status = 'approved'")->fetchColumn();
-    echo json_encode(['success' => true, 'deleted_count' => (int)$cnt, 'remaining' => $remaining], JSON_UNESCAPED_UNICODE);
+    $remaining = (int)$pdo->query("SELECT count(*) FROM daleel_schools WHERE status = 'approved' AND deleted_at IS NULL")->fetchColumn();
+    echo json_encode(['success' => true, 'deleted_count' => (int)$cnt, 'remaining_count' => $remaining], JSON_UNESCAPED_UNICODE);
     exit;
 }
 
@@ -523,9 +536,9 @@ if ($action === 'pull') {
     @set_time_limit(300);
     @ini_set('memory_limit', '512M');
 
-    $since = trim($_GET['since'] ?? ($_POST['since'] ?? ''));
-    $limit = (int)($_GET['limit'] ?? ($_POST['limit'] ?? 2000));
-    $limit = max(1, min(5000, $limit));
+    $since = trim($_GET['since'] ?? ($_POST['since'] ?? ($jsonPayload['since'] ?? '')));
+    $limit = (int)($_GET['limit'] ?? ($_POST['limit'] ?? ($jsonPayload['limit'] ?? 5000)));
+    $limit = max(1, min(10000, $limit));
 
     try {
         $sql = "SELECT id, name, name_en, slug, school_type, gender_type, curriculum, country, established_year,
