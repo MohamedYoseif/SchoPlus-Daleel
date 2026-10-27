@@ -301,9 +301,30 @@ if ($action === 'push') {
                 $existing = $chk->fetch(PDO::FETCH_ASSOC);
 
                 if ($existing) {
-                    // تحديث الحقول الفارغة فقط أو تحديث حالة الواتساب
-                    $updParts = [];
-                    $updParams = [];
+                    // تحديث الموقع والتصنيف والبيانات
+                    $updParts = [
+                        "state = ?",
+                        "city = ?",
+                        "district = ?",
+                        "address = ?",
+                        "school_type = ?",
+                        "description = ?"
+                    ];
+                    $updParams = [
+                        $state,
+                        $city,
+                        $district,
+                        $address,
+                        $schoolType,
+                        $description
+                    ];
+
+                    if (!empty($s['latitude']) && !empty($s['longitude'])) {
+                        $updParts[] = "latitude = ?";
+                        $updParams[] = (float)$s['latitude'];
+                        $updParts[] = "longitude = ?";
+                        $updParams[] = (float)$s['longitude'];
+                    }
 
                     if (empty($existing['phone']) && !empty($phone)) {
                         $updParts[] = "phone = ?";
@@ -320,10 +341,6 @@ if ($action === 'push') {
                     if (empty($existing['facebook']) && !empty($facebook)) {
                         $updParts[] = "facebook = ?";
                         $updParams[] = $facebook;
-                    }
-                    if (empty($existing['description']) && !empty($description)) {
-                        $updParts[] = "description = ?";
-                        $updParams[] = $description;
                     }
 
                     // مزامنة حالة الواتساب إن كانت مرسلة محلياً
